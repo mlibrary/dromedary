@@ -13,7 +13,7 @@ module MED
 
   class Entry
 
-    attr_reader :wholething,
+    attr_reader :xml,
                 :id, :seq,
                 :forms,
                 :etyma, :etyma_languages, :etyma_xml,
@@ -27,9 +27,9 @@ module MED
             File.open(filename_or_handle)
           end
 
-      @wholething = f.read
+      @xml = f.read
       # Lowercase all the tags
-      doc = Nokogiri::XML(@wholething) do |config|
+      doc = Nokogiri::XML(@xml) do |config|
         config.nononet.nonoent.nonoerror.dtdload
       end
 
@@ -93,7 +93,7 @@ module MED
 
     def initialize(nokonode)
       return if nokonode == :empty
-      @pos       = nokonode.at('POS').text.strip # need to translate?
+      @pos       = nokonode.at('POS') and nokonode.at('POS').text.strip # need to translate?
       @headwords = self.find_headwords(nokonode)
       @orths     = nokonode.xpath('ORTH').map(&:text)
       @orth_alts = nokonode.xpath('ORTH').flat_map do |o|
@@ -146,21 +146,20 @@ module MED
 
   class CIT
 
-    attr_reader :node, :quote, :cd, :md, :quote, :bib, :xml
+    attr_reader :node, :quote, :cd, :md, :quote, :bib
 
     def initialize(nokonode)
       @md    = nokonode.attr('MD') && nokonode.attr('MD').to_i
       @cd    = nokonode.attr('CD') && nokonode.attr('CD').to_i
       @quote = Quote.new(nokonode.at('Q'))
       @bib   = Bib.new(nokonode.at('BIBL'))
-      @xml   = nokonode.to_xml
 
     end
 
   end
 
   class Quote
-    attr_reader :node, :titles, :added, :ovars, :his, :text
+    attr_reader :node, :titles, :added, :ovars, :his, :text, :xml
 
     def initialize(nokonode)
       @titles = MED.default_to_array {nokonode.css("TITLE").map(&:text)}.uniq
@@ -168,23 +167,21 @@ module MED
       @ovars  = MED.default_to_array {nokonode.css("OVARS").map(&:text)}.uniq
       @his    = MED.default_to_array {nokonode.css("HI").map(&:text)}.uniq
       @text   = nokonode.text
+      @xml   = nokonode.to_xml
     end
 
   end
 
   class Bib
 
-    attr_reader :node, :stencils
+    attr_reader :node, :stencils, :xml
 
     def initialize(nokonode)
       @stencils = nokonode.css('STNCL').map {|x| Stencil.new(x)}
+      @xml   = nokonode.to_xml
     end
 
-    def to_json
-      {
-        stencils: @stencils.map(&:to_json)
-      }.to_json
-    end
+
   end
 
   class Stencil
@@ -196,15 +193,6 @@ module MED
       (@date = nokonode.at('DATE')) and (@date = @date.text)
       @his = nokonode.css('HI').map(&:text).uniq
       (@title = nokonode.at('TITLE')) and (@title = @title.text)
-    end
-
-    def to_json
-      {
-        rid:   @rid,
-        date:  @date,
-        his:   @his,
-        title: @title
-      }.to_json
     end
   end
 
