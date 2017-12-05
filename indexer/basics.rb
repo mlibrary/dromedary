@@ -28,6 +28,7 @@ module MED
           end
 
       @xml = f.read
+      f.close
       # Lowercase all the tags
       doc = Nokogiri::XML(@xml) do |config|
         config.nononet.nonoent.nonoerror.dtdload
@@ -54,7 +55,7 @@ module MED
         doc.css('MED ENTRYFREE ETYM HI').map(&:text).map(&:strip)
       end
 
-      @senses = doc.xpath('/MED/ENTRYFREE/SENSE').map {|s| Sense.new(s)}
+     @senses = doc.xpath('/MED/ENTRYFREE/SENSE').map {|s| Sense.new(s)}
     end
     
     def headwords
@@ -93,7 +94,7 @@ module MED
 
     def initialize(nokonode)
       return if nokonode == :empty
-      @pos       = nokonode.at('POS') and nokonode.at('POS').text.strip # need to translate?
+      @pos       = (nokonode.at('POS') and nokonode.at('POS').text.strip) # need to translate?
       @headwords = self.find_headwords(nokonode)
       @orths     = nokonode.xpath('ORTH').map(&:text)
       @orth_alts = nokonode.xpath('ORTH').flat_map do |o|
