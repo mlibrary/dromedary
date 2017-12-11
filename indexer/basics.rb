@@ -55,9 +55,17 @@ module MED
         doc.css('MED ENTRYFREE ETYM HI').map(&:text).map(&:strip)
       end
 
-     @senses = doc.xpath('/MED/ENTRYFREE/SENSE').map {|s| Sense.new(s)}
+      @senses = doc.xpath('/MED/ENTRYFREE/SENSE').map {|s| Sense.new(s)}
+   rescue => err
+     require 'pry'; binding.pry
     end
-    
+
+    def set_sense_defset
+      senses.each {|s| s.defset = s.split_defs(s.defs.first)}
+    rescue => err
+      require 'pry'; binding.pry
+    end
+
     def headwords
       forms.flat_map(&:headwords)
     end
@@ -168,19 +176,41 @@ module MED
   class Sense
 
     attr_reader :defs, :usages, :egs
+    attr_accessor :defset
 
     def initialize(nokonode)
       return if nokonode == :empty
       @defs = MED.default_to_array do
         nokonode.css('DEF').map(&:text)
       end
+      raise "Sense has #{@defs.size} defs: #{nokonode}" unless @defs.size == 1
+
+      @defset = split_defs(@defs[0])
 
       @usages = MED.default_to_array do
         nokonode.css('USG').map(&:text).uniq
       end
 
       @egs = nokonode.css('EG').map {|x| EG.new(x)}
+    end
 
+    DEF_SPLITTER = /(?:[;:])?((?:\A|\s+)\([a-z]\)\s*)/
+    DEF_LETTER   = /\(([a-z])\)/
+
+    def split_defs(def_text)
+      components  = def_text.chomp('.').split(DEF_SPLITTER)
+      initial     = components.shift
+      h           = {}
+      h[:initial] = initial
+      until components.empty?
+        m = DEF_LETTER.match components.shift
+        raise "Wackiness with definition: #{def_text}" unless m
+        letter = m[1]
+        subdef = components.shift
+        raise "No def after letter" unless subdef
+        h[letter] = subdef
+      end
+      h
     end
 
   end
@@ -219,7 +249,7 @@ module MED
       @ovars  = MED.default_to_array {nokonode.css("OVARS").map(&:text)}.uniq
       @his    = MED.default_to_array {nokonode.css("HI").map(&:text)}.uniq
       @text   = nokonode.text
-      @xml   = nokonode.to_xml
+      @xml    = nokonode.to_xml
     end
 
   end
@@ -230,7 +260,7 @@ module MED
 
     def initialize(nokonode)
       @stencils = nokonode.css('STNCL').map {|x| Stencil.new(x)}
-      @xml   = nokonode.to_xml
+      @xml      = nokonode.to_xml
     end
 
 
