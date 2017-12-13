@@ -321,7 +321,7 @@ module MED
     # when preceded by
     #   * the beginning of the string
     #   * a semi-colon or colon followed by whitespace
-    DEF_SPLITTER = /(?:\A|(?:[;:]\s+))(\([a-z]\))/
+    DEF_SPLITTER = /(?:\A|(?:[;:]\s+))(\([a-z]\)\s*)/
     DEF_LETTER   = /\(([a-z])\)/
 
     def split_defs(def_text)
