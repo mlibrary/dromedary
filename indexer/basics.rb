@@ -139,6 +139,10 @@ module MED
       forms.flat_map(&:headwords)
     end
 
+    def orths
+      forms.flat_map(&:orths)
+    end
+
     # @return [Array<EG>] All the EG objects from all the senses
     def egs
       senses.flat_map(&:egs)
@@ -177,6 +181,23 @@ module MED
     # @return [String] pretty-printable XML
     def pretty_xml
       XSL.apply_to(Nokogiri::XML(@xml)).to_s
+    end
+
+    # Pretty-print the xml and return nil
+    # @return [nil]
+    def pp
+      puts pretty_xml
+      nil
+    end
+
+    # Get all the orths from all the forms
+    def orths
+      forms.flat_map(&:orths)
+    end
+
+    # Get all the orth_alts from all the forms
+    def orth_alts
+      forms.flat_map(&:orth_alts)
     end
 
     XSLSS = <<-EOXSL
@@ -254,7 +275,7 @@ module MED
       return if nokonode == :empty
       @pos       = (nokonode.at('POS') and nokonode.at('POS').text.strip) # need to translate?
       @headwords = self.find_headwords(nokonode)
-      @orths     = nokonode.xpath('ORTH').map(&:text)
+      @orths     = nokonode.xpath('ORTH').map(&:text).reject{|x| x.empty?}
       @orth_alts = nokonode.xpath('ORTH').flat_map do |o|
         o.attributes.select {|k, v| k =~ /\AN\d+/}.values.map(&:value)
       end
