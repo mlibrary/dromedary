@@ -57,7 +57,7 @@
 
   <!-- SearchHandler
 
-       http://wiki.apache.org/solr/SearchHandler
+       http://wiki.apache.org/solr/SarchHandler
 
        For processing Search Queries, the primary Request Handler
        provided with Solr is "SearchHandler" It delegates to a sequent
