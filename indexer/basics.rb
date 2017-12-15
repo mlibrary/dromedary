@@ -338,6 +338,11 @@ module MED
 
     end
 
+    # A writer, because I want to keep messing with it
+    def set_subdefs(def_text = @def)
+      @subdefs = split_defs(def_text)
+    end
+
     # We want to split on an '(a)' or the like
     # when preceded by
     #   * the beginning of the string
