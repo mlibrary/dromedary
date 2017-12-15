@@ -1,7 +1,7 @@
 <!--
      - ICUNormalizer2CharFilterFactory does nkfc normalization (ICU Normalizer2)
      - MappingCharFilterFactory does char-level expansion, (for example, flats and sharps)
-     - ICUTokenizer does a smarter job of finding work boundaries
+     - ICUTokenizer does a smarter job of finding word boundaries
      - KeywordRepeatFilterFactory indexes stemmed words twice, once as stemmed and once as given,
        giving additional relevancy to the latter if it matches
      - SynonymFilterFactory for synonyms at the token level
@@ -21,11 +21,11 @@
 -->
 
 <charFilter class="solr.ICUNormalizer2CharFilterFactory"/>
-<charFilter class="solr.MappingCharFilterFactory" mapping="&char_expansion_file;"/>
+<!--<charFilter class="solr.MappingCharFilterFactory" mapping="&char_expansion_file;"/>-->
 <tokenizer class="solr.ICUTokenizerFactory"/>
 <filter class="solr.ICUFoldingFilterFactory"/>
 <filter class="solr.SynonymFilterFactory" synonyms="&synonym_file;" ignoreCase="true" expand="true"/>
-<filter class="solr.CJKWidthFilterFactory"/>
-<filter class="solr.CJKBigramFilterFactory"/>
-<filter class="solr.DecimalDigitFilterFactory"/>
+<!--<filter class="solr.CJKWidthFilterFactory"/>-->
+<!--<filter class="solr.CJKBigramFilterFactory"/>-->
+<!--<filter class="solr.DecimalDigitFilterFactory"/>-->
 <filter class="solr.KeywordRepeatFilterFactory"/>

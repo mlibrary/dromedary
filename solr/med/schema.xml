@@ -15,6 +15,12 @@
   <!-- External Files -->
   <!ENTITY char_expansion_file "schema/token_fixing_charfilter.txt">
   <!ENTITY synonym_file "syn.txt">
+  <!ENTITY me_synonym_file "schema/me_syn.txt">
+
+
+  <!-- Middle English character conversions -->
+  <!ENTITY middle_english_char_substitution_patterns SYSTEM "schema/middle_english_char_substitution_patterns.xml" >
+
 
   <!-- Position increment gap for text fields -->
   <!ENTITY tpig "1000">
@@ -74,7 +80,7 @@
  http://wiki.apache.org/solr/SchemaXml
 -->
 
-<schema name="dueber_blacklight_marc_solr" version="0.1">
+<schema name="dueber_blacklight_med_solr" version="0.1">
   <!-- attribute "name" is the name of this schema and is only used for display purposes.
        version="x.y" is Solr's version number for the schema syntax and
        semantics.  It should not normally be changed by applications.
@@ -171,9 +177,15 @@
    -->
  <uniqueKey>id</uniqueKey>
 
- <!-- Inser the dynamic fields -->
+  <!-- non-dynamic fields -->
+  <field name="main_headword" type="me_text" indexed="true" stored="true" multiValued="false"/>
+  <field name="headwords" type="me_text" indexed="true" stored="true" multiValued="true"/>
+  <field name="definition_xml" type="string" stored="true" docValues="false" />
+  <filed name="definitions" type="text" stored="true" multiValued="true"/>
 
- &dynamic_fields;
+ <!-- Insert the dynamic fields -->
+
+ <!--&dynamic_fields;-->
 
 
 
