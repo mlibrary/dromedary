@@ -4,9 +4,12 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
+# Skip IntelliJ stuff
+/.idea/*
+
 # Ignore the lockfile for now
 
-Gemfile.log
+Gemfile.lock
 
 # Ignore bundler config.
 /.bundle

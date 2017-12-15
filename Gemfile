@@ -5,21 +5,49 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+#############################################
+# Non-default stuff added by the Dromedary team
+
+# Faster boot times
+gem 'bootsnap', require: false
+
+# Semantic logging
+gem 'rails_semantic_logger'
+gem "awesome_print"
+
+# Use pry for the console
+group :development, :test do
+  gem 'pry-rails'
+  gem 'pry-byebug'
+end
+
+# Use Puma as the app server
+gem 'puma', '~> 3.7'
+
+# Coverage and style
+group :development, :test do
+  gem 'rubocop', require: false
+end
+
+# Debugging
+group :development, :test do
+  gem "better_errors"
+  gem "binding_of_caller"
+end
+
+
+#############################################
+
 # Rails and blacklight
 
 gem 'rails', '~> 5.1.4'
 gem 'blacklight', ">= 6.1"
 
-# Use yell for logging
 
-gem 'yell-rails'
 
 # Databases
 gem 'sqlite3'
-
-# Use Puma as the app server
-gem 'puma', '~> 3.7'
-
+gem 'mysql2', require: false
 
 # JS and CSS
 gem 'sass-rails', '~> 5.0'
@@ -41,9 +69,6 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  gem 'pry-rails'
-  gem 'pry-byebug'
-  gem "awesome_print"
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
   gem "rspec-rails", "~> 3.6"
