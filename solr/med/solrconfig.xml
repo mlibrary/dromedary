@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
+
+<!-- Load up stuff we keep in external files -->
+<!DOCTYPE config [
+  <!ENTITY default_author_stuff  SYSTEM "solrconfig_med/author_defaults.xml">
+  <!ENTITY default_entry_stuff   SYSTEM "solrconfig_med/entry_defaults.xml">
+  <!ENTITY default_title_stuff   SYSTEM "solrconfig_med/title_defaults.xml">
+  <!ENTITY default_keyword_stuff SYSTEM "solrconfig_med/keyword_defaults.xml">
+  <!ENTITY default_facet_stuff   SYSTEM "solrconfig_med/facet_defaults.xml">
+
+]>
+
 <config>
   <luceneMatchVersion>6.0.0</luceneMatchVersion>
   <dataDir>${solr.data.dir:}</dataDir>
@@ -18,12 +29,21 @@
 
 
   <!-- A request handler that returns indented JSON by default -->
-  <requestHandler name="/query" class="solr.SearchHandler">
+  <requestHandler name="/search" class="solr.SearchHandler">
     <lst name="defaults">
       <str name="echoParams">explicit</str>
       <str name="wt">json</str>
       <str name="indent">true</str>
-      <str name="df">text</str>
+      <str name="df">keywords</str>
+      <str name="fl">*</str>
+
+      &default_keyword_stuff;
+      &default_entry_stuff;
+      &default_author_stuff;
+      &default_title_stuff;
+      
+      &default_facet_stuff;
+
     </lst>
   </requestHandler>
 
