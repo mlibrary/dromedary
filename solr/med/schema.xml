@@ -178,10 +178,17 @@
  <uniqueKey>id</uniqueKey>
 
   <!-- non-dynamic fields -->
+
+  <field name="keywords" type="me_text" stored="false" indexed="true" multiValued="false"/>
+
+  <field name="pos" type="string" indexed="true" multiValued="true"/>
+
+
   <field name="main_headword" type="me_text" indexed="true" stored="true" multiValued="false"/>
   <field name="headwords" type="me_text" indexed="true" stored="true" multiValued="true"/>
-  <field name="definition_xml" type="string" stored="true" docValues="false" />
-  <filed name="definitions" type="text" stored="true" multiValued="true"/>
+  <field name="entry_xml" type="string" stored="false" docValues="false" />
+  <field name="definitions" type="text" stored="true" multiValued="true"/>
+  <field name="quotes" type="me_text" stored="true" multiValued="true"/>
 
  <!-- Insert the dynamic fields -->
 
