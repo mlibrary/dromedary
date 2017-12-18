@@ -7,6 +7,9 @@
 # Skip IntelliJ stuff
 /.idea/*
 
+# Don't do the solr data
+/solr/med/data
+
 # Ignore the lockfile for now
 
 Gemfile.lock
