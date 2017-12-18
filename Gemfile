@@ -8,6 +8,10 @@ end
 #############################################
 # Non-default stuff added by the Dromedary team
 
+# For solr indexing
+
+gem 'simple_solr_client', require: false
+
 # Faster boot times
 gem 'bootsnap', require: false
 
