@@ -1,6 +1,7 @@
-require_relative 'basics'
+$:.unshift "./lib"
 require 'nokogiri'
 require 'simple_solr_client'
+require 'dromedary/entry'
 
 path_to_marshal = ARGV[0]
 
@@ -32,9 +33,14 @@ end
 
 entries = Marshal.load(File.open(path_to_marshal, 'rb'))
 
-#
-# <field name="main_headword" type="me_text" indexed="true" stored="true" multiValued="false"/>
-# <field name="headwords" type="me_text" indexed="true" stored="true" multiValued="true"/>
-# <field name="definition_xml" type="string" stored="true" docValues="false" />
-# <filed name="definitions" type="text" stored="true" multiValued="true"/>
-#
+
+entries.each do |e|
+  begin
+    med.add_docs e.solr_doc
+  rescue => err
+      e.logger.warn "Can't index #{e.id}: #{err.message} #{err.backtrace}"
+  end
+end
+
+med.commit
+
