@@ -186,6 +186,7 @@
 
   <field name="main_headword" type="me_text" indexed="true" stored="true" multiValued="false"/>
   <field name="headwords" type="me_text" indexed="true" stored="true" multiValued="true"/>
+  <field name="orths" type="me_text" indexed="true" stored="true" multiValued="true"/>
   <field name="entry_xml" type="string" stored="false" docValues="false" />
   <field name="definitions" type="text" stored="true" multiValued="true"/>
   <field name="quotes" type="me_text" stored="true" multiValued="true"/>

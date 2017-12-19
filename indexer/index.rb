@@ -22,18 +22,19 @@ unless File.exist? path_to_marshal
   exit(1)
 end
 
-solr_url = ENV['SOLR_URL'] || 'http://localhost:8983'
+solr_url = ENV['SOLR_URL'] || 'http://localhost:8983/solr'
 
 client = SimpleSolrClient::Client.new(solr_url)
-med_core = client.core('med')
+med = client.core('med')
 
-unless med_core.up?
-  $stderr.puts "Can't ping #{med_core.name}: #{med_core.ping}"
+unless med.up?
+  $stderr.puts "Can't ping #{med.name}: #{med.ping}"
 end
 
+$stderr.puts "Getting entries"
 entries = Marshal.load(File.open(path_to_marshal, 'rb'))
 
-
+$stderr.puts "Beginning indexing"
 entries.each do |e|
   begin
     med.add_docs e.solr_doc
