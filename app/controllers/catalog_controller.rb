@@ -97,7 +97,7 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
-    config.add_show_field 'headwords', label: 'Headwords'
+    config.add_show_field 'headword', label: 'Headwords'
 
 
     # "fielded" search configuration. Used by pulldown among other places.

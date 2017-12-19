@@ -4,7 +4,6 @@ require 'dromedary/entry/constants'
 require 'dromedary/entry/form'
 require 'dromedary/entry/sense'
 
-
 module Dromedary
 
   def self.empty_array_on_error
@@ -74,8 +73,8 @@ module Dromedary
     # @return [String] The sequence
     attr_reader :seq
 
-    # @return [Array<Form>] The forms
-    attr_reader :forms
+    # @return [Form] The form
+    attr_reader :form
 
     # @return [Array<String>] The etyma "words" (everything in <HI> tags)
     attr_reader :etyma
@@ -120,18 +119,18 @@ module Dromedary
       @id  = doc.css('ENTRYFREE').first.attr('ID')
       @seq = doc.css('ENTRYFREE').first.attr('SEQ')
 
-      @forms = doc.xpath('MED/ENTRYFREE/FORM').map {|f| Form.new(f)}
+      @form = Form.new(doc.at('MED/ENTRYFREE/FORM'))
 
       @etyma_xml = Dromedary.empty_array_on_error do
-        doc.css('Dromedary ENTRYFREE ETYM').map(&:to_xml)
+        doc.css('MED ENTRYFREE ETYM').map(&:to_xml)
       end
 
       @etyma_languages = Dromedary.empty_array_on_error do
-        doc.css('Dromedary ENTRYFREE ETYM LANG').map(&:text).map(&:strip)
+        doc.css('MED ENTRYFREE ETYM LANG').map(&:text).map(&:strip)
       end
 
       @etyma = Dromedary.empty_array_on_error do
-        doc.css('Dromedary ENTRYFREE ETYM HI').map(&:text).map(&:strip)
+        doc.css('MED ENTRYFREE ETYM HI').map(&:text).map(&:strip)
       end
 
       @senses = doc.xpath('/MED/ENTRYFREE/SENSE').map {|s| Sense.new(s)}
@@ -211,10 +210,14 @@ module Dromedary
       doc[:entry_xml] = xml
 
       doc[:main_headword] = headwords.first
-      doc[:headwords] = headwords[1..-1] if headwords.size > 1
-      doc[:pos] = forms.map(&:pos)
+      doc[:headwords] = headwords
+      if forms.first and forms.first.pos
+        doc[:pos] = forms.first.pos.gsub(/\A([^.]+).*\Z/, "\\1").downcase
+      end
+
       doc[:definitions] = senses.map(&:def)
       doc[:quotes] = quotes.map(&:text)
+      doc[:orths] = forms.first.orths
       doc
     end
 
