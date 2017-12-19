@@ -138,10 +138,21 @@ module Dromedary
       logger.warn "Problem with #{@filename}: #{err.message} #{err.backtrace}"
     end
 
-    # @return [Array<String>] All the headwords from all the forms
-    def headwords
-      forms.flat_map(&:headwords)
+    # @return [Orth] the headword (as an Orth object)
+    def headword
+      form.headword
     end
+
+    # @return [String] The display word as determined by the Form
+    def display_word
+      form.display_word
+    end
+
+    # @return [Array<Orth>] all the non-headword orths
+    def orths
+      form.orths
+    end
+
 
     # @return [Array<EG>] All the EG objects from all the senses
     def egs
@@ -190,37 +201,52 @@ module Dromedary
       nil
     end
 
-    # @return [Array<String>] all the orths from all the forms
-    def orths
-      forms.flat_map(&:orths)
-    end
 
-    # @return [Array<String>] all the orth_alts from all the forms
-    def orth_alts
-      forms.flat_map(&:orth_alts)
-    end
 
 
     # Create a hash that can be sent to solr
     def solr_doc
       doc = {}
       doc[:id] = id
+      doc[:type] = 'entry'
 
       doc[:keywords] = Nokogiri::XML(xml).text # should probably just copyfield all the important stuff
-      doc[:entry_xml] = xml
+      doc[:xml] = xml
 
-      doc[:main_headword] = headwords.first
-      doc[:headwords] = headwords
-      if forms.first and forms.first.pos
-        doc[:pos] = forms.first.pos.gsub(/\A([^.]+).*\Z/, "\\1").downcase
+      if form and form.pos
+        doc[:pos] = form.pos.gsub(/\A([^.]+).*\Z/, "\\1").downcase
       end
 
-      doc[:definitions] = senses.map(&:def)
+      doc[:main_headword] = display_word
+      doc[:headwords] = (headword.regs << headword.orig).flatten
+
+      doc[:orths] = (form.orths.flat_map(&:orig) + form.orths.flat_map(&:regs)).flatten.uniq
+
+      doc[:definitions] = senses.map(&:def) if senses and senses.size > 0
       doc[:quotes] = quotes.map(&:text)
-      doc[:orths] = forms.first.orths
       doc
     end
 
 
+  end
+
+  class EntrySet
+    include Enumerable
+    def initialize
+      @h = {}
+    end
+
+    def each
+      return enum_for(:each) unless block_given?
+      @h.values.each{|e| yield e}
+    end
+
+    def <<(e)
+      @h[e.id] = e
+    end
+
+    def [](k)
+      @h[k]
+    end
   end
 end

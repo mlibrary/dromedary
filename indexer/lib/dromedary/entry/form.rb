@@ -23,12 +23,29 @@ module Dromedary
       # @return [Orth] The headword
       attr_reader :headword
 
+
+      # @return [String] The first regularized entry for the headword
+      attr_reader :display_word
+
       # @param [Nokogiri::XML::Element] nokonode The nokogiri node for this element
       def initialize(nokonode)
         return if nokonode == :empty
         @pos       = (nokonode.at('POS') and nokonode.at('POS').text.strip) # need to translate?
-        @headword  = Orth.new(nokonode.at('HDORTH'))
-        @orths     = nokonode.xpath('/ORTH').map{|orthnode| Orth.new(orthnode)}
+        hdorth_node = nokonode.at('HDORTH')
+        orth_nodes = nokonode.xpath('ORTH').select{|x| !x.text.trim.empty?}
+        if hdorth_node
+          @headword = Orth.new(hdorth_node)
+        else
+          if orth_nodes.size > 0
+            @headword = Orth.new(orth_nodes.first)
+          end
+        end
+        @display_word = if @headword.regs.empty?
+                          @headword.orig
+                        else
+                          @headword.regs.first
+                        end
+        @orths     = orth_nodes.map{|orthnode| Orth.new(orthnode)}
       end
 
     end

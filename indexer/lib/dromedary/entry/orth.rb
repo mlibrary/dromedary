@@ -12,6 +12,14 @@ module Dromedary
         @orig = nokonode.at('ORIG').text
         @regs = nokonode.xpath('REG').map(&:text)
       end
+
+      def display
+        if regs.empty?
+          orig
+        else
+          regs.first
+        end
+      end
     end
   end
 end

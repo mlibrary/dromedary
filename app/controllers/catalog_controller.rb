@@ -13,40 +13,71 @@ class CatalogController < ApplicationController
     ## Model that maps search index responses to the blacklight response model
     # config.response_model = Blacklight::Solr::Response
 
+
+    ##--------------------------------------------------------
+    # Talking to solr
+    ##--------------------------------------------------------
+    #
     ## Default parameters to send to solr for all search-like requests. See also SearchBuilder#processed_parameters
     config.default_solr_params = {
       rows: 20
     }
 
-    # solr path which will be added to solr base url before the other solr params.
+    # The "normal" search path as defined as a requestHandler in solrconfig.xml
     config.solr_path = 'search'
+
+    # The "document" search handler, for getting a single document
+    config.document_solr_path = 'document'
+
+    ##--------------------------------------------------------
+    # Sorting and pagination in the Blacklight UI
+    ##--------------------------------------------------------
 
     # items to show per page, each number in the array represent another option to choose from.
     config.per_page = [20, 100]
 
-    ## Default parameters to send on single-document requests to Solr. These settings are the Blackligt defaults (see SearchHelper#solr_doc_params) or
+    # "sort results by" select (pulldown)
+    # label in pulldown is followed by the name of the SOLR field to sort by and
+    # whether the sort is ascending or descending (it must be asc or desc
+    # except in the relevancy case).
+    config.add_sort_field 'score desc', label: 'Relevance'
+    config.add_sort_field 'main_headword desc', label: 'Alphabetical'
+
+    ##--------------------------------------------------------
+    # The search results (index) page
+    ##--------------------------------------------------------
+
+    ## Default parameters to send on single-document requests to Solr.
+    # These settings are the Blackligt defaults (see SearchHelper#solr_doc_params) or
     ## parameters included in the Blacklight-jetty document requestHandler.
 
-    config.document_solr_path = 'document'
-    # config.default_document_solr_params = {
-    #  qt: 'document',
-    # }
+    # Map solr fields to local fields in the config.index object
+    # for later display
+    #
 
-    # solr field configuration for search results/index views
+
+    # What's the title field for each search result entry?
+    #
+    config.index.title_field = 'main_headword'
+
+    # Add fields to the display
+    config.add_index_field 'main_headword', label: 'Headword'
+    config.add_index_field 'headwords', label: "Also"
+    config.add_index_field 'pos', label: 'Part of Speech'
+
     config.index.main_headword = 'main_headword'
-    config.index.headwords     = 'headwords'
-    config.index.definitions   = 'definitions'
-    config.index.pos           = 'pos'
+
+
 
     # solr field configuration for document/show views
     #config.show.title_field = 'title_display'
     #config.show.display_type_field = 'format'
     #config.show.thumbnail_field = 'thumbnail_path_ss'
     #
-    config.show.main_headword = 'main_headword'
-    config.show.headwords     = 'headwords'
-    config.show.definitions   = 'definitions'
-    config.show.pos           = 'pos'
+    # config.show.main_headword = 'main_headword'
+    # config.show.headwords     = 'headwords'
+    # config.show.definitions   = 'definitions'
+    # config.show.pos           = 'pos'
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
@@ -89,11 +120,7 @@ class CatalogController < ApplicationController
     # handler defaults, or have no facets.
     config.add_facet_fields_to_solr_request!
 
-    # solr fields to be displayed in the index (search results) view
-    #   The ordering of the field names is the order of the display
-    config.add_index_field 'main_headword', label: 'Headword'
-    config.add_index_field 'headwords', label: "Also"
-    config.add_index_field 'pos', label: 'Part of Speech'
+
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
@@ -123,8 +150,8 @@ class CatalogController < ApplicationController
 
     config.add_search_field("Headwords") do |field|
       field.solr_local_parameters = {
-        qf: $headword_qf,
-        pf: $headword_pf
+        qf: $entry_qf,
+        pf: $entry_pf
       }
     end
 
@@ -166,12 +193,6 @@ class CatalogController < ApplicationController
     #   }
     # end
 
-    # "sort results by" select (pulldown)
-    # label in pulldown is followed by the name of the SOLR field to sort by and
-    # whether the sort is ascending or descending (it must be asc or desc
-    # except in the relevancy case).
-    config.add_sort_field 'score desc', label: 'relevance'
-    config.add_sort_field 'main_headword desc', label: 'Alphabetical'
 
 
     # If there are more than this many search results, no spelling ("did you
