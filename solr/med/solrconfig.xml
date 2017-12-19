@@ -38,15 +38,21 @@
       <str name="echoParams">all</str>
       <str name="wt">json</str>
       <str name="indent">true</str>
-      <str name="df">keywords</str>
       <str name="fl">*</str>
 
-      &default_keyword_stuff;
+      <str name="defType">edismax</str>
+
       &default_entry_stuff;
-      &default_author_stuff;
-      &default_title_stuff;
-      
+
       &default_facet_stuff;
+
+      <str name="qf">
+        main_headword_exactish^500
+        main_headword^100
+        headwords_exactish^50
+        headword^10
+        variants^1
+      </str>
 
       <str name="facet.mincount">1</str>
 

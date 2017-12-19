@@ -40,7 +40,9 @@ Dir.glob("#{datapath}/xml/MED*/MED*xml").each do |f|
   marshal_files[this_letter] << marshal_file_name
 end
 
-entries = []
+$stderr.puts "Beginning process of combining into all_entries.marshal"
+
+entries = Dromedary::EntrySet.new
 marshal_files.each_pair do |letter, filenames|
   $stderr.puts letter
   filenames.each do |f|

@@ -1,11 +1,15 @@
 <str name="entry_qf">
+  main_headword_exactish^500
   main_headword^100
+  headwords_exactish^50
   headword^10
   variants^1
 </str>
 
 <str name="entry_pf">
+main_headword_exactish^500
 main_headword^100
+headwords_exactish^50
 headword^10
 variants^1
 </str>
