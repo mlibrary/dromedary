@@ -24,16 +24,21 @@ class CatalogController < ApplicationController
     }
 
     # The "normal" search path as defined as a requestHandler in solrconfig.xml
+    # Often this is 'select'; the Blacklight default is 'search'.
+    # See <requestHandler name="/search".../> in the solrconfig.xml
+
     config.solr_path = 'search'
 
     # The "document" search handler, for getting a single document
+    # See <requestHandler name="/document".../> in the solrconfig.xml
+
     config.document_solr_path = 'document'
 
     ##--------------------------------------------------------
     # Sorting and pagination in the Blacklight UI
     ##--------------------------------------------------------
 
-    # items to show per page, each number in the array represent another option to choose from.
+    # Options for items to show per page, each number in the array represent another option to choose from.
     config.per_page = [20, 100]
 
     # "sort results by" select (pulldown)
@@ -52,20 +57,24 @@ class CatalogController < ApplicationController
     ## parameters included in the Blacklight-jetty document requestHandler.
 
     # Map solr fields to local fields in the config.index object
-    # for later display
-    #
+    # for later display. You don't need to do this if you're
+    # just using the same name for the field in solr and in
+    # Blacklight.
 
+    # Syntax is:
+    #   config.index.<field name in blacklight> = '<field name in solr>'
+    config.index.main_entry = 'main_headword'
 
     # What's the title field for each search result entry?
-    #
-    config.index.title_field = 'main_headword'
+    # Note that if you made a mapping above, you need to use
+    # that term here, not the actual field name in solr
+
+    config.index.title_field = 'main_entry'
 
     # Add fields to the display
-    config.add_index_field 'main_headword', label: 'Headword'
+    config.add_index_field 'main_entry', label: 'Headword'
     config.add_index_field 'headwords', label: "Also"
     config.add_index_field 'pos', label: 'Part of Speech'
-
-    config.index.main_headword = 'main_headword'
 
 
 
@@ -131,7 +140,7 @@ class CatalogController < ApplicationController
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
     #
     # Search fields will inherit the :qt solr request handler from
-    # config[:default_solr_parameters], OR can specify a different one
+    # config[:default_solr_parameters], OR can specify a diffelrent one
     # with a :qt key/value. Below examples inherit, except for subject
     # that specifies the same :qt as default for our own internal
     # testing purposes.
@@ -150,8 +159,8 @@ class CatalogController < ApplicationController
 
     config.add_search_field("Headwords") do |field|
       field.solr_local_parameters = {
-        qf: $entry_qf,
-        pf: $entry_pf
+        qf: '$entry_qf',
+        pf: '$entry_pf'
       }
     end
 
