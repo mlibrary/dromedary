@@ -35,7 +35,7 @@ end
 
 
 # Do we have individual entries?
-individual_entries = $ARGV[1..-1]
+individual_entries = ARGV[1..-1]
 
 
 $stderr.puts "Sucking in entries from all_entries.marshal"
@@ -54,7 +54,7 @@ if !individual_entries.empty?
   entries = entries.select{|x| individual_entries.include? x.id }
 end
 
-$stderr.puts "Beginning indexing"
+$stderr.puts "Beginning indexing of #{entries.count} entries"
 i = 1
 entries.each_slice(1000) do |e|
   puts "#{i * 1000}"
