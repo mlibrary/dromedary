@@ -10,7 +10,9 @@ unless path_to_marshal
 
     Usage: 
       export SOLR_URL="http://whatever:whateverport" (default: localhost:8983)
-      ruby indexer.rb <path to all_entries.marshal>
+      
+          ruby indexer.rb <path to all_entries.marshal>
+      or  ruby indexer.rb <path to all_entries.marshal> list of MED ids
 
   USAGE
   exit(1)
@@ -31,8 +33,26 @@ unless med.up?
   $stderr.puts "Can't ping #{med.name}: #{med.ping}"
 end
 
-$stderr.puts "Getting entries"
+
+# Do we have individual entries?
+individual_entries = $ARGV[1..-1]
+
+
+$stderr.puts "Sucking in entries from all_entries.marshal"
 entries = Marshal.load(File.open(path_to_marshal, 'rb'))
+
+if individual_entries.empty?
+  $stderr.puts "Clearing out solr"
+  med.clear.commit
+end
+
+
+$stderr.puts "Reload core, in case something changed"
+med.reload
+
+if !individual_entries.empty?
+  entries = entries.select{|x| individual_entries.include? x.id }
+end
 
 $stderr.puts "Beginning indexing"
 i = 1

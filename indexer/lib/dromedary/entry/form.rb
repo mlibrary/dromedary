@@ -48,6 +48,22 @@ module Dromedary
         @orths     = orth_nodes.map{|orthnode| Orth.new(orthnode)}
       end
 
+      def display_word
+        if @headword.regs.empty?
+          @headword.orig
+        else
+          pick_best_display_word
+        end
+      end
+
+      def pick_best_display_word
+        if @headword.orig =~ /[(?]/
+          @headword.regs.first
+        else
+          @headword.orig
+        end
+      end
+
     end
   end
 end

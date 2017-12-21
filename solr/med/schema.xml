@@ -183,7 +183,8 @@
   <field name="xml"       type="string"  stored="true"  indexed="false" multiValued="false" docValues="false"/>
 
 
-  <field name="pos"       type="string"  stored="true" indexed="true" multiValued="false" docValues="true"/>
+  <field name="pos"        type="string"  stored="true" indexed="true" multiValued="false" docValues="true"/>
+  <field name="pos_abbrev" type="string"  stored="true" indexed="true" multiValued="false" docValues="true"/>
 
 
   <field name="main_headword" type="me_text" indexed="true" stored="true" multiValued="false"/>
