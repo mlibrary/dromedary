@@ -1,0 +1,5 @@
+ExtractForms.xsl
+	Extracts the headwords and forms and creates a Solr document
+WholeEntry.xsl 
+	Takes Entry file and produces HTML output as close as possible to existing 
+	MEC interface. (Needs updating to deal with change in FORM structure)
