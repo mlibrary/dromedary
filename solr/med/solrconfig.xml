@@ -50,7 +50,7 @@
         main_headword_exactish^500
         main_headword^100
         headwords_exactish^50
-        headword^10
+        headwords^10
         variants^1
       </str>
 
