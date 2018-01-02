@@ -8,6 +8,10 @@ end
 #############################################
 # Non-default stuff added by the Dromedary team
 
+# For the data installer
+
+gem 'hanami-cli'
+
 # For solr indexing
 
 gem 'simple_solr_client', require: false
@@ -78,6 +82,9 @@ group :development, :test do
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
   gem "rspec-rails", "~> 3.6"
+  gem 'rubyzip'
+  gem 'nokogiri'
+  gem 'yell' # should just switch to using Semantic Log in Dromedary::Entry
 end
 
 
