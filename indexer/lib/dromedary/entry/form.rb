@@ -32,7 +32,7 @@ module Dromedary
         return if nokonode == :empty
         @pos       = (nokonode.at('POS') and nokonode.at('POS').text.strip) # need to translate?
         hdorth_node = nokonode.at('HDORTH')
-        orth_nodes = nokonode.xpath('ORTH').select{|x| !x.text.trim.empty?}
+        orth_nodes = nokonode.xpath('ORTH').select{|x| !x.text.strip.empty?}
         if hdorth_node
           @headword = Orth.new(hdorth_node)
         else
