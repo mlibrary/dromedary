@@ -67,9 +67,7 @@ class CatalogController < ApplicationController
     config.index.display_type_field = "type"
 
     # Add fields to the display
-    config.add_index_field 'main_entry', label: 'Headword'
-    config.add_index_field 'headwords', label: "Also"
-    config.add_index_field 'pos', label: 'Part of Speech'
+    config.add_index_field 'orths', label: "Other forms"
 
 
 
@@ -205,6 +203,6 @@ class CatalogController < ApplicationController
 
     # Configuration for autocomplete suggestor
     config.autocomplete_enabled = true
-    config.autocomplete_path    = 'suggest'
+    # config.autocomplete_path    = 'suggest'
   end
 end

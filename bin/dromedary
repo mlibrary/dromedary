@@ -1,0 +1,50 @@
+#!/usr/bin/env ruby
+
+require "pathname"
+ENV["BUNDLE_GEMFILE"] ||= File.expand_path("../../Gemfile",
+                                           Pathname.new(__FILE__).realpath)
+
+require "rubygems"
+require "bundler/setup"
+
+# Add the indexer lib
+require 'pathname'
+indexer_dir = Pathname.new(__dir__).parent + 'indexer'
+$LOAD_PATH.push (indexer_dir + 'lib').to_s
+
+require 'hanami/cli'
+
+module MedInstaller
+  class CLI
+    extend Hanami::CLI::Registry
+  end
+end
+
+require 'med_installer'
+
+MedInstaller::CLI.register 'extract', MedInstaller::Extract, aliases: ['unzip']
+MedInstaller::CLI.register 'convert', MedInstaller::Convert, aliases: ['marshal']
+MedInstaller::CLI.register 'solr install', MedInstaller::Solr::Install
+MedInstaller::CLI.register 'solr start', MedInstaller::Solr::Start, aliases: ['restart']
+MedInstaller::CLI.register 'solr stop', MedInstaller::Solr::Stop
+
+Hanami::CLI.new(MedInstaller::CLI).call
+
+
+__END__
+
+zipfile = ARGV[0]
+datadir = ARGV[1]
+
+med = MedInstaller::Commands.new
+med.checkargs(zipfile, datadir)
+
+xmlpath = Pathname.new(datadir) + 'xml'
+xmlpath.mkpath
+
+$stderr.puts "Extracting all the xml files from #{zipfile}"
+med.extract_all(zipfile, xmlpath)
+
+
+
+
