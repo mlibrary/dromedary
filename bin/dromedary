@@ -25,7 +25,7 @@ require 'med_installer'
 MedInstaller::CLI.register 'extract', MedInstaller::Extract, aliases: ['unzip']
 MedInstaller::CLI.register 'convert', MedInstaller::Convert, aliases: ['marshal']
 MedInstaller::CLI.register 'solr install', MedInstaller::Solr::Install
-MedInstaller::CLI.register 'solr start', MedInstaller::Solr::Start
+MedInstaller::CLI.register 'solr start', MedInstaller::Solr::Start, aliases: ['restart']
 MedInstaller::CLI.register 'solr stop', MedInstaller::Solr::Stop
 
 Hanami::CLI.new(MedInstaller::CLI).call

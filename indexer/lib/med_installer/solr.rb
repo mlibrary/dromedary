@@ -20,13 +20,16 @@ module MedInstaller
 
       DROMEDARY_ROOT = Pathname(__dir__).parent.parent.parent
       MED_CONFIG     = DROMEDARY_ROOT + 'solr' + 'med'
+      SOLR_LIBS      = DROMEDARY_ROOT + 'solr' + 'lib'
       DOT_SOLR       = DROMEDARY_ROOT + '.solr'
 
       def call(installdir:)
         installpath     = Pathname(installdir).realdirpath
         solrpath        = installpath + SOLRDIRNAME
         lnpath          = installpath + 'solr'
-        solr_config_dir = lnpath + 'server' + 'solr' + 'med'
+        solr_solr_dir   = lnpath + 'server' + 'solr'
+        solr_config_dir = solr_solr_dir + 'med'
+        solr_lib_dir    = solr_solr_dir + 'lib'
 
         logger.info "Download/extract from #{URL}"
         # status = system(%Q{curl '#{URL}' | tar -C '#{installpath}' -x -z -f -})
@@ -38,9 +41,13 @@ module MedInstaller
         status = system lncmd
         raise "Trouble symlinking #{solrpath} to #{lnpath}" unless status
 
-        logger.info "Linking dromedary solr config into the right spot"
+        logger.info "Linking dromedary solr config stuff into the right spot"
         status = system "rm -f '#{solr_config_dir}'; ln -s '#{MED_CONFIG}' '#{solr_config_dir}'"
         raise "Trouble linking #{MED_CONFIG} into the right place in solr" unless status
+
+        status = system "rm -f '#{solr_lib_dir}'; ln -s '#{SOLR_LIBS}' '#{solr_lib_dir}'"
+        raise "Trouble linking #{SOLR_LIBS}" unless status
+
         logger.info "Storing solr installation information in dromedary/.solr"
         File.open(DOT_SOLR, 'w:utf-8') do |out|
           out.puts lnpath.to_s
@@ -56,6 +63,9 @@ module MedInstaller
     class Start < Hanami::CLI::Command
       DROMEDARY_ROOT = Pathname(__dir__).parent.parent.parent
       DOT_SOLR       = DROMEDARY_ROOT + '.solr'
+
+      desc "Start the solr referenced in .solr"
+      option :port, default: 8983, desc: "The port solr should run on"
 
       def logger
         MedInstaller::LOGGER
@@ -77,15 +87,18 @@ module MedInstaller
         exit(1)
       end
 
-      def call(*args)
-        system "#{solr_bin} restart"
+      def call(port:)
+        portarg = "-p #{port}"
+        system "#{solr_bin} restart #{portarg}"
       end
     end
 
 
     class Stop < Start
-      def call(*args)
-        system "#{solr_bin} stop"
+      option :port, default: 8983, desc: "The port solr is running on"
+      def call(port:)
+        portarg = "-p #{port}"
+        system "#{solr_bin} stop #{portarg}"
       end
     end
 
