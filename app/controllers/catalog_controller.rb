@@ -56,25 +56,18 @@ class CatalogController < ApplicationController
     # These settings are the Blackligt defaults (see SearchHelper#solr_doc_params) or
     ## parameters included in the Blacklight-jetty document requestHandler.
 
-    # Map solr fields to local fields in the config.index object
-    # for later display. You don't need to do this if you're
-    # just using the same name for the field in solr and in
-    # Blacklight.
-
-    # Syntax is:
-    #   config.index.<field name in blacklight> = '<field name in solr>'
-    config.index.main_entry = 'main_headword'
+    # What class should we use to render this?
+    blacklight_config.index.document_presenter_class = Blacklight::IndexPresenter
 
     # What's the title field for each search result entry?
-    # Note that if you made a mapping above, you need to use
-    # that term here, not the actual field name in solr
+    config.index.title_field = 'main_headword'
 
-    config.index.title_field = 'main_entry'
+    # How should we choose how to display this item? (maybe not used if
+    # you only have one type of record)
+    config.index.display_type_field = "type"
 
     # Add fields to the display
-    config.add_index_field 'main_entry', label: 'Headword'
-    config.add_index_field 'headwords', label: "Also"
-    config.add_index_field 'pos', label: 'Part of Speech'
+    config.add_index_field 'orths', label: "Other forms"
 
 
 
@@ -210,6 +203,6 @@ class CatalogController < ApplicationController
 
     # Configuration for autocomplete suggestor
     config.autocomplete_enabled = true
-    config.autocomplete_path    = 'suggest'
+    # config.autocomplete_path    = 'suggest'
   end
 end

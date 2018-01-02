@@ -9,6 +9,7 @@
 
 # Don't do the solr data
 /solr/med/data
+/.solr
 
 # Ignore the lockfile for now
 

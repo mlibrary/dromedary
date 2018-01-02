@@ -214,11 +214,12 @@ module Dromedary
       doc[:xml] = xml
 
       if form and form.pos
-        doc[:pos] = form.pos.gsub(/\A([^.]+).*\Z/, "\\1").downcase
+        doc[:pos_abbrev] = form.pos.gsub(/\A([^.]+).*\Z/, "\\1").downcase
+        doc[:pos] = form.pos
       end
 
       doc[:main_headword] = display_word
-      doc[:headwords] = (headword.regs << headword.orig).flatten
+      doc[:headwords] = headword.regs.unshift(headword.orig) - [display_word]
 
       doc[:orths] = (form.orths.flat_map(&:orig) + form.orths.flat_map(&:regs)).flatten.uniq
 
