@@ -51,7 +51,13 @@ $stderr.puts "Reload core, in case something changed"
 med.reload
 
 if !individual_entries.empty?
-  entries = entries.select{|x| individual_entries.include? x.id }
+  $stderr.puts "Adding #{individual_entries.count} entries"
+  to_index = individual_entries.map{|x| entries[x]}
+  to_index.each do |e|
+    med.add_docs e.solr_doc
+  end
+  med.commit
+  exit(0)
 end
 
 $stderr.puts "Beginning indexing of #{entries.count} entries"
