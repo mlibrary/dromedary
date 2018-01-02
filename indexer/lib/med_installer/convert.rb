@@ -6,7 +6,7 @@ Zip.on_exists_proc = true
 module MedInstaller
   # Convert a bunch of Dromedary xml files into a more useful format.
   class Convert < Hanami::CLI::Command
-    desc "Convert the xml files into (faster) marshaled objects"
+    desc "Convert the xml files into (faster) marshaled objects (takes a long time)"
 
     argument :datadir, required: true, desc: "The data directory. Converted files will be put in <datadir>/marshal"
 

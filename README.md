@@ -49,7 +49,8 @@ them to a different format (because ruby deals with XML *very* slowly).
   * Extract the data: 
     * `bin/dromedary extract /path/to/In_progress_MEC_files.zip ../data`
   * Do the conversion
-    * `bin/dromedary convert ../data`
+    * `bin/dromedary convert ../data` 
+    * Depending on your machine, this can take a long time.
   
 ### Index the data
 
