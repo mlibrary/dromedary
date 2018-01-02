@@ -2,6 +2,9 @@ $:.unshift "./lib"
 require 'nokogiri'
 require 'simple_solr_client'
 require 'dromedary/entry'
+require 'yell'
+
+logger = Yell.new(STDERR)
 
 path_to_marshal = ARGV[0]
 
@@ -20,7 +23,7 @@ end
 
 
 unless File.exist? path_to_marshal
-  $stderr.puts "Cannot find file #{path_to_marshal}; exiting"
+  logger.error "Cannot find file #{path_to_marshal}; exiting"
   exit(1)
 end
 
@@ -30,7 +33,7 @@ client = SimpleSolrClient::Client.new(solr_url)
 med    = client.core('med')
 
 unless med.up?
-  $stderr.puts "Can't ping #{med.name}: #{med.ping}"
+  logger.error "Can't find solr core #{med.name} at #{solr_url}: #{med.ping}"
 end
 
 
@@ -38,20 +41,19 @@ end
 individual_entries = ARGV[1..-1]
 
 
-$stderr.puts "Sucking in entries from all_entries.marshal"
+logger.info "Sucking in entries from all_entries.marshal"
 entries = Marshal.load(File.open(path_to_marshal, 'rb'))
 
 if individual_entries.empty?
-  $stderr.puts "Clearing out solr"
+  logger.info "Clearing out solr"
   med.clear.commit
 end
 
-
-$stderr.puts "Reload core, in case something changed"
+logger.info "Reload core, in case the config changed"
 med.reload
 
 if !individual_entries.empty?
-  $stderr.puts "Adding #{individual_entries.count} entries"
+  logger.info "Adding #{individual_entries.count} entries"
   to_index = individual_entries.map{|x| entries[x]}
   to_index.each do |e|
     med.add_docs e.solr_doc
@@ -60,20 +62,21 @@ if !individual_entries.empty?
   exit(0)
 end
 
-$stderr.puts "Beginning indexing of #{entries.count} entries"
+logger.info "Beginning indexing of #{entries.count} entries"
 i = 1
-entries.each_slice(1000) do |e|
-  puts "#{i * 1000}"
+slice = 2500
+entries.each_slice(slice) do |e|
+  logger.info "#{(i - 1) * slice} to #{i * slice}"
   i += 1
   begin
     med.add_docs e.map(&:solr_doc)
   rescue => err
-    puts "Problem with batch; trying one at a time"
+    logger.warn "Problem with batch; trying documents one at a time"
     e.each do |doc|
       begin
         med.add_docs(doc.solr_doc)
       rescue => err2
-        puts "Problem is with #{doc.id}: #{err2.message} #{err2.backtrace}"
+        logger.warn "Problem is with #{doc.id}: #{err2.message} #{err2.backtrace}"
       end
     end
   end
