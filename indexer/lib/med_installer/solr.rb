@@ -32,9 +32,9 @@ module MedInstaller
         solr_lib_dir    = solr_solr_dir + 'lib'
 
         logger.info "Download/extract from #{URL}"
-        # status = system(%Q{curl '#{URL}' | tar -C '#{installpath}' -x -z -f -})
-        #
-        # raise "Something went wrong with download / extract" unless status
+        status = system(%Q{curl '#{URL}' | tar -C '#{installpath}' -x -z -f -})
+        
+        raise "Something went wrong with download / extract" unless status
 
         logger.info "Making a symlink so we can use #{lnpath} instead of #{solrpath}"
         lncmd  = "rm -f '#{lnpath}'; ln -s '#{solrpath}' '#{lnpath}'"
