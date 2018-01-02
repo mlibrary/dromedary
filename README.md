@@ -27,7 +27,10 @@ The basic dromedary code is now ready for use.
 `dromedary` requires a solr installation to work. It's recommended you install
 a version just for this project in you `med` directory
 
-* 
+From your `dromedary` directory:
+
+* `bin/dromedary solr install`
+
     
 ### Get and convert the raw data
 
@@ -44,8 +47,21 @@ them to a different format (because ruby deals with XML *very* slowly).
     (the parent directory of your `dromedary` directory, so `../data` from where you are
     now) unless you have a good reason not to.
   * Extract the data: 
-    * `bin/install_data extract /path/to/In_progress_MEC_files.zip ../data`
+    * `bin/dromedary extract /path/to/In_progress_MEC_files.zip ../data`
   * Do the conversion
-    * `bin/install_data convert ../data`
+    * `bin/dromedary convert ../data`
   
+### Index the data
+
+We'll fire up solr and index the data according to the method in 
+`indexer/index.rb`
+
+* `bin/dromedary solr start` 
+* `indexer/index.rb ../data/all_entries.marshal`
+
+### Check it out in the application
+
+* `bin/rails server`
+
+...and go to http://localhost:3000/  
        
