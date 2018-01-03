@@ -123,7 +123,7 @@ module Dromedary
       @form = Form.new(doc.at('MED/ENTRYFREE/FORM'))
 
       @etyma_xml = Dromedary.empty_array_on_error do
-        doc.at('MED ENTRYFREE ETYM').to_xml
+        doc.css('MED ENTRYFREE ETYM').map(&:to_xml)
       end
 
       @etyma_languages = Dromedary.empty_array_on_error do
