@@ -32,7 +32,7 @@ module Dromedary
         obj
       end
 
-      private
+
       def fill_from_hash(h)
         @rid = h[:rid]
         @date = h[:date]

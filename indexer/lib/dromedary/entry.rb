@@ -89,23 +89,6 @@ module Dromedary
     attr_reader :senses
 
 
-    # Turn this into a hash that can be round-tripped to JSON
-    # @return [Hash] a hash suitable for JSON round-tripping
-    def to_h
-      {
-        xml: xml,
-        id: id,
-        filename: filename.to_s,
-        seq: seq,
-        form: form.to_h,
-        etyma: etyma,
-        etyma_languages: etyma_languages,
-        etyma_xml: etyma_xml,
-        senses: senses.map(&:to_h),
-
-      }
-    end
-
     # @param filename_or_handle [String, #read] A filename (path) or a readable IO object
     # @return [Entry] the filled-in entry, with all its subparts
     def initialize(filename_or_handle)
@@ -140,7 +123,7 @@ module Dromedary
       @form = Form.new(doc.at('MED/ENTRYFREE/FORM'))
 
       @etyma_xml = Dromedary.empty_array_on_error do
-        doc.css('MED ENTRYFREE ETYM').map(&:to_xml)
+        doc.at('MED ENTRYFREE ETYM').to_xml
       end
 
       @etyma_languages = Dromedary.empty_array_on_error do
@@ -245,6 +228,40 @@ module Dromedary
       doc
     end
 
+
+    # Turn this into a hash that can be round-tripped to JSON
+    # @return [Hash] a hash suitable for JSON round-tripping
+    def to_h
+      {
+        xml: xml,
+        id: id,
+        filename: filename.to_s,
+        seq: seq,
+        form: form.to_h,
+        etyma: etyma,
+        etyma_languages: etyma_languages,
+        etyma_xml: etyma_xml,
+        senses: senses.map(&:to_h),
+      }
+    end
+
+    def self.from_h(h)
+      obj = allocate
+      obj.fill_from_hash(h)
+      obj
+    end
+
+    def fill_from_hash(h)
+      @xml = h[:xml]
+      @id = h[:id]
+      @filename = h[:filename]
+      @seq = h[:seq]
+      @etyma = h[:etyma]
+      @etyma_languages  = h[:etyma_languages]
+      @etyma_xml = h[:etyma_xml]
+      @form = Form.from_h(h[:form])
+      @senses = h[:senses].map{|x| Sense.from_h(x)}
+    end
 
   end
 

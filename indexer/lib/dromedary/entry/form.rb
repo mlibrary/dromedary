@@ -27,21 +27,12 @@ module Dromedary
       # @return [String] The first regularized entry for the headword
       attr_reader :display_word
 
-      def to_h
-        {
-            pos: pos,
-            orths: orths.map(&:to_h),
-            headword: headword.to_h,
-            display_word: display_word
-        }
-      end
-
       # @param [Nokogiri::XML::Element] nokonode The nokogiri node for this element
       def initialize(nokonode)
         return if nokonode == :empty
-        @pos       = (nokonode.at('POS') and nokonode.at('POS').text.strip) # need to translate?
+        @pos        = (nokonode.at('POS') and nokonode.at('POS').text.strip) # need to translate?
         hdorth_node = nokonode.at('HDORTH')
-        orth_nodes = nokonode.xpath('ORTH').select{|x| !x.text.strip.empty?}
+        orth_nodes  = nokonode.xpath('ORTH').select {|x| !x.text.strip.empty?}
         if hdorth_node
           @headword = Orth.new(hdorth_node)
         else
@@ -54,7 +45,7 @@ module Dromedary
                         else
                           @headword.regs.first
                         end
-        @orths     = orth_nodes.map{|orthnode| Orth.new(orthnode)}
+        @orths        = orth_nodes.map {|orthnode| Orth.new(orthnode)}
       end
 
       def display_word
@@ -71,6 +62,28 @@ module Dromedary
         else
           @headword.orig
         end
+      end
+
+      def to_h
+        {
+          pos:          pos,
+          orths:        orths.map(&:to_h),
+          headword:     headword.to_h,
+          display_word: display_word
+        }
+      end
+
+      def self.from_h(h)
+        obj = allocate
+        obj.fill_from_hash(h)
+        obj
+      end
+
+      def fill_from_hash(h)
+        @pos          = h[:pos]
+        @orths        = h[:orths].map {|x| Orth.from_h(x)}
+        @headword     = Orth.from_h(h[:headword])
+        @display_word = h[:display_word]
       end
 
     end
