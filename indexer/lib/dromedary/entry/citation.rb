@@ -30,6 +30,15 @@ module Dromedary
 
       end
 
+      def to_h
+        {
+            md: md,
+            cd: cd,
+            quote: quote.to_h,
+            bib: bib.to_h
+        }
+      end
+
     end
   end
 end

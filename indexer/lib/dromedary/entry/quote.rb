@@ -24,6 +24,17 @@ module Dromedary
         @xml                 = nokonode.to_xml
       end
 
+      def to_h
+        {
+            titles: titles,
+            added: added,
+            ovars: ovars,
+            highlighted_phrases: highlighted_phrases,
+            text: text,
+            xml: xml
+        }
+      end
+
     end
   end
 end

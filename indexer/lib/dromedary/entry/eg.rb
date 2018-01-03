@@ -20,6 +20,13 @@ module Dromedary
         @subdef_entry = nokonode.attribute('N') && nokonode.attribute('N').value.downcase
       end
 
+      def to_h
+        {
+            citations: citations.map(&:to_h),
+            subdef_entry: subdef_entry
+        }
+      end
+
     end
   end
 end

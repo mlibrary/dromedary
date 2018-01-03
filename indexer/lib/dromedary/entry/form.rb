@@ -27,6 +27,15 @@ module Dromedary
       # @return [String] The first regularized entry for the headword
       attr_reader :display_word
 
+      def to_h
+        {
+            pos: pos,
+            orths: orths.map(&:to_h),
+            headword: headword.to_h,
+            display_word: display_word
+        }
+      end
+
       # @param [Nokogiri::XML::Element] nokonode The nokogiri node for this element
       def initialize(nokonode)
         return if nokonode == :empty

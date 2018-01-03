@@ -205,6 +205,7 @@
   <copyField source="headwords" dest="word_suggestions" />
   <copyField source="orths" dest="word_suggestions" />
 
+
   <!-- Field to use to determine and enforce document uniqueness.
      Unless this field is marked with required="false", it will be a required field
   -->
