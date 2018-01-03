@@ -73,7 +73,11 @@ module Dromedary
           h[letter] = subdef
         end
         h
+      rescue
+        logger.warn "Couldn't parse definition '#{def_text}' into individual definitions'"
+        {}
       end
+
 
       def to_h
         {

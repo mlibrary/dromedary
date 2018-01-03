@@ -31,6 +31,9 @@ From your `dromedary` directory:
 
 * `bin/dromedary solr install`
 
+This will create links from the dromedary solr configurations into the solr
+directory in the right ways. If you need to run *just* the code to create the links, 
+you can do `bin/dromedary solr link`
     
 ### Get and convert the raw data
 
