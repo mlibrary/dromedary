@@ -88,9 +88,9 @@ module Dromedary
       def self.from_h(h)
         obj = allocate
         obj.fill_from_hash(h)
+        obj
       end
 
-      private
       def fill_from_hash(h)
         @definition = h[:definition]
         @subdefs = h[:subdefs]

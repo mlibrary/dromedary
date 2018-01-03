@@ -27,6 +27,17 @@ module Dromedary
         }
       end
 
+      def self.from_h(h)
+        obj = allocate
+        obj.fill_from_hash(h)
+        obj
+      end
+
+      def fill_from_hash(h)
+        @citations = h[:citations].map{|x| Citation.from_h(x)}
+        @subdef_entry = h[:subdef_entry]
+      end
+
     end
   end
 end

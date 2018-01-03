@@ -39,6 +39,19 @@ module Dromedary
         }
       end
 
+      def self.from_h(h)
+        obj = allocate
+        obj.fill_from_hash(h)
+        obj
+      end
+
+      def fill_from_hash(h)
+        @md = h[:md]
+        @cd = h[:cd]
+        @quote = Quote.from_h(h[:quote])
+        @bib = Bib.from_h(h[:bib])
+      end
+
     end
   end
 end

@@ -19,6 +19,17 @@ module Dromedary
             xml: xml
         }
       end
+
+      def self.from_h(h)
+        obj = allocate
+        obj.fill_from_hash(h)
+        obj
+      end
+
+      def fill_from_hash(h)
+        @stencil = Stencil.from_h(h[:stencil])
+        @xml = h[:xml]
+      end
     end
   end
 end

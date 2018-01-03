@@ -35,6 +35,21 @@ module Dromedary
         }
       end
 
+      def self.from_h(h)
+        obj = allocate
+        obj.fill_from_hash(h)
+        obj
+      end
+
+      def fill_from_hash(h)
+        @titles = h[:titles]
+        @added = h[:added]
+        @ovars = h[:ovars]
+        @highlighted_phrases = h[:highlighted_phrases]
+        @text = h[:text]
+        @xml = h[:xml]
+      end
+
     end
   end
 end
