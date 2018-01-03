@@ -12,6 +12,13 @@ module Dromedary
         @stencil = Stencil.new(stencil_node) if stencil_node
         @xml      = nokonode.to_xml
       end
+
+      def to_h
+        {
+            stencil: stencil.to_h,
+            xml: xml
+        }
+      end
     end
   end
 end

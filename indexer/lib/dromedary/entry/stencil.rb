@@ -16,6 +16,31 @@ module Dromedary
         @highlighted_phrases = nokonode.css('HI').map(&:text).uniq
         (@title = nokonode.at('TITLE')) and (@title = @title.text)
       end
+
+      def to_h
+        {
+            rid: rid,
+            date: date,
+            highlighted_phrases: highlighted_phrases,
+            title: title
+        }
+      end
+
+      def self.from_h(h)
+        obj = allocate
+        obj.fill_from_hash(h)
+        obj
+      end
+
+      private
+      def fill_from_hash(h)
+        @rid = h[:rid]
+        @date = h[:date]
+        @highlighted_phrases = h[:highlighted_phrases]
+        @title = h[:title]
+
+      end
+
     end
   end
 end

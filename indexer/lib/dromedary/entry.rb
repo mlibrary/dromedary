@@ -88,6 +88,24 @@ module Dromedary
     # @return [Array<Sense>] The Sense objects for this entry
     attr_reader :senses
 
+
+    # Turn this into a hash that can be round-tripped to JSON
+    # @return [Hash] a hash suitable for JSON round-tripping
+    def to_h
+      {
+        xml: xml,
+        id: id,
+        filename: filename.to_s,
+        seq: seq,
+        form: form.to_h,
+        etyma: etyma,
+        etyma_languages: etyma_languages,
+        etyma_xml: etyma_xml,
+        senses: senses.map(&:to_h),
+
+      }
+    end
+
     # @param filename_or_handle [String, #read] A filename (path) or a readable IO object
     # @return [Entry] the filled-in entry, with all its subparts
     def initialize(filename_or_handle)
@@ -203,7 +221,6 @@ module Dromedary
 
 
 
-
     # Create a hash that can be sent to solr
     def solr_doc
       doc = {}
@@ -223,7 +240,7 @@ module Dromedary
 
       doc[:orths] = (form.orths.flat_map(&:orig) + form.orths.flat_map(&:regs)).flatten.uniq
 
-      doc[:definitions] = senses.map(&:def) if senses and senses.size > 0
+      doc[:definitions] = senses.map(&:definition) if senses and senses.size > 0
       doc[:quotes] = quotes.map(&:text)
       doc
     end
