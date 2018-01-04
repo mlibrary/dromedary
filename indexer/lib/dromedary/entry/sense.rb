@@ -74,7 +74,7 @@ module Dromedary
         end
         h
       rescue
-        logger.warn "Couldn't parse definition '#{def_text}' into individual definitions'"
+        $stderr.puts "Couldn't parse definition '#{def_text}' into individual definitions'"
         {}
       end
 
