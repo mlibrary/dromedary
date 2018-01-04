@@ -18,9 +18,10 @@ module MedInstaller
     end
 
     def new_pool
+      threads = Concurrent.processor_count > 1 ? Concurrent.processor_count - 1 : 1
       Concurrent::ThreadPoolExecutor.new(
-          min_threads:     4,
-          max_threads:     4,
+          min_threads:     threads,
+          max_threads:     threads,
           max_queue:       100,
           fallback_policy: :caller_runs
       )
@@ -50,6 +51,9 @@ module MedInstaller
     rescue => err
       logger.error err.message
       exit(1)
+    ensure
+      pool.shutdown
+      pool.wait_for_termination
     end
 
     private
