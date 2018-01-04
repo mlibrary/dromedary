@@ -1,6 +1,7 @@
 require 'dromedary/entry'
 require 'hanami/cli'
 require 'json'
+require 'concurrent'
 
 Zip.on_exists_proc = true
 
@@ -16,41 +17,67 @@ module MedInstaller
       MedInstaller::LOGGER
     end
 
+    def new_pool
+      Concurrent::ThreadPoolExecutor.new(
+          min_threads:     4,
+          max_threads:     4,
+          max_queue:       100,
+          fallback_policy: :caller_runs
+      )
+    end
+
 
     def call(datadir:)
       datapath = Pathname(datadir).realdirpath
+      validate_xml_dir(datapath)
+
+      pool = new_pool
+
+      letter = ''
+      Dir.glob("#{datapath}/xml/*/MED*xml").each_with_index do |filename, i|
+        logger.info "#{i} done" if i > 0 and i % 2500 == 0
+        basename, this_letter = letter_and_filename(filename)
+        if this_letter != letter
+          start_new_letter(datapath, this_letter)
+          letter = this_letter
+        end
+
+        pool.post do
+          dump_json(datapath, filename, basename)
+        end
+
+      end
+    rescue => err
+      logger.error err.message
+      exit(1)
+    end
+
+    private
+    def dump_json(datapath, filename, basename)
+      entry          = Dromedary::Entry.new(filename)
+      json_file_name = datapath + 'json' + "#{basename}.json"
+      File.open(json_file_name, 'w:utf-8') {|out| out.puts entry.to_h.to_json}
+    end
+
+    def start_new_letter(datapath, this_letter)
+      logger.info "Beginning work on words starting with #{this_letter}"
+      jdir = (datapath + 'json' + this_letter).to_s
+      FileUtils.mkpath(jdir) unless File.exists? jdir
+    end
+
+    def letter_and_filename(f)
+      m           = %r(xml/((.*?)/(.*))\.xml\Z).match(f)
+      this_letter = m[2]
+      this_file   = m[1]
+      return this_file, this_letter
+    end
+
+    def validate_xml_dir(datapath)
       if Dir.exist?(datapath) and Dir.exist?(datapath + 'xml')
         logger.info "Found xml directory at #{datapath + 'xml'}"
       else
         raise "Can't find xml directory at #{datapath + 'xml'}. Exiting"
       end
-
-      letter = ''
-      Dir.glob("#{datapath}/xml/*/MED*xml").each_with_index do |f, i|
-        logger.info "#{i} done" if i > 0 and i % 2500 == 0
-        m           = %r(xml/((.*?)/(.*))\.xml\Z).match(f)
-        this_letter = m[2]
-        this_file   = m[1]
-        if this_letter != letter
-          logger.info "Beginning work on words starting with #{this_letter}"
-          letter = this_letter
-          jdir   = (datapath + 'json' + this_letter).to_s
-          FileUtils.mkpath(mdir) unless File.exists? mdir
-          FileUtils.mkpath(jdir) unless File.exists? jdir
-        end
-
-        entry = Dromedary::Entry.new(f)
-
-        json_file_name = datapath + 'json' + "#{this_file}.json"
-        File.open(json_file_name, 'w:utf-8') {|out| out.puts entry.to_h.to_json}
-      end
-
-      logger.info "Turning them all into one big file at #{datapath + 'all_entries.json'}"
-      OneFile.new('onefile').call(datadir: datadir)
-      logger.info "Finished"
-    rescue => err
-      logger.error err.message
-      exit(1)
     end
   end
 

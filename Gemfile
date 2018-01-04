@@ -8,12 +8,11 @@ end
 #############################################
 # Non-default stuff added by the Dromedary team
 
-# For the data installer
-
+# For bin/dromedary
 gem 'hanami-cli'
+gem 'concurrent-ruby'
 
 # For solr indexing
-
 gem 'simple_solr_client', require: false
 
 # Faster boot times
@@ -26,7 +25,10 @@ gem "awesome_print"
 # Use pry for the console
 group :development, :test do
   gem 'pry-rails'
-  gem 'pry-byebug'
+  unless defined? JRUBY_VERSION
+    gem 'pry-byebug'
+  end
+
 end
 
 # Use Puma as the app server
@@ -52,10 +54,15 @@ gem 'rails', '~> 5.1.4'
 gem 'blacklight', ">= 6.1"
 
 
-
 # Databases
-gem 'sqlite3'
-gem 'mysql2', require: false
+
+if defined? JRUBY_VERSION
+  gem 'jdbc-sqlite3'
+  gem 'jdbc-mysql'
+else
+  gem 'sqlite3'
+  gem 'mysql2', require: false
+end
 
 # JS and CSS
 gem 'sass-rails', '~> 5.0'

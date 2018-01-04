@@ -37,7 +37,7 @@ you can do `bin/dromedary solr link`
     
 ### Get and convert the raw data
 
-The data is stored in litle `.xml` files. We want to get them from the Box directory,
+The data is stored in little `.xml` files. We want to get them from the Box directory,
 extract the little XML files from their enclosing `.zip` files, and then convert 
 them to a different format (because ruby deals with XML *very* slowly).
 

@@ -117,24 +117,25 @@ module Dromedary
       @xml = doc.to_xml
 
 
-      @id  = doc.css('ENTRYFREE').first.attr('ID')
-      @seq = doc.css('ENTRYFREE').first.attr('SEQ')
+      entry = doc.at('ENTRYFREE')
+      @id  = entry.attr('ID')
+      @seq = entry.attr('SEQ')
 
-      @form = Form.new(doc.at('MED/ENTRYFREE/FORM'))
+      @form = Form.new(entry.at('FORM'))
 
       @etyma_xml = Dromedary.empty_array_on_error do
-        doc.css('MED ENTRYFREE ETYM').map(&:to_xml)
+        entry.xpath('ETYM').map(&:to_xml)
       end
 
       @etyma_languages = Dromedary.empty_array_on_error do
-        doc.css('MED ENTRYFREE ETYM LANG').map(&:text).map(&:strip)
+        entry.xpath("ETYM/LANG").map(&:text).map(&:strip)
       end
 
       @etyma = Dromedary.empty_array_on_error do
-        doc.css('MED ENTRYFREE ETYM HI').map(&:text).map(&:strip)
+        entry.xpath("ETYM/HI").map(&:text).map(&:strip)
       end
 
-      @senses = doc.xpath('/MED/ENTRYFREE/SENSE').map {|s| Sense.new(s)}
+      @senses = entry.xpath('SENSE').map {|s| Sense.new(s)}
     rescue => err
       logger.warn "Problem with #{@filename}: #{err.message} #{err.backtrace}"
     end
