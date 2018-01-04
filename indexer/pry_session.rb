@@ -34,12 +34,20 @@ entries = Dromedary::EntrySet.new
 
 target_dirs.each do |td|
   Dir.glob("#{td}/MED*.json") do |f|
-    entries << Dromedary::Entry.from_h(JSON.parse(File.read(f), symbolize_names: true))
+    begin
+      entries << Dromedary::Entry.from_h(JSON.parse(File.read(f), symbolize_names: true))
+    rescue => err
+        $stderr.puts "Problem with #{f}: #{err}"
+    end
+
   end
 end
+
 
 
 require 'pry'; binding.pry
 
 $stderr.puts "Goodbye"
+
+
 
