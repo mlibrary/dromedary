@@ -1,6 +1,7 @@
 $:.unshift 'lib'
 require 'json'
 require 'dromedary/entry'
+require 'dromedary/entry_set'
 
 unless ARGV.size > 0
   puts "pry_session.rb; get a pry session with a bunch of entries loaded up"
@@ -14,36 +15,12 @@ unless ARGV.size > 0
 end
 
 datadir = Pathname(ARGV.shift)
-jsondir = datadir + 'json'
-
-dirs = ARGV.map(&:upcase)
-
-
-alldirs     = Dir.new(jsondir).reject {|x| ['.', '..'].include? x}.map {|d| jsondir + d}.map(&:to_s).reject {|x| !File.directory?(x)}
-target_dirs = if dirs.empty?
-                alldirs
-              else
-                regexps = dirs.map {|x| Regexp.new("/#{x}*\\Z")}
-                alldirs.select {|d| regexps.any? {|r| r.match(d)}}
-              end
-
-
-$stderr.puts "Loading json files into `entries`."
+letters = ARGV
 
 entries = Dromedary::EntrySet.new
+entries.load_by_letter(datadir, *letters)
 
-target_dirs.each do |td|
-  Dir.glob("#{td}/MED*.json") do |f|
-    begin
-      entries << Dromedary::Entry.from_h(JSON.parse(File.read(f), symbolize_names: true))
-    rescue => err
-        $stderr.puts "Problem with #{f}: #{err}"
-    end
-
-  end
-end
-
-
+puts "Loaded #{entries.count} entries into 'entries' (a #{entries.class})"
 
 require 'pry'; binding.pry
 

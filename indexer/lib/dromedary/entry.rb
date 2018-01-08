@@ -3,6 +3,7 @@ require 'yell'
 require 'dromedary/entry/constants'
 require 'dromedary/entry/form'
 require 'dromedary/entry/sense'
+require 'dromedary/entry_set'
 
 module Dromedary
 
@@ -264,25 +265,5 @@ module Dromedary
       @senses = h[:senses].map{|x| Sense.from_h(x)}
     end
 
-  end
-
-  class EntrySet
-    include Enumerable
-    def initialize
-      @h = {}
-    end
-
-    def each
-      return enum_for(:each) unless block_given?
-      @h.values.each{|e| yield e}
-    end
-
-    def <<(e)
-      @h[e.id] = e
-    end
-
-    def [](k)
-      @h[k]
-    end
   end
 end
