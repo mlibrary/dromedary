@@ -4,6 +4,7 @@ require 'dromedary/entry/constants'
 require 'dromedary/entry/form'
 require 'dromedary/entry/sense'
 require 'dromedary/entry_set'
+require 'json'
 
 module Dromedary
 

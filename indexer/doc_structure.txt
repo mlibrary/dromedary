@@ -1,8 +1,0 @@
-# Where are the notes?
-
-"MED/ENTRYFREE/SUPPLEMENT/EG/NOTE",
-"MED/ENTRYFREE/NOTE",
-"MED/ENTRYFREE/SUPPLEMENT/NOTE",
-"MED/ENTRYFREE/SUPPLEMENT/EG/CIT/NOTE"
-
-# What do the supplements look like?
