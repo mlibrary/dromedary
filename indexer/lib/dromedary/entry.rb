@@ -137,6 +137,9 @@ module Dromedary
       end
 
       @senses = entry.xpath('SENSE').map {|s| Sense.new(s)}
+
+      @supplements = []
+
     rescue => err
       logger.warn "Problem with #{@filename}: #{err.message} #{err.backtrace}"
     end
