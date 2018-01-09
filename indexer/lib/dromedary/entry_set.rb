@@ -16,11 +16,19 @@ module Dromedary
       @h[e.id] = e
     end
 
+    # Look up by ID
     def [](k)
       @h[k]
     end
 
+    # Load from <datapath>/json/<letters> all the entries that begin with the
+    # given letter(s)
+    #
+    # @param [String] datapath The path to the `data` directory
+    # @param [Array<String>, variable list of string] letters Load words that start with these letters
+    # @return [EntrySet] self
     def load_by_letter(datapath, *letters)
+      letters = letters.flatten
       datadir = Pathname(datapath)
       jsondir = datadir + 'json'
       alldirs     = Dir.new(jsondir).reject {|x| ['.', '..'].include? x}.map {|d| jsondir + d}.map(&:to_s).reject {|x| !File.directory?(x)}
@@ -39,8 +47,10 @@ module Dromedary
           end
         end
       end
+      self
     end
 
+    # Load all entries
     def load_all(datapath)
       load_by_letter(datapath, *('A'..'Z'))
     end
