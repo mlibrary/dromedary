@@ -1,5 +1,6 @@
 #!/bin/env ruby
 
+require 'pathname'
 
 $:.unshift Pathname(__dir__).realdirpath + "lib"
 require 'nokogiri'
