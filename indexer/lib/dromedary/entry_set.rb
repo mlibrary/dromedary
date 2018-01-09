@@ -33,7 +33,7 @@ module Dromedary
       jsondir = datadir + 'json'
       alldirs     = Dir.new(jsondir).reject {|x| ['.', '..'].include? x}.map {|d| jsondir + d}.map(&:to_s).reject {|x| !File.directory?(x)}
       target_dirs = if letters.empty?
-                      load_all_from_json(datapath)
+                      alldirs
                     else
                       regexps = letters.map {|x| Regexp.new("/#{x.upcase}*\\Z")}
                       alldirs.select {|d| regexps.any? {|r| r.match(d)}}

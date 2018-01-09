@@ -5,11 +5,11 @@ require 'pathname'
 $:.unshift Pathname(__dir__).realdirpath + "lib"
 require 'nokogiri'
 require 'simple_solr_client'
-require 'dromedary/entry'
+require 'dromedary/entry_set'
 require 'yell'
 
 
-path_to_marshal = ARGV[0]
+path_to_marshal    = ARGV[0]
 individual_entries = ARGV[1..-1]
 
 unless path_to_marshal
@@ -18,8 +18,8 @@ unless path_to_marshal
     Usage: 
       export SOLR_URL="http://whatever:whateverport" (default: localhost:8983)
       
-          ruby indexer.rb <path to all_entries.marshal>
-      or  ruby indexer.rb <path to all_entries.marshal> list of MED ids
+          ruby indexer.rb <path/to/data> (which has xml/*/MED*.xml)
+      or  ruby indexer.rb </path/to/data> A B (only index entries that start with 'A' or 'B')
 
   USAGE
   exit(1)
@@ -31,25 +31,24 @@ module Dromedary
 
     LOGGER = Yell.new(STDERR)
 
-    attr_reader :individual_entries
+    attr_reader :target_dirs
     attr_reader :client
 
-    def initialize(path_to_marshal, individual_entries = [])
-      solr_url            = ENV['SOLR_URL'] || 'http://localhost:8983/solr'
-      @marshal_file_name  = self.validate_path(path_to_marshal)
-      @client             = self.get_client(solr_url)
-      @individual_entries = individual_entries
+    def initialize(datapath, *letters)
+      solr_url = ENV['SOLR_URL'] || 'http://localhost:8983/solr'
+      @client  = self.get_client(solr_url)
+      @entries = Dromedary::EntrySet.new
+      @letters = letters.flatten
+      if @letters.empty?
+        @full = true
+        @letters = ('A'..'Z').to_a
+      else
+        @full = false
+      end
+      @datapath = datapath
     rescue => err
       self.logger.error "#{err.message}:\n#{err.backtrace}"
       exit(1)
-    end
-
-
-    def validate_path(path_to_marshal)
-      unless File.exist? path_to_marshal
-        raise "Cannot find file #{path_to_marshal}; exiting"
-      end
-      Pathname(path_to_marshal)
     end
 
     def get_client(solr_url)
@@ -62,19 +61,13 @@ module Dromedary
       med
     end
 
-    def ientries?
-      !@individual_entries.empty?
-    end
-
     def index
-      logger.info "Sucking in entries from marshal file. Takes a minute."
-      entries = Marshal.load(File.open(@marshal_file_name, 'rb'))
-      clean_out unless ientries?
+      clean_out if @full
       reload
-      if ientries?
-        index_ientries(entries)
-      else
-        index_all(entries)
+      @letters.each do |letter|
+        subset = Dromedary::EntrySet.new.load_by_letter(@datapath, letter)
+        logger.info "Working on #{letter}"
+        index_all(subset)
       end
       logger.info "Committing..."
       client.commit
@@ -93,21 +86,11 @@ module Dromedary
       @client.reload
     end
 
-    def index_ientries(entries)
-      logger.info "Adding #{individual_entries.count} entries"
-      to_index = individual_entries.map {|x| entries[x]}
-      to_index.each do |e|
-        client.add_docs e.solr_doc
-      end
-    end
-
     def index_all(entries)
       logger.info "Beginning indexing of #{entries.count} entries"
       i     = 1
       slice = 10_000
       entries.each_slice(slice) do |e|
-        logger.info "#{(i - 1) * slice} to #{i * slice}"
-        i += 1
         begin
           client.add_docs e.map(&:solr_doc)
         rescue => err
