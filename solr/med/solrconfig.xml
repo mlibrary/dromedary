@@ -3,13 +3,13 @@
 
 <!-- Load up stuff we keep in external files -->
 <!DOCTYPE config [
-  <!ENTITY default_author_stuff  SYSTEM "solrconfig_med/author_defaults.xml">
-  <!ENTITY default_entry_stuff   SYSTEM "solrconfig_med/entry_defaults.xml">
-  <!ENTITY default_title_stuff   SYSTEM "solrconfig_med/title_defaults.xml">
-  <!ENTITY default_keyword_stuff SYSTEM "solrconfig_med/keyword_defaults.xml">
-  <!ENTITY default_facet_stuff   SYSTEM "solrconfig_med/facet_defaults.xml">
+        <!ENTITY default_author_stuff  SYSTEM "solrconfig_med/author_defaults.xml">
+        <!ENTITY default_entry_stuff   SYSTEM "solrconfig_med/entry_defaults.xml">
+        <!ENTITY default_title_stuff   SYSTEM "solrconfig_med/title_defaults.xml">
+        <!ENTITY default_keyword_stuff SYSTEM "solrconfig_med/keyword_defaults.xml">
+        <!ENTITY default_facet_stuff   SYSTEM "solrconfig_med/facet_defaults.xml">
 
-]>
+        ]>
 
 <config>
   <luceneMatchVersion>6.0.0</luceneMatchVersion>
@@ -60,29 +60,6 @@
   </requestHandler>
 
 
-  <requestHandler name="suggest1" class="solr.SuggestComponent">
-    <lst name="suggester">
-      <str name="name">FSTSuggester</str>
-      <str name="lookupImpl">FSTLookupFactory</str>
-      <str name="field">word_suggestions</str>
-      <str name="suggestAnalyzerFieldType">me_text</str>
-      <str name="exactMatchFirst">true</str>
-      <str name="buildOnStartup">false</str>
-    </lst>
-  </requestHandler>
-
-  <requestHandler name="suggest2" class="solr.SuggestComponent">
-    <lst name="suggester">
-      <str name="name">AnalyzingInfixLookupFactory</str>
-      <str name="lookupImpl">AnalyzingInfixLookupFactory</str>
-      <str name="field">word_suggestions</str>
-      <str name="suggestAnalyzerFieldType">me_text</str>
-      <str name="exactMatchFirst">true</str>
-      <str name="buildOnStartup">false</str>
-      <str name="minPrefixChars">2</str>
-    </lst>
-  </requestHandler>
-
   <requestHandler name="/document" class="solr.SearchHandler">
     <lst name="defaults">
       <str name="echoParams">all</str>
@@ -92,10 +69,101 @@
     </lst>
   </requestHandler>
 
+
+  <!--## Suggest stuff ##-->
+
+
+  <!--<searchComponent name="suggest" class="solr.SuggestComponent">-->
+  <!--<lst name="suggester">-->
+  <!--<str name="name">mySuggester</str>-->
+  <!--<str name="lookupImpl">FuzzyLookupFactory</str>-->
+  <!--<str name="suggestAnalyzerFieldType">me_text</str>-->
+  <!--<str name="buildOnCommit">true</str>-->
+  <!--<str name="field">word_suggestions</str>-->
+  <!--</lst>-->
+  <!--</searchComponent>-->
+
+  <!--<requestHandler name="/headword_suggest" class="solr.SearchHandler" startup="lazy">-->
+  <!--<lst name="defaults">-->
+  <!--<str name="suggest">true</str>-->
+  <!--<str name="suggest.count">5</str>-->
+  <!--<str name="suggest.dictionary">mySuggester</str>-->
+  <!--</lst>-->
+  <!--<arr name="components">-->
+  <!--<str>suggest</str>-->
+  <!--</arr>-->
+  <!--</requestHandler>-->
+
+
+  <searchComponent name="headword_suggest" class="solr.SuggestComponent">
+    <lst name="suggester">
+      <str name="name">AnalyzingInfixLookupFactorySuggester</str>
+      <str name="lookupImpl">AnalyzingInfixLookupFactory</str>
+      <str name="suggestAnalyzerFieldType">me_text</str>
+      <str name="buildOnCommit">true</str>
+      <str name="field">word_suggestions</str>
+      <str name="exactMatchFirst">true</str>
+      <str name="buildOnStartup">false</str>
+      <str name="minPrefixChars">2</str>
+    </lst>
+  </searchComponent>
+
+  <requestHandler name="/headword_suggest" class="solr.SearchHandler"
+                  startup="lazy">
+    <lst name="defaults">
+      <str name="suggest">true</str>
+      <str name="suggest.count">5</str>
+      <str name="suggest.dictionary">AnalyzingInfixLookupFactorySuggester</str>
+    </lst>
+    <arr name="components">
+      <str>headword_suggest</str>
+    </arr>
+  </requestHandler>
+
+
+  <!--<searchComponent name="suggest" class="solr.SuggestComponent">-->
+  <!--<lst name="headword_suggester">-->
+  <!--<str name="name">AnalyzingInfixLookupFactory</str>-->
+  <!--<str name="lookupImpl">AnalyzingInfixLookupFactory</str>-->
+  <!--<str name="field">word_suggestions</str>-->
+  <!--<str name="dictionaryImpl">DocumentDictionaryFactory</str>-->
+  <!--<str name="suggestAnalyzerFieldType">me_text</str>-->
+  <!--<str name="exactMatchFirst">true</str>-->
+  <!--<str name="buildOnStartup">false</str>-->
+  <!--<str name="minPrefixChars">2</str>-->
+  <!--</lst>-->
+  <!--</searchComponent>-->
+
+  <!--<requestHandler name="/headword_suggest" class="solr.SearchHandler"-->
+  <!--startup="lazy" >-->
+  <!--<lst name="defaults">-->
+  <!--<str name="suggest">true</str>-->
+  <!--<str name="suggest.count">10</str>-->
+  <!--<str name="minPrefixChars">2</str>-->
+  <!--<str name="suggest.dictionary">headword_suggester</str>-->
+  <!--</lst>-->
+  <!--<arr name="components">-->
+  <!--<str>suggest</str>-->
+  <!--</arr>-->
+  <!--</requestHandler>-->
+
+
+  <!--<requestHandler name="suggest1" class="solr.SuggestComponent">-->
+  <!--<lst name="suggester">-->
+  <!--<str name="name">FSTSuggester</str>-->
+  <!--<str name="lookupImpl">FSTLookupFactory</str>-->
+  <!--<str name="field">word_suggestions</str>-->
+  <!--<str name="suggestAnalyzerFieldType">me_text</str>-->
+  <!--<str name="exactMatchFirst">true</str>-->
+  <!--<str name="buildOnStartup">false</str>-->
+  <!--</lst>-->
+  <!--</requestHandler>-->
+
+
   <!--<initParams path="/update/**,/query,/select,/tvrh,/elevate,/spell">-->
-    <!--<lst name="defaults">-->
-      <!--<str name="df">text</str>-->
-    <!--</lst>-->
+  <!--<lst name="defaults">-->
+  <!--<str name="df">text</str>-->
+  <!--</lst>-->
   <!--</initParams>-->
 
   <!-- Field Analysis Request Handler
@@ -164,12 +232,6 @@
   </requestHandler>
 
 
-
-
-
-
-
-
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
        Caching, locking, and other low-level crap
@@ -177,7 +239,6 @@
        the above stuff.
 
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  -->
-
 
 
   <!-- The DirectoryFactory to use for indexes.
@@ -204,20 +265,20 @@
 
   <!-- The default high-performance update handler -->
   <updateHandler class="solr.DirectUpdateHandler2">
-  <!--  <updateLog>
-      <str name="dir">${solr.ulog.dir:}</str>
-      <int name="numVersionBuckets">${solr.ulog.numVersionBuckets:65536}</int>
-    </updateLog>
+    <!--  <updateLog>
+        <str name="dir">${solr.ulog.dir:}</str>
+        <int name="numVersionBuckets">${solr.ulog.numVersionBuckets:65536}</int>
+      </updateLog>
 
-     <autoCommit>
-       <maxTime>${solr.autoCommit.maxTime:15000}</maxTime>
-       <openSearcher>false</openSearcher>
-     </autoCommit>
+       <autoCommit>
+         <maxTime>${solr.autoCommit.maxTime:15000}</maxTime>
+         <openSearcher>false</openSearcher>
+       </autoCommit>
 
-     <autoSoftCommit>
-       <maxTime>${solr.autoSoftCommit.maxTime:-1}</maxTime>
-     </autoSoftCommit>
-  -->
+       <autoSoftCommit>
+         <maxTime>${solr.autoSoftCommit.maxTime:-1}</maxTime>
+       </autoSoftCommit>
+    -->
   </updateHandler>
 
 
@@ -262,7 +323,6 @@
     <maxWarmingSearchers>2</maxWarmingSearchers>
 
   </query>
-
 
 
   <!-- Search Components

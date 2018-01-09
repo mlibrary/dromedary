@@ -4,7 +4,7 @@ require 'dromedary/entry/constants'
 require 'dromedary/entry/form'
 require 'dromedary/entry/sense'
 require 'dromedary/entry_set'
-require 'dromedary/supplement'
+require 'dromedary/entry/supplement'
 require 'json'
 
 module Dromedary
@@ -122,7 +122,7 @@ module Dromedary
       end
 
       # Normalize the case of the node names
-      doc = uppercase_element_names!(doc)
+      uppercase_element_names!(doc)
 
       # ...and get the XML
       @xml = doc.to_xml
