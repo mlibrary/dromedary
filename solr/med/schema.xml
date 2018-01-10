@@ -191,19 +191,20 @@
   <field name="main_headword_exactish" type="exactish" indexed="true" stored="true" multiValued="false"/>
   <copyField source="main_headword" dest="main_headword_exactish"/>
 
-  <field name="headwords"     type="me_text" indexed="true" stored="true" multiValued="true"/>
-  <field name="headwords_exactish" type="exactish" indexed="true" stored="true" multiValued="true"/>
-  <copyField source="headwords" dest="headwords_exactish"/>
+  <field name="headword"     type="me_text" indexed="true" stored="true" multiValued="true"/>
+  <field name="headword_exactish" type="exactish" indexed="true" stored="true" multiValued="true"/>
+  <copyField source="headword" dest="headword_exactish"/>
 
 
-  <field name="orths"         type="me_text" indexed="true" stored="true" multiValued="true"/>
-  <field name="definitions"   type="text"    indexed="true" stored="true" multiValued="true"/>
-  <field name="quotes"        type="me_text" indexed="true" stored="true" multiValued="true"/>
+  <field name="orth"         type="me_text" indexed="true" stored="true" multiValued="true"/>
+  <field name="definition_text"   type="text"    indexed="true" stored="true" multiValued="true"/>
+  <field name="definition"   type="string"    indexed="false" stored="true" multiValued="true"/>
+  <field name="quote"        type="me_text" indexed="true" stored="true" multiValued="true"/>
 
   <field name="word_suggestions" type="me_text" indexed="true" stored="true" multiValued="true"/>
   <copyField source="main_headword" dest="word_suggestions" />
-  <copyField source="headwords" dest="word_suggestions" />
-  <copyField source="orths" dest="word_suggestions" />
+  <copyField source="headword" dest="word_suggestions" />
+  <copyField source="orth" dest="word_suggestions" />
 
 
   <!-- Field to use to determine and enforce document uniqueness.

@@ -170,6 +170,10 @@ module Dromedary
       form.orths
     end
 
+    def all_forms_as_text
+      headword.all_forms.concat orths.flat_map(&:all_forms)
+    end
+
 
     # @return [Array<EG>] All the EG objects from all the senses
     def egs
@@ -263,12 +267,16 @@ module Dromedary
       end
 
       doc[:main_headword] = display_word
-      doc[:headwords]     = headword.regs.unshift(headword.orig) - [display_word]
+      doc[:headword]      = headword.regs.unshift(headword.orig) - [display_word]
 
-      doc[:orths]       = (form.orths.flat_map(&:orig) + form.orths.flat_map(&:regs)).flatten.uniq
+      doc[:orth] = (form.orths.flat_map(&:orig) + form.orths.flat_map(&:regs)).flatten.uniq
 
-      doc[:definitions] = senses.map(&:definition) if senses and senses.size > 0
-      doc[:quotes]      = quotes.map(&:text)
+      if senses and senses.size > 0
+        doc[:definition] = senses.map(&:definition)
+        doc[:definition_text] = senses.map(&:definition_text)
+      end
+
+      doc[:quote] = quotes.map(&:text)
       doc
     end
 
