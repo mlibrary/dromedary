@@ -203,7 +203,6 @@ class CatalogController < ApplicationController
 
     # Configuration for autocomplete suggestor
     config.autocomplete_enabled = true
-    config.autocomplete_path    = '/headword_suggest'
-    config.suggest_path = "/headword_suggest"
+    config.autocomplete_path    = 'suggest'
   end
 end
