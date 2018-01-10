@@ -25,18 +25,16 @@ Blacklight.onLoad(function () {
         $el.typeahead({
                 hint: true,
                 highlight: true,
-                minLength: 2,
-                callback: {
-                    onClickAfter: function (node, a, item, event) {
-                        alert("Click");
-                    }
-                },
+                minLength: 2
             },
             {
                 name: 'terms',
                 displayKey: 'term',
                 source: terms.ttAdapter(),
                 limit: 15
+            }).on('typeahead:selected',
+            function(event, data) {
+                $(event.target).closest('form').submit();
             });
     });
 });
