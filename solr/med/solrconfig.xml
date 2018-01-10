@@ -50,8 +50,8 @@
         main_headword_exactish^500
         main_headword^100
         headwords_exactish^50
-        headwords^10
-        variants^1
+        headword^10
+        orth^1
       </str>
 
       <str name="facet.mincount">1</str>
@@ -73,28 +73,6 @@
   <!--## Suggest stuff ##-->
 
 
-  <!--<searchComponent name="suggest" class="solr.SuggestComponent">-->
-  <!--<lst name="suggester">-->
-  <!--<str name="name">mySuggester</str>-->
-  <!--<str name="lookupImpl">FuzzyLookupFactory</str>-->
-  <!--<str name="suggestAnalyzerFieldType">me_text</str>-->
-  <!--<str name="buildOnCommit">true</str>-->
-  <!--<str name="field">word_suggestions</str>-->
-  <!--</lst>-->
-  <!--</searchComponent>-->
-
-  <!--<requestHandler name="/headword_suggest" class="solr.SearchHandler" startup="lazy">-->
-  <!--<lst name="defaults">-->
-  <!--<str name="suggest">true</str>-->
-  <!--<str name="suggest.count">5</str>-->
-  <!--<str name="suggest.dictionary">mySuggester</str>-->
-  <!--</lst>-->
-  <!--<arr name="components">-->
-  <!--<str>suggest</str>-->
-  <!--</arr>-->
-  <!--</requestHandler>-->
-
-
   <searchComponent name="headword_suggest" class="solr.SuggestComponent">
     <lst name="suggester">
       <str name="name">mySuggester</str>
@@ -103,7 +81,7 @@
       <str name="buildOnCommit">true</str>
       <str name="field">word_suggestions</str>
       <str name="exactMatchFirst">true</str>
-      <str name="buildOnStartup">false</str>
+      <str name="buildOnStartup">true</str>
       <str name="minPrefixChars">2</str>
       <str name="dictionaryImpl">DocumentDictionaryFactory</str>
     </lst>
@@ -113,52 +91,13 @@
                   startup="lazy">
     <lst name="defaults">
       <str name="suggest">true</str>
-      <str name="suggest.count">5</str>
+      <str name="suggest.count">15</str>
       <str name="suggest.dictionary">mySuggester</str>
     </lst>
     <arr name="components">
       <str>headword_suggest</str>
     </arr>
   </requestHandler>
-
-
-  <!--<searchComponent name="suggest" class="solr.SuggestComponent">-->
-  <!--<lst name="headword_suggester">-->
-  <!--<str name="name">AnalyzingInfixLookupFactory</str>-->
-  <!--<str name="lookupImpl">AnalyzingInfixLookupFactory</str>-->
-  <!--<str name="field">word_suggestions</str>-->
-  <!--<str name="dictionaryImpl">DocumentDictionaryFactory</str>-->
-  <!--<str name="suggestAnalyzerFieldType">me_text</str>-->
-  <!--<str name="exactMatchFirst">true</str>-->
-  <!--<str name="buildOnStartup">false</str>-->
-  <!--<str name="minPrefixChars">2</str>-->
-  <!--</lst>-->
-  <!--</searchComponent>-->
-
-  <!--<requestHandler name="/headword_suggest" class="solr.SearchHandler"-->
-  <!--startup="lazy" >-->
-  <!--<lst name="defaults">-->
-  <!--<str name="suggest">true</str>-->
-  <!--<str name="suggest.count">10</str>-->
-  <!--<str name="minPrefixChars">2</str>-->
-  <!--<str name="suggest.dictionary">headword_suggester</str>-->
-  <!--</lst>-->
-  <!--<arr name="components">-->
-  <!--<str>suggest</str>-->
-  <!--</arr>-->
-  <!--</requestHandler>-->
-
-
-  <!--<requestHandler name="suggest1" class="solr.SuggestComponent">-->
-  <!--<lst name="suggester">-->
-  <!--<str name="name">FSTSuggester</str>-->
-  <!--<str name="lookupImpl">FSTLookupFactory</str>-->
-  <!--<str name="field">word_suggestions</str>-->
-  <!--<str name="suggestAnalyzerFieldType">me_text</str>-->
-  <!--<str name="exactMatchFirst">true</str>-->
-  <!--<str name="buildOnStartup">false</str>-->
-  <!--</lst>-->
-  <!--</requestHandler>-->
 
 
   <!--<initParams path="/update/**,/query,/select,/tvrh,/elevate,/spell">-->

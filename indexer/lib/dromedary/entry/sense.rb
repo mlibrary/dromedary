@@ -7,8 +7,11 @@ module Dromedary
     # other meanings to count as its own thing
     class Sense
 
-      # @return [String] the definition, as an unadorned string
+      # @return [String] the definition xml, as an unadorned string
       attr_reader :definition
+
+      # @return [String] The un-tagged definition text
+      attr_reader :definition_text
 
 
       # The sub-definitions, returned as a hash of the form
@@ -36,7 +39,9 @@ module Dromedary
       def initialize(nokonode)
         return if nokonode == :empty
         @xml        = nokonode.to_xml
-        @definition = nokonode.at('DEF').text
+        @definition = nokonode.at('DEF').to_xml
+
+        @definition_text = nokonode.at('DEF').text
         @subdefs    = split_defs(@definition)
 
         @usages = Dromedary.empty_array_on_error do
