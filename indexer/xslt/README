@@ -3,3 +3,9 @@ ExtractForms.xsl
 WholeEntry.xsl 
 	Takes Entry file and produces HTML output as close as possible to existing 
 	MEC interface. (Needs updating to deal with change in FORM structure)
+WholeEntryNotes.xsl
+	Revised WholeEntry.xsl to do the following
+	1) Process the new <FORM> markup
+	2) Render NOTES
+	3) Render the supplement
+
