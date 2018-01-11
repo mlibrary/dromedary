@@ -35,11 +35,15 @@ module Dromedary
       # @return [String] the raw XML snippet for this Sense
       attr_reader :xml
 
+      # @return [Integer] the (1-based) order of this sense, or zero if not given
+      attr_reader :sense_number
+
       # @param [Nokogiri::XML::Element] nokonode The nokogiri node for this element
       def initialize(nokonode)
         return if nokonode == :empty
         @xml        = nokonode.to_xml
         @definition = nokonode.at('DEF').to_xml
+        @sense_number = nokonode.attr('N') || 0
 
         @definition_text = nokonode.at('DEF').text
         @subdefs    = split_defs(@definition)
@@ -86,6 +90,7 @@ module Dromedary
 
       def to_h
         {
+            sense_number: sense_number,
             definition: definition,
             subdefs: subdefs,
             usages: usages,
@@ -106,6 +111,7 @@ module Dromedary
         @usages = h[:usages]
         @xml = h[:xml]
         @egs = h[:egs].map{|x| EG.from_h(x)}
+        @sense_number = h[:sense_number]
       end
 
     end

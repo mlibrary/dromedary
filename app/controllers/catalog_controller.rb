@@ -14,6 +14,11 @@ class CatalogController < ApplicationController
     # config.response_model = Blacklight::Solr::Response
 
 
+    #----------------------------------------------------------
+    #   Dromedary-only stuff
+    #----------------------------------------------------------
+    
+
     ##--------------------------------------------------------
     # Talking to solr
     ##--------------------------------------------------------
