@@ -1,4 +1,4 @@
-require 'dromedary/entry/eg'
+require_relative "eg"
 
 module Dromedary
   class Entry

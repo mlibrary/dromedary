@@ -4,9 +4,9 @@ module MedInstaller
   LOGGER = Yell.new(STDERR)
 end
 
-require 'med_installer/extract'
-require 'med_installer/convert'
-require 'med_installer/usage'
-require 'med_installer/solr'
+require_relative 'med_installer/extract'
+require_relative 'med_installer/convert'
+require_relative 'med_installer/usage'
+require_relative 'med_installer/solr'
 
 

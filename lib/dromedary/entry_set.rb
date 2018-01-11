@@ -1,4 +1,4 @@
-require 'dromedary/entry'
+require_relative 'entry'
 
 module Dromedary
   class EntrySet
