@@ -14,6 +14,11 @@ class CatalogController < ApplicationController
     # config.response_model = Blacklight::Solr::Response
 
 
+    #----------------------------------------------------------
+    #   Dromedary-only stuff
+    #----------------------------------------------------------
+
+
     ##--------------------------------------------------------
     # Talking to solr
     ##--------------------------------------------------------
@@ -105,7 +110,7 @@ class CatalogController < ApplicationController
     #  (useful when user clicks "more" on a large facet and wants to navigate alphabetically across a large set of results)
     # :index_range can be an array or range of prefixes that will be used to create the navigation (note: It is case sensitive when searching values)
 
-    config.add_facet_field 'pos', label: 'Part of Speech'
+    config.add_facet_field 'pos_abbrev', label: 'Part of Speech'
 
     #     config.add_facet_field 'subject_topic_facet', label: 'Topic', limit: 20, index_range: 'A'..'Z'
     #     config.add_facet_field 'example_pivot_field', label: 'Pivot Field', :pivot => ['format', 'language_facet']
@@ -148,15 +153,15 @@ class CatalogController < ApplicationController
     # since we aren't specifying it otherwise.
 
 
-    config.add_search_field 'Keywords', label: 'Everything'
+    # config.add_search_field 'Keywords', label: 'Everything'
 
-    config.add_search_field("Headwords") do |field|
+    config.add_search_field("Headwords and forms") do |field|
       field.solr_local_parameters = {
         qf: '$entry_qf',
         pf: '$entry_pf'
       }
     end
-
+    #
     # Now we see how to over-ride Solr request handler defaults, in this
     # case for a BL "search field", which is really a dismax aggregate
     # of Solr search fields.
@@ -199,10 +204,10 @@ class CatalogController < ApplicationController
 
     # If there are more than this many search results, no spelling ("did you
     # mean") suggestion is offered.
-    config.spell_max = 5
+    config.spell_max = 15
 
     # Configuration for autocomplete suggestor
     config.autocomplete_enabled = true
-    # config.autocomplete_path    = 'suggest'
+    config.autocomplete_path    = 'suggest'
   end
 end

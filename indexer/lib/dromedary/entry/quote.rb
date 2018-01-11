@@ -24,6 +24,32 @@ module Dromedary
         @xml                 = nokonode.to_xml
       end
 
+      def to_h
+        {
+            titles: titles,
+            added: added,
+            ovars: ovars,
+            highlighted_phrases: highlighted_phrases,
+            text: text,
+            xml: xml
+        }
+      end
+
+      def self.from_h(h)
+        obj = allocate
+        obj.fill_from_hash(h)
+        obj
+      end
+
+      def fill_from_hash(h)
+        @titles = h[:titles]
+        @added = h[:added]
+        @ovars = h[:ovars]
+        @highlighted_phrases = h[:highlighted_phrases]
+        @text = h[:text]
+        @xml = h[:xml]
+      end
+
     end
   end
 end
