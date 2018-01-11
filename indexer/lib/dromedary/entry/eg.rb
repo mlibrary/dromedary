@@ -20,6 +20,24 @@ module Dromedary
         @subdef_entry = nokonode.attribute('N') && nokonode.attribute('N').value.downcase
       end
 
+      def to_h
+        {
+            citations: citations.map(&:to_h),
+            subdef_entry: subdef_entry
+        }
+      end
+
+      def self.from_h(h)
+        obj = allocate
+        obj.fill_from_hash(h)
+        obj
+      end
+
+      def fill_from_hash(h)
+        @citations = h[:citations].map{|x| Citation.from_h(x)}
+        @subdef_entry = h[:subdef_entry]
+      end
+
     end
   end
 end

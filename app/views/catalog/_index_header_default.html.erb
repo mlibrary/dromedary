@@ -7,7 +7,7 @@
   <% doc_presenter = index_presenter(document) %>
 
   <% document_actions = capture do %>
-    <% # bookmark functions for items/docs   -%>
+    <% # bookmark functions for items/docs       -%>
     <%= render_index_doc_actions document, wrapping_class: "index-document-functions col-sm-3 col-lg-2" %>
   <% end %>
 
@@ -19,13 +19,27 @@
     <% end %>
     <%= link_to_document document, document_show_link_field(document), counter: counter %>
     (<%= document.fetch('pos_abbrev') %>)
-    <% if document.has_field?("headwords") %>
-      Also: <%= document.fetch("headwords").join(', ') %>
+
+    <% if document.fetch('main_headword') != document.fetch('official_headword') %>
+      &mdash; <%= document.fetch('official_headword') %>
     <% end %>
   </h3>
-  <% if document.has_field?("definitions") %>
-    <div><%= document.fetch("definitions").first %> </div>
-  <% end %>
+
+  <div class="search-result def col-md-12">
+    <% if document.has_field?("headword") %>
+      Also: <%= document.fetch("headword").reject{|x| x == document.fetch('main_headword')}.join(', ') %>
+    <% end %>
+    <% if document.has_field?("definition") %>
+      <ol>
+        <% document.fetch("definition").each do |ddd| %>
+          <li><%== ddd %></li>
+        <% end %>
+      </ol>
+    <% end %>
+
+  </div>
+
+
 
   <%= document_actions %>
 </div>

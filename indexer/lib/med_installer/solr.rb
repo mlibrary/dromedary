@@ -33,7 +33,7 @@ module MedInstaller
 
         logger.info "Download/extract from #{URL}"
         status = system(%Q{curl '#{URL}' | tar -C '#{installpath}' -x -z -f -})
-        
+
         raise "Something went wrong with download / extract" unless status
 
         logger.info "Making a symlink so we can use #{lnpath} instead of #{solrpath}"
@@ -41,17 +41,11 @@ module MedInstaller
         status = system lncmd
         raise "Trouble symlinking #{solrpath} to #{lnpath}" unless status
 
-        logger.info "Linking dromedary solr config stuff into the right spot"
-        status = system "rm -f '#{solr_config_dir}'; ln -s '#{MED_CONFIG}' '#{solr_config_dir}'"
-        raise "Trouble linking #{MED_CONFIG} into the right place in solr" unless status
-
-        status = system "rm -f '#{solr_lib_dir}'; ln -s '#{SOLR_LIBS}' '#{solr_lib_dir}'"
-        raise "Trouble linking #{SOLR_LIBS}" unless status
-
         logger.info "Storing solr installation information in dromedary/.solr"
         File.open(DOT_SOLR, 'w:utf-8') do |out|
           out.puts lnpath.to_s
         end
+        Link.new('solr link').call
       rescue => err
         logger.error err.message
         logger.error "Exiting"
@@ -60,6 +54,57 @@ module MedInstaller
 
 
     end
+
+    class Link < Hanami::CLI::Command
+      DROMEDARY_ROOT = Pathname(__dir__).parent.parent.parent
+      DOT_SOLR       = DROMEDARY_ROOT + '.solr'
+
+
+      desc "Link in the MED solr configurations to the solr in .solr"
+
+      def logger
+        MedInstaller::LOGGER
+      end
+
+      def solr_root
+        unless File.exist? DOT_SOLR
+          raise "Cannot find #{DOT_SOLR} (should contain path to solr root)"
+        end
+
+        solr_root = Pathname(File.open(DOT_SOLR).first.chomp)
+        unless Dir.exist? solr_root
+          raise "Found .solr, but doesn't seem to point to solr root (#{solr_root})"
+        end
+
+        solr_root
+      end
+
+      def call(*args)
+
+        solr_solr_dir   = solr_root + 'server' + 'solr'
+        solr_config_dir = solr_solr_dir + 'med'
+        solr_lib_dir    = solr_solr_dir + 'lib'
+
+        logger.info "Linking dromedary solr config stuff into the right spot based on .solr"
+        logger.info "Found solr directory #{solr_root}"
+        logger.info "Linking in #{Install::MED_CONFIG}"
+        status = system "rm -f '#{solr_config_dir}'; ln -s '#{Install::MED_CONFIG}' '#{solr_config_dir}'"
+        raise "Trouble linking #{Install::MED_CONFIG} into the right place in solr" unless status
+
+        logger.info "Linking in #{Install::SOLR_LIBS}"
+        status = system "rm -f '#{solr_lib_dir}'; ln -s '#{Install::SOLR_LIBS}' '#{solr_lib_dir}'"
+        raise "Trouble linking #{Install::SOLR_LIBS}" unless status
+        logger.info "Done"
+      rescue => err
+        logger.error err.message
+        logger.error "Exiting"
+        exit(1)
+      end
+
+    end
+
+
+
     class Start < Hanami::CLI::Command
       DROMEDARY_ROOT = Pathname(__dir__).parent.parent.parent
       DOT_SOLR       = DROMEDARY_ROOT + '.solr'
