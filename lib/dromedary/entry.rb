@@ -277,6 +277,10 @@ module Dromedary
       obj
     end
 
+    def self.from_json(j)
+      from_h(JSON.parse(j, symbolize_names: true))
+    end
+
     def fill_from_hash(h)
       @xml                      = h[:xml]
       @id                       = h[:id]
