@@ -24,7 +24,7 @@ end
 datapath      = Pathname(DATADIR).realdirpath
 marshal_files = Hash.new {|h, k| h[k] = []}
 letter        = ''
-Dir.glob("#{datapath}/xml/MED*/MED*xml").each do |f|
+Dir.glob("#{datapath}/xml/MED_[F-Z]*/MED*xml").each do |f|
   m           = %r(xml/((.*?)/(.*))\.xml\Z).match(f)
   this_letter = m[2]
   this_file   = m[1]

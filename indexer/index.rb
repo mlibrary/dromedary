@@ -77,6 +77,8 @@ module Dromedary
       end
       logger.info "Committing..."
       client.commit
+      logger.info "Build the suggestions index (may take a bit)"
+      client.get('search', {'suggest.buildAll' => 'true'})
       logger.info "Indexing complete"
     end
 
