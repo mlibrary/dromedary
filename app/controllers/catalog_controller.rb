@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+#
 class CatalogController < ApplicationController
 
   include Blacklight::Catalog
@@ -62,7 +63,7 @@ class CatalogController < ApplicationController
     ## parameters included in the Blacklight-jetty document requestHandler.
 
     # What class should we use to render this?
-    blacklight_config.index.document_presenter_class = Blacklight::IndexPresenter
+    blacklight_config.index.document_presenter_class = Dromedary::IndexPresenter
 
     # What's the title field for each search result entry?
     config.index.title_field = 'main_headword'

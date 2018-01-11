@@ -1,10 +1,10 @@
 require 'nokogiri'
 require 'yell'
-require 'dromedary/entry/constants'
-require 'dromedary/entry/form'
-require 'dromedary/entry/sense'
-require 'dromedary/entry_set'
-require 'dromedary/entry/supplement'
+require_relative 'entry/constants'
+require_relative 'entry/form'
+require_relative 'entry/sense'
+require_relative 'entry_set'
+require_relative 'entry/supplement'
 require 'json'
 
 module Dromedary
@@ -91,10 +91,7 @@ module Dromedary
     # @return [String] the xml for this etyma
     attr_reader :etyma_xml
 
-    # @return [Array<Sense>] The Sense objects for this entry
-    attr_reader :senses
-
-    # @return [Array<Suuplement>] the Supplement objects
+    # @return [Array<Supplement>] the Supplement objects
     attr_reader :supplements
 
     # @return [Array<String>] The texts of ALL the notes anywhere under this entry, if any
@@ -174,6 +171,9 @@ module Dromedary
       headword.all_forms.concat orths.flat_map(&:all_forms)
     end
 
+    def senses
+      @senses.sort{|a,b| a.sense_number <=> b.sense_number}
+    end
 
     # @return [Array<EG>] All the EG objects from all the senses
     def egs
@@ -275,6 +275,10 @@ module Dromedary
       obj = allocate
       obj.fill_from_hash(h)
       obj
+    end
+
+    def self.from_json(j)
+      from_h(JSON.parse(j, symbolize_names: true))
     end
 
     def fill_from_hash(h)
