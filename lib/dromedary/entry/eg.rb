@@ -1,4 +1,4 @@
-require 'dromedary/entry/citation'
+require_relative "citation"
 
 module Dromedary
   class Entry

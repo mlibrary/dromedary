@@ -1,4 +1,4 @@
-require 'dromedary/entry/stencil'
+require_relative "stencil"
 module Dromedary
   class Entry
     # A Bib is just a stencil. Stored as a unit because we need to hang onto

@@ -1,5 +1,5 @@
-require 'dromedary/entry/bib'
-require 'dromedary/entry/quote'
+require_relative "bib"
+require_relative "quote"
 
 module Dromedary
   class Entry

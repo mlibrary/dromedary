@@ -20,11 +20,10 @@ module MedInstaller
   end
 end
 
-require 'med_installer'
+require_relative '../lib/med_installer'
 
 MedInstaller::CLI.register 'extract', MedInstaller::Extract, aliases: ['unzip']
 MedInstaller::CLI.register 'convert', MedInstaller::Convert, aliases: ['json']
-# MedInstaller::CLI.register 'big_json', MedInstaller::OneFile, aliases: ['onefile']
 MedInstaller::CLI.register 'solr install', MedInstaller::Solr::Install
 MedInstaller::CLI.register 'solr link', MedInstaller::Solr::Link
 MedInstaller::CLI.register 'solr start', MedInstaller::Solr::Start, aliases: ['restart']
