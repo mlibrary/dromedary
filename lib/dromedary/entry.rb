@@ -1,10 +1,10 @@
 require 'nokogiri'
 require 'yell'
-require 'dromedary/entry/constants'
-require 'dromedary/entry/form'
-require 'dromedary/entry/sense'
-require 'dromedary/entry_set'
-require 'dromedary/entry/supplement'
+require_relative 'entry/constants'
+require_relative 'entry/form'
+require_relative 'entry/sense'
+require_relative 'entry_set'
+require_relative 'entry/supplement'
 require 'json'
 
 module Dromedary

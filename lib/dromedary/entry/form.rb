@@ -1,4 +1,4 @@
-require 'dromedary/entry/orth'
+require_relative "orth"
 
 module Dromedary
   class Entry

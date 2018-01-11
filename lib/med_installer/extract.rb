@@ -1,5 +1,5 @@
 require 'zip'
-require 'dromedary/entry'
+require_relative '../dromedary/entry'
 require 'tmpdir'
 require 'hanami/cli'
 
