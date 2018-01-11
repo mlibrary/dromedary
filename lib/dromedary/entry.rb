@@ -91,10 +91,7 @@ module Dromedary
     # @return [String] the xml for this etyma
     attr_reader :etyma_xml
 
-    # @return [Array<Sense>] The Sense objects for this entry
-    attr_reader :senses
-
-    # @return [Array<Suuplement>] the Supplement objects
+    # @return [Array<Supplement>] the Supplement objects
     attr_reader :supplements
 
     # @return [Array<String>] The texts of ALL the notes anywhere under this entry, if any
@@ -174,6 +171,9 @@ module Dromedary
       headword.all_forms.concat orths.flat_map(&:all_forms)
     end
 
+    def senses
+      @senses.sort{|a,b| a.sense_number <=> b.sense_number}
+    end
 
     # @return [Array<EG>] All the EG objects from all the senses
     def egs

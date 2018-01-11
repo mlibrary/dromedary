@@ -14,17 +14,6 @@ module Dromedary
       attr_reader :definition_text
 
 
-      # The sub-definitions, returned as a hash of the form
-      #  {
-      #   :initial => Empty string, the whole (unsubbed) definition,
-      #               or the 'initial' text before "(a)"
-      #   'a' => subdef (a),
-      #   'b' => subdef (b),
-      #   etc.
-      #  }
-      # @return [Hash] the initial (or full) text of the definition and subdefs
-      attr_reader :subdefs
-
       # @return [Array<String>] The text of the "usages" (indicating used in
       # the medical community or whatever -- the <USG> tags).
       attr_reader :usages
@@ -46,7 +35,6 @@ module Dromedary
         @sense_number = nokonode.attr('N') || 0
 
         @definition_text = nokonode.at('DEF').text
-        @subdefs    = split_defs(@definition)
 
         @usages = Dromedary.empty_array_on_error do
           nokonode.css('USG').map(&:text).uniq
@@ -56,10 +44,6 @@ module Dromedary
 
       end
 
-      # A writer, because I want to keep messing with it
-      def set_subdefs(def_text = @definition)
-        @subdefs = split_defs(def_text)
-      end
 
       # We want to split on an '(a)' or the like
       # when preceded by
@@ -68,18 +52,32 @@ module Dromedary
       DEF_SPLITTER = /(?:\A|(?:[;:]\s+(?:--\s+)?))(\([a-z]\)\s*)/
       DEF_LETTER   = /\(([a-z])\)/
 
+      # The sub-definitions, returned as a hash of the form
+      #  {
+      #   :initial => Empty string, the whole (unsubbed) definition,
+      #               or the 'initial' text before "(a)"
+      #   'a' => subdef (a),
+      #   'b' => subdef (b),
+      #   etc.
+      #  }
+      # @return [Hash] the initial (or full) text of the definition and subdefs
+      def subdefs(definition = self.definition)
+        @subdefs ||= split_defs(definition.gsub(%r[</?DEF.*?>\s*], ''))
+      end
+
+
       def split_defs(def_text = @definition)
         components  = def_text.chomp('.').split(DEF_SPLITTER)
         initial     = components.shift
         h           = {}
-        h[:initial] = initial
+        h["initial".freeze] = initial
         until components.empty?
           m = DEF_LETTER.match components.shift
           raise "Wackiness with definition: #{def_text}" unless m
           letter = m[1]
           subdef = components.shift
           raise "No @definition after letter" unless subdef
-          h[letter] = subdef
+          h[letter] = subdef if !subdef.empty? and subdef =~ /\S/
         end
         h
       rescue
@@ -88,11 +86,12 @@ module Dromedary
       end
 
 
+
+
       def to_h
         {
             sense_number: sense_number,
             definition: definition,
-            subdefs: subdefs,
             usages: usages,
             egs: egs.map(&:to_h),
             xml: xml
@@ -107,7 +106,6 @@ module Dromedary
 
       def fill_from_hash(h)
         @definition = h[:definition]
-        @subdefs = h[:subdefs]
         @usages = h[:usages]
         @xml = h[:xml]
         @egs = h[:egs].map{|x| EG.from_h(x)}

@@ -1,5 +1,10 @@
-$:.unshift 'lib'
+require 'pathname'
+
+$:.unshift Pathname(__dir__).realdirpath.parent + "lib"
+
 require 'json'
+
+
 require 'dromedary/entry'
 require 'dromedary/entry_set'
 
