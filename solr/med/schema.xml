@@ -181,6 +181,7 @@
 
   <field name="keywords"  type="me_text" stored="false" indexed="true"  multiValued="false"/>
   <field name="xml"       type="string"  stored="true"  indexed="false" multiValued="false" docValues="false"/>
+  <field name="json"       type="string"  stored="true"  indexed="false" multiValued="false" docValues="false"/>
 
 
   <field name="pos"        type="string"  stored="true" indexed="true" multiValued="false" docValues="true"/>
@@ -190,6 +191,9 @@
   <field name="main_headword" type="me_text" indexed="true" stored="true" multiValued="false"/>
   <field name="main_headword_exactish" type="exactish" indexed="true" stored="true" multiValued="false"/>
   <copyField source="main_headword" dest="main_headword_exactish"/>
+
+  <field name="official_headword" type="string" indexed="false" stored="true" multiValued="false"/>
+
 
   <field name="headword"     type="me_text" indexed="true" stored="true" multiValued="true"/>
   <field name="headword_exactish" type="exactish" indexed="true" stored="true" multiValued="true"/>

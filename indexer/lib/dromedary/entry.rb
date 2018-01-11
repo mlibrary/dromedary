@@ -252,34 +252,6 @@ module Dromedary
     end
 
 
-    # Create a hash that can be sent to solr
-    def solr_doc
-      doc        = {}
-      doc[:id]   = id
-      doc[:type] = 'entry'
-
-      doc[:keywords] = Nokogiri::XML(xml).text # should probably just copyfield all the important stuff
-      doc[:xml]      = xml
-
-      if form and form.pos
-        doc[:pos_abbrev] = form.pos.gsub(/\A([^.]+).*\Z/, "\\1").downcase
-        doc[:pos]        = form.pos
-      end
-
-      doc[:main_headword] = display_word
-      doc[:headword]      = headword.regs.unshift(headword.orig) - [display_word]
-
-      doc[:orth] = (form.orths.flat_map(&:orig) + form.orths.flat_map(&:regs)).flatten.uniq
-
-      if senses and senses.size > 0
-        doc[:definition] = senses.map(&:definition)
-        doc[:definition_text] = senses.map(&:definition_text)
-      end
-
-      doc[:quote] = quotes.map(&:text)
-      doc
-    end
-
 
     # Turn this into a hash that can be round-tripped to JSON
     # @return [Hash] a hash suitable for JSON round-tripping
@@ -318,6 +290,38 @@ module Dromedary
       @supplements              = h[:supplements].map {|x| Supplement.from_h(x)}
       @note_texts_from_anywhere = h[:note_texts_from_anywhere]
     end
+
+
+    # Create a hash that can be sent to solr
+    def solr_doc
+      doc        = {}
+      doc[:id]   = id
+      doc[:type] = 'entry'
+
+      doc[:keywords] = Nokogiri::XML(xml).text # should probably just copyfield all the important stuff
+      doc[:xml]      = xml
+      doc[:json] = self.to_h.to_json
+
+      if form and form.pos
+        doc[:pos_abbrev] = form.pos.gsub(/\A([^.]+).*\Z/, "\\1").downcase
+        doc[:pos]        = form.pos
+      end
+
+      doc[:main_headword] = display_word
+      doc[:official_headword] = headword.orig
+      doc[:headword]      = headword.regs.unshift(headword.orig) - [display_word]
+
+      doc[:orth] = (form.orths.flat_map(&:orig) + form.orths.flat_map(&:regs)).flatten.uniq
+
+      if senses and senses.size > 0
+        doc[:definition] = senses.map(&:definition)
+        doc[:definition_text] = senses.map(&:definition_text)
+      end
+
+      doc[:quote] = quotes.map(&:text)
+      doc
+    end
+
 
     private
     def uppercase_element_names!(doc)
