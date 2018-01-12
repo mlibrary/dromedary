@@ -2,7 +2,7 @@
 
 require 'pathname'
 
-$:.unshift Pathname(__dir__).realdirpath + "lib"
+$:.unshift Pathname(__dir__).parent.realdirpath + "lib"
 require 'nokogiri'
 require 'simple_solr_client'
 require 'dromedary/entry_set'
