@@ -8,7 +8,12 @@ config_dir = Pathname(__dir__).realdirpath.parent + 'config'
 blacklight_yaml = config_dir + 'blacklight.yml'
 blacklight_config = YAML.load(ERB.new(File.read(blacklight_yaml)).result)
 
-SOLR_URL =  blacklight_config['production']['url']
+uri  = URI(ENV['SOLR_URL'] || blacklight_config['production']['url'])
+
+path = uri.path.split('/')
+corename = path.pop
+uri.path = path.join('/') # go up a level -- we popped off the core name
+SOLR_URL = uri.to_s
 
 $:.unshift Pathname(__dir__).parent.realdirpath + "lib"
 require 'nokogiri'

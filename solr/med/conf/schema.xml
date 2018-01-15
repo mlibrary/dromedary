@@ -41,7 +41,7 @@
   <!ENTITY text_types       SYSTEM "schema/text_types.xml">
   <!ENTITY numeric_types    SYSTEM "schema/numeric_types.xml">
   <!ENTITY delimited_types  SYSTEM "schema/delimited_types.xml">
-        
+
   <!-- ...and the dynanic fields -->
   <!ENTITY dynamic_fields    SYSTEM "schema/dynamic_fields.xml">
 
@@ -101,7 +101,6 @@
   &primative_types;
   &text_types;
   &numeric_types;
-  &library_types;
   &delimited_types;
 
 
