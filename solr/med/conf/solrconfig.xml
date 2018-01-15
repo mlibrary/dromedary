@@ -13,8 +13,7 @@
 
 <config>
   <luceneMatchVersion>6.0.0</luceneMatchVersion>
-  <dataDir>${solr.data.dir:}</dataDir>
-
+  <dataDir>${solr.blacklight-core.data.dir:}</dataDir>
 
   <lib dir="../lib" regex=".*\.jar"/>
 
