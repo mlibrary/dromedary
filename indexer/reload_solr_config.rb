@@ -19,7 +19,5 @@ solr_url = uri.to_s
 puts "SOLR URL is #{solr_url}"
 
 client = SimpleSolrClient::Client.new(solr_url)
-
-require 'pry'; binding.pry
 core    = client.core(corename)
 core.reload
