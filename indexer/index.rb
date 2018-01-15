@@ -2,10 +2,19 @@
 
 require 'pathname'
 
+require 'erb'
+require 'yaml'
+config_dir = Pathname(__dir__).realdirpath.parent + 'config'
+blacklight_yaml = config_dir + 'blacklight.yml'
+blacklight_config = YAML.load(ERB.new(File.read(blacklight_yaml)).result)
+
+SOLR_URL =  blacklight_config['production']['url']
+
+
 $:.unshift Pathname(__dir__).realdirpath + "lib"
 require 'nokogiri'
 require 'simple_solr_client'
-require 'dromedary/entry_set'
+require_relative '../lib/dromedary/entry_set'
 require 'yell'
 
 
@@ -35,8 +44,7 @@ module Dromedary
     attr_reader :client
 
     def initialize(datapath, *letters)
-      solr_url = ENV['SOLR_URL'] || 'http://localhost:8983/solr'
-      @client  = self.get_client(solr_url)
+      @client  = self.get_client(SOLR_URL)
       @entries = Dromedary::EntrySet.new
       @letters = letters.flatten
       if @letters.empty?
