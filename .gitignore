@@ -11,9 +11,6 @@
 /solr/med/data
 /.solr
 
-# Ignore the lockfile for now
-
-Gemfile.lock
 
 # Ignore bundler config.
 /.bundle
