@@ -5,6 +5,15 @@ Zip.on_exists_proc = true
 
 module MedInstaller
   class Solr
+    URL         = 'http://mirrors.gigenet.com/apache/lucene/solr/6.6.2/solr-6.6.2.tgz'
+    SOLRDIRNAME = 'solr-6.6.2'
+
+    DROMEDARY_ROOT = Pathname(__dir__).parent.parent
+    MED_CONFIG     = DROMEDARY_ROOT + 'solr' + 'med'
+    SOLR_LIBS      = DROMEDARY_ROOT + 'solr' + 'lib'
+    DOT_SOLR       = DROMEDARY_ROOT + '.solr'
+
+
     class Install < Hanami::CLI::Command
       desc "Download and install solr to the given directory"
 
@@ -14,14 +23,6 @@ module MedInstaller
       def logger
         MedInstaller::LOGGER
       end
-
-      URL         = 'http://mirrors.gigenet.com/apache/lucene/solr/6.6.2/solr-6.6.2.tgz'
-      SOLRDIRNAME = 'solr-6.6.2'
-
-      DROMEDARY_ROOT = Pathname(__dir__).parent.parent
-      MED_CONFIG     = DROMEDARY_ROOT + 'solr' + 'med'
-      SOLR_LIBS      = DROMEDARY_ROOT + 'solr' + 'lib'
-      DOT_SOLR       = DROMEDARY_ROOT + '.solr'
 
       def call(installdir:)
         installpath     = Pathname(installdir).realdirpath
@@ -56,9 +57,6 @@ module MedInstaller
     end
 
     class Link < Hanami::CLI::Command
-      DROMEDARY_ROOT = Pathname(__dir__).parent.parent.parent
-      DOT_SOLR       = DROMEDARY_ROOT + '.solr'
-
 
       desc "Link in the MED solr configurations to the solr in .solr"
 
@@ -107,8 +105,6 @@ module MedInstaller
 
 
     class Start < Hanami::CLI::Command
-      DROMEDARY_ROOT = Pathname(__dir__).parent.parent.parent
-      DOT_SOLR       = DROMEDARY_ROOT + '.solr'
 
       desc "Start the solr referenced in .solr"
       option :port, default: 8983, desc: "The port solr should run on"
