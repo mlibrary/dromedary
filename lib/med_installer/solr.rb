@@ -18,7 +18,7 @@ module MedInstaller
       URL         = 'http://mirrors.gigenet.com/apache/lucene/solr/6.6.2/solr-6.6.2.tgz'
       SOLRDIRNAME = 'solr-6.6.2'
 
-      DROMEDARY_ROOT = Pathname(__dir__).parent.parent.parent
+      DROMEDARY_ROOT = Pathname(__dir__).parent.parent
       MED_CONFIG     = DROMEDARY_ROOT + 'solr' + 'med'
       SOLR_LIBS      = DROMEDARY_ROOT + 'solr' + 'lib'
       DOT_SOLR       = DROMEDARY_ROOT + '.solr'
@@ -87,7 +87,8 @@ module MedInstaller
 
         logger.info "Linking dromedary solr config stuff into the right spot based on .solr"
         logger.info "Found solr directory #{solr_root}"
-        logger.info "Linking in #{Install::MED_CONFIG}"
+        logger.info "Linking  #{Install::MED_CONFIG} into #{solr_config_dir}"
+        puts "ln -s '#{Install::MED_CONFIG}' '#{solr_config_dir}'"
         status = system "rm -f '#{solr_config_dir}'; ln -s '#{Install::MED_CONFIG}' '#{solr_config_dir}'"
         raise "Trouble linking #{Install::MED_CONFIG} into the right place in solr" unless status
 

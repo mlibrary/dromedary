@@ -10,8 +10,7 @@ blacklight_config = YAML.load(ERB.new(File.read(blacklight_yaml)).result)
 
 SOLR_URL =  blacklight_config['production']['url']
 
-
-$:.unshift Pathname(__dir__).realdirpath + "lib"
+$:.unshift Pathname(__dir__).parent.realdirpath + "lib"
 require 'nokogiri'
 require 'simple_solr_client'
 require_relative '../lib/dromedary/entry_set'
