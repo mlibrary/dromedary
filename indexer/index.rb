@@ -15,11 +15,13 @@ corename = path.pop
 uri.path = path.join('/') # go up a level -- we popped off the core name
 SOLR_URL = uri.to_s
 
+
+
 $:.unshift Pathname(__dir__).parent.realdirpath + "lib"
 require 'nokogiri'
 require 'simple_solr_client'
 require_relative '../lib/dromedary/entry_set'
-require 'yell'
+require "semantic_logger"
 
 
 path_to_marshal    = ARGV[0]
@@ -42,8 +44,8 @@ end
 module Dromedary
   class Indexer
 
-    LOGGER = Yell.new(STDERR)
-
+    SemanticLogger.add_appender(io: STDERR, level: :info)
+    LOGGER = SemanticLogger[Indexer]
     attr_reader :target_dirs
     attr_reader :client
 
