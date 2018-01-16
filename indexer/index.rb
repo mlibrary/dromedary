@@ -23,10 +23,11 @@ require 'simple_solr_client'
 require_relative '../lib/dromedary/entry_set'
 
 
-path_to_marshal    = ARGV[0]
-individual_entries = ARGV[1..-1]
+datadir    = ARGV[0]
+letters = ARGV[1..-1]
 
-unless path_to_marshal
+
+unless datadir
   $stderr.puts <<~USAGE
 
     Usage: 
@@ -47,10 +48,11 @@ module Dromedary
     attr_reader :target_dirs
     attr_reader :client
 
-    def initialize(datapath, *letters)
-      @client  = self.get_client(SOLR_URL)
+    def initialize(datapath, corename, *letters)
+      @client  = self.get_client(SOLR_URL, corename)
       @entries = Dromedary::EntrySet.new
       @letters = letters.flatten
+      @corename = corename
       if @letters.empty?
         @full = true
         @letters = ('A'..'Z').to_a
@@ -63,14 +65,14 @@ module Dromedary
       exit(1)
     end
 
-    def get_client(solr_url)
+    def get_client(solr_url, corename)
       solr_client = SimpleSolrClient::Client.new(solr_url)
-      med         = solr_client.core('med')
+      core         = solr_client.core(corename)
 
-      unless med.up?
-        raise "Can't find solr core #{med.name} at #{solr_url}: #{med.ping}"
+      unless core.up?
+        raise "Can't find solr core #{core.name} at #{solr_url}: #{core.ping}"
       end
-      med
+      core
     end
 
     def index
@@ -125,5 +127,5 @@ module Dromedary
   end
 end
 
-indexer = Dromedary::Indexer.new(path_to_marshal, individual_entries)
+indexer = Dromedary::Indexer.new(datadir,corename, letters)
 indexer.index
