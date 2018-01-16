@@ -325,7 +325,7 @@ DEPENDENCIES
   hanami-cli
   jbuilder (~> 2.5)
   jquery-rails
-  listen (>= 3.0.5, < 3.2)
+  listen
   mysql2
   nokogiri
   pry-byebug
