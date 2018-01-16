@@ -302,7 +302,6 @@ module Dromedary
       doc[:type] = 'entry'
 
       doc[:keywords] = Nokogiri::XML(xml).text # should probably just copyfield all the important stuff
-      doc[:xml]      = xml
       doc[:json] = self.to_h.to_json
 
       if form and form.pos
