@@ -152,7 +152,7 @@ Rails.application.configure do
       klass
     end
 
-    add_filters(Blacklight::CatalogController, not_looking_for_partial) unless config.human_log.looking_for_partial
+    # add_filters(Blacklight::CatalogController, not_looking_for_partial) unless config.human_log.looking_for_partial
 
     add_filters(ActiveRecord::Base, not_sql_log) unless config.human_log.log_sql
     add_filters(ActiveRecord::Base, not_sql_transaction) unless config.human_log.log_sql_transactions
