@@ -1,5 +1,4 @@
 require 'nokogiri'
-require 'yell'
 require_relative 'entry/constants'
 require_relative 'entry/form'
 require_relative 'entry/sense'
