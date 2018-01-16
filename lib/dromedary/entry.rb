@@ -313,7 +313,7 @@ module Dromedary
       doc[:official_headword] = headword.orig
       doc[:headword]      = headword.regs.unshift(headword.orig) - [display_word]
 
-      doc[:orth] = (form.orths.flat_map(&:orig) + form.orths.flat_map(&:regs)).flatten.uniq
+      doc[:orth] = (form.orths.flat_map(&:orig) + form.orths.flat_map(&:regs)).flatten.uniq.reject{|x| x =~ /\)/}
 
       if senses and senses.size > 0
         doc[:definition] = senses.map(&:definition)
