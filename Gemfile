@@ -8,6 +8,13 @@ end
 #############################################
 # Non-default stuff added by the Dromedary team
 
+
+# Rails and blacklight
+
+gem 'rails', '~> 5.1.4'
+gem 'blacklight', "~> 6.1"
+
+
 # For bin/dromedary
 gem 'hanami-cli'
 gem 'concurrent-ruby'
@@ -15,16 +22,18 @@ gem 'concurrent-ruby'
 # For solr indexing
 gem 'simple_solr_client', require: false
 
-# Faster boot times
-gem 'bootsnap', require: false
-
 # Semantic logging
-gem 'rails_semantic_logger'
-gem "awesome_print"
+gem 'awesome_print'
+# gem 'rails_semantic_logger'
+gem 'semantic_logger'
 
 # Use pry for the console
 group :development, :test do
   gem 'pry-rails'
+
+  #Faster boot times
+  # gem 'bootsnap', require: false
+  # gem 'listen',   require: false
   unless defined? JRUBY_VERSION
     gem 'pry-byebug'
   end
@@ -47,12 +56,6 @@ end
 
 
 #############################################
-
-# Rails and blacklight
-
-gem 'rails', '~> 5.1.4'
-gem 'blacklight', ">= 6.1"
-
 
 # Databases
 
@@ -91,14 +94,12 @@ group :development, :test do
   gem "rspec-rails", "~> 3.6"
   gem 'rubyzip'
   gem 'nokogiri'
-  gem 'yell' # should just switch to using Semantic Log in Dromedary::Entry
 end
 
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
-  gem 'listen', '>= 3.0.5', '< 3.2'
 end
 
 group :test do
@@ -109,10 +110,6 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-group :development, :test do
-  gem 'solr_wrapper', '>= 0.3'
-end
 
 gem 'rsolr', '>= 1.0'
 gem 'jquery-rails'

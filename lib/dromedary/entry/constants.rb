@@ -1,10 +1,12 @@
+require 'semantic_logger'
 module Dromedary
   class Entry
     module Constants
 
 
 
-      LOGGER = Yell.new(STDOUT)
+      SemanticLogger.add_appender(io: STDERR, level: :info)
+      LOGGER = SemanticLogger['Entry']
 
 
       XSLSS = <<-EOXSL
