@@ -92,7 +92,6 @@ group :development, :test do
   gem "rspec-rails", "~> 3.6"
   gem 'rubyzip'
   gem 'nokogiri'
-  gem 'yell' # should just switch to using Semantic Log in Dromedary::Entry
 end
 
 
