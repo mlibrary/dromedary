@@ -21,7 +21,6 @@ $:.unshift Pathname(__dir__).parent.realdirpath + "lib"
 require 'nokogiri'
 require 'simple_solr_client'
 require_relative '../lib/dromedary/entry_set'
-require "semantic_logger"
 
 
 path_to_marshal    = ARGV[0]
@@ -44,8 +43,7 @@ end
 module Dromedary
   class Indexer
 
-    SemanticLogger.add_appender(io: STDERR, level: :info)
-    LOGGER = SemanticLogger[Indexer]
+    LOGGER = Dromedary::Entry::Constants::LOGGER
     attr_reader :target_dirs
     attr_reader :client
 

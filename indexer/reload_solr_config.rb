@@ -16,8 +16,6 @@ corename = path.pop
 uri.path = path.join('/') # go up a level -- we popped off the core name
 solr_url = uri.to_s
 
-puts "SOLR URL is #{solr_url}"
-
 client = SimpleSolrClient::Client.new(solr_url)
 core    = client.core(corename)
 core.reload
