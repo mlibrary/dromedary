@@ -323,7 +323,7 @@ DEPENDENCIES
   awesome_print
   better_errors
   binding_of_caller
-  blacklight (>= 6.1)
+  blacklight (~> 6.1)
   bootsnap
   capybara (~> 2.13)
   coffee-rails (~> 4.2)

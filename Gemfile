@@ -8,6 +8,13 @@ end
 #############################################
 # Non-default stuff added by the Dromedary team
 
+
+# Rails and blacklight
+
+gem 'rails', '~> 5.1.4'
+gem 'blacklight', "~> 6.1"
+
+
 # For bin/dromedary
 gem 'hanami-cli'
 gem 'concurrent-ruby'
@@ -19,8 +26,8 @@ gem 'simple_solr_client', require: false
 gem 'bootsnap', require: false
 
 # Semantic logging
+gem 'awesome_print'
 gem 'rails_semantic_logger'
-gem "awesome_print"
 
 # Use pry for the console
 group :development, :test do
@@ -47,12 +54,6 @@ end
 
 
 #############################################
-
-# Rails and blacklight
-
-gem 'rails', '~> 5.1.4'
-gem 'blacklight', ">= 6.1"
-
 
 # Databases
 
