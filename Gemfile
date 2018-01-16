@@ -31,8 +31,8 @@ group :development, :test do
   gem 'pry-rails'
 
   #Faster boot times
-  gem 'bootsnap', require: false
-  gem 'listen',   require: false
+  # gem 'bootsnap', require: false
+  # gem 'listen',   require: false
   unless defined? JRUBY_VERSION
     gem 'pry-byebug'
   end
