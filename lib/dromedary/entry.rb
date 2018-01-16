@@ -1,5 +1,4 @@
 require 'nokogiri'
-require 'yell'
 require_relative 'entry/constants'
 require_relative 'entry/form'
 require_relative 'entry/sense'
@@ -303,7 +302,6 @@ module Dromedary
       doc[:type] = 'entry'
 
       doc[:keywords] = Nokogiri::XML(xml).text # should probably just copyfield all the important stuff
-      doc[:xml]      = xml
       doc[:json] = self.to_h.to_json
 
       if form and form.pos
@@ -315,7 +313,7 @@ module Dromedary
       doc[:official_headword] = headword.orig
       doc[:headword]      = headword.regs.unshift(headword.orig) - [display_word]
 
-      doc[:orth] = (form.orths.flat_map(&:orig) + form.orths.flat_map(&:regs)).flatten.uniq
+      doc[:orth] = (form.orths.flat_map(&:orig) + form.orths.flat_map(&:regs)).flatten.uniq.reject{|x| x =~ /\)/}
 
       if senses and senses.size > 0
         doc[:definition] = senses.map(&:definition)
