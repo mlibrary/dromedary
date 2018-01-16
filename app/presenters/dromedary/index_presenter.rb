@@ -2,6 +2,7 @@
 
 require 'json'
 require 'delegate'
+require 'dromedary/entry'
 
 module Dromedary
 
