@@ -3,6 +3,9 @@ require_relative 'entry'
 module Dromedary
   class EntrySet
     include Enumerable
+
+    attr_accessor :target_dirs
+
     def initialize
       @h = {}
     end
@@ -31,15 +34,17 @@ module Dromedary
       letters = letters.flatten
       datadir = Pathname(datapath)
       jsondir = datadir + 'json'
-      alldirs     = Dir.new(jsondir).reject {|x| ['.', '..'].include? x}.map {|d| jsondir + d}.map(&:to_s).reject {|x| !File.directory?(x)}
+      alldirs = Dir.new(jsondir).to_a.reject {|x| ['.', '..'].include? x}.select{|x| File.directory?(jsondir + x) and x =~ /\A[A-Z]/}
       target_dirs = if letters.empty?
                       alldirs
                     else
-                      regexps = letters.map {|x| Regexp.new("/#{x.upcase}*\\Z")}
+                      regexps = letters.map {|x| Regexp.new("\\A#{x.upcase}.*\\Z")}
                       alldirs.select {|d| regexps.any? {|r| r.match(d)}}
                     end
+      @target_dirs = target_dirs
       target_dirs.each do |td|
-        Dir.glob("#{td}/MED*.json") do |f|
+        dir = jsondir + td
+        Dir.glob("#{dir}/MED*.json") do |f|
           begin
             self << Dromedary::Entry.from_h(JSON.parse(File.read(f), symbolize_names: true))
           rescue => err

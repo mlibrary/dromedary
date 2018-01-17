@@ -80,8 +80,8 @@ module Dromedary
       reload
       @letters.each do |letter|
         subset = Dromedary::EntrySet.new.load_by_letter(@datapath, letter)
-        logger.info "Working on #{letter}"
-        index_all(subset)
+        logger.info "Working on #{subset.target_dirs.join(', ')}"
+        index_entries(subset)
       end
       logger.info "Committing..."
       client.commit
@@ -100,9 +100,8 @@ module Dromedary
       @client.reload
     end
 
-    def index_all(entries)
+    def index_entries(entries)
       logger.info "Beginning indexing of #{entries.count} entries"
-      i     = 1
       slice = 10_000
       entries.each_slice(slice) do |e|
         begin
