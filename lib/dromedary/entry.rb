@@ -12,7 +12,7 @@ module Dromedary
     begin
       yield
     rescue => e
-      $stderr.puts "Error: #{e.message}"
+      $stderr.puts "Error: #{e.message}; #{e.backtrace}"
       []
     end
   end
@@ -171,7 +171,7 @@ module Dromedary
     end
 
     def senses
-      @senses.sort{|a,b| a.sense_number <=> b.sense_number}
+      @senses.sort{|a,b| a.sense_number.to_i <=> b.sense_number.to_i}
     end
 
     # @return [Array<EG>] All the EG objects from all the senses

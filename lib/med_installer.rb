@@ -1,7 +1,9 @@
-require 'yell'
+require 'semantic_logger'
+require_relative 'dromedary/entry'
+
 
 module MedInstaller
-  LOGGER = Yell.new(STDERR)
+  LOGGER = Dromedary::Entry::Constants::LOGGER
 end
 
 require_relative 'med_installer/extract'
