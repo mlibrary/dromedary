@@ -103,12 +103,12 @@ module Dromedary
     def index_entries(entries)
       logger.info "Beginning indexing of #{entries.count} entries"
       slice = 10_000
-      entries.each_slice(slice) do |e|
+      entries.each_slice(slice) do |e_slice|
         begin
-          client.add_docs e.map(&:solr_doc)
+          client.add_docs e_slice.map{|e| to_solr_document(e)}
         rescue => err
           logger.warn "Problem with batch; trying documents one at a time"
-          e.each do |doc|
+          e_slice.each do |doc|
             begin
               client.add_docs(doc.solr_doc)
             rescue => err2
@@ -123,8 +123,17 @@ module Dromedary
       LOGGER
     end
 
+
+    def to_solr_document(e)
+      e.solr_doc
+    end
+
   end
 end
+
+
+
+
 
 indexer = Dromedary::Indexer.new(datadir,corename, letters)
 indexer.index

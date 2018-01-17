@@ -1,4 +1,5 @@
 require_relative "eg"
+require_relative "constants"
 
 module Dromedary
   class Entry
@@ -36,13 +37,29 @@ module Dromedary
 
         @definition_text = nokonode.at('DEF').text
 
-        @usages = Dromedary.empty_array_on_error do
-          nokonode.css('USG').map(&:text).uniq
-        end
+        all_usg_nodes = nokonode.css('USG')
+
+
+        @usages = if all_usg_nodes.count > 0
+                    all_usages = all_usg_nodes.map(&:text).uniq.compact.map{|x| self.normalize_usg(x)}
+                    all_usages.select{|u| Dromedary::Entry::Constants::UGS.include? u}
+                  else
+                    []
+                  end
+
 
         @egs = nokonode.css('EG').map {|x| EG.new(x)}
-
       end
+
+
+
+      def normalize_usg(u)
+        return "" if u.nil? or u.empty?
+        u.strip.downcase.gsub(/\p{Punct}+/, '')
+      rescue
+        require 'pry'; binding.pry
+      end
+
 
 
       # We want to split on an '(a)' or the like
@@ -94,7 +111,7 @@ module Dromedary
             definition: definition,
             usages: usages,
             egs: egs.map(&:to_h),
-            xml: xml
+            xml: xml,
         }
       end
 

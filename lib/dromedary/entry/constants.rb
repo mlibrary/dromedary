@@ -9,6 +9,62 @@ module Dromedary
       LOGGER = SemanticLogger['Entry']
 
 
+      UGS = %w[
+agr
+alch
+anat
+arch
+arith
+arm
+astrol
+astron
+bibl
+bot
+chess
+cook
+cost
+eccl
+geom
+gram
+hawk
+her
+hunt
+law
+liturg
+math
+med
+mil
+mus
+naut
+palm
+pathol
+phil
+phys
+physiol
+surg
+theol
+biol
+bot
+canon law
+cosmol
+divination
+ethics
+fish
+game
+geog
+geomancy
+lapid
+lit
+logic
+met
+myth
+pharm
+poet
+psych
+scot
+      ]
+
+
       XSLSS = <<-EOXSL
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:output method="xml" encoding="UTF-8"/>
