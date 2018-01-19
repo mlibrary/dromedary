@@ -38,6 +38,9 @@ module Dromedary
       # we know we get @document for sure. Hydrate an Entry from the json
       @entry    = Dromedary::Entry.from_json(document.fetch('json'))
       @document = document
+
+      # We can dig in and find out what type of search was done
+      @search_field = view_context.search_state.params_for_search['search_field']
     end
 
     def senses
