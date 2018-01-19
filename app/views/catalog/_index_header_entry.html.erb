@@ -17,11 +17,10 @@
       <span class="document-counter">
         <%= t('blacklight.search.documents.counter', counter: counter) %>
       </span>
-      <span><%= entry.id %></span>
     <% end %>
     <%= link_to_document document, doc_presenter.highlighted_official_headword, counter: counter %>
     (<%= document.fetch('pos') %>)
-
+    <span><%= entry.id %></span>
   </h3>
 
   <div class="search-result def col-md-12">

@@ -157,7 +157,7 @@ class CatalogController < ApplicationController
 
     # config.add_search_field 'Keywords', label: 'Everything'
 
-    config.add_search_field("Headwords and forms") do |field|
+    config.add_search_field("hnf", label: "Headwords and Forms") do |field|
       field.solr_local_parameters = {
         qf: '$entry_qf',
         pf: '$entry_pf'
