@@ -66,14 +66,14 @@ class CatalogController < ApplicationController
     blacklight_config.index.document_presenter_class = Dromedary::IndexPresenter
 
     # What's the title field for each search result entry?
-    config.index.title_field = 'main_headword'
+    config.index.title_field = 'official_headword'
 
     # How should we choose how to display this item? (maybe not used if
     # you only have one type of record)
     config.index.display_type_field = "type"
 
     # Add fields to the display
-    config.add_index_field 'orths', label: "Other forms"
+    # config.add_index_field 'orths', label: "Other forms"
 
 
 
@@ -112,6 +112,7 @@ class CatalogController < ApplicationController
     # :index_range can be an array or range of prefixes that will be used to create the navigation (note: It is case sensitive when searching values)
 
     config.add_facet_field 'pos_abbrev', label: 'Part of Speech'
+    config.add_facet_field 'usage', label: "Specialized Usage"
 
     #     config.add_facet_field 'subject_topic_facet', label: 'Topic', limit: 20, index_range: 'A'..'Z'
     #     config.add_facet_field 'example_pivot_field', label: 'Pivot Field', :pivot => ['format', 'language_facet']

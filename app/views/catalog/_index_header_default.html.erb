@@ -22,17 +22,11 @@
     <%= link_to_document document, document_show_link_field(document), counter: counter %>
     (<%= document.fetch('pos_abbrev') %>)
 
-    <% if document.fetch('main_headword') != document.fetch('official_headword') %>
-      &mdash; <%= document.fetch('official_headword') %>
-    <% end %>
   </h3>
 
   <div class="search-result def col-md-12">
     <% if document.has_field?("headword") %>
-      <div>Also: <%= document.fetch("headword").reject {|x| x == document.fetch('main_headword')}.join(', ') %></div>
-    <% end %>
-    <% if document.has_field?("orth") %>
-      <div>Other forms: <%= document.fetch('orth').join(', ') %></div>
+      <div>Possible other spellings: <%= document.fetch("headword").reject {|x| x == document.fetch('main_headword')}.join(', ') %></div>
     <% end %>
 
     <div style="margin-bottom: 1em;"><%= entry.quotes.count %> quotation(s)
