@@ -184,6 +184,7 @@
   <field name="pos"        type="string"  stored="true" indexed="true" multiValued="false" docValues="true"/>
   <field name="pos_abbrev" type="string"  stored="true" indexed="true" multiValued="false" docValues="true"/>
 
+  <field name="usage" type="string" stored="true" indexed="true" multiValued="true" docValues="true" />
 
   <field name="main_headword" type="me_text" indexed="true" stored="true" multiValued="false"/>
   <field name="main_headword_exactish" type="exactish" indexed="true" stored="true" multiValued="false"/>

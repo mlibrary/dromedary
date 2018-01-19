@@ -174,6 +174,10 @@ module Dromedary
       @senses.sort{|a,b| a.sense_number.to_i <=> b.sense_number.to_i}
     end
 
+    def usages
+      @senses.flat_map(&:usages).uniq.compact.sort
+    end
+
     # @return [Array<EG>] All the EG objects from all the senses
     def egs
       senses.flat_map(&:egs)
@@ -308,6 +312,8 @@ module Dromedary
         doc[:pos_abbrev] = form.pos.gsub(/\A([^.]+).*\Z/, "\\1").downcase
         doc[:pos]        = form.pos
       end
+
+      doc[:usage] = usages
 
       doc[:main_headword] = display_word
       doc[:official_headword] = headword.orig

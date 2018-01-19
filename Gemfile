@@ -24,7 +24,7 @@ gem 'simple_solr_client', require: false
 
 # Semantic logging
 gem 'awesome_print'
-# gem 'rails_semantic_logger'
+gem 'rails_semantic_logger'
 gem 'semantic_logger'
 
 # Use pry for the console
@@ -32,8 +32,8 @@ group :development, :test do
   gem 'pry-rails'
 
   #Faster boot times
-  # gem 'bootsnap', require: false
-  # gem 'listen',   require: false
+
+  gem 'listen',   require: false
   unless defined? JRUBY_VERSION
     gem 'pry-byebug'
   end
