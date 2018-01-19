@@ -304,6 +304,7 @@ module Dromedary
       doc        = {}
       doc[:id]   = id
       doc[:type] = 'entry'
+      doc[:sequence] = seq
 
       doc[:keywords] = Nokogiri::XML(xml).text # should probably just copyfield all the important stuff
       doc[:json] = self.to_h.to_json

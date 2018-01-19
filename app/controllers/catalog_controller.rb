@@ -52,7 +52,7 @@ class CatalogController < ApplicationController
     # whether the sort is ascending or descending (it must be asc or desc
     # except in the relevancy case).
     config.add_sort_field 'score desc', label: 'Relevance'
-    config.add_sort_field 'main_headword desc', label: 'Alphabetical'
+    config.add_sort_field 'sequence asc', label: 'Alphabetical'
 
     ##--------------------------------------------------------
     # The search results (index) page
