@@ -191,7 +191,7 @@
   <field name="main_headword_exactish" type="exactish" indexed="true" stored="true" multiValued="false"/>
   <copyField source="main_headword" dest="main_headword_exactish"/>
 
-  <field name="official_headword" type="string" indexed="false" stored="true" multiValued="false"/>
+  <field name="official_headword" type="me_text" indexed="true" stored="true" multiValued="false"/>
 
 
   <field name="headword"     type="me_text" indexed="true" stored="true" multiValued="true"/>
