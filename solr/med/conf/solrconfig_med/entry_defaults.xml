@@ -1,4 +1,5 @@
 <str name="entry_qf">
+  official_headword^1000
   main_headword_exactish^500
   main_headword^100
   headword_exactish^50
@@ -7,6 +8,7 @@
 </str>
 
 <str name="entry_pf">
+official_headword^1000
 main_headword_exactish^500
 main_headword^100
 headword_exactish^50
@@ -15,6 +17,6 @@ orth^1
 </str>
 
 <str name="hl">true</str>
-<str name="hl.fl">main_headword,headword,orths</str>
+<str name="hl.fl">official_headword,main_headword,headword,orth</str>
 <str name="hl.method">unified</str>
 <str name="hl.fragsize">0</str> <!-- use the whole field -->

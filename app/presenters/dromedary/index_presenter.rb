@@ -24,7 +24,7 @@ module Dromedary
     end
 
     def sub_definitions
-      subdefs.keys.reject{|x| x == "initial"}.map{|k| KeyDefPair.new(k, subdefs[k])}.sort{|a,b| a.letter <=> b.letter}
+      subdefs.keys.reject {|x| x == "initial"}.map {|k| KeyDefPair.new(k, subdefs[k])}.sort {|a, b| a.letter <=> b.letter}
     end
   end
 
@@ -36,17 +36,21 @@ module Dromedary
       blacklight_index_presenter = Blacklight::IndexPresenter.new(document, view_context, configuration)
       __setobj__(blacklight_index_presenter)
       # we know we get @document for sure. Hydrate an Entry from the json
-      @entry = Dromedary::Entry.from_json(document.fetch('json'))
+      @entry    = Dromedary::Entry.from_json(document.fetch('json'))
       @document = document
     end
 
     def senses
-      @entry.senses.map{|x| x.extend(SplitDefinitionPresenter)}
+      @entry.senses.map {|x| x.extend(SplitDefinitionPresenter)}
     end
 
 
-    def highlighted_main_headword
-      Array(hl_field('main_headword')).first
+    def highlighted_official_headword
+      Array(hl_field('official_headword')).first
+    end
+
+    def highlighted_other_spellings
+      hl_field('headword').reject{|w| w == highlighted_official_headword}
     end
 
     def hl_field(k)
