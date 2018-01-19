@@ -175,6 +175,7 @@
   <field name="id"   type="string" indexed="true" stored="true" required="true" multiValued="false" docValues="false" />
   <field name="type" type="string"  stored="true"  indexed="true"  multiValued="false"  docValues="true" />
 
+  <field name="sequence" type="float" stored="true" indexed="true" multiValued="false"/>
 
   <field name="keywords"  type="me_text" stored="false" indexed="true"  multiValued="false"/>
   <field name="xml"       type="string"  stored="true"  indexed="false" multiValued="false" docValues="false"/>

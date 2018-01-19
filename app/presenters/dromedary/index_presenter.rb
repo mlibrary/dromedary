@@ -28,19 +28,34 @@ module Dromedary
     end
   end
 
-  class IndexPresenter < Blacklight::IndexPresenter
+  class IndexPresenter < SimpleDelegator
+
     attr_reader :entry
 
     def initialize(document, view_context, configuration = view_context.blacklight_config)
-      super
+      blacklight_index_presenter = Blacklight::IndexPresenter.new(document, view_context, configuration)
+      __setobj__(blacklight_index_presenter)
       # we know we get @document for sure. Hydrate an Entry from the json
-      @entry = Dromedary::Entry.from_json(@document.fetch('json'))
+      @entry = Dromedary::Entry.from_json(document.fetch('json'))
+      @document = document
     end
 
     def senses
       @entry.senses.map{|x| x.extend(SplitDefinitionPresenter)}
     end
 
+
+    def highlighted_main_headword
+      Array(hl_field('main_headword')).first
+    end
+
+    def hl_field(k)
+      if @document.has_highlight_field?(k)
+        @document.highlight_field(k)
+      else
+        @document.fetch(k)
+      end
+    end
 
   end
 end

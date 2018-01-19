@@ -16,3 +16,5 @@ orth^1
 
 <str name="hl">true</str>
 <str name="hl.fl">main_headword,headword,orths</str>
+<str name="hl.method">unified</str>
+<str name="hl.fragsize">0</str> <!-- use the whole field -->
