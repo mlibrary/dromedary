@@ -22,9 +22,8 @@ gem 'concurrent-ruby'
 # For solr indexing
 gem 'simple_solr_client', require: false
 
-# Semantic logging
+# Semantic logging?
 gem 'awesome_print'
-gem 'rails_semantic_logger'
 gem 'semantic_logger'
 
 # Use pry for the console
