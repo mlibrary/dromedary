@@ -53,14 +53,16 @@ module Dromedary
     end
 
     def highlighted_other_spellings
-      hl_field('headword').reject{|w| w == highlighted_official_headword}
+       hl_field('headword').reject{|w| w == highlighted_official_headword}
     end
 
     def hl_field(k)
       if @document.has_highlight_field?(k)
         @document.highlight_field(k)
-      else
+      elsif @document.has_field?(k)
         @document.fetch(k)
+      else
+        []
       end
     end
 
