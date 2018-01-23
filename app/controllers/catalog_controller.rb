@@ -113,6 +113,7 @@ class CatalogController < ApplicationController
 
     config.add_facet_field 'pos_abbrev', label: 'Part of Speech'
     config.add_facet_field 'usage', label: "Specialized Usage"
+    config.add_facet_field 'etyma_language', label: "Source Language"
 
     #     config.add_facet_field 'subject_topic_facet', label: 'Topic', limit: 20, index_range: 'A'..'Z'
     #     config.add_facet_field 'example_pivot_field', label: 'Pivot Field', :pivot => ['format', 'language_facet']
@@ -163,6 +164,7 @@ class CatalogController < ApplicationController
         pf: '$entry_pf'
       }
     end
+
     #
     # Now we see how to over-ride Solr request handler defaults, in this
     # case for a BL "search field", which is really a dismax aggregate

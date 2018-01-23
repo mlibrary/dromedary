@@ -135,7 +135,7 @@ module Dromedary
       end
 
       @etyma_languages = Dromedary.empty_array_on_error do
-        entry.xpath("ETYM/LANG").map(&:text).map(&:strip)
+        entry.xpath("ETYM/LANG").map(&:text).downcase.map(&:strip).map{|x| x.gsub(/\p{Punct}+\Z/, '')}
       end
 
       @etyma_highlighted_words = Dromedary.empty_array_on_error do
@@ -310,7 +310,7 @@ module Dromedary
       doc[:json] = self.to_h.to_json
 
       if form and form.pos
-        doc[:pos_abbrev] = form.pos.gsub(/\A([^.]+).*\Z/, "\\1").downcase
+        doc[:pos_abbrev] = form.pos.downcase.gsub(/\s*\(\d\)\s*\Z/, '').gsub(/\.+\s*\Z/, '').gsub(/\./, ' ')
         doc[:pos]        = form.pos
       end
 
@@ -326,6 +326,8 @@ module Dromedary
         doc[:definition] = senses.map(&:definition)
         doc[:definition_text] = senses.map(&:definition_text)
       end
+
+      doc[:etyma_language] = @etyma_languages
 
       doc[:quote] = quotes.map(&:text)
       doc
