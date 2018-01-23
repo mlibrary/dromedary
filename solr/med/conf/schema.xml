@@ -204,6 +204,8 @@
   <field name="definition"   type="string"    indexed="false" stored="true" multiValued="true"/>
   <field name="quote"        type="me_text" indexed="true" stored="true" multiValued="true"/>
 
+  <field name="etyma_language" type="string" indexed="true" stored="true" multiValued="true"/>
+
   <field name="word_suggestions" type="me_text" indexed="true" stored="true" multiValued="true"/>
   <copyField source="main_headword" dest="word_suggestions" />
   <copyField source="headword" dest="word_suggestions" />
