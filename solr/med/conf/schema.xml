@@ -177,7 +177,7 @@
 
   <field name="sequence" type="float" stored="true" indexed="true" multiValued="false"/>
 
-  <field name="keywords"  type="me_text" stored="false" indexed="true"  multiValued="false"/>
+  <field name="keywords"  type="me_text" stored="true" indexed="true"  multiValued="false"/>
   <field name="xml"       type="string"  stored="true"  indexed="false" multiValued="false" docValues="false"/>
   <field name="json"       type="string"  stored="true"  indexed="false" multiValued="false" docValues="false"/>
 

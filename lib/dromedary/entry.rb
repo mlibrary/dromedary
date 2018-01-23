@@ -310,7 +310,7 @@ module Dromedary
       doc[:json] = self.to_h.to_json
 
       if form and form.pos
-        doc[:pos_abbrev] = form.pos.downcase.gsub(/\s*\(\d\)\s*\Z/, '').gsub(/\.+\s*\Z/, '').gsub(/\./, ' ')
+        doc[:pos_abbrev] = form.normalized_pos
         doc[:pos]        = form.pos
       end
 

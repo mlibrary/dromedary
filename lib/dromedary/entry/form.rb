@@ -64,6 +64,10 @@ module Dromedary
         end
       end
 
+      def normalized_pos(pos = self.pos)
+        pos.downcase.gsub(/\s*\(\d\)\s*\Z/, '').gsub(/\.+\s*\Z/, '').gsub(/\./, ' ')
+      end
+
       def to_h
         {
           pos:          pos,
