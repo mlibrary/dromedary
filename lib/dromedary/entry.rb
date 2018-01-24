@@ -316,9 +316,8 @@ module Dromedary
 
       doc[:usage] = usages
 
-      doc[:main_headword] = display_word
       doc[:official_headword] = headword.orig
-      doc[:headword]      = headword.regs.unshift(headword.orig) - [display_word]
+      doc[:headword]      = headword.regs
 
       doc[:orth] = (form.orths.flat_map(&:orig) + form.orths.flat_map(&:regs)).flatten.uniq.reject{|x| x =~ /\)/}
 
