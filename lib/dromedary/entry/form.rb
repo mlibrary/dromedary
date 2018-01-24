@@ -56,11 +56,13 @@ module Dromedary
         end
       end
 
-      def pick_best_display_word
-        if @headword.orig =~ /[(?]/
-          @headword.regs.first
+      # Not sure if this is a good way to go or not,
+      # but it's here if we want it.
+      def pick_best_display_word(headword = self.headword)
+        if headword.orig =~ /[(?]/
+          headword.regs.first
         else
-          @headword.orig
+          headword.orig
         end
       end
 
