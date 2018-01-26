@@ -15,6 +15,8 @@ module Dromedary
       # @return [String] the unaltered part of speech
       attr_reader :pos
 
+      # @return [String] the normalized (for facet) part of speech
+      attr_reader :normalized_pos
 
       # @return [Array<Orth>] The words in all the ORTH tags, stripped to be text
       attr_reader :orths
@@ -30,7 +32,12 @@ module Dromedary
       # @param [Nokogiri::XML::Element] nokonode The nokogiri node for this element
       def initialize(nokonode)
         return if nokonode == :empty
-        @pos        = nokonode.at('POS') and nokonode.xpath('POS').map(&:text).map(&:strip).compact # need to translate?
+        posnode = nokonode.xpath('POS')
+        if !posnode.empty?
+          @pos =posnode.map(&:to_xml)
+          @normalized_pos = posnode.map(&:text).map(&:strip).map{|x| self.normalize_pos(x)}
+        end
+
         hdorth_node = nokonode.at('HDORTH')
         orth_nodes  = nokonode.xpath('ORTH').select {|x| !x.text.strip.empty?}
         if hdorth_node
@@ -40,7 +47,7 @@ module Dromedary
             @headword = Orth.new(orth_nodes.first)
           end
         end
-        @orths        = orth_nodes.map {|orthnode| Orth.new(orthnode)}
+        @orths = orth_nodes.map {|orthnode| Orth.new(orthnode)}
       end
 
       def display_word
@@ -61,15 +68,16 @@ module Dromedary
         end
       end
 
-      def normalized_pos(pos = self.pos)
+      def normalize_pos(pos)
         pos.downcase.gsub(/\s*\(\d\)\s*\Z/, '').gsub(/\.+\s*\Z/, '').gsub(/\./, ' ')
       end
 
       def to_h
         {
-          pos:          pos,
-          orths:        orths.map(&:to_h),
-          headword:     headword.to_h,
+          pos:      pos,
+          orths:    orths.map(&:to_h),
+          headword: headword.to_h,
+          normalized_pos: normalized_pos
         }
       end
 
@@ -80,9 +88,10 @@ module Dromedary
       end
 
       def fill_from_hash(h)
-        @pos          = h[:pos]
-        @orths        = h[:orths].map {|x| Orth.from_h(x)}
-        @headword     = Orth.from_h(h[:headword])
+        @pos      = h[:pos]
+        @normalized_pos = h[:normalized_pos]
+        @orths    = h[:orths].map {|x| Orth.from_h(x)}
+        @headword = Orth.from_h(h[:headword])
       end
 
     end
