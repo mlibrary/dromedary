@@ -6,7 +6,7 @@ require 'dromedary/entry'
 
 module Dromedary
 
-  KeyDefPair = Struct.new(:letter, :definition)
+  KeyDefPair = Struct.new(:letter, :definition_xml)
 
   #convenience methods for a Sense
   module SplitDefinitionPresenter

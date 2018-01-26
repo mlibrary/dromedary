@@ -43,7 +43,7 @@
             <ol type="a">
               <% sense.sub_definitions.each do |subdef| %>
                 <li>
-                  <%== subdef.definition.gsub(/\s*\~\s*/, " #{document.fetch("main_headword")} ") %>
+                  <%== subdef.definition_xml.gsub(/\s*\~\s*/, " #{document.fetch("main_headword")} ") %>
                 </li>
               <% end %>
             </ol>
@@ -60,7 +60,7 @@
                 <ol type="a">
                   <% sense.sub_definitions.each do |subdef| %>
                     <li>
-                      <%== subdef.definition.gsub(/\s*\~\s*/, " #{document.fetch("main_headword")} ") %>
+                      <%== subdef.definition_xml.gsub(/\s*\~\s*/, " #{document.fetch("main_headword")} ") %>
                     </li>
                   <% end %>
                 </ol>

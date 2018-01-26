@@ -9,7 +9,7 @@ module Dromedary
     class Sense
 
       # @return [String] the definition xml, as an unadorned string
-      attr_reader :definition
+      attr_reader :definition_xml
 
       # @return [String] The un-tagged definition text
       attr_reader :definition_text
@@ -31,9 +31,9 @@ module Dromedary
       # @param [Nokogiri::XML::Element] nokonode The nokogiri node for this element
       def initialize(nokonode)
         return if nokonode == :empty
-        @xml        = nokonode.to_xml
-        @definition = nokonode.at('DEF').to_xml
-        @sense_number = nokonode.attr('N') || 0
+        @xml            = nokonode.to_xml
+        @definition_xml = nokonode.at('DEF').to_xml
+        @sense_number   = nokonode.attr('N') || 0
 
         @definition_text = nokonode.at('DEF').text
 
@@ -78,12 +78,12 @@ module Dromedary
       #   etc.
       #  }
       # @return [Hash] the initial (or full) text of the definition and subdefs
-      def subdefs(definition = self.definition)
+      def subdefs(definition = self.definition_xml)
         @subdefs ||= split_defs(definition.gsub(%r[</?DEF.*?>\s*], ''))
       end
 
 
-      def split_defs(def_text = @definition)
+      def split_defs(def_text = @definition_xml)
         components  = def_text.chomp('.').split(DEF_SPLITTER)
         initial     = components.shift
         h           = {}
@@ -107,11 +107,12 @@ module Dromedary
 
       def to_h
         {
-            sense_number: sense_number,
-            definition: definition,
-            usages: usages,
-            egs: egs.map(&:to_h),
-            xml: xml,
+          sense_number:   sense_number,
+          definition_xml: definition_xml,
+          definition_text: definition_text,
+          usages:         usages,
+          egs:            egs.map(&:to_h),
+          xml:            xml,
         }
       end
 
@@ -122,11 +123,12 @@ module Dromedary
       end
 
       def fill_from_hash(h)
-        @definition = h[:definition]
-        @usages = h[:usages]
-        @xml = h[:xml]
-        @egs = h[:egs].map{|x| EG.from_h(x)}
-        @sense_number = h[:sense_number]
+        @definition_xml = h[:definition_xml]
+        @definition_text = h[:definition_text]
+        @usages         = h[:usages]
+        @xml            = h[:xml]
+        @egs            = h[:egs].map{|x| EG.from_h(x)}
+        @sense_number   = h[:sense_number]
       end
 
     end

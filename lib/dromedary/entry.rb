@@ -135,7 +135,7 @@ module Dromedary
       end
 
       @etyma_languages = Dromedary.empty_array_on_error do
-        entry.xpath("ETYM/LANG").map(&:text).downcase.map(&:strip).map{|x| x.gsub(/\p{Punct}+\Z/, '')}
+        entry.xpath("ETYM/LANG").map(&:text).map(&:downcase).map(&:strip).map{|x| x.gsub(/\p{Punct}+\Z/, '')}
       end
 
       @etyma_highlighted_words = Dromedary.empty_array_on_error do
@@ -322,7 +322,7 @@ module Dromedary
       doc[:orth] = (form.orths.flat_map(&:orig) + form.orths.flat_map(&:regs)).flatten.uniq.reject{|x| x =~ /\)/}
 
       if senses and senses.size > 0
-        doc[:definition] = senses.map(&:definition)
+        doc[:definition_xml]  = senses.map(&:definition_xml)
         doc[:definition_text] = senses.map(&:definition_text)
       end
 

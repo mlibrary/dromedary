@@ -34,22 +34,6 @@
   </analyzer>
 </fieldType>
 
-<!-- Same as text, but for middle english -->
-
-<fieldType name="me_text" class="solr.TextField" positionIncrementGap="&tpig;">
-<analyzer type="index">
-  &middle_english_char_substitution_patterns;
-  &basic_text_chain;
-  <filter class="solr.SynonymFilterFactory" synonyms="&me_synonym_file;" ignoreCase="true" expand="true"/>
-  <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
-</analyzer>
-<analyzer type="query">
-  &middle_english_char_substitution_patterns;
-  &basic_text_chain;
-  <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
-</analyzer>
-</fieldType>
-
 
 
 <!-- text_l- A left-anchored text type, that only matches if it the query matches
