@@ -32,8 +32,7 @@ class CatalogController < ApplicationController
     # The "normal" search path as defined as a requestHandler in solrconfig.xml
     # Often this is 'select'; the Blacklight default is 'search'.
     # See <requestHandler name="/search".../> in the solrconfig.xml
-
-    config.solr_path = 'search'
+    # config.solr_path = 'search'
 
     # The "document" search handler, for getting a single document
     # See <requestHandler name="/document".../> in the solrconfig.xml
@@ -159,10 +158,16 @@ class CatalogController < ApplicationController
     # config.add_search_field 'Keywords', label: 'Everything'
 
     config.add_search_field("hnf", label: "Headwords and Forms") do |field|
+      field.qt = "search"
       field.solr_local_parameters = {
         qf: '$entry_qf',
         pf: '$entry_pf'
       }
+    end
+
+    # Just the headwords
+    config.add_search_field("h", label: "Headwords only") do |field|
+      field.qt = 'headwords'
     end
 
     #
