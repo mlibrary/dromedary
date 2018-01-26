@@ -24,7 +24,7 @@ gem 'simple_solr_client', require: false
 
 # Semantic logging?
 gem 'awesome_print'
-gem 'semantic_logger'
+gem 'rails_semantic_logger'
 
 # Use pry for the console
 group :development, :test do
@@ -47,7 +47,7 @@ group :development, :test do
   gem 'rubocop', require: false
 end
 
-# Debugging
+# Debugging outside of Rubymine
 group :development, :test do
   # gem "better_errors"
   # gem "binding_of_caller"
