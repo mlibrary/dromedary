@@ -40,11 +40,6 @@ module Dromedary
             @headword = Orth.new(orth_nodes.first)
           end
         end
-        @display_word = if @headword.regs.empty?
-                          @headword.orig
-                        else
-                          @headword.regs.first
-                        end
         @orths        = orth_nodes.map {|orthnode| Orth.new(orthnode)}
       end
 
@@ -75,7 +70,6 @@ module Dromedary
           pos:          pos,
           orths:        orths.map(&:to_h),
           headword:     headword.to_h,
-          display_word: display_word
         }
       end
 
@@ -89,7 +83,6 @@ module Dromedary
         @pos          = h[:pos]
         @orths        = h[:orths].map {|x| Orth.from_h(x)}
         @headword     = Orth.from_h(h[:headword])
-        @display_word = h[:display_word]
       end
 
     end

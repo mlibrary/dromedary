@@ -8,7 +8,7 @@
   <% entry = doc_presenter.entry %>
 
   <% document_actions = capture do %>
-    <% # bookmark functions for items/docs              -%>
+    <% # bookmark functions for items/docs               -%>
     <%= render_index_doc_actions document, wrapping_class: "index-document-functions col-sm-3 col-lg-2" %>
   <% end %>
 
@@ -24,15 +24,15 @@
   </h3>
 
   <div class="search-result def col-md-12">
-    <% if hos =  doc_presenter.highlighted_other_spellings and hos.count > 0 %>
-      <div>Possible other spellings: <%==hos.join(', ') %></div>
+    <% if hos = doc_presenter.highlighted_other_spellings and hos.count > 0 %>
+      <div>Possible other spellings: <%== hos.join(', ') %></div>
     <% end %>
 
     <div style="margin-bottom: 1em;"><%= entry.quotes.count %> quotation(s)
       we need to figure out what to
       do with
     </div>
-    <% if document.has_field?("definition") %>
+    <% if document.has_field?("definition_xml") %>
       <% if doc_presenter.senses.count == 1 %>
         <div>
           <% sense = doc_presenter.senses.first %>
@@ -43,7 +43,7 @@
             <ol type="a">
               <% sense.sub_definitions.each do |subdef| %>
                 <li>
-                  <%== subdef.definition_xml.gsub(/\s*\~\s*/, " #{document.fetch("main_headword")} ") %>
+                  <%== subdef.definition_xml.gsub(/\s*\~\s*/, " #{doc_presenter.normalized_headword} ") %>
                 </li>
               <% end %>
             </ol>
@@ -60,7 +60,7 @@
                 <ol type="a">
                   <% sense.sub_definitions.each do |subdef| %>
                     <li>
-                      <%== subdef.definition_xml.gsub(/\s*\~\s*/, " #{document.fetch("main_headword")} ") %>
+                      <%== subdef.definition_xml.gsub(/\s*\~\s*/, " #{doc_presenter.normalized_headword} ") %>
                     </li>
                   <% end %>
                 </ol>

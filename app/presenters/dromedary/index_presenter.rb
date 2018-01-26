@@ -52,6 +52,10 @@ module Dromedary
       Array(hl_field('official_headword')).first
     end
 
+    def normalized_headword
+      @entry.form.display_word
+    end
+
     def highlighted_other_spellings
        hl_field('headword').reject{|w| w == highlighted_official_headword}
     end
