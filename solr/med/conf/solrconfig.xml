@@ -37,7 +37,7 @@
 
 
   <!-- generic handler -->
-  <requestHandler name="search" class="solr.SearchHandler">
+  <requestHandler name="/search" class="solr.SearchHandler" default="true">
     <lst name="defaults">
       <str name="echoParams">all</str>
       <str name="wt">json</str>
@@ -69,7 +69,7 @@
        is hard because of parsing issues
   -->
 
-  <requestHandler name="headwords" class="solr.SearchHandler">
+  <requestHandler name="/headwords" class="solr.SearchHandler">
     <lst name="defaults">
       <str name="echoParams">all</str>
       <str name="wt">json</str>
@@ -106,7 +106,7 @@
   <!--## Suggest stuff ##-->
 
 
-  <searchComponent name="headword_suggest" class="solr.SuggestComponent">
+  <searchComponent name="headword_and_forms_suggest" class="solr.SuggestComponent">
     <lst name="suggester">
       <str name="name">mySuggester</str>
       <str name="lookupImpl">FSTLookupFactory</str>
@@ -128,10 +128,36 @@
       <str name="suggest.dictionary">mySuggester</str>
     </lst>
     <arr name="components">
-      <str>headword_suggest</str>
+      <str>headword_and_forms_suggest</str>
     </arr>
   </requestHandler>
 
+
+  <searchComponent name="headword_only_suggest" class="solr.SuggestComponent">
+    <lst name="suggester">
+      <str name="name">headword_only_suggester</str>
+      <str name="lookupImpl">FSTLookupFactory</str>
+      <str name="suggestAnalyzerFieldType">me_text</str>
+      <str name="buildOnCommit">true</str>
+      <str name="field">headword_only_suggestions</str>
+      <str name="exactMatchFirst">true</str>
+      <str name="buildOnStartup">true</str>
+      <str name="minPrefixChars">2</str>
+      <str name="dictionaryImpl">DocumentDictionaryFactory</str>
+    </lst>
+  </searchComponent>
+
+  <requestHandler name="/headword_only_suggest" class="solr.SearchHandler"
+                  startup="lazy">
+    <lst name="defaults">
+      <str name="suggest">true</str>
+      <str name="suggest.count">15</str>
+      <str name="suggest.dictionary">headword_only_suggester</str>
+    </lst>
+    <arr name="components">
+      <str>headword_only_suggest</str>
+    </arr>
+  </requestHandler>
 
   <!--<initParams path="/update/**,/query,/select,/tvrh,/elevate,/spell">-->
   <!--<lst name="defaults">-->
