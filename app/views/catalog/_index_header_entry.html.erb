@@ -19,7 +19,7 @@
       </span>
     <% end %>
     <%= link_to_document document, doc_presenter.highlighted_official_headword, counter: counter %>
-    (<%= document.fetch('pos') %>)
+    (<%== document.fetch('pos') %>)
     <span><%= entry.id %></span>
   </h3>
 
