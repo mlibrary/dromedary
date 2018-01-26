@@ -202,6 +202,8 @@
   <copyField source="headword" dest="headword_exactish"/>
 
 
+
+
   <field name="orth"         type="me_text" indexed="true" stored="true" multiValued="true"/>
   <field name="definition_text"   type="text"    indexed="true" stored="true" multiValued="true"/>
   <field name="definition_xml"   type="string"    indexed="false" stored="true" multiValued="true"/>
@@ -209,10 +211,16 @@
 
   <field name="etyma_language" type="string" indexed="true" stored="true" multiValued="true"/>
 
+  <!-- Suggestions -->
+
   <field name="word_suggestions" type="me_text" indexed="true" stored="true" multiValued="true"/>
-  <copyField source="main_headword" dest="word_suggestions" />
+  <copyField source="official_headword" dest="word_suggestions" />
   <copyField source="headword" dest="word_suggestions" />
   <copyField source="orth" dest="word_suggestions" />
+
+  <field name="headword_only_suggestions" type="me_text" indexed="true" stored="true" multiValued="true"/>
+  <copyField source="headword" dest="headword_only_suggestions"/>
+  <copyField source="official_headword" dest="headword_only_suggestions"/>
 
 
   <!-- Field to use to determine and enforce document uniqueness.
