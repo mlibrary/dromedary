@@ -133,9 +133,9 @@
   </requestHandler>
 
 
-  <searchComponent name="headword_only_suggester" class="solr.SuggestComponent">
+  <searchComponent name="ddd" class="solr.SuggestComponent">
     <lst name="suggester">
-      <str name="name">headword_only_suggester</str>
+      <str name="name">eee</str>
       <str name="lookupImpl">FSTLookupFactory</str>
       <str name="suggestAnalyzerFieldType">me_text</str>
       <str name="buildOnCommit">true</str>
@@ -152,12 +152,86 @@
     <lst name="defaults">
       <str name="suggest">true</str>
       <str name="suggest.count">15</str>
-      <str name="suggest.dictionary">headword_only_suggester</str>
+      <str name="suggest.dictionary">eee</str>
     </lst>
     <arr name="components">
-      <str>headword_only_suggester</str>
+      <str>ddd</str>
     </arr>
   </requestHandler>
+
+
+
+  <!-- A SAMPLE SUGGEST SETUP
+
+    I found it hard to figure out which bits of the suggest setup
+    did what. Here's what I got
+
+  <searchComponent name="XXX" class="solr.SuggestComponent">
+    <lst name="suggester">
+      <str name="name">ZZZ</str>
+      <str name="lookupImpl">FSTLookupFactory</str>
+      <str name="suggestAnalyzerFieldType">me_text</str>
+      <str name="buildOnCommit">true</str>
+      <str name="field">MYFIELD</str>
+      <str name="exactMatchFirst">true</str>
+      <str name="buildOnStartup">true</str>
+      <str name="minPrefixChars">2</str>
+      <str name="dictionaryImpl">DocumentDictionaryFactory</str>
+    </lst>
+  </searchComponent>
+
+  <requestHandler name="/WHATEVER_PATH_YOU_WANT" class="solr.SearchHandler"
+                  startup="lazy">
+    <lst name="defaults">
+      <str name="suggest">true</str>
+      <str name="suggest.count">15</str>
+      <str name="suggest.dictionary">ZZZ</str>
+    </lst>
+    <arr name="components">
+      <str>XXX</str>
+    </arr>
+  </requestHandler>
+
+  where:
+    XXX is the name of the searchComponent
+    ZZZ is the name of the individual *suggester*.
+
+    XXX is used ONLY IN THE SOLRCONFIG, to name the suggestComponent
+    and then referenced as a component in the requestHander
+
+    ZZZ is used in two places:
+      * It's the name of the dictionary used when configuring the
+        requestHandler
+      * It's the key in the hash returned by solr when you look for
+        results.
+
+    So in this case, a solr search on the three character string "din"
+    with suggestions on would return a hash of the form:
+
+    response:
+      responseHeader:
+        status: 0
+        QTime: 0
+      suggest:
+        ZZZ
+          din:
+            numFound: 15
+            suggestions:
+              -
+                term: dine
+                weight: 1
+                payload:
+              -
+                term: ding
+                weight: 1
+                payload:
+      ...etc.
+
+
+
+
+  -->
+
 
   <!--<initParams path="/update/**,/query,/select,/tvrh,/elevate,/spell">-->
   <!--<lst name="defaults">-->
