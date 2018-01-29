@@ -106,9 +106,9 @@
   <!--## Suggest stuff ##-->
 
 
-  <searchComponent name="headword_and_forms_suggest" class="solr.SuggestComponent">
+  <searchComponent name="headword_and_forms_suggester" class="solr.SuggestComponent">
     <lst name="suggester">
-      <str name="name">mySuggester</str>
+      <str name="name">headword_and_forms_suggester</str>
       <str name="lookupImpl">FSTLookupFactory</str>
       <str name="suggestAnalyzerFieldType">me_text</str>
       <str name="buildOnCommit">true</str>
@@ -120,20 +120,20 @@
     </lst>
   </searchComponent>
 
-  <requestHandler name="/suggest" class="solr.SearchHandler"
+  <requestHandler name="/headword_and_forms_suggester" class="solr.SearchHandler"
                   startup="lazy">
     <lst name="defaults">
       <str name="suggest">true</str>
       <str name="suggest.count">15</str>
-      <str name="suggest.dictionary">mySuggester</str>
+      <str name="suggest.dictionary">headword_and_forms_suggester</str>
     </lst>
     <arr name="components">
-      <str>headword_and_forms_suggest</str>
+      <str>headword_and_forms_suggester</str>
     </arr>
   </requestHandler>
 
 
-  <searchComponent name="headword_only_suggest" class="solr.SuggestComponent">
+  <searchComponent name="headword_only_suggester" class="solr.SuggestComponent">
     <lst name="suggester">
       <str name="name">headword_only_suggester</str>
       <str name="lookupImpl">FSTLookupFactory</str>
@@ -147,7 +147,7 @@
     </lst>
   </searchComponent>
 
-  <requestHandler name="/headword_only_suggest" class="solr.SearchHandler"
+  <requestHandler name="/headword_only_suggester" class="solr.SearchHandler"
                   startup="lazy">
     <lst name="defaults">
       <str name="suggest">true</str>
@@ -155,7 +155,7 @@
       <str name="suggest.dictionary">headword_only_suggester</str>
     </lst>
     <arr name="components">
-      <str>headword_only_suggest</str>
+      <str>headword_only_suggester</str>
     </arr>
   </requestHandler>
 
