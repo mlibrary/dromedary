@@ -75,7 +75,6 @@ class CatalogController < ApplicationController
     # config.add_index_field 'orths', label: "Other forms"
 
 
-
     # solr field configuration for document/show views
     #config.show.title_field = 'title_display'
     #config.show.display_type_field = 'format'
@@ -130,7 +129,6 @@ class CatalogController < ApplicationController
     config.add_facet_fields_to_solr_request!
 
 
-
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
     config.add_show_field 'headword', label: 'Headwords'
@@ -158,7 +156,7 @@ class CatalogController < ApplicationController
     # config.add_search_field 'Keywords', label: 'Everything'
 
     config.add_search_field("hnf", label: "Headwords and Forms") do |field|
-      field.qt = "/search"
+      field.qt                    = "/search"
       field.solr_local_parameters = {
         qf: '$entry_qf',
         pf: '$entry_pf'
@@ -210,13 +208,33 @@ class CatalogController < ApplicationController
     # end
 
 
-
     # If there are more than this many search results, no spelling ("did you
     # mean") suggestion is offered.
     config.spell_max = 15
 
     # Configuration for autocomplete suggestor
     config.autocomplete_enabled = true
-    config.autocomplete_path    = 'suggest'
+    config.autocomplete_path    = 'headword_and_forms_suggester'
+
+    # Autocomplete setup.
+    # The format is:
+    #   search_name: {
+    #     qt: qt_for_solr_handler,
+    #     search_component_name: myConfig
+    #       }
+    #
+    # The "search_name" is the name given the search in the
+    # `config.add_search_field(name, ...)` above.
+    #
+    config.autocomplete = {
+      h:   {
+        qt:                    "headword_only_suggester",
+        search_component_name: "headword_only_suggester"
+      },
+      hnf: {
+        qt:                    "headword_and_forms_suggester",
+        search_component_name: "headword_and_forms_suggester"
+      }
+    }
   end
 end
