@@ -133,9 +133,9 @@
   </requestHandler>
 
 
-  <searchComponent name="ddd" class="solr.SuggestComponent">
+  <searchComponent name="headword_only_suggester" class="solr.SuggestComponent">
     <lst name="suggester">
-      <str name="name">eee</str>
+      <str name="name">headword_only_suggester</str>
       <str name="lookupImpl">FSTLookupFactory</str>
       <str name="suggestAnalyzerFieldType">me_text</str>
       <str name="buildOnCommit">true</str>
@@ -152,10 +152,10 @@
     <lst name="defaults">
       <str name="suggest">true</str>
       <str name="suggest.count">15</str>
-      <str name="suggest.dictionary">eee</str>
+      <str name="suggest.dictionary">headword_only_suggester</str>
     </lst>
     <arr name="components">
-      <str>ddd</str>
+      <str>headword_only_suggester</str>
     </arr>
   </requestHandler>
 
@@ -195,6 +195,8 @@
   where:
     XXX is the name of the searchComponent
     ZZZ is the name of the individual *suggester*.
+
+    XXX and ZZZ can be the same string, if you like.
 
     XXX is used ONLY IN THE SOLRCONFIG, to name the suggestComponent
     and then referenced as a component in the requestHander
