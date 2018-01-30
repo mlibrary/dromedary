@@ -88,6 +88,8 @@
         headword_exactish^50
         headword^10
       </str>
+
+      <str name="facet.mincount">1</str>
     </lst>
   </requestHandler>
 
