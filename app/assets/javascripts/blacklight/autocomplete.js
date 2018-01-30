@@ -68,7 +68,7 @@ Blacklight.onLoad(function () {
     // Set up the connection between the controllers and the inputs
     $('[data-autocomplete-enabled="true"]').each(blacklight_set_autocomplete);
 
-    // Add the autocomplete
+    // Add the autocomplete to the inputs
     $('[data-autocomplete-enabled="true"]').each(blacklight_autocomplete);
 
     // Inititalize with the current value of the controller.

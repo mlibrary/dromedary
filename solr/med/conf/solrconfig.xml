@@ -69,7 +69,7 @@
        is hard because of parsing issues
   -->
 
-  <requestHandler name="/headwords" class="solr.SearchHandler">
+  <requestHandler name="headwords" class="solr.SearchHandler">
     <lst name="defaults">
       <str name="echoParams">all</str>
       <str name="wt">json</str>
@@ -89,7 +89,6 @@
         headword^10
       </str>
     </lst>
-
   </requestHandler>
 
 
