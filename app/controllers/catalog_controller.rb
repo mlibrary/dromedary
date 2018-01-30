@@ -219,8 +219,8 @@ class CatalogController < ApplicationController
     # Autocomplete setup.
     # The format is:
     #   search_name: {
-    #     qt: qt_for_solr_handler,
-    #     search_component_name: myConfig
+    #     solr_endpoint: path_to_solr_handler,
+    #     search_component_name: "mySuggester"
     #       }
     #
     # The "search_name" is the name given the search in the
@@ -228,11 +228,11 @@ class CatalogController < ApplicationController
     #
     config.autocomplete = {
       h:   {
-        qt:                    "headword_only_suggester",
+        solr_endpoint:         "headword_only_suggester",
         search_component_name: "headword_only_suggester"
       },
       hnf: {
-        qt:                    "headword_and_forms_suggester",
+        solr_endpoint:         "headword_and_forms_suggester",
         search_component_name: "headword_and_forms_suggester"
       }
     }
