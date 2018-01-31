@@ -37,7 +37,7 @@
         <div>
           <% sense = doc_presenter.senses.first %>
           <% if sense.has_initial_def? %>
-            <%== sense.initial_def %>
+            <%== sense.initial_def.gsub(/\s*\~\s*/, " #{doc_presenter.normalized_headword} ") %>
           <% end %>
           <% if sense.has_lettered_defs? %>
             <ol type="a">
@@ -54,7 +54,7 @@
           <% doc_presenter.senses.each do |sense| %>
             <li>
               <% if sense.has_initial_def? %>
-                <%== sense.initial_def %>
+                <%== sense.initial_def.gsub(/\s*\~\s*/, " #{doc_presenter.normalized_headword} ") %>
               <% end %>
               <% if sense.has_lettered_defs? %>
                 <ol type="a">
