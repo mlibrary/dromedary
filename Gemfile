@@ -32,6 +32,8 @@ gem 'rails_semantic_logger'
 group :development, :test do
   gem 'pry-rails'
 
+  gem 'ruby-prof'
+
   #Faster boot times
 
   gem 'listen',   require: false
