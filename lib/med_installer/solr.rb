@@ -1,4 +1,4 @@
-require_relative '../dromedary/entry'
+require 'middle_english_dictionary'
 require 'hanami/cli'
 
 Zip.on_exists_proc = true

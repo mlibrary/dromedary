@@ -1,9 +1,9 @@
 require 'semantic_logger'
-require_relative 'dromedary/entry'
-
+require 'middle_english_dictionary'
 
 module MedInstaller
-  LOGGER = Dromedary::Entry::Constants::LOGGER
+  SemanticLogger.add_appender(io: STDERR, level: :info)
+  LOGGER = SemanticLogger['Entry']
 end
 
 require_relative 'med_installer/extract'

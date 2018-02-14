@@ -8,6 +8,8 @@ end
 #############################################
 # Non-default stuff added by the Dromedary team
 
+# for local development
+gem 'middle_english_dictionary', path: "/Users/dueberb/devel/med/middle_english_dictionary"
 
 # Rails and blacklight
 
