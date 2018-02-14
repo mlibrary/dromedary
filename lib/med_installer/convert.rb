@@ -1,6 +1,5 @@
-require_relative '../dromedary/entry'
+require 'middle_english_dictionary'
 require 'hanami/cli'
-require 'json'
 require 'concurrent'
 
 module MedInstaller
@@ -31,7 +30,7 @@ module MedInstaller
       validate_xml_dir(datapath)
 
       pool = new_pool
-
+      oed = MiddleEnglishDictionary::Collection::OEDLinkSet.from_directory_of_xml_files(datapath + 'xml' + 'links')
       letter = ''
       Dir.glob("#{datapath}/xml/#{dirname}/MED*xml").each_with_index do |filename, i|
         logger.info "#{i} done" if i > 0 and i % 2500 == 0
@@ -41,10 +40,9 @@ module MedInstaller
           letter = this_letter
         end
 
-        pool.post do
-          dump_json(datapath, filename, basename)
-        end
-
+        # pool.post do
+          dump_json(datapath, filename, basename, oed)
+        # end
       end
 
       pool.shutdown
@@ -53,11 +51,17 @@ module MedInstaller
 
 
     private
-    def dump_json(datapath, filename, basename)
-      entry          = Dromedary::Entry.new(filename)
+    def dump_json(datapath, filename, basename, oed)
+      entry          = MiddleEnglishDictionary::Entry.new_from_xml_file(filename)
+      entry.oedlink = oed[entry.id]
       json_file_name = datapath + 'json' + "#{basename}.json"
-      File.open(json_file_name, 'w:utf-8') {|out| out.puts entry.to_h.to_json}
+      File.open(json_file_name, 'w:utf-8') {|out| out.puts entry.to_json}
+    rescue => e
+      puts e
+      puts "Error in #{entry.source}"
+      require 'pry'; binding.pry
     end
+
 
     def start_new_letter(datapath, this_letter)
       logger.info "Beginning work on words starting with #{this_letter}"
@@ -80,6 +84,4 @@ module MedInstaller
       end
     end
   end
-
-
 end
