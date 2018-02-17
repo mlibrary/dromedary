@@ -33,7 +33,7 @@ unless datadir
     Usage: 
       export SOLR_URL="http://whatever:whateverport" (default: localhost:8983)
       
-          ruby indexer.rb <path/to/data> (which has xml/*/MED*.xml)
+          ruby indexer.rb <path/to/data> (which has xml/*/MED*.xml and json/*/MED*.json)
       or  ruby indexer.rb </path/to/data> A B (only index entries that start with 'A' or 'B')
 
   USAGE
@@ -44,7 +44,7 @@ end
 module Dromedary
   class Indexer
 
-    LOGGER = Dromedary::Entry::Constants::LOGGER
+    LOGGER =
     attr_reader :target_dirs
     attr_reader :client
 
@@ -102,7 +102,7 @@ module Dromedary
 
     def index_entries(entries)
       logger.info "Beginning indexing of #{entries.count} entries"
-      slice = 10_000
+      slice = 500
       entries.each_slice(slice) do |e_slice|
         begin
           client.add_docs e_slice.map{|e| to_solr_document(e)}
