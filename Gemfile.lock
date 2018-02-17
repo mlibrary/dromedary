@@ -159,6 +159,7 @@ GEM
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
     nokogiri (1.8.2-java)
+    oj (3.4.0)
     parallel (1.12.1)
     parser (2.4.0.2)
       ast (~> 2.3)
@@ -329,6 +330,7 @@ DEPENDENCIES
   middle_english_dictionary!
   mysql2
   nokogiri
+  oj
   pry-byebug
   pry-rails
   puma (~> 3.7)

@@ -7,6 +7,7 @@ module MedInstaller
 end
 
 require_relative 'med_installer/extract'
+require_relative 'med_installer/index'
 require_relative 'med_installer/convert'
 require_relative 'med_installer/usage'
 require_relative 'med_installer/solr'
