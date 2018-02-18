@@ -28,7 +28,7 @@ end
 
 MedInstaller::CLI.register 'extract', MedInstaller::Extract, aliases: ['unzip']
 MedInstaller::CLI.register 'convert', MedInstaller::Convert, aliases: ['json']
-MedInstaller::CLI.register 'index', MedInstaller::Index
+# MedInstaller::CLI.register 'index', MedInstaller::Index
 
 
 MedInstaller::CLI.register 'solr install', MedInstaller::Solr::Install
