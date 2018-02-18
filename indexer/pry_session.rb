@@ -1,9 +1,13 @@
-require 'pathname'
-require 'middle_english_dictionary'
-
+require "pathname"
+ENV["BUNDLE_GEMFILE"] ||= File.expand_path("../../Gemfile",
+                                           Pathname.new(__FILE__).realpath)
+require "rubygems"
+require "bundler/setup"
 $:.unshift Pathname(__dir__).realdirpath.parent + "lib"
 
 require 'json'
+require 'middle_english_dictionary'
+require_relative '../lib/med_installer/indexer/entry_json_reader'
 
 
 unless ARGV.size > 0
@@ -14,10 +18,24 @@ unless ARGV.size > 0
   exit(1)
 end
 
-datadir = Pathname(ARGV.shift)
 
-entries = MiddleEnglishDictionary::Collection::EntrySet.new
-entries.load_dir_of_json_files(datadir)
+
+datadir = Pathname(ARGV.shift)
+letters = ARGV.shift
+
+
+settings = {
+    'med.data_dir' => datadir,
+    'med.letters' =>  letters
+}
+
+entries = MedInstaller::EntryJsonReader.new(:ignore, settings)
+require 'pry'; binding.pry
+
+puts "Done"
+
+# entries = MiddleEnglishDictionary::Collection::EntrySet.new
+# entries.load_dir_of_json_files(datadir)
 
 puts "Loaded #{entries.count} entries into 'entries' (a #{entries.class})"
 

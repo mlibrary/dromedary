@@ -10,6 +10,16 @@ module AnnoyingUtilities
 
   extend self
 
+  def blacklight_solr_url
+    env       = ENV['RAILS_ENVIRONMENT'] || 'development'
+    @solr_url ||= load_config_file('blacklight.yml')[env]['url']
+  end
+
+  def blacklight_config_file
+    load_config_file('blacklight.yml')
+  end
+
+
   # Load a config file from the Rails config directory
   def load_config_file(config_file)
     filename = find_file(config_file)
@@ -24,6 +34,13 @@ module AnnoyingUtilities
     end
   end
 
+  # Get a list of data directories from a datadir, a type,
+  # and a list of letters
+  def target_directories(datadir, datatype, dirname = [A - Z])
+    typedir = Pathname(datadir) + datatype
+    regexp  = Regexp.new "\\/#{dirname}.*\\Z", 'x'
+    typedir.children.select {|x| x.directory? and regexp.match(x.to_s)}
+  end
 
 
   private
