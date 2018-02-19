@@ -1,29 +1,36 @@
 #!/usr/bin/env ruby
 
+# Before doing anything else, need to
+# force bundler to load up so we
+# can require gems from the Gemfile
+#
 require "pathname"
 ENV["BUNDLE_GEMFILE"] ||= File.expand_path("../../Gemfile",
                                            Pathname.new(__FILE__).realpath)
-
 require "rubygems"
 require "bundler/setup"
 
-# Add the indexer lib
-require 'pathname'
-indexer_dir = Pathname.new(__dir__).parent + 'indexer'
-$LOAD_PATH.push (indexer_dir + 'lib').to_s
+# Add the local lib
 
+$LOAD_PATH.unshift Pathname(__dir__).parent + 'lib'
+
+# Now we can actually load stuff
 require 'hanami/cli'
+require 'med_installer'
 
+# Set this up as a CLI
 module MedInstaller
   class CLI
     extend Hanami::CLI::Registry
   end
 end
 
-require_relative '../lib/med_installer'
 
 MedInstaller::CLI.register 'extract', MedInstaller::Extract, aliases: ['unzip']
 MedInstaller::CLI.register 'convert', MedInstaller::Convert, aliases: ['json']
+# MedInstaller::CLI.register 'index', MedInstaller::Index
+
+
 MedInstaller::CLI.register 'solr install', MedInstaller::Solr::Install
 MedInstaller::CLI.register 'solr link', MedInstaller::Solr::Link
 MedInstaller::CLI.register 'solr start', MedInstaller::Solr::Start, aliases: ['restart']
