@@ -8,6 +8,8 @@ end
 #############################################
 # Non-default stuff added by the Dromedary team
 
+# for local development
+gem 'middle_english_dictionary', path: "/Users/dueberb/devel/med/middle_english_dictionary"
 
 # Rails and blacklight
 
@@ -21,6 +23,7 @@ gem 'concurrent-ruby'
 
 # For solr indexing
 gem 'simple_solr_client', require: false
+gem 'traject', require: false
 
 # Semantic logging?
 gem 'awesome_print'
@@ -29,6 +32,9 @@ gem 'rails_semantic_logger'
 # Use pry for the console
 group :development, :test do
   gem 'pry-rails'
+
+  gem 'ruby-prof'
+  gem 'oj'
 
   #Faster boot times
 
