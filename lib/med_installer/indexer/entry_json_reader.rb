@@ -17,16 +17,28 @@ require 'middle_english_dictionary'
 require_relative '../../../lib/annoying_utilities'
 
 module MedInstaller
+
+  # Traject readers need to take an io object (which we don't need) and the
+  # settings hash
+  module Traject
+    class EntryJsonReader
+      def self.new(_io_we_ignore, settings)
+        MedInstaller::EntryJsonReader.new(settings)
+      end
+    end
+  end
+
+
   class EntryJsonReader
 
     DATADIRKEY = 'med.data_dir'
     LETTERSKEY = 'med.letters'
 
-    def self.new(io_we_ignore, settings)
-      @data_dir = get_data_dir(settings)
-      @letters  = get_letters(settings)
+    def self.new(settings)
+      @data_dir   = get_data_dir(settings)
+      @letters    = get_letters(settings)
       target_dirs = AnnoyingUtilities.target_directories(@data_dir, 'json', @letters)
-      entries = MiddleEnglishDictionary::Collection::EntrySet.new
+      entries     = MiddleEnglishDictionary::Collection::EntrySet.new
       target_dirs.each do |dir|
         entries.load_dir_of_json_files(dir)
       end
@@ -46,7 +58,7 @@ module MedInstaller
       if settings.has_key?(DATADIRKEY)
         settings[DATADIRKEY]
       else
-        raise "Need to specify #{DATADIRKEY} in traject settings for #{self.class}"
+        raise "Need to specify #{DATADIRKEY} in settings for #{self.class}"
       end
     end
   end

@@ -23,6 +23,7 @@ gem 'concurrent-ruby'
 
 # For solr indexing
 gem 'simple_solr_client', require: false
+gem 'traject', require: false
 
 # Semantic logging?
 gem 'awesome_print'
