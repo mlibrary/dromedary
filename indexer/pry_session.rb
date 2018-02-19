@@ -29,19 +29,9 @@ settings = {
     'med.letters' =>  letters
 }
 
-entries = MedInstaller::EntryJsonReader.new(:ignore, settings)
+entries = MedInstaller::EntryJsonReader.new(settings)
 require 'pry'; binding.pry
 
 puts "Done"
-
-# entries = MiddleEnglishDictionary::Collection::EntrySet.new
-# entries.load_dir_of_json_files(datadir)
-
-puts "Loaded #{entries.count} entries into 'entries' (a #{entries.class})"
-
-require 'pry'; binding.pry
-
-$stderr.puts "Goodbye"
-
 
 
