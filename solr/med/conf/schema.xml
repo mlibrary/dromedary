@@ -176,22 +176,11 @@
 
   <field name="id"   type="string" indexed="true" stored="true" required="true" multiValued="false" docValues="false" />
   <field name="type" type="string"  stored="true"  indexed="true"  multiValued="false"  docValues="true" />
-
   <field name="sequence" type="float" stored="true" indexed="true" multiValued="false"/>
 
-  <field name="keywords"  type="me_text" stored="true" indexed="true"  multiValued="false"/>
   <field name="xml"       type="string"  stored="true"  indexed="false" multiValued="false" docValues="false"/>
-  <field name="json"       type="string"  stored="true"  indexed="false" multiValued="false" docValues="false"/>
+  <field name="json"      type="string"  stored="true"  indexed="false" multiValued="false" docValues="false"/>
 
-
-  <field name="pos"        type="string"  stored="true" indexed="true" multiValued="false" docValues="true"/>
-  <field name="pos_abbrev" type="string"  stored="true" indexed="true" multiValued="false" docValues="true"/>
-
-  <field name="usage" type="string" stored="true" indexed="true" multiValued="true" docValues="true" />
-
-  <field name="main_headword" type="me_text" indexed="true" stored="true" multiValued="false"/>
-  <field name="main_headword_exactish" type="me_exactish" indexed="true" stored="true" multiValued="false"/>
-  <copyField source="main_headword" dest="main_headword_exactish"/>
 
   <field name="official_headword" type="me_text" indexed="true" stored="true" multiValued="false"/>
   <field name="official_headword_exactish" type="me_exactish" indexed="true" stored="false" multiValued="false"/>
@@ -199,12 +188,22 @@
 
   <field name="headword"     type="me_text" indexed="true" stored="true" multiValued="true"/>
   <field name="headword_exactish" type="me_exactish" indexed="true" stored="true" multiValued="true"/>
+  <field name="orth"         type="me_text" indexed="true" stored="true" multiValued="true"/>
   <copyField source="headword" dest="headword_exactish"/>
 
 
 
 
-  <field name="orth"         type="me_text" indexed="true" stored="true" multiValued="true"/>
+  <field name="keywords"  type="me_text" stored="true" indexed="true"  multiValued="false"/>
+
+  <field name="pos"        type="string"  stored="true" indexed="true" multiValued="false" docValues="true"/>
+  <field name="pos_abbrev" type="string"  stored="true" indexed="true" multiValued="false" docValues="true"/>
+
+
+  <field name="main_headword" type="me_text" indexed="true" stored="true" multiValued="false"/>
+  <field name="main_headword_exactish" type="me_exactish" indexed="true" stored="true" multiValued="false"/>
+  <copyField source="main_headword" dest="main_headword_exactish"/>
+
   <field name="definition_text"   type="text"    indexed="true" stored="true" multiValued="true"/>
   <field name="definition_xml"   type="string"    indexed="false" stored="true" multiValued="true"/>
   <field name="quote"        type="me_text" indexed="true" stored="true" multiValued="true"/>

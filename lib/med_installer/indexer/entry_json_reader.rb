@@ -34,19 +34,23 @@ module MedInstaller
     DATADIRKEY = 'med.data_dir'
     LETTERSKEY = 'med.letters'
 
-    def self.new(settings)
+    def initialize(settings)
       @data_dir   = get_data_dir(settings)
       @letters    = get_letters(settings)
-      target_dirs = AnnoyingUtilities.target_directories(@data_dir, 'json', @letters)
-      entries     = MiddleEnglishDictionary::Collection::EntrySet.new
-      target_dirs.each do |dir|
-        entries.load_dir_of_json_files(dir)
-      end
-      entries
+      @target_dirs = AnnoyingUtilities.target_directories(@data_dir, 'json', @letters)
     end
 
+    def each
+      @target_dirs.each do |dir|
+        entries     = MiddleEnglishDictionary::Collection::EntrySet.new
+        puts "Loading #{dir}"
+        entries.load_dir_of_json_files(dir)
+        puts "Indexing #{dir}"
+        entries.each {|e| yield e}
+      end
+    end
 
-    def self.get_letters(settings)
+    def get_letters(settings)
       if settings.has_key?(LETTERSKEY)
         settings[LETTERSKEY]
       else
@@ -54,7 +58,7 @@ module MedInstaller
       end
     end
 
-    def self.get_data_dir(settings)
+    def get_data_dir(settings)
       if settings.has_key?(DATADIRKEY)
         settings[DATADIRKEY]
       else
