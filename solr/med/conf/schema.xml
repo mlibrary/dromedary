@@ -174,41 +174,47 @@
 
   <!-- non-dynamic fields -->
 
+  <!--Basics-->
   <field name="id"   type="string" indexed="true" stored="true" required="true" multiValued="false" docValues="false" />
   <field name="type" type="string"  stored="true"  indexed="true"  multiValued="false"  docValues="true" />
   <field name="sequence" type="float" stored="true" indexed="true" multiValued="false"/>
 
+  <!--Raw data-->
   <field name="xml"       type="string"  stored="true"  indexed="false" multiValued="false" docValues="false"/>
   <field name="json"      type="string"  stored="true"  indexed="false" multiValued="false" docValues="false"/>
 
+  <!--Broad searches-->
+  <field name="keywords"  type="me_text" stored="true" indexed="true"  multiValued="false"/>
 
+
+  <!--Headwords and orths-->
   <field name="official_headword" type="me_text" indexed="true" stored="true" multiValued="false"/>
   <field name="official_headword_exactish" type="me_exactish" indexed="true" stored="false" multiValued="false"/>
   <copyField source="official_headword" dest="official_headword_exactish"/>
 
   <field name="headword"     type="me_text" indexed="true" stored="true" multiValued="true"/>
   <field name="headword_exactish" type="me_exactish" indexed="true" stored="true" multiValued="true"/>
-  <field name="orth"         type="me_text" indexed="true" stored="true" multiValued="true"/>
   <copyField source="headword" dest="headword_exactish"/>
 
+  <field name="orth"         type="me_text" indexed="true" stored="true" multiValued="true"/>
 
-
-
-  <field name="keywords"  type="me_text" stored="true" indexed="true"  multiValued="false"/>
-
-  <field name="pos"        type="string"  stored="true" indexed="true" multiValued="false" docValues="true"/>
+  <!--Etymology and Part of speach-->
+  <field name="pos_raw"        type="string"  stored="true" indexed="true" multiValued="false" docValues="true"/>
   <field name="pos_abbrev" type="string"  stored="true" indexed="true" multiValued="false" docValues="true"/>
+  <field name="etyma_language" type="string" indexed="true" stored="true" multiValued="true"/>
 
-
-  <field name="main_headword" type="me_text" indexed="true" stored="true" multiValued="false"/>
-  <field name="main_headword_exactish" type="me_exactish" indexed="true" stored="true" multiValued="false"/>
-  <copyField source="main_headword" dest="main_headword_exactish"/>
-
+  <!--Definitions and modern equivalents-->
   <field name="definition_text"   type="text"    indexed="true" stored="true" multiValued="true"/>
   <field name="definition_xml"   type="string"    indexed="false" stored="true" multiValued="true"/>
-  <field name="quote"        type="me_text" indexed="true" stored="true" multiValued="true"/>
+  <field name="oed_norm" type="text" indexed="true" stored="true" multiValued="false"/>
 
-  <field name="etyma_language" type="string" indexed="true" stored="true" multiValued="true"/>
+
+  <field name="quote"        type="me_text" indexed="true" stored="true" multiValued="true"/>
+  <field name="quote_title" type="me_text" indexed="true" stored="true" multiValued="true"/>
+  <field name="quote_manuscript" type="text" indexed="true" stored="true" multiValued="true"/>
+  <field name="quote_rid" type="me_text" indexed="true" stored="true" multiValued="true"/>
+  <field name="quote_md" type="int" indexed="true" stored="true" multiValued="true"/>
+  <field name="quote_cd" type="int" indexed="true" stored="true" multiValued="true"/>
 
   <!-- Suggestions -->
 
