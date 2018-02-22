@@ -36,9 +36,9 @@ module AnnoyingUtilities
 
   # Get a list of data directories from a datadir, a type,
   # and a list of letters
-  def target_directories(datadir, datatype, dirname = [A - Z])
+  def target_directories(datadir, datatype, dir_prefix_regexp = '[A - Z]')
     typedir = Pathname(datadir) + datatype
-    regexp  = Regexp.new "\\/#{dirname}.*\\Z", 'x'
+    regexp  = Regexp.new "\\/#{dir_prefix_regexp}.*\\Z", 'x'
     typedir.children.select {|x| x.directory? and regexp.match(x.to_s)}
   end
 

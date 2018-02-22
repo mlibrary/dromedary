@@ -5,8 +5,8 @@ require_relative '../lib/med_installer'
 settings do
   provide "log.batch_progress", 5_000
   provide 'med.data_dir', Pathname(__dir__).parent.parent + 'data'
-  # provide 'med.letters', '[A-Z]'
-  provide 'med.letters', 'A'
+  provide 'med.letters', '[A-Z]'
+  # provide 'med.letters', 'A'
   provide "reader_class_name", 'MedInstaller::Traject::EntryJsonReader'
 end
 
@@ -56,7 +56,7 @@ to_field('definition_text') do |entry, acc|
 end
 
 to_field('oed_norm') do |entry, acc|
-  acc << entry.oedlink.norm
+  acc << entry.oedlink.norm if entry.oedlink
 end
 
 # Usages
@@ -84,14 +84,14 @@ end
 to_field('quote_cd') do |entry, acc|
   acc.replace entry.all_citations.flat_map(&:cd).uniq.compact
 end
-to_field('quote_title') do |entry, accc|
-  acc.replace entry.all_citations.flat_map(&:bibs).flat_map(&:stencil).flat_map(&:title)
+to_field('quote_title') do |entry, acc|
+  acc.replace entry.all_stencils.flat_map(&:title)
 end
-to_field('quote_manuscript') do |entry, accc|
-  acc.replace entry.all_citations.flat_map(&:bibs).flat_map(&:stencil).flat_map(&:ms)
+to_field('quote_manuscript') do |entry, acc|
+  acc.replace entry.all_stencils.flat_map(&:ms)
 end
-to_field('quote_rid') do |entry, accc|
-  acc.replace entry.all_citations.flat_map(&:bibs).flat_map(&:stencil).flat_map(&:rid)
+to_field('quote_rid') do |entry, acc|
+  acc.replace entry.all_stencils.flat_map(&:rid)
 end
 
 
