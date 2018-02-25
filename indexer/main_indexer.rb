@@ -5,8 +5,8 @@ require_relative '../lib/med_installer'
 settings do
   provide "log.batch_progress", 5_000
   provide 'med.data_dir', Pathname(__dir__).parent.parent + 'data'
-  provide 'med.letters', '[A-Z]'
-  # provide 'med.letters', 'A'
+  # provide 'med.letters', '[A-Z]'
+  provide 'med.letters', 'A'
   provide "reader_class_name", 'MedInstaller::Traject::EntryJsonReader'
 end
 
@@ -26,29 +26,32 @@ end
 #   doc
 # end
 
-def entry_field(name)
+def entry_method(name)
   ->(rec, acc) {acc << rec.send(name)}
 end
 
 
 # What do we have?
-to_field 'id', entry_field(:id)
+to_field 'id', entry_method(:id)
 
 to_field 'type' do |entry, acc|
   acc << 'entry'
 end
 
-to_field 'sequence', entry_field(:sequence)
+to_field 'sequence', entry_method(:sequence)
 
 # Raw forms
-# to_field 'xml', entry_field(:xml)
-# to_field 'json', entry_field(:json)
+to_field 'xml', entry_method(:xml)
+to_field 'json', entry_method(:to_json)
+to_field 'keyword' do |entry, acc|
+  acc << Nokogiri::XML(entry.xml).text.gsub(/[\s\n]+/, ' ')
+end
 
 
 # headwords and forms
-to_field 'official_headword', entry_field(:original_headwords)
-to_field 'headword', entry_field(:regularized_headwords)
-to_field 'orth', entry_field(:all_forms)
+to_field 'official_headword', entry_method(:original_headwords)
+to_field 'headword', entry_method(:regularized_headwords)
+to_field 'orth', entry_method(:all_forms)
 
 # Definitions and modern equivalents
 to_field('definition_text') do |entry, acc|
@@ -70,9 +73,9 @@ to_field('grammatical_usage') do |entry, acc|
 end
 
 # Etymology and pos
-to_field 'etyma_language', entry_field(:etym_languages)
-to_field 'pos_raw', entry_field(:pos_raw)
-to_field 'pos_abbrev', entry_field(:normalized_pos_raw)
+to_field 'etyma_language', entry_method(:etym_languages)
+to_field 'pos_raw', entry_method(:pos_raw)
+to_field 'pos_abbrev', entry_method(:normalized_pos_raw)
 
 # Quotes
 to_field('quote_text') do |entry, acc|
@@ -90,8 +93,13 @@ end
 to_field('quote_manuscript') do |entry, acc|
   acc.replace entry.all_stencils.flat_map(&:ms)
 end
-to_field('quote_rid') do |entry, acc|
-  acc.replace entry.all_stencils.flat_map(&:rid)
+
+each_record do |entry, context|
+  context.clipboard[:rids] = entry.all_stencils.flat_map(&:rid)
+end
+
+to_field('quote_rid') do |entry, acc, context|
+  acc.replace context.clipboard[:rids]
 end
 
 
