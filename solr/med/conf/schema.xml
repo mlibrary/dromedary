@@ -184,12 +184,12 @@
   <field name="json"      type="string"  stored="true"  indexed="false" multiValued="false" docValues="false"/>
 
   <!--Broad searches-->
-  <field name="keywords"  type="me_text" stored="true" indexed="true"  multiValued="false"/>
+  <field name="keyword"  type="me_text" stored="true" indexed="true"  multiValued="false"/>
 
 
   <!--Headwords and orths-->
-  <field name="official_headword" type="me_text" indexed="true" stored="true" multiValued="false"/>
-  <field name="official_headword_exactish" type="me_exactish" indexed="true" stored="false" multiValued="false"/>
+  <field name="official_headword" type="me_text" indexed="true" stored="true" multiValued="true"/>
+  <field name="official_headword_exactish" type="me_exactish" indexed="true" stored="false" multiValued="true"/>
   <copyField source="official_headword" dest="official_headword_exactish"/>
 
   <field name="headword"     type="me_text" indexed="true" stored="true" multiValued="true"/>
@@ -205,27 +205,30 @@
 
   <!--Definitions and modern equivalents-->
   <field name="definition_text"   type="text"    indexed="true" stored="true" multiValued="true"/>
-  <field name="definition_xml"   type="string"    indexed="false" stored="true" multiValued="true"/>
   <field name="oed_norm" type="text" indexed="true" stored="true" multiValued="false"/>
 
 
-  <field name="quote"        type="me_text" indexed="true" stored="true" multiValued="true"/>
+  <field name="quote_text"  type="me_text" indexed="true" stored="true" multiValued="true"/>
   <field name="quote_title" type="me_text" indexed="true" stored="true" multiValued="true"/>
   <field name="quote_manuscript" type="text" indexed="true" stored="true" multiValued="true"/>
   <field name="quote_rid" type="me_text" indexed="true" stored="true" multiValued="true"/>
   <field name="quote_md" type="int" indexed="true" stored="true" multiValued="true"/>
   <field name="quote_cd" type="int" indexed="true" stored="true" multiValued="true"/>
 
-  <!-- Suggestions -->
+  <!-- Usage -->
+  <field name="discipline_usage" type="string" indexed="true" stored="true" multiValued="true" docValues="true"/>
+  <field name="grammatical_usage" type="string" indexed="true" stored="true" multiValued="true" docValues="true"/>
+
+
+
+  <!-- ######################################################################
+                     Source for Suggestion Handlers
+       ###################################################################### -->
 
   <field name="word_suggestions" type="me_text" indexed="true" stored="true" multiValued="true"/>
-  <copyField source="official_headword" dest="word_suggestions" />
-  <copyField source="headword" dest="word_suggestions" />
-  <copyField source="orth" dest="word_suggestions" />
 
   <field name="headword_only_suggestions" type="me_text" indexed="true" stored="true" multiValued="true"/>
-  <copyField source="headword" dest="headword_only_suggestions"/>
-  <copyField source="official_headword" dest="headword_only_suggestions"/>
+
 
 
   <!-- Field to use to determine and enforce document uniqueness.
