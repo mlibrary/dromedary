@@ -1,5 +1,7 @@
 require 'middle_english_dictionary'
 require 'hanami/cli'
+require 'annoying_utilities'
+require 'simple_solr_client'
 
 Zip.on_exists_proc = true
 
@@ -13,6 +15,24 @@ module MedInstaller
     SOLR_LIBS      = DROMEDARY_ROOT + 'solr' + 'lib'
     DOT_SOLR       = DROMEDARY_ROOT + '.solr'
 
+
+    class Reload < Hanami::CLI::Command
+      desc "Tell solr to reload the solr config without restarting"
+
+      def call(cmd)
+        uri = URI AnnoyingUtilities.solr_url
+        path = uri.path.split('/')
+        corename = path.pop
+        uri.path = path.join('/') # go up a level -- we popped off the core name
+        solr_url = uri.to_s
+
+        client = SimpleSolrClient::Client.new(solr_url)
+        core    = client.core(corename)
+        core.reload
+        MedInstaller::LOGGER.info "Core '#{core}' reloaded"
+
+      end
+    end
 
     class Install < Hanami::CLI::Command
       desc "Download and install solr to the given directory"

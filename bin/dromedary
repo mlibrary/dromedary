@@ -35,6 +35,7 @@ MedInstaller::CLI.register 'solr install', MedInstaller::Solr::Install
 MedInstaller::CLI.register 'solr link', MedInstaller::Solr::Link
 MedInstaller::CLI.register 'solr start', MedInstaller::Solr::Start, aliases: ['restart']
 MedInstaller::CLI.register 'solr stop', MedInstaller::Solr::Stop
+MedInstaller::CLI.register 'solr reload', MedInstaller::Solr::Reload
 
 Hanami::CLI.new(MedInstaller::CLI).call
 
