@@ -19,6 +19,12 @@ module AnnoyingUtilities
     load_config_file('blacklight.yml')
   end
 
+  def solr_url(env = "development")
+    conf = blacklight_config_file
+    url = conf[env]["url"]
+    ENV['SOLR_URL'] || url
+  end
+
 
   # Load a config file from the Rails config directory
   def load_config_file(config_file)
