@@ -14,21 +14,6 @@ settings do
 end
 
 
-# # Create a hash that can be sent to solr
-# def solr_doc
-#    doc[:keywords] = Nokogiri::XML(xml).text # should probably just copyfield all the important stuff
-
-#   if form and form.pos
-#     doc[:pos_abbrev] = form.normalized_pos
-#     doc[:pos]        = form.pos
-#   end
-
-#   doc[:etyma_language] = @etyma_languages
-#
-#   doc[:quote] = quotes.map(&:text)
-#   doc
-# end
-
 def entry_method(name)
   ->(rec, acc) {acc.replace Array(rec.send(name))}
 end
