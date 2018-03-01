@@ -8,8 +8,8 @@ require 'med_installer'
 settings do
   provide "log.batch_progress", 5_000
   provide 'med.data_dir', Pathname(__dir__).parent.parent + 'data'
-  # provide 'med.letters', '[A-Z]'
-  provide 'med.letters', 'A'
+  provide 'med.letters', '[A-Z]'
+  # provide 'med.letters', 'A'
   provide "reader_class_name", 'MedInstaller::Traject::EntryJsonReader'
 end
 
