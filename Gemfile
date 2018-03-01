@@ -24,6 +24,10 @@ gem 'concurrent-ruby'
 # For solr indexing
 gem 'simple_solr_client', require: false
 gem 'traject', require: false
+if defined? JRUBY_VERSION
+  gem 'traject-marc4j_reader'
+end
+
 
 # Semantic logging?
 gem 'awesome_print'
@@ -33,13 +37,11 @@ gem 'rails_semantic_logger'
 group :development, :test do
   gem 'pry-rails'
 
-  gem 'ruby-prof'
-  gem 'oj'
-
   #Faster boot times
 
   gem 'listen',   require: false
   unless defined? JRUBY_VERSION
+    gem 'ruby-prof'
     gem 'pry-byebug'
   end
 
