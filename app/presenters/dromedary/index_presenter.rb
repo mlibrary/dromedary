@@ -48,7 +48,7 @@ module Dromedary
     end
 
     def senses
-      @entry.senses.map {|x| x.extend(SplitDefinitionPresenter)}
+      @entry.senses #.map {|x| x.extend(SplitDefinitionPresenter)}
     end
 
     def quote_count

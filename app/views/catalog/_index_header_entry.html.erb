@@ -8,7 +8,7 @@
   <% entry = doc_presenter.entry %>
 
   <% document_actions = capture do %>
-    <% # bookmark functions for items/docs               -%>
+    <% # bookmark functions for items/docs                -%>
     <%= render_index_doc_actions document, wrapping_class: "index-document-functions col-sm-3 col-lg-2" %>
   <% end %>
 
@@ -28,47 +28,25 @@
       <div>Possible other spellings: <%== hos.join(', ') %></div>
     <% end %>
 
-    <div style="margin-bottom: 1em;"><%= doc_presenter.quote_count %> quotation(s)
+    <div style="margin-bottom: 1em;"><%= doc_presenter.quote_count %>
+      quotation(s)
       we need to figure out what to
       do with
     </div>
-    <% if document.has_field?("definition_xml") %>
-      <% if doc_presenter.senses.count == 1 %>
-        <div>
-          <% sense = doc_presenter.senses.first %>
-          <% if sense.has_initial_def? %>
-            <%== sense.initial_def.gsub(/\s*\~\s*/, " #{doc_presenter.normalized_headword} ") %>
-          <% end %>
-          <% if sense.has_lettered_defs? %>
-            <ol type="a">
-              <% sense.sub_definitions.each do |subdef| %>
-                <li>
-                  <%== subdef.definition_xml.gsub(/\s*\~\s*/, " #{doc_presenter.normalized_headword} ") %>
-                </li>
-              <% end %>
-            </ol>
-          <% end %>
-        </div>
-      <% else %>
-        <ol>
-          <% doc_presenter.senses.each do |sense| %>
-            <li>
-              <% if sense.has_initial_def? %>
-                <%== sense.initial_def.gsub(/\s*\~\s*/, " #{doc_presenter.normalized_headword} ") %>
-              <% end %>
-              <% if sense.has_lettered_defs? %>
-                <ol type="a">
-                  <% sense.sub_definitions.each do |subdef| %>
-                    <li>
-                      <%== subdef.definition_xml.gsub(/\s*\~\s*/, " #{doc_presenter.normalized_headword} ") %>
-                    </li>
-                  <% end %>
-                </ol>
-              <% end %>
-            </li>
-          <% end %>
-        </ol>
-      <% end %>
+    <% if doc_presenter.senses.count == 1 %>
+      <div>
+        <% sense = doc_presenter.senses.first %>
+        <div style="font-family: Courier"><%= sense.definition_xml %></div>
+
+      </div>
+    <% else %>
+      <ol>
+        <% doc_presenter.senses.each do |sense| %>
+          <li>
+            <div><%= sense.definition_xml %></div>
+          </li>
+        <% end %>
+      </ol>
 
     <% end %>
 
