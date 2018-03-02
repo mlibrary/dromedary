@@ -10,31 +10,15 @@ Zip.on_exists_proc = true
 module MedInstaller
   class Solr
     extend MedInstaller::Logger
-    URL         = 'http://mirrors.gigenet.com/apache/lucene/solr/6.6.2/solr-6.6.2.tgz'
-    SOLRDIRNAME = 'solr-6.6.2'
+    URL                           = 'http://mirrors.gigenet.com/apache/lucene/solr/6.6.2/solr-6.6.2.tgz'
+    DIR_EXTRACTED_FROM_SOLR_TARGZ = 'solr-6.6.2' # make this better!
 
-    DROMEDARY_ROOT = Pathname(__dir__).parent.parent.realdirpath
+    DROMEDARY_ROOT = AnnoyingUtilities::DROMEDARY_ROOT
     MED_CONFIG     = DROMEDARY_ROOT + 'solr' + 'med'
     SOLR_LIBS      = DROMEDARY_ROOT + 'solr' + 'lib'
-    DOT_SOLR       = DROMEDARY_ROOT + '.solr'
-    DEFAULT_SOLR   = DROMEDARY_ROOT.parent + 'solr'
+    DOT_SOLR       = AnnoyingUtilities::DOT_SOLR
+    DEFAULT_SOLR   = AnnoyingUtilities::DEFAULT_SOLR
 
-    def self.solr_root
-      solr_root = if File.exist? DOT_SOLR
-                    dir = Pathname(File.open(DOT_SOLR).first.chomp)
-                    logger.info "Solr root from .solr file is #{solr_root} "
-                    dir
-                  else
-                    logger.warn "Cannot find #{DOT_SOLR}"
-                    logger.warn "Trying default solr root in parent dir at #{Solr::DEFAULT_SOLR}"
-                    Solr::DEFAULT_SOLR
-                  end
-
-      unless Dir.exist? solr_root
-        raise "Directory (#{solr_root}) isn't there"
-      end
-      solr_root
-    end
 
     def self.get_port_with_logging(rails_env)
       p    = AnnoyingUtilities.solr_port(rails_env)
@@ -48,18 +32,6 @@ module MedInstaller
       port
     end
 
-    def self.core
-      uri      = URI(AnnoyingUtilities.solr_url)
-      path     = uri.path.split('/')
-      corename = path.pop
-      uri.path = path.join('/') # go up a level -- we popped off the core name
-      solr_url = uri.to_s
-
-      client = SimpleSolrClient::Client.new(solr_url)
-      core   = client.core(corename)
-      core
-    end
-
 
     class Reload < Hanami::CLI::Command
       include MedInstaller::Logger
@@ -67,7 +39,7 @@ module MedInstaller
       desc "Tell solr to reload the solr config without restarting"
 
       def call(cmd)
-        core = Solr.core
+        core = AnnoyingUtilities.solr_core
 
         unless core.up?
           logger.error "Solr core at #{core.url} did not respond (not up?)"
@@ -87,7 +59,7 @@ module MedInstaller
       desc "Delete all documents in the solr"
 
       def call(cmd)
-        core = Solr.core
+        core = AnnoyingUtilities.solr_core
         unless core.up?
           logger.error "Solr core at #{core.url} did not respond (not up?)"
           exit(1)
@@ -102,11 +74,11 @@ module MedInstaller
 
       desc "Download and install solr to the given directory"
 
-      option :installdir, default: Solr::DROMEDARY_ROOT.parent, desc: "The install directory (default: next to dromedary)"
+      option :installdir, default: AnnoyingUtilities::DROMEDARY_ROOT.parent, desc: "The install directory (default: next to dromedary)"
 
       def call(installdir:)
         installpath     = Pathname(installdir).realdirpath
-        solrpath        = installpath + SOLRDIRNAME
+        solrpath        = installpath + DIR_EXTRACTED_FROM_SOLR_TARGZ
         lnpath          = installpath + 'solr'
         solr_solr_dir   = lnpath + 'server' + 'solr'
         solr_config_dir = solr_solr_dir + 'med'
@@ -146,7 +118,7 @@ module MedInstaller
 
       def call(cmd)
 
-        solr_root       = Solr.solr_root
+        solr_root       = AnnoyingUtilities.solr_root
         solr_solr_dir   = solr_root + 'server' + 'solr'
         solr_config_dir = solr_solr_dir + 'med'
         solr_lib_dir    = solr_solr_dir + 'lib'
@@ -179,7 +151,7 @@ module MedInstaller
 
 
       def solr_bin
-        Solr.solr_root + 'bin' + 'solr'
+        AnnoyingUtilities.solr_root + 'bin' + 'solr'
       end
 
       def call(rails_env:)

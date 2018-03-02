@@ -1,11 +1,11 @@
 # Dromedary -- Middle English Dictionary Application
 
-
-## Getting set up
+This is the installation guide. 
 
 There are a lot of moving parts, so let's go through them
+one at a time.
 
-### Set up a working direectory
+## Set up a working direectory
 
   * Make a directory to hold everything (presumed to be named `med`)
     * `mkdir /some/path/to/med`
@@ -13,29 +13,47 @@ There are a lot of moving parts, so let's go through them
     
 From here on in we'll call this directory `/some/path/to/med`.
 
-### Install the `dromedary` code
+## Install the `dromedary` code
   * Clone the repo 
     * If you have two-factor on github: `git clone git@github.com:mlibrary/dromedary.git`
     * If not: `git clone https://github.com/mlibrary/dromedary`
     * `cd dromedary`
-    * `bundle install` 
+    * `bundle install --path ./.bundle` 
     
 The basic dromedary code is now ready for use.
 
-## Install solr
+## Set up solr
 
 `dromedary` requires a solr installation to work. It's recommended you install
-a version just for this project in you `med` directory
+a version just for this project in your `med` directory
+
+### Using a new solr
 
 From your `dromedary` directory:
 
 * `bin/dromedary solr install`
 
-This will create links from the dromedary solr configurations into the solr
-directory in the right ways. If you need to run *just* the code to create the links, 
-you can do `bin/dromedary solr link`
+The convention is to install the solr "next to" your dromedary installation. If you 
+want to put it somewhere else, just add the directory
+
+* `bin/dromedary solr install /Users/dueber/mysolrstuff`
+
+This will
+* Download solr to the specified directory
+* Untar it and get it all set up
+* Automatically run `bin/dromedary solr link` to put the dromedary config in place
+
+### Using your own solr
+
+If you've already got a solr lying around, you can just use it.
+
+* Edit `config/blacklight.yml` so the url/port are correct
+* Create a file at `dromedary/.solr` with just one line: the path to your local solr install on disk
+  (e.g., `echo /Users/dueberb/solr_stuff/solr-6.6.2 > .solr`)
+* Run `bin/dromedary solr link` to set up symlinks in the right places so your solr can find the
+  dromedary configuration
     
-### Get and convert the raw data
+## Extract the raw data
 
 The data is stored in little `.xml` files. We want to get them from the Box directory,
 extract the little XML files from their enclosing `.zip` files, and then convert 
@@ -49,19 +67,27 @@ them to a different format (because ruby deals with XML *very* slowly).
   * Pick a place for the data to go. You should probably use `/some/path/to/med/data`
     (the parent directory of your `dromedary` directory, so `../data` from where you are
     now) unless you have a good reason not to.
-  * Extract the data: 
+  * Extract the data to that place: 
     * `bin/dromedary extract /path/to/In_progress_MEC_files.zip ../data`
-  * Do the conversion
-    * `bin/dromedary convert ../data` 
-    * Depending on your machine, this can take a long time.
+    
+## Convert the little XML files into something faster/better
+
+NOTE: You can skip this conversion step if you just get the already-converted json files
+from Bill. The conversion process can take a looooong time.
+
+* `bin/dromedary convert ../data` 
+
+Depending on your machine, this can take a long time.
   
 ### Index the data
 
-We'll fire up solr and index the data according to the method in 
-`indexer/index.rb`
+First, fire up solr
 
 * `bin/dromedary solr start` 
-* `bundle exec ruby indexer/index.rb ../data/all_entries.marshal`
+
+Then we'll run traject on the configuration in `indexer/main_indexer.rb`
+
+* `bundle exec traject -c indexer/main_indexer.rb -c indexer/writers/localhost.rb`
 
 ### Check it out in the application
 

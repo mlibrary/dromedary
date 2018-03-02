@@ -29,6 +29,7 @@ module MedInstaller
       validate_xml_dir(datapath)
 
       pool = new_pool
+      logger.info "Loading OED links so we can push them into entries"
       oed = MiddleEnglishDictionary::Collection::OEDLinkSet.from_directory_of_xml_files(datapath + 'xml' + 'links')
       letter = ''
       Dir.glob("#{datapath}/xml/#{dirname}/MED*xml").each_with_index do |filename, i|

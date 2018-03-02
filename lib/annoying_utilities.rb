@@ -3,12 +3,22 @@ require 'erb'
 require 'yaml'
 require 'json'
 require 'uri'
+require 'med_installer/logger'
 
 module AnnoyingUtilities
 
-  CONFIG_DIR = Pathname(__dir__).realdirpath.parent + 'config'
+  DROMEDARY_ROOT = Pathname(__dir__).parent.realdirpath
+  DOT_SOLR       = DROMEDARY_ROOT + '.solr'
+  DEFAULT_SOLR   = DROMEDARY_ROOT.parent + 'solr'
+  CONFIG_DIR     = DROMEDARY_ROOT + 'config'
+
+  extend MedInstaller::Logger
 
   extend self
+
+  def dromedary_root
+    DROMEDARY_ROOT
+  end
 
   def blacklight_solr_url
     env       = ENV['RAILS_ENVIRONMENT'] || 'development'
@@ -21,18 +31,46 @@ module AnnoyingUtilities
 
   def solr_url(env = "development")
     conf = blacklight_config_file
-    url = conf[env.to_s]["url"]
+    url  = conf[env.to_s]["url"]
     ENV['SOLR_URL'] || url
   end
 
   def solr_port(env = "development")
     url = solr_url(env)
-    m = %r{https?://[^/]+?:(\d+)}.match(url.to_s)
+    m   = %r{https?://[^/]+?:(\d+)}.match(url.to_s)
     if m
       m[1]
     else
       nil
     end
+  end
+
+  def solr_root
+    solr_root = if File.exist? DOT_SOLR
+                  dir = Pathname(File.open(DOT_SOLR).first.chomp)
+                  logger.info "Solr root from .solr file is #{dir} "
+                  dir
+                else
+                  logger.warn "Cannot find #{DOT_SOLR}"
+                  logger.warn "Trying default solr root in parent dir at #{DEFAULT_SOLR}"
+                  DEFAULT_SOLR
+                end
+
+    unless Dir.exist? solr_root
+      raise "Directory (#{solr_root}) isn't there"
+    end
+    solr_root
+  end
+
+  def solr_core
+    uri      = URI(solr_url)
+    path     = uri.path.split('/')
+    corename = path.pop
+    uri.path = path.join('/') # go up a level -- we popped off the core name
+    solr_url = uri.to_s
+
+    client = SimpleSolrClient::Client.new(solr_url)
+    client.core(corename)
   end
 
 
