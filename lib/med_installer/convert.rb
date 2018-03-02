@@ -5,14 +5,13 @@ require 'concurrent'
 module MedInstaller
   # Convert a bunch of Dromedary xml files into a more useful format.
   class Convert < Hanami::CLI::Command
+    include  MedInstaller::Logger
+
     desc "Convert the xml files into (faster) json objects (takes a long time)"
 
     argument :datadir, required: true, desc: "The data directory. Converted files will be put in <datadir>/json"
     argument :dirname, required: false, desc: "one letter to convert"
 
-    def logger
-      MedInstaller::LOGGER
-    end
 
     def new_pool
       threads = Concurrent.processor_count > 1 ? Concurrent.processor_count - 1 : 1
@@ -30,6 +29,7 @@ module MedInstaller
       validate_xml_dir(datapath)
 
       pool = new_pool
+      logger.info "Loading OED links so we can push them into entries"
       oed = MiddleEnglishDictionary::Collection::OEDLinkSet.from_directory_of_xml_files(datapath + 'xml' + 'links')
       letter = ''
       Dir.glob("#{datapath}/xml/#{dirname}/MED*xml").each_with_index do |filename, i|

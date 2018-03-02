@@ -2,11 +2,10 @@ require 'middle_english_dictionary'
 
 $LOAD_PATH.unshift Pathname.new(__dir__).parent + 'lib'
 require 'annoying_utilities'
-
 require 'med_installer'
 
 settings do
-  provide "log.batch_progress", 5_000
+  store "log.batch_size", 2_500
   provide 'med.data_dir', Pathname(__dir__).parent.parent + 'data'
   provide 'med.letters', '[A-Z]'
   # provide 'med.letters', 'A'
@@ -14,20 +13,11 @@ settings do
 end
 
 
-# # Create a hash that can be sent to solr
-# def solr_doc
-#    doc[:keywords] = Nokogiri::XML(xml).text # should probably just copyfield all the important stuff
+# Do a terrible disservice to traject and monkeypatch it to take
+# our existing logger
 
-#   if form and form.pos
-#     doc[:pos_abbrev] = form.normalized_pos
-#     doc[:pos]        = form.pos
-#   end
+Traject::Indexer.send(:define_method, :logger, ->() {AnnoyingUtilities.logger })
 
-#   doc[:etyma_language] = @etyma_languages
-#
-#   doc[:quote] = quotes.map(&:text)
-#   doc
-# end
 
 def entry_method(name)
   ->(rec, acc) {acc.replace Array(rec.send(name))}
