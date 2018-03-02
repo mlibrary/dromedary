@@ -21,10 +21,11 @@ module MedInstaller
 
     def self.solr_root
       solr_root = if File.exist? DOT_SOLR
-                    solr_root = Pathname(File.open(DOT_SOLR).first.chomp)
-                    logger.info "Using #{solr_root} from .solr file"
+                    dir = Pathname(File.open(DOT_SOLR).first.chomp)
+                    logger.info "Solr root from .solr file is #{solr_root} "
+                    dir
                   else
-                    logger.warn "Cannot find #{DOT_SOLR} (should contain path to solr root)"
+                    logger.warn "Cannot find #{DOT_SOLR}"
                     logger.warn "Trying default solr root in parent dir at #{Solr::DEFAULT_SOLR}"
                     Solr::DEFAULT_SOLR
                   end
@@ -36,14 +37,14 @@ module MedInstaller
     end
 
     def self.get_port_with_logging(rails_env)
-      p       = AnnoyingUtilities.solr_port(rails_env)
-      port    = if p
-                  logger.info "Got port #{p} from the solr url in blacklight_config.yml"
-                  p
-                else
-                  logger.warn "Didn't find a port in the url string in blacklight.yml; using 8983"
-                  "8983"
-                end
+      p    = AnnoyingUtilities.solr_port(rails_env)
+      port = if p
+               logger.info "Got port #{p} from the solr url in blacklight_config.yml"
+               p
+             else
+               logger.warn "Didn't find a port in the url string in blacklight.yml; using 8983"
+               "8983"
+             end
       port
     end
 
@@ -60,9 +61,8 @@ module MedInstaller
     end
 
 
-
     class Reload < Hanami::CLI::Command
-      include  MedInstaller::Logger
+      include MedInstaller::Logger
 
       desc "Tell solr to reload the solr config without restarting"
 
@@ -98,11 +98,11 @@ module MedInstaller
     end
 
     class Install < Hanami::CLI::Command
-      include  MedInstaller::Logger
+      include MedInstaller::Logger
 
       desc "Download and install solr to the given directory"
 
-      option :installdir, default: Solr::DEFAULT_SOLR, desc: "The install directory (default: next to dromedary)"
+      option :installdir, default: Solr::DROMEDARY_ROOT.parent, desc: "The install directory (default: next to dromedary)"
 
       def call(installdir:)
         installpath     = Pathname(installdir).realdirpath
@@ -113,9 +113,10 @@ module MedInstaller
         solr_lib_dir    = solr_solr_dir + 'lib'
 
         logger.info "Download/extract from #{URL}"
+        logger.info "Installing in directory #{installpath}"
         status = system(%Q{curl '#{URL}' | tar -C '#{installpath}' -x -z -f -})
 
-        raise "Something went wrong with download / extract" unless status
+        raise "Something went wrong with download / extract: #{status}" unless status
 
         logger.info "Making a symlink so we can use #{lnpath} instead of #{solrpath}"
         lncmd  = "rm -f '#{lnpath}'; ln -s '#{solrpath}' '#{lnpath}'"
@@ -126,9 +127,10 @@ module MedInstaller
         File.open(DOT_SOLR, 'w:utf-8') do |out|
           out.puts lnpath.to_s
         end
-        Link.new('solr link').call
+        Link.new(command_name: "solr link").call("solr link")
       rescue => err
         logger.error err.message
+        logger.error err.backtrace
         logger.error "Exiting"
         exit(1)
       end
@@ -137,30 +139,31 @@ module MedInstaller
     end
 
     class Link < Hanami::CLI::Command
-      include  MedInstaller::Logger
+      include MedInstaller::Logger
 
       desc "Link in the MED solr configurations to the solr in .solr"
 
 
-      def call(*args)
+      def call(cmd)
 
-        solr_solr_dir   = Solr.solr_root + 'server' + 'solr'
+        solr_root       = Solr.solr_root
+        solr_solr_dir   = solr_root + 'server' + 'solr'
         solr_config_dir = solr_solr_dir + 'med'
         solr_lib_dir    = solr_solr_dir + 'lib'
 
         logger.info "Linking dromedary solr config stuff into the right spot based on .solr"
         logger.info "Found solr directory #{solr_root}"
-        logger.info "Linking  #{Install::MED_CONFIG} into #{solr_config_dir}"
-        puts "ln -s '#{Install::MED_CONFIG}' '#{solr_config_dir}'"
-        status = system "rm -f '#{solr_config_dir}'; ln -s '#{Install::MED_CONFIG}' '#{solr_config_dir}'"
-        raise "Trouble linking #{Install::MED_CONFIG} into the right place in solr" unless status
+        logger.info "Linking  #{Solr::MED_CONFIG} into #{solr_config_dir}"
+        status = system "rm -f '#{solr_config_dir}'; ln -s '#{Solr::MED_CONFIG}' '#{solr_config_dir}'"
+        raise "Trouble linking #{Solr::MED_CONFIG} into the right place in solr" unless status
 
-        logger.info "Linking in #{Install::SOLR_LIBS}"
-        status = system "rm -f '#{solr_lib_dir}'; ln -s '#{Install::SOLR_LIBS}' '#{solr_lib_dir}'"
-        raise "Trouble linking #{Install::SOLR_LIBS}" unless status
+        logger.info "Linking in #{Solr::SOLR_LIBS}"
+        status = system "rm -f '#{solr_lib_dir}'; ln -s '#{Solr::SOLR_LIBS}' '#{solr_lib_dir}'"
+        raise "Trouble linking #{Solr::SOLR_LIBS}" unless status
         logger.info "Done"
       rescue => err
         logger.error err.message
+        logger.error err.backtrace
         logger.error "Exiting"
         exit(1)
       end
@@ -169,10 +172,10 @@ module MedInstaller
 
 
     class Start < Hanami::CLI::Command
-      include  MedInstaller::Logger
+      include MedInstaller::Logger
 
       desc "Start the solr referenced in .solr"
-      option :rails_env, default: "development", desc: "The rails environment"
+      argument :rails_env, required: false, default: "development", desc: "The rails environment"
 
 
       def solr_bin
@@ -180,7 +183,7 @@ module MedInstaller
       end
 
       def call(rails_env:)
-        port = Solr.get_port_with_logging(rails_env)
+        port    = Solr.get_port_with_logging(rails_env)
         portarg = "-p #{port}"
         system "#{solr_bin} restart #{portarg}"
       end
@@ -188,10 +191,10 @@ module MedInstaller
 
 
     class Stop < Start
-      option :rails_env, default: "development", desc: "The rails environment"
+      argument :rails_env, default: "development", required: false, desc: "The rails environment"
 
       def call(rails_env:)
-        port = Solr.get_port_with_logging(rails_env)
+        port    = Solr.get_port_with_logging(rails_env)
         portarg = "-p #{port}"
         system "#{solr_bin} stop #{portarg}"
       end
