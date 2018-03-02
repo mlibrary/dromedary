@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/billdueber/middle_english_dictionary
-  revision: bd2321ed591fe68c95bccd620444ac470f6f4e87
+  revision: c29bac2e6eacef98abbf9b2110e458ddecb69097
   specs:
     middle_english_dictionary (0.1.0)
       multi_json

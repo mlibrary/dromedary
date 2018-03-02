@@ -19,7 +19,7 @@
       </span>
     <% end %>
     <%= link_to_document document, doc_presenter.highlighted_official_headword, counter: counter %>
-    (<%== document.fetch('pos') %>)
+    (<%== doc_presenter.part_of_speech_abbrev %>)
     <span><%= entry.id %></span>
   </h3>
 
@@ -28,7 +28,7 @@
       <div>Possible other spellings: <%== hos.join(', ') %></div>
     <% end %>
 
-    <div style="margin-bottom: 1em;"><%= entry.quotes.count %> quotation(s)
+    <div style="margin-bottom: 1em;"><%= doc_presenter.quote_count %> quotation(s)
       we need to figure out what to
       do with
     </div>
