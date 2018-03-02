@@ -31,6 +31,8 @@ module MedInstaller
 
   class EntryJsonReader
 
+    include MedInstaller::Logger
+
     DATADIRKEY = 'med.data_dir'
     LETTERSKEY = 'med.letters'
 
@@ -43,9 +45,9 @@ module MedInstaller
     def each
       @target_dirs.each do |dir|
         entries     = MiddleEnglishDictionary::Collection::EntrySet.new
-        puts "Loading #{dir}"
+        logger.info "Loading #{dir}"
         entries.load_dir_of_json_files(dir)
-        puts "Indexing #{dir}"
+        logger.info "Indexing #{dir}"
         entries.each {|e| yield e}
       end
     end

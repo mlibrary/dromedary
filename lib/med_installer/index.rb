@@ -3,14 +3,8 @@ require 'hanami/cli'
 require 'pathname'
 require 'annoying_utilities'
 require 'med_installer/logger'
-# require 'simple_solr_client'
-# require 'semantic_logger'
-# require 'med_installer/indexer/solr'
-# require 'traject'
 
 
-###### I'm not sure this is all worth it. Can just call traject directly,
-# esp. wtih binstubs. Just need to make a reader.
 
 module MedInstaller
   module Index
@@ -23,12 +17,26 @@ module MedInstaller
       desc "Index entries into solr using the traject configuration in indexer/main_indexer.rb"
 
       argument :datadir, required: true, desc: "The data directory. Contains '/xml' and '/json'"
-      argument :dirname, required: false, desc: "Prefix of directories in datadir/json to index"
+      argument :dirname, required: false, default: '[A-Z]', desc: "Prefix of directories in datadir/json to index"
 
-      INDEX_DIR = Pathname(__dir__).parent.parent + 'indexer'
+      INDEX_DIR = AnnoyingUtilities::DROMEDARY_ROOT + 'indexer'
 
-      def call(datadir:, dirname: '[A-Z]')
-        raise "Solr at #{solr.url} not up" unless solr.up?
+      def call(datadir:, dirname:)
+        raise "Solr at #{solr.url} not up" unless AnnoyingUtilities.solr_core.up?
+
+        index_dir = AnnoyingUtilities::DROMEDARY_ROOT + 'indexer'
+        writer    = index_dir + 'writers' + 'localhost.rb'
+        fields    = index_dir + 'main_indexer.rb'
+
+        system "bundle", "exec", "traject",
+               "-c", fields.to_s,
+               "-c", writer.to_s,
+               "-s", "med.data_dir=#{datadir}",
+               "-s", "med.letters=#{dirname}",
+               "/dev/null", # traject requires a file on command line, no matter what
+               out: $stdout, err: :out
+
+        puts $?.exitstatus
 
       end
     end
