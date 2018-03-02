@@ -2,7 +2,7 @@
 
 require 'json'
 require 'delegate'
-require 'dromedary/entry'
+require 'middle_english_dictionary'
 
 module Dromedary
 
@@ -36,15 +36,23 @@ module Dromedary
       blacklight_index_presenter = Blacklight::IndexPresenter.new(document, view_context, configuration)
       __setobj__(blacklight_index_presenter)
       # we know we get @document for sure. Hydrate an Entry from the json
-      @entry    = Dromedary::Entry.from_json(document.fetch('json'))
+      @entry    = MiddleEnglishDictionary::Entry.from_json(document.fetch('json'))
       @document = document
 
       # We can dig in and find out what type of search was done
       @search_field = view_context.search_state.params_for_search['search_field']
     end
 
+    def part_of_speech_abbrev
+      @document.fetch('pos_abbrev')
+    end
+
     def senses
       @entry.senses.map {|x| x.extend(SplitDefinitionPresenter)}
+    end
+
+    def quote_count
+      @entry.all_quotes.count
     end
 
 
