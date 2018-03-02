@@ -8,8 +8,9 @@ end
 #############################################
 # Non-default stuff added by the Dromedary team
 
-# for local development. Using a relative path is nice and easy
-gem 'middle_english_dictionary', path: "/Users/dueberb/devel/med/middle_english_dictionary"
+# When developing in tandem, a relative path is nice and easy
+# gem 'middle_english_dictionary', path: "/Users/dueberb/devel/med/middle_english_dictionary"
+gem 'middle_english_dictionary',  :git => 'https://github.com/billdueber/middle_english_dictionary'
 
 # Rails and blacklight
 
