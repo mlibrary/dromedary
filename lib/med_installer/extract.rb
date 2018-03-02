@@ -6,6 +6,7 @@ Zip.on_exists_proc = true
 
 module MedInstaller
   class Extract < Hanami::CLI::Command
+    include  MedInstaller::Logger
 
     desc "Extracts the individual xml files into <datadir>/xml/"
 

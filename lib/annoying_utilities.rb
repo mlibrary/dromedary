@@ -21,8 +21,18 @@ module AnnoyingUtilities
 
   def solr_url(env = "development")
     conf = blacklight_config_file
-    url = conf[env]["url"]
+    url = conf[env.to_s]["url"]
     ENV['SOLR_URL'] || url
+  end
+
+  def solr_port(env = "development")
+    url = solr_url(env)
+    m = %r{https?://[^/]+?:(\d+)}.match(url.to_s)
+    if m
+      m[1]
+    else
+      nil
+    end
   end
 
 
