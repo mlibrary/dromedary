@@ -12,7 +12,7 @@ module MedInstaller
     end
 
 
-    Formatter = MEDFormatter.new(time_format: "%Y%m%d")
+    Formatter = MEDFormatter.new(time_format: "%Y-%m-%d:%H:%M:%S")
     SemanticLogger.add_appender(io: STDERR, level: :info, formatter: Formatter)
     LOGGER = SemanticLogger['Dromedary']
 
