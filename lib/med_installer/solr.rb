@@ -25,7 +25,7 @@ module MedInstaller
                     logger.info "Using #{solr_root} from .solr file"
                   else
                     logger.warn "Cannot find #{DOT_SOLR} (should contain path to solr root)"
-                    logger.warn "Trying default solr root at #{Solr::DEFAULT_SOLR}"
+                    logger.warn "Trying default solr root in parent dir at #{Solr::DEFAULT_SOLR}"
                     Solr::DEFAULT_SOLR
                   end
 
@@ -102,7 +102,7 @@ module MedInstaller
 
       desc "Download and install solr to the given directory"
 
-      argument :installdir, required: true, desc: "The install directory (should be your /path/to/med)"
+      option :installdir, default: Solr::DEFAULT_SOLR, desc: "The install directory (default: next to dromedary)"
 
       def call(installdir:)
         installpath     = Pathname(installdir).realdirpath
