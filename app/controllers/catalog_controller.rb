@@ -110,7 +110,8 @@ class CatalogController < ApplicationController
     # :index_range can be an array or range of prefixes that will be used to create the navigation (note: It is case sensitive when searching values)
 
     config.add_facet_field 'pos_abbrev', label: 'Part of Speech'
-    config.add_facet_field 'usage', label: "Specialized Usage"
+    config.add_facet_field 'grammatical_usage', label: "Gramatical Usage"
+    config.add_facet_field 'discipline_usage', label: "Professional Usage"
     config.add_facet_field 'etyma_language', label: "Source Language"
 
     #     config.add_facet_field 'subject_topic_facet', label: 'Topic', limit: 20, index_range: 'A'..'Z'

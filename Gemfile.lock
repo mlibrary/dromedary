@@ -1,5 +1,6 @@
-PATH
-  remote: /Users/dueberb/devel/med/middle_english_dictionary
+GIT
+  remote: https://github.com/billdueber/middle_english_dictionary
+  revision: bd2321ed591fe68c95bccd620444ac470f6f4e87
   specs:
     middle_english_dictionary (0.1.0)
       multi_json
