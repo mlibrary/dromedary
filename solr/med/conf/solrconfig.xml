@@ -50,9 +50,9 @@
       &default_facet_stuff;
 
       <str name="qf">
-        main_headword_exactish^500
-        main_headword^100
-        headwords_exactish^50
+        official_headword_exactish^500
+        official_headword^100
+        headword_exactish^50
         headword^10
         orth^1
       </str>
@@ -118,6 +118,8 @@
       <str name="buildOnStartup">true</str>
       <str name="minPrefixChars">2</str>
       <str name="dictionaryImpl">DocumentDictionaryFactory</str>
+      <str name="buildOnCommit">true</str>
+
     </lst>
   </searchComponent>
 
@@ -145,6 +147,7 @@
       <str name="buildOnStartup">true</str>
       <str name="minPrefixChars">2</str>
       <str name="dictionaryImpl">DocumentDictionaryFactory</str>
+      <str name="buildOnCommit">true</str>
     </lst>
   </searchComponent>
 
