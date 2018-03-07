@@ -87,7 +87,7 @@ First, fire up solr
 
 Then we'll run traject on the configuration in `indexer/main_indexer.rb`
 
-* `bin/dromedary index entries`
+* `bin/dromedary index entries ../data`
 
 ### Check it out in the application
 
