@@ -87,7 +87,7 @@ First, fire up solr
 
 Then we'll run traject on the configuration in `indexer/main_indexer.rb`
 
-* `bundle exec traject -c indexer/main_indexer.rb -c indexer/writers/localhost.rb`
+* `bin/dromedary index entries`
 
 ### Check it out in the application
 
@@ -95,6 +95,7 @@ Then we'll run traject on the configuration in `indexer/main_indexer.rb`
 
 ...and go to http://localhost:3000/  
        
+# Other stuff
 
 ## Setting up autocomplete for multiple input boxes
 
