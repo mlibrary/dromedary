@@ -1,0 +1,116 @@
+<% @page_title = t('en.views.static.about-med.title') %>
+
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="<%= main_content_classes(true) %> help-middle-col">
+        <h1 class="title"><%= t('en.views.static.about-med.header') %></h1>
+    </div>
+  </div>
+    
+  <div class="row">
+    <%= render partial: 'about_sidebar' %>
+
+    <div id="med" class="<%= main_content_classes %> help-middle-col">
+      <H3><A NAME="ov"></A>About the Middle English Compendium</H3>
+
+      <P><EM>The Middle English Compendium</EM> has been designed to
+      offer easy access to and interconnectivity between three major
+      Middle English electronic resources: an electronic version of the
+      Middle English Dictionary, a HyperBibliography of Middle English
+      prose and verse, based on the MED bibliographies, a Corpus of Middle
+      English Prose and Verse, as well as links to an
+      associated network of electronic resources. Hypertext links offer quick
+      connections between, e.g., an MED citation, bibliographical
+      information about its source, and an electronic version of the
+      source, if one is included in the collection (we
+      hope eventually to have electronic versions of all the source texts).</P>
+
+
+
+      <H3><A NAME="med"></A>The Electronic Middle English Dictionary </H3>
+
+      <P>The print <EM>Middle English Dictionary</EM>, now complete,
+      has been described as &quot;the greatest achievement
+      in medieval scholarship in America.&quot; Its 15,000
+      pages offer a comprehensive analysis of lexicon and usage for
+      the period 1100-1500, based on the analysis of a collection of
+      over three million citation slips, the largest collection of this
+      kind available. This electronic version of the MED preserves all
+      the details of the print MED, but goes far beyond this, by
+      converting its contents into an enormous database, searchable in
+      ways impossible within any print dictionary.</P>
+
+
+
+      <H3><A NAME="hyp"></A>HyperBibliography of Middle English</H3>
+
+      <P>The <EM>HyperBibliography of Middle English</EM> includes all
+      the Middle English materials which are cited in the Middle
+      English Dictionary. Although this bibliography is not exhaustive,
+      it offers what we believe to be the most comprehensive single
+      list of these materials available. Titles have been adopted from
+      <EM>A Manual of the Writings in Middle English</EM> whenever possible, and
+      are followed by the MED stencil (short title) in brackets. Once
+      you retrieve a list of works or authors or manuscripts by
+      browsing or searching, click on any item to move to a page of
+      information about manuscripts, editions, bibliographical
+      references, and MED title stencils. </P>
+
+
+
+      <H3><A NAME="corp"></A>Corpus of Middle English Prose and Verse</H3>
+
+      <P>The Humanities Text Initiative intends to develop the <EM>Corpus
+      of Middle English Prose and Verse </EM>into an extensive and
+      reliable collection of Middle English electronic texts, either by
+      converting the texts ourselves or by negotiating access to other
+      collections produced to specified high standards of accuracy. At
+      present, sixty-two texts are available; about eighty others will be
+      added soon, with another 150 smaller texts in preparation.
+      HTI would like to include in the corpus all editions of
+      Middle English texts used in the MED, and the more recent
+      scholarly editions which in some cases may have superseded them.
+      The Corpus is provided with a full array of search mechanisms,
+      and texts may be searched individually, in user designated
+      groups, or collectively.</P>
+      <!-- <H3><A NAME="staff"></A>Compendium Staff</H3>
+      <DL>
+      <DT><STRONG>Frances McSparran, <I>Chief Editor</I></STRONG>
+      <DD><FONT size=-1>Associate Professor of English, University of Michigan;
+      <BR>formerly Editor, <I>Middle English Dictionary</I><BR></FONT>
+      <BR>
+      <DT>Paul Schaffner, <I>Associate Editor</I>
+      <DD><FONT size=-1>Librarian; Coordinator, text-encoding group, U of M Digital Library Production Service;<BR>formerly Editor, <I>MED</I></FONT>
+      </DL>
+      Essential contributions have been made by John Latta (Corpus review and editing), James Moske (MED conversion and HyperBibliography editing), Christina Powell, Matt Stoeffler, and Maria Bonn (interface design, documentation, and online help), Alan Pagliere and Nigel Kerr (programming), and David Ruddy (HyperBibliography production and project design), among others. -->
+
+      <H3><A NAME="staff"></A>Compendium Staff</H3>
+      <DL>
+      <DT><STRONG>Frances McSparran, <I>Chief Editor</I></STRONG></DT>
+      <DD><FONT size=-1>Associate Professor of English, University of Michigan</FONT></DD>
+      <DT>Paul Schaffner, <I>Associate Editor</I></DD>
+      <DD><FONT size=-1>Coordinator, Text-encoding group, DLPS*</FONT></DD>
+      <DT>John Latta</DT>
+      <DD><FONT size=-1>Text and markup editor, DLPS</FONT></DD>
+      <DT>Alan Pagliere</DT>
+      <DD><FONT size=-1>Programmer, DLPS</FONT></DD>
+      <DT>Christina Powell</DT>
+      <DD><FONT size=-1>Coordinator, Encoded text services, DLPS</FONT></DD>
+      <DT>Matt Stoeffler</DT>
+      <DD><FONT size=-1>Interface designer, DLPS
+
+      <P>Earlier stages of the project received invaluable contributions from Maria Bonn (interface design and documentation), Nigel Kerr (programming), James Moske (MED conversion and HyperBibliography editing), David Ruddy (HyperBibliography production and project design), and especially the head of DLPS, John Price Wilkin (Project Director, grant period), among others. *MEC is a product of the University of Michigan Digital Library Production Service.</DD></DL>
+      <HR>
+      <CENTER><A HREF="/h/hyperbib/">
+      HyperBibliography</A>
+      | <A HREF="/m/med/">MED</A>
+      | <A HREF="/c/cme/">Corpus</A>
+      | <A HREF="../resources.html">Other Resources</A>
+      | About | <A HREF="../help.html">Help</A>
+      | <A HREF="/m/mec/index.html">MEC Main Page</A></CENTER>
+
+
+    </div>
+  </div>
+</div>

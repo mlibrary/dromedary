@@ -18,7 +18,8 @@ class CatalogController < ApplicationController
     #----------------------------------------------------------
     #   Dromedary-only stuff
     #----------------------------------------------------------
-
+    config.add_nav_action(:about, partial: 'shared/nav/about')
+    config.add_nav_action(:help, partial: 'shared/nav/help')
 
     ##--------------------------------------------------------
     # Talking to solr

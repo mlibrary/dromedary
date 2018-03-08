@@ -1,0 +1,181 @@
+<% @page_title = t('en.views.static.help-med.title') %>
+
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="<%= main_content_classes(true) %> help-middle-col">
+        <h1 class="title">HELP GENERAL TITLE</h1>
+    </div>
+  </div>
+  <div class="row">
+    <%= render partial: 'help_sidebar' %>
+
+    <div id="med" class="<%= main_content_classes %> help-middle-col">
+
+      <B>General advice on searching and using the forms</B>
+      <UL>
+      <LI><A HREF="#tips">General Search Tips</A></LI>
+      <LI><A HREF="#bool">Boolean Searching</A></LI>
+      <LI><A HREF="#prec">Precedence of Boolean operators</A></LI>
+      <LI><A HREF="#prox">Proximity Searching</A></LI>
+      </UL>
+
+      <H3>
+      <A NAME="gen"></A>Some general advice on searching and using the forms</H3>
+      <A NAME="tips"></A><B>General Search Tips:</B>
+      <BLOCKQUOTE>
+      <H4>
+      Bookbagging</H4>
+      "Bookbagging" is an easy and efficient way to restrict your searches to
+      a single text or a subset of texts in the Corpus of Middle English Prose
+      and Verse. Each search option allows you to restrict the search to selected
+      works from the CME Bibliography. Your search will otherwise extend through
+      the entire database. If you wish to use the bookbag option, first click
+      on the <B>selected works</B> button, check the works you want to use, click
+      on the button at top or bottom which takes you back to your chosen search
+      option, and proceed with your search. A list of the works you have chosen
+      for your bookbag will appear below the search boxes.
+      <H4>
+      Pull down menus</H4>
+      Many of the search forms have options that are available on pull down menus.
+      <UL>
+      <LI>
+      Put your mouse on the box and hold down the mouse button to see your choices.</LI>
+
+      <LI>
+      Select a choice by clicking on it.</LI>
+
+      <LI>
+      <B>For example:</B> If you wish to choose the <B>or</B> operator in a Boolean
+      search, you need to pull down the operator menu and select <B>or</B>.</LI>
+      </UL>
+
+      <H4>
+      Submit buttons</H4>
+      In Boolean and proximity searches, you have to push the submit button to
+      make the search work. Hitting the enter key is not enough. Move your mouse
+      to the button and click.
+      <H4>
+      Text boxes</H4>
+      In a search form with more than one box you have to fill out the first
+      box. Otherwise your search will not return any results. Make sure that
+      you place your cursor in the text box before you begin typing.</BLOCKQUOTE>
+      <A HREF="#top">Help topics</A>
+      <P><A NAME="bool"></A><B>Boolean searches</B>
+      <P>Boolean searching allows you to combine search terms and/or fields.
+      You may combine the terms with <B>and</B>, <B>or</B>, and <B>not</B>.
+      <P>This search should be used:
+      <UL>
+      <LI>
+      when you want to find two or three words or phrases in conjunction with
+      one another (using <B>and</B>).</LI>
+
+      <LI>
+      when you want to search for alternate combinations of words or phrases
+      (using <B>or</B>).</LI>
+
+      <LI>
+      when you wish to eliminate items that contain combinations of terms (using
+      <B>not</B>).
+      Be careful using <B>Not</B>. It can exclude large bodies of potentially
+      useful material.</LI>
+      </UL>
+      <A HREF="#top">Help topics</A>
+      <P><A NAME="prec"></A><B>Precedence of Boolean Operators</B>
+      <P>Boolean expressions are operated on from <B>left to right</B>. This
+      means that you will need to take some care in formulating your search.
+      <P><B>For example:</B> You wish to find any entries that contain the word
+      <B>worthiAND</B>
+      either the words <B>woman</B> <B>ORlady</B>.
+      <P>Your search should be formulated as: (<B>woman</B> <B>OR lady</B>) <B>ANDworthi</B>.
+      <P><B>Understanding the results:</B>
+      <UL>
+      <LI>
+      Since the search works from left to right, the search will first look for
+      the set of texts that contains EITHER <B>woman</B> or <B>lady</B>.</LI>
+
+      <LI>
+      Then the search will look within that set of texts for the ones that also
+      mention <B>worthi</B>.</LI>
+
+      <LI>
+      Those texts will be your results set.</LI>
+      </UL>
+      If you had formulated your search as <B>worthi</B> <B>AND</B> <B>woman OR lady</B>
+      you would have gotten a very different set of results. Why?
+      <UL>
+      <LI>
+      Since the search works from left to right, the search would have first
+      looked for the set of texts that contains BOTH the words <B>worthi</B>
+      and <B>woman</B>.</LI>
+
+      <LI>
+      Next it would have looked for the texts that contain the word <B>lady.</B></LI>
+
+      <LI>
+      Then it would combine those two sets of results and eliminate the duplicates
+      to give you your results.</LI>
+
+      <LI>
+      This means you could have a whole set of texts that contain <B>lady</B>
+      but make no mention of <B>worthi</B> and <B>woman</B> (your first choice).</LI>
+      </UL>
+      <A HREF="#top">Help topics</A>
+      <P><A NAME="prox"></A><B>Proximity Searching</B>
+      <P>Proximity searching looks for the co-occurrence of search terms.
+      <P>It is a useful type of search:
+      <UL>
+      <LI>
+      When you want to search two or three words or phrases in conjunction with
+      one another.</LI>
+
+      <LI>
+      When you want to have more control over the relationship of searched words
+      and phrases than you have in a Boolean search.</LI>
+
+      <LI>
+      When you want to look for words or phrases within a designated number of
+      words or characters of each other.</LI>
+
+      <LI>
+      When you want to find places where one term is <B>Followed By</B> another
+      or places where words are <B>Not Near</B> and <B>Not Followed By</B> other
+      words.</LI>
+      </UL>
+      <B>Entering your terms:</B> type the two or three words or phrases you
+      are looking for in the boxes. If you have only two search terms, you must
+      type in the first and second boxes. Capitalization is not important.
+      <P><B>Keep in mind:</B>
+      <UL>
+      <LI>
+      That the order of terms is important. If you want a text that contains
+      the words <B>prison</B> and <B>stone</B> near the word <B>walls</B>, you
+      need to type <B>stone</B> and <B>walls</B> in the first two boxes, with
+      <B>prison</B>
+      in the third. You know the first two words are nearest one another, and
+      the other is near the two. There are parentheses around the first two boxes
+      to remind you of this.</LI>
+
+      <LI>
+      That higher proximity values (more characters or words) usually increase
+      the number of results, but decrease the likelihood that the terms will
+      be intellectually related.</LI>
+
+      <LI>
+      The default operator choice is <B>Near</B>. Click on the menu box to change
+      this.</LI>
+
+      <LI>
+      Don't forget to click the search button to submit your search.</LI>
+      </UL>
+      <BR><!-- This stencil is hyperlinked to
+      the HyperBibliography entry for that work. Once you have entered
+      the HyperBibliography, you can either use the back button on your
+      browser to return to the entry in the MED or you can use the
+      links in the navigational bar to move you to the main Hyperbibliography page where you may carry out further searches.  -->
+      <CENTER>
+      <ADDRESS>mec-info@umich.edu</ADDRESS>
+      </CENTER>
+    </div>
+  </div>
+</div>
