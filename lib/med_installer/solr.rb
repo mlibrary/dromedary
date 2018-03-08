@@ -10,8 +10,8 @@ Zip.on_exists_proc = true
 module MedInstaller
   class Solr
     extend MedInstaller::Logger
-    URL                           = 'http://mirrors.gigenet.com/apache/lucene/solr/6.6.2/solr-6.6.2.tgz'
-    DIR_EXTRACTED_FROM_SOLR_TARGZ = 'solr-6.6.2' # make this better!
+    URL                           = 'http://mirrors.gigenet.com/apache/lucene/solr/6.6.3/solr-6.6.3.tgz'
+    DIR_EXTRACTED_FROM_SOLR_TARGZ = 'solr-6.6.3' # make this better!
 
     DROMEDARY_ROOT = AnnoyingUtilities::DROMEDARY_ROOT
     MED_CONFIG     = DROMEDARY_ROOT + 'solr' + 'med'
@@ -174,4 +174,3 @@ module MedInstaller
 
   end
 end
-
