@@ -18,6 +18,7 @@ From here on in we'll call this directory `/some/path/to/med`.
     * If you have two-factor on github: `git clone git@github.com:mlibrary/dromedary.git`
     * If not: `git clone https://github.com/mlibrary/dromedary`
     * `cd dromedary`
+    * Due to changes with openssl on the mac you may have to export a library path to get the mysql2 gem to compile a local version (depends on where the library is installed by brew in my case): `export LIBRARY_PATH=/usr/local/Cellar/openssl/1.0.2n/lib`
     * `bundle install --path ./.bundle` 
     
 The basic dromedary code is now ready for use.
@@ -59,6 +60,7 @@ The data is stored in little `.xml` files. We want to get them from the Box dire
 extract the little XML files from their enclosing `.zip` files, and then convert 
 them to a different format (because ruby deals with XML *very* slowly).
 
+  * Preparing to download with Safari. If you are using Apple's safari, you must disable auto-unzip feature so the following extract and convert instruction work correctly. Under the Safari/Preferences/General tab you must uncheck the checkbox for “Open safe files after downloading”.
   * Go to [the box folder](https://umich.app.box.com/s/ah2imm5webu32to343p2n6xur828zi5w)
    and hit the "Download" button in the upper-right to get a zip file called
    _In_progress_MEC_files_. Pay attention to where it goes -- almost certainly
@@ -91,6 +93,7 @@ Then we'll run traject on the configuration in `indexer/main_indexer.rb`
 
 ### Check it out in the application
 
+* Before restarting the server the first time, you need to migrate your db tables: `bin/rails db:migrate RAILS_ENV=development` then you can fire up the application.
 * `bin/rails server`
 
 ...and go to http://localhost:3000/  
@@ -152,5 +155,3 @@ selection is changed.
 
 I don't actually moneky-patch, but I do use `Module#prepend`. The code
 is in `config/initializers/autcomplete_override_code.rb`
-
-
