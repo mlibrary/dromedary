@@ -1,0 +1,45 @@
+<%#= replace :head do %>
+  <%#= link_to_repository %>
+<% #end %>
+
+<%= replace :skiplinks do %>
+  <%= render 'index_skiplinks' %>
+<% end %>
+
+<%= replace :h1 do %>
+  <% if ! has_search_parameters? %>
+    New Search
+  <% elsif @response.empty? %>
+    No Results
+  <% elsif params[:f] and params[:f][:issue_identifier] %>
+    <%= issue_title @document_list.first, complete: true %>
+  <% else %>
+    Search Results
+  <% end %>
+<% end %>
+
+
+<div id="sidebar" class="<%= sidebar_classes %>">
+  <%= render 'constraints' %>
+  <%#= render 'search_graph' %>
+  <%= render 'search_sidebar' %>
+</div>
+
+<div id="content" class="<%= main_content_classes %> activate-highlighting">
+  
+  <% unless has_search_parameters? %>
+    <%# if there are no input/search related params, display the "home" partial -%>
+    <%= render 'home' %>
+    <%#= render 'shared/sitelinks_search_box' %>
+  <% else %>
+    <%= render 'search_results' %>
+
+    <script>
+      // have to loop through all these else not all the paragraphs are shaved?
+      $(".row-article-text p").each(function() {
+        $(this).shave(150);
+      })
+    </script>
+  <% end %>
+</div>
+<%#= render partial: 'back_to_top' %>

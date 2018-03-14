@@ -1,4 +1,52 @@
 // dromedary.scss
+
+// SKIP LINKS
+#skip {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin-left: 0;
+    text-align: center;
+    list-style: outside none;
+    z-index: 5000;
+}
+
+#skip li { list-style-type: none }
+
+#skip a {
+    position: absolute;
+    left: -99999px;
+    top: 20px;
+}
+
+#skip a:focus, #skip a:active{
+/*    @include alert-variant($alert-success-bg, $alert-success-border, $alert-success-text);
+    padding: $alert-padding;
+    border: 1px solid transparent;
+    border-radius: $alert-border-radius;
+
+    position: relative;
+    left: 0;
+    z-index:9999;
+    width: 75%;
+    height: auto;
+    margin: 0 auto;
+    // padding: 30px 45px;
+    text-align: center;
+    text-decoration: underline;
+    font-weight: bold;*/
+    
+}
+
+.skip-filter-link:focus, .skip_filter_link:active {
+    display: block;
+    text-decoration: underline;
+    height: auto;
+    width: auto;
+    position: static;
+}
+
 // CONTACTS
 .blacklight-contacts {
   .inner-form {
