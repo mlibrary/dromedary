@@ -20,6 +20,7 @@ class CatalogController < ApplicationController
     #----------------------------------------------------------
     config.add_nav_action(:about, partial: 'shared/nav/about')
     config.add_nav_action(:help, partial: 'shared/nav/help')
+    config.add_nav_action(:contact, partial: 'shared/nav/contact')
 
     ##--------------------------------------------------------
     # Talking to solr

@@ -150,6 +150,9 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.7.0)
       mini_mime (>= 0.1.1)
+    mail_form (1.7.0)
+      actionmailer (>= 3.2, < 5.2)
+      activemodel (>= 3.2, < 5.2)
     marc (1.0.2)
       scrub_rb (>= 1.0.1, < 2)
       unf
@@ -162,6 +165,8 @@ GEM
     multi_json (1.13.1)
     multipart-post (2.0.0)
     mysql2 (0.4.10)
+    nestive (0.6.0)
+      rails (>= 3.0.0)
     nio4r (2.2.0)
     nio4r (2.2.0-java)
     nokogiri (1.8.2)
@@ -272,6 +277,9 @@ GEM
       rubyzip (~> 1.2)
     semantic_logger (4.2.0)
       concurrent-ruby (~> 1.0)
+    simple_form (3.5.1)
+      actionpack (> 4, < 5.2)
+      activemodel (> 4, < 5.2)
     simple_solr_client (0.1.2)
       httpclient
       nokogiri
@@ -350,8 +358,10 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   jquery-rails
   listen
+  mail_form (= 1.7.0)
   middle_english_dictionary!
   mysql2
+  nestive (= 0.6.0)
   nokogiri
   pry-byebug
   pry-rails
@@ -365,6 +375,7 @@ DEPENDENCIES
   rubyzip
   sass-rails (~> 5.0)
   selenium-webdriver
+  simple_form (= 3.5.1)
   simple_solr_client
   simplecov
   sqlite3

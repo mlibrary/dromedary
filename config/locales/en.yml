@@ -30,7 +30,30 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  hello: "Hello world"
   views:
+    catalog:
+      fishrappr_panel_title: Search Options
+      fishrappr_graph_title: Results Frequency Graph
+      fishrappr_graph_instructions: The graph is meant to give a relative scale of results. Hover over to see number of results.
+    contacts:
+      types:
+        search: "Searching"
+        content: "Problem with content or metadata"
+        technical: "Technical support"
+        # permissions: "Permissions request or question"
+        image: "Problem with image"
+        comment: "General comment or concern"
+        other: "Other"
+      prompts:
+        image: "Does something seem wrong with the image? Upside down or Rotated?"
+    issue:
+        next: '<span class="hidden-xs hidden-sm">Next <span class="hidden-sm">Page </span></span>'
+        previous: '<span class="hidden-xs hidden-sm"> Previous<span class="hidden-sm"> Page</span></span>'
+
+        zoom_in: '<span class="hidden-xs hidden-sm"> Zoom In </span>'
+        zoom_out: '<span class="hidden-xs hidden-sm">Zoom Out </span>'
+        search_highlights: '<span class="hidden-xs">Search <span class="hidden-sm">Keyword </span></span>Highlights'
     static:
       about_med:
         title: About the Middle English Compendium
@@ -38,4 +61,49 @@ en:
       help_med:
         title: Help in using the Middle English Dictionary
         header: Middle English Help
-  hello: "Hello world"
+      about-daily:
+        title: About The Michigan Daily
+        header: About The Michigan Daily
+      about-archives:
+        title: About The Digital Archives Project
+        header: About The Digital Archives Project
+      rights:
+        title: Rights Statement
+        header: Rights Statement
+      donors: 
+        title: About The Kemp Family Foundation
+        header: About The Kemp Family Foundation
+      using-page-viewer: 
+        title: Page Viewer, Plain Text & Download Help
+        header: Page Viewer, Plain Text & Download Help
+      contact:
+        title: Contact Us
+        header: Contact Us
+      how-to-search:
+        title: How to Search  
+        header: How to Search  
+      home:
+        title: Home Page
+        header: Home Page
+        head:
+          page_title: Digital Archives
+          subtitle: 1890 - 2014
+          description1: The student newspaper at the University of Michigan
+          description2: 125 years of editorial freedom
+          link: About The Michigan Daily
+        donors:
+          title: Thank You to The Kemp Family Foundation!
+          description: The archive is made possible by the University of Michigan Library, the Bentley Historical Library, and The Michigan Daily, with generous support from The Kemp Family Foundation.
+          link: Read More About The Kemp Family Foundation
+        partnerships:
+          description: In Partnership With
+        today:
+          title: This date in The Michigan Daily
+          link: Browse Other Issues
+    sessions:
+      login:
+        page_title: Why Log In to the Michigan Daily Digital Archives?
+        login_text: Continue to Login
+        no_login_text: <i aria-ignore="true" class="glyphicon glyphicon-arrow-left"></i> Return to Previous Page
+  rights_statement: 
+    midaily: 'This collection, digitized in collaboration with the Michigan Daily and the Board of Student Publications, contains materials that are protected by copyright law. The Bentley Library provides access to digital collections where materials are in the public domain or the Bentley Library is permitted to provide access to the materials, either by the rightsholder or by copyright law. If you use an item from this collection, it is your responsibility to consider the work’s copyright status and obtain any required permission. If you have concerns about the inclusion of an item in this collection, please contact the Bentley Historical Library at bentley.ref@umich.edu.'
