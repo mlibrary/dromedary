@@ -1,5 +1,145 @@
 // dromedary.scss
+// CONTACTS
+.blacklight-contacts {
+  .inner-form {
+    margin: 0 -15px;
+    padding: 0;
+  }
+
+  .form-group {
+    position: relative;
+    margin-bottom: 25px;
+
+    .form-control {
+      border: 2px solid #ccc;
+      border-radius: 3px;
+    }
+
+    &.required {
+      margin-bottom: 50px;
+    }
+
+    .required.required-tag {
+      position: absolute;
+      bottom: -25px;
+      left: 0;
+      color: #057c42;
+      font-size: 13px;
+      text-transform: capitalize;
+    }
+
+  }
+
+  .form-group.required + .form-group.optional {
+    margin-top: -25px;
+  }
+
+  #new_contact label, .contact {
+    color: #333333;
+    display: block;
+    font-size: 120%;
+    font-weight: normal;
+    margin-bottom: 10px;
+    margin-right: 0px;
+    margin-top: 10px;
+    text-align: left;
+    width: 20em;
+  }
+
+  // #new_contact  .checkbox label {
+  //   margin-top: 12px;
+  // }
+
+  #new_contact  span.spacer {
+    display: block;
+    height: 40px;
+  }
+
+  // #new_contact  textarea {
+  //   height: 100px;
+  //   width: 500px;
+  // }
+
+  #new_contact span.error {
+    bolder: solid 2px red;
+    display: inline-block;
+    margin-left: 20px;
+    padding: 4px;
+  }
+
+  #new_contact div.field_with_errors span.error {
+    font-style: bold italic;
+    font-size: 1.2em;
+  }
+
+  #new_contact .btn {
+    color: white;
+    margin-left: -15px;
+    margin-bottom: 50px;
+    // /margin-top: -25px;
+  }
+
+  .para {
+    font-size: 20px;
+    line-height: 1.6;
+    color: #333333;  
+  }
+
+  p.help-block {
+    font-style: italic;
+    margin-bottom: 0;
+  }
+
+  #new_contact abbr {
+    display: none;
+  }
+
+  .prompt {
+    display: none;
+  }
+
+  .prompt.visible {
+    display: block;
+  }
+
+
+  // #new_contact .required-tag {
+  //   background-color: #10788E;
+  //   border-radius: 0.2rem;
+  //   bottom: 0.2rem;
+  //   color: #FFF;
+  //   display: inline-block;
+  //   font-size: 0.7rem; // falafel
+  //   font-size: 90%;
+  //   font-weight: normal;
+  //   line-height: 1em;
+  //   padding: 0.2rem 0.4rem;
+  //   position: relative;
+  //   text-shadow: none;
+  //   vertical-align: super;
+  // }
+
+}
+
+@media (min-width: 992px) {
+  .blacklight-contacts .inner-form .col-md-6 {
+      width: 48%;
+
+      &:last-child {
+        margin-left: 2%;
+      }
+  }
+}
 /* STATIC PAGES - HELP AND ABOUT */
+
+/* Suppress some elements we don't want on static pages */
+
+.blacklight-contacts #search-navbar,
+.blacklight-contacts .search-query-form,
+.blacklight-static #search-navbar,
+.blacklight-static .search-query-form {
+  display: none;
+}
 
 body.blacklight-static,
 body.blacklight-contacts-new,

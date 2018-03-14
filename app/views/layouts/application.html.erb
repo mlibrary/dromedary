@@ -1,14 +1,49 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>MiddleEnglishDictionary</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <!-- Mobile viewport optimization h5bp.com/ad -->
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+    <!-- Internet Explorer use the highest version available -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Mobile IE allows us to activate ClearType technology for smoothing fonts for easy reading -->
+    <!--[if IEMobile]>
+      <meta http-equiv="cleartype" content="on">
+    <![endif]-->
+    <!-- <title>MiddleEnglishDictionary</title> -->
+    <title><%= render_page_title %></title>
+    <%= favicon_link_tag %>
+
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
-  </head>
+    <%= area :head %>
 
-  <body>
-    <%= yield %>
+  </head>
+    
+  <body class="<%= render_body_class %>" <%= area :data %>>
+
+    <%= area :header do %>
+        <%= render :partial => 'shared/header_navbar' %>
+    <% end %>
+
+    <%= area :main do %>
+      <p>Main content goes here.</p>
+    <% end %>
+
+    <%= render :partial => 'shared/footer' %>
+
+    <% if ENV['DEBUG_CSS'] %>
+    <div class="debug-breakpoints visible-xs-block">XS</div>
+    <div class="debug-breakpoints visible-sm-block">SM</div>
+    <div class="debug-breakpoints visible-md-block">MD</div>
+    <div class="debug-breakpoints visible-lg-block">LG</div>
+    <% end %>
   </body>
 </html>
