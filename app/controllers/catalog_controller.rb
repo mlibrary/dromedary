@@ -2,7 +2,11 @@
 #
 class CatalogController < ApplicationController
 
+  #include Blacklight::
+
   include Blacklight::Catalog
+  include Dromedary::Catalog
+
 
   configure_blacklight do |config|
     ## Class for sending and receiving requests from a search index
@@ -18,6 +22,7 @@ class CatalogController < ApplicationController
     #----------------------------------------------------------
     #   Dromedary-only stuff
     #----------------------------------------------------------
+    config.add_nav_action(:search, partial: 'shared/nav/search')
     config.add_nav_action(:about, partial: 'shared/nav/about')
     config.add_nav_action(:help, partial: 'shared/nav/help')
     config.add_nav_action(:contact, partial: 'shared/nav/contact')
