@@ -1,0 +1,8 @@
+<li class="<%= ( action_name == path || (action_name == "new" && path == "/contacts") ) ? 'current' : '' %>">
+  <% case label %>
+    <% when "Back to Search", "Contact Us", label.first == "#" %>
+      <%= link_to label, path, :id => path %>
+    <% else %>
+      <%= link_to label, static_path(path) %>
+    <% end %>
+</li>

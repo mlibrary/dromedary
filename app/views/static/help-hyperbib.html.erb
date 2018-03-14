@@ -1,0 +1,230 @@
+<% @page_title = t('en.views.static.help-med.title') %>
+
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="<%= main_content_classes(true) %> help-middle-col">
+        <h1 class="title">HELP HYPERBIB TITLE</h1>
+    </div>
+  </div>
+  <div class="row">
+    <%= render partial: 'help_sidebar' %>
+
+    <div id="med" class="<%= main_content_classes %> help-middle-col">
+
+      <B>Help in using the HyperBibliography</B>
+      <UL>
+      <LI><A HREF="#hyp:browse">HyperBibliography: browsing options</A></LI>
+      <LI><A HREF="#hyp:choose">HyperBibliography: choosing a search type</A></LI>
+      <LI><A HREF="#hyp:search">HyperBibliography: using the searches: standard searches</A></LI>
+      <LI><A HREF="#hyp:bib">HyperBibliography: using the searches: bibliographic reference searches</A></LI>
+      <LI><A HREF="#hyp:lalme">HyperBibliography: using the searches: LALME searches</A></LI>
+      </UL>
+
+      <H3>
+      <A NAME="hypbrowse"></A>HyperBibliography: browsing options</H3>
+      The HyperBibliography offers the following browsing options:
+      <P><B>HyperBibliography titles</B>: A list, alphabetically ordered, of
+      the titles of all Middle English works cited in the MED. Titles are almost
+      always taken from the <I>Manual</I>, but the spelling is normalized or
+      modernized to simplify searching.
+      <P><B>Authors</B>: A list of identified medieval authors whose works are
+      quoted in the MED. In most cases their names do not occur in stencils but
+      they may be retrieved here or from the full entries in the HyperBibliography.
+      <P><B>Stencils</B>: A complete (and long!) list of all stencils used as
+      as bibliographic references for MED quotations. For more on stencils, see
+      the <A HREF="#entries">entry map</A>.
+      <P><B>Manuscripts and Prints</B>: A list of all manuscripts and prints
+      cited in the HyperBibliography. Choosing this option will take you to a
+      list of manuscript repositories and collections. Where the MED cites multiple
+      manuscripts from the same repository (e.g., Corpus Christi College, Cambridge),
+      selecting one of these repositories or collections will take you to a list
+      of individual manuscripts arranged by shelfmark and linked to the HyperBibliography
+      entries which cite the manuscripts. If only one manuscript is at present
+      cited from a given repository (e.g., Queen's College, Cambridge), the link
+      will take you directly to the HyperBibliography entry which cites that
+      manuscript.
+      <P><A NAME="hypdocs"></A><B>Documents</B>: "Document" is used to identify
+      a large class of records and archival material, including letters, legislative
+      and juridical materials, registers, inventories, accounts, etc. Our information
+      on the current repositories for many of these materials is incomplete,
+      and is, therefore, provided only when we have been able to confirm our
+      records.
+      <P><A HREF="#top">Help topics</A>
+      <H3>
+      <A NAME="hypchoose"></A>HyperBibliography: choosing a search type</H3>
+      The HyperBibliography offers a variety of search possibilities:
+      <P><B>Standard searches</B>
+      <UL>
+      <LI>
+      search the entries by specified field such as author or title of work.</LI>
+      </UL>
+      <B>bibliographic reference</B>
+      <UL>
+      <LI>
+      A quick way of finding an item identified by one of four standard print
+      bibliographies. Use when you have a citation number from one of those bibliographies.</LI>
+      </UL>
+      <B>LALME </B>Identification of Scribal Dialects
+      <UL>
+      <LI>
+      Finds texts and manuscripts quoted in the MED and copied in a scribal dialect
+      identified by LALME.</LI>
+      </UL>
+      <A HREF="#top">Help topics</A>
+      <H3>
+      <A NAME="hypsearch"></A>HyperBibliography: using the searches: Standard
+      searches</H3>
+      Select a field from the pull down menu. Your choices are:
+      <UL>
+      <LI>
+      <B>Author:</B> use for finding entries for works by known medieval authors.
+      Note that anonymous works are not so identified, and must be searched by
+      title or other identifier. A browsing list of identified authors is offered
+      on the main HyperBibliography page.</LI>
+
+      <LI>
+      <B>Title:</B> use for finding entries for works by known title. Parts of
+      titles will work in this search.</LI>
+
+      <LI>
+      <B>MS abbreviation and/or shelfmark</B>: use for identifying works in specific
+      manuscripts or collections. Either the abbreviation (e.g., Hrl for Harley)
+      or the shelfmark number (e.g., 2253) will work to retrieve a list of possibly
+      matching manuscripts; combined (e.g., Hrl 2253), they will yield a list
+      of all works from the specified manuscript.</LI>
+
+      <LI>
+      <B>MED stencil:</B> useful for experienced MED users who are accustomed
+      to thinking of works by their MED stencil names. Search by any part of
+      the stencil. Do not use the uppercase characters A, O, T, Y, which are
+      used in MEC to represent ash (&aelig;, &AElig;), oe (the oe ligature),
+      thorn (&thorn;, &THORN;) and (&eth;, &ETH;), lower or upper-case yogh.
+
+      <P>Do not mix styles in a single text-box (e.g., Lydg.<I>Sudden FPD</I>);
+      enter the italicized segment in a different text box. Preserve exact spacing
+      of stencil.<P></LI>
+      <LI>
+      <B>Word or phrase</B>: useful for broad coverage of entries (the search
+      looks covers all parts of entries). Also useful for finding entries containing
+      a known editor or edition or series (searching on EETS will retrieve all
+      entries that include Early English Text Society editions).</LI>
+
+      <LI>
+      <A NAME="lalmegen"></A><B>Word or phrase or LP in LALME</B>: enables you
+      to search by LALME Linguistic Profile number, if known, by county (see
+      <A HREF="#lalmeco">LALME
+      searches by county</A>), and also by terms which may be included in LALME
+      information in MEC ("northern," "East Anglian," "main hand," "hand A,"
+      etc.)</LI>
+      </UL>
+      <B>To search:</B>
+      <OL>
+      <LI>
+      Select the field you would like to search from the pull down menu.</LI>
+
+      <LI>
+      Enter your word or phrase in the text box.</LI>
+
+      <LI>
+      Hit enter or click on the search button to submit your search.</LI>
+      </OL>
+      <B>For example:</B>
+      <P>You are interested in the works of Reginald Pecock.
+      <OL>
+      <LI>
+      Choose Author from the pull down menu.</LI>
+
+      <LI>
+      Enter Pecock in the text box.</LI>
+
+      <LI>
+      Click on the search button to submit your search.</LI>
+      </OL>
+      This search will return a list of titles of the works of Pecock that are
+      included in the HyperBibliography. The titles are linked to the entries
+      for these works.
+      <P><A HREF="#top">Help topics</A>
+      <H3>
+      <A NAME="hypbib"></A>HyperBibliography: using the searches: Bibliographic
+      reference searches</H3>
+      The HyperBibliography allows you to search by a citation number from the
+      following bibliographies:
+      <UL>
+      <LI>
+      <B>Manual</B>: <I>A Manual of the Writings in Middle English, 1050-1500</I>.
+      Gen. eds. J. B. Severs, A. E. Hartung. New Haven, Conn.: Connecticut Academy
+      of the Arts and Sciences, 1967 --&nbsp; .</LI>
+
+      <LI>
+      <B>Wells</B>: J. E. Wells. <I>A Manual of the Writings in Middle English,
+      1050-1400</I>. New Haven, Conn.: Connecticut Academy of the Arts and Sciences,
+      1916. J. E. Wells, <I>et al</I>. <I>Supplements</I> [9]. 1919-1952.</LI>
+
+      <LI>
+      <B>IMEV</B>: C. Brown and R. H. Robbins. <I>The Index of Middle English
+      Verse</I>. New York: Columbia University Press, 1943. R. H. Robbins and
+      J. L. Cutler. <I>Supplement</I>. Lexington: University of Kentucky Press,
+      1965.</LI>
+
+      <LI>
+      <B>IPMEP</B>: R. E. Lewis, N. F. Blake, and A. S. G. Edwards. <I>Index
+      of Printed Middle English Prose</I>. New York: Garland, 1985.</LI>
+      </UL>
+      <B>To search:</B>
+      <OL>
+      <LI>
+      Select the bibliographic source you are using from the pull down menu.</LI>
+
+      <LI>
+      Enter the citation number in the text box.</LI>
+
+      <LI>
+      Click on the search button to submit your search.</LI>
+      </OL>
+      <B>For example:</B>
+      <P>You are searching for the HyperBibliography entry for "a form of an
+      oath for a herald" listed in IPMEP with the citation number 346.
+      <OL>
+      <LI>
+      Select IPMEP from the pull down menu.</LI>
+
+      <LI>
+      Enter 346 in the text box.</LI>
+
+      <LI>
+      Click on the search button to submit your search.</LI>
+      </OL>
+      This search will retrieve the entry for the item bearing the IPMEP number
+      of 346 -- in this case, the Oath of a Herald.
+      <P><A HREF="#top">Help topics</A>
+      <H3>
+      <A NAME="hyplalme"></A>HyperBibliography: using the searches: LALME searches</H3>
+      LALME searches enable you to match Middle English texts or portions of
+      texts with LALME findings about their scribal dialects. They may be carried
+      out in HyperBibliography <A HREF="#LALMEgen">Standard Searches</A>, or
+      in the searching by county option.
+      <P>We recommend that you read a note about <A HREF="http://ets.umdl.umich.edu/h/hyperbib/lalme.html">LALME
+      and LALME references</A> in MEC.
+      <P><A NAME="lalmeco"></A><B>To search scribal dialects by county:</B>
+      <OL>
+      <LI>
+      Select the county from the pull down menu.</LI>
+
+      <LI>
+      Click on the search button to submit your search.</LI>
+      </OL>
+      This search will retrieve a list of works used by the MED copied in a scribal
+      dialect assigned by LALME places to that county. The titles are hyperlinked
+      to the HyperBibliography entries for those works.
+      <BR><!-- This stencil is hyperlinked to
+      the HyperBibliography entry for that work. Once you have entered
+      the HyperBibliography, you can either use the back button on your
+      browser to return to the entry in the MED or you can use the
+      links in the navigational bar to move you to the main Hyperbibliography page where you may carry out further searches.  -->
+      <CENTER>
+      <ADDRESS>mec-info@umich.edu</ADDRESS>
+      </CENTER>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,594 @@
+<% @page_title = t('views.static.help-med.title') %>
+
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="<%= main_content_classes(true) %> help-middle-col">
+        <h1 class="title"><%= t('views.static.help-med.header') %></h1>
+    </div>
+
+  </div>
+  <div class="row">
+    <%= render partial: 'help_sidebar' %>
+
+    <div id="med" class="<%= main_content_classes %> help-middle-col">
+
+      <P><B>Help in using the Middle English Dictionary</B>
+      <UL>
+      <LI><A HREF="#entries">MED: understanding the dictionary entries</A></LI>
+      <LI><A HREF="#display">MED: understanding the character display of Middle English</A></LI>
+      <LI><A HREF="#med:choose">MED: choosing a search type</A></LI>
+      <LI><A HREF="#med:date">MED: searching by date</A></LI>
+      <LI><A HREF="#lookup">MED: using the searches: lookup searches</A>
+      <BR>(incl. <A HREF="#regexpsearch">regular expression searching</A>)</LI>
+      <LI><A HREF="#structures">MED: using the searches: entry searches</A></LI>
+      <LI><A HREF="#quotes">MED: using the searches: quotation searches</A></LI>
+      <LI><A HREF="#stencil">MED: using the searches: quotation searches</A></LI>
+      <LI><A HREF="#med:spell">MED: some suggestions on spelling</A></LI>
+      <LI><A HREF="#med:links">MED: links to the HyperBibliography</A></LI>
+      </UL>
+
+      <H3><A NAME="entries"></A>MED: understanding the dictionary entries</H3>
+
+      <TABLE BORDER CELLSPACING="4" CELLPADDING="4">
+      <!--  BORDERCOLOR="#FF0000" BORDERCOLORDARK="#FF0000" BORDERCOLORLIGHT="#FF0000" -->
+
+      <TR>
+      <TD VALIGN="TOP"><B>Headword</B></TD>
+      <TD><B><FONT FACE="Arial, Helvetica">purpel n.</FONT></B></TD>
+      </TR>
+
+      <TR>
+      <TD VALIGN="top"><B>Form section (headword and forms)</B></TD>
+      <TD><FONT FACE="Arial, Helvetica"><B>purpel n. </B>Also <B>purple</B>, <B>purpul(le</B>, <B>pourpul</B>, <B>purpalle</B>, <B>porpel</B>; cp. <B>purpur(e</B> n.</FONT></TD>
+      </TR>
+
+      <TR>
+      <TD VALIGN="top"><B>Etymology</B></TD>
+      <TD><DIV align="right"><FONT FACE="Arial, Helvetica">[From <B>purpel</B> adj.]</FONT></DIV></TD>
+      </TR>
+
+      <TR>
+      <TD VALIGN="top"><B>Definition</B></TD>
+      <TD><B><FONT FACE="Arial, Helvetica"><FONT COLOR="#FF0000">1</FONT>.</FONT></B>
+      <BR><FONT FACE="Arial, Helvetica">A rich cloth dyed purple; also, a garment
+      of purple cloth, esp. royal raiment; <B>~ and pal</B>, rich fabrics; also,
+      expensive or regal clothing; <B>induen with ~</B>, to clothe (sb.) in the
+      royal purple.</FONT></TD>
+      </TR>
+
+      <TR>
+      <TD VALIGN="top"><B>Quotations illustrating each definition.</B>
+      <BR><B>Every quotation is preceded by a stencil and a reference. Stencils
+      contain: date(s), title/source information, and MS abbreviation (here in
+      green). Where two dates are supplied (see last quot.), the first refers
+      to the date of the manuscript, the second (in parentheses) to the date
+      or conjectural date of composition. References (here in red) are to line,
+      page, etc. Each stencil in the MED is linked to the corresponding entry
+      in the HyperBibliography.<FONT COLOR="#FF0000">*</FONT></B></TD>
+
+      <TD>
+      <BLOCKQUOTE><FONT FACE="Times New Roman, Times"><B><A HREF="http://ets.umdl.umich.edu/cgi/m/mec/hyp-idx?type=id&id=hyp.1744.19990513T124835">c1390
+      <I>Bi a wey</I> <FONT COLOR="#008000">(Vrn)</FONT></A></B>&nbsp; <FONT COLOR="#FF0000">38</FONT>:&nbsp;
+      I-put he [Job] was in pore array, Nou&thorn;er in purpul ne in pal, But
+      in symple wede.&nbsp;&nbsp;&nbsp; <B><A HREF="http://ets.umdl.umich.edu/cgi/m/mec/hyp-idx?type=id&id=hyp.1748.19990513T124835">c1390
+      <I>Bi a wode</I><FONT COLOR="#008000"> (Vrn)</FONT></A></B>&nbsp; <FONT COLOR="#FF0000">66</FONT>:&nbsp;
+      if &thorn;ou beo a fryk mon in &thorn;i floures, And haue vnbou3t bo&thorn;e
+      purpel &amp; pal, At Masse..&THORN;er-in &thorn;i sauor is ful smal.&nbsp;&nbsp;
+      <B><A HREF="http://ets.umdl.umich.edu/cgi/m/mec/hyp-idx?type=id&id=hyp.576.19991101T123123">c1390
+      <I>Disp.Christian &amp; J.</I><FONT COLOR="#008000"> (Vrn)</FONT></A></B>&nbsp;&nbsp;<FONT COLOR="#FF0000">
+      166</FONT>:&nbsp; On vche a syde of &thorn;e halle Pourpul, pelure, and
+      palle.&nbsp;&nbsp;&nbsp; <B><A HREF="http://ets.umdl.umich.edu/cgi/m/mec/hyp-idx?type=id&id=hyp.272.19990513T124835">?a1400
+      <I>Apoc.</I></A></B><A HREF="http://ets.umdl.umich.edu/cgi/m/mec/hyp-idx?type=id&id=hyp.272.19990513T124835">
+
+      <B>in <I>LuSE</I><FONT COLOR="#008000"> (Rwl C.750)</FONT></B></A><FONT COLOR="#FF0000">
+      p.137</FONT>:&nbsp; Purpil [Hrl 874: &thorn;e womman was clo&thorn;ed in
+      purpre].&nbsp;&nbsp;</FONT> <B><A HREF="http://ets.umdl.umich.edu/cgi/m/mec/hyp-idx?type=id&id=hyp.340.19990304T151115">c1425(a1420)
+      Lydg. <I>TB</I> <FONT FACE="Times New Roman, Times"><FONT COLOR="#008000">(Aug
+      A.4)</FONT></FONT></A></B>&nbsp;&nbsp;<FONT FACE="Times New Roman, Times"><FONT COLOR="#FF0000">
+      5.2527</FONT>:&nbsp; Pirrus..gan anon to araie hym newe, Al in purpil,
+      whiche, as clerkes telles, Is for kynges &amp; for no wy3t elles.&nbsp;</FONT></BLOCKQUOTE>
+      </TD>
+      </TR>
+
+      <TR>
+      <TD VALIGN="top"><B>Definition with <A HREF="http://ets.umdl.umich.edu/m/mec/usg.html">usage
+      label</A> (here in red)</B></TD>
+
+      <TD><B><FONT FACE="Arial, Helvetica"><FONT COLOR="#FF0000">2.</FONT></FONT></B>
+      <BR><FONT FACE="Arial, Helvetica">(a) The color purple in one of its hues,
+      esp. crimson or the color of venous blood; <B>bleu ~</B>, iris blue; <B>rede
+      ~</B>, purplish red, crimson [some quots. here may belong under <B>1.</B>];
+      (b) <B><I><FONT COLOR="#FF0000">her.</FONT></I></B> the heraldic tincture
+      purple, perhaps sometimes indistinguishable from gules.</FONT></TD>
+      </TR>
+      </TABLE>
+
+      <P><B><FONT COLOR="#FF0000">*</FONT></B>For more information about stencil
+      links, please see <A HREF="#med:links">MED: links to the HyperBibliography</A>
+      below.
+      <P><A HREF="#top">Help topics</A>
+      <H3>
+      <A NAME="display"></A>MED: understanding the character display of Middle
+      English</H3>
+      Sometimes you will notice that a letter in a text is represented by an
+      image (in "gif" format) of that letter rather than a character from one of
+      your computer's screen fonts. You may notice this because
+      you try to copy and paste some text and some of it is missing, or because
+      you have the image display turned off on your browser and you see icons
+      that indicate an image in a surprising place. This means that a little
+      picture of a letter is used instead of an actual letter.
+      <P>Why would we do this?
+      <P>Middle English includes characters that are no longer part of our standard
+      alphabets or punctuation and thus are not represented by contemporary fonts.
+      In addition, the MED uses several diacritics to distinguish between, for example,
+      short and long versions of a given vowel.
+      Because of the current limits of Web technology and/or the lack of public
+      domain fonts, we have difficulty representing these characters. We have
+      compromised by making by hand these little images that simulate
+      the appearance of many of the characters in the original texts. As Web and font
+      technology develop, we hope to be able to eliminate the use of these character
+      gifs.
+      <P><A HREF="#top">Help topics</A>
+      <H3>
+      <A NAME="medchoose"></A>MED: choosing a search type</H3>
+      <B>Lookups</B>:
+      <UL>
+      <LI>
+      are similar to a standard paper dictionary lookup using a word as your
+      entry point; lookups search the headword or the form section (headword
+      and forms).</LI>
+
+      <LI>
+      are useful when you want to know the meaning of a known Middle English
+      word or to see examples of its use.</LI>
+
+      <LI>
+      may miss entries that are related to your topic but do not use your exact
+      search term as a headword or within a form section. Regular expression
+      searching, available only in lookups, is useful when you are uncertain
+      of the exact spelling.</LI>
+      </UL>
+      <B>Search the MED entries: this type of search allows you to:</B>
+      <UL>
+      <LI>
+      search within the parts of an entry (such as form section, etymology or
+      label, definition, quotations) alone or in combination.</LI>
+
+      <LI>
+      find Middle English words relevant to your area of interest (e.g., looking
+      for definitions that include the Modern English word "love" will help find
+      Middle English words related to various kinds of love).</LI>
+      </UL>
+      <B>Search the MED quotations: this type of search allows you to:</B>
+      <UL>
+      <LI>
+      find a specified word, phrase or combination of words within the Middle
+      English quotations illustrating each dictionary entry.</LI>
+
+      <LI>
+      retrieve quotations with a specified date or from a specified text.</LI>
+
+      <LI>
+      combine in one search such items as a specified word, date, text, or manuscript.</LI>
+
+      <LI>
+      include data from the HyperBibliography in your search criteria.</LI>
+      </UL>
+      <A HREF="#top">Help topics</A>
+      <H3>
+      <A NAME="lookup"></A>MED: using the searches: lookup searches</H3>
+      These are simple searches that look for your word as a main entry point,
+      i.e., as a headword, or in the combined headword and form sections.
+      <UL>
+      <LI>
+      A <B>Lookup</B> on a <B>headword</B> is a traditional dictionary lookup
+      and matches your word <I>exactly</I> unless you use some type of <A HREF="#regexpsearch">regular
+      expression searching</A>.</LI>
+
+      <LI>
+      A <B>Lookup</B> on a <B>form section</B> searches for your word in all
+      <B>orthographic
+      forms and variants recorded in</B> the form section (i.e., headword <I>and</I>
+      forms).</LI>
+      </UL>
+      <B>To search:</B>
+      <OL>
+      <LI>
+      Enter your word or phrase in the text box.</LI>
+
+      <LI>
+      Click on the search button to submit your search.</LI>
+      </OL>
+      This search will return a linked list of entries that use your term as
+      a headword (or form).
+      <P><B>For example: </B>You are searching for the word <B><I>stat</I></B>.
+      You decide to do a lookup.
+      <OL>
+      <LI>
+      Enter <B><I>stat</I></B> in the lookup text box.</LI>
+
+      <LI>
+      Choose whether you wish to search on headword only or on the headword and
+      forms section.</LI>
+
+      <LI>
+      Click on the search button to submit your search.</LI>
+      </OL>
+      <B>Keep in mind</B> that this search will not find <I>definitions
+      </I>or
+      <I>quotations</I>
+      that include the word <B><I>stat</I></B>. You would need to do an entry
+      search to find those.
+      <P>All lookup searches return a list of matches linked to the full MED
+      entries for those matches.
+      <BR>&nbsp;
+      <TABLE BORDER="0" CELLPADDING="10" >
+      <TR>
+      <TD BGCOLOR="#DDFFAA"><A NAME="modregx"></A><B>simplified&nbsp;<A NAME="regexpsearch"></A>regular
+      expression searching: It is possible to use wildcard characters in a modified
+      form of regular experssion searching in order to look for variant forms
+      within form sections:</B>
+      <BR><B>* means zero or more of any character.</B>
+      <BR><B>? means one character, ?? means exactly two characters (but any
+      two characters), and so on.</B>
+      <BR><B>[ ] searches for any single one of the characters within the brackets.&nbsp;</B>
+      <P><B>For Example:</B>
+      <BR>&nbsp;
+      <TABLE BORDER CELLPADDING="4">
+      <TR>
+      <TD><TT>tak</TT></TD>
+
+      <TD>"tak" as a complete form</TD>
+
+      <TD><TT>tak</TT></TD>
+      </TR>
+
+      <TR>
+      <TD><TT>*tak</TT></TD>
+
+      <TD>"tak" at the end of a word</TD>
+
+      <TD><TT>psitak, stak, tak, thistel-tak</TT></TD>
+      </TR>
+
+      <TR>
+      <TD><TT>tak*</TT></TD>
+
+      <TD>"tak" at the beginning of a word</TD>
+
+      <TD><TT>tak, takel, t<IMG SRC="/enticons/grol/amacr.gif" ALT="a macron" BORDER="0" ALIGN="TOP">ken,
+      taket, etc.</TT></TD>
+      </TR>
+
+      <TR>
+      <TD><TT>t[aeiou]k</TT></TD>
+
+      <TD>"tak", "tek", "tik", "tok", "tuk", as complete forms</TD>
+
+      <TD><TT>tak, tik, tuk</TT></TD>
+      </TR>
+
+      <TR>
+      <TD><TT>t*aunce</TT></TD>
+
+      <TD>"t" followed by <I>zero or more</I> of any character before "aunce",
+      as complete forms</TD>
+
+      <TD><TT>temperaunce, traunce, tresaunce, etc.</TT></TD>
+      </TR>
+
+      <TR>
+      <TD><TT>tr?m</TT></TD>
+
+      <TD>"tr" followed by any one character before an "m", as complete forms</TD>
+
+      <TD><TT>trim, trum</TT></TD>
+      </TR>
+
+      <TR>
+      <TD><TT>t???m</TT></TD>
+
+      <TD>"t" followed by any three characters before an "m", as complete forms</TD>
+
+      <TD><TT>tharm, theim, thrum</TT></TD>
+      </TR>
+      </TABLE>
+      </TD>
+      </TR>
+      </TABLE>
+
+      <P><A HREF="http://ets.umdl.umich.edu/m/mec/regexp.html">Full regular expression
+      searching</A> is also available for lookup searches.
+      <P><A HREF="#top">Help topics</A>
+      <H3>
+      <A NAME="meddate"></A>MED: searching by date</H3>
+      Enter digits only in date searches; results will include <I>all</I> dates
+      which include those digits (see the table below).
+      <BR>&nbsp;
+      <CENTER><TABLE BORDER CELLPADDING="4">
+      <TR>
+      <TH>Enter:</TH>
+
+      <TH>To return:</TH>
+      </TR>
+
+      <TR>
+      <TD>13</TD>
+
+      <TD>all dates with four digits beginning "13.."; such as ?a1300, c1325,
+      1350-60, ?a1425(1373), etc.</TD>
+      </TR>
+
+      <TR>
+      <TD>132</TD>
+
+      <TD>all dates with four digits beginning "132.."; such as c1320, ?1325,
+      1324-5, a1400(1323), etc.</TD>
+      </TR>
+
+      <TR>
+      <TD>1300</TD>
+
+      <TD>dates containing "1300"; such as 1300, a1300, ?c1300, ?1300, etc.</TD>
+      </TR>
+      </TABLE></CENTER>
+
+      <P><A HREF="#top">Help topics</A>
+      <H3>
+      <A NAME="structures"></A>MED: using the searches: entry searches</H3>
+      To understand better the structure of MED entries, you may want to consult
+      the <A HREF="#entries">entry map</A>.
+      <UL>
+      <LI>
+      A search of the <B>Entire entry</B> will retrieve all entries containing
+      the word or phrase, text, author, date, etc.(or a combination of these)
+      you specify; search items could appear in any of the parts of the entry
+      (form section, definition, quotation, etc.).</LI>
+
+      <LI>
+      An <B>Etymology</B> search will retrieve all entries whose etymological
+      statements contain the specified search item(s), e.g., an etymon, cognates,
+      dialect or modern equivalents, etc. It may, for example, be used to retrieve
+      <I>any</I>
+      part of the contents of an etymological statement such as: [Cp. MLG <B>snaven</B>
+      to stumble, <B>snappen</B>, <B>snapperen</B> to babble &amp; obsolete G
+      <B>schnappen</B>
+      to totter; for <B>snatirs</B> ?cp. Norw. dial. <B>snatra</B> to sniff,
+      snort, sputter or MLG <B>snateren</B> to talk nonsense.]</LI>
+
+      <LI>
+      A <B>Language of etymon</B> search is restricted to the <A HREF="http://ets.umdl.umich.edu/m/mec/langlist.html">language
+      labels</A> themselves; thus a search of "af" (AF for Anglo-French) will
+      retrieve all entries which cite "AF" as&nbsp; language of etymon. Note
+      that a search on "a" alone would retrieve all entries with language labels
+      beginning with "A", such as "A", "AE", "AF", "AL", "AN", etc., so if you
+      are searching for, e.g., Anglian etymons, you should enter "a " ( i.e.,
+      "a" followed by a space).</LI>
+
+      <LI>
+      A <B>Definition</B> search will retrieve all entries in which the definitions
+      contain the words, phrases or labels you specify. Definitions are in modern
+      English, though they may include illustrative phrases in Middle English.
+      Within definitions, <B>Labels</B> (italicized terms, usually abbreviated)
+      are: 1) grammatical labels such as <I>imper.</I>, <I>ref.</I>, <I>ppl.</I>,
+      2) semantic field labels, such as <I>law</I>, <I>her.</I>, <I>physiol.</I>,
+      3) general semantic labels such as <I>fig.</I>, <I>person.</I>, <I>iron.</I>.
+      A list of these<A HREF="http://ets.umdl.umich.edu/m/mec/usg.html"> usage
+      labels</A> is available.</LI>
+
+      <LI>
+      A <B>Date,</B> <B>Stencil,</B> or <B>Manuscript</B> search will retrieve
+      entries containing at least one of the search items specified. For help
+      on framing date searches, click <A HREF="#med date">here</A>.</LI>
+
+      <LI>
+      Searching within a <B>Quotation</B> will retrieve entries whose quotations
+      or stencils have text that matches your search term. If you are interested
+      in quotations <B>only</B>, you will want to use <A HREF="#quotes">Quotation
+      Searches</A>. But if you want to combine quotation searching with other
+      restrictions (for example, to identify every MED entry in which there is
+      a quotation from Chaucer using a word of possible or certain Middle Dutch
+      etymology), then you should use an entry search.</LI>
+      </UL>
+      You may also search on headwords or headword and form sections (see lookup
+      searches above). You may combine fields or terms using Boolean logic, or
+      look for words or phrases within a <A HREF="#prox">specified proximity</A>
+      in definitions.
+      <P><B>To search:</B>
+      <OL>
+      <LI>
+      Enter the words or phrases that you wish to search in the text boxes.</LI>
+
+      <LI>
+      Use the pull down menus next to the text boxes to indicate the part of
+      the entry to which you would like to restrict your search.</LI>
+
+      <LI>
+      If you would like to combine multiple search terms, use the pull down menus
+      to select <A HREF="#bool">Boolean operators</A>.</LI>
+
+      <LI>
+      Click on the search button to submit your search.</LI>
+      </OL>
+      The search will return a list of those entries which match your search
+      specifications; the matches are linked to the full dictionary entry.
+      <P><A HREF="#top">Help topics</A>
+      <H3>
+      <A NAME="quotes"></A>MED: using the searches: quotation searches</H3>
+      Quotations illustrate the use of a word. This search helps you find a designated
+      form, word, phrase or combination of words within stencils and quotations.
+      You may restrict the search in various powerful ways, by using the pull
+      down menus.
+      <UL>
+      <LI>
+      <B>Quotation</B>: searches text of quotation itself -- the actual Middle
+      English portion of the quotation</LI>
+
+      <LI>
+      <B>Date</B>: searches manuscript date and the (often conjectural)
+      date of composition, if supplied. Composition dates are enclosed in parentheses.
+      For help on framing date searches, click <A HREF="#med date">here</A>.</LI>
+
+      <LI>
+      <B>Stencil</B>: searches the contents of stencils. For contents
+      of stencils, see the <A HREF="#entries">entry map</A>.</LI>
+
+      <LI>
+      <B>Manuscript</B>: searches manuscript abbreviation and shelfmark,
+      and retrieves quotations with the specified manuscript abbreviation or
+      shelfmark or both.</LI>
+
+      <LI>
+      <B>LALME ref.-County name</B>: draws on LALME information in the HyperBibliography
+      and searches for quotations from texts or parts of texts whose dialectal
+      provenance has been established by LALME. An Index of abbreviations for
+      county names will pop up to facilitate this search.</LI>
+
+      <LI>
+      <B>LALME ref.-LP Number</B>: draws on LALME information in the HyperBibliography
+      and restricts searches to quotations from texts or parts of texts for which
+      LALME provides a Linguistic Profile number.</LI>
+      </UL>
+      You may combine fields or terms using Boolean logic or look for words or
+      phrases within a <A HREF="#prox">specified proximity</A> within quotations.
+      <P><B>To search</B>:
+      <OL>
+      <LI>
+      Enter the words, phrases, dates, or other terms that you wish to search
+      in the text boxes.</LI>
+
+      <LI>
+      Use the pull down menus next to the text boxes to indicate whether you
+      would like to restrict your search to a certain part of the quotations
+      and stencils.</LI>
+
+      <LI>
+      If you would like to combine multiple search terms, use the pull down menus
+      to select <A HREF="#bool">Boolean operators</A>.</LI>
+
+      <LI>
+      Click on the search button to submit your search.</LI>
+      </OL>
+      <B>For example:</B> You are interested in quotations that contain the word
+      <B><I>doke</I></B>
+      in the quoted text.
+      <OL>
+      <LI>
+      Enter <B><I>doke </I></B>in the text box.</LI>
+
+      <LI>
+      Click on the pull down menu and select <B>Quotation</B> by clicking on
+      it.</LI>
+
+      <LI>
+      Click on the search button to submit your search.</LI>
+      </OL>
+      This simple search will return a list of quotations containing <B><I>doke</I></B>
+      and links to the full dictionary entries in which the quotations appear.
+      A more complex search, using Boolean operators, would, for example, allow
+      you to retrieve fourteenth-century quotations containing <I>man</I> from
+      Herefordshire texts recorded in the MED.
+      <P><A HREF="#top">Help topics</A>
+      <H3>
+      <A NAME="medspell"></A>MED: some suggestions on spelling</H3>
+      The Middle English spelling of a given word may vary greatly according
+      to date, place, and the spelling practices of individual scribes. Here
+      are some considerations to bear in mind as you search in the MED.
+      <P>You have two possible routes to follow, and you may wish to use different
+      spelling strategies for each. The first is to use the Lookup search and
+      search by headword or headword and forms. This is the first field you find
+      in an MED entry, before the definitions begin. The second is to search
+      for a given form using one of the other two main search options.
+      <OL>
+      <LI>
+      <B>Lookup searches</B>: In the form section the MED has assembled a summary
+      of the spelling forms of the headword occurring in the quotations. But
+      the possible multiplicity of forms in the quotations is reduced to manageable
+      numbers by various kinds of normalizations in the form section. Most of
+      these are fairly predictable (<B>&thorn;</B>, <B>&eth;</B> and <B>th</B>
+      are normally treated as <B>th</B>; vocalic <B>y</B> or <B>j</B> and <B>i</B>
+      as <B>i</B>; vocalic <B>w</B> and <B>v</B> as <B>u</B>; <B>sh</B>, <B>sch</B>,
+      <B>ssh</B>,
+      <B>ssch</B>
+      are usually reduced to
+      <B>sh</B>; <B>-ed</B>, <B>-yd</B> and
+      <B>-id</B>
+      are treated as <B>ed</B>; double vowels are reduced to single vowels).
+      In general, normalization is in the direction of the forms found in Chaucer
+      or 14th century East Midland Middle English.
+
+      <P>You need to bear this in mind as you type in search items in a Lookup
+      search of headwords or form sections. The precise spelling form you are
+      in search of may be well attested in the quotations, but may be "normalized"
+      in the form section display. If a Lookup search fails for the form you
+      type in, consider (a) substituting possible "normalized" spellings, (b)
+      using wildcard characters as described <A HREF="#modregx">elsewhere in
+      the Help section</A> and on the MED Lookups page, (c) using one of the
+      other two MED search options offered.<P></LI>
+      <LI>
+      <B>Other searches</B>: "Search the MED entries" and "Search the MED quotations."
+      The former will allow you to enter either the precise spelling form in
+      which you are interested, or a truncated form of it (note, however, that
+      wildcard character searches are available only in Lookup searches). If
+      your search is unsuccessful, consider possible variant spelling forms which
+      may be attested and helpful, involving such common alternatives as: double
+      or single consonants or vowels, <B>y/3</B>, <B>3/gh</B>,
+      <B>&thorn;/&eth;/th</B>,
+      <B>u/v</B>,
+      <B>u/w</B>,
+      <B>i/j/y</B>,
+      <B>e/ea</B>,
+      <B>e/eo/ie</B>, <B>on/oun</B>,
+      <B>-ed/-yd/-id</B>,
+      <B>-es/-is/-ys</B>,
+      the presence or absence of final
+      <B>-e</B>, and the various possible reflexes
+      of the OE vowels and diphthongs.
+
+      <P>Be careful about copying and pasting in Middle English words in text
+      boxes. The upper-case letters A, O, T, and Y will be read respectively
+      as representing ash (&aelig;, &AElig;), oe (the oe ligature), thorn (&thorn;,
+      &THORN;) or (&eth;, &ETH;), lower or upper-case yogh.</LI></OL>
+      <A HREF="#top">Help topics</A>
+      <H3>
+      <A NAME="medlinks"></A>MED: links to the HyperBibliography</H3>
+      Each illustrative quotation begins with a stencil which identifies the
+      date and source of the quotation. We have almost completed the process
+      of linking all MED stencils to the corresponding entries in the HyperBibliography,
+      and of adding the MS abbreviation and shelfmark to every MED stencil.
+      <P>The current status of any stencil in MED entries or search results is
+      shown by its font weight. Bold links are complete, supply manuscript details,
+      and link reliably to the appropriate HyperBibliography entries. The remaining
+      normal links are under development, and use a rudimentary matching process.
+      We make them available as a useful temporary resource, but they must be
+      used with caution. They may:
+      <UL>
+      <LI>
+      not link to anything, because the corresponding HyperBibliography entry
+      has not yet been created.</LI>
+
+      <LI>
+      offer an incorrect match, because of some partial correspondence between
+      a stencil and a HyperBibliography entry.</LI>
+
+      <LI>
+      offer a number of matches, one or none of which may be correct.</LI>
+
+      <LI>
+      link to the correct HyperBibliography entry (and many of them will do this).</LI>
+      </UL>
+      You may easily confirm that a normal stencil link has taken you to the
+      correct HyperBibliography entry by comparing the MED and HyperBibliography
+      stencils for date, title and manuscript details.
+      <BR><!-- This stencil is hyperlinked to
+      the HyperBibliography entry for that work. Once you have entered
+      the HyperBibliography, you can either use the back button on your
+      browser to return to the entry in the MED or you can use the
+      links in the navigational bar to move you to the main Hyperbibliography page where you may carry out further searches.  -->
+      <CENTER>
+      <ADDRESS>mec-info@umich.edu</ADDRESS>
+      </CENTER>      
+    </div>
+  </div>  
+</div>
