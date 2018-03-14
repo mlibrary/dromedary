@@ -1,12 +1,16 @@
 Rails.application.routes.draw do
   
   mount Blacklight::Engine => '/'
-  root to: "catalog#index"
-    concern :searchable, Blacklight::Routes::Searchable.new
 
-  resource :catalog, only: [:index], as: 'catalog', path: '/catalog', controller: 'catalog' do
+  root to: "catalog#home"
+  
+  concern :searchable, Blacklight::Routes::Searchable.new
+
+  resource :search, only: [:index], as: 'catalog', path: '/catalog', controller: 'catalog' do
     concerns :searchable
   end
+
+  get '/search' => 'catalog#search', as: :search
 
   concern :exportable, Blacklight::Routes::Exportable.new
 
@@ -24,6 +28,8 @@ Rails.application.routes.draw do
 
   match '/contacts', to: 'contacts#new', via: 'get'
   resources "contacts", only: [:new, :create]
+  
+  post 'static/search' => 'static#search'
   
   get 'static/:action' => 'static', as: :static
 
