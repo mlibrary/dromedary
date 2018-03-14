@@ -1,33 +1,26 @@
-<div id="header-navbar" class="navbar navbar-inverse navbar-static-top" role="navigation">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle btn collapsed" data-toggle="collapse" data-target="#user-util-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
+<header class="site-header">
+  <div id="header-navbar" class="navbar navbar-inverse navbar-static-top" role="navigation">
+    <div class="container container--full site-header-container">
+      <div class="site-title-container">
+        <a href="<%=root_path %>" class="site-link site-title-flex"><img class="site-logo" src="https://www.lib.umich.edu/falafel/v0/graphics/mlib_square__transparent.svg" alt="University of Michigan"><span class="site-title">Middle English Dictionary</span></a>
+      </div>
+       <button type="button" class="navbar-toggle btn collapsed" data-toggle="collapse" data-target="#user-util-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
       </button>
-      <%#= link_to(image_tag("The-Michigan-Daily-Digital-Archive-Header-Graphic.png",  :alt => "The-Michigan-Daily-Digital-Archive-Header-Graphic", :height => 35, style: 'margin-top: -8px'), publication_root_url, :class => "navbar-brand") %>
-
-      <%= area :skiplinks %>
-
-      <%#= link_to application_name, root_path, class: "navbar-brand" %>
+      <div class="collapse navbar-collapse" id="user-util-collapse">
+       <%= render partial: 'shared/nav/about' %>
+       <%= render partial: 'shared/nav/help' %>
+       <%= render partial: 'shared/nav/contact' %>
+      </div>
     </div>
+  </div>
+</header>
 
-    <div class="collapse navbar-collapse" id="user-util-collapse">
-      <%= render :partial=>'/user_util_links' %>
-    </div>
+<div id="search-navbar" class="navbar navbar-default navbar-static-top seach-navbar--header" role="navigation">
+  <div class="search-navbar--container container container--full">
+    <%= render_search_bar  %>
   </div>
 </div>
-
-<%= render :partial=>'/flash_msg' unless flash.empty? %>
-
-
-
-<%= area :search_navbar do %>
-  <div id="search-navbar" class="navbar navbar-default navbar-static-top" role="navigation">
-    <!-- <div class="container-fluid"> -->
-        <%= render_search_bar  %>
-    <!-- </div> -->
-  </div>
-<% end %>
