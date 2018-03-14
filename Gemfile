@@ -34,6 +34,12 @@ end
 gem 'awesome_print'
 gem 'rails_semantic_logger'
 
+# Contacts Email
+gem 'mail_form', '1.7.0'
+gem 'simple_form', '3.5.1'
+# Extendable layouts
+gem 'nestive', '0.6.0'
+
 # Use pry for the console
 group :development, :test do
   gem 'pry-rails'

@@ -1,0 +1,18 @@
+<%= extends :application do %>
+
+  <%= replace :main do %>
+
+    <div class="<%= container_classes %>">
+
+      <div class="row">
+        <%= yield %>
+      </div>
+
+    </div>
+
+    <%#= render partial: '/catalog/back_to_top' %>
+
+
+  <% end %>
+
+<% end %>

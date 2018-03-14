@@ -1,0 +1,22 @@
+<% @page_title = t('views.static.contact.title') %>
+
+<div class="container-fluid">
+  <%= render partial: 'static/unified_sidebar' %>
+
+  <div class="<%= main_content_classes %> help-middle-col">
+    <h2 classs="title"><%= t('views.static.contact.title') %></h2>
+
+    <div class="alert alert-block alert-success"><p>Thank you for your message!</p></div>
+
+    <p class="para">We appreciate your help in making our services better for everyone.</p>
+
+    <% unless @contact.referer.blank? %>
+    <p>
+      <a href="<%= @contact.referer %>"><i class="fa fa-arrow-left"></i> Return to the last page you viewed</a>
+    </p>
+    <% end %>
+
+    <div class="<%= main_content_classes %>">
+
+    </div> 
+</div>
