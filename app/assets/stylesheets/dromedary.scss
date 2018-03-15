@@ -353,6 +353,10 @@ body.blacklight-contacts-create {
   }
 }
 
+.blacklight-catalog-index #sidebar #appliedParams {
+  display: none;
+}
+
 $screen-sm-min: 768px;
 $screen-md-min: 992px;
 $screen-xs-max: 1200px;
