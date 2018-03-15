@@ -1,14 +1,33 @@
-<footer class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <ul class="nav navbar-nav">
-            <li class="footer-link-home"><%= link_to 'Home', root_url %></li>
-        </ul>
-    </div>
+<footer class="footer footer--dark ">
+  <div class="footer-container footer-text--light">
+    <section>
+      <h3 class="heading-medium">Middle English Compendium</h3>
+      <ul>
+        <li><a href="<%=root_path %>">Middle English Dictionary</a></li>
+        <li><a href="https://quod.lib.umich.edu/h/hyperbib/">HyperBibliography</a></li>
+        <li><a href="https://quod.lib.umich.edu/c/cme/">Corpus of Middle English Prose and Verse</a></li>
+      </ul>
+     </section>
+    <section>
+      <h3 class="heading-medium">About the MEC</h3>
+      <ul>
+        <li><%= link_to "About", static_path('about_med') %></li>
+        <li><%= link_to "How to Search", static_path('help-general') %></li>
+        <li><%= link_to "Search Help", static_path('help-med') %></li>
+      </ul>
+     </section>
+     <section>
+      <h3 class="heading-medium">Contact Us</h3>
+      <ul>
+        <li><%= link_to "Contact Us Page", {:controller => "contacts", :action => "new"} %></li>
+        <li><a href="mailto:mec-info@umich.edu">mec-info@umich.edu</a></li>
+      </ul>
+     </section>
+  </div>
 </footer>
-<div class="container-fluid">
-    <div class="col-md-12">
-        <p>
-            <span>&copy; <%= Date.today.year %> <a href="http://www.regents.umich.edu">Regents of the University of Michigan</a></span>
-        </p>
+<div class="footer-subfooter footer--light">
+   <div class="footer-container">
+      <p class="font-xsmall">©2018 For details about this collection's copyright see the <%= link_to "about page", static_path('about_med') %> or view the 
+        <a href="https://www.lib.umich.edu/library-administration/library-copyright-statement">U-M Library Copyright Policy</a>.</p>
     </div>
 </div>
