@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 #
+require_relative "concerns/catalog"
+
 class CatalogController < ApplicationController
 
   #include Blacklight::
