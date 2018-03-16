@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 #
+require_relative "concerns/catalog"
+
 class CatalogController < ApplicationController
 
   #include Blacklight::
@@ -117,7 +119,7 @@ class CatalogController < ApplicationController
     # :index_range can be an array or range of prefixes that will be used to create the navigation (note: It is case sensitive when searching values)
 
     config.add_facet_field 'pos_abbrev', label: 'Part of Speech'
-    config.add_facet_field 'grammatical_usage', label: "Gramatical Usage"
+    # config.add_facet_field 'grammatical_usage', label: "Gramatical Usage"
     config.add_facet_field 'discipline_usage', label: "Professional Usage"
     config.add_facet_field 'etyma_language', label: "Source Language"
 
