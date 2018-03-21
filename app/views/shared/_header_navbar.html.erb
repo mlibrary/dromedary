@@ -10,15 +10,22 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
       </button>
+
+      <%= area :skiplinks %>
+
       <div class="collapse navbar-collapse" id="user-util-collapse">
-       <%= render partial: 'shared/nav/search' %>
-       <%= render partial: 'shared/nav/about' %>
-       <%= render partial: 'shared/nav/help' %>
-       <%= render partial: 'shared/nav/contact' %>
+        <%= render :partial=>'/user_util_links' %>
       </div>
+
+    </div>
+
+
+
     </div>
   </div>
 </header>
+
+<%= render :partial=>'/flash_msg' unless flash.empty? %>
 
 <div id="search-navbar" class="navbar navbar-default navbar-static-top seach-navbar--header" role="navigation">
   <div class="search-navbar--container container container--full">
