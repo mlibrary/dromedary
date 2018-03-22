@@ -108,9 +108,6 @@ to_field('discipline_usage') do |entry, acc|
   acc.replace entry.senses.flat_map(&:discipline_usages).compact.uniq
 end
 
-to_field('grammatical_usage') do |entry, acc|
-  acc.replace entry.senses.flat_map(&:grammatical_usages).compact.uniq
-end
 
 
 
