@@ -26,7 +26,7 @@ module MedInstaller
 
         index_dir = AnnoyingUtilities::DROMEDARY_ROOT + 'indexer'
         writer    = index_dir + 'writers' + 'localhost.rb'
-        fields    = index_dir + 'main_indexer.rb'
+        fields    = index_dir + 'entry_indexer.rb'
 
         system "bundle", "exec", "traject",
                "-c", fields.to_s,
