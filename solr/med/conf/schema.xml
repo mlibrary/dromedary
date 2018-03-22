@@ -217,7 +217,6 @@
 
   <!-- Usage -->
   <field name="discipline_usage" type="string" indexed="true" stored="true" multiValued="true" docValues="true"/>
-  <field name="grammatical_usage" type="string" indexed="true" stored="true" multiValued="true" docValues="true"/>
 
 
 
