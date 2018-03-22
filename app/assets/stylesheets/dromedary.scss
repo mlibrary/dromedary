@@ -353,10 +353,6 @@ body.blacklight-contacts-create {
   }
 }
 
-.blacklight-catalog-index #sidebar #appliedParams {
-  display: none;
-}
-
 $screen-sm-min: 768px;
 $screen-md-min: 992px;
 $screen-xs-max: 1200px;
@@ -388,6 +384,60 @@ $screen-xs-max: 1200px;
       // .pagination {
       //   margin: 0 -15px;
       // }
+    }
+  }
+}
+
+
+#sidebar {
+  #appliedParams {
+    background-color: #e5e5e5 !important;
+    margin-top: 20px;
+    margin-bottom: 15px;
+
+    .appliedFilter {
+      width: 100%;
+    }
+
+    .constraints-label {
+      color: #333333;
+      display: block;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .constraint-value {
+      background-color: #05a657 !important;
+      color: #ffffff;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 16px;
+      padding: 6px 10px;
+      max-width: 75%;
+      text-align: left;
+
+      .filterName:after {
+        color: white;
+      }
+    }
+
+    a.dropdown-toggle {
+      background-color: rgba(26,165,90, .36);
+      font-family: 'Open Sans', sans-serif;
+      font-size: 16px;
+      padding: 6px 10px; // --- disable for MD
+      padding-bottom: 5px; // --- for icomoon font
+    }
+
+    a.catalog_startOverLink, a.FrontPageOnly {
+      background-color: #6e6e6e;
+      border-radius: 3px;
+      box-shadow: inset 0 -2px 0 0 rgba(0, 0, 0, 0.36);
+      color: #ffffff;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 14px;
+      font-weight: normal !important;
+      margin-top: 5px;
     }
   }
 }
