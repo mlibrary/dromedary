@@ -1,0 +1,45 @@
+<% #doc_presenter = show_presenter(document) %>
+<% doc_presenter = index_presenter(document) %>
+<% ent = doc_presenter.entry %>
+<%# default partial to display solr document fields in catalog show view -%>
+<div class="entry-panel">
+
+	<h2 class="entry-title" style="background-color: #E6F3FF; color: blue; height: 40px;">Middle English Dictionary Entry</h2>
+
+	<div class="entry-heading">
+		<div class="entry-headword" style="float: left;"><%= ent.original_headwords.first %>&nbsp;(<span class="entry-pos"><%= ent.pos_raw %>)</span></div>
+		<div class="quotations-header-options"  style="float: right;">Quotations:  <a href="">Show All</a> <a href="">Hide All</a></div>
+	</div>
+
+	<div>
+		<h3 style="margin-top: 40px;">Entry Info</h3>
+	</div>
+
+	<div class="table-responsive entry-info">
+	  <table class="table">
+	    <tr><td class="forms-title">Forms</td><td class="forms-list"><% ent.all_forms.each_with_index do |(k, v)|  %><%= k %><%#= k.pos_raw if k != nil %><%= "," if k != ent.all_forms.last %>&nbsp;&nbsp;<% end %></td></tr>
+	    <tr><td class="etymology-title">Etymology</td><td class="etymology-list"><% ent.etym_languages.each_with_index do |(k, v)|  %><%= t('dromedary.en.lang.' + k) %>&nbsp;<%= k %><%= v %><%#= k.pos_raw if k != nil %><%= "," if k != ent.etym_languages.last %>&nbsp;&nbsp;<% end %></td></tr>
+	  </table>
+	</div>
+
+	<h3 style="margin-top: 40px;">Senses and Subsenses</h3>
+
+	<div class="table-responsive entry-senses">
+	  <table class="table">
+	  	<% ent.senses.each do |item|  %>
+	  		<tr><td><span class="senses-index"><%= item.sense_number %>.</span>&nbsp;<span class="senses-defintion"><%= item.definition_text %></span></td></tr>
+	  	<% end %>
+	  </table>
+	</div>
+</div>
+
+
+<h2>OLDER FROM CATALOG CONTROLLER</h2>
+<dl class="dl-horizontal  dl-invert">
+  <% document_show_fields(document).each do |field_name, field| -%>
+    <% if should_render_show_field? document, field %>
+	    <dt class="blacklight-<%= field_name.parameterize %>"><%= render_document_show_field_label document, field: field_name %></dt>
+	    <dd class="blacklight-<%= field_name.parameterize %>"><%= doc_presenter.field_value field_name %></dd>
+    <% end -%>
+  <% end -%>
+</dl>
