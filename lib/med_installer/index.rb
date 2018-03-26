@@ -22,7 +22,7 @@ module MedInstaller
       INDEX_DIR = AnnoyingUtilities::DROMEDARY_ROOT + 'indexer'
 
       def call(datadir:, dirname:)
-        raise "Solr at #{solr.url} not up" unless AnnoyingUtilities.solr_core.up?
+        raise "Solr at #{AnnoyingUtilities.solr_url} not up" unless AnnoyingUtilities.solr_core.up?
 
         index_dir = AnnoyingUtilities::DROMEDARY_ROOT + 'indexer'
         writer    = index_dir + 'writers' + 'localhost.rb'

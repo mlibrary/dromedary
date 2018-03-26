@@ -191,14 +191,27 @@ class CatalogController < ApplicationController
     config.add_search_field("hnf", label: "Headwords and Forms") do |field|
       field.qt                    = "/search"
       field.solr_local_parameters = {
-        qf: '$entry_qf',
-        pf: '$entry_pf'
+        qf: '$headword_and_forms_qf',
+        pf: '$headword_and_forms_pf'
       }
     end
 
     # Just the headwords
     config.add_search_field("h", label: "Headwords only") do |field|
-      field.qt = 'headwords'
+      field.qt = '/search'
+      field.solr_local_parameters = {
+        qf: '$headword_only_qf',
+        pf: '$headword_only_pf'
+      }
+    end
+
+    # Just the headwords
+    config.add_search_field("oed", label: "Modern English") do |field|
+      field.qt = '/search'
+      field.solr_local_parameters = {
+        qf: 'oed_norm',
+        pf: 'oed_norm'
+      }
     end
 
     #
@@ -267,6 +280,10 @@ class CatalogController < ApplicationController
       hnf: {
         solr_endpoint:         "headword_and_forms_suggester",
         search_component_name: "headword_and_forms_suggester"
+      },
+      oed: {
+        solr_endpoint:         "oed_suggester",
+        search_component_name: "oed_suggester"
       }
     }
   end
