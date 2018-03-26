@@ -3,12 +3,12 @@
 
 <!-- Load up stuff we keep in external files -->
 <!DOCTYPE config [
-        <!ENTITY default_author_stuff  SYSTEM "solrconfig_med/author_defaults.xml">
-        <!ENTITY default_entry_stuff   SYSTEM "solrconfig_med/entry_defaults.xml">
-        <!ENTITY default_title_stuff   SYSTEM "solrconfig_med/title_defaults.xml">
-        <!ENTITY default_keyword_stuff SYSTEM "solrconfig_med/keyword_defaults.xml">
-        <!ENTITY default_facet_stuff   SYSTEM "solrconfig_med/facet_defaults.xml">
-
+        <!ENTITY headword_only_search   SYSTEM "solrconfig_med/headword_only_search.xml">
+        <!ENTITY headword_and_forms_search   SYSTEM "solrconfig_med/headword_and_forms_search.xml">
+        <!ENTITY highlighting_defaults   SYSTEM "solrconfig_med/highlighting.xml">
+        <!ENTITY headword_only_suggester SYSTEM "solrconfig_med/suggesters/headword_only_suggester.xml">
+        <!ENTITY headword_and_forms_suggester SYSTEM "solrconfig_med/suggesters/headword_and_forms_suggester.xml">
+        <!ENTITY oed_suggester SYSTEM "solrconfig_med/suggesters/oed_suggester.xml">
         ]>
 
 <config>
@@ -45,10 +45,16 @@
       <str name="fl">*</str>
       <str name="defType">edismax</str>
 
-      &default_entry_stuff;
 
-      &default_facet_stuff;
+      <!--Load up stuff from the external files-->
+      &headword_and_forms_search;
+      &headword_only_search;
+      &highlighting_defaults;
 
+
+
+      <!--Some sane defaults-->
+      <str name="facet.mincount">1</str>
       <str name="qf">
         official_headword_exactish^500
         official_headword^100
@@ -57,41 +63,9 @@
         orth^1
       </str>
 
-      <str name="facet.mincount">1</str>
-
     </lst>
   </requestHandler>
 
-
-
-  <!-- Only search the headwords (NOT forms).
-       Note that searching on the "offical headword"
-       is hard because of parsing issues
-  -->
-
-  <requestHandler name="headwords" class="solr.SearchHandler">
-    <lst name="defaults">
-      <str name="echoParams">all</str>
-      <str name="wt">json</str>
-      <str name="indent">true</str>
-      <str name="fl">*</str>
-      <str name="defType">edismax</str>
-
-      <str name="qf">
-        official_headword^1000
-        headword_exactish^50
-        headword^10
-      </str>
-
-      <str name="pf">
-        official_headword^1000
-        headword_exactish^50
-        headword^10
-      </str>
-
-      <str name="facet.mincount">1</str>
-    </lst>
-  </requestHandler>
 
 
   <requestHandler name="/document" class="solr.SearchHandler">
@@ -106,62 +80,18 @@
 
   <!--## Suggest stuff ##-->
 
+  <!--Mount suggester for headwords and forms at /headword_and_forms_suggester-->
 
-  <searchComponent name="headword_and_forms_suggester" class="solr.SuggestComponent">
-    <lst name="suggester">
-      <str name="name">headword_and_forms_suggester</str>
-      <str name="lookupImpl">FSTLookupFactory</str>
-      <str name="suggestAnalyzerFieldType">me_text</str>
-      <str name="buildOnCommit">true</str>
-      <str name="field">word_suggestions</str>
-      <str name="exactMatchFirst">true</str>
-      <str name="buildOnStartup">true</str>
-      <str name="minPrefixChars">2</str>
-      <str name="dictionaryImpl">DocumentDictionaryFactory</str>
-      <str name="buildOnCommit">true</str>
+  &headword_and_forms_suggester;
 
-    </lst>
-  </searchComponent>
+  <!--Mount headword-only suggester at /headword_only_suggester-->
 
-  <requestHandler name="/headword_and_forms_suggester" class="solr.SearchHandler"
-                  startup="lazy">
-    <lst name="defaults">
-      <str name="suggest">true</str>
-      <str name="suggest.count">15</str>
-      <str name="suggest.dictionary">headword_and_forms_suggester</str>
-    </lst>
-    <arr name="components">
-      <str>headword_and_forms_suggester</str>
-    </arr>
-  </requestHandler>
+  &headword_only_suggester;
 
+  <!--Mount Oxford English Dictionary modern english suggester at /oed/suggester-->
 
-  <searchComponent name="headword_only_suggester" class="solr.SuggestComponent">
-    <lst name="suggester">
-      <str name="name">headword_only_suggester</str>
-      <str name="lookupImpl">FSTLookupFactory</str>
-      <str name="suggestAnalyzerFieldType">me_text</str>
-      <str name="buildOnCommit">true</str>
-      <str name="field">headword_only_suggestions</str>
-      <str name="exactMatchFirst">true</str>
-      <str name="buildOnStartup">true</str>
-      <str name="minPrefixChars">2</str>
-      <str name="dictionaryImpl">DocumentDictionaryFactory</str>
-      <str name="buildOnCommit">true</str>
-    </lst>
-  </searchComponent>
+  &oed_suggester;
 
-  <requestHandler name="/headword_only_suggester" class="solr.SearchHandler"
-                  startup="lazy">
-    <lst name="defaults">
-      <str name="suggest">true</str>
-      <str name="suggest.count">15</str>
-      <str name="suggest.dictionary">headword_only_suggester</str>
-    </lst>
-    <arr name="components">
-      <str>headword_only_suggester</str>
-    </arr>
-  </requestHandler>
 
 
 
