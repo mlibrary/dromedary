@@ -6,32 +6,17 @@ require 'middle_english_dictionary'
 
 module Dromedary
 
-  KeyDefPair = Struct.new(:letter, :definition_xml)
-
-  #convenience methods for a Sense
-  module SplitDefinitionPresenter
-
-    def has_initial_def?
-      subdefs["initial"]
-    end
-
-    def has_lettered_defs?
-      (subdefs.keys - ["initial"]).count > 0
-    end
-
-    def initial_def
-      subdefs["initial"]
-    end
-
-    def sub_definitions
-      subdefs.keys.reject {|x| x == "initial"}.map {|k| KeyDefPair.new(k, subdefs[k])}.sort {|a, b| a.letter <=> b.letter}
-    end
-  end
-
   class IndexPresenter < SimpleDelegator
 
+    # @return [MiddleEnglishDictionary::Entry] The underlying entry object
     attr_reader :entry
 
+    # Create a new object in the same style as a Blacklight::IndexPresenter
+    # This is not a subclass, but it delegates unknown methods to a
+    # Blacklight::IndexPresenter underneath
+    #
+    # The main thing we do is provide the underlying MiddleEnglishDictionary::Entry
+    # object.
     def initialize(document, view_context, configuration = view_context.blacklight_config)
       blacklight_index_presenter = Blacklight::IndexPresenter.new(document, view_context, configuration)
       __setobj__(blacklight_index_presenter)
@@ -43,36 +28,49 @@ module Dromedary
       @search_field = view_context.search_state.params_for_search['search_field']
     end
 
+    # @return [String] The cleaned-up POS abbreviation (e.g., "n" or "v")
     def part_of_speech_abbrev
       @document.fetch('pos_abbrev')
     end
 
+    # @return [Array<MiddleEnglishDictionary::Sense>] All the entry senses
     def senses
-      @entry.senses #.map {|x| x.extend(SplitDefinitionPresenter)}
+      @entry.senses
     end
 
+    # @return [Integer] The number of quotes across all senses
     def quote_count
       @entry.all_quotes.count
     end
 
 
+    # @return [Array<String>] The headwords as taken from the "highlight"
+    # section of the solr return (with embedded tags for highlighting)
     def highlighted_official_headword
       Array(hl_field('official_headword')).first
     end
 
-    def normalized_headword
-      @entry.form.display_word
-    end
-
+    # @return [Array<String>] The non-headword spellings as taken from the "highlight"
+    # section of the solr return (with embedded tags for highlighting)
     def highlighted_other_spellings
        hl_field('headword').reject{|w| w == highlighted_official_headword}
     end
 
+    private
+
+    # A convenience method to get the highlighted values for a field if
+    # they're available, falling back to the regular document values for
+    # that field if they're not in the highlighted values section of the
+    # Solr response
+    #
+    # @param [String] Name of the solr field
+    # @return [Array<String>] The highlighted versions of the field given,
+    # or the non-highlighted values if there aren't any highlights.
     def hl_field(k)
       if @document.has_highlight_field?(k)
         @document.highlight_field(k)
       elsif @document.has_field?(k)
-        @document.fetch(k)
+        Array(@document.fetch(k))
       else
         []
       end
