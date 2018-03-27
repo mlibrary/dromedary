@@ -120,7 +120,7 @@
         <xsl:apply-templates select="STNCL"/>
         <xsl:text>  </xsl:text>
         <xsl:value-of select="SCOPE"/>
-        <xsl:value-of select="text()"/>
+        <xsl:value-of select="normalize-space(text())"/>
         <xsl:text>: </xsl:text>
     </xsl:template>
 
@@ -128,6 +128,13 @@
         <xsl:variable name="RsomethingID">
             <xsl:value-of select="@RID"/>
         </xsl:variable>
+        <!--#########################################################
+           XXX issues with hyperlinkg
+           1 all these links will need to go to the new hyperbib app
+           2 can we pass along a parameter besides the ID of the Hyperbib entry.  
+           i.e. we actually know which STNCL within that entry the user clicked on, can't we highlight it?
+           
+           #########################################################-->
         <xsl:element name="a">
             <xsl:attribute name="href">
                 <xsl:text>cgi/m/mec/hyp-idx?type=id&amp;id=</xsl:text>
