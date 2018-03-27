@@ -47,6 +47,7 @@ module MedInstaller
         end
 
         core.reload
+        resp = core.get "/search", {'q'=>'*:*', 'rows'=>0,"suggest.build" => true}
         logger.info "Core at '#{core.url}' reloaded"
 
       end

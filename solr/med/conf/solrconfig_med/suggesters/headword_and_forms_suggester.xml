@@ -1,0 +1,49 @@
+<!--<searchComponent name="headword_and_forms_suggester"-->
+                 <!--class="solr.SuggestComponent">-->
+  <!--<lst name="suggester">-->
+    <!--<str name="name">headword_and_forms_suggester</str>-->
+    <!--<str name="lookupImpl">FSTLookupFactory</str>-->
+    <!--<str name="suggestAnalyzerFieldType">me_text</str>-->
+    <!--<str name="buildOnCommit">true</str>-->
+    <!--<str name="field">word_suggestions</str>-->
+    <!--<str name="exactMatchFirst">true</str>-->
+    <!--<str name="buildOnStartup">true</str>-->
+    <!--<str name="minPrefixChars">2</str>-->
+    <!--<str name="dictionaryImpl">DocumentDictionaryFactory</str>-->
+    <!--<str name="buildOnCommit">true</str>-->
+  <!--</lst>-->
+<!--</searchComponent>-->
+
+
+
+<searchComponent name="headword_and_forms_suggester" class="solr.SuggestComponent">
+  <lst name="suggester">
+    <str name="name">headword_and_forms_suggester</str>
+    <str name="lookupImpl">BlendedInfixLookupFactory</str>
+    <str name="highlight">false</str>
+    <str name="suggestAnalyzerFieldType">me_text</str>
+    <str name="buildOnCommit">true</str>
+    <str name="field">word_suggestions</str>
+    <str name="payloadField">official_headword</str>
+    <str name="weightExpression">1.0</str>
+    <str name="exactMatchFirst">true</str>
+    <str name="buildOnStartup">true</str>
+    <str name="minPrefixChars">2</str>
+    <str name="dictionaryImpl">DocumentDictionaryFactory</str>
+    <str name="buildOnCommit">true</str>
+  </lst>
+</searchComponent>
+
+
+<requestHandler name="/headword_and_forms_suggester"
+                class="solr.SearchHandler"
+                startup="lazy">
+<lst name="defaults">
+  <str name="suggest">true</str>
+  <str name="suggest.count">15</str>
+  <str name="suggest.dictionary">headword_and_forms_suggester</str>
+</lst>
+<arr name="components">
+  <str>headword_and_forms_suggester</str>
+</arr>
+</requestHandler>
