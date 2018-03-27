@@ -4,25 +4,10 @@
     <xsl:import href="Common.xsl"/>
     <xsl:output method="html" indent="yes"/>
 
-   
-    <xsl:template match="/">
-
-        <html>
-            <head> </head>
-            <body>
-                <!-- do we need foreach? -->
-               <xsl:apply-templates select="DEF"/>
-              
-            </body>
-        </html>
-    </xsl:template>
- 
-    <xsl:template match="DEF">
+    <xsl:template match="/DEF">
         <p>
             <xsl:apply-templates/>
         </p>
-        <!--  <xsl:value-of select="."/>-->
     </xsl:template>
 
-    
 </xsl:stylesheet>
