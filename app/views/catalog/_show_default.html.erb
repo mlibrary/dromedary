@@ -18,23 +18,36 @@
 	<div class="table-responsive entry-info">
 	  <table class="table">
 	    <tr><td class="forms-title">Forms</td><td class="forms-list"><% ent.all_forms.each_with_index do |(k, v)|  %><%= k %><%#= k.pos_raw if k != nil %><%= "," if k != ent.all_forms.last %>&nbsp;&nbsp;<% end %></td></tr>
-	    <tr><td class="etymology-title">Etymology</td><td class="etymology-list"><% ent.etym_languages.each_with_index do |(k, v)|  %><%= t('dromedary.en.lang.' + k) %>&nbsp;<%= k %><%= v %><%#= k.pos_raw if k != nil %><%= "," if k != ent.etym_languages.last %>&nbsp;&nbsp;<% end %></td></tr>
+	    <tr><td class="etymology-title">Etymology</td><td class="etymology-list">
+    		<% etym_xml = Nokogiri::XML(ent.etym_xml) %>
+  			<% etym_xslt = Nokogiri::XSLT(File.read('./indexer/xslt/EtymOnly.xsl'))%>
+  			<% current_etym = etym_xslt.apply_to(etym_xml) %>
+
+	    	<%== current_etym %>
+	    </td></tr>
 	  </table>
 	</div>
 
 	<h3 style="margin-top: 40px;">Senses and Subsenses</h3>
+	<% puts "DIRECTORY --- IS:" %>
+	<% print Dir.pwd %>
 
 	<div class="table-responsive entry-senses">
 	  <table class="table">
 	  	<% ent.senses.each do |item|  %>
-	  		<tr><td><span class="senses-index"><%= item.sense_number %>.</span>&nbsp;<span class="senses-defintion"><%= item.definition_text %></span></td></tr>
+	  		<tr><td><span class="senses-index"><%= item.sense_number %>.</span>&nbsp;
+	  			<% def_xml = Nokogiri::XML(item.definition_xml) %>
+	  			<% def_xslt = Nokogiri::XSLT(File.read('./indexer/xslt/DefOnly.xsl'))%>
+	  			<% current_def = def_xslt.apply_to(def_xml) %>
+	  			<%== current_def %>
+	  		</td></tr>
 	  	<% end %>
 	  </table>
 	</div>
 </div>
 
 
-<h2>OLDER FROM CATALOG CONTROLLER</h2>
+<h2>--- OLDER FROM CATALOG CONTROLLER ---</h2>
 <dl class="dl-horizontal  dl-invert">
   <% document_show_fields(document).each do |field_name, field| -%>
     <% if should_render_show_field? document, field %>
