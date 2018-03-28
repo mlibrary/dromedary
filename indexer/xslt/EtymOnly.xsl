@@ -4,31 +4,19 @@
     exclude-result-prefixes="xs"
     version="1.0">
     <xsl:import href="Common.xsl"/>
-    
-    <xsl:output method="html" indent="yes"/>
-    
-    
-    
-    
-    <!-- orig|new -->
-    <xsl:variable name="formMode">orig</xsl:variable>
-    
-    <xsl:template match="/">
-        
-        <html>
-            <head> </head>
-            <body>
-               
-                <xsl:apply-templates select="ETYM" />
-               
-            </body>
-        </html>
+        <xsl:output method="html" indent="yes"/>
+   
+    <xsl:template match="/ETYM">
+                <xsl:apply-templates/>
     </xsl:template>
-  
-    
+      
     <xsl:template match="LANG">
-        <!--XXX need mouseover stuff here-->
+        <!--XXX Do we need mouseover stuff here for abbreviations-->
         <xsl:apply-templates/>
     </xsl:template>
     
+    <!-- May need to deal with <XREF> and /XREF/POS
+        within <ETYM> PFS says ignore XREF 
+        Waiting for PFS response on POS
+    -->
 </xsl:stylesheet>
