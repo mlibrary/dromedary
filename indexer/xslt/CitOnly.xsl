@@ -4,10 +4,23 @@
     <xsl:import href="Common.xsl"/>
     
     <xsl:template match="/CIT|cit" >
-        <p>
+        
+        <!--XXX temporary css for debugging -->
+        <style type="text/css">
+            .HI_B {font-weight:bold}
+            .HI_I {font-style:italic}
+            .USG {font-style:italic}
+            .STNCL {font-weight:bold}
+            .STNCL_TITLE {font-style:italic}
+            .ORTH {font-weight:bold}
+            .HDORTH {font-weight:bold}
+        </style>
+        <!--End temporary css for debugging -->
+        
+        <div class="CIT">
             <xsl:apply-templates select="BIBL|bibl"/>
             <xsl:apply-templates select="Q|q"/>
-        </p>
+        </div>
     </xsl:template>
     
   
@@ -35,18 +48,18 @@
                 <xsl:text>cgi/m/mec/hyp-idx?type=id&amp;id=</xsl:text>
                 <xsl:value-of select="$RsomethingID"/>
             </xsl:attribute>
-            <b>
+            <span class="STNCL">
                 <xsl:value-of select="DATE"/>
                 <xsl:text> </xsl:text>
                 <xsl:value-of select="AUTHOR"/>
                 <xsl:text> </xsl:text>
-                <i>
+                <span class="STNCL_TITLE">
                     <xsl:value-of select="TITLE"/>
-                </i>
-                <xsl:text>(</xsl:text>
+                </span>
+                <xsl:text> (</xsl:text>
                 <xsl:value-of select="MS"/>
                 <xsl:text>)</xsl:text>
-            </b>
+            </span>
         </xsl:element>
      </xsl:template>
     
