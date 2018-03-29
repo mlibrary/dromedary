@@ -29,6 +29,10 @@ class CatalogController < ApplicationController
     config.add_nav_action(:help, partial: 'shared/nav/help')
     config.add_nav_action(:contact, partial: 'shared/nav/contact')
 
+    # Show page tools items
+    #add_show_tools_partial(:print)
+    config.show.document_actions.delete(:email)
+    config.show.document_actions.delete(:sms)
     ##--------------------------------------------------------
     # Talking to solr
     ##--------------------------------------------------------
