@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs" version="1.0">
+    version="1.0">
+  
+    <xsl:import href="Common.xsl"/>
+   <xsl:output method="html" indent="yes"/>
+  
 
-  <xsl:import href="./indexer/xslt/Common.xsl"/>
-  <xsl:output method="html" indent="yes"/>
- 
-    <xsl:template match="/DEF">
+
+
+    <xsl:template match="/NOTE">
         <!--XXX temporary css for debugging -->
         <style type="text/css">
             .HI_B {font-weight:bold}
@@ -17,10 +20,11 @@
             .HDORTH {font-weight:bold}
         </style>
         <!--End temporary css for debugging -->
-       
-        <span class="DEF">
-            <xsl:apply-templates/>
-        </span>
-    </xsl:template>
 
+        <div class="NOTE">
+               <xsl:apply-templates/>
+        </div>
+    </xsl:template>
+       
+    <!--ignore for now one instance each of NOTE containing XREF/POS, XREF/HI POS and LANG -->
 </xsl:stylesheet>
