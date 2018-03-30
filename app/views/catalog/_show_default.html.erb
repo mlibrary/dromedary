@@ -60,9 +60,12 @@
   </div>
 
   <%# Get supplement and display %>
-  <% sups = ent.instance_variable_get(:@supplements) %>	      	
-  <% first_sup = sup.instance_variable_get(:@notes).first if ! (sups.nil? || sups.empty?) %> 
-  <% if ! (first_sup.nil? || first_sup.empty?) %>
+  <% sups = ent.instance_variable_get(:@supplements) %>
+  <% show_sups = true %>
+  <% show_sups = ! sups.nil? %>
+  <% show_sups = ! sups.empty? if show_sups %>
+
+  <% if show_sups %>
     <h3 style="margin-top: 40px;">Supplemental Notes</h3>
 
     <div class="table-responsive entry-supliment">
