@@ -3,7 +3,7 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     exclude-result-prefixes="xs"
     version="1.0">
-    <xsl:import href="Common.xsl"/>
+    <xsl:import href="./indexer/xslt/Common.xsl"/>
         <xsl:output method="html" indent="yes"/>
    
     <xsl:template match="/ETYM">

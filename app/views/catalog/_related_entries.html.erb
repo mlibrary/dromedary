@@ -1,4 +1,9 @@
+<% doc_presenter = index_presenter(@document) %>
+<% ent = doc_presenter.entry %>
 <div class="panel panel-default show-related">
    <div class="panel-heading">Related Dictionary Entries</div>
-   <div class="panel-body">related entries go here</div>
+   <div class="panel-body">
+
+   	<% fake_oed = "oed info" ; fake_oed_warning = "OED is not free" %>
+   	<a class="oed-link" href=""><%== ent.id %></a>&nbsp;<%== fake_oed %>&nbsp;Note: <%== fake_oed_warning %>&nbsp;</div>
 </div>
