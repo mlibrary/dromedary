@@ -31,6 +31,9 @@
 
 en:
   hello: "Hello world"
+  lang:
+    OE: Old English
+    ME: Middle English
   views:
     catalog:
       fishrappr_panel_title: Search Options
