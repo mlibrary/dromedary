@@ -18,9 +18,9 @@
         </style>
         <!--End temporary css for debugging -->
        
-        <div class="DEF">
+        <span class="DEF">
             <xsl:apply-templates/>
-        </div>
+        </span>
     </xsl:template>
 
 </xsl:stylesheet>
