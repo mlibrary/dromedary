@@ -20,30 +20,34 @@
     <% end %>
     <%= link_to_document document, doc_presenter.highlighted_official_headword, counter: counter %>
     (<%== doc_presenter.part_of_speech_abbrev %>)
-    <span><%= entry.id %></span>
   </h3>
 
   <div class="search-result def col-md-12">
     <% if hos = doc_presenter.highlighted_other_spellings and hos.count > 0 %>
-      <div>Possible other spellings: <%== hos.join(', ') %></div>
+      <div>Additional spellings: <%== hos.join(', ') %></div>
     <% end %>
 
-    <div style="margin-bottom: 1em;"><%= doc_presenter.quote_count %>
-      quotation(s)
-      we need to figure out what to
-      do with
+    <div style="margin-bottom: 1em;">
+      <%# quote_count = doc_presenter.quote_count %>
+      <%= "#{doc_presenter.quote_count} quotation".pluralize(doc_presenter.quote_count) + " in #{doc_presenter.senses.count}" + " sense".pluralize(doc_presenter.senses.count) + " definition".pluralize(doc_presenter.senses.count)%>
     </div>
     <% if doc_presenter.senses.count == 1 %>
       <div>
         <% sense = doc_presenter.senses.first %>
-        <div style="font-family: Courier"><%= sense.definition_xml %></div>
+        <% def_xml = Nokogiri::XML(sense.definition_xml) %>
+        <% def_xslt = Nokogiri::XSLT(File.read('./indexer/xslt/DefOnly.xsl'))%>
+        <% current_def = "Definition (1st sense) " + def_xslt.apply_to(def_xml) %>
+        <div><%== current_def %></div>
 
       </div>
     <% else %>
       <ol>
         <% doc_presenter.senses.each do |sense| %>
           <li>
-            <div><%= sense.definition_xml %></div>
+            <% def_xml = Nokogiri::XML(sense.definition_xml) %>
+            <% def_xslt = Nokogiri::XSLT(File.read('./indexer/xslt/DefOnly.xsl'))%>
+            <% current_def = def_xslt.apply_to(def_xml) %>
+            <div style="font-family: Courier"><%== current_def %></div>          
           </li>
         <% end %>
       </ol>
