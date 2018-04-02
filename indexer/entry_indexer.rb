@@ -57,7 +57,7 @@ end
 
 # Etymology and pos
 to_field 'etyma_language', entry_method(:etym_languages)
-
+to_field 'etyma_text', entry_method(:etym_text)
 
 to_field 'pos_raw', entry_method(:pos_raw)
 to_field 'pos_abbrev', entry_method(:normalized_pos_raw)
@@ -89,6 +89,10 @@ end
 to_field('quote_cd') do |entry, acc|
   acc.replace entry.all_citations.flat_map(&:cd).uniq.compact
 end
+
+
+# Notes
+to_field 'notes', entry_method(:notes)
 
 # RIDs
 

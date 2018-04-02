@@ -208,7 +208,7 @@ class CatalogController < ApplicationController
       }
     end
 
-    # Just the headwords
+    # OED Modern English equivalent(ish)
     config.add_search_field("oed", label: "Modern English") do |field|
       field.qt = '/search'
       field.solr_local_parameters = {
@@ -217,7 +217,24 @@ class CatalogController < ApplicationController
       }
     end
 
-    #
+    # Etymology (why???)
+    config.add_search_field('etyma', label: "Etymology") do |field|
+      field.qt = '/search',
+      field.solr_local_parameters = {
+          qf: "etyma_text",
+          pf: "etyma_text"
+      }
+    end
+
+    # Notes and definition (all the modern english, basically)
+    config.add_search_field('notes_and_def', label: "Definition and Notes") do |field|
+      field.qt = '/search',
+          field.solr_local_parameters = {
+              qf: "definition_text^50 notes",
+              pf: "definition_text^50 notes"
+          }
+    end
+
     # Now we see how to over-ride Solr request handler defaults, in this
     # case for a BL "search field", which is really a dismax aggregate
     # of Solr search fields.

@@ -202,11 +202,14 @@
   <field name="pos_raw"        type="string"  stored="true" indexed="true" multiValued="false" docValues="true"/>
   <field name="pos_abbrev" type="string"  stored="true" indexed="true" multiValued="false" docValues="true"/>
   <field name="etyma_language" type="string" indexed="true" stored="true" multiValued="true"/>
+  <field name="etyma_text" type="text" indexed="true" stored="true" multiValued="true"/>
 
   <!--Definitions and modern equivalents-->
   <field name="definition_text"   type="text"    indexed="true" stored="true" multiValued="true"/>
   <field name="oed_norm" type="text" indexed="true" stored="true" multiValued="false"/>
 
+  <!-- Notes -->
+  <field name="notes" type="text" indexed="true" stored="true" multiValued="true"/>
 
   <field name="quote_text"  type="me_text" indexed="true" stored="true" multiValued="true"/>
   <field name="quote_title" type="me_text" indexed="true" stored="true" multiValued="true"/>

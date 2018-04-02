@@ -62,8 +62,9 @@ module MedInstaller
       File.open(json_file_name, 'w:utf-8') {|out| out.puts entry.to_json}
     rescue => e
       puts e
-      puts "Error in #{entry.source}"
       require 'pry'; binding.pry
+
+      puts "Error in #{entry.source}"
     end
 
 
