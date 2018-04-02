@@ -1,3 +1,4 @@
+source "https://gems.www.lib.umich.edu"
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
@@ -10,7 +11,7 @@ end
 
 # When developing in tandem, a relative path is nice and easy
 # gem 'middle_english_dictionary', path: "/Users/dueberb/devel/med/middle_english_dictionary"
-gem 'middle_english_dictionary',  :git => 'https://github.com/mlibrary/middle_english_dictionary'
+gem 'middle_english_dictionary', '~> 1.0'
 
 # Rails and blacklight
 
@@ -28,6 +29,9 @@ gem 'traject', require: false
 if defined? JRUBY_VERSION
   gem 'traject-marc4j_reader'
 end
+
+# Building lists of xpaths
+gem 'xpath_list', require: false
 
 
 # Semantic logging?

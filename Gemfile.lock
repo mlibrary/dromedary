@@ -1,13 +1,5 @@
-GIT
-  remote: https://github.com/mlibrary/middle_english_dictionary
-  revision: 81c62495f7e3d6a4860d5fcc4649c3b863396837
-  specs:
-    middle_english_dictionary (0.1.0)
-      multi_json
-      nokogiri (~> 1.6)
-      representable
-
 GEM
+  remote: https://gems.www.lib.umich.edu/
   remote: https://rubygems.org/
   specs:
     actioncable (5.1.5)
@@ -156,6 +148,10 @@ GEM
     marc-fastxmlwriter (1.0.0)
       marc (~> 1.0)
     method_source (0.9.0)
+    middle_english_dictionary (1.0.0)
+      multi_json
+      nokogiri (~> 1.6)
+      representable
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
@@ -323,6 +319,8 @@ GEM
     websocket-extensions (0.1.3)
     xpath (3.0.0)
       nokogiri (~> 1.8)
+    xpath_list (0.1.0)
+      nokogiri
     yell (2.0.7)
 
 PLATFORMS
@@ -340,7 +338,7 @@ DEPENDENCIES
   jquery-rails
   listen
   mail_form (= 1.7.0)
-  middle_english_dictionary!
+  middle_english_dictionary (~> 1.0)
   mysql2
   nestive (= 0.6.0)
   nokogiri
@@ -364,6 +362,7 @@ DEPENDENCIES
   tzinfo-data
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
+  xpath_list
 
 BUNDLED WITH
    1.16.1
