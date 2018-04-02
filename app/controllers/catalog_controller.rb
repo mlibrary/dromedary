@@ -208,6 +208,15 @@ class CatalogController < ApplicationController
       }
     end
 
+    # Anywhere
+    config.add_search_field("anywhere", label: "Anywhere") do |field|
+      field.qt = '/search'
+      field.solr_local_parameters = {
+          qf: '$everything_qf',
+          pf: '$everything_pf'
+      }
+    end
+
     # OED Modern English equivalent(ish)
     config.add_search_field("oed", label: "Modern English") do |field|
       field.qt = '/search'
