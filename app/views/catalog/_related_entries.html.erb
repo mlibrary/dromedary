@@ -1,9 +1,14 @@
 <% doc_presenter = index_presenter(@document) %>
 <% ent = doc_presenter.entry %>
-<div class="panel panel-default show-related">
-   <div class="panel-heading">Related Dictionary Entries</div>
-   <div class="panel-body">
 
-   	<% fake_oed = "oed info" ; fake_oed_warning = "OED is not free" %>
-   	<a class="oed-link" href=""><%== ent.id %></a>&nbsp;<%== fake_oed %>&nbsp;Note: <%== fake_oed_warning %>&nbsp;</div>
-</div>
+<% if ! ent.oedlink.nil? %>
+	<div class="panel panel-default show-related">
+	  <div class="panel-heading">Related Dictionary Entries</div>
+	   <div class="panel-body">
+	   	<p class="oed-subscription-warning" style="font-size: 12px;">Please note that the OED is a subscription resource</p>
+
+	   	<% oed_href = "http://www.oed.com/view/Entry/#{ent.oedlink.oed_id}" %>
+	   	<a class="oed-link" href=<%= oed_href %> >(OED) <%== ent.oedlink.oed_head %></a>
+	  	</div>
+	</div>
+<% end %>
