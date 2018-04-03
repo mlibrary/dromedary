@@ -23,6 +23,10 @@ module MedInstaller
       )
     end
 
+    def find_oed_file(datapath)
+      xmldir = datapath + 'xml'
+      xmldir.children.select {|x| x.to_s =~ /MED2OED/}.first
+    end
 
     def call(datadir:, dirname: '*')
       datapath = Pathname(datadir).realdirpath
@@ -30,7 +34,7 @@ module MedInstaller
 
       pool = new_pool
       logger.info "Loading OED links so we can push them into entries"
-      oed = MiddleEnglishDictionary::Collection::OEDLinkSet.from_directory_of_xml_files(datapath + 'xml' + 'links')
+      oed = MiddleEnglishDictionary::Collection::OEDLinkSet.from_xml_file(find_oed_file(datapath))
       letter = ''
       Dir.glob("#{datapath}/xml/#{dirname}/MED*xml").each_with_index do |filename, i|
         logger.info "#{i} done" if i > 0 and i % 2500 == 0
@@ -58,8 +62,9 @@ module MedInstaller
       File.open(json_file_name, 'w:utf-8') {|out| out.puts entry.to_json}
     rescue => e
       puts e
-      puts "Error in #{entry.source}"
       require 'pry'; binding.pry
+
+      puts "Error in #{entry.source}"
     end
 
 

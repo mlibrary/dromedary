@@ -10,8 +10,10 @@ end
 # Non-default stuff added by the Dromedary team
 
 # When developing in tandem, a relative path is nice and easy
+
 # gem 'middle_english_dictionary', path: "/Users/dueberb/devel/med/middle_english_dictionary"
 gem 'middle_english_dictionary', '~> 1.0'
+
 
 # Rails and blacklight
 
