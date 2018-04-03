@@ -11,7 +11,7 @@
   <%# Get headword and display it with quotes hide/show %>
   <div class="entry-heading">
       <div class="entry-headword" style="float: left; font-weight: bold;"><%= ent.original_headwords.first %>&nbsp;(<span class="entry-pos"><%= ent.pos_raw %>)</span></div>
-      <div class="quotations-header-options"  style="float: right;">Quotations:  <a href="">Show All</a> <a href="">Hide All</a></div>
+      <div class="quotations-header-options"  style="float: right;">Quotations:  <a href="#" onClick="function show_quotes(){ $( 'tr.quotes' ).show();   } show_quotes(); return false;">Show All</a> <a href="#" onClick="function hide_quotes(){ $( 'tr.quotes' ).hide();  } hide_quotes(); return false;">Hide All</a></div>
   </div>
 
   <%# Get get forms and etymology and display %>
@@ -38,23 +38,43 @@
     <table class="table">
         <% ent.senses.each do |sen|  %>
             <tr>
-                <td>
-                	<span class="senses-index"><%= sen.sense_number %>.</span>&nbsp;
-                	<span class="senses-defintion">
+                <td class="senses-index"><%= sen.sense_number.to_s %></td>
+                	<td class="senses-defintion">
                   <% def_xml = Nokogiri::XML(sen.definition_xml) %>
                   <% def_xslt = Nokogiri::XSLT(File.read('./indexer/xslt/DefOnly.xsl'))%>
                   <% current_def = def_xslt.apply_to(def_xml) %>
                   <%== current_def %>
-                </span>
-                <% quote_index = "(a)" %>
-                <% quote_link = "<a href=''>Quote link here</a>" %>
-                <% quote_xml = "Quotes will go here!" %>
-                <% quote_2 = "Second quote for (a) will go here!" %>
-                <div class="quote" id="quote_id"><%== quote_index %>&nbsp;<%== quote_link %>&nbsp;<%== quote_xml %></div>
-                <div class="quote" id="quote_id"><%== quote_link %>&nbsp;<%== quote_2 %></div>
-              	</td>
-              <td><a href=''>Hide Quotation</a></td>
-          	</tr>
+                </td>
+                <td  class="quote-control">
+                  <% jq_sense = "tr.sense_id_" + sen.sense_number.to_s  %>
+                  <div><a href="#" onClick='function show_def_quotes(){ $( "<%= jq_sense %>" ).show();   } show_def_quotes(); return false;''>Show Qs</a></div>
+                  <div><a href="#" onClick='function hide_def_quotes(){ $("<%= jq_sense %>" ).hide();   } hide_def_quotes(); return false'>Hide Qs</a></div></td>
+              </tr>
+
+              <%# class quotes can be used to hide/show all quotes; class q_id_n does the same for individual definition's quotes %>
+              <% quotes = med_quotes_help(sen) %>
+              <% if !quotes.nil? && quotes.count > 0 %>
+                <% last_subdef_index_index = "" %>
+                <% quotes.each do |subdef_index, q_arr| %>
+                  <% q_arr.each do |q| %>
+                    <tr  class="quotes sense_id_<%= sen.sense_number.to_s %>" >
+
+                    <td>
+                      <% if subdef_index != last_subdef_index_index %>
+                        <% last_subdef_index_index = subdef_index %>
+                        <span class="subdef_index"><%== subdef_index %>
+                      <% else %>
+                        <span class="subdef_index" style="display: none;"><%== subdef_index %>
+                      <% end %>
+                    </td>
+
+                    <td><%== q %></td >
+
+                  </tr>
+                  <% end %>
+                <% end %>
+              <% end %>
+
         	<% end %>
     </table>
   </div>
