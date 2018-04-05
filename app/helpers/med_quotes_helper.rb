@@ -1,7 +1,6 @@
 module MedQuotesHelper
 
-	  def med_quotes_help(sense)
-    puts "IN med_quotes_help ============================"
+ def med_quotes_help(sense)
     quotes = Hash.new # create empty hash
     egs = sense.egs
     if  !egs.nil? && egs.count > 0
