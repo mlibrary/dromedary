@@ -34,7 +34,10 @@ module Dromedary
     end
 
     # @return [Array<MiddleEnglishDictionary::Sense>] All the entry senses
+    # modified to replace '~' with regularized headword
     def senses
+      headw = @entry.headwords.first.instance_variable_get(:@regs).first
+      @entry.senses.each { |sen| sen.definition_xml.gsub! '~', headw}
       @entry.senses
     end
 
