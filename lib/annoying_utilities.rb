@@ -21,19 +21,16 @@ module AnnoyingUtilities
   end
 
   def blacklight_solr_url
-    env       = ENV['RAILS_ENVIRONMENT'] || 'development'
+    env       = ENV['RAILS_ENV'] || ENV['RAILS_ENVIRONMENT'] || 'development'
     @solr_url ||= load_config_file('blacklight.yml')[env]['url']
   end
+
+  alias_method :solr_url, :blacklight_solr_url
 
   def blacklight_config_file
     load_config_file('blacklight.yml')
   end
 
-  def solr_url(env = "development")
-    conf = blacklight_config_file
-    url  = conf[env.to_s]["url"]
-    ENV['SOLR_URL'] || url
-  end
 
   def solr_port(env = "development")
     url = solr_url(env)
