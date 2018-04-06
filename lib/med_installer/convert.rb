@@ -5,7 +5,7 @@ require 'concurrent'
 module MedInstaller
   # Convert a bunch of Dromedary xml files into a more useful format.
   class Convert < Hanami::CLI::Command
-    include  MedInstaller::Logger
+    include MedInstaller::Logger
 
     desc "Convert the xml files into (faster) json objects (takes a long time)"
 
@@ -34,7 +34,7 @@ module MedInstaller
 
       pool = new_pool
       logger.info "Loading OED links so we can push them into entries"
-      oed = MiddleEnglishDictionary::Collection::OEDLinkSet.from_xml_file(find_oed_file(datapath))
+      oed    = MiddleEnglishDictionary::Collection::OEDLinkSet.from_xml_file(find_oed_file(datapath))
       letter = ''
       Dir.glob("#{datapath}/xml/#{dirname}/MED*xml").each_with_index do |filename, i|
         logger.info "#{i} done" if i > 0 and i % 2500 == 0
@@ -45,7 +45,7 @@ module MedInstaller
         end
 
         # pool.post do
-          dump_json(datapath, filename, basename, oed)
+        dump_json(datapath, filename, basename, oed)
         # end
       end
 
@@ -55,11 +55,16 @@ module MedInstaller
 
 
     private
+
     def dump_json(datapath, filename, basename, oed)
       entry          = MiddleEnglishDictionary::Entry.new_from_xml_file(filename)
-      entry.oedlink = oed[entry.id]
+      entry.oedlink  = oed[entry.id]
       json_file_name = datapath + 'json' + "#{basename}.json"
       File.open(json_file_name, 'w:utf-8') {|out| out.puts entry.to_json}
+    rescue MiddleEnglishDictionary::FileNotFound,
+           MiddleEnglishDictionary::FileEmpty,
+           MiddleEnglishDictionary::InvalidXML => e
+      logger.error e.message
     rescue => e
       puts e
       require 'pry'; binding.pry
