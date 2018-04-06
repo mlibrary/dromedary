@@ -24,6 +24,8 @@ gem 'blacklight', "~> 6.1"
 # For bin/dromedary
 gem 'hanami-cli'
 gem 'concurrent-ruby'
+gem 'rubyzip'
+gem 'nokogiri'
 
 # For solr indexing
 gem 'simple_solr_client', require: false
@@ -84,7 +86,9 @@ if defined? JRUBY_VERSION
   gem 'jdbc-mysql'
 else
   gem 'sqlite3'
-  gem 'mysql2'
+  # AR won't work with the latest mysql2, apparently
+  # See https://stackoverflow.com/questions/49407254/gemloaderror-cant-activate-mysql2-0-5-0-3-18-already-activated-mysq
+  gem 'mysql2', '< 0.5.0', require: false
 end
 
 # JS and CSS
@@ -112,8 +116,6 @@ group :development, :test do
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
   gem "rspec-rails", "~> 3.6"
-  gem 'rubyzip'
-  gem 'nokogiri'
 end
 
 
