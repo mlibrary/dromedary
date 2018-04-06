@@ -6,8 +6,7 @@
 <!--#######################
         Common.xsl
         Currently includes HI, USG, NOTE
-        #XXX 
-    ########################-->
+           ########################-->
 
     <!--need to fix rend stuff but try this for now
     
