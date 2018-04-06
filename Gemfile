@@ -84,7 +84,7 @@ if defined? JRUBY_VERSION
   gem 'jdbc-mysql'
 else
   gem 'sqlite3'
-  gem 'mysql2', require: false
+  gem 'mysql2'
 end
 
 # JS and CSS
