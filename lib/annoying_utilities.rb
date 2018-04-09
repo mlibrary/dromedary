@@ -20,8 +20,8 @@ module AnnoyingUtilities
     DROMEDARY_ROOT
   end
 
-  def blacklight_solr_url
-    env       = ENV['RAILS_ENV'] || ENV['RAILS_ENVIRONMENT'] || 'development'
+  def blacklight_solr_url(env = nil)
+    env       ||= ENV['RAILS_ENV'] || ENV['RAILS_ENVIRONMENT'] || 'development'
     @solr_url ||= load_config_file('blacklight.yml')[env]['url']
   end
 
