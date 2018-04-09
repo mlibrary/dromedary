@@ -37,7 +37,7 @@
         <% def_xml = Nokogiri::XML(sense.definition_xml) %>
         <% def_xslt = Nokogiri::XSLT(File.read('./indexer/xslt/DefOnly.xsl'))%>
         <% current_def = "Definition (1st sense) " + def_xslt.apply_to(def_xml) %>
-        <div><%== current_def %></div>
+        <div class="def"><%== current_def %></div>
 
       </div>
     <% else %>
@@ -47,7 +47,7 @@
             <% def_xml = Nokogiri::XML(sense.definition_xml) %>
             <% def_xslt = Nokogiri::XSLT(File.read('./indexer/xslt/DefOnly.xsl'))%>
             <% current_def = def_xslt.apply_to(def_xml) %>
-            <div style="font-family: Courier"><%== current_def %></div>          
+            <div class="def"><%== current_def %></div>
           </li>
         <% end %>
       </ol>

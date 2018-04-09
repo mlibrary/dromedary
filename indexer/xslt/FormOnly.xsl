@@ -7,20 +7,7 @@
     <!-- orig|new -->
     <xsl:variable name="formMode">orig</xsl:variable>
     <xsl:template match="/FORM">
-        
-        <!--XXX temporary css for debugging -->
-        <style type="text/css">
-            .HI_B {font-weight:bold}
-            .HI_I {font-style:italic}
-            .USG {font-style:italic}
-            .STNCL {font-weight:bold}
-            .STNCL_TITLE {font-style:italic}
-            .ORTH {font-weight:bold}
-            .HDORTH {font-weight:bold}
-        </style> 
-        <!--End temporary css for debugging -->
-        
-        <xsl:apply-templates/>
+         <xsl:apply-templates/>
     </xsl:template>
 
     <xsl:template match="HDORTH">
