@@ -21,13 +21,13 @@ module MedInstaller
 
 
     def self.get_port_with_logging(rails_env)
-      p    = AnnoyingUtilities.solr_port(rails_env)
+      p    = AnnoyingUtilities.solr_port
       port = if p
                logger.info "Got port #{p} from the solr url in blacklight_config.yml"
                p
              else
-               logger.warn "Didn't find a port in the url string in blacklight.yml; using 8983"
-               "8983"
+               logger.warn "Didn't find a port in the url string in blacklight.yml; using 9639"
+               "9639"
              end
       port
     end
