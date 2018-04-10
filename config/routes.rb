@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   
+  get 'bibliography/index'
+
+  get 'bibliography/show'
+
   mount Blacklight::Engine => '/'
 
   root to: "catalog#home"
