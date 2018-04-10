@@ -7,6 +7,7 @@ module Dromedary::Catalog
 
   # get search results from the solr index
   def index
+    @current_action = 'dictionary'
 
     (@response, @document_list) = search_results(params)
     respond_to do |format|
@@ -26,9 +27,15 @@ module Dromedary::Catalog
   end
 
   def search
+    @current_action = 'dictionary'
+  end
+
+  def bib
+    @current_action = 'bibliography'
   end
 
   def home
+    @current_action = 'home'
     render :layout => 'home'
   end
 
