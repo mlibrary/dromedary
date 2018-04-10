@@ -1,7 +1,8 @@
 <%= extends :application do %>
 
     <% replace :header do %>
-        <%= render partial: 'home_header_navbar' %>
+        <%#= render partial: 'home_header_navbar' %>
+        <%= render partial: 'shared/header_navbar' %>
     <% end %>
 
     <% replace :main do %>

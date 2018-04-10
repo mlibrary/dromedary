@@ -1,5 +1,30 @@
 // dromedary.scss
 
+
+// TWO LEVEL MENUS
+.navbar-inverse .navbar-nav > li > span.dictionary > a {
+  color: black;
+}
+
+#header-navbar {
+  height: 100px;
+}
+
+#header-navbar-secondary {
+  height: 40px;
+  margin-bottom: 40px;
+}
+
+.search-query-form {
+  margin-top: 40px;
+  background-color: #F2F2F2;
+}
+
+ .blacklight-catalog-home #search-bar {
+  display: none;
+ }
+
+
 // SKIP LINKS
 #skip {
     position: absolute;

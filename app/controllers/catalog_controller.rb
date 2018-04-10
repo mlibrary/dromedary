@@ -24,10 +24,12 @@ class CatalogController < ApplicationController
     #----------------------------------------------------------
     #   Dromedary-only stuff
     #----------------------------------------------------------
-    config.add_nav_action(:search, partial: 'shared/nav/search')
+    # config.add_nav_action(:search, partial: 'shared/nav/search')
     config.add_nav_action(:about, partial: 'shared/nav/about')
     config.add_nav_action(:help, partial: 'shared/nav/help')
     config.add_nav_action(:contact, partial: 'shared/nav/contact')
+
+    config.navbar.partials.delete(:search_history)
 
     # Show page tools items
     #add_show_tools_partial(:print)
