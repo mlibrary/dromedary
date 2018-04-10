@@ -10,6 +10,7 @@
         <!ENTITY headword_only_suggester SYSTEM "solrconfig_med/suggesters/headword_only_suggester.xml">
         <!ENTITY headword_and_forms_suggester SYSTEM "solrconfig_med/suggesters/headword_and_forms_suggester.xml">
         <!ENTITY oed_suggester SYSTEM "solrconfig_med/suggesters/oed_suggester.xml">
+        <!ENTITY doe_suggester SYSTEM "solrconfig_med/suggesters/doe_suggester.xml">
         ]>
 
 <config>
@@ -90,10 +91,12 @@
 
   &headword_only_suggester;
 
-  <!--Mount Oxford English Dictionary modern english suggester at /oed/suggester-->
+  <!--Mount Oxford English Dictionary modern english suggester at /oed_suggester-->
 
   &oed_suggester;
 
+<!-- Ditto for the Dictionary of Old English at /doe_suggester-->
+  &doe_suggester;
 
 
 
