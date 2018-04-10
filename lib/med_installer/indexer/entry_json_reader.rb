@@ -1,3 +1,6 @@
+require 'json'
+require 'zlib'
+
 # From the traject docs:
 # #  A Reader is any class that:
 #   1) Has a two-argument initializer taking an IO stream and a Settings hash
@@ -7,10 +10,7 @@
 # We don't need an IO stream, but we'll just ignore it
 #
 # Reader settings are
-#   'med.data_dir' => the data directory
-#   'med.letters' => (optional) array of letters that the entries start with [A-Z]
-#                    Default is to index everything.
-#
+#   'med.data_file' => the data file (entries.ndj)
 
 
 require 'middle_english_dictionary'
@@ -31,43 +31,37 @@ module MedInstaller
 
   class EntryJsonReader
 
+    include Enumerable
     include MedInstaller::Logger
 
-    DATADIRKEY = 'med.data_dir'
-    LETTERSKEY = 'med.letters'
+    DATAFILEKEY = 'med.data_file'
+
 
     def initialize(settings)
-      @data_dir   = get_data_dir(settings)
-      @letters    = get_letters(settings)
-      @target_dirs = AnnoyingUtilities.target_directories(@data_dir, 'json', @letters)
+      @data_file = get_data_file(settings)
     end
 
     def each
-      @target_dirs.each do |dir|
-        entries     = MiddleEnglishDictionary::Collection::EntrySet.new
-        logger.info "Loading #{dir}"
-        entries.load_dir_of_json_files(dir)
-        logger.info "Indexing #{dir}"
-        entries.each {|e| yield e}
+      Zlib::GzipReader.new(File.open(@data_file)).each_with_index do |json_line, index|
+        begin
+          entry = MiddleEnglishDictionary::Entry.from_json(json_line)
+          yield entry
+        rescue => e
+          logger.error "Error with json line #{index}: #{e}\n#{e.backtrace}"
+        end
       end
     end
 
-    def get_letters(settings)
-      if settings.has_key?(LETTERSKEY)
-        settings[LETTERSKEY]
-      else
-        '[A-Z]'
+
+
+      def get_data_file(settings)
+        if settings.has_key?(DATAFILEKEY)
+          Pathname.new(settings[DATAFILEKEY])
+        else
+          raise "Need to specify filename in #{DATAFILEKEY} for #{self.class}"
+        end
       end
     end
 
-    def get_data_dir(settings)
-      if settings.has_key?(DATADIRKEY)
-        settings[DATADIRKEY]
-      else
-        raise "Need to specify #{DATADIRKEY} in settings for #{self.class}"
-      end
-    end
   end
-
-end
 
