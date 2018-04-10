@@ -30,8 +30,10 @@ class BibliographyController < ApplicationController
 	end
 
   def index
+    @current_action = 'bibliography'
   end
 
   def show
+    @current_action = 'bibliography'
   end
 end
