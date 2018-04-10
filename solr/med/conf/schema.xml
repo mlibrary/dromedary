@@ -207,6 +207,7 @@
   <!--Definitions and modern equivalents-->
   <field name="definition_text"   type="text"    indexed="true" stored="true" multiValued="true"/>
   <field name="oed_norm" type="text" indexed="true" stored="true" multiValued="false"/>
+  <field name="doe_norm" type="me_text" indexed="true" stored="true" multiValued="false"/>
 
   <!-- Notes -->
   <field name="notes" type="text" indexed="true" stored="true" multiValued="true"/>
