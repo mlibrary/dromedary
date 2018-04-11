@@ -43,6 +43,11 @@
                   <% def_xml = Nokogiri::XML(sen.definition_xml) %>
                   <% def_xslt = Nokogiri::XSLT(File.read('./indexer/xslt/DefOnly.xsl'))%>
                   <% current_def = def_xslt.apply_to(def_xml) %>
+
+                  <!-- Moved from the index_presenter because ent.senses wasn't calling it -->
+                  <% headw = ent.headwords.first.instance_variable_get(:@regs).first %>
+                  <% current_def =  current_def.gsub! '~', headw %>
+
                   <%== current_def %>
                 </td>
                 <td  class="quote-control">

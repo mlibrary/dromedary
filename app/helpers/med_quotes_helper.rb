@@ -20,18 +20,18 @@ module MedQuotesHelper
             cite_quote_text =  get_quote_value(cite.quote.text)
             cite_link = "https://quod.lib.umich.edu/cgi/m/mec/hyp-idx?type=id&id=#{sten_rid}"
 
-            Rails.logger.debug "sten_date: " + sten_date
-            Rails.logger.debug "sten_title: " + sten_title
-            Rails.logger.debug "sten_ms: " + sten_ms
-            Rails.logger.debug "sten_rid: " + sten_rid
-            Rails.logger.debug "cite_bib_scope: " + cite_bib_scope
-            Rails.logger.debug "cite_quote_text: " + cite_quote_text
-            Rails.logger.debug "cite_link: " + cite_link
+            # Rails.logger.debug "sten_date: " + sten_date
+            # Rails.logger.debug "sten_title: " + sten_title
+            # Rails.logger.debug "sten_ms: " + sten_ms
+            # Rails.logger.debug "sten_rid: " + sten_rid
+            # Rails.logger.debug "cite_bib_scope: " + cite_bib_scope
+            # Rails.logger.debug "cite_quote_text: " + cite_quote_text
+            # Rails.logger.debug "cite_link: " + cite_link
 
             quote_str = '<a href="' + cite_link + '" > ' + sten_date + ' ' + sten_title
             quote_str = quote_str + sten_ms + '</a> ' + cite_bib_scope + ' ' + cite_quote_text
 
-            Rails.logger.debug "quote_str: " + quote_str
+            # Rails.logger.debug "quote_str: " + quote_str
 
             subdef_arr.push quote_str
           end # citations.each
