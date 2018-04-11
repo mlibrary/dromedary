@@ -20,26 +20,21 @@
       </div>
     </div>
 
-    <% puts "CURRENT ACTION IS: #{@current_action} =========================================" %>
+    <div id="header-navbar-secondary" class="navbar navbar-inverse navbar-static-top" role="navigation" style="background-color: lightblue;">
+      <div class="container container--full site-header-container">
+        <button type="button" class="navbar-toggle btn collapsed" data-toggle="collapse" data-target="#secondary-util-collapse">
 
-      <div id="header-navbar-secondary" class="navbar navbar-inverse navbar-static-top" role="navigation" style="background-color: lightblue;">
-
-        <div class="container container--full site-header-container">
-
-              <button type="button" class="navbar-toggle btn collapsed" data-toggle="collapse" data-target="#secondary-util-collapse">
-
-           <button type="button" class="navbar-toggle btn collapsed" data-toggle="collapse" data-target="#secondary-util-collapse">
+        <button type="button" class="navbar-toggle btn collapsed" data-toggle="collapse" data-target="#secondary-util-collapse">
           <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span>
-          </button>
+        </button>
 
-          <div class="collapse navbar-collapse" id="secondary-util-collapse">
-              <%= render :partial=>'/secondary_util_links' %>
-          </div>
+        <div class="collapse navbar-collapse" id="secondary-util-collapse">
+            <%= render :partial=>'/secondary_util_links' %>
         </div>
       </div>
-
     </div>
+
   </div>
 </header>
 
