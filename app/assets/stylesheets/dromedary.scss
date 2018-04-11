@@ -1,15 +1,63 @@
 // dromedary.scss
 
+// VARIOUS STYLES FIXED TO REMOVE INLINE STYLES
+
+// quote lines on dictionary index page
+.index-quotes-line {
+  margin-bottom: 1em;
+}
+
+// related entries panel oed warning
+.oed-subscription-warning {
+  font-size: 12px;
+}
+
+.entry-panel {
+
+  .entry-main-title {
+    background-color: #E6F3FF; 
+    color: blue; height: 40px;
+  }
+
+  .entry-heading {
+    .entry-headword {
+      float: left; font-weight: bold;
+    }
+
+    .quotations-header-options {
+        float: right;
+    }
+  }
+
+  // Several entry page titles
+  .entry-intro-title, .entry-senses-title, .entry-supplemental-title {
+      margin-top: 40px;
+  }
+
+  // quote control links
+  .quotes-show, .quotes-hide {
+      font-size: 14px;
+  }
+
+  .quotes-show {
+    margin-bottom: 10px;
+  }
+
+  tr.quotes, span.subdef-index-hide {
+    display: none;
+  }
+
+  // quotes on dictionary entry page
+  .entry-senses .cite_bib_stencil_title {
+    font-style: italic;
+  }
+
+}
 
 // TWO LEVEL MENUS
-// .navbar-inverse .navbar-nav > li > span.dictionary > a {
-//   color: black;
-// }
-
 #header-navbar-secondary {
   background-color: #F2F2F2;
 }
-
 
 // SKIP LINKS
 #skip {
