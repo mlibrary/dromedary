@@ -16,16 +16,21 @@ module MedInstaller
       desc "Index entries into solr using the traject configuration in indexer/main_indexer.rb"
 
       argument :filename, required: true, desc: "The location of entries.json"
-
+      option :debug, type: :boolean, default: false, desc: "Write to debug file"
       INDEX_DIR = AnnoyingUtilities::DROMEDARY_ROOT + 'indexer'
 
-      def call(filename:)
+      def call(filename:, debug:)
         raise "Solr at #{AnnoyingUtilities.solr_url} not up" unless AnnoyingUtilities.solr_core.up?
 
         index_dir = AnnoyingUtilities::DROMEDARY_ROOT + 'indexer'
 
-        writer = index_dir + 'writers' + 'localhost.rb'
-        fields = index_dir + 'entry_indexer.rb'
+        writer = if debug
+                   index_dir  + 'writers' + 'debug.rb'
+                 else
+                   index_dir + 'writers' + 'localhost.rb'
+                 end
+
+        fields = index_dir + 'main_indexing_rules.rb'
 
         system "bundle", "exec", "traject",
                "-c", fields.to_s,
