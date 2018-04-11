@@ -199,8 +199,7 @@
   <field name="orth"         type="me_text" indexed="true" stored="true" multiValued="true"/>
 
   <!--Etymology and Part of speach-->
-  <field name="pos_raw"        type="string"  stored="true" indexed="true" multiValued="false" docValues="true"/>
-  <field name="pos_abbrev" type="string"  stored="true" indexed="true" multiValued="false" docValues="true"/>
+  <field name="pos"        type="string"  stored="true" indexed="true" multiValued="true" docValues="true"/>
   <field name="etyma_language" type="string" indexed="true" stored="true" multiValued="true"/>
   <field name="etyma_text" type="text" indexed="true" stored="true" multiValued="true"/>
 
@@ -212,31 +211,41 @@
   <!-- Notes -->
   <field name="notes" type="text" indexed="true" stored="true" multiValued="true"/>
 
+  <!-- Quotes -->
   <field name="quote_text"  type="me_text" indexed="true" stored="true" multiValued="true"/>
   <field name="quote_title" type="me_text" indexed="true" stored="true" multiValued="true"/>
   <field name="quote_manuscript" type="text" indexed="true" stored="true" multiValued="true"/>
-  <field name="quote_rid" type="me_text" indexed="true" stored="true" multiValued="true"/>
-  <field name="quote_md" type="int" indexed="true" stored="true" multiValued="true"/>
-  <field name="quote_cd" type="int" indexed="true" stored="true" multiValued="true"/>
+  <field name="quote_date" type="string" indexed="false" stored="true" multiValued="true"/>
+  <field name="rid" type="string" indexed="true" stored="true" multiValued="true"/>
+  <field name="md" type="int" indexed="true" stored="true" multiValued="true"/>
+  <field name="cd" type="int" indexed="true" stored="true" multiValued="true"/>
+
 
   <!-- Usage -->
   <field name="discipline_usage" type="string" indexed="true" stored="true" multiValued="true" docValues="true"/>
 
 
-
   <!-- ######################################################################
-                     Source for Suggestion Handlers
+            Specific to the quote document type
        ###################################################################### -->
 
-  <field name="word_suggestions" type="me_text" indexed="true" stored="true" multiValued="true"/>
+  <field name="entry_id" type="string" indexed="true" stored="true" multiValued="false"/>
+  <field name="citation_json" type="string" indexed="false" stored="true" multiValued="false"/>
+  <field name="quote_html" type="string" indexed="false" stored="true" multiValued="false"/>
+  <field name="scope" type="text" indexed="true" multiValued="false"/>
 
-  <field name="headword_only_suggestions" type="me_text" indexed="true" stored="true" multiValued="true"/>
+<!-- ######################################################################
+                   Source for Suggestion Handlers
+     ###################################################################### -->
+
+<field name="word_suggestions" type="me_text" indexed="true" stored="true" multiValued="true"/>
+<field name="headword_only_suggestions" type="me_text" indexed="true" stored="true" multiValued="true"/>
 
 
 
-  <!-- Field to use to determine and enforce document uniqueness.
-     Unless this field is marked with required="false", it will be a required field
-  -->
+<!-- Field to use to determine and enforce document uniqueness.
+   Unless this field is marked with required="false", it will be a required field
+-->
   <uniqueKey>id</uniqueKey>
 
 
