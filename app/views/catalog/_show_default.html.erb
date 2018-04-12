@@ -1,4 +1,4 @@
-<% #doc_presenter = show_presenter(document) %>
+<%# doc_presenter = show_presenter(document) %>
 <% doc_presenter = index_presenter(document) %>
 <% ent = doc_presenter.entry %>
 
@@ -6,17 +6,17 @@
 <div class="entry-panel">
   
   <%# Display Heading for MED Entry %>
-  <h2 class="entry-title" style="background-color: #E6F3FF; color: blue; height: 40px;">Middle English Dictionary Entry</h2>
+  <h2 class="entry-main-title">Middle English Dictionary Entry</h2>
 
   <%# Get headword and display it with quotes hide/show %>
   <div class="entry-heading">
-      <div class="entry-headword" style="float: left; font-weight: bold;"><%= ent.original_headwords.first %>&nbsp;(<span class="entry-pos"><%= ent.pos_raw %>)</span></div>
-      <div class="quotations-header-options"  style="float: right;">Quotations:  <a href="#" onClick="function show_quotes(){ $( 'tr.quotes' ).show();   } show_quotes(); return false;">Show All</a> <a href="#" onClick="function hide_quotes(){ $( 'tr.quotes' ).hide();  } hide_quotes(); return false;">Hide All</a></div>
+    <div class="entry-headword"><%= ent.original_headwords.first %>&nbsp;(<span class="entry-pos"><%= ent.pos_raw %>)</span></div>
+    <div class="quotations-header-options">Quotations: <a href="#" onClick="function show_quotes(){ $( 'tr.quotes' ).show();   } show_quotes(); return false;">Show All</a> <a href="#" onClick="function hide_quotes(){ $( 'tr.quotes' ).hide();  } hide_quotes(); return false;">Hide All</a></div>
   </div>
 
   <%# Get get forms and etymology and display %>
   <div>
-      <h3 style="margin-top: 40px;">Entry Info</h3>
+      <h3 class="entry-intro-title">Entry Info</h3>
   </div>
 
   <div class="table-responsive entry-info">
@@ -32,7 +32,7 @@
   </div>
 
   <%# Get get senses plus their quotes and display %>
-  <h3 style="margin-top: 40px;">Senses and Subsenses</h3>
+  <h3 class="entry-senses-title">Senses and Subsenses</h3>
 
   <div class="table-responsive entry-senses">
     <table class="table">
@@ -41,30 +41,37 @@
                 <td class="senses-index"><%= sen.sense_number.to_s %></td>
                 	<td class="senses-defintion">
                   <% def_xml = Nokogiri::XML(sen.definition_xml) %>
-                  <% def_xslt = Nokogiri::XSLT(File.read('./indexer/xslt/DefOnly.xsl'))%>
+                  <% def_xslt = Nokogiri::XSLT(File.read('./indexer/xslt/DefOnly.xsl')) %>
                   <% current_def = def_xslt.apply_to(def_xml) %>
                   <%== current_def %>
                 </td>
-                <td  class="quote-control">
+                <td  class="quotes-control">
+
                   <% jq_sense = "tr.sense_id_" + sen.sense_number.to_s  %>
-                  <div><a href="#" onClick='function show_def_quotes(){ $( "<%= jq_sense %>" ).show();   } show_def_quotes(); return false;''>Show Qs</a></div>
-                  <div><a href="#" onClick='function hide_def_quotes(){ $("<%= jq_sense %>" ).hide();   } hide_def_quotes(); return false'>Hide Qs</a></div></td>
+                  <% quotes, quote_count = med_quotes_help(sen) %>
+
+                  <% if !quotes.empty? && quote_count > 0 %>
+                    <% quote_show_string = (quote_count == 1) ?  "Show Quote" : "Show #{quote_count} " + "Quote".pluralize(quote_count) %>
+
+                    <div class="quotes-show"><a href="#" onClick='function show_def_quotes(){ $( "<%= jq_sense %>" ).show();   } show_def_quotes(); return false;'><%== quote_show_string %></a></div>
+
+                    <div class="quotes-hide"><a href="#" onClick='function hide_def_quotes(){ $("<%= jq_sense %>" ).hide();   } hide_def_quotes(); return false'><%== "Hide " + "Quote".pluralize(quote_count) %></a>
+                    </div>
+                  </td>
+                  <% end %>
               </tr>
 
               <%# class quotes can be used to hide/show all quotes; class q_id_n does the same for individual definition's quotes %>
-              <% quotes = med_quotes_help(sen) %>
-              <% if !quotes.empty? && quotes.count > 0 %>
+                <% if !quotes.empty? && quote_count > 0 %>
                 <% last_subdef_index_index = "" %>
                 <% quotes.each do |subdef_index, q_arr| %>
                   <% q_arr.each do |q| %>
-                    <tr  class="quotes sense_id_<%= sen.sense_number.to_s %>" >
+                    <tr  class="quotes sense_id_<%= sen.sense_number.to_s %>">
 
                     <td>
                       <% if subdef_index != last_subdef_index_index %>
                         <% last_subdef_index_index = subdef_index %>
-                        <span class="subdef_index"><%== subdef_index %>
-                      <% else %>
-                        <span class="subdef_index" style="display: none;"><%== subdef_index %>
+                        <span class="subdef-index"><%== subdef_index %>
                       <% end %>
                     </td>
 
@@ -86,7 +93,7 @@
   <% show_sups = ! sups.empty? if show_sups %>
 
   <% if show_sups %>
-    <h3 style="margin-top: 40px;">Supplemental Notes</h3>
+    <h3 class="entry-supplemental-title">Supplemental Notes</h3>
 
     <div class="table-responsive entry-supliment">
       <table class="table">
