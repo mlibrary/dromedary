@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <div id="header-navbar-secondary" class="navbar navbar-inverse navbar-static-top" role="navigation" style="background-color: lightblue;">
+    <div id="header-navbar-secondary" class="navbar navbar-inverse navbar-static-top" role="navigation" >
       <div class="container container--full site-header-container">
         <button type="button" class="navbar-toggle btn collapsed" data-toggle="collapse" data-target="#secondary-util-collapse">
 
@@ -40,8 +40,10 @@
 
 <%= render :partial=>'/flash_msg' unless flash.empty? %>
 
-<div class="search-bar--header">
-    <div id="search-bar" class="container">
-        <%= render_search_bar  %>
-    </div>
-</div>
+<% if @current_action != 'home' %>
+  <div class="search-bar--header">
+      <div id="search-bar" class="container">
+          <%= render_search_bar  %>
+      </div>
+  </div>
+<% end %>
