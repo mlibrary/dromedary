@@ -10,7 +10,7 @@
 
   <%# Get headword and display it with quotes hide/show %>
   <div class="entry-heading">
-    <div class="entry-headword"><%= ent.original_headwords.first %>&nbsp;(<span class="entry-pos"><%= ent.pos_raw %>)</span></div>
+    <div class="entry-headword"><%= ent.original_headwords.first %>&nbsp;(<span class="entry-pos"><%= doc_presenter.part_of_speech_abbrev %>)</span></div>
     <div class="quotations-header-options">Quotations: <a href="#" onClick="function show_quotes(){ $( 'tr.quotes' ).show();   } show_quotes(); return false;">Show All</a> <a href="#" onClick="function hide_quotes(){ $( 'tr.quotes' ).hide();  } hide_quotes(); return false;">Hide All</a></div>
   </div>
 
@@ -93,7 +93,7 @@
   <% show_sups = ! sups.empty? if show_sups %>
 
   <% if show_sups %>
-    <h3 class="entry-supplemental-title">Supplemental Notes</h3>
+    <h3 class="entry-supplemental-title">Supplemental Materials (draft)</h3>
 
     <div class="table-responsive entry-supliment">
       <table class="table">
