@@ -65,8 +65,11 @@ class CatalogController < ApplicationController
     # label in pulldown is followed by the name of the SOLR field to sort by and
     # whether the sort is ascending or descending (it must be asc or desc
     # except in the relevancy case).
+    
     config.add_sort_field 'score desc', label: 'Relevance'
-    config.add_sort_field 'sequence asc', label: 'Alphabetical'
+    config.add_sort_field 'sequence asc', label: 'Alphabetical', if: :not_displaying_quotes? 
+    config.add_sort_field 'date asc', label: 'Date', if: :displaying_quotes? 
+
 
     ##--------------------------------------------------------
     # The search results (index) page
@@ -85,6 +88,9 @@ class CatalogController < ApplicationController
     # How should we choose how to display this item? (maybe not used if
     # you only have one type of record)
     config.index.display_type_field = "type"
+    
+    # config.index.display_type_field = 'quote_text', label: 'Quotation Text'
+
 
     # Add fields to the display
     # config.add_index_field 'orths', label: "Other forms"
@@ -124,9 +130,13 @@ class CatalogController < ApplicationController
     #  (useful when user clicks "more" on a large facet and wants to navigate alphabetically across a large set of results)
     # :index_range can be an array or range of prefixes that will be used to create the navigation (note: It is case sensitive when searching values)
 
-    config.add_facet_field 'pos_abbrev', label: 'Part of Speech'
-    config.add_facet_field 'discipline_usage', label: "Professional Usage"
-    config.add_facet_field 'etyma_language', label: "Source Language"
+    config.add_facet_field 'pos_abbrev', label: 'Part of Speech', if: :not_displaying_quotes? 
+    config.add_facet_field 'discipline_usage', label: "Professional Usage", if: :not_displaying_quotes? 
+    config.add_facet_field 'etyma_language', label: "Source Language", if: :not_displaying_quotes? 
+
+    config.add_facet_field 'headword', label: "Headwords", if: :displaying_quotes? 
+
+    config.add_facet_field 'quote_title', label: 'Quotation Title', if: :displaying_quotes? 
 
     #     config.add_facet_field 'subject_topic_facet', label: 'Topic', limit: 20, index_range: 'A'..'Z'
     #     config.add_facet_field 'example_pivot_field', label: 'Pivot Field', :pivot => ['format', 'language_facet']
@@ -317,5 +327,20 @@ class CatalogController < ApplicationController
         search_component_name: "oed_suggester"
       }
     }
+  end
+
+
+  def displaying_quotes?
+    search_field_test = params[:search_field]
+    puts "SEARCH FIELD IS " + search_field_test.to_s
+    puts "PARAMS ARE:"
+    puts params
+    tf =  params[:search_field] == 'h' ? true : false
+    puts "TF is: " + tf.to_s
+    return tf
+  end
+
+  def not_displaying_quotes?
+    ! displaying_quotes?
   end
 end
