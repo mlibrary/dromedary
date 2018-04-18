@@ -1,0 +1,109 @@
+<%# doc_presenter = show_presenter(document) %>
+<% doc_presenter = index_presenter(document) %>
+<% ent = doc_presenter.entry %>
+
+<%# default partial to display solr document fields in catalog show view -%>
+<div class="entry-panel">
+  
+  <%# Display Heading for MED Entry %>
+  <h2 class="entry-main-title">Middle English Dictionary Entry</h2>
+
+  <%# Get headword and display it with quotes hide/show %>
+  <div class="entry-heading">
+    <div class="entry-headword"><%= ent.original_headwords.first %>&nbsp;(<span class="entry-pos"><%= ent.pos_raw %>)</span></div>
+    <div class="quotations-header-options">Quotations: <a href="#" onClick="function show_quotes(){ $( 'tr.quotes' ).show();   } show_quotes(); return false;">Show All</a> <a href="#" onClick="function hide_quotes(){ $( 'tr.quotes' ).hide();  } hide_quotes(); return false;">Hide All</a></div>
+  </div>
+
+  <%# Get get forms and etymology and display %>
+  <div>
+      <h3 class="entry-intro-title">Entry Info</h3>
+  </div>
+
+  <div class="table-responsive entry-info">
+    <table class="table">
+      <tr><td class="forms-title">Forms</td><td class="forms-list"><% ent.all_forms.each_with_index do |(k, v)|  %><%= k %><%= "," if k != ent.all_forms.last %>&nbsp;&nbsp;<% end %></td></tr>
+      <tr><td class="etymology-title">Etymology</td><td class="etymology-list">
+          <% etym_xml = Nokogiri::XML(ent.etym_xml) %>
+          <% etym_xslt = Nokogiri::XSLT(File.read('./indexer/xslt/EtymOnly.xsl'))%>
+          <% current_etym = etym_xslt.apply_to(etym_xml) %>
+          <%== current_etym %>
+      </td></tr>
+    </table>
+  </div>
+
+  <%# Get get senses plus their quotes and display %>
+  <h3 class="entry-senses-title">Senses and Subsenses</h3>
+
+  <div class="table-responsive entry-senses">
+    <table class="table">
+        <% doc_presenter.senses.each do |sen|  %>
+            <tr>
+                <td class="senses-index"><%= sen.sense_number.to_s %></td>
+                	<td class="senses-defintion">
+                  <% def_xml = Nokogiri::XML(sen.definition_xml) %>
+                  <% def_xslt = Nokogiri::XSLT(File.read('./indexer/xslt/DefOnly.xsl')) %>
+                  <% current_def = def_xslt.apply_to(def_xml) %>
+                  <%== current_def %>
+                </td>
+                <td  class="quotes-control">
+
+                  <% jq_sense = "tr.sense_id_" + sen.sense_number.to_s  %>
+                  <% quotes, quote_count = med_quotes_help(sen) %>
+
+                  <% if !quotes.empty? && quote_count > 0 %>
+                    <% quote_show_string = (quote_count == 1) ?  "Show Quote" : "Show #{quote_count} " + "Quote".pluralize(quote_count) %>
+
+                    <div class="quotes-show"><a href="#" onClick='function show_def_quotes(){ $( "<%= jq_sense %>" ).show();   } show_def_quotes(); return false;'><%== quote_show_string %></a></div>
+
+                    <div class="quotes-hide"><a href="#" onClick='function hide_def_quotes(){ $("<%= jq_sense %>" ).hide();   } hide_def_quotes(); return false'><%== "Hide " + "Quote".pluralize(quote_count) %></a>
+                    </div>
+                  </td>
+                  <% end %>
+              </tr>
+
+              <%# class quotes can be used to hide/show all quotes; class q_id_n does the same for individual definition's quotes %>
+                <% if !quotes.empty? && quote_count > 0 %>
+                <% last_subdef_index_index = "" %>
+                <% quotes.each do |subdef_index, q_arr| %>
+                  <% q_arr.each do |q| %>
+                    <tr  class="quotes sense_id_<%= sen.sense_number.to_s %>">
+
+                    <td>
+                      <% if subdef_index != last_subdef_index_index %>
+                        <% last_subdef_index_index = subdef_index %>
+                        <span class="subdef-index"><%== subdef_index %>
+                      <% end %>
+                    </td>
+
+                    <td><%== q %></td >
+
+                  </tr>
+                  <% end %>
+                <% end %>
+              <% end %>
+
+        	<% end %>
+    </table>
+  </div>
+
+  <%# Get supplement and display %>
+  <% sups = ent.instance_variable_get(:@supplements) %>
+  <% show_sups = true %>
+  <% show_sups = ! sups.nil? %>
+  <% show_sups = ! sups.empty? if show_sups %>
+
+  <% if show_sups %>
+    <h3 class="entry-supplemental-title">Supplemental Notes</h3>
+
+    <div class="table-responsive entry-supliment">
+      <table class="table">
+          <% sups.each do |sup|  %>
+            <tr>
+                <td><%== sup.instance_variable_get(:@notes).first  %></td>
+          	</tr>
+          <% end %>
+      </table>
+    </div>
+  <% end %>
+
+</div>
