@@ -1,5 +1,8 @@
 # Dromedary -- Middle English Dictionary Application
 
+
+
+
 This is the installation guide. 
 
 There are a lot of moving parts, so let's go through them
@@ -54,33 +57,23 @@ If you've already got a solr lying around, you can just use it.
 * Run `bin/dromedary solr link` to set up symlinks in the right places so your solr can find the
   dromedary configuration
     
-## Extract the raw data
-
-The data is stored in little `.xml` files. We want to get them from the Box directory,
-extract the little XML files from their enclosing `.zip` files, and then convert 
-them to a different format (because ruby deals with XML *very* slowly).
-
-  * Preparing to download with Safari. If you are using Apple's safari, you must disable auto-unzip feature so the following extract and convert instruction work correctly. Under the Safari/Preferences/General tab you must uncheck the checkbox for “Open safe files after downloading”.
-  * Go to [the box folder](https://umich.app.box.com/s/ah2imm5webu32to343p2n6xur828zi5w)
-   and hit the "Download" button in the upper-right to get a zip file called
-   _In_progress_MEC_files_. Pay attention to where it goes -- almost certainly
-   `~/Downloads` on a Macintosh.
-  * `cd` into your `dromedary` directory
-  * Pick a place for the data to go. You should probably use `/some/path/to/med/data`
-    (the parent directory of your `dromedary` directory, so `../data` from where you are
-    now) unless you have a good reason not to.
-  * Extract the data to that place: 
-    * `bin/dromedary extract /path/to/In_progress_MEC_files.zip ../data`
     
-## Convert the little XML files into something faster/better
+## Getting the data
 
-NOTE: You can skip this conversion step if you just get the already-converted json files
-from Bill. The conversion process can take a looooong time.
+### The easy way
 
-* `bin/dromedary convert ../data` 
+If you're not working on the process of converting from XML to json, you
+can just nab the file `entries.json.gz` from https://umich.app.box.com/folder/48689653172
+(if you have sufficient permissions). 
 
-Depending on your machine, this can take a long time.
-  
+These are the fully converted entries, with the OED/DOE links already in them,
+ready to be indexed. 
+
+### The hard way.
+
+See the file `extraction_and_conversion` in the `docs` directory.
+    
+
 ### Index the data
 
 First, fire up solr
