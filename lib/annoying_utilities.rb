@@ -20,6 +20,16 @@ module AnnoyingUtilities
     DROMEDARY_ROOT
   end
 
+  def indexer_dir
+    dromedary_root + 'indexer'
+  end
+
+  def xslt_dir
+    indexer_dir + 'xslt'
+  end
+
+
+
   def blacklight_solr_url(env = nil)
     env       ||= ENV['RAILS_ENV'] || ENV['RAILS_ENVIRONMENT'] || 'development'
     @solr_url ||= load_config_file('blacklight.yml')[env]['url']
