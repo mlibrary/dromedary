@@ -1,14 +1,37 @@
 <% doc_presenter = index_presenter(@document) %>
 <% ent = doc_presenter.entry %>
 
-<% if ! ent.oedlink.nil? %>
-	<div class="panel panel-default show-related">
-	  <div class="panel-heading">Related Dictionary Entries</div>
-	   <div class="panel-body">
-	   	<p class="oed-subscription-warning">Please note that the OED is a subscription resource</p>
+<% if ent.oedlinks or ent.doelinks %>
+  <div class="panel panel-default show-related">
+    <div class="panel-heading">Related Dictionary Entries</div>
+    <div class="panel-body">
 
-	   	<% oed_href = "http://www.oed.com/view/Entry/#{ent.oedlink.oed_id}" %>
-	   	<a class="oed-link" href=<%= oed_href %> >(OED) <%== ent.oedlink.oed_head %></a>
-	  	</div>
-	</div>
+      <% if ent.oedlinks %>
+        <div class="related-link-subhead">Oxford English Dictionary</div>
+        <p class="oed-subscription-warning">Please note that the OED is a
+          subscription resource</p>
+        <ul>
+          <% ent.oedlinks.each do |elink| %>
+            <% oed_href = "http://www.oed.com/view/Entry/#{elink.target_id}" %>
+            <li>
+              <a class="external-link" href=<%= oed_href %>><%== elink.term %></a>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+
+      <% if ent.doelinks %>
+        <div class="related-link-subhead">Dictionary of Old English</div>
+        <ul>
+          <% ent.doelinks.each do |elink| %>
+            <% oed_href = "http://tapor.library.utoronto.ca/doe/?E#{elink.target_id}" %>
+            <li>
+              <a class="external-link" href=<%= oed_href %>><%== elink.term %></a>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+
+    </div>
+  </div>
 <% end %>

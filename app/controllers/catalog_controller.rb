@@ -124,7 +124,7 @@ class CatalogController < ApplicationController
     #  (useful when user clicks "more" on a large facet and wants to navigate alphabetically across a large set of results)
     # :index_range can be an array or range of prefixes that will be used to create the navigation (note: It is case sensitive when searching values)
 
-    config.add_facet_field 'pos_abbrev', label: 'Part of Speech'
+    config.add_facet_field 'pos', label: 'Part of Speech'
     config.add_facet_field 'discipline_usage', label: "Professional Usage"
     config.add_facet_field 'etyma_language', label: "Source Language"
 
@@ -147,8 +147,7 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
     config.add_show_field 'headword', label: 'Headwords'
-    config.add_show_field 'pos_abbrev', label: 'Gramatical Usage (POS ABBREV)'
-    config.add_show_field 'pos_raw', label: 'Gramatical Usage (POS RAW)'
+    config.add_show_field 'pos_abbrev', label: 'Part of Speech'
     config.add_show_field 'discipline_usage', label: 'Professional Usage'
     config.add_show_field 'etyma_language', label: 'Source Language'
     config.add_show_field 'definition_text', label: 'Definition Text'

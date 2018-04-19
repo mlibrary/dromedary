@@ -1,15 +1,18 @@
-require 'middle_english_dictionary'
 
-$LOAD_PATH.unshift Pathname.new(__dir__).parent + 'lib'
+
+$LOAD_PATH.unshift Pathname.new(__dir__).to_s
+$LOAD_PATH.unshift (Pathname.new(__dir__).parent + 'lib').to_s
 require 'annoying_utilities'
 require 'med_installer'
+require 'middle_english_dictionary'
+
+require 'quote/quote_indexer'
+require 'serialization/indexable_quote'
 
 settings do
-  store "log.batch_size", 2_500
+  store 'log.batch_size', 2_500
   provide 'med.data_dir', Pathname(__dir__).parent.parent + 'data'
-  provide 'med.letters', '[A-Z]'
-  # provide 'med.letters', 'A'
-  provide "reader_class_name", 'MedInstaller::Traject::EntryJsonReader'
+  provide 'reader_class_name', 'MedInstaller::Traject::EntryJsonReader'
 end
 
 
@@ -49,7 +52,7 @@ to_field 'orth', entry_method(:all_forms)
 # We need to do the word sugggestions here (instead of in schema.xml
 # with copyField) because copyField allows duplicates.
 
-to_field "word_suggestions", entry_method(:all_forms)
+to_field 'word_suggestions', entry_method(:all_forms)
 to_field('headword_only_suggestions') do |entry, acc|
   hw = [entry.regularized_headwords, entry.original_headwords].flatten.uniq
   acc.replace hw
@@ -59,8 +62,7 @@ end
 to_field 'etyma_language', entry_method(:etym_languages)
 to_field 'etyma_text', entry_method(:etym_text)
 
-to_field 'pos_raw', entry_method(:pos_raw)
-to_field 'pos_abbrev', entry_method(:normalized_pos_raw)
+to_field 'pos', entry_method(:pos_facet)
 
 # Definitions and modern equivalents
 to_field('definition_text') do |entry, acc|
@@ -68,7 +70,11 @@ to_field('definition_text') do |entry, acc|
 end
 
 to_field('oed_norm') do |entry, acc|
-  acc << entry.oedlink.norm if entry.oedlink
+  acc << entry.oedlinks.normalized_term if entry.oedlinks
+end
+
+to_field('doe_norm') do |entry, acc|
+  acc << entry.doelinks.normalized_term if entry.doelinks
 end
 
 # Quotes
@@ -83,10 +89,10 @@ to_field('quote_manuscript') do |entry, acc|
   acc.replace entry.all_stencils.flat_map(&:ms).compact.uniq
 end
 
-to_field('quote_md') do |entry, acc|
+to_field('md') do |entry, acc|
   acc.replace entry.all_citations.flat_map(&:md).uniq.compact
 end
-to_field('quote_cd') do |entry, acc|
+to_field('cd') do |entry, acc|
   acc.replace entry.all_citations.flat_map(&:cd).uniq.compact
 end
 
@@ -94,14 +100,10 @@ end
 # Notes
 to_field 'notes', entry_method(:notes)
 
+
 # RIDs
 
-
-each_record do |entry, context|
-  context.clipboard[:rids] = entry.all_stencils.flat_map(&:rid).compact.uniq
-end
-
-to_field('quote_rid') do |entry, acc, context|
+to_field('rid') do |entry, acc, context|
   acc.replace entry.all_stencils.flat_map(&:rid).compact.uniq
 end
 
@@ -111,8 +113,15 @@ end
 to_field('discipline_usage') do |entry, acc|
   acc.replace entry.senses.flat_map(&:discipline_usages).compact.uniq
 end
-
-
+#
+# # Index the quotes using a purpose-made indexer
+quote_indexer = Dromedary::QuoteIndexer.new(settings)
+each_record do |entry, context|
+  entry.all_citations.each do |citation|
+    q = Dromedary::IndexableQuote.new(citation: citation)
+    quote_indexer.put(q, context.position)
+  end
+end
 
 
 

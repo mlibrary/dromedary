@@ -37,6 +37,9 @@ module MedInstaller
     DATAFILEKEY = 'med.data_file'
 
 
+
+    attr_accessor :oed_set, :doe_set
+
     def initialize(settings)
       @data_file = get_data_file(settings)
     end
@@ -47,6 +50,7 @@ module MedInstaller
           entry = MiddleEnglishDictionary::Entry.from_json(json_line)
           yield entry
         rescue => e
+          require 'pry'; binding.pry
           logger.error "Error with json line #{index}: #{e}\n#{e.backtrace}"
         end
       end

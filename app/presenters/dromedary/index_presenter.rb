@@ -30,7 +30,7 @@ module Dromedary
 
     # @return [String] The cleaned-up POS abbreviation (e.g., "n" or "v")
     def part_of_speech_abbrev
-      @document.fetch('pos_abbrev')
+      @entry.pos
     end
 
     # @return [Array<MiddleEnglishDictionary::Sense>] All the entry senses
@@ -81,3 +81,4 @@ module Dromedary
 
   end
 end
+

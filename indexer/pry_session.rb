@@ -29,6 +29,7 @@ settings = {
 }
 
 entries = MedInstaller::EntryJsonReader.new(settings)
+e = entries.first
 require 'pry'; binding.pry
 
 puts "Done"
