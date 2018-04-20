@@ -13,8 +13,6 @@
     No Results
   <% elsif params[:f] and params[:f][:issue_identifier] %>
     <%= issue_title @document_list.first, complete: true %>
-  <% else %>
-    Search Results
   <% end %>
 <% end %>
 
