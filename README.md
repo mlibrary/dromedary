@@ -1,5 +1,6 @@
 # Dromedary -- Middle English Dictionary Application
 
+A new application front-end for the Middle English Dictionary.
 
 ## Super-fast installation
 
