@@ -22,6 +22,20 @@ You can set up multiple autocomplete configurations by doing the following
 
 # Actual code is at the bottom of the catalog controller
 
+    config.autocomplete = {
+      h:   {
+        solr_endpoint:         "headword_only_suggester",
+        search_component_name: "headword_only_suggester"
+      },
+      hnf: {
+        solr_endpoint:         "headword_and_forms_suggester",
+        search_component_name: "headword_and_forms_suggester"
+      },
+      oed: {
+        solr_endpoint:         "oed_suggester",
+        search_component_name: "oed_suggester"
+      }
+    }
 
 
 
