@@ -31,7 +31,7 @@ Starting from within the `med` directory:
 
 ### Index the data
 
-* `bin/dromedary index entries ../data/entries.solr.json`
+* `bin/dromedary index entries ../data/entries.json.gz`
 
 ### Update the db and fire up rails
 
