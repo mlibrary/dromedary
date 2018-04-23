@@ -6,6 +6,11 @@ Rails.application.routes.draw do
 
   mount Blacklight::Engine => '/'
 
+  # Rails doesn't allow dots in matched ids by default, because reasons.
+  # Override the id matcher with an explicit constraint.
+  match 'catalog/(:id)/track' => 'catalog#show',
+        :constraints => { :id => /[\p{Alnum}\-\.]+/ }, via: [:get, :post]
+
   root to: "catalog#home"
   
   concern :searchable, Blacklight::Routes::Searchable.new
