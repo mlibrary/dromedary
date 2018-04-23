@@ -5,64 +5,47 @@
       for bookmarks control depends on size.
   -%>
   <% doc_presenter = index_presenter(document) %>
-  <% entry = doc_presenter.entry %>
 
   <% document_actions = capture do %>
-    <% # bookmark functions for items/docs                -%>
     <%= render_index_doc_actions document, wrapping_class: "index-document-functions col-sm-3 col-lg-2" %>
   <% end %>
 
-<div class="col-md-12">
-  <div class="entry-panel panel">
+  <div class="col-md-12">
+    <div class="entry-panel panel">
 
-    <h3 class="index_title document-title-heading <%= document_actions.present? ? "col-sm-9 col-lg-10" : "col-md-12" %>">
-      <% if counter = document_counter_with_offset(document_counter) %>
-        <span class="document-counter">
-          <%= t('blacklight.search.documents.counter', counter: counter) %>
-        </span>
-      <% end %>
-      <%= link_to_document document, doc_presenter.highlighted_official_headword, counter: counter %>
-      (<%== doc_presenter.part_of_speech_abbrev %>)
-    </h3>
+      <h3 class="index_title document-title-heading <%= document_actions.present? ? "col-sm-9 col-lg-10" : "col-md-12" %>">
+        <% if counter = document_counter_with_offset(document_counter) %>
+          <span class="document-counter">
+            <%= t('blacklight.search.documents.counter', counter: counter) %>
+          </span>
+        <% end %>
+        <%= link_to_document document, doc_presenter.highlighted_official_headword, counter: counter %>
+        (<%== doc_presenter.part_of_speech_abbrev %>)
+      </h3>
 
-    <div class="search-result def">
-      <% if hos = doc_presenter.highlighted_other_spellings and hos.count > 0 %>
-        <div class="index-spellings">Additional spellings: <%== hos.join(', ') %></div>
-      <% end %>
+      <div class="search-result def">
+        <% if hos = doc_presenter.highlighted_other_spellings and hos.count > 0 %>
+          <div class="index-spellings">Additional spellings: <%== hos.join(', ') %></div>
+        <% end %>
 
-      <div class="index-quotes-line">
-        <%# quote_count = doc_presenter.quote_count %>
-        <%= "#{doc_presenter.quote_count} quotation".pluralize(doc_presenter.quote_count) + " in #{doc_presenter.senses.count}" + " sense".pluralize(doc_presenter.senses.count) + " definition".pluralize(doc_presenter.senses.count)%>
-      </div>
-      <div class="entry-entire">
-      <% if doc_presenter.senses.count == 1 %>
-        <div class="entry-single">
-          <% sense = doc_presenter.senses.first %>
-          <% def_xml = Nokogiri::XML(sense.definition_xml) %>
-          <% def_xslt = Nokogiri::XSLT(File.read('./indexer/xslt/DefOnly.xsl'))%>
-          <% current_def = "<span class='index-definition-tag'>Sense (Definition) </span>" + def_xslt.apply_to(def_xml) %>
-          <div class="index-definition"><%== current_def %></div>
-
+        <div class="index-quotes-line">
+          <%= "#{doc_presenter.quote_count} quotation".pluralize(doc_presenter.quote_count) + " in #{doc_presenter.senses.count}" + " sense".pluralize(doc_presenter.senses.count) + " definition".pluralize(doc_presenter.senses.count) %>
         </div>
-      <% else %>
-        <ol>
-          <% doc_presenter.senses.each do |sense| %>
-            <li>
-              <% def_xml = Nokogiri::XML(sense.definition_xml) %>
-              <% def_xslt = Nokogiri::XSLT(File.read('./indexer/xslt/DefOnly.xsl'))%>
-              <% current_def = def_xslt.apply_to(def_xml) %>
-              <div class="index-definition"><%== current_def %></div>
-            </li>
-          <% end %>
-        </ol>
 
-      <% end %>
-
+        <div class="entry-entire">
+          <div class="entry-single">
+            <% sense = doc_presenter.senses.first %>
+            <% def_xml = Nokogiri::XML(sense.definition_xml) %>
+            <% puts def_xml %>
+            <% def_xslt = Nokogiri::XSLT(File.read('./indexer/xslt/DefOnly.xsl'))%>
+            <% current_def = "<span class='index-definition-tag'>Sense (Definition) </span>" + def_xslt.apply_to(def_xml)[0..200] %>
+            <!-- FYI: "\u2026" is an ellipsis -->
+            <div class="index-definition"><%== current_def %><span class="ellipsis-link"><%= link_to "\u2026", document %></span></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  </div>
 
-
-</div>
   <%= document_actions %>
 </div>
