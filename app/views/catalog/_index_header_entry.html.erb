@@ -32,16 +32,20 @@
           <%= "#{doc_presenter.quote_count} quotation".pluralize(doc_presenter.quote_count) + " in #{doc_presenter.senses.count}" + " sense".pluralize(doc_presenter.senses.count) + " definition".pluralize(doc_presenter.senses.count) %>
         </div>
 
-        <div class="entry-entire">
-          <div class="entry-single">
-            <% sense = doc_presenter.senses.first %>
-            <% def_xml = Nokogiri::XML(sense.definition_xml) %>
-            <% puts def_xml %>
-            <% def_xslt = Nokogiri::XSLT(File.read('./indexer/xslt/DefOnly.xsl'))%>
-            <% current_def = "<span class='index-definition-tag'>Sense (Definition) </span>" + def_xslt.apply_to(def_xml)[0..200] %>
-            <!-- FYI: "\u2026" is an ellipsis -->
-            <div class="index-definition"><%== current_def %><span class="ellipsis-link"><%= link_to "\u2026", document %></span></div>
-          </div>
+
+        <div class="table-responsive entry-entire">
+          <table class="entry-single table">
+            <tr>
+              <% sense = doc_presenter.senses.first %>
+              <% def_xml = Nokogiri::XML(sense.definition_xml) %>
+              <% puts def_xml %>
+              <% def_xslt = Nokogiri::XSLT(File.read('./indexer/xslt/DefOnly.xsl'))%>
+              <% current_def =  def_xslt.apply_to(def_xml)[0..200] %>
+              <!-- FYI: "\u2026" is an ellipsis -->
+              <td class="index-definition-tag">Sense (Definition)</td>
+              <td class="index-definition"><%== current_def %><span class="ellipsis-link"><%= link_to "\u2026", document %></span></td>
+            </tr>
+          </table>
         </div>
       </div>
     </div>
