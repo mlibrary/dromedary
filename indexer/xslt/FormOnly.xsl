@@ -7,19 +7,19 @@
     <!-- orig|new -->
     <xsl:variable name="formMode">orig</xsl:variable>
     <xsl:template match="/FORM">
-         <xsl:apply-templates/>
+        <span class="FORM">
+            <xsl:apply-templates/>
+        </span>
     </xsl:template>
 
     <xsl:template match="HDORTH">
-        <span>
-            <xsl:attribute name="class">HDORTH</xsl:attribute>
+        <span class="HDORTH">
             <xsl:call-template name="ORIG_OR_REG"/>
-           </span>
+        </span>
     </xsl:template>
 
     <xsl:template match="ORTH">
-        <span>
-            <xsl:attribute name="class">ORTH</xsl:attribute>
+        <span class="ORTH">
             <xsl:call-template name="ORIG_OR_REG"/>
         </span>
     </xsl:template>
@@ -49,10 +49,23 @@
         </xsl:for-each>
     </xsl:template>
 
-    <xsl:template match="POS">
+    <!-- OLD template with parens -->
+    <!--
+        <xsl:template match="POS">
         <xsl:text>( </xsl:text>
         <xsl:value-of select="."/>
         <xsl:text> )</xsl:text>
+    </xsl:template>
+        
+        XXX do we need to keep the spaces in the code below
+    -->
+
+    <xsl:template match="POS">
+        <span class="POS">
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="."/>
+            <xsl:text> </xsl:text>
+        </span>
     </xsl:template>
 
 </xsl:stylesheet>
