@@ -8,8 +8,8 @@
 
       <% if ent.oedlinks %>
         <div class="related-link-subhead">Oxford English Dictionary</div>
-        <p class="oed-subscription-warning">Please note that the OED is a
-          subscription resource</p>
+        <p class="oed-subscription-warning">(Please note that the OED is a
+          subscription resource)</p>
         <ul>
           <% ent.oedlinks.each do |elink| %>
             <% oed_href = "http://www.oed.com/view/Entry/#{elink.target_id}" %>
