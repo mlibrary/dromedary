@@ -55,11 +55,7 @@
         </span>
     </xsl:template>
     
-    <!--XXX notes fix this-->
-    <xsl:template match="NOTE|note">
-        <H1>THIS IS A NOTE</H1>
-        <xsl:apply-templates/>
-     </xsl:template>
+    
     
     
 </xsl:stylesheet>
