@@ -410,6 +410,11 @@ ul.header-nav-secondary a:focus {
 .panel-body.facet-panel, 
 .collapse-toggle.panel-heading {
   background-color: #FAFAFA;
+  border: 1px solid transparent !important;
+}
+
+.panel-body.facet-panel {
+  padding-top: 0;
 }
 
 .facet-label a {
@@ -420,6 +425,133 @@ ul.header-nav-secondary a:focus {
 
 .facet-values .facet-label {
   padding-bottom: 0;
+}
+
+/** Entry Page Dictionary **/
+
+.entry-panel {
+  background-color: #fff;
+  box-shadow: 0 0 2px 0 rgba(0,0,0,0.12), 0 2px 4px 0 rgba(0,0,0,0.24);
+
+  .entry-main-title {
+    background-color: #E6F3FF;
+    color: #0C5292;
+    font-weight: bold;
+    font-size: .85em;
+  }
+
+  .entry-headword {
+    font-size: 1.15em;
+  }
+
+  .quotations-header-options {
+    font-size: .75em; 
+    padding-top: .5em;
+  }
+
+  .quotations-header-options-text {
+    font-weight: bold;
+  }
+
+  .quotations-header-options a {
+    text-decoration: none;
+  }
+
+  .entry-intro-title {
+    padding: 1em;
+  }
+
+  .entry-container {
+    border-bottom: 2px solid #ccc;
+    height: 50px;
+  }
+
+  h2.entry-main-title {
+    padding: 1em;
+  }
+
+  .entry-heading {
+    height: 40px;
+  }
+
+  .entry-main-title,
+  .entry-intro-title,
+  .entry-heading,
+  .entry-senses-title,
+  .entry-supplemental-title {
+    padding: .5em 1em;
+    font-weight: bold;
+  }
+
+  .entry-info,
+   .entry-senses, {
+    padding: 0 1em;
+  }
+
+  .entry-senses {
+    background-color: #FAFAFA;
+    border-top: 1px solid #ccc;
+  }
+
+  .entry-supliment {
+    padding: 0 1em;
+  }
+
+  .entry-info table,
+  .entry-supliment table {
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+
+  .entry-info tr,
+  .entry-supliment tr {
+      background-color: #f2f2f2;
+    }
+
+    .entry-supliment td {
+      color: #6E6E6E;
+      font-size: .9em;
+    }
+
+    td.quotes-control > * {
+      font-size: .75em;
+    }
+
+}
+
+.show-tools .panel-heading, 
+.show-related .panel-heading {
+  background-color: #FAFAFA !important;
+  border: 1px solid transparent !important;
+  font-weight: bold;
+  font-size: .85em;
+  padding-bottom: 0;
+}
+
+.show-tools a {
+  color: #4E4E4E;
+  text-decoration: none;
+}
+
+.show-tools .panel-body, 
+.show-related .panel-body {
+  background-color: #fafafa;
+}
+
+.show-tools li.citation a {
+  padding-left: 0;
+}
+
+.show-related {
+
+  .related-link-subhead {
+    font-size: .85em;
+    padding-top: 1em;
+  }
+
+  .oed-subscription-warning {
+    margin-bottom: 0;
+  }
 }
 
 /** Footer **/

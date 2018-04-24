@@ -10,8 +10,10 @@
 
   <%# Get headword and display it with quotes hide/show %>
   <div class="entry-heading">
+    <div class="entry-container">
     <div class="entry-headword"><%= ent.original_headwords.first %>&nbsp;(<span class="entry-pos"><%= ent.pos %>)</span></div>
-    <div class="quotations-header-options">Quotations: <a href="#" onClick="function show_quotes(){ $( 'tr.quotes' ).show();   } show_quotes(); return false;">Show All</a> <a href="#" onClick="function hide_quotes(){ $( 'tr.quotes' ).hide();  } hide_quotes(); return false;">Hide All</a></div>
+    <div class="quotations-header-options"><span class="quotations-header-options-text">Quotations:</span> <a href="#" onClick="function show_quotes(){ $( 'tr.quotes' ).show();   } show_quotes(); return false;">Show All</a> <a href="#" onClick="function hide_quotes(){ $( 'tr.quotes' ).hide();  } hide_quotes(); return false;">Hide All</a></div>
+    </div>
   </div>
 
   <%# Get get forms and etymology and display %>
@@ -20,7 +22,7 @@
   </div>
 
   <div class="table-responsive entry-info">
-    <table class="table">
+    <table class="table table-striped">
       <tr><td class="forms-title">Forms</td><td class="forms-list"><% ent.all_forms.each_with_index do |(k, v)|  %><%= k %><%= "," if k != ent.all_forms.last %>&nbsp;&nbsp;<% end %></td></tr>
       <tr><td class="etymology-title">Etymology</td><td class="etymology-list">
           <% etym_xml = Nokogiri::XML(ent.etym_xml) %>
@@ -96,7 +98,7 @@
     <h3 class="entry-supplemental-title">Supplemental Notes</h3>
 
     <div class="table-responsive entry-supliment">
-      <table class="table">
+      <table class="table table-striped">
           <% sups.each do |sup|  %>
             <tr>
                 <td><%== sup.instance_variable_get(:@notes).first  %></td>
