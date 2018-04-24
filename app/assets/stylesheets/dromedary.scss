@@ -14,11 +14,6 @@
 
 .entry-panel {
 
-  .entry-main-title {
-    background-color: #E6F3FF; 
-    color: blue; height: 40px;
-  }
-
   .entry-heading {
     .entry-headword {
       float: left; font-weight: bold;
@@ -31,14 +26,10 @@
 
   // Several entry page titles
   .entry-intro-title, .entry-senses-title, .entry-supplemental-title {
-      margin-top: 40px;
+      margin-top: 20px;
   }
 
   // quote control links
-  .quotes-show, .quotes-hide {
-      font-size: 14px;
-  }
-
   .quotes-show {
     margin-bottom: 10px;
   }
