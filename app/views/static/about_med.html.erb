@@ -1,34 +1,28 @@
 <% @page_title = t('en.views.static.about-med.title') %>
 
-<div class="container-fluid">
-
-  <div class="row">
-    <div class="<%= main_content_classes(true) %> help-middle-col">
-        <h1 class="title"><%= t('en.views.static.about-med.header') %></h1>
-    </div>
-  </div>
-    
-  <div class="row">
+<div class="container">
+  <div>
     <%= render partial: 'about_sidebar' %>
 
-    <div id="med" class="<%= main_content_classes %> help-middle-col">
+    <div id="med" class="<%= main_content_classes %> about-middle-col">
+      <h1 class="title">About</h1>
+        <p class="about-lg">Learn more about the Middle English Compendium, The Middle English Dictionary (MED), the HyperBibliography, and the Corpus of Middle English. Find information about rights and how to contact us.</p>
+
       <H3><A NAME="ov"></A>About the Middle English Compendium</H3>
 
-      <P><EM>The Middle English Compendium</EM> has been designed to
+      <p><em>The Middle English Compendium</em> has been designed to
       offer easy access to and interconnectivity between three major
       Middle English electronic resources: an electronic version of the
       Middle English Dictionary, a HyperBibliography of Middle English
-      prose and verse, based on the MED bibliographies, a Corpus of Middle
+      prose and verse based on the MED bibliographies, a Corpus of Middle
       English Prose and Verse, as well as links to an
       associated network of electronic resources. Hypertext links offer quick
       connections between, e.g., an MED citation, bibliographical
       information about its source, and an electronic version of the
       source, if one is included in the collection (we
-      hope eventually to have electronic versions of all the source texts).</P>
+      hope eventually to have electronic versions of all the source texts).</p>
 
-
-
-      <H3><A NAME="med"></A>The Electronic Middle English Dictionary </H3>
+      <H3><A NAME="med"></A>About The Electronic Middle English Dictionary </H3>
 
       <P>The print <EM>Middle English Dictionary</EM>, now complete,
       has been described as &quot;the greatest achievement
@@ -42,8 +36,7 @@
       ways impossible within any print dictionary.</P>
 
 
-
-      <H3><A NAME="hyp"></A>HyperBibliography of Middle English</H3>
+      <H3><A NAME="hyp"></A>About The HyperBibliography of Middle English</H3>
 
       <P>The <EM>HyperBibliography of Middle English</EM> includes all
       the Middle English materials which are cited in the Middle
@@ -56,7 +49,6 @@
       browsing or searching, click on any item to move to a page of
       information about manuscripts, editions, bibliographical
       references, and MED title stencils. </P>
-
 
 
       <H3><A NAME="corp"></A>Corpus of Middle English Prose and Verse</H3>
@@ -74,33 +66,24 @@
       The Corpus is provided with a full array of search mechanisms,
       and texts may be searched individually, in user designated
       groups, or collectively.</P>
-      <!-- <H3><A NAME="staff"></A>Compendium Staff</H3>
-      <DL>
-      <DT><STRONG>Frances McSparran, <I>Chief Editor</I></STRONG>
-      <DD><FONT size=-1>Associate Professor of English, University of Michigan;
-      <BR>formerly Editor, <I>Middle English Dictionary</I><BR></FONT>
-      <BR>
-      <DT>Paul Schaffner, <I>Associate Editor</I>
-      <DD><FONT size=-1>Librarian; Coordinator, text-encoding group, U of M Digital Library Production Service;<BR>formerly Editor, <I>MED</I></FONT>
-      </DL>
-      Essential contributions have been made by John Latta (Corpus review and editing), James Moske (MED conversion and HyperBibliography editing), Christina Powell, Matt Stoeffler, and Maria Bonn (interface design, documentation, and online help), Alan Pagliere and Nigel Kerr (programming), and David Ruddy (HyperBibliography production and project design), among others. -->
-
+      
+      
       <H3><A NAME="staff"></A>Compendium Staff</H3>
-      <DL>
-      <DT><STRONG>Frances McSparran, <I>Chief Editor</I></STRONG></DT>
-      <DD><FONT size=-1>Associate Professor of English, University of Michigan</FONT></DD>
-      <DT>Paul Schaffner, <I>Associate Editor</I></DD>
-      <DD><FONT size=-1>Coordinator, Text-encoding group, DLPS*</FONT></DD>
-      <DT>John Latta</DT>
-      <DD><FONT size=-1>Text and markup editor, DLPS</FONT></DD>
-      <DT>Alan Pagliere</DT>
-      <DD><FONT size=-1>Programmer, DLPS</FONT></DD>
-      <DT>Christina Powell</DT>
-      <DD><FONT size=-1>Coordinator, Encoded text services, DLPS</FONT></DD>
-      <DT>Matt Stoeffler</DT>
-      <DD><FONT size=-1>Interface designer, DLPS</FONT></DD>
+      <ul class="compendium-staff">
+        <li>Frances McSparran, Chief Editor<br> <span class="title-secondary">Associate Professor of English, University of Michigan</li>  
+        <li>Paul Schaffner, Associate Editor<br> <span class="title-secondary">Coordinator, Text-encoding group, DLPS*</li>  
+        <li>John Latta<br> <span class="title-secondary">Text and markup editor, DLPS</li>
+        <li>Alan Pagliere <br> <span class="title-secondary">Programmer, DLPS</li>
+        <li>Christina Powell <br> <span class="title-secondary">Coordinator, Encoded text services, DLPS</li>
+        <li>Matt Stoeffler <br> <span class="title-secondary">Interface designer, DLPS</span></li>
+      </ul>
 
-      <P>Earlier stages of the project received invaluable contributions from Maria Bonn (interface design and documentation), Nigel Kerr (programming), James Moske (MED conversion and HyperBibliography editing), David Ruddy (HyperBibliography production and project design), and especially the head of DLPS, John Price Wilkin (Project Director, grant period), among others. *MEC is a product of the University of Michigan Digital Library Production Service.</DD></DL>
+      <P>Earlier stages of the project received invaluable contributions from Maria Bonn (interface design and documentation), Nigel Kerr (programming), James Moske (MED conversion and HyperBibliography editing), David Ruddy (HyperBibliography production and project design), and especially the head of DLPS, John Price Wilkin (Project Director, grant period), among others.
+      </p><p>*MEC is a product of the University of Michigan Digital Library Production Service.</p>
+
+        <h3>Rights Statement</h3>
+
+        <h3>Contact Us</h3>
 
     </div>
   </div>

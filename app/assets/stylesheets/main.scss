@@ -9,6 +9,18 @@ a {
   text-decoration: underline;
 }
 
+.HI_B {
+  font-weight: bold;
+}
+
+.HI_I {
+  font-style: italic;
+}
+
+.USG {
+  font-style: italic;
+}
+
 /** Utilities **/
 
 .padding0 {
@@ -517,6 +529,10 @@ ul.header-nav-secondary a:focus {
       font-size: .75em;
     }
 
+    td.forms-list {
+      font-weight: bold;
+    }
+
 }
 
 .show-tools .panel-heading, 
@@ -552,6 +568,108 @@ ul.header-nav-secondary a:focus {
   .oed-subscription-warning {
     margin-bottom: 0;
   }
+}
+
+/** About + Help  **/
+
+body.blacklight-static,
+.blacklight-contacts.blacklight-contacts-new {
+  background-color: #f2f2f2;
+  color: #333;
+  line-height: 1.5;
+}
+
+.about-lg {
+  font-size: 1.05em;
+  margin-bottom: .25em;
+}
+
+.about-middle-col,
+.help-middle-col {
+  background-color: #fff;
+  padding: 1em 1.75em !important;
+  border-radius: 3px;
+}
+
+.compendium-staff {
+  padding: 0 0 1em;
+
+li {
+  padding: .35em 0;
+}
+}
+
+.title-secondary {
+  font-size: .75em;
+  padding-top:0;
+}
+
+.sidebars {
+  background-color: #fafafa;
+  margin-top: 0;
+  border-radius: 4px;
+
+  h2 {
+    padding: .5em;
+    font-weight: bold;
+    font-size: .9em;
+  }
+}
+
+.sidebars ul,
+.sidebars ul li {
+  padding-left: 0;
+}
+
+.about-middle-col h1,
+.help-middle-col h1 {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #333333;
+}
+
+.about-middle-col h3,
+.help-middle-col h3 {
+  font-size: 1.15em;
+  color: #333333;
+  font-weight: bold;
+  padding-top: 1em;
+}
+
+.about-middle-col h4,
+.help-middle-col h4 {
+  font-weight: bold;
+  padding-top: .25em;
+}
+
+.help-ul li {
+  display: block;
+  margin-bottom: 10px;
+  margin-left: 12px;
+
+  a {
+    border: 1px solid transparent;
+    color: #0C5292 !important;
+    text-align: left;
+    vertical-align: middle;
+    width: inherit;
+    text-decoration: none;
+  }
+}
+
+.sidebars ul {
+  padding-bottom: .25em;
+}
+
+.sidebars ul li {
+  margin-left: 0;
+  padding: 0 .75em;
+  font-size: .9em;
+}
+
+.sidebars ul li.current {
+  border-left: 4px solid #0C5292;
+  font-weight: bold;
 }
 
 /** Footer **/

@@ -5,18 +5,12 @@
   <div class="container-fluid">
 
       <div class="row">
-
-          <div class="<%= main_content_classes(true) %> help-middle-col">
-              <h1 class="title"><%= t('views.static.contact.header') %></h1>
-          </div>
-
-      </div>
-
-      <div class="row">
       <%= render partial: 'static/help_sidebar' %>
 
       <div class="<%= main_content_classes %> help-middle-col">
-        <p class="para">We are happy to answer any questions you have about using the Michigan Daily archive, to hear about any problem you are experiencing with the system and to hear your feedback on how we can improve our services.</p>
+        <h1 class="title"><%= t('views.static.contact.header') %></h1>
+        <p class="about-lg">We are happy to answer any questions you have about using The Middle English Compendium, to hear about any problem you are experiencing with the system and to hear your feedback on how we can improve our services.</p>
+        
         <div class="<%= main_content_classes %>">
 
           <%= simple_form_for @contact, :html => {:class => 'form-horizontal' } do |f| %>
