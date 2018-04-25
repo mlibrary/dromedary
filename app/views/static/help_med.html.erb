@@ -3,36 +3,31 @@
 <div class="container-fluid">
 
   <div class="row">
-    <div class="<%= main_content_classes(true) %> help-middle-col">
-        <h1 class="title"><%= t('views.static.help-med.header') %></h1>
-    </div>
-
-  </div>
-  <div class="row">
     <%= render partial: 'help_sidebar' %>
 
     <div id="med" class="<%= main_content_classes %> help-middle-col">
+      <h1 class="title">Help</h1>
+      <p class="about-lg">How you can search the Middle English Compendium</p>
 
-      <P><B>Help in using the Middle English Dictionary</B>
+      <h3>Help in using the Middle English Dictionary</h3>
+      
       <UL>
-      <LI><A HREF="#entries">MED: understanding the dictionary entries</A></LI>
-      <LI><A HREF="#display">MED: understanding the character display of Middle English</A></LI>
-      <LI><A HREF="#med:choose">MED: choosing a search type</A></LI>
-      <LI><A HREF="#med:date">MED: searching by date</A></LI>
-      <LI><A HREF="#lookup">MED: using the searches: lookup searches</A>
-      <BR>(incl. <A HREF="#regexpsearch">regular expression searching</A>)</LI>
-      <LI><A HREF="#structures">MED: using the searches: entry searches</A></LI>
-      <LI><A HREF="#quotes">MED: using the searches: quotation searches</A></LI>
-      <LI><A HREF="#stencil">MED: using the searches: quotation searches</A></LI>
-      <LI><A HREF="#med:spell">MED: some suggestions on spelling</A></LI>
-      <LI><A HREF="#med:links">MED: links to the HyperBibliography</A></LI>
+            <LI><A HREF="#entries">MED: understanding the dictionary entries</A></LI>
+            <LI><A HREF="#display">MED: understanding the character display of Middle English</A></LI>
+            <LI><A HREF="#med:choose">MED: choosing a search type</A></LI>
+            <LI><A HREF="#med:date">MED: searching by date</A></LI>
+            <LI><A HREF="#lookup">MED: using the searches: lookup searches</A>
+            <BR>(incl. <A HREF="#regexpsearch">regular expression searching</A>)</LI>
+            <LI><A HREF="#structures">MED: using the searches: entry searches</A></LI>
+            <LI><A HREF="#quotes">MED: using the searches: quotation searches</A></LI>
+            <LI><A HREF="#stencil">MED: using the searches: quotation searches</A></LI>
+            <LI><A HREF="#med:spell">MED: some suggestions on spelling</A></LI>
+            <LI><A HREF="#med:links">MED: links to the HyperBibliography</A></LI>
       </UL>
 
       <H3><A NAME="entries"></A>MED: understanding the dictionary entries</H3>
 
-      <TABLE BORDER CELLSPACING="4" CELLPADDING="4">
-      <!--  BORDERCOLOR="#FF0000" BORDERCOLORDARK="#FF0000" BORDERCOLORLIGHT="#FF0000" -->
-
+      <table>
       <TR>
       <TD VALIGN="TOP"><B>Headword</B></TD>
       <TD><B><FONT FACE="Arial, Helvetica">purpel n.</FONT></B></TD>
@@ -106,32 +101,36 @@
 
       <P><B><FONT COLOR="#FF0000">*</FONT></B>For more information about stencil
       links, please see <A HREF="#med:links">MED: links to the HyperBibliography</A>
-      below.
-      <P><A HREF="#top">Help topics</A>
-      <H3>
-      <A NAME="display"></A>MED: understanding the character display of Middle
+      below.</P>
+
+      <p><a HREF="#top">Back to top</a></p>
+
+      <H3><A NAME="display"></A>MED: understanding the character display of Middle
       English</H3>
-      Sometimes you will notice that a letter in a text is represented by an
+
+      <p>Sometimes you will notice that a letter in a text is represented by an
       image (in "gif" format) of that letter rather than a character from one of
       your computer's screen fonts. You may notice this because
       you try to copy and paste some text and some of it is missing, or because
       you have the image display turned off on your browser and you see icons
       that indicate an image in a surprising place. This means that a little
-      picture of a letter is used instead of an actual letter.
-      <P>Why would we do this?
+      picture of a letter is used instead of an actual letter.</p>
+      <P>Why would we do this?</P>
       <P>Middle English includes characters that are no longer part of our standard
       alphabets or punctuation and thus are not represented by contemporary fonts.
       In addition, the MED uses several diacritics to distinguish between, for example,
-      short and long versions of a given vowel.
-      Because of the current limits of Web technology and/or the lack of public
+      short and long versions of a given vowel.</P>
+
+      <p>Because of the current limits of Web technology and/or the lack of public
       domain fonts, we have difficulty representing these characters. We have
       compromised by making by hand these little images that simulate
       the appearance of many of the characters in the original texts. As Web and font
       technology develop, we hope to be able to eliminate the use of these character
-      gifs.
-      <P><A HREF="#top">Help topics</A>
-      <H3>
-      <A NAME="medchoose"></A>MED: choosing a search type</H3>
+      gifs.</p>
+
+      <p><a HREF="#top">Back to top</a></p>
+
+      <H3><A NAME="medchoose"></A>MED: choosing a search type</H3>
       <B>Lookups</B>:
       <UL>
       <LI>
@@ -175,7 +174,9 @@
       <LI>
       include data from the HyperBibliography in your search criteria.</LI>
       </UL>
-      <A HREF="#top">Help topics</A>
+
+     <p><a HREF="#top">Back to top</a></p>
+
       <H3>
       <A NAME="lookup"></A>MED: using the searches: lookup searches</H3>
       These are simple searches that look for your word as a main entry point,
@@ -300,7 +301,9 @@
 
       <P><A HREF="http://ets.umdl.umich.edu/m/mec/regexp.html">Full regular expression
       searching</A> is also available for lookup searches.
-      <P><A HREF="#top">Help topics</A>
+      
+      <p><a HREF="#top">Back to top</a></p>
+
       <H3>
       <A NAME="meddate"></A>MED: searching by date</H3>
       Enter digits only in date searches; results will include <I>all</I> dates
@@ -334,7 +337,8 @@
       </TR>
       </TABLE></CENTER>
 
-      <P><A HREF="#top">Help topics</A>
+      <p><a HREF="#top">Back to top</a></p>
+
       <H3>
       <A NAME="structures"></A>MED: using the searches: entry searches</H3>
       To understand better the structure of MED entries, you may want to consult
@@ -489,7 +493,9 @@
       A more complex search, using Boolean operators, would, for example, allow
       you to retrieve fourteenth-century quotations containing <I>man</I> from
       Herefordshire texts recorded in the MED.
-      <P><A HREF="#top">Help topics</A>
+     
+      <p><a HREF="#top">Back to top</a></p>
+
       <H3>
       <A NAME="medspell"></A>MED: some suggestions on spelling</H3>
       The Middle English spelling of a given word may vary greatly according
@@ -550,7 +556,9 @@
       boxes. The upper-case letters A, O, T, and Y will be read respectively
       as representing ash (&aelig;, &AElig;), oe (the oe ligature), thorn (&thorn;,
       &THORN;) or (&eth;, &ETH;), lower or upper-case yogh.</LI></OL>
-      <A HREF="#top">Help topics</A>
+      
+      <p><a HREF="#top">Back to top</a></p>
+
       <H3>
       <A NAME="medlinks"></A>MED: links to the HyperBibliography</H3>
       Each illustrative quotation begins with a stencil which identifies the
@@ -586,9 +594,10 @@
       the HyperBibliography, you can either use the back button on your
       browser to return to the entry in the MED or you can use the
       links in the navigational bar to move you to the main Hyperbibliography page where you may carry out further searches.  -->
-      <CENTER>
-      <ADDRESS>mec-info@umich.edu</ADDRESS>
-      </CENTER>      
+     
+      <a href="mailto:mec-info@umich.edu">mec-info@umich.edu</a>
+     
+      <p><a HREF="#top">Back to top</a></p>  
     </div>
   </div>  
 </div>

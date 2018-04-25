@@ -1,24 +1,18 @@
 <% @page_title = t('en.views.static.help-med.title') %>
 
 <div class="container-fluid">
-
-  <div class="row">
-    <div class="<%= main_content_classes(true) %> help-middle-col">
-        <h1 class="title">HELP CORPUS TITLE</h1>
-    </div>
-  </div>
   <div class="row">
     <%= render partial: 'help_sidebar' %>
 
     <div id="med" class="<%= main_content_classes %> help-middle-col">
+      <h1 class="title">Using the Corpus of Middle English</h1>
+      <p class="about-lg">Help in using the Corpus of Middle English</p>
+      
+      <ul>
+        <li><a HREF="#corphelp">About using the Corpus</a></li>
+      </ul>
 
-      <B>Help in using the Corpus of Middle English</B>
-      <UL>
-      <LI><A HREF="#corphelp">About using the Corpus</A></LI>
-      </UL>
-
-      <H3>
-      <A NAME="corphelp"></A>About help in using the Corpus of Middle English</H3>
+      <H3><A NAME="corphelp"></A>About help in using the Corpus of Middle English</H3>
       <I>The Corpus of Middle English</I> is a full text collection produced
       and maintained by the University of Michigan Humanities Text Initiative.
       It has its own separate help database that it shares with other HTI collections.
@@ -30,9 +24,9 @@
       the HyperBibliography, you can either use the back button on your
       browser to return to the entry in the MED or you can use the
       links in the navigational bar to move you to the main Hyperbibliography page where you may carry out further searches.  -->
-      <CENTER>
-      <ADDRESS>mec-info@umich.edu</ADDRESS>
-      </CENTER>
+     
+      <a href="mailto:">mec-info@umich.edu</a>
+    
     </div>
   </div>
 </div>
