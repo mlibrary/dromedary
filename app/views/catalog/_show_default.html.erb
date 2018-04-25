@@ -93,22 +93,20 @@
   </div>
 
   <%# Get supplement and display %>
-  <% sups = ent.instance_variable_get(:@supplements) %>
   <% show_sups = true %>
-  <% show_sups = ! sups.nil? %>
-  <% show_sups = ! sups.empty? if show_sups %>
-  <% show_sups = ! sups.first.instance_variable_get(:@notes).empty? if show_sups %>
+  <% sups = ent.supplements %>
+  <% show_sups = ! (sups.nil? || sups.empty?) %>
 
   <% if show_sups %>
-    <h3 class="entry-supplemental-title">Supplemental materials (draft)</h3>
-
-    <div class="table-responsive entry-supliment">
-      <table class="table table-striped">
+    <h3 class="entry-supplemental-title">Supplemental Materials (draft)</h3>
+    <div class="table-responsive entry-supplement">
+      <table class="table">
           <% sups.each do |sup|  %>
-            <% sup.instance_variable_get(:@notes).each do |note| %>
+            <% notes = sup.notes %>
+            <% notes.each do |note| %>
               <tr>
-                  <td><%== note %></td>
-            	</tr>
+                <td><%== note %></td>
+              </tr>
             <% end %>
           <% end %>
       </table>
