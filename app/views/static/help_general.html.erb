@@ -3,29 +3,26 @@
 <div class="container-fluid">
 
   <div class="row">
-    <div class="<%= main_content_classes(true) %> help-middle-col">
-        <h1 class="title">HELP GENERAL TITLE</h1>
-    </div>
-  </div>
-  <div class="row">
     <%= render partial: 'help_sidebar' %>
 
     <div id="med" class="<%= main_content_classes %> help-middle-col">
-
-      <B>General advice on searching and using the forms</B>
+      <h1 class="title">General Advice on Searching</h1>
+      <p class="about-lg">General advice on searching and using the forms</p>
+      
       <UL>
-      <LI><A HREF="#tips">General Search Tips</A></LI>
-      <LI><A HREF="#bool">Boolean Searching</A></LI>
-      <LI><A HREF="#prec">Precedence of Boolean operators</A></LI>
-      <LI><A HREF="#prox">Proximity Searching</A></LI>
+            <LI><A HREF="#tips">General Search Tips</A></LI>
+            <LI><A HREF="#bool">Boolean Searching</A></LI>
+            <LI><A HREF="#prec">Precedence of Boolean operators</A></LI>
+            <LI><A HREF="#prox">Proximity Searching</A></LI>
       </UL>
 
       <H3>
       <A NAME="gen"></A>Some general advice on searching and using the forms</H3>
-      <A NAME="tips"></A><B>General Search Tips:</B>
+      
+      <A NAME="tips"></A><h4>General Search Tips:</h4>
+      
       <BLOCKQUOTE>
-      <H4>
-      Bookbagging</H4>
+      <H4>Bookbagging</H4>
       "Bookbagging" is an easy and efficient way to restrict your searches to
       a single text or a subset of texts in the Corpus of Middle English Prose
       and Verse. Each search option allows you to restrict the search to selected
@@ -35,8 +32,8 @@
       on the button at top or bottom which takes you back to your chosen search
       option, and proceed with your search. A list of the works you have chosen
       for your bookbag will appear below the search boxes.
-      <H4>
-      Pull down menus</H4>
+      
+      <H4>Pull down menus</H4>
       Many of the search forms have options that are available on pull down menus.
       <UL>
       <LI>
@@ -50,17 +47,18 @@
       search, you need to pull down the operator menu and select <B>or</B>.</LI>
       </UL>
 
-      <H4>
-      Submit buttons</H4>
+      <H4>Submit buttons</H4>
       In Boolean and proximity searches, you have to push the submit button to
       make the search work. Hitting the enter key is not enough. Move your mouse
       to the button and click.
-      <H4>
-      Text boxes</H4>
+      
+      <H4>Text boxes</H4>
       In a search form with more than one box you have to fill out the first
       box. Otherwise your search will not return any results. Make sure that
       you place your cursor in the text box before you begin typing.</BLOCKQUOTE>
+      
       <A HREF="#top">Help topics</A>
+
       <P><A NAME="bool"></A><B>Boolean searches</B>
       <P>Boolean searching allows you to combine search terms and/or fields.
       You may combine the terms with <B>and</B>, <B>or</B>, and <B>not</B>.
