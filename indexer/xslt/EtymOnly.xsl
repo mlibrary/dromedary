@@ -4,17 +4,25 @@
     exclude-result-prefixes="xs"
     version="1.0">
     <xsl:import href="./indexer/xslt/Common.xsl"/>
-        <xsl:output method="html" indent="yes"/>
+           <xsl:output method="html" indent="yes"/>
    
     <xsl:template match="/ETYM">
+        <span class="ETYM">
                 <xsl:apply-templates/>
+        </span>
     </xsl:template>
       
     <xsl:template match="LANG">
         <!--XXX Do we need mouseover stuff here for abbreviations-->
-        <xsl:apply-templates/>
+        <span class="LANG">
+            <xsl:apply-templates/>
+        </span>
     </xsl:template>
-    
+    <xsl:template match="LG">
+        <span class="LG">
+            <xsl:apply-templates/>
+        </span>
+    </xsl:template>
     <!-- May need to deal with <XREF> and /XREF/POS
         within <ETYM> PFS says ignore XREF 
         Waiting for PFS response on POS
