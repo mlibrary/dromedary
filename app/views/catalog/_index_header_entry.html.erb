@@ -37,13 +37,16 @@
           <table class="entry-single table">
             <tr>
               <% sense = doc_presenter.senses.first %>
+              <% unless sense.nil? %>
               <% def_xml = Nokogiri::XML(sense.definition_xml) %>
-              <% puts def_xml %>
               <% def_xslt = Nokogiri::XSLT(File.read('./indexer/xslt/DefOnly.xsl'))%>
               <% current_def =  def_xslt.apply_to(def_xml)[0..200] %>
               <!-- FYI: "\u2026" is an ellipsis -->
               <td class="index-definition-tag">Sense (Definition)</td>
               <td class="index-definition"><%== current_def %><span class="ellipsis-link"><%= link_to "\u2026", document %></span></td>
+              <% else %>
+                <td></td><td class="missing-def">No definition available</td>
+              <% end %>
             </tr>
           </table>
         </div>
