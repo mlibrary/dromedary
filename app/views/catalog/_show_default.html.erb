@@ -11,8 +11,12 @@
   <%# Get headword and display it with quotes hide/show %>
   <div class="entry-heading">
     <div class="entry-container">
-    <div class="entry-headword"><%= ent.original_headwords.first %>&nbsp;(<span class="entry-pos"><%= ent.pos %>)</span></div>
-    <div class="quotations-header-options"><span class="quotations-header-options-text">Quotations:</span> <a href="#" onClick="function show_quotes(){ $( 'tr.quotes' ).show();   } show_quotes(); return false;">Show All</a> <a href="#" onClick="function hide_quotes(){ $( 'tr.quotes' ).hide();  } hide_quotes(); return false;">Hide All</a></div>
+      <div class="entry-headword"><%= ent.original_headwords.first %>&nbsp;(<span class="entry-pos"><%= ent.pos %>)</span></div>
+
+      <% unless doc_presenter.senses.first.nil? %>
+        <div class="quotations-header-options"><span class="quotations-header-options-text">Quotations:</span> <a href="#" onClick="function show_quotes(){ $( 'tr.quotes' ).show();   } show_quotes(); return false;">Show All</a> <a href="#" onClick="function hide_quotes(){ $( 'tr.quotes' ).hide();  } hide_quotes(); return false;">Hide All</a></div>
+      <% end %>
+
     </div>
   </div>
 
@@ -34,7 +38,9 @@
   </div>
 
   <%# Get get senses plus their quotes and display %>
-  <h3 class="entry-senses-title">Senses and Subsenses</h3>
+  <% unless doc_presenter.senses.first.nil? %>
+    <h3 class="entry-senses-title">Senses and Subsenses</h3>
+  <% end %>
 
   <div class="table-responsive entry-senses">
     <table class="table">
@@ -105,7 +111,7 @@
             <% notes = sup.notes %>
             <% notes.each do |note| %>
               <tr>
-                <td><%== note %></td>
+                <td></td><td><%== note %></td>
               </tr>
             <% end %>
           <% end %>
