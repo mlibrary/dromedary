@@ -24,9 +24,121 @@ module Dromedary
       @entry    = MiddleEnglishDictionary::Entry.from_json(document.fetch('json'))
       @document = document
 
+      # Get the nokonode for later XSL processing
+      @nokonode = Nokogiri::XML(@document.fetch('xml'))
+
       # We can dig in and find out what type of search was done
       @search_field = view_context.search_state.params_for_search['search_field']
     end
+
+    ##### XSLT TRANSFORMS #####
+
+    def form_xslt
+      @form_xsl ||= Nokogiri::XSLT(File.read('./indexer/xslt/FormOnly.xsl'))
+    end
+
+    def def_xslt
+      @def_xslt ||= Nokogiri::XSLT(File.read('./indexer/xslt/DefOnly.xsl'))
+    end
+
+    def cit_xslt
+      @cit_xslt ||= Nokogiri::XSLT(File.read('./indexer/xslt/CitOnly.xsl'))
+      puts "IN INDEXPRESENTER @cit_xslt IS: #{@cit_xslt}"
+    end
+
+    def etym_xslt
+      @etym_xslt ||= Nokogiri::XSLT(File.read('./indexer/xslt/EtymOnly.xsl'))
+    end
+
+    def note_xslt
+      @note_xslt ||= Nokogiri::XSLT(File.read('./indexer/xslt/NoteOnly.xsl'))
+    end
+
+    def supplement_xslt
+      @supplement_xslt ||= Nokogiri::XSLT(File.read('./indexer/xslt/SupplementOnly.xsl'))
+    end
+
+    ####### Getting nokogiri nodes #####
+
+    # def entry_node
+    #   @nokonode = Nokogiri::XML(@entry_nokonode)
+    # end
+
+    # @return [Nokogiri::Node | nil] nil if there isn't a FORM section, the node otherwise
+    def form_doc
+      doc_from('/ENTRYFREE/FORM')
+    end
+
+    def doc_from(xpath)
+      node = @nokonode.xpath(xpath)
+      node = node.first
+      return nil if node.nil?
+      doc = Nokogiri::XML::Document.new
+      doc.add_child node.dup
+      doc
+    end
+
+
+    # There's only one FORM section, so just take care of it here
+    # @return [String] the transformed form
+    def form_html
+      return nil unless form_doc
+      form_xslt.apply_to(form_doc)
+    end
+
+    # There's only one ETYM section, so just take care of it here
+    # @return [String] the transformed form
+    def etym_doc
+      doc_from('/ENTRYFREE/ETYM')
+    end
+
+    def etym_html
+      return nil unless etym_doc
+      etym_xslt.apply_to(etym_doc)
+    end  
+
+    # @param [MiddleEnglishDictionary::Entry::Sense] sense The sense whose def you want
+    # @return [String] The definition transformed into HTML
+    def def_html(sense)
+      return nil unless sense.definition_xml
+      nokonode = Nokogiri::XML(sense.definition_xml)
+      def_xslt.apply_to(nokonode)
+    end
+
+    def note_html(note)
+      return nil unless note.xml
+      nokonode = Nokogiri::XML(note.xml)
+      note_xslt.apply_to(nokonode)
+    end
+
+    def cit_html(cit)
+      sten = cit.bib.stencil
+      x = sten.instance_variable_get(:@xml)
+      puts "IN CIT_HTML cit is #{cit}"
+      puts "IN CIT_HTML sten is #{sten}"
+      puts "IN CIT_HTML sten.xml is #{x}"
+      return nil unless x
+      # nokonode = Nokogiri::XML(x)
+      cit_doc = doc_from(x)
+      puts "IN CIT_HTML cit_doc is #{cit_doc}"
+      cit_doc
+
+      # html = cit_xslt.apply_to(nokonode)
+      # puts "IN CIT_HTML html is #{html}"
+      # html
+    end
+
+    def supplement_node(supplement)
+      Nokogiri::XML(supplement.xml)
+    end
+
+    def supplement_html(supplement)
+      return nil unless supplement.xml
+      nokonode = Nokogiri::XML(supplement.xml)
+      supplement_xslt.apply_to(nokonode)
+    end
+
+    ####### Ealier Methods #####
 
     # @return [String] The cleaned-up POS abbreviation (e.g., "n" or "v")
     def part_of_speech_abbrev
