@@ -1,0 +1,81 @@
+<%# We pass in
+        * the sense,
+        * its index in the senses array (zero-based),
+        * and the document presenter (for access to the #*_html methods).
+
+
+      A sense has
+        * a sense-number
+        * a definition
+        * zero or more EGs (citations/quotations)
+        * a javascript mechanism for hiding/expanding the egs
+%>
+
+
+
+<style>
+
+  .collapsed {
+    display: none;
+  }
+
+  .sense-number {
+    width: 2.4em;
+    float: left;
+    border: 1pt solid red;
+  }
+
+  .definition {
+    border: 1pt solid green;
+    margin-left: 2.5em;
+  }
+
+  .quote-toggles {
+    float: right;
+    position: bottom;
+    border: 1pt solid blue;
+  }
+
+  .sense {
+    padding-bottom: 2em;
+  }
+
+</style>
+
+
+<%
+  num_citations = sense.egs.flat_map(&:quotes).size
+  uid = [sense.sense_number.to_s, index, 'toggle'].join('-')
+%>
+
+<div class="sense">
+
+
+  <div>
+    <div class="sense-number"><%= sense.sense_number %></div>
+    <div class="definition"><%== presenter.def_html(sense) %>
+
+    <span class="quote-toggles">
+      <a class="quote-toggle <%= uid %>" href="#" onClick="$('.<%= uid%>').toggle(); return false">Show&nbsp;<%= num_citations %>&nbsp;<%= "Quote".pluralize(num_citations) %></a>
+      <a class="quote-toggle  <%= uid %> collapsed" href="#" onClick="$('.<%= uid%>').toggle(); return false">Hide&nbsp;<%= num_citations %>&nbsp;<%= "Quote".pluralize(num_citations) %></a>
+    </span>
+    </div>
+  </div>
+
+  <div class="egs">
+    <% sense.egs.each do |eg| %>
+      <div class="eg collapsed <%= uid %>">
+        <div class="subdef-entry-number"><%= eg.subdef_entry %></div>
+        <div class="citations">
+          <ul>
+            <% eg.citations.each do |cite| %>
+              <li><%== presenter.citation_html(cite) %></li>
+            <% end %>
+          </ul>
+        </div>
+
+      </div>
+    <% end %>
+  </div>
+
+</div>

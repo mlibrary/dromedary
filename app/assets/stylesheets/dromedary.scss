@@ -17,11 +17,17 @@
   .entry-heading {
     .entry-headword {
       float: left; font-weight: bold;
+
+      .entry-pos {
+       font-weight: normal;
+       font-style: italic;
+      }
     }
 
-    .quotations-header-options {
+      .quotations-header-options {
         float: right;
-    }
+      }
+
   }
 
   // Several entry page titles
@@ -43,6 +49,11 @@
     font-style: italic;
   }
 
+}
+
+.entry-info {
+    .HDORTH { font-weight: bold }
+    .ORTH { font-style: italic}
 }
 
 // TWO LEVEL MENUS
@@ -87,7 +98,7 @@
     text-align: center;
     text-decoration: underline;
     font-weight: bold;*/
-    
+
 }
 
 .skip-filter-link:focus, .skip_filter_link:active {
@@ -181,7 +192,7 @@
   .para {
     font-size: 20px;
     line-height: 1.6;
-    color: #333333;  
+    color: #333333;
   }
 
   p.help-block {
@@ -244,7 +255,7 @@ body.blacklight-static,
 body.blacklight-contacts-new,
 body.blacklight-contacts-create {
   background-color: #f2f2f2;
-  color: #6e6e6e;    
+  color: #6e6e6e;
   line-height: 1.6;
 
   > .container {
