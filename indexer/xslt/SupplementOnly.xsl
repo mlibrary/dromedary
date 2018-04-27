@@ -3,12 +3,12 @@
     <xsl:import href="./indexer/xslt/Common.xsl"/>
     <xsl:output method="html" indent="yes"/>
 
-    <xsl:template match="/SUPPLEMENT | supplememt">
+    <xsl:template match="/SUPPLEMENT | /supplement">
         <div class="SUPPLEMENT">
             <xsl:for-each select="EG">
                 <xsl:apply-templates/>
             </xsl:for-each>
-            <xsl:apply-templates select="/SUPPLEMENT | supplememt/NOTE"/>
+            <xsl:apply-templates select="/SUPPLEMENT/NOTE | /supplememt/NOTE"/>
         </div>
     </xsl:template>
 
