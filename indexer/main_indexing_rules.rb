@@ -1,5 +1,3 @@
-
-
 $LOAD_PATH.unshift Pathname.new(__dir__).to_s
 $LOAD_PATH.unshift (Pathname.new(__dir__).parent + 'lib').to_s
 require 'annoying_utilities'
@@ -19,7 +17,7 @@ end
 # Do a terrible disservice to traject and monkeypatch it to take
 # our existing logger
 
-Traject::Indexer.send(:define_method, :logger, ->() {AnnoyingUtilities.logger })
+Traject::Indexer.send(:define_method, :logger, ->() {AnnoyingUtilities.logger})
 
 
 def entry_method(name)
@@ -77,6 +75,14 @@ to_field('doe_norm') do |entry, acc|
   acc << entry.doelinks.normalized_term if entry.doelinks
 end
 
+# Citations
+
+to_field('citation_text') do |entry, acc|
+  entry.all_citations.each do |c|
+    acc << c.text
+  end
+end
+
 # Quotes
 to_field('quote_text') do |entry, acc|
   acc.replace entry.all_quotes.map(&:text)
@@ -96,6 +102,13 @@ to_field('cd') do |entry, acc|
   acc.replace entry.all_citations.flat_map(&:cd).uniq.compact
 end
 
+to_field('min_md') do |entry, acc|
+  acc << entry.all_citations.flat_map(&:md).compact.min
+end
+
+to_field('min_cd') do |entry, acc|
+  acc << entry.all_citations.flat_map(&:cd).compact.min
+end
 
 # Notes
 to_field 'notes', entry_method(:notes)

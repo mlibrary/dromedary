@@ -211,14 +211,22 @@
   <!-- Notes -->
   <field name="notes" type="text" indexed="true" stored="true" multiValued="true"/>
 
+  <!-- Full citation text, including quotes, but not in me_text -->
+
+  <field name="citation_text" type="text" indexed="true" stored="true" multiValued="true"/>
+
   <!-- Quotes -->
   <field name="quote_text"  type="me_text" indexed="true" stored="true" multiValued="true"/>
   <field name="quote_title" type="me_text" indexed="true" stored="true" multiValued="true"/>
   <field name="quote_manuscript" type="text" indexed="true" stored="true" multiValued="true"/>
   <field name="quote_date" type="string" indexed="false" stored="true" multiValued="true"/>
   <field name="rid" type="string" indexed="true" stored="true" multiValued="true"/>
+
+  <!--Dates-->
   <field name="md" type="int" indexed="true" stored="true" multiValued="true"/>
   <field name="cd" type="int" indexed="true" stored="true" multiValued="true"/>
+  <field name="min_md" type="int" indexed="true" stored="true" multiValued="true"/>
+  <field name="min_cd" type="int" indexed="true" stored="true" multiValued="true"/>
 
 
   <!-- Usage -->

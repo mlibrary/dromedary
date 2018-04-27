@@ -41,6 +41,20 @@ module MedInstaller
 
         puts $?.exitstatus
 
+
+        logger.info "Completed indexing. Sending commit and rebuilding autocompletes (long!)"
+
+        core = AnnoyingUtilities.solr_core
+
+        # Commit with index building can take a looooong time. Set the timeout to 100seconds
+        core.rawclient.receive_timeout = 200_000 # 200 seconds
+        core.commit
+
+        logger.info "Optimizing solr index. Even longer!"
+        core.optimize
+
+        logger.info "Process complete"
+
       end
     end
 
