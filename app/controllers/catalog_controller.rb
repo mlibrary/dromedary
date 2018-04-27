@@ -194,55 +194,71 @@ class CatalogController < ApplicationController
 
     config.add_search_field("hnf", label: "Headwords and Forms") do |field|
       field.qt                    = "/search"
+      field.solr_parameters       = {:fq => 'type:entry'}
       field.solr_local_parameters = {
         qf: '$headword_and_forms_qf',
-        pf: '$headword_and_forms_pf'
+        pf: '$headword_and_forms_pf',
       }
     end
 
     # Just the headwords
     config.add_search_field("h", label: "Headwords only") do |field|
-      field.qt = '/search'
+      field.qt                    = '/search'
+      field.solr_parameters       = {:fq => 'type:entry'}
       field.solr_local_parameters = {
         qf: '$headword_only_qf',
-        pf: '$headword_only_pf'
+        pf: '$headword_only_pf',
       }
     end
 
     # Anywhere
     config.add_search_field("anywhere", label: "Anywhere") do |field|
-      field.qt = '/search'
+      field.qt                    = '/search'
+      field.solr_parameters       = {:fq => 'type:entry'}
       field.solr_local_parameters = {
-          qf: '$everything_qf',
-          pf: '$everything_pf'
+        qf: '$everything_qf',
+        pf: '$everything_pf',
       }
     end
 
     # OED Modern English equivalent(ish)
     config.add_search_field("oed", label: "Modern English") do |field|
-      field.qt = '/search'
+      field.qt                    = '/search'
+      field.solr_parameters       = {:fq => 'type:entry'}
       field.solr_local_parameters = {
         qf: 'oed_norm',
-        pf: 'oed_norm'
+        pf: 'oed_norm',
       }
     end
 
     # Etymology (why???)
     config.add_search_field('etyma', label: "Etymology") do |field|
-      field.qt = '/search',
+      field.qt                    = '/search'
+      field.solr_parameters       = {:fq => 'type:entry'}
       field.solr_local_parameters = {
-          qf: "etyma_text",
-          pf: "etyma_text"
+        qf: "etyma_text",
+        pf: "etyma_text",
       }
     end
 
     # Notes and definition (all the modern english, basically)
     config.add_search_field('notes_and_def', label: "Definition and Notes") do |field|
-      field.qt = '/search',
-          field.solr_local_parameters = {
-              qf: "definition_text^50 notes",
-              pf: "definition_text^50 notes"
-          }
+      field.qt                    = '/search'
+      field.solr_parameters       = {:fq => 'type:entry'}
+      field.solr_local_parameters = {
+        qf: "definition_text^50 notes",
+        pf: "definition_text^50 notes",
+      }
+    end
+
+    # Citation search
+    config.add_search_field("citation", label: "Citations") do |field|
+      field.qt                    = '/search'
+      field.solr_parameters       = {:fq => 'type:entry'}
+      field.solr_local_parameters = {
+        qf: '$citation_qf',
+        pf: '$citation_pf'
+      }
     end
 
     # Now we see how to over-ride Solr request handler defaults, in this

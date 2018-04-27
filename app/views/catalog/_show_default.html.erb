@@ -4,123 +4,171 @@
 
 <%# default partial to display solr document fields in catalog show view -%>
 <div class="entry-panel">
-  
+
   <%# Display Heading for MED Entry %>
   <h2 class="entry-main-title">Middle English Dictionary Entry</h2>
 
   <%# Get headword and display it with quotes hide/show %>
   <div class="entry-heading">
     <div class="entry-container">
-      <div class="entry-headword"><%= ent.original_headwords.first %>&nbsp;(<span class="entry-pos"><%= ent.pos %>)</span></div>
+      <div class="entry-headword">
+        <%= ent.original_headwords.join(", ") %>&nbsp;<span class="entry-pos"><%= ent.pos %></span>
+      </div>
 
-      <% unless doc_presenter.senses.first.nil? %>
-        <div class="quotations-header-options"><span class="quotations-header-options-text">Quotations:</span> <a href="#" onClick="function show_quotes(){ $( 'tr.quotes' ).show();   } show_quotes(); return false;">Show All</a> <a href="#" onClick="function hide_quotes(){ $( 'tr.quotes' ).hide();  } hide_quotes(); return false;">Hide All</a></div>
+      <% if doc_presenter.senses.size > 0 %>
+        <div class="quotations-header-options">
+          <span class="quotations-header-options-text">Quotations:</span>
+            <a class="show-all-button" href="#" onClick="$('.eg').show(); return false;">Show all</a>
+            <a class="hide-all-button" href="#" onClick="$('.eg').hide();return false">Hide
+            all</a>
+        </div>
       <% end %>
-
     </div>
   </div>
 
-  <%# Get get forms and etymology and display %>
+  <%# Get forms and etymology and display %>
   <div>
-      <h3 class="entry-intro-title">Entry Info</h3>
+    <h3 class="entry-intro-title">Entry Info</h3>
   </div>
 
   <div class="table-responsive entry-info">
     <table class="table table-striped">
-      <tr><td class="forms-title">Forms</td><td class="forms-list">
-        <%# binding.pry %>
-        <%# ent.all_forms.each_with_index do |(k, v)|  %><%#= k %><%#= "," if k != ent.all_forms.last %><%# end %>
+      <tr>
+        <td class="forms-title">Forms</td>
+        <td>
           <%== doc_presenter.form_html %>
-        </td></tr>
-      <tr><td class="etymology-title">Etymology</td><td class="etymology-list">
-          <%# etym_xml = Nokogiri::XML(ent.etym_xml) %>
-          <%# etym_xslt = Nokogiri::XSLT(File.read('./indexer/xslt/EtymOnly.xsl'))%>
-          <%# current_etym = etym_xslt.apply_to(etym_xml) %>
+        </td>
+      </tr>
+      <tr>
+        <td class="etymology-title">Etymology</td>
+        <td class="etymology-list">
           <%== doc_presenter.etym_html %>
-      </td></tr>
+        </td>
+      </tr>
     </table>
   </div>
+
+
+  <!--
+  If we have senses
+    display the heading
+    foreach sense
+      show the definition
+      if we have egs
+        show the collapse/expand link
+        foreach eg
+          display the eg subsense tag (if any)
+          foreach cite
+            display the cite
+
+  One partial for the sense
+    ...with one for an eg
+    ...with one for a cite
+    
+  -->
 
   <%# Get get senses plus their quotes and display %>
-  <% unless doc_presenter.senses.first.nil? %>
-    <h3 class="entry-senses-title">Senses and Subsenses</h3>
+  <% unless doc_presenter.senses.size == 0 %>
+    <div class="senses">
+      <div class="entry-senses-title">Senses and Subsenses</div>
+
+      <% doc_presenter.senses.each_with_index do |sense, index| %>
+          <%= render "catalog/show_entry/sense.html.erb", sense: sense, index: index, presenter: doc_presenter %>
+      <% end %>
+    </div>
+
   <% end %>
 
+
+
+
+
+  <%
+=begin
+ %>
   <div class="table-responsive entry-senses">
     <table class="table">
-        <% doc_presenter.senses.each do |sen|  %>
-            <tr>
-                <td class="senses-index"><%= sen.sense_number.to_s %></td>
-                	<td class="senses-defintion">
-                    <%== doc_presenter.def_html(sen) %>
+      <% doc_presenter.senses.each do |sen| %>
+        <tr>
+          <td class="senses-index"><%= sen.sense_number.to_s %></td>
+          <td class="senses-defintion">
+            <%== doc_presenter.def_html(sen) %>
+          </td>
+          <td class="quotes-control">
+
+            <% jq_sense = "tr.sense_id_" + sen.sense_number.to_s %>
+            <% jq_show_class = "show_" + sen.sense_number.to_s %>
+            <% jq_hide_class = "hide_" + sen.sense_number.to_s %>
+
+            <% quotes, quote_count = med_quotes_help(sen, doc_presenter) %>
+
+
+            <% if !quotes.empty? && quote_count > 0 %>
+              <% quote_show_string = (quote_count == 1) ? "Show Quote" : "Show #{quote_count} " + "Quote".pluralize(quote_count) %>
+
+              <div class="<%= jq_show_class %>">
+                <a href="#" onClick='function show_def_quotes(){ $( "<%= jq_sense %>" ).show(); $(".<%= jq_hide_class %>").show(); $(".<%= jq_show_class %>").hide();
+                    } show_def_quotes(); return false;'><span class="show-hide-label"><%== quote_show_string %></span></a>
+              </div>
+
+              <div class="<%= jq_hide_class %>" style="display:none;">
+                <a href="#" onClick='function hide_def_quotes(){ $("<%= jq_sense %>").hide(); $(".<%= jq_hide_class %>").hide(); $(".<%= jq_show_class %>").show(); } hide_def_quotes(); return false'><span class="show-hide-label"><%== "Hide " + "Quote".pluralize(quote_count) %></span></a>
+              </div>
+            <% end %>
+          </td>
+        </tr>
+
+        <%# class quotes can be used to hide/show all quotes; class q_id_n does the same for individual definition's quotes %>
+        <% if !quotes.empty? && quote_count > 0 %>
+          <% last_subdef_index_index = "" %>
+          <% quotes.each do |subdef_index, q_arr| %>
+            <% q_arr.each do |q| %>
+              <tr class="quotes sense_id_<%= sen.sense_number.to_s %>">
+
+                <td>
+                  <% if subdef_index != last_subdef_index_index %>
+                    <% last_subdef_index_index = subdef_index %>
+                    <span class="subdef-index"><%== subdef_index %>
+                  <% end %>
                 </td>
-                <td  class="quotes-control">
 
-                  <% jq_sense = "tr.sense_id_" + sen.sense_number.to_s  %>
-                  <% jq_show_class = "show_" + sen.sense_number.to_s  %>
-                  <% jq_hide_class = "hide_" + sen.sense_number.to_s  %>
+                <td><%== q %></td>
 
-                  <% quotes, quote_count = med_quotes_help(sen, doc_presenter) %>
-
-
-                  <% if !quotes.empty? && quote_count > 0 %>
-                    <% quote_show_string = (quote_count == 1) ?  "Show Quote" : "Show #{quote_count} " + "Quote".pluralize(quote_count) %>
-
-                    <div class="<%= jq_show_class %>"><a href="#" onClick='function show_def_quotes(){ $( "<%= jq_sense %>" ).show(); $(".<%= jq_hide_class %>").show(); $(".<%= jq_show_class %>").hide(); 
-                       } show_def_quotes(); return false;'><span class="show-hide-label"><%== quote_show_string %></span></a></div>
-
-                    <div class="<%= jq_hide_class %>" style="display:none;"><a href="#" onClick='function hide_def_quotes(){ $("<%= jq_sense %>").hide(); $(".<%= jq_hide_class %>").hide(); $(".<%= jq_show_class %>").show(); } hide_def_quotes(); return false'><span class="show-hide-label"><%== "Hide " + "Quote".pluralize(quote_count) %></span></a>
-                    </div>
-                  <% end %>
-                  </td>
               </tr>
+            <% end %>
+          <% end %>
+        <% end %>
 
-              <%# class quotes can be used to hide/show all quotes; class q_id_n does the same for individual definition's quotes %>
-                <% if !quotes.empty? && quote_count > 0 %>
-                <% last_subdef_index_index = "" %>
-                <% quotes.each do |subdef_index, q_arr| %>
-                  <% q_arr.each do |q| %>
-                    <tr  class="quotes sense_id_<%= sen.sense_number.to_s %>">
-
-                    <td>
-                      <% if subdef_index != last_subdef_index_index %>
-                        <% last_subdef_index_index = subdef_index %>
-                        <span class="subdef-index"><%== subdef_index %>
-                      <% end %>
-                    </td>
-
-                    <td><%== q %></td >
-
-                  </tr>
-                  <% end %>
-                <% end %>
-              <% end %>
-
-        	<% end %>
+      <% end %>
     </table>
   </div>
+  <%
+=end
+  %>
+
+
 
   <%# Get supplement and display %>
   <% show_sups = true %>
   <% sups = ent.supplements %>
-  <% show_sups = ! (sups.nil? || sups.empty?) %>
+  <% show_sups = !(sups.nil? || sups.empty?) %>
 
-  <%# binding.pry %>
 
   <% if show_sups %>
     <h3 class="entry-supplemental-title">Supplemental Materials (draft)</h3>
     <div class="table-responsive entry-supplement">
       <table class="table">
-          <% sups.each do |sup|  %>
-            <%# notes = sup.notes %>
-            <%# notes.each do |note| %>
-              <tr>
-                <td></td><td><%== doc_presenter.supplement_html(sup) %></td>
-              </tr>
-            <%# end %>
-          <% end %>
+        <% sups.each do |sup| %>
+          <%# notes = sup.notes %>
+          <%# notes.each do |note| %>
+          <tr>
+            <td></td>
+            <td><%== doc_presenter.supplement_html(sup) %></td>
+          </tr>
+          <%# end %>
+        <% end %>
       </table>
     </div>
   <% end %>
 
-</div>
+  </div>

@@ -20,7 +20,7 @@
           </span>
         <% end %>
         <%= link_to_document document, doc_presenter.highlighted_official_headword, counter: counter %>
-        (<%== doc_presenter.part_of_speech_abbrev %>)
+        <span class="POS"><%== doc_presenter.part_of_speech_abbrev %></span>
       </h3>
 
       <div class="search-result def">
@@ -38,14 +38,14 @@
             <tr>
               <% sense = doc_presenter.senses.first %>
               <% unless sense.nil? %>
-              <% def_xml = Nokogiri::XML(sense.definition_xml) %>
-              <% def_xslt = Nokogiri::XSLT(File.read('./indexer/xslt/DefOnly.xsl'))%>
-              <% current_def =  def_xslt.apply_to(def_xml)[0..200] %>
-              <!-- FYI: "\u2026" is an ellipsis -->
-              <td class="index-definition-tag">Sense (Definition)</td>
-              <td class="index-definition"><%== current_def %><span class="ellipsis-link"><%= link_to "\u2026", document %></span></td>
+                <% cdef = doc_presenter.def_html(sense)[0..300] %>
+                <!-- FYI: "\u2026" is an ellipsis -->
+                <td class="index-definition-tag">Sense (Definition)</td>
+                <td class="index-definition"><%== cdef %>
+                  <span class="ellipsis-link"><a href="<%= url_for document%>">&hellip;</a></span></td>
               <% else %>
-                <td></td><td class="missing-def">No definition available</td>
+                <td></td>
+                <td class="missing-def">No definition available</td>
               <% end %>
             </tr>
           </table>
