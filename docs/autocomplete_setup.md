@@ -48,7 +48,7 @@ dropdown to control which configuration is used.
 
 
 
-## autocomplete.js
+## autocomplete.js.erb
 
 **tl;dr**
 
@@ -62,7 +62,7 @@ In the javascript, we count on the input box having a data attribute called
 `autocomplete-config` that holds the name of the configuration name
 in the blacklight config we just made above.
 
-`autocomplete.js` has been altered to send the value of this
+`autocomplete.js.erb` has been altered to send the value of this
 data element along in the call to the blacklight application as `autocomplete_config`.
 
 It is also set up to allow the autocomplete target to change based on the 
