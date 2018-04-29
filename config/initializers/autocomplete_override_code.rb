@@ -30,11 +30,12 @@ module Dromedary
       # suggestions will send along our configuration instead of just
       # the autocomplete_path
       def suggestions
+        # If we haven't registered an autocomplete, just return the empty set
+        return []  if @autocomplete_config.nil?
         Dromedary::Suggest::Response.new suggest_results, request_params, autocomplete_config
       end
 
       # Need to send along the configured path
-
       def suggest_handler_path
         @autocomplete_config[:solr_endpoint]
       end
