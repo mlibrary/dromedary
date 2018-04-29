@@ -1,25 +1,37 @@
 /*global Bloodhound */
 
+// See docs at https://github.com/twitter/typeahead.js
+
 BlacklightAutoComplete = function () {
 
+    var autocomplete_config =
+    <%= CatalogController.blacklight_config.autocomplete.to_json %>
     var blacklight_autocomplete = function () {
         var $el = $(this);
-        if ($el.hasClass('tt-hint')) {
-            return;
-        }
         var suggestUrl = $el.data('autocomplete-path');
-        var autocomplete_config = $el.data('autocomplete-config');
+        var autocomplete_config_key = $el.data('autocomplete-config');
 
-        var terms = new Bloodhound({
-            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-            queryTokenizer: Bloodhound.tokenizers.whitespace,
-            remote: {
-                url: suggestUrl + '?autocomplete_config=' + autocomplete_config + '&q=%QUERY',
-                wildcard: '%QUERY'
-            }
-        });
+        var terms
+        if (autocomplete_config[autocomplete_config_key]) {
+            terms = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: suggestUrl + '?autocomplete_config=' + autocomplete_config_key + '&q=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+        } else {
+            // Just use somethign that won't do anything
+            terms = new Bloodhound({
+                local: [],
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+            });
 
-        terms.initialize(true); // true means "reinitialixe every time" ???
+        }
+
+        terms.initialize(true); // true means "reinitialize every time" ???
 
         $el.typeahead('destroy');
 
@@ -48,7 +60,18 @@ BlacklightAutoComplete = function () {
             controller.change(
                 function () {
                     var me = $(this);
-                    el.data('autocomplete-config', me.val());
+                    var search_type = me.val();
+                    if (autocomplete_config[search_type] == null) {
+                        console.log("Disabling autocomplete for " + search_type)
+                        el.data('autocomplete-enabled', false);
+                        el.autocomplete = 'off'
+                        el.data('autocomplete-config', 'disabled');
+                    } else {
+                        console.log("Enabling autocomplete for " + search_type)
+                        el.data('autocomplete-enabled', true);
+                        el.data('autocomplete-config', search_type);
+                        el.autocomplete = 'on';
+                    }
                     $.each([el], blacklight_autocomplete);
                 });
         }
