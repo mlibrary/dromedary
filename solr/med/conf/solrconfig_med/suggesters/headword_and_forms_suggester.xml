@@ -7,7 +7,7 @@
     <str name="buildOnCommit">true</str>
     <str name="field">word_suggestions</str>
     <str name="exactMatchFirst">true</str>
-    <str name="buildOnStartup">true</str>
+    <str name="buildOnStartup">false</str>
     <str name="minPrefixChars">2</str>
     <str name="dictionaryImpl">DocumentDictionaryFactory</str>
     <str name="buildOnCommit">true</str>
