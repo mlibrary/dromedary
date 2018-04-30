@@ -6,7 +6,10 @@
         <!ENTITY headword_only_search   SYSTEM "solrconfig_med/headword_only_search.xml">
         <!ENTITY headword_and_forms_search   SYSTEM "solrconfig_med/headword_and_forms_search.xml">
         <!ENTITY everything_search   SYSTEM "solrconfig_med/everything_search.xml">
+        <!ENTITY citation_search SYSTEM "solrconfig_med/citation_search.xml">
+
         <!ENTITY highlighting_defaults   SYSTEM "solrconfig_med/highlighting.xml">
+
         <!ENTITY headword_only_suggester SYSTEM "solrconfig_med/suggesters/headword_only_suggester.xml">
         <!ENTITY headword_and_forms_suggester SYSTEM "solrconfig_med/suggesters/headword_and_forms_suggester.xml">
         <!ENTITY oed_suggester SYSTEM "solrconfig_med/suggesters/oed_suggester.xml">
@@ -53,6 +56,7 @@
       &headword_only_search;
       &everything_search;
       &highlighting_defaults;
+      &citation_search;
 
 
 
