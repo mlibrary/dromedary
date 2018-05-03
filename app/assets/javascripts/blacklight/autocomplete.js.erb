@@ -11,6 +11,8 @@ BlacklightAutoComplete = function () {
         var suggestUrl = $el.data('autocomplete-path');
         var autocomplete_config_key = $el.data('autocomplete-config');
 
+        var minimumCharacters = 2; // default
+
         var terms
         if (autocomplete_config[autocomplete_config_key]) {
             terms = new Bloodhound({
@@ -21,6 +23,7 @@ BlacklightAutoComplete = function () {
                     wildcard: '%QUERY'
                 }
             });
+            minimumCharacters = 2;
         } else {
             // Just use somethign that won't do anything
             terms = new Bloodhound({
@@ -28,6 +31,7 @@ BlacklightAutoComplete = function () {
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
                 datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
             });
+            minimumCharacters = 1000 // never do it
 
         }
 
@@ -38,7 +42,7 @@ BlacklightAutoComplete = function () {
         $el.typeahead({
                 hint: true,
                 highlight: true,
-                minLength: 2
+                minLength: minimumCharacters
             },
             {
                 name: 'terms',
@@ -62,12 +66,10 @@ BlacklightAutoComplete = function () {
                     var me = $(this);
                     var search_type = me.val();
                     if (autocomplete_config[search_type] == null) {
-                        console.log("Disabling autocomplete for " + search_type)
                         el.data('autocomplete-enabled', false);
                         el.autocomplete = 'off'
                         el.data('autocomplete-config', 'disabled');
                     } else {
-                        console.log("Enabling autocomplete for " + search_type)
                         el.data('autocomplete-enabled', true);
                         el.data('autocomplete-config', search_type);
                         el.autocomplete = 'on';
