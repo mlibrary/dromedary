@@ -27,6 +27,10 @@ gem 'concurrent-ruby'
 gem 'rubyzip'
 gem 'nokogiri'
 
+
+# For truncating html safely (making sure tags are balanced, etc.)
+gem "html_truncator", "~>0.2"
+
 # For solr indexing
 gem 'simple_solr_client', require: false
 gem 'traject', require: false

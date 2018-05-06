@@ -33,22 +33,16 @@
         </div>
 
 
-        <div class="table-responsive entry-entire">
-          <table class="entry-single table">
-            <tr>
-              <% sense = doc_presenter.senses.first %>
-              <% unless sense.nil? %>
-                <% cdef = doc_presenter.def_html(sense)[0..300] %>
-                <!-- FYI: "\u2026" is an ellipsis -->
-                <td class="index-definition-tag">Sense (Definition)</td>
-                <td class="index-definition"><%== cdef %>
-                  <span class="ellipsis-link"><a href="<%= url_for document%>">&hellip;</a></span></td>
-              <% else %>
-                <td></td>
-                <td class="missing-def">No definition available</td>
-              <% end %>
-            </tr>
-          </table>
+        <div class="definition-block">
+          <% sense = doc_presenter.senses.first %>
+          <% unless sense.nil? %>
+            <%# Trim it down to 300 chars, to the nearest space-break %>
+            <% cdef = HTML::Truncate(doc_presenter.def_html, 200, length_in_chars: true, ellipses: '<a>...</a>') %>
+            <div class="def-header">Sense / Definition</div>
+            <div class="definition"><%== cdef %></div>
+          <% else %>
+            <div class="definition no-definition">No definition available</div>
+          <% end %>
         </div>
       </div>
     </div>
