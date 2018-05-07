@@ -29,7 +29,7 @@
         <% end %>
 
         <div class="index-quotes-line">
-          <%= "#{doc_presenter.quote_count} quotation".pluralize(doc_presenter.quote_count) + " across #{doc_presenter.senses.count}" + " sense".pluralize(doc_presenter.senses.count) %>
+          <%= "#{doc_presenter.quote_count} quotation".pluralize(doc_presenter.quote_count) + " on #{doc_presenter.senses.count}" + " sense".pluralize(doc_presenter.senses.count) %>
         </div>
 
 
@@ -37,9 +37,9 @@
           <% sense = doc_presenter.senses.first %>
           <% unless sense.nil? %>
             <%# Trim it down to 300 chars, to the nearest space-break %>
-            <% cdef = HTML::Truncate(doc_presenter.def_html, 200, length_in_chars: true, ellipses: '<a>...</a>') %>
+            <% cdef = doc_presenter.def_html(sense).truncate(200) %>
             <div class="def-header">Sense / Definition</div>
-            <div class="definition"><%== cdef %></div>
+            <div class="definition"><%== cdef %><%= link_to("\u2026", document) %></div>
           <% else %>
             <div class="definition no-definition">No definition available</div>
           <% end %>
