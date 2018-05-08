@@ -20,6 +20,8 @@ gem 'middle_english_dictionary', '=1.2.0'
 gem 'rails', '~> 5.1.4'
 gem 'blacklight', "~> 6.1"
 
+# separate config from code
+gem "ettin"
 
 # For bin/dromedary
 gem 'hanami-cli'
@@ -62,8 +64,10 @@ group :development, :test do
 
 end
 
-# Use Puma as the app server
-gem 'puma', '~> 3.7'
+# The application server is provided in production
+group :development, :test do
+  gem 'puma', '~> 3.7'
+end
 
 # Coverage and style
 group :development, :test do

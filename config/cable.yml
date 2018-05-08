@@ -4,7 +4,9 @@ development:
 test:
   adapter: async
 
+# See database.yml for explanation of the lonely operator here.
+# We could also just provide dummy values in ettin.
 production:
-  adapter: redis
-  url: redis://localhost:6379/1
-  channel_prefix: middle_english_dictionary_production
+  adapter: <%= MiddleEnglishDictionary.config.cable.adapter %>
+  url: <%= MiddleEnglishDictionary.config.cable&.url %>
+  channel_prefix: <%= MiddleEnglishDictionary.config.cable&.channel_prefix %>

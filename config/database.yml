@@ -20,6 +20,17 @@ test:
   <<: *default
   database: db/test.sqlite3
 
+# We read the production config from ettin. We use a url for convenience.
+# We use a guard clause (you could also use the lonely operator &.) to
+# avoid calling chained methods on nil. This isn't necessary in production,
+# but it is necessary in other environments because the production config
+# won't be available. However, ERB parses the entire file anyway, and it
+# will try to resolve those references regardless of whether or not they're
+# being thrown away. Another workaround for this is to ensure that there are
+# sensible defaults defined in settings.yml, which is what we've done for stuff
+# like cable.yml.
 production:
-  <<: *default
-  database: db/production.sqlite3
+  url: <%= Rails.env.production? ? MiddleEnglishDictionary.config.db.url : "" %>
+  # Note that we still have to make sure MiddleEnglishDictionary.config.db.url
+  # is defined in production.
+
