@@ -10,10 +10,6 @@
 # jetty_path is only required for rake tasks that need to know
 # how to start up solr, generally for automated testing.
 
-# We could also defer to the configuration for the development and test environments.
-# The recommendation is that one not use role-aware application-side configuration
-# files at all, except where forced to by one's frameworks (e.g. database.yml).
-# See project_template/config/env-aware.yml for more info.
 development:
   adapter: solr
   url: <%= ENV['SOLR_URL'] || "http://127.0.0.1:9639/solr/med" %>

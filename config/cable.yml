@@ -4,8 +4,6 @@ development:
 test:
   adapter: async
 
-# See database.yml for explanation of the lonely operator here.
-# We could also just provide dummy values in ettin.
 production:
   adapter: <%= MiddleEnglishDictionary.config.cable.adapter %>
   url: <%= MiddleEnglishDictionary.config.cable&.url %>

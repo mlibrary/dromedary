@@ -20,7 +20,6 @@ gem 'middle_english_dictionary', '=1.2.0'
 gem 'rails', '~> 5.1.4'
 gem 'blacklight', "~> 6.1"
 
-# separate config from code
 gem "ettin"
 
 # For bin/dromedary
@@ -64,7 +63,6 @@ group :development, :test do
 
 end
 
-# The application server is provided in production
 group :development, :test do
   gem 'puma', '~> 3.7'
 end

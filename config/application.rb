@@ -9,12 +9,10 @@ Bundler.require(*Rails.groups)
 
 module MiddleEnglishDictionary
   class << self
-    # Load the ettin configs into MiddleEnglishDictionary.config
     def config
       @config ||= Ettin.for(Ettin.settings_files(Rails.root.join("config")), Rails.env)
     end
 
-    # eager load
     self.config
   end
 
