@@ -6,16 +6,23 @@ Rails.application.routes.draw do
 
   mount Blacklight::Engine => '/'
 
+  # Where should it look like it's mounted?
+  default_route = 'dictionary'
+
   # Rails doesn't allow dots in matched ids by default, because reasons.
   # Override the id matcher with an explicit constraint.
-  match 'catalog/(:id)/track' => 'catalog#show',
+  match "#{default_route}/(:id)/track" => 'catalog#show',
         :constraints => { :id => /[\p{Alnum}\-\.]+/ }, via: [:get, :post]
 
   root to: "catalog#home"
+
+  # Force to go to root ('/'), not index.html
+  get "/#{default_route}", to: redirect('/'), constraints: {query_string: ""}
   
   concern :searchable, Blacklight::Routes::Searchable.new
 
-  resource :search, only: [:index], as: 'catalog', path: '/catalog', controller: 'catalog' do
+
+  resource :search, only: [:index], as: 'catalog', path: "/#{default_route}", controller: 'catalog' do
     concerns :searchable
   end
 
@@ -23,7 +30,7 @@ Rails.application.routes.draw do
 
   concern :exportable, Blacklight::Routes::Exportable.new
 
-  resources :solr_documents, only: [:show], path: '/catalog', controller: 'catalog' do
+  resources :solr_documents, only: [:show], path: "/#{default_route}" , controller: 'catalog' do
     concerns :exportable
   end
 
