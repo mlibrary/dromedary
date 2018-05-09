@@ -14,7 +14,7 @@ module Dromedary
     end
 
     def to_s
-      xml
+      @xml
     end
 
     def truncate(n)
