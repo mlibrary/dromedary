@@ -47,7 +47,22 @@ module MedInstaller
         end
 
         core.reload
-        resp = core.get "/search", {'q'=>'*:*', 'rows'=>0,"suggest.build" => true}
+
+        # Reload all the suggester
+
+        envenv = ENV['RAILS_ENV']
+        env = if envenv.nil? or envenv.empty?
+                'development'
+              else
+                envenv
+              end
+        logger.info "Recreating suggest indexes for #{env} environment"
+        autocomplete = AnnoyingUtilities.load_config_file('autocomplete.yml')[env]
+        autocomplete.keys.each do |key|
+          suggester_path = autocomplete[key]["solr_endpoint"]
+          logger.info "   Recreate suggester for #{suggester_path}"
+          resp = core.get "/#{suggester_path}", {'suggest.build' => 'true'}
+        end
         logger.info "Core at '#{core.url}' reloaded"
 
       end
