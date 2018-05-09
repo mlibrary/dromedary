@@ -4,7 +4,23 @@ require 'json'
 require 'delegate'
 require 'middle_english_dictionary'
 
+require 'html_truncator'
+
 module Dromedary
+
+  class SmartXML
+    def initialize(xml)
+      @xml = xml
+    end
+
+    def to_s
+      xml
+    end
+
+    def truncate(n)
+      HTML_Truncator.truncate(@xml, n, length_in_chars: true)
+    end
+  end
 
   class IndexPresenter < SimpleDelegator
 
@@ -185,7 +201,8 @@ module Dromedary
     # @return [String,nil] The transfored text (usualy html), or nil if the xpath not found
     def xsl_transform_from_node(node, xslt)
       return nil if node.nil?
-      xslt.apply_to(doc_from_node(node))
+      xml = xslt.apply_to(doc_from_node(node))
+      SmartXML.new(xml)
     end
 
 

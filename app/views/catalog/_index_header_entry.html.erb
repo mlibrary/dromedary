@@ -29,26 +29,20 @@
         <% end %>
 
         <div class="index-quotes-line">
-          <%= "#{doc_presenter.quote_count} quotation".pluralize(doc_presenter.quote_count) + " in #{doc_presenter.senses.count}" + " sense".pluralize(doc_presenter.senses.count) + " definition".pluralize(doc_presenter.senses.count) %>
+          <%= "#{doc_presenter.quote_count} quotation".pluralize(doc_presenter.quote_count) + " on #{doc_presenter.senses.count}" + " sense".pluralize(doc_presenter.senses.count) %>
         </div>
 
 
-        <div class="table-responsive entry-entire">
-          <table class="entry-single table">
-            <tr>
-              <% sense = doc_presenter.senses.first %>
-              <% unless sense.nil? %>
-                <% cdef = doc_presenter.def_html(sense)[0..300] %>
-                <!-- FYI: "\u2026" is an ellipsis -->
-                <td class="index-definition-tag">Sense (Definition)</td>
-                <td class="index-definition"><%== cdef %>
-                  <span class="ellipsis-link"><a href="<%= url_for document%>">&hellip;</a></span></td>
-              <% else %>
-                <td></td>
-                <td class="missing-def">No definition available</td>
-              <% end %>
-            </tr>
-          </table>
+        <div class="definition-block">
+          <% sense = doc_presenter.senses.first %>
+          <% unless sense.nil? %>
+            <%# Trim it down to 300 chars, to the nearest space-break %>
+            <% cdef = doc_presenter.def_html(sense).truncate(200) %>
+            <div class="def-header">Sense / Definition</div>
+            <div class="definition"><%== cdef %><%= link_to("\u2026", document) %></div>
+          <% else %>
+            <div class="definition no-definition">No definition available</div>
+          <% end %>
         </div>
       </div>
     </div>

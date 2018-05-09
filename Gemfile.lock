@@ -107,6 +107,8 @@ GEM
       concurrent-ruby (~> 1.0)
       transproc (~> 1.0)
     hashie (3.5.7)
+    html_truncator (0.4.2)
+      nokogiri (~> 1.5)
     httpclient (2.8.3)
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
@@ -334,6 +336,7 @@ DEPENDENCIES
   concurrent-ruby
   factory_bot_rails (~> 4.0)
   hanami-cli
+  html_truncator (~> 0.2)
   jbuilder (~> 2.5)
   jquery-rails
   listen
