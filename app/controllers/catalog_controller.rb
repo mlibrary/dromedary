@@ -9,6 +9,8 @@ class CatalogController < ApplicationController
   include Blacklight::Catalog
   include Dromedary::Catalog
 
+  # Force the
+
 
   configure_blacklight do |config|
     ## Class for sending and receiving requests from a search index
