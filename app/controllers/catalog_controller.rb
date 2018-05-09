@@ -223,23 +223,13 @@ class CatalogController < ApplicationController
       }
     end
 
-    # OED Modern English equivalent(ish)
-    config.add_search_field("oed", label: "Modern English") do |field|
+    # Citation search
+    config.add_search_field("citation", label: "Citations") do |field|
       field.qt                    = '/search'
       field.solr_parameters       = {:fq => 'type:entry'}
       field.solr_local_parameters = {
-        qf: 'oed_norm',
-        pf: 'oed_norm',
-      }
-    end
-
-    # Etymology (why???)
-    config.add_search_field('etyma', label: "Etymology") do |field|
-      field.qt                    = '/search'
-      field.solr_parameters       = {:fq => 'type:entry'}
-      field.solr_local_parameters = {
-        qf: "etyma_text",
-        pf: "etyma_text",
+        qf: '$citation_qf',
+        pf: '$citation_pf'
       }
     end
 
@@ -253,15 +243,32 @@ class CatalogController < ApplicationController
       }
     end
 
-    # Citation search
-    config.add_search_field("citation", label: "Citations") do |field|
+    # Etymology (why???)
+    config.add_search_field('etyma', label: "Etymology") do |field|
       field.qt                    = '/search'
       field.solr_parameters       = {:fq => 'type:entry'}
       field.solr_local_parameters = {
-        qf: '$citation_qf',
-        pf: '$citation_pf'
+        qf: "etyma_text",
+        pf: "etyma_text",
       }
     end
+
+
+    # OED Modern English equivalent(ish)
+    config.add_search_field("oed", label: "Modern English") do |field|
+      field.qt                    = '/search'
+      field.solr_parameters       = {:fq => 'type:entry'}
+      field.solr_local_parameters = {
+        qf: 'oed_norm',
+        pf: 'oed_norm',
+      }
+    end
+
+
+
+
+
+
 
     # Now we see how to over-ride Solr request handler defaults, in this
     # case for a BL "search field", which is really a dismax aggregate
