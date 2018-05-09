@@ -306,33 +306,8 @@ class CatalogController < ApplicationController
     # mean") suggestion is offered.
     config.spell_max = 15
 
-    # Configuration for autocomplete suggestor
-    config.autocomplete_enabled = true
-    config.autocomplete_path    = 'headword_and_forms_suggester'
 
-    # Autocomplete setup.
-    # The format is:
-    #   search_name: {
-    #     solr_endpoint: path_to_solr_handler,
-    #     search_component_name: "mySuggester"
-    #       }
-    #
-    # The "search_name" is the name given the search in the
-    # `config.add_search_field(name, ...)` above.
-    #
-    config.autocomplete = {
-      h:   {
-        solr_endpoint:         "headword_only_suggester",
-        search_component_name: "headword_only_suggester"
-      },
-      hnf: {
-        solr_endpoint:         "headword_and_forms_suggester",
-        search_component_name: "headword_and_forms_suggester"
-      },
-      oed: {
-        solr_endpoint:         "oed_suggester",
-        search_component_name: "oed_suggester"
-      }
-    }
+    # Autocomplete on multiple fields. See config/autocomplete.yml
+    config.autocomplete = Rails.application.config_for(:autocomplete)
   end
 end
