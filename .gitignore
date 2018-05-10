@@ -29,3 +29,7 @@
 /yarn-error.log
 
 .byebug_history
+
+# Local config overrides
+/config/settings.local.yml
+/config/settings/*.local.yml

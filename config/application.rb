@@ -1,12 +1,22 @@
 require_relative 'boot'
 
 require 'rails/all'
+require "ettin"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
 module MiddleEnglishDictionary
+  class << self
+    def config
+      @config ||= Ettin.for(Ettin.settings_files("config", Rails.env))
+    end
+  end
+  self.config
+
+
+
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
