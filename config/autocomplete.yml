@@ -1,0 +1,31 @@
+# Autocomplete setup.
+# The format is:
+#   search_name:
+#     solr_endpoint: path_to_solr_handler
+#     search_component_name: mySuggester
+#
+# The search_name is the name given the search in the
+# `config.add_search_field(name, ...)` in catalog_controller
+
+
+
+default: &default
+  h:
+    solr_endpoint:         headword_only_suggester
+    search_component_name: headword_only_suggester
+  hnf:
+    solr_endpoint:         headword_and_forms_suggester
+    search_component_name: headword_and_forms_suggester
+  oed:
+    solr_endpoint:         oed_suggester
+    search_component_name: oed_suggester
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default
+
