@@ -10,11 +10,10 @@ Bundler.require(*Rails.groups)
 module MiddleEnglishDictionary
   class << self
     def config
-      @config ||= Ettin.for(Ettin.settings_files(Rails.root.join("config")), Rails.env)
+      @config ||= Ettin.for(Ettin.settings_files("config", Rails.env))
     end
-
-    self.config
   end
+  self.config
 
 
 
