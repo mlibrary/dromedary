@@ -1,5 +1,14 @@
+<%#
+    We can determine the current page with #curerent_page?, checking
+    on the name of the controller %>
+
+<%
+  is_med = 'active' if current_page?(controller: :catalog)
+  is_bib = 'active' if current_page?(controller: :bibliography)
+%>
+
 <ul class="header-nav-secondary">
-   <li><%= render partial: 'shared/nav/med' %></li>
-   <li><%= render partial: 'shared/nav/bib' %></li>
+   <li class="<%= is_med%>"><%= render partial: 'shared/nav/med' %></li>
+   <li class="<%= is_bib%>"><%= render partial: 'shared/nav/bib' %></li>
    <li><%= render partial: 'shared/nav/corpus' %></li>
 </ul>
