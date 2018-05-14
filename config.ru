@@ -2,6 +2,3 @@
 
 require_relative 'config/environment'
 
-map MiddleEnglishDictionary::Application.config.relative_url_root || "/" do
-  run Rails.application
-end
