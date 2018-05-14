@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
     get 'bibliography/show'
 
-    mount Blacklight::Engine => '/'
+    mount Blacklight::Engine => MiddleEnglishDictionary.config.relative_url_root
 
     # Rails doesn't allow dots in matched ids by default, because reasons.
     # Override the id matcher with an explicit constraint.
