@@ -32,6 +32,22 @@ module MedInstaller
       port
     end
 
+    def self.rebuild_suggesters(core, env = nil)
+      envenv = ENV['RAILS_ENV']
+      env ||= if envenv.nil? or envenv.empty?
+              'development'
+            else
+              envenv
+            end
+      logger.info "Recreating suggest indexes for #{env} environment"
+      autocomplete = AnnoyingUtilities.load_config_file('autocomplete.yml')[env]
+      autocomplete.keys.each do |key|
+        suggester_path = autocomplete[key]["solr_endpoint"]
+        logger.info "   Recreate suggester for #{suggester_path}"
+        resp = core.get "/#{suggester_path}", {'suggest.build' => 'true'}
+      end
+    end
+
 
     class Reload < Hanami::CLI::Command
       include MedInstaller::Logger
@@ -47,25 +63,20 @@ module MedInstaller
         end
 
         core.reload
-
-        # Reload all the suggester
-
-        envenv = ENV['RAILS_ENV']
-        env = if envenv.nil? or envenv.empty?
-                'development'
-              else
-                envenv
-              end
-        logger.info "Recreating suggest indexes for #{env} environment"
-        autocomplete = AnnoyingUtilities.load_config_file('autocomplete.yml')[env]
-        autocomplete.keys.each do |key|
-          suggester_path = autocomplete[key]["solr_endpoint"]
-          logger.info "   Recreate suggester for #{suggester_path}"
-          resp = core.get "/#{suggester_path}", {'suggest.build' => 'true'}
-        end
         logger.info "Core at '#{core.url}' reloaded"
 
       end
+    end
+
+    class RebuildSuggesters < Hanami::CLI::Command
+      include MedInstaller::Logger
+
+      desc "Tell solr to rebuild all the suggester indexes"
+      def call(cmd)
+        core = AnnoyingUtilities.solr_core
+        Solr.rebuild_suggesters(core)
+      end
+
     end
 
 

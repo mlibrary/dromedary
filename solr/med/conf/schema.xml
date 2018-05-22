@@ -251,9 +251,39 @@
 
 
 
-<!-- Field to use to determine and enforce document uniqueness.
-   Unless this field is marked with required="false", it will be a required field
--->
+
+<!-- ###################################################################
+     ######################## Bib stuff ################################
+     ################################################################### -->
+
+  <field name="format" type="string" stored="true" indexed="true" multiValued="false"/>
+
+
+  <!-- Author and title -->
+  <field name="author" type="me_text" stored="true" indexed="true" multiValued="false"/>
+  <field name="author_sort" type="me_text" stored="true" indexed="true" multiValued="false"/>
+  <field name="title" type="me_text" stored="true" indexed="true" multiValued="false"/>
+
+  <!-- indexes and externals -->
+  <field name="index" type="string" stored="true" indexed="true" multiValued="true"/>
+  <field name="indexb" type="string" stored="true" indexed="true" multiValued="true"/>
+  <field name="indexc" type="string" stored="true" indexed="true" multiValued="true"/>
+  <field name="ipmep" type="string" stored="true" indexed="true" multiValued="true"/>
+  <field name="jolliffe" type="string" stored="true" indexed="true" multiValued="true"/>
+  <field name="severs" type="string" stored="true" indexed="true" multiValued="true"/>
+  <field name="wells" type="string" stored="true" indexed="true" multiValued="true"/>
+
+  <field name="lalme" type="me_text" stored="true" indexed="true" multiValued="true"/>
+  <field name="lalme_expansion" type="string" stored="true" indexed="true" multiValued="true"/>
+  <copyField source="lalme_expansion" dest="lalme"/>
+
+  <field name="manuscript_title" type="me_text" stored="true" indexed="true" multiValued="true"/>
+  <field name="manuscript_keyword" type="me_text" stored="true" indexed="true" multiValued="true"/>
+
+
+  <!-- Field to use to determine and enforce document uniqueness.
+     Unless this field is marked with required="false", it will be a required field
+  -->
   <uniqueKey>id</uniqueKey>
 
 
