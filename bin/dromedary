@@ -32,6 +32,7 @@ MedInstaller::CLI.register 'convert', MedInstaller::Convert, aliases: ['json']
 # MedInstaller::CLI.register 'index', MedInstaller::Index
 
 MedInstaller::CLI.register 'index entries', MedInstaller::Index::Entries
+MedInstaller::CLI.register 'index bib', MedInstaller::Index::Bib
 
 
 MedInstaller::CLI.register 'solr install', MedInstaller::Solr::Install
@@ -39,6 +40,7 @@ MedInstaller::CLI.register 'solr link', MedInstaller::Solr::Link
 MedInstaller::CLI.register 'solr start', MedInstaller::Solr::Start, aliases: ['restart']
 MedInstaller::CLI.register 'solr stop', MedInstaller::Solr::Stop
 MedInstaller::CLI.register 'solr reload', MedInstaller::Solr::Reload
+MedInstaller::CLI.register 'solr rebuild_suggesters', MedInstaller::Solr::RebuildSuggesters
 MedInstaller::CLI.register 'solr empty', MedInstaller::Solr::Empty, aliases: ['clear']
 
 Hanami::CLI.new(MedInstaller::CLI).call
