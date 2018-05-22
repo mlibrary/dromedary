@@ -16,6 +16,9 @@ Rails.application.routes.draw do
 
   root to: "catalog#home"
 
+
+  match "bibliography/(:id)/track" => 'bibliography#show'
+
   # Force to go to root ('/'), not index.html
   get "/#{default_route}", to: redirect('/'), constraints: {query_string: ""}
   
