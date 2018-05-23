@@ -1,8 +1,8 @@
-# require 'middle_english_dictionary'
 require 'hanami/cli'
 require 'pathname'
 require 'annoying_utilities'
 require 'med_installer/logger'
+require 'med_installer/solr'
 
 
 module MedInstaller
@@ -35,35 +35,32 @@ module MedInstaller
         core
       end
 
-      def commit
-        core.commit
-      end
-
-      def optimize
-        core.optimize
+      def index(rulesfile:, datafile:, writer:)
+        system "bundle", "exec", "traject",
+               "-c", rulesfile.to_s,
+               "-c", writer.to_s,
+               "-s", "med.data_file=#{filename}",
+               "/dev/null", # traject requires a file on command line, no matter what
+               out: $stdout, err: :out
+        log.info "Traject running #{rulesfile} exited with status " +  $?.exitstatus
       end
 
       def call(filename:, debug:)
         raise "Solr at #{AnnoyingUtilities.solr_url} not up" unless AnnoyingUtilities.solr_core.up?
         writer = select_writer(debug)
         fields = indexing_rules_file
-        system "bundle", "exec", "traject",
-               "-c", fields.to_s,
-               "-c", writer.to_s,
-               "-s", "med.data_file=#{filename}",
-               "/dev/null", # traject requires a file on command line, no matter what
-               out: $stdout, err: :out
-        puts $?.exitstatus
-
-        logger.info "Completed indexing. Sending commit"
-        commit
-        logger.info "Optimizing (long!)"
-        core.optimize
-
-        logger.info "Process complete"
+        index(rulesfile: fields, datafile: filename, writer: writer)
       end
 
+      def commit
+        logger.info "Sending commit"
+        core.commit
+      end
 
+      def optimize
+        logger.info "Optimizing (long!)"
+        core.optimize
+      end
 
     end
 
@@ -91,5 +88,35 @@ module MedInstaller
       end
     end
 
+    class Full < Generic
+      desc "Clear and reload solr, index entries and bib, build autosuggest, and optimize"
+      argument :entries_file, required: true, desc: "Path to entries.json.gz"
+      argument :bib_file, required: true, desc: "Path to bib_all.xml"
+      option :debug, type: :boolean, default: false, desc: "Write to debug file?"
+
+      def call(entries_file:, bib_file:,  debug:)
+        raise "Solr at #{AnnoyingUtilities.solr_url} not up" unless AnnoyingUtilities.solr_core.up?
+        writer = select_writer(debug)
+
+        logger.info "Clearing existing data"
+        core.clear
+
+        logger.info "Reloading core definition"
+        core.reload
+
+        index(rulesfile: index_dir + 'main_indexing_rules',
+              datafile: entries_file,
+              writer: writer)
+        index(rulesfile: index_dir + 'bib_indexing_rules.rb',
+              datafile: bib_file,
+              writer: writer)
+        commit
+        MedInstaller::Solr.rebuild_suggesters(core)
+        optimize
+        logger.info "Done"
+      end
+
+    end
   end
 end
+
