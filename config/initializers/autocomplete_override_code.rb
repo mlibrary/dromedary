@@ -18,7 +18,7 @@ module Dromedary
         autocomplete_config_name = params[:autocomplete_config]
         super
         if repository.blacklight_config.autocomplete
-          @autocomplete_config = repository.blacklight_config.autocomplete[autocomplete_config_name.to_sym]
+          @autocomplete_config = repository.blacklight_config.autocomplete[autocomplete_config_name]
         else
           @autocomplete_config = {
             solr_endpoint:         repository.blacklight_config.autocomplete_path,
@@ -50,7 +50,7 @@ module Dromedary
       # @param [RSolr::HashWithResponse] response
       # @param [Hash] request_params
       # @param [Hash] suggest_config
-      def initialize(response, request_params, suggest_config)
+      def initialize(response, request_params, suggest_config)``
         @response       = response
         @request_params = request_params
         @suggest_path   = suggest_config[:solr_endpoint]
