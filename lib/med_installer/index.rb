@@ -3,6 +3,7 @@ require 'pathname'
 require 'annoying_utilities'
 require 'med_installer/logger'
 require 'med_installer/solr'
+require 'traject'
 
 
 module MedInstaller
@@ -36,12 +37,21 @@ module MedInstaller
       end
 
       def index(rulesfile:, datafile:, writer:)
-        system "bundle", "exec", "traject",
-               "-c", rulesfile.to_s,
-               "-c", writer.to_s,
-               "-s", "med.data_file=#{datafile}",
-               "/dev/null", # traject requires a file on command line, no matter what
-               out: $stdout, err: :out
+        indexer = ::Traject::Indexer.new
+        indexer.settings do
+          store 'med.data_file', datafile.to_s
+        end
+        indexer.load_config_file rulesfile.to_s
+        indexer.load_config_file writer.to_s
+        indexer.process(File.open('/dev/null'))
+
+        #
+        # system "bundle", "exec", "traject",
+        #        "-c", rulesfile.to_s,
+        #        "-c", writer.to_s,
+        #        "-s", "med.data_file=#{datafile}",
+        #        "/dev/null", # traject requires a file on command line, no matter what
+        #        out: $stdout, err: :out
         logger.info "Traject running #{rulesfile} exited with status #{$?.exitstatus}"
       end
 
