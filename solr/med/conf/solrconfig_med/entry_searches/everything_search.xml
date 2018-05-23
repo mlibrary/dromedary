@@ -1,0 +1,20 @@
+<str name="everything_qf">
+  official_headword_exactish^500
+  headword_exactish^50
+  headword^10
+  orth^7
+  definition_text^5
+  oed_norm^2
+  keyword
+</str>
+
+<str name="everything_pf">
+  official_headword_exactish^500
+  headword_exactish^50
+  headword^10
+  orth^7
+  definition_text^5
+  oed_norm^2
+  keyword
+</str>
+
