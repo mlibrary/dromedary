@@ -39,10 +39,10 @@ module MedInstaller
         system "bundle", "exec", "traject",
                "-c", rulesfile.to_s,
                "-c", writer.to_s,
-               "-s", "med.data_file=#{filename}",
+               "-s", "med.data_file=#{datafile}",
                "/dev/null", # traject requires a file on command line, no matter what
                out: $stdout, err: :out
-        log.info "Traject running #{rulesfile} exited with status " +  $?.exitstatus
+        logger.info "Traject running #{rulesfile} exited with status #{$?.exitstatus}"
       end
 
       def call(filename:, debug:)
@@ -104,9 +104,13 @@ module MedInstaller
         logger.info "Reloading core definition"
         core.reload
 
-        index(rulesfile: index_dir + 'main_indexing_rules',
+        logger.info "##### BEGIN ENTRY/QUOTE INDEXING #####"
+        index(rulesfile: index_dir + 'main_indexing_rules.rb',
               datafile: entries_file,
               writer: writer)
+
+        logger.info "##### BEGIN BIB INDEXING #####"
+
         index(rulesfile: index_dir + 'bib_indexing_rules.rb',
               datafile: bib_file,
               writer: writer)
