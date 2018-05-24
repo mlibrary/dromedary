@@ -265,12 +265,7 @@ class CatalogController < ApplicationController
     end
 
 
-
-
-
-
-
-    # Now we see how to over-ride Solr request handler defaults, in this
+   # Now we see how to over-ride Solr request handler defaults, in this
     # case for a BL "search field", which is really a dismax aggregate
     # of Solr search fields.
 
@@ -315,6 +310,6 @@ class CatalogController < ApplicationController
 
 
     # Autocomplete on multiple fields. See config/autocomplete.yml
-    config.autocomplete = Rails.application.config_for(:autocomplete)
+    config.autocomplete = ActiveSupport::HashWithIndifferentAccess.new Rails.application.config_for(:autocomplete)
   end
 end
