@@ -157,12 +157,11 @@
   <% if show_sups %>
     <h3 class="entry-supplemental-title">Supplemental Materials (draft)</h3>
     <div class="table-responsive entry-supplement">
-      <table class="table">
+      <table class="table table-striped">
         <% sups.each do |sup| %>
           <%# notes = sup.notes %>
           <%# notes.each do |note| %>
           <tr>
-            <td></td>
             <td><%== doc_presenter.supplement_html(sup) %></td>
           </tr>
           <%# end %>
