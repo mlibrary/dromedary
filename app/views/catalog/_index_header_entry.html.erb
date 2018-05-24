@@ -20,12 +20,12 @@
           </span>
         <% end %>
         <%= link_to_document document, doc_presenter.highlighted_official_headword, counter: counter %>
-        <span class="POS"><%== doc_presenter.part_of_speech_abbrev %></span>
+        <span class="index-pos"><%== doc_presenter.part_of_speech_abbrev %></span>
       </h3>
 
       <div class="search-result def">
         <% if hos = doc_presenter.highlighted_other_spellings and hos.count > 0 %>
-          <div class="index-spellings">Additional spellings: <%== hos.join(', ') %></div>
+          <div class="index-spellings">Additional spellings: <span class="index-spellings--em"><%== hos.join(', ') %></span></div>
         <% end %>
 
         <div class="index-quotes-line">
