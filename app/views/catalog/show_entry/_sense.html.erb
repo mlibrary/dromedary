@@ -31,7 +31,9 @@
   <div class="egs">
     <% sense.egs.each do |eg| %>
       <div class="eg collapsed <%= uid %>">
-        <div class="subdef-entry-number"><%= eg.subdef_entry %></div>
+        <% if eg.subdef_entry and eg.subdef_entry =~ /\S/ %>
+          <div class="subdef-entry-number"><%= eg.subdef_entry %></div>
+        <% end %>
         <div class="citations">
           <ul>
             <% eg.citations.each do |cite| %>
