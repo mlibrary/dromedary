@@ -1,11 +1,3 @@
-PATH
-  remote: /Users/dueberb/devel/med/middle_english_dictionary
-  specs:
-    middle_english_dictionary (1.2.0)
-      multi_json
-      nokogiri (~> 1.6)
-      representable
-
 GEM
   remote: https://gems.www.lib.umich.edu/
   remote: https://rubygems.org/
