@@ -1,2 +1,45 @@
-<h1>Bibliography#index</h1>
-<p>Find me in app/views/bibliography/index.html.erb</p>
+<%#= replace :head do %>
+  <%#= link_to_repository %>
+<% #end %>
+
+<%= replace :skiplinks do %>
+  <%= render 'catalog/index_skiplinks' %>
+<% end %>
+
+<%# require 'pry'; binding.pry %>
+
+<%= replace :h1 do %>
+  <% if ! has_search_parameters? %>
+    New Search
+  <% elsif @response.empty? %>
+    No Results
+  <% elsif params[:f] and params[:f][:issue_identifier] %>
+    <%= issue_title @document_list.first, complete: true %>
+  <% end %>
+<% end %>
+
+
+<div id="sidebar" class="<%= sidebar_classes %>">
+  <%= render 'catalog/constraints' %>
+  <%#= render 'search_graph' %>
+  <%= render 'catalog/search_sidebar' %>
+</div>
+
+<div id="content" class="<%= main_content_classes %> activate-highlighting">
+
+  <% unless has_search_parameters? %>
+    <%# if there are no input/search related params, display the "home" partial -%>
+    <%= render 'catalog/home' %>
+    <%#= render 'shared/sitelinks_search_box' %>
+  <% else %>
+    <%= render 'catalog/search_results' %>
+
+    <script>
+      // have to loop through all these else not all the paragraphs are shaved?
+      $(".row-article-text p").each(function() {
+        $(this).shave(150);
+      })
+    </script>
+  <% end %>
+</div>
+<%#= render partial: 'back_to_top' %>
