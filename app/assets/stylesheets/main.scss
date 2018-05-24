@@ -21,10 +21,6 @@ a {
   font-style: italic;
 }
 
-.collapsed {
-    display: none;
-  }
-
 html,
 body {
   font-size: 16px;
@@ -365,10 +361,17 @@ ul.header-nav-secondary a:focus {
     color: #126DC1;
     text-decoration: underline;
     padding: 0;
+    font-weight: 600;
   }
 
   .document-counter {
     display: none;
+  }
+
+  span.index-pos {
+    color: #6E6E6E;
+    font-size: 1.35em;
+    font-weight: 600;
   }
 }
 
@@ -406,6 +409,9 @@ ul.header-nav-secondary a:focus {
   padding: 0 1em;
   color: #6E6E6E;
 }
+.index-spellings--em {
+  color: #333333;
+}
 
 .index-quotes-line {
   margin-bottom: 1em;
@@ -415,13 +421,15 @@ ul.header-nav-secondary a:focus {
   font-style: italic;
 }
 
-.entry-entire {
+.definition-block {
   background-color: #fafafa;
   padding: 1.25em;
+  display: flex;
+}
 
-  ol > li {
-    padding: .25em 0;
-  }
+.def-header {
+  padding-right: 1em;
+  color: #6E6E6E;
 }
 
 .search-result {
@@ -430,9 +438,22 @@ ul.header-nav-secondary a:focus {
 
 /** Facets - Search Results **/
 
+.top-panel-heading.panel-heading {
+  background-color: #FAFAFA;
+  border: 1px solid #ddd;
+  margin-bottom: 2px;
+
+  h2.facets-heading {
+    font-size: .88em;
+    font-weight: 600;
+    color: #333;
+  }
+}
+
 .panel-title.facet-field-heading a {
   color: #4A4A4A;
   text-decoration: none;
+  font-weight: 600;
 }
 
 .panel-body.facet-panel, 
@@ -448,11 +469,22 @@ ul.header-nav-secondary a:focus {
 .facet-label a {
   color: #126DC1;
   text-decoration: none;
-  font-size: .95em;
+  font-size: .89em;
  }
+
+ .facet-count {
+  color: #4A4A4A;
+  font-size: .89em;
+}
 
 .facet-values .facet-label {
   padding-bottom: 0;
+  text-indent: 0;
+  padding-left: 0;
+}
+
+.panel-group .panel + .panel {
+  margin-top: 2px;
 }
 
 /** Entry Page Dictionary **/
@@ -468,7 +500,7 @@ ul.header-nav-secondary a:focus {
   .entry-main-title {
     background-color: #E6F3FF;
     color: #0C5292;
-    font-weight: bold;
+    font-weight: 600;
     font-size: .85em;
   }
 
@@ -489,7 +521,7 @@ ul.header-nav-secondary a:focus {
   }
 
   .quotations-header-options-text {
-    font-weight: bold;
+    font-weight: 600;
   }
 
   .quotations-header-options a {
@@ -518,7 +550,7 @@ ul.header-nav-secondary a:focus {
   .entry-senses-title,
   .entry-supplemental-title {
     padding: .5em 1em;
-    font-weight: bold;
+    font-weight: 600;
     font-size: .9em;
   }
 
@@ -536,7 +568,7 @@ ul.header-nav-secondary a:focus {
 
   .entry-heading {
     padding: 1em;
-    font-weight: bold;
+    font-weight: 600;
   }
 
   .entry-info,
@@ -555,7 +587,7 @@ ul.header-nav-secondary a:focus {
   .subdef-entry-number {
     float: left;
     padding-right: .5em;
-    font-weight: bold;
+    font-weight: 600;
   }
 
   .subdef-entry-number:before {
@@ -578,6 +610,16 @@ ul.header-nav-secondary a:focus {
     background-color: #FAFAFA;
     border-top: 1px solid #ccc;
     padding-top: 1em;
+
+    .definition {
+    padding: 0 1.5em 2em;
+    }
+  }
+
+    .sense {
+      .collapsed {
+      display: none;
+    }
   }
 
   .sense-number {
@@ -592,11 +634,7 @@ ul.header-nav-secondary a:focus {
   .CIT {
     line-height: 28px;
   }
-
-  .definition {
-    padding: 0 1.5em 2em;
-  }
-
+  
   .quote-toggles {
     float: right;
     font-size: .9em;
@@ -614,7 +652,7 @@ ul.header-nav-secondary a:focus {
 
   a.show-all-button {
     color: #126DC1;
-    font-weight: bold;
+    font-weight: 600;
     text-decoration: underline;
   }
 
@@ -639,7 +677,7 @@ ul.header-nav-secondary a:focus {
     }
 
     td.forms-list {
-      font-weight: bold;
+      font-weight: 600;
     }
 
 }
@@ -661,7 +699,7 @@ table.table.table-striped,
 .show-related .panel-heading {
   background-color: #FAFAFA !important;
   border: 1px solid transparent !important;
-  font-weight: bold;
+  font-weight: 600;
   font-size: .85em;
   padding-bottom: 0;
 }
