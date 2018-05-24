@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
-  
-  get 'bibliography/index'
 
-  get 'bibliography/show'
+
+  match "bibliography/(:id)/track" => 'bibliography#show', via: [:get, :post]
+  get "/bibliography" => 'bibliography#index', constraints: {query_string: ""}
+  get "/bibliography/index", to: redirect('/bibliography'), constraints: {query_string: ""}
 
   mount Blacklight::Engine => '/'
 
@@ -16,6 +17,9 @@ Rails.application.routes.draw do
 
   root to: "catalog#home"
 
+
+
+
   # Force to go to root ('/'), not index.html
   get "/#{default_route}", to: redirect('/'), constraints: {query_string: ""}
   
@@ -23,6 +27,10 @@ Rails.application.routes.draw do
 
 
   resource :search, only: [:index], as: 'catalog', path: "/#{default_route}", controller: 'catalog' do
+    concerns :searchable
+  end
+
+  resource :search, only: [:index], as: 'bibliography', path: "/bibliography", controller: 'bibliography' do
     concerns :searchable
   end
 
