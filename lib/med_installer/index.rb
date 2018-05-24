@@ -43,7 +43,7 @@ module MedInstaller
         end
         indexer.load_config_file rulesfile.to_s
         indexer.load_config_file writer.to_s
-        indexer.process(File.open('/dev/null'))
+        exitstatus = indexer.process(File.open('/dev/null'))
 
         #
         # system "bundle", "exec", "traject",
@@ -52,7 +52,7 @@ module MedInstaller
         #        "-s", "med.data_file=#{datafile}",
         #        "/dev/null", # traject requires a file on command line, no matter what
         #        out: $stdout, err: :out
-        logger.info "Traject running #{rulesfile} exited with status #{$?.exitstatus}"
+        logger.info "Traject running #{rulesfile} exited with status #{exitstatus}"
       end
 
       def call(filename:, debug:)
