@@ -281,6 +281,7 @@
   <field name="manuscript_keyword" type="me_text" stored="true" indexed="true" multiValued="true"/>
 
   <field name="stencil_keyword" type="me_text" stored="true" indexed="true" multiValued="true" />
+  <field name="edition_keyword" type="me_text" stored="true" indexed="true" multiValued="true" />
 
 
   <!-- Field to use to determine and enforce document uniqueness.
