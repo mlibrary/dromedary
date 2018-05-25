@@ -35,3 +35,19 @@
   <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
 </analyzer>
 </fieldType>
+
+
+<!-- standard me_text with a keyword tokenizer for sorting -->
+<fieldType name="me_sort" class="solr.KeywordTokenizer">
+<analyzer type="index">
+  &middle_english_char_substitution_patterns;
+  &basic_text_chain;
+  <filter class="solr.SynonymFilterFactory" synonyms="&me_synonym_file;" ignoreCase="true" expand="true"/>
+  <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+</analyzer>
+<analyzer type="query">
+  &middle_english_char_substitution_patterns;
+  &basic_text_chain;
+  <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+</analyzer>
+</fieldType>
