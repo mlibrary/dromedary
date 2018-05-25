@@ -93,5 +93,11 @@ to_field 'stencil_keyword' do |bib, acc, context|
   end
 end
 
+to_field 'edition_keyword' do |bib, acc, context|
+  node = context.clipboard[:nokonode]
+  node.xpath('//EDITION').each do |n|
+    acc << n.text
+  end
+end
 
 
