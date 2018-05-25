@@ -1,0 +1,9 @@
+<str name="bib_author_title_qf">
+  author^2
+  title^1
+</str>
+
+<str name="bib_author_title_pf">
+  author^2
+  title^1
+</str>
