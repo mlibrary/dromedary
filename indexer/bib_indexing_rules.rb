@@ -86,4 +86,12 @@ to_field 'manuscript_keyword' do |bib, acc, context|
   end
 end
 
+to_field 'stencil_keyword' do |bib, acc, context|
+  node = context.clipboard[:nokonode]
+  node.xpath('//STENCIL|//SHORTSTENCIL').each do |n|
+    acc << n.text
+  end
+end
+
+
 
