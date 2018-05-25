@@ -1,5 +1,7 @@
 <str name="bib_author_title_qf">
-  author^2
+  author_exactish^4
+  author^3
+  title_exactish^2
   title^1
 </str>
 
