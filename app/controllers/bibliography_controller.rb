@@ -29,27 +29,88 @@ class BibliographyController < ApplicationController
     # config.show.document_actions.delete(:email)
     # config.show.document_actions.delete(:sms)
 
+    # Options for items to show per page, each number in the array represent another option to choose from.
+
+    config.per_page = [20, 100]
     config.default_solr_params = {
-      rows: 20
+      rows: 100
     }
 
+    # Solr path to the single-document handler
     config.document_solr_path = 'bibdoc'
-
-    # Options for items to show per page, each number in the array represent another option to choose from.
-    config.per_page = [20, 100]
 
     # What's the title field for each search result entry?
     config.index.title_field = 'title'
 
+    # In theory, this would allow us to switch view templates based on the
+    # value of the solr field listed.
     config.index.display_type_field = "type"
+
+    # ############################################# #
+    #             SEARCHES                          #
+    # ############################################# #
 
     config.add_search_field("bib_keyword", label: "Everything") do |field|
       field.qt                    = "/bibsearch"
-      # field.solr_local_parameters = {
-      #   qf: '$headword_and_forms_qf',
-      #   pf: '$headword_and_forms_pf',
-      # }
+      field.solr_local_parameters = {
+        qf: '$bib_everything_qf',
+        pf: '$bib_everything_pf',
+      }
     end
+
+    config.add_search_field("bib_author_title", label: "Author/Title") do |field|
+      field.qt                    = "/bibsearch"
+      field.solr_local_parameters = {
+        qf: '$bib_author_title_qf',
+        pf: '$bib_author_title_pf',
+      }
+    end
+    config.add_search_field("bib_external_references", label: "External References") do |field|
+      field.qt                    = "/bibsearch"
+      field.solr_local_parameters = {
+        qf: '$bib_external_references_qf',
+        pf: '$bib_external_references_pf',
+      }
+    end
+
+    config.add_search_field("bib_lalme", label: "LALME/LAEME") do |field|
+      field.qt                    = "/bibsearch"
+      field.solr_local_parameters = {
+        qf: '$bib_lalme_qf',
+        pf: '$bib_lalme_pf',
+      }
+    end
+
+    config.add_search_field("bib_manuscript", label: "Manuscripts") do |field|
+      field.qt                    = "/bibsearch"
+      field.solr_local_parameters = {
+        qf: '$bib_manuscript_qf',
+        pf: '$bib_manuscript_pf',
+      }
+    end
+
+    config.add_search_field("bib_keyword", label: "Everything") do |field|
+      field.qt                    = "/bibsearch"
+      field.solr_local_parameters = {
+        qf: '$bib_everything_qf',
+        pf: '$bib_everything_pf',
+      }
+    end
+
+    # ############################################# #
+    #             SORTING                           #
+    # ############################################# #
+
+    # "sort results by" select (pulldown)
+    # label in pulldown is followed by the name of the SOLR field to sort by and
+    # whether the sort is ascending or descending (it must be asc or desc
+    # except in the relevancy case).
+    #
+    config.add_sort_field 'score desc', label: 'Relevance'
+    config.add_sort_field 'title asc', label: 'Title'
+    config.add_sort_field 'author_sort asc, title_asc', label: 'Author'
+
+
   end
 
 end
