@@ -1,13 +1,15 @@
 <str name="everything_qf">
   author^5
   title^3
-  edition^2
+  stencil_keyword^2
+  edition_keyword^2
   keyword^1
 </str>
 
 <str name="everything_pf">
   author^5
   title^3
+  stencil_keyword^2
   edition^2
   keyword^1
 </str>
