@@ -262,10 +262,15 @@
 
   <!-- Author and title -->
   <field name="author" type="me_text" stored="true" indexed="true" multiValued="false"/>
-  <field name="author_sort" type="me_sort" stored="false" indexed="true" multiValued="false" sortMissingLast="true"/>
+  <field name="author_sort" type="me_exactish" stored="false" indexed="true" multiValued="false" sortMissingLast="true"/>
 
   <field name="title" type="me_text" stored="true" indexed="true" multiValued="false"/>
-  <field name="title_sort" type="me_sort" stored="false" indexed="true" multiValued="false" sortMissingLast="true"/>
+  <field name="title_sort" type="me_sort" stored="true" indexed="true" multiValued="false"/>
+
+  <field name="title_exactish" type="me_exactish" stored="false" indexed="true" multiValued="true"/>
+  <copyField source="title" dest="title_exactish"/>
+  <copyField source="title_sort" dest="title_exactish"/>
+
 
   <!-- indexes and externals -->
   <field name="index" type="string" stored="true" indexed="true" multiValued="true"/>
