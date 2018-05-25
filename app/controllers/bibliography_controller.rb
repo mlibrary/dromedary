@@ -107,8 +107,8 @@ class BibliographyController < ApplicationController
     # except in the relevancy case).
     #
     config.add_sort_field 'score desc', label: 'Relevance'
-    config.add_sort_field 'title asc', label: 'Title'
-    config.add_sort_field 'author_sort asc, title_asc', label: 'Author'
+    config.add_sort_field 'title_sort asc, author_sort asc', label: 'Title'
+    config.add_sort_field 'author_sort asc, title_sort asc', label: 'Author'
 
 
   end
