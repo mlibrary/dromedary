@@ -275,7 +275,6 @@
 
   <field name="lalme" type="me_text" stored="true" indexed="true" multiValued="true"/>
   <field name="lalme_expansion" type="string" stored="true" indexed="true" multiValued="true"/>
-  <copyField source="lalme_expansion" dest="lalme"/>
 
   <field name="manuscript_title" type="me_text" stored="true" indexed="true" multiValued="true"/>
   <field name="manuscript_keyword" type="me_text" stored="true" indexed="true" multiValued="true"/>

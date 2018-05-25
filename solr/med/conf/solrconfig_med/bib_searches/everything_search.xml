@@ -1,4 +1,4 @@
-<str name="everything_qf">
+<str name="bib_everything_qf">
   author^5
   title^3
   stencil_keyword^2
@@ -6,7 +6,7 @@
   keyword^1
 </str>
 
-<str name="everything_pf">
+<str name="bib_everything_pf">
   author^5
   title^3
   stencil_keyword^2

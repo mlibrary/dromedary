@@ -15,6 +15,13 @@
         <!ENTITY doe_suggester SYSTEM "solrconfig_med/suggesters/doe_suggester.xml">
 
 
+        <!ENTITY bib_everything_search SYSTEM "solrconfig_med/bib_searches/everything_search.xml">
+        <!ENTITY bib_author_title_search SYSTEM "solrconfig_med/bib_searches/author_title_search.xml">
+        <!ENTITY bib_external_references_search SYSTEM "solrconfig_med/bib_searches/external_references_search.xml">
+        <!ENTITY bib_lalme_search SYSTEM "solrconfig_med/bib_searches/lalme_search.xml">
+        <!ENTITY bib_manuscript_search SYSTEM "solrconfig_med/bib_searches/manuscript_search.xml">
+        <!ENTITY bib_stencil_search SYSTEM "solrconfig_med/bib_searches/stencil_search.xml">
+
 
         ]>
 
@@ -97,6 +104,10 @@
   </requestHandler>
 
 
+  <!-- ################################################
+       #             BIB SEARCH                       #
+       ################################################  -->
+
   <!-- Bib single-document handler -->
   <requestHandler name="/bibdoc" class="solr.SearchHandler">
     <lst name="defaults">
@@ -114,6 +125,7 @@
 
   <!-- Bib search handler -->
   <requestHandler name="/bibsearch" class="solr.SearchHandler" default="true">
+
       <lst name="defaults">
         <str name="echoParams">all</str>
         <str name="wt">json</str>
@@ -123,6 +135,15 @@
         <str name="facet.mincount">1</str>
         <str name="qf">keyword</str>
     </lst>
+
+    &bib_everything_search;
+    &bib_author_title_search;
+    &bib_external_references_search;
+    &bib_lalme_search;
+    &bib_manuscript_search;
+    &bib_stencil_search;
+
+
     <!-- Always restrict to bib documents -->
     <lst name="appends">
       <str name="fq">type:bib</str>
