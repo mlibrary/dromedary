@@ -64,7 +64,11 @@ to_field 'title', bib_method(:title_text)
 
 
 to_field 'title_sort' do |bib, acc|
-  acc << remove_leading_articles(bib.title)
+  title = remove_leading_articles(bib.title)
+  if bib.incipit?
+    title = "INCIPIT: " + title
+  end
+  acc << title
 end
 
 
