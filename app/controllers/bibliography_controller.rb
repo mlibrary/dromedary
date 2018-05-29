@@ -31,9 +31,9 @@ class BibliographyController < ApplicationController
 
     # Options for items to show per page, each number in the array represent another option to choose from.
 
-    config.per_page = [20, 100]
+    config.per_page            = [20, 100]
     config.default_solr_params = {
-      rows: 100
+        rows: 100
     }
 
     # Solr path to the single-document handler
@@ -50,52 +50,48 @@ class BibliographyController < ApplicationController
     #             SEARCHES                          #
     # ############################################# #
 
+
+
     config.add_search_field("bib_keyword", label: "Everything") do |field|
       field.qt                    = "/bibsearch"
       field.solr_local_parameters = {
-        qf: '$bib_everything_qf',
-        pf: '$bib_everything_pf',
+          qf: '$bib_everything_qf',
+          pf: '$bib_everything_pf',
       }
     end
+
 
     config.add_search_field("bib_author_title", label: "Author/Title") do |field|
       field.qt                    = "/bibsearch"
       field.solr_local_parameters = {
-        qf: '$bib_author_title_qf',
-        pf: '$bib_author_title_pf',
+          qf: '$bib_author_title_qf',
+          pf: '$bib_author_title_pf',
       }
     end
     config.add_search_field("bib_external_references", label: "External References") do |field|
       field.qt                    = "/bibsearch"
       field.solr_local_parameters = {
-        qf: '$bib_external_references_qf',
-        pf: '$bib_external_references_pf',
+          qf: '$bib_external_references_qf',
+          pf: '$bib_external_references_pf',
       }
     end
 
     config.add_search_field("bib_lalme", label: "LALME/LAEME") do |field|
       field.qt                    = "/bibsearch"
       field.solr_local_parameters = {
-        qf: '$bib_lalme_qf',
-        pf: '$bib_lalme_pf',
+          qf: '$bib_lalme_qf',
+          pf: '$bib_lalme_pf',
       }
     end
 
     config.add_search_field("bib_manuscript", label: "Manuscripts") do |field|
       field.qt                    = "/bibsearch"
       field.solr_local_parameters = {
-        qf: '$bib_manuscript_qf',
-        pf: '$bib_manuscript_pf',
+          qf: '$bib_manuscript_qf',
+          pf: '$bib_manuscript_pf',
       }
     end
 
-    config.add_search_field("bib_keyword", label: "Everything") do |field|
-      field.qt                    = "/bibsearch"
-      field.solr_local_parameters = {
-        qf: '$bib_everything_qf',
-        pf: '$bib_everything_pf',
-      }
-    end
 
     # ############################################# #
     #             SORTING                           #
