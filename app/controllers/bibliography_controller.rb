@@ -107,6 +107,17 @@ class BibliographyController < ApplicationController
     config.add_sort_field 'author_sort asc, title_sort asc', label: 'Author'
 
 
+
+    # ############################################# #
+    #             FACETS                            #
+    # ############################################# #
+
+    config.add_facet_fields_to_solr_request!
+    config.add_facet_field 'lalme_expansion', label: 'LALME Region', collapse: false
+
   end
+
+
+
 
 end
