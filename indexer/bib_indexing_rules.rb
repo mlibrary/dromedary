@@ -19,7 +19,7 @@ Traject::Indexer.send(:define_method, :logger, ->() {AnnoyingUtilities.logger})
 
 def bib_method(name)
   ->(rec, acc) do
-      values = Array(rec.send(name).compact)
+      values = Array(rec.send(name)).compact
       acc.replace(values) unless values.empty?
     end
 end
@@ -64,7 +64,7 @@ to_field 'title', bib_method(:title_text)
 
 
 to_field 'title_sort' do |bib, acc|
-  title = remove_leading_articles(bib.title)
+  title = remove_leading_articles(bib.title_text)
   if bib.incipit?
     title = "INCIPIT: " + title
   end
