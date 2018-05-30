@@ -48,7 +48,40 @@ module MedInstaller
       end
     end
 
+    class Commit < Hanami::CLI::Command
+      include MedInstaller::Logger
+      desc "Force solr to commit"
 
+      def call(cmd)
+        core = AnnoyingUtilities.solr_core
+
+        unless core.up?
+          logger.error "Solr core at #{core.url} did not respond (not up?)"
+          exit(1)
+        end
+
+        core.commit
+        logger.info "Core at '#{core.url}' sent commit"
+      end
+    end
+
+    class Optimize < Hanami::CLI::Command
+      include MedInstaller::Logger
+      desc "Optimize solr index"
+
+      def call(cmd)
+        core = AnnoyingUtilities.solr_core
+
+        unless core.up?
+          logger.error "Solr core at #{core.url} did not respond (not up?)"
+          exit(1)
+        end
+
+        logger.info "Begining optimization (can be *long*)"
+        core.optimize
+        logger.info "Core at '#{core.url}' optimized"
+      end
+    end
     class Reload < Hanami::CLI::Command
       include MedInstaller::Logger
 
