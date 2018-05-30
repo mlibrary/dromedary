@@ -29,10 +29,10 @@
 
   <% unless has_search_parameters? %>
     <%# if there are no input/search related params, display the "home" partial -%>
-    <%= render 'catalog/home' %>
+    <%= render 'bibliography/home' %>
     <%#= render 'shared/sitelinks_search_box' %>
   <% else %>
-    <%= render 'catalog/search_results' %>
+    <%= render 'bibliography/search_results' %>
 
     <script>
       // have to loop through all these else not all the paragraphs are shaved?
