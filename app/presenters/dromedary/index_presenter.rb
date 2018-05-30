@@ -85,7 +85,8 @@ module Dromedary
     # @param [MiddleEnglishDictionary::Entry::Sense] sense The sense whose def you want
     # @return [String, nil] The definition transformed into HTML, or nil
     def def_html(sense)
-      xsl_transform_from_xml(sense.definition_xml, DEF_XSLT)
+      enclosed_def_xml = '<div>' + sense.definition_xml + '</div>'
+      xsl_transform_from_xml(enclosed_def_xml, DEF_XSLT)
     end
 
 
