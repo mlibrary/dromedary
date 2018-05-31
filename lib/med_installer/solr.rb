@@ -34,11 +34,11 @@ module MedInstaller
 
     def self.rebuild_suggesters(core, env = nil)
       envenv = ENV['RAILS_ENV']
-      env ||= if envenv.nil? or envenv.empty?
-              'development'
-            else
-              envenv
-            end
+      env    ||= if envenv.nil? or envenv.empty?
+                   'development'
+                 else
+                   envenv
+                 end
       logger.info "Recreating suggest indexes for #{env} environment"
       autocomplete = AnnoyingUtilities.load_config_file('autocomplete.yml')[env]
       autocomplete.keys.each do |key|
@@ -105,6 +105,7 @@ module MedInstaller
       include MedInstaller::Logger
 
       desc "Tell solr to rebuild all the suggester indexes"
+
       def call(cmd)
         core = AnnoyingUtilities.solr_core
         Solr.rebuild_suggesters(core)
@@ -232,5 +233,55 @@ module MedInstaller
       end
     end
 
+    class Up < Hanami::CLI::Command
+      include MedInstaller::Logger
+
+      desc "Check to see if solr is up"
+
+      def call(cmd)
+        core = AnnoyingUtilities.solr_core
+
+        if core.up?
+          logger.info "Solr at #{core.url} appears to be up and running"
+        else
+          logger.error "Solr core at #{core.url} did not respond (not up?)"
+        end
+
+      end
+    end
+
+
+    class Shell < Hanami::CLI::Command
+
+      desc "Get a shell connected to solr, optionally with collections"
+
+      option :entries, required: false, desc: "Path to the entries.json.gz file (exposed as `entry_set`)"
+      option :bibs, required: false , desc: "Path to the bib_all.xml (exposed as `bib_set`)"
+
+      def call(entries: nil, bibs: nil, **kw)
+
+        Up.new(command_name: 'shell').call('shell')
+        core = AnnoyingUtilities.solr_core
+
+        entry_set = if entries
+                      settings = {
+                        'med.data_file' => entries
+                      }
+                      MedInstaller::EntryJsonReader.new(settings)
+                    else
+                      nil
+                    end
+
+        bib_set = if bibs
+                    MiddleEnglishDictionary::Collection::BibSet.new(filename: bibs)
+                  else
+                    nil
+                  end
+
+        require 'pry'; binding.pry
+      end
+    end
+
   end
+
 end
