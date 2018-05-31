@@ -200,7 +200,7 @@
 
   <!--Etymology and Part of speach-->
   <field name="pos"        type="string"  stored="true" indexed="true" multiValued="true" docValues="true"/>
-  <field name="etyma_language" type="string" indexed="true" stored="true" multiValued="true"/>
+  <field name="etyma_language" type="string" indexed="true" stored="true" multiValued="true" docValues="true"/>
   <field name="etyma_text" type="text" indexed="true" stored="true" multiValued="true"/>
 
   <!--Definitions and modern equivalents-->
@@ -218,6 +218,7 @@
   <!-- Quotes -->
   <field name="quote_text"  type="me_text" indexed="true" stored="true" multiValued="true"/>
   <field name="quote_title" type="me_text" indexed="true" stored="true" multiValued="true"/>
+
   <field name="quote_manuscript" type="text" indexed="true" stored="true" multiValued="true"/>
   <field name="quote_date" type="string" indexed="false" stored="true" multiValued="true"/>
   <field name="rid" type="string" indexed="true" stored="true" multiValued="true"/>
@@ -256,13 +257,20 @@
      ######################## Bib stuff ################################
      ################################################################### -->
 
-  <field name="format" type="string" stored="true" indexed="true" multiValued="false"/>
+  <field name="format" type="string" stored="true" indexed="true" multiValued="false" docValues="true"/>
 
 
   <!-- Author and title -->
   <field name="author" type="me_text" stored="true" indexed="true" multiValued="false"/>
-  <field name="author_sort" type="me_text" stored="true" indexed="true" multiValued="false"/>
+  <field name="author_sort" type="me_exactish" stored="false" indexed="true" multiValued="false" sortMissingLast="true"/>
+
   <field name="title" type="me_text" stored="true" indexed="true" multiValued="false"/>
+  <field name="title_sort" type="me_sort" stored="true" indexed="true" multiValued="false"/>
+
+  <field name="title_exactish" type="me_exactish" stored="false" indexed="true" multiValued="true"/>
+  <copyField source="title" dest="title_exactish"/>
+  <copyField source="title_sort" dest="title_exactish"/>
+
 
   <!-- indexes and externals -->
   <field name="index" type="string" stored="true" indexed="true" multiValued="true"/>
@@ -275,10 +283,12 @@
 
   <field name="lalme" type="me_text" stored="true" indexed="true" multiValued="true"/>
   <field name="lalme_expansion" type="string" stored="true" indexed="true" multiValued="true"/>
-  <copyField source="lalme_expansion" dest="lalme"/>
 
   <field name="manuscript_title" type="me_text" stored="true" indexed="true" multiValued="true"/>
   <field name="manuscript_keyword" type="me_text" stored="true" indexed="true" multiValued="true"/>
+
+  <field name="stencil_keyword" type="me_text" stored="true" indexed="true" multiValued="true" />
+  <field name="edition_keyword" type="me_text" stored="true" indexed="true" multiValued="true" />
 
 
   <!-- Field to use to determine and enforce document uniqueness.
