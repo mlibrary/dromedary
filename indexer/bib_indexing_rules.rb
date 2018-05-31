@@ -18,7 +18,14 @@ Traject::Indexer.send(:define_method, :logger, ->() {AnnoyingUtilities.logger})
 
 
 def bib_method(name)
-  ->(rec, acc) {acc.replace Array(rec.send(name))}
+  ->(rec, acc) do
+      values = Array(rec.send(name)).compact
+      acc.replace(values) unless values.empty?
+    end
+end
+
+def remove_leading_articles(str)
+  str.gsub(/\A(?:a|an|the)\s+/i, '')
 end
 
 # Grab the nokonode to make life easier
@@ -50,19 +57,30 @@ end
 # Author and Title
 
 to_field 'author', bib_method(:author)
-to_field 'title', bib_method(:title_text)
 to_field 'author_sort', bib_method(:author_sort)
+
+to_field 'title', bib_method(:title_text)
+# For title_sort, take leading articles off
+
+
+to_field 'title_sort' do |bib, acc|
+  title = remove_leading_articles(bib.title_text)
+  if bib.incipit?
+    title = "INCIPIT: " + title
+  end
+  acc << title
+end
 
 
 # External references
 
-to_field 'index',  bib_method(:indexes)
-to_field 'indexb', bib_method(:indexbs)
-to_field 'indexc', bib_method(:indexcs)
-to_field 'ipmep', bib_method(:ipmeps)
+to_field 'index',    bib_method(:indexes)
+to_field 'indexb',   bib_method(:indexbs)
+to_field 'indexc',   bib_method(:indexcs)
+to_field 'ipmep',    bib_method(:ipmeps)
 to_field 'jolliffe', bib_method(:jolliffes)
-to_field 'severs', bib_method(:severs)
-to_field 'wells', bib_method(:wells)
+to_field 'severs',   bib_method(:severs)
+to_field 'wells',    bib_method(:wells)
 
 # LALME
 to_field 'lalme' do |bib, acc|
@@ -83,6 +101,20 @@ end
 to_field 'manuscript_keyword' do |bib, acc, context|
   context.clipboard[:nokonode].xpath('MSLIST/MS').each do |ms|
     acc << ms.text
+  end
+end
+
+to_field 'stencil_keyword' do |bib, acc, context|
+  node = context.clipboard[:nokonode]
+  node.xpath('//STENCIL|//SHORTSTENCIL').each do |n|
+    acc << n.text
+  end
+end
+
+to_field 'edition_keyword' do |bib, acc, context|
+  node = context.clipboard[:nokonode]
+  node.xpath('//EDITION').each do |n|
+    acc << n.text
   end
 end
 

@@ -1,8 +1,18 @@
-<str name="everything_qf">
-
+<str name="bib_everything_qf">
+  author_exactish^6
+  title_exactish^5
+  author^4
+  title^3
+  stencil_keyword^2
+  edition_keyword^2
+  keyword^1
 </str>
 
-<str name="everything_pf">
-
+<str name="bib_everything_pf">
+  author^5
+  title^3
+  stencil_keyword^2
+  edition^2
+  keyword^1
 </str>
 
