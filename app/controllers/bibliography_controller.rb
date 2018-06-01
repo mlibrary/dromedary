@@ -1,3 +1,4 @@
+require_relative '../presenters/bibliography/index_presenter'
 class BibliographyController < ApplicationController
 
   include Blacklight::Catalog
@@ -117,6 +118,9 @@ class BibliographyController < ApplicationController
 
   end
 
+
+
+  blacklight_config.index.document_presenter_class = Dromedary::Bib::IndexPresenter
 
 
 

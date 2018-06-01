@@ -3,26 +3,15 @@
 require 'json'
 require 'delegate'
 require 'middle_english_dictionary'
-
 require 'html_truncator'
+require 'dromedary/xslt_utils'
 
 module Dromedary
 
-  class SmartXML
-    def initialize(xml)
-      @xml = xml
-    end
-
-    def to_s
-      @xml
-    end
-
-    def truncate(n)
-      HTML_Truncator.truncate(@xml, n, length_in_chars: true)
-    end
-  end
-
   class IndexPresenter < SimpleDelegator
+
+    extend Dromedary::XSLTUtils::Class
+    include Dromedary::XSLTUtils::Instance
 
     # @return [MiddleEnglishDictionary::Entry] The underlying entry object
     attr_reader :entry
@@ -49,16 +38,6 @@ module Dromedary
 
 
     ##### XSLT TRANSFORMS #####
-
-    # Let's load up the XSLT transforms as constants
-    # so we only get them once
-    XSL_DIR = Pathname.new "./indexer/xslt"
-
-
-    def self.load_xslt(basename)
-      Nokogiri::XSLT(File.open(XSL_DIR + basename, 'r:utf-8').read)
-    end
-
 
     FORM_XSLT       = load_xslt('FormOnly.xsl')
     DEF_XSLT        = load_xslt('DefOnly.xsl')
@@ -165,67 +144,6 @@ module Dromedary
       else
         []
       end
-    end
-
-
-    ####### XSLT Transform helpers #####
-
-    # Create a document from the given node, or nil if nil was passed
-    # @param [Nokogiri::XML::Node] node The node to document-ify
-    # @return [Nokgiri::XML::Document] A document containing nothing but that node
-    def doc_from_node(node)
-      return nil if node.nil?
-      return node.dup if node.document?
-      doc = Nokogiri::XML::Document.new
-      doc.add_child node.dup
-      doc
-    end
-
-
-    # We need to pass a full XML document node (not just an element) to
-    # the XSLT transform, so we make one here.
-    #
-    # Given an xpath, find the first corresponding node in the @entry
-    # nokonode and turn it into a free-standing document that contains
-    # only that node
-    # @param [String] xpath The xpath in the @entry nokonode (starting with '/ENTRY')
-    # @return [Nokogiri::XML::Document, nil] The created nokogiri document, or nil if not found
-    def doc_from_xpath(xpath)
-      doc_from_node(@nokonode.xpath(xpath).first)
-    end
-
-
-    # Given a nokogiri node, turn it into a document (if it isn't already)
-    # and apply the provided xslt transformation
-    # @param [String] xpath The xpath into the entry (root is '/ENTRYFREE')
-    # @param [Nokogiri::XSLT] xslt The XSLT object used to do the transformation
-    # @return [String,nil] The transfored text (usualy html), or nil if the xpath not found
-    def xsl_transform_from_node(node, xslt)
-      return nil if node.nil?
-      xml = xslt.apply_to(doc_from_node(node))
-      SmartXML.new(xml)
-    end
-
-
-    # Given an XML snippet or nil, and an xslt object, return
-    # the transformation (or nil if the snippet was nil)
-    # @param [String,nil] xml The raw XML string, or nil
-    # @param [Nokogiri::XSLT] xslt The XSLT object used to do the transformation
-    # @return [String,nil] The transfored text (usualy html), or nil if the xpath not found
-    def xsl_transform_from_xml(xml, xslt)
-      return nil if xml.nil?
-      xsl_transform_from_node(Nokogiri::XML(xml), xslt)
-    end
-
-    # Given an xpath in the @entry nokonode (sent to #doc_from_xpath) and
-    # an xslt transform (probably from the constants above), return the
-    # transformed-into-html value
-    #
-    # @param [String] xpath The xpath into the entry (root is '/ENTRYFREE')
-    # @param [Nokogiri::XSLT] xslt The XSLT object used to do the transformation
-    # @return [String,nil] The transfored text (usualy html), or nil if the xpath not found
-    def xsl_transform_from_entry(xpath, xslt)
-      xsl_transform_from_node(doc_from_xpath(xpath), xslt)
     end
 
   end
