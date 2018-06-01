@@ -15,7 +15,7 @@ module Dromedary
       include Dromedary::XSLTUtils::Instance
 
       # @return [MiddleEnglishDictionary::Entry] The underlying entry object
-      attr_reader :document
+      attr_reader :document, :bib, :nokonode
 
       # Create a new object in the same style as a Blacklight::IndexPresenter
       # This is not a subclass, but it delegates unknown methods to a
@@ -39,28 +39,37 @@ module Dromedary
       end
 
 
-      TITLE_XSL = load_xslt('bib/Common.xsl')
+      COMMON_XSL = load_xslt('bib/Common.xsl')
 
       def title_html
         # require 'pry'; binding.pry
         title_node = @nokonode.at('TITLE')
-        html = xsl_transform_from_node(title_node, TITLE_XSL)
-        if @bib.incipit? or title_node.attr('TYPE') == 'INCIPIT'
+        html = xsl_transform_from_node(title_node, COMMON_XSL)
+        if bib.incipit? or title_node.attr('TYPE') == 'INCIPIT'
           html = "\"#{html}&hellip;\" (incipit)"
         end
         html
       end
 
       def num_stencils
-        n = @document.fetch('stencil_keyword').size
+        n = document.fetch('stencil_keyword').size
         "#{n} stencil".pluralize(n)
       end
 
       def num_manuscripts
-        n = @bib.manuscripts.size
+        n = bib.manuscripts.size
         "#{n} manuscript".pluralize(n)
       end
 
+      # Get the work of the first stencil, if available
+      def first_work
+        wrk = nokonode.at('.//STENCIL/WORK')
+        if wrk
+          xsl_transform_from_node(wrk, COMMON_XSL)
+        else
+          nil
+        end
+      end
 
 
 
