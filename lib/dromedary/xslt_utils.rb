@@ -49,7 +49,6 @@ module Dromedary
       def xsl_transform_from_node(node, xslt)
         return nil if node.nil?
         xml = xslt.apply_to(doc_from_node(node))
-        SmartXML.new(xml)
       end
 
 
@@ -63,16 +62,7 @@ module Dromedary
         xsl_transform_from_node(Nokogiri::XML(xml), xslt)
       end
 
-      # Given an xpath in the @entry nokonode (sent to #doc_from_xpath) and
-      # an xslt transform (probably from the constants above), return the
-      # transformed-into-html value
-      #
-      # @param [String] xpath The xpath into the entry (root is '/ENTRYFREE')
-      # @param [Nokogiri::XSLT] xslt The XSLT object used to do the transformation
-      # @return [String,nil] The transfored text (usualy html), or nil if the xpath not found
-      def xsl_transform_from_entry(xpath, xslt)
-        xsl_transform_from_node(doc_from_xpath(xpath), xslt)
-      end
+
     end
 
 

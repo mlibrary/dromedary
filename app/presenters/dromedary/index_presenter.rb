@@ -62,10 +62,10 @@ module Dromedary
 
 
     # @param [MiddleEnglishDictionary::Entry::Sense] sense The sense whose def you want
-    # @return [String, nil] The definition transformed into HTML, or nil
+    # @return [SmartXML, nil] The definition transformed into HTML, or nil
     def def_html(sense)
       enclosed_def_xml = '<div>' + sense.definition_xml + '</div>'
-      xsl_transform_from_xml(enclosed_def_xml, DEF_XSLT)
+      SmartXML.new(xsl_transform_from_xml(enclosed_def_xml, DEF_XSLT))
     end
 
 
@@ -113,6 +113,20 @@ module Dromedary
       @entry.all_quotes.count
     end
 
+
+
+    ### XSL  ###
+
+    # Given an xpath in the @entry nokonode (sent to #doc_from_xpath) and
+    # an xslt transform (probably from the constants above), return the
+    # transformed-into-html value
+    #
+    # @param [String] xpath The xpath into the entry (root is '/ENTRYFREE')
+    # @param [Nokogiri::XSLT] xslt The XSLT object used to do the transformation
+    # @return [String,nil] The transfored text (usualy html), or nil if the xpath not found
+    def xsl_transform_from_entry(xpath, xslt)
+      xsl_transform_from_node(doc_from_xpath(xpath), xslt)
+    end
 
     # @return [Array<String>] The headwords as taken from the "highlight"
     # section of the solr return (with embedded tags for highlighting)
