@@ -41,14 +41,14 @@ module Dromedary
 
       COMMON_XSL = load_xslt('bib/Common.xsl')
 
+      def incipit?
+        @bib.incipit? or @nokonode.at('TITLE').attr('TYPE') == 'INCIPIT'
+      end
+
       def title_html
         # require 'pry'; binding.pry
         title_node = @nokonode.at('TITLE')
-        html = xsl_transform_from_node(title_node, COMMON_XSL)
-        if bib.incipit? or title_node.attr('TYPE') == 'INCIPIT'
-          html = "\"#{html}&hellip;\" (incipit)"
-        end
-        html
+        xsl_transform_from_node(title_node, COMMON_XSL)
       end
 
       def num_stencils
