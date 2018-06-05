@@ -39,10 +39,21 @@ module Dromedary
       end
 
 
-      COMMON_XSL = load_xslt('bib/Common.xsl')
 
       def incipit?
         @bib.incipit? or @nokonode.at('TITLE').attr('TYPE') == 'INCIPIT'
+      end
+
+      COMMON_XSL = load_xslt('bib/Common.xsl')
+      MSGROUP_XSL = load_xslt('bib/MSGroup.xsl')
+
+      def commonify(xml_or_node)
+        if xml_or_node.kind_of? String
+          xsl_transform_from_xml(xml_or_node, COMMON_XSL)
+        else
+          xsl_transform_from_node(xml_or_node, COMMON_XSL)
+        end
+
       end
 
       def title_html
@@ -50,6 +61,31 @@ module Dromedary
         title_node = @nokonode.at('TITLE')
         xsl_transform_from_node(title_node, COMMON_XSL)
       end
+
+
+      def ms_title_html(ms)
+        xsl_transform_from_xml('<div>' + ms.title_xml + '</div>', COMMON_XSL)
+      end
+
+      def e_editions_xmls
+        ee = @nokonode.xpath('//E-EDITION').map do |e|
+          title = commonify(e.at('ED'))
+          link  = e.at('LINK').text
+          %Q(<a href="#{link}">#{title}</a>)
+        end
+      end
+
+      def editions_xmls
+        editions = @nokonode.xpath('//STG/EDITION').map do |enode|
+          commonify(enode)
+        end
+        (editions + e_editions_xmls).uniq
+      end
+
+      def msgroups_xmls
+        @nokonode.xpath('//MSGROUP').map{|msg| xsl_transform_from_node(msg, MSGROUP_XSL)}
+      end
+
 
       def num_stencils
         n = document.fetch('stencil_keyword').size
