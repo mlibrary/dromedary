@@ -3,6 +3,12 @@
                 xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs" version="1.0">
   <xsl:output method="html" indent="yes"/>
 
+
+ <xsl:template match="MS">
+
+ </xsl:template>
+
+
   <xsl:template match="//EDITION|//DATE|//WORK|//ABBR|//REF|//TITLE|//AUTHOR|//IPMEP|//JOLLIFFE|//WELLS|//REF|//ED">
     <span>
       <xsl:attribute name="class">
@@ -47,7 +53,7 @@
 
   <xsl:template match="USE">
     <span class="USE">
-      <xsl:text> </xsl:text><span class="note-title">Note</span>:
+      <span class="note-title">Note</span>:
       <xsl:apply-templates/>
     </span>
   </xsl:template>

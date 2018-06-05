@@ -1,6 +1,101 @@
 This is file views/bibiography/_show_default.html.erb, where all the display of
 a single bib needs to go.
 
-<p>The title, above, comes canned from views/layouts/blacklight.html.erb
+<% doc_presenter = index_presenter(document) %>
+<% bib = doc_presenter.bib %>
 
+
+<style>
+  li {
+    margin-left: 1.5em;
+    margin-bottom: 0.5em;
+  }
+
+  .pref-all:after {
+    font-weight: bold;
+    content: '(Pref. MS)'
+  }
+
+  .pref-part:after {
+    font-weight: bold;
+    content: '(Pref. MS for part of text)'
+  }
+
+  .MSGROUP {
+    font-weight: bold;
+  }
+
+  .MSGROUP ul {
+    font-weight: normal;
+  }
+
+    .MSGROUP .USE {
+      display: block;
+      margin-top: 0.5em;
+    }
+
+    .note-title { font-weight: bold}
+
+    div.edition { margin-bottom: 0.5em;}
+
+</style>
+
+<div class="entry-panel">
+
+  <%# Display Heading for MED Entry %>
+  <h2 class="entry-main-title">Middle English Bibliography Entry</h2>
+
+  <%# Get headword and display it with quotes hide/show %>
+  <div class="entry-heading">
+    <div class="entry-container">
+      <div class="entry-headword">
+        <%== doc_presenter.title_html %>
+      </div>
+    </div>
+  </div>
+
+
+  <div>
+    <h3 class="entry-intro-title">Entry Info</h3>
+  </div>
+
+  <div class="table-responsive entry-info">
+    <table class="table table-striped">
+      <tr>
+        <td class="forms-title">External References:</td>
+        <td>
+          <span class="external-reference ipmep">IPMEP and stuff</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="forms-title">Manuscript, print, and LALME references:</td>
+        <td> <%= render partial:    'bibliography/show_bib/ms',
+                        collection: bib.manuscripts,
+                        as:         :ms,
+                        locals:     {doc_presenter: doc_presenter} %>
+
+        </td>
+      </tr>
+      <tr>
+        <td class="forms-title">Editions, facsimiles, and other sources cited:</td>
+        <td>
+            <% doc_presenter.editions_xmls.each do |ed| %>
+              <div class="edition"><%== ed %></div>
+            <% end %>
+        </td>
+      </tr>
+
+      <tr>
+        <td class="forms-title">MED title stencils and sources:</td>
+        <td>
+          <% doc_presenter.msgroups_xmls.each do |msg| %>
+            <%== msg %>
+          <% end %>
+        </td>
+
+      </tr>
+    </table>
+  </div>
+
+</div>
 

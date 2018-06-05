@@ -1,0 +1,16 @@
+<% prefclass = case ms.pref
+               when 'all'
+                 'pref-all'
+               when 'part'
+                 'pref-part'
+               else
+                 ""
+               end
+%>
+
+<div class="bib manuscript <%=prefclass %>">
+  <span class="title"><%== doc_presenter.ms_title_html(ms) %></span>
+  <% if ms.cite %>
+    <span class="cite"><%= ms.cite %></span>
+  <% end %>
+</div>
