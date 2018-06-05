@@ -6,7 +6,7 @@
       for bookmarks control depends on size.
   -%>
   <% doc_presenter = index_presenter(document) %>
-  <% require 'pry'; binding.pry %>
+  <%# require 'pry'; binding.pry %>
 
   <% document_actions = capture do %>
     <%= render_index_doc_actions document, wrapping_class: "index-document-functions col-sm-3 col-lg-2" %>
@@ -24,14 +24,25 @@
         <% if document.has_key?('author') %>
           <span class="author"><%= doc_presenter.field_value('author') + ', ' %></span>
         <% end %>
-        <%= link_to_document document, document.fetch('title'), counter: counter %>
+        <% biblink = link_to_document(document, doc_presenter.title_html.html_safe, counter: counter) %>
+        <span class="bib-title">
+          <% if doc_presenter.incipit? %>
+            "<%== biblink %>&hellip;" (incipit)
+          <% else %>
+            <%== biblink %>
+          <% end %>
+        </span>
+        <% if doc_presenter.first_work %>
+          <div class="work">[ <%== doc_presenter.first_work %> ]</div>
+        <% end %>
 
       </h3>
 
       <div class="search-result def">
         <div class="definition-block">
           <div class="definition">
-            <%= "5 stencils on " + "5 manuscript".pluralize(5) %>
+            <%= "#{doc_presenter.num_stencils} from #{doc_presenter.num_manuscripts}"
+            %>
           </div>
         </div>
 

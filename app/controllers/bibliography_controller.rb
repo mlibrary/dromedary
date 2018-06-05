@@ -32,7 +32,7 @@ class BibliographyController < ApplicationController
 
     # Options for items to show per page, each number in the array represent another option to choose from.
 
-    config.per_page            = [20, 100]
+    config.per_page            = [100]
     config.default_solr_params = {
         rows: 100
     }
@@ -119,7 +119,10 @@ class BibliographyController < ApplicationController
   end
 
 
-
+  # ############################################# #
+  #             Views and Presenters              #
+  # ############################################# #
+  #
   blacklight_config.index.document_presenter_class = Dromedary::Bib::IndexPresenter
 
 
