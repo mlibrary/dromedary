@@ -127,6 +127,7 @@ module MedInstaller
         commit
         MedInstaller::Solr.rebuild_suggesters(core)
         optimize
+        commit
         logger.info "Done"
       end
 
