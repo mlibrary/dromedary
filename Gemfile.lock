@@ -1,7 +1,7 @@
 PATH
   remote: /Users/dueberb/devel/med/middle_english_dictionary
   specs:
-    middle_english_dictionary (1.4.1)
+    middle_english_dictionary (1.4.2)
       multi_json
       nokogiri (~> 1.6)
       representable
