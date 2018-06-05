@@ -8,9 +8,18 @@
                end
 %>
 
-<div class="bib manuscript <%=prefclass %>">
-  <span class="title"><%== doc_presenter.ms_title_html(ms) %></span>
-  <% if ms.cite %>
-    <span class="cite"><%= ms.cite %></span>
+<div class="bib manuscript">
+  <div class="ms-title">
+    <span class="title <%= prefclass %>">
+      <%== doc_presenter.ms_title_html(ms) %>
+      <% if ms.cite %>
+        <span class="cite"><%= ms.cite %></span>
+      <% end %>
+    </span>
+  </div>
+  <% Array(ms.lalme_xml).each do |mslxml| %>
+    <div class="ms-lalme">
+      LALME: <%== doc_presenter.commonify(mslxml) %>
+    </div>
   <% end %>
 </div>
