@@ -1,6 +1,11 @@
 This is file views/bibiography/_show_default.html.erb, where all the display of
 a single bib needs to go.
 
+<p>We're going to need the width -- can we lose the empty left column (i.e., set
+  .container max-width to auto) in favor of a wider table?</p>
+
+<p>(in fact, maybe lose the empty left column for a dict entry page as well.</p>
+
 <% doc_presenter = index_presenter(document) %>
 <% bib = doc_presenter.bib %>
 
@@ -29,14 +34,36 @@ a single bib needs to go.
     font-weight: normal;
   }
 
-    .MSGROUP .USE {
-      display: block;
-      margin-top: 0.5em;
+  .MSGROUP .USE {
+    display: block;
+    margin-top: 0.5em;
+  }
+
+  .note-title {
+    font-weight: bold
+  }
+
+  div.edition {
+    margin-bottom: 0.5em;
+  }
+
+    .STENCIL .abbrev::before {
+      content: '('
     }
 
-    .note-title { font-weight: bold}
+  .STENCIL .abbrev::after {
+    content: ')'
+  }
 
-    div.edition { margin-bottom: 0.5em;}
+    .MSGROUP .EDITION::before {
+      content: ' :: '
+    }
+    .external-reference .reftype {
+      font-style: italic;
+    }
+
+    .ms-lalme { margin-left: 1.5em }
+
 
 </style>
 
@@ -64,7 +91,13 @@ a single bib needs to go.
       <tr>
         <td class="forms-title">External References:</td>
         <td>
-          <span class="external-reference ipmep">IPMEP and stuff</span>
+          <% doc_presenter.external_reference_kvpairs.each do |kv| %>
+            <div class="external-reference <%= kv.first %>">
+              <span class="reftype"><%= kv.first %></span>
+              <span class="refvalue"><%= kv.last %></span>
+            </div>
+          <% end %>
+          <span class="external-reference ipmep">
         </td>
       </tr>
       <tr>
@@ -77,11 +110,13 @@ a single bib needs to go.
         </td>
       </tr>
       <tr>
-        <td class="forms-title">Editions, facsimiles, and other sources cited:</td>
+        <td class="forms-title">Editions, facsimiles, and other sources
+          cited:
+        </td>
         <td>
-            <% doc_presenter.editions_xmls.each do |ed| %>
-              <div class="edition"><%== ed %></div>
-            <% end %>
+          <% doc_presenter.editions_xmls.each do |ed| %>
+            <div class="edition"><%== ed %></div>
+          <% end %>
         </td>
       </tr>
 
@@ -94,6 +129,19 @@ a single bib needs to go.
         </td>
 
       </tr>
+
+      <% if doc_presenter.variants? %>
+
+      <tr>
+        <td class="forms-title">Variants taken from:</td>
+        <td>
+          <%== doc_presenter.xsl_transform_from_node(
+              doc_presenter.nokonode.at('//VARGROUP'),
+              doc_presenter.vargroup_xsl) %>
+        </td>
+      </tr>
+      <% end %>
+
     </table>
   </div>
 

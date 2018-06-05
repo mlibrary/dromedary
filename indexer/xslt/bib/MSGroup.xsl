@@ -5,6 +5,7 @@
   <xsl:output method="html" indent="yes"/>
 
 
+  <xsl:strip-space elements="ABBR"/>
 
   <xsl:template match="//MSGROUP">
     <div class="MSGROUP">
@@ -14,8 +15,12 @@
 
 
   <xsl:template match="//stglist">
+    <xsl:variable name="variants"><xsl:value-of select="ancestor::*[name()='MSGROUP'][1]/@VAR"/></xsl:variable>
     <ul class="stg-list">
       <xsl:apply-templates/>
+      <xsl:if test="$variants = 'Y'">
+        <li class="stg">See also Variants below.</li>
+      </xsl:if>
     </ul>
   </xsl:template>
 
@@ -25,8 +30,16 @@
     </li>
   </xsl:template>
 
-  <xsl:template match="stglist/STG/STENCIL/ABBR">
-    (<xsl:apply-templates/>)
+  <xsl:template match="//STG/STENCIL/ABBR">
+
+    <xsl:variable name="abbr"><xsl:value-of select="."/></xsl:variable>
+
+
+    <xsl:if test="$abbr != ''">
+      <xsl:text> </xsl:text>
+      <span class="abbrev"><xsl:value-of select="$abbr"/></span>
+      <xsl:text> </xsl:text>
+    </xsl:if>
   </xsl:template>
 
 </xsl:stylesheet>

@@ -12,6 +12,7 @@ module Dromedary
     class IndexPresenter < SimpleDelegator
 
       extend Dromedary::XSLTUtils::Class
+      include Dromedary::XSLTUtils::Class
       include Dromedary::XSLTUtils::Instance
 
       # @return [MiddleEnglishDictionary::Entry] The underlying entry object
@@ -39,13 +40,30 @@ module Dromedary
       end
 
 
+      def variants?
+        not @nokonode.css('VARGROUP').empty?
+      end
 
       def incipit?
         @bib.incipit? or @nokonode.at('TITLE').attr('TYPE') == 'INCIPIT'
       end
 
-      COMMON_XSL = load_xslt('bib/Common.xsl')
+
+      COMMON_XSL  = load_xslt('bib/Common.xsl')
       MSGROUP_XSL = load_xslt('bib/MSGroup.xsl')
+
+      def common_xsl
+        load_xslt('bib/Common.xsl')
+      end
+
+      def msgroup_xsl
+        load_xslt('bib/MSGroup.xsl')
+      end
+
+      def vargroup_xsl
+        load_xslt('bib/Variant.xsl')
+      end
+
 
       def commonify(xml_or_node)
         if xml_or_node.kind_of? String
@@ -55,6 +73,7 @@ module Dromedary
         end
 
       end
+
 
       def title_html
         # require 'pry'; binding.pry
@@ -67,6 +86,8 @@ module Dromedary
         xsl_transform_from_xml('<div>' + ms.title_xml + '</div>', COMMON_XSL)
       end
 
+
+
       def e_editions_xmls
         ee = @nokonode.xpath('//E-EDITION').map do |e|
           title = commonify(e.at('ED'))
@@ -75,6 +96,28 @@ module Dromedary
         end
       end
 
+
+      # index = IMEV = Index of Middle English Verse
+      # indexb = NIMEV = New Index of Middle English Verse
+      # indexc = DIMEV = Digital Index of Middle English Verse
+      # ipmep = IPMEP = Index of Printed Middle English Prose
+      # severs = Manual = Manual of Writings in Middle English (ed. Severs, et al)
+      # wells = Wells = Manual of Writings in Middle English (ed. Wells, et al)
+      # Jolliffe = Jolliffe = A Check-list of Middle English Prose Writings of Spiritual Guidance
+
+      def external_reference_kvpairs
+        pairs = []
+        pairs.push(['IMEV', bib.indexes.join(', ')]) unless bib.indexes.empty?
+        pairs.push(['NIMEV', bib.indexbs.join(', ')]) unless bib.indexbs.empty?
+        pairs.push(['DIMEV', bib.indexcs.join(', ')]) unless bib.indexcs.empty?
+        pairs.push(['IPMEP', bib.ipmeps.join(', ')]) unless bib.ipmeps.empty?
+        pairs.push(['Manual', bib.severs.join(', ')]) unless bib.severs.empty?
+        pairs.push(['Wells', bib.wells.join(', ')]) unless bib.wells.empty?
+        pairs.push(['Jolliffe', bib.jolliffes.join(', ')]) unless bib.jolliffes.empty?
+        pairs
+      end
+
+
       def editions_xmls
         editions = @nokonode.xpath('//STG/EDITION').map do |enode|
           commonify(enode)
@@ -82,8 +125,9 @@ module Dromedary
         (editions + e_editions_xmls).uniq
       end
 
+
       def msgroups_xmls
-        @nokonode.xpath('//MSGROUP').map{|msg| xsl_transform_from_node(msg, MSGROUP_XSL)}
+        @nokonode.xpath('//MSGROUP').map {|msg| xsl_transform_from_node(msg, msgroup_xsl)}
       end
 
 
@@ -92,10 +136,12 @@ module Dromedary
         "#{n} stencil".pluralize(n)
       end
 
+
       def num_manuscripts
         n = bib.manuscripts.size
         "#{n} manuscript".pluralize(n)
       end
+
 
       # Get the work of the first stencil, if available
       def first_work
@@ -106,8 +152,6 @@ module Dromedary
           nil
         end
       end
-
-
 
 
     end
