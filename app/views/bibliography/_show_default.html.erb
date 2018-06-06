@@ -93,15 +93,18 @@
           </td>
         </tr>
       <% end %>
-      <tr>
-        <td class="forms-title">Manuscript, print, and LALME references:</td>
-        <td> <%= render partial:    'bibliography/show_bib/ms',
-                        collection: bib.manuscripts,
-                        as:         :ms,
-                        locals:     {doc_presenter: doc_presenter} %>
 
-        </td>
-      </tr>
+      <% if !bib.manuscripts.empty? and bib.manuscripts.any? {|ms| ms.ref != 'DOC'} %>
+        <tr>
+          <td class="forms-title">Manuscript, print, and LALME references:</td>
+          <td> <%= render partial:    'bibliography/show_bib/ms',
+                          collection: bib.manuscripts,
+                          as:         :ms,
+                          locals:     {doc_presenter: doc_presenter} %>
+
+          </td>
+        </tr>
+      <% end %>
       <tr>
         <td class="forms-title">Editions, facsimiles, and other sources
           cited:
