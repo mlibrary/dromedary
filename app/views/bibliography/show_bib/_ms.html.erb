@@ -10,12 +10,19 @@
 
 <div class="bib manuscript">
   <div class="ms-title">
-    <span class="title <%= prefclass %>">
+    <span class="title">
       <%== doc_presenter.ms_title_html(ms) %>
       <% if ms.cite %>
         <span class="cite"><%= ms.cite %></span>
       <% end %>
     </span>
+    <% if ms.pref == 'all' %>
+    <span class="<%= prefclass %>">(Pref. MS)</span>
+    <% end %>
+    <% if ms.pref == 'part' %>
+      <span class="<%= prefclass %>">(Pref. MS for part of text)</span>
+    <% end %>
+
   </div>
   <% Array(ms.lalme_xml).each do |mslxml| %>
     <div class="ms-lalme">

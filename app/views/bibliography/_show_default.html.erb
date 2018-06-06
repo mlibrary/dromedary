@@ -1,10 +1,12 @@
-This is file views/bibiography/_show_default.html.erb, where all the display of
-a single bib needs to go.
+<blockquote style="padding: 2em; border: 1px solid black;">Notes to UX:
+  <p>This is file views/bibiography/_show_default.html.erb, where all the display of
+    a single bib needs to go.</p>
 
-<p>We're going to need the width -- can we lose the empty left column (i.e., set
-  .container max-width to auto) in favor of a wider table?</p>
+  <p>We're going to need the width -- can we lose the empty left column (i.e., set
+    .container max-width to auto) in favor of a wider table?</p>
 
-<p>(in fact, maybe lose the empty left column for a dict entry page as well.</p>
+  <p>(in fact, maybe lose the empty left column for a dict entry page as well.</p>
+</blockquote>
 
 <% doc_presenter = index_presenter(document) %>
 <% bib = doc_presenter.bib %>
@@ -16,14 +18,8 @@ a single bib needs to go.
     margin-bottom: 0.5em;
   }
 
-  .pref-all:after {
+  .pref-all, .pref-part {
     font-weight: bold;
-    content: '(Pref. MS)'
-  }
-
-  .pref-part:after {
-    font-weight: bold;
-    content: '(Pref. MS for part of text)'
   }
 
   .MSGROUP {
@@ -47,22 +43,17 @@ a single bib needs to go.
     margin-bottom: 0.5em;
   }
 
-    .STENCIL .abbrev::before {
-      content: '('
-    }
-
-  .STENCIL .abbrev::after {
-    content: ')'
+  .MSGROUP .EDITION::before {
+    content: ' :: '
   }
 
-    .MSGROUP .EDITION::before {
-      content: ' :: '
-    }
-    .external-reference .reftype {
-      font-style: italic;
-    }
+  .external-reference .reftype {
+    font-style: italic;
+  }
 
-    .ms-lalme { margin-left: 1.5em }
+  .ms-lalme {
+    margin-left: 1.5em
+  }
 
 
 </style>
@@ -88,18 +79,20 @@ a single bib needs to go.
 
   <div class="table-responsive entry-info">
     <table class="table table-striped">
-      <tr>
-        <td class="forms-title">External References:</td>
-        <td>
-          <% doc_presenter.external_reference_kvpairs.each do |kv| %>
-            <div class="external-reference <%= kv.first %>">
-              <span class="reftype"><%= kv.first %></span>
-              <span class="refvalue"><%= kv.last %></span>
-            </div>
-          <% end %>
-          <span class="external-reference ipmep">
-        </td>
-      </tr>
+      <% unless doc_presenter.external_reference_kvpairs.empty? %>
+        <tr>
+          <td class="forms-title">External References:</td>
+          <td>
+            <% doc_presenter.external_reference_kvpairs.each do |kv| %>
+              <div class="external-reference <%= kv.first %>">
+                <span class="reftype"><%= kv.first %></span>
+                <span class="refvalue"><%= kv.last %></span>
+              </div>
+            <% end %>
+            <span class="external-reference ipmep">
+          </td>
+        </tr>
+      <% end %>
       <tr>
         <td class="forms-title">Manuscript, print, and LALME references:</td>
         <td> <%= render partial:    'bibliography/show_bib/ms',
@@ -132,14 +125,14 @@ a single bib needs to go.
 
       <% if doc_presenter.variants? %>
 
-      <tr>
-        <td class="forms-title">Variants taken from:</td>
-        <td>
-          <%== doc_presenter.xsl_transform_from_node(
-              doc_presenter.nokonode.at('//VARGROUP'),
-              doc_presenter.vargroup_xsl) %>
-        </td>
-      </tr>
+        <tr>
+          <td class="forms-title">Variants taken from:</td>
+          <td>
+            <%== doc_presenter.xsl_transform_from_node(
+                     doc_presenter.nokonode.at('//VARGROUP'),
+                     doc_presenter.vargroup_xsl) %>
+          </td>
+        </tr>
       <% end %>
 
     </table>
