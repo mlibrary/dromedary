@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
 
   match "bibliography/(:id)/track" => 'bibliography#show', via: [:get, :post]
+  match "bibliography/(:id)" => 'bibliography#show', via: [:get, :post]
   get "/bibliography" => 'bibliography#index', constraints: {query_string: ""}
   get "/bibliography/index", to: redirect('/bibliography'), constraints: {query_string: ""}
 
