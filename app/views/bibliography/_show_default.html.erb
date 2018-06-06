@@ -128,9 +128,13 @@
         <tr>
           <td class="forms-title">Variants taken from:</td>
           <td>
-            <%== doc_presenter.xsl_transform_from_node(
-                     doc_presenter.nokonode.at('//VARGROUP'),
-                     doc_presenter.vargroup_xsl) %>
+            <% doc_presenter.nokonode.xpath('//VARGROUP').each do |vargroup| %>
+              <div class="VARGROUP">
+                <%== doc_presenter.xsl_transform_from_node(
+                         vargroup,
+                         doc_presenter.vargroup_xsl) %>
+              </div>
+            <% end %>
           </td>
         </tr>
       <% end %>
