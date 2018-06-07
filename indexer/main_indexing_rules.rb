@@ -13,6 +13,7 @@ settings do
   provide 'reader_class_name', 'MedInstaller::Traject::EntryJsonReader'
 end
 
+hyp_to_bibid = settings['hyp_to_bibid']
 
 # Do a terrible disservice to traject and monkeypatch it to take
 # our existing logger
@@ -132,6 +133,8 @@ quote_indexer = Dromedary::QuoteIndexer.new(settings)
 each_record do |entry, context|
   entry.all_citations.each do |citation|
     q = Dromedary::IndexableQuote.new(citation: citation)
+    next if q.text == ''
+    q.bib_id = hyp_to_bibid[q.rid.upcase] if q.rid
     quote_indexer.put(q, context.position)
   end
 end

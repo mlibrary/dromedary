@@ -40,6 +40,7 @@ to_field 'id' do |q, acc|
   acc << SecureRandom.uuid
 end
 
+to_field 'keyword', lazy_method(:text)
 to_field 'entry_id', lazy_method(:entry_id)
 
 
@@ -57,6 +58,8 @@ to_field "scope", lazy_method(:scope)
 to_field("citation_json") do |q, acc|
   acc << q.citation.to_json
 end
+
+to_field 'bib_id', lazy_method(:bib_id)
 
 
 
