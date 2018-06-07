@@ -16,6 +16,11 @@ Rails.application.routes.draw do
   match "#{default_route}/(:id)/track" => 'catalog#show',
         :constraints => { :id => /[\p{Alnum}\-\.]+/ }, via: [:get, :post]
 
+  match "bibliography/(:id)/track" => 'bibliography#show',
+        :constraints => { :id => /BIB[\d\-\.]+/ }, via: [:get, :post]
+
+  match "bibliography/(:id)" => 'bibliography#show', via: [:get, :post]
+
   root to: "catalog#home"
 
 
