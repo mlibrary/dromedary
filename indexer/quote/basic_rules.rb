@@ -40,7 +40,10 @@ to_field 'id' do |q, acc|
   acc << SecureRandom.uuid
 end
 
-to_field 'keyword', lazy_method(:text)
+to_field 'keyword' do |q, acc|
+  acc << q.text.gsub(/\n/, ' ')
+end
+
 to_field 'entry_id', lazy_method(:entry_id)
 
 
