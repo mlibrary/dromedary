@@ -19,7 +19,11 @@ Rails.application.routes.draw do
   match "bibliography/(:id)/track" => 'bibliography#show',
         :constraints => { :id => /BIB[\d\-\.]+/ }, via: [:get, :post]
 
-  match "bibliography/(:id)" => 'bibliography#show', via: [:get, :post]
+  match "bibliography/" => 'bibliography#index', via: [:get, :post],
+        constraints: { query_string: ""}
+
+  match "bibliography/(:id)" => 'bibliography#show', via: [:get, :post],
+        constraints: { :id => /\S\S+/, query_string: ""}
 
   root to: "catalog#home"
 
