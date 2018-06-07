@@ -62,7 +62,6 @@ to_field 'author_sort', bib_method(:author_sort)
 to_field 'title', bib_method(:title_text)
 # For title_sort, take leading articles off
 
-
 to_field 'title_sort' do |bib, acc|
   title = remove_leading_articles(bib.title_text)
   if bib.incipit?
@@ -71,6 +70,9 @@ to_field 'title_sort' do |bib, acc|
   acc << title
 end
 
+to_field 'incipit' do |bib, acc|
+  acc << bib.incipit?.to_s
+end
 
 # External references
 
@@ -116,6 +118,10 @@ to_field 'edition_keyword' do |bib, acc, context|
   node.xpath('//EDITION').each do |n|
     acc << n.text
   end
+end
+
+to_field 'hyp' do |bib, acc, context|
+  acc.replace bib.hyps
 end
 
 

@@ -3,7 +3,7 @@
                 xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs" version="1.0">
   <xsl:output method="html" indent="yes"/>
 
-  <xsl:template match="//EDITION|//DATE|//WORK|//ABBR|//REF|//TITLE|//AUTHOR|//IPMEP|//JOLLIFFE|//WELLS|//REF|//ED">
+  <xsl:template match="//EDITION|//WORK|//REF|//TITLE|//AUTHOR|//IPMEP|//JOLLIFFE|//WELLS|//REF|//ED|//REGION">
     <span>
       <xsl:attribute name="class">
         <xsl:value-of select="local-name()"/>
@@ -34,23 +34,24 @@
 
 
   <xsl:template match="//STG/STENCIL" name="stencil">
-    <div class="bib STENCILGROUP">
+    <span class="bib STENCILGROUP">
       <span class="STENCIL">
         <xsl:attribute name="id">
           <xsl:value-of select="@ID"/>
         </xsl:attribute>
         <xsl:apply-templates/>
       </span>
-    </div>
+    </span>
   </xsl:template>
 
 
   <xsl:template match="USE">
     <span class="USE">
-      <span class="note-title">Note</span>:
+      <xsl:text> </xsl:text><span class="note-title">Note</span>:
       <xsl:apply-templates/>
     </span>
   </xsl:template>
+
 
 
 </xsl:stylesheet>
