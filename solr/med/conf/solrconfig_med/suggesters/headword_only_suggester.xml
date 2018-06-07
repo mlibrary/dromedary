@@ -4,7 +4,6 @@
     <str name="name">headword_only_suggester</str>
     <str name="lookupImpl">FSTLookupFactory</str>
     <str name="suggestAnalyzerFieldType">me_text</str>
-    <str name="buildOnCommit">true</str>
     <str name="field">headword_only_suggestions</str>
     <str name="exactMatchFirst">true</str>
     <str name="buildOnStartup">false</str>

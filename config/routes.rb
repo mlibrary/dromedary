@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
 
-
-  match "bibliography/(:id)/track" => 'bibliography#show', via: [:get, :post]
-  get "/bibliography" => 'bibliography#index', constraints: {query_string: ""}
-  get "/bibliography/index", to: redirect('/bibliography'), constraints: {query_string: ""}
+  #
+  # match "bibliography/(:id)/track" => 'bibliography#show', via: [:get, :post]
+  # match "bibliography/(:id)" => 'bibliography#show', via: [:get, :post]
+  # get "/bibliography" => 'bibliography#index', constraints: {query_string: ""}
+  # get "/bibliography/index", to: redirect('/bibliography'), constraints: {query_string: ""}
 
   mount Blacklight::Engine => '/'
 
@@ -14,6 +15,11 @@ Rails.application.routes.draw do
   # Override the id matcher with an explicit constraint.
   match "#{default_route}/(:id)/track" => 'catalog#show',
         :constraints => { :id => /[\p{Alnum}\-\.]+/ }, via: [:get, :post]
+
+  match "bibliography/(:id)/track" => 'bibliography#show',
+        :constraints => { :id => /BIB[\d\-\.]+/ }, via: [:get, :post]
+
+  match "bibliography/(:id)" => 'bibliography#show', via: [:get, :post]
 
   root to: "catalog#home"
 

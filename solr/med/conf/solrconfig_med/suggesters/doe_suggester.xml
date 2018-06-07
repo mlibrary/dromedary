@@ -3,7 +3,6 @@
   <str name="name">doe_suggester</str>
   <str name="lookupImpl">FSTLookupFactory</str>
   <str name="suggestAnalyzerFieldType">exactish</str>
-  <str name="buildOnCommit">true</str>
   <str name="field">doe_norm</str>
   <str name="exactMatchFirst">true</str>
   <str name="buildOnStartup">false</str>
