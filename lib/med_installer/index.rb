@@ -3,6 +3,7 @@ require 'pathname'
 require 'annoying_utilities'
 require 'med_installer/logger'
 require 'med_installer/solr'
+require 'middle_english_dictionary/collection/bib_set'
 require 'traject'
 
 
@@ -23,7 +24,7 @@ module MedInstaller
 
       def select_writer(debug)
         writer = if debug
-                   index_dir  + 'writers' + 'debug.rb'
+                   index_dir + 'writers' + 'debug.rb'
                  else
                    index_dir + 'writers' + 'localhost.rb'
                  end
@@ -36,30 +37,36 @@ module MedInstaller
         core
       end
 
-      def index(rulesfile:, datafile:, writer:)
+      def hyp_to_bibid(filename)
+        logger.info "Building hyp_to_bibid mapping"
+        bibset = MiddleEnglishDictionary::Collection::BibSet.new(filename: filename)
+        bibset.reduce({}) do |acc, bib|
+          bib.hyps.each do |hyp|
+            acc[hyp] = bib.id
+          end
+          acc
+        end
+      end
+
+      def index(rulesfile:, datafile:, hyp_to_bibid:, writer:)
         indexer = ::Traject::Indexer.new
         indexer.settings do
           store 'med.data_file', datafile.to_s
+          store 'hyp_to_bibid', hyp_to_bibid
         end
+
+
         indexer.load_config_file rulesfile.to_s
         indexer.load_config_file writer.to_s
         exitstatus = indexer.process(File.open('/dev/null'))
-
-        #
-        # system "bundle", "exec", "traject",
-        #        "-c", rulesfile.to_s,
-        #        "-c", writer.to_s,
-        #        "-s", "med.data_file=#{datafile}",
-        #        "/dev/null", # traject requires a file on command line, no matter what
-        #        out: $stdout, err: :out
         logger.info "Traject running #{rulesfile} exited with status #{exitstatus}"
       end
 
-      def call(filename:, debug:)
+      def call(filename:, bibfile:, debug:)
         raise "Solr at #{AnnoyingUtilities.solr_url} not up" unless AnnoyingUtilities.solr_core.up?
         writer = select_writer(debug)
         fields = indexing_rules_file
-        index(rulesfile: fields, datafile: filename, writer: writer)
+        index(rulesfile: fields, datafile: filename, writer: writer, hyp_to_bibid: hyp_to_bibid(bibfile))
       end
 
       def commit
@@ -79,22 +86,27 @@ module MedInstaller
       desc "Index entries into solr using the traject configuration in indexer/main_indexing_rules"
 
       argument :filename, required: true, desc: "The location of entries.json.gz"
+      argument :bibfile, required: true, desc: "The location of bib_all.xml"
       option :debug, type: :boolean, default: false, desc: "Write to debug file?"
+
 
       def indexing_rules_file
         index_dir + 'main_indexing_rules.rb'
       end
-
     end
+
 
     class Bib < Generic
       desc "Index entries into solr using the traject configuration in indexer/bib_indexing_rules"
-
       argument :filename, required: true, desc: "The location of bib_all.xml"
       option :debug, type: :boolean, default: false, desc: "Write to debug file?"
 
       def indexing_rules_file
         index_dir + 'bib_indexing_rules.rb'
+      end
+
+      def call(filename:, debug:)
+        super(filename: filename, bibfile: filename, debug: debug)
       end
     end
 
@@ -104,7 +116,7 @@ module MedInstaller
       argument :bib_file, required: true, desc: "Path to bib_all.xml"
       option :debug, type: :boolean, default: false, desc: "Write to debug file?"
 
-      def call(entries_file:, bib_file:,  debug:)
+      def call(entries_file:, bib_file:, debug:)
         raise "Solr at #{AnnoyingUtilities.solr_url} not up" unless AnnoyingUtilities.solr_core.up?
         writer = select_writer(debug)
 
@@ -114,16 +126,20 @@ module MedInstaller
         logger.info "Reloading core definition"
         core.reload
 
+        bibmap = hyp_to_bibid(bib_file)
+
         logger.info "##### BEGIN ENTRY/QUOTE INDEXING #####"
-        index(rulesfile: index_dir + 'main_indexing_rules.rb',
-              datafile: entries_file,
-              writer: writer)
+        index(rulesfile:    index_dir + 'main_indexing_rules.rb',
+              datafile:     entries_file,
+              writer:       writer,
+              hyp_to_bibid: bibmap)
 
         logger.info "##### BEGIN BIB INDEXING #####"
 
-        index(rulesfile: index_dir + 'bib_indexing_rules.rb',
-              datafile: bib_file,
-              writer: writer)
+        index(rulesfile:    index_dir + 'bib_indexing_rules.rb',
+              datafile:     bib_file,
+              writer:       writer,
+              hyp_to_bibid: bibmap)
         commit
         MedInstaller::Solr.rebuild_suggesters(core)
         optimize
