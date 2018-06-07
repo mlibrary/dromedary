@@ -5,6 +5,7 @@ require 'delegate'
 require 'middle_english_dictionary'
 require 'html_truncator'
 require 'dromedary/xslt_utils'
+require 'dromedary/smart_xml'
 
 module Dromedary
 
