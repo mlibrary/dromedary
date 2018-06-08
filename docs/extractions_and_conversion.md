@@ -1,5 +1,8 @@
 # Extracting and converting the data
 
+**NOTE**: You probably don't need to do this. See [setup.md](the quick setup docs) for 
+the preferred way to get things running on your machine.
+
 The data is stored in little `.xml` files. We want to get them from the Box directory,
 extract the little XML files from their enclosing `.zip` files, and then convert 
 them to a different format (because ruby deals with XML *very* slowly).
