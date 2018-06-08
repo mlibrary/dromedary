@@ -25,6 +25,7 @@ module Dromedary
             search_component_name: "mySuggester"
           }
         end
+
       end
 
       # suggestions will send along our configuration instead of just
@@ -37,7 +38,7 @@ module Dromedary
 
       # Need to send along the configured path
       def suggest_handler_path
-        @autocomplete_config[:solr_endpoint]
+        @autocomplete_config['solr_endpoint']
       end
 
     end
