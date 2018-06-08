@@ -32,7 +32,12 @@ def lazy_method(name)
   ->(rec, acc) {acc.replace Array(rec.send(name))}
 end
 
+
 to_field 'type' do |q, acc|
+  acc << 'quote'
+end
+
+to_field 'format' do |entry, acc|
   acc << 'quote'
 end
 
@@ -45,6 +50,8 @@ to_field 'keyword' do |q, acc|
 end
 
 to_field 'entry_id', lazy_method(:entry_id)
+to_field 'headword', lazy_method(:headword)
+to_field 'pos', lazy_method(:pos)
 
 FDS = /[\A\D](\d{4})\D/
 
@@ -65,12 +72,11 @@ to_field "quote_manuscript", lazy_method(:ms)
 to_field "quote_date", lazy_method(:date)
 to_field "scope", lazy_method(:scope)
 
-to_field("citation_json") do |q, acc|
+to_field("json") do |q, acc|
   acc << q.citation.to_json
 end
 
 to_field 'bib_id', lazy_method(:bib_id)
-
 
 
 # def initialize(citation: citation)
