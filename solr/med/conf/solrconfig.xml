@@ -135,19 +135,17 @@
         <str name="defType">edismax</str>
         <str name="facet.mincount">1</str>
 
+        <str name="lowercaseOperators">false</str>
 
 
 
         &bib_everything_search;
-        &bib_author_title_search;
-        &bib_external_references_search;
-        &bib_lalme_search;
-        &bib_manuscript_search;
-        &bib_stencil_search;
+        <!--&bib_author_title_search;-->
+        <!--&bib_external_references_search;-->
+        <!--&bib_lalme_search;-->
+        <!--&bib_manuscript_search;-->
+        <!--&bib_stencil_search;-->
     </lst>
-
-
-
     <!-- Always restrict to bib documents -->
     <lst name="appends">
       <str name="fq">type:bib</str>
