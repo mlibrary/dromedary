@@ -10,6 +10,10 @@
     font-size: 14px
   }
 
+    span.pos {
+      font-style: italic;
+    }
+
 </style>
 
 <div class="documentHeader row">
@@ -53,8 +57,8 @@
           <div class="definition">
             <a href="/dictionary/<%= document.fetch('entry_id') %>">
               <span class="headword"><%= document.fetch('headword').join(', ') %></span>
-              <span class="pos"><%= document.fetch('pos') %></span>
             </a>
+            <span class="pos"><%= document.fetch('pos').first %></span>
           </div>
         </div>
 
