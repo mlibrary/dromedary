@@ -265,6 +265,9 @@
   <!-- Author and title -->
   <field name="author" type="me_text" stored="true" indexed="true" multiValued="false"/>
   <field name="author_sort" type="me_exactish" stored="false" indexed="true" multiValued="false" sortMissingLast="true"/>
+  <field name="author_exactish" type="me_exactish" stored="false" indexed="true" multiValued="false" sortMissingLast="true"/>
+  <copyField source="author" dest="author_exactish"/>
+
 
   <field name="title" type="me_text" stored="true" indexed="true" multiValued="false"/>
   <field name="title_sort" type="me_sort" stored="true" indexed="true" multiValued="false"/>

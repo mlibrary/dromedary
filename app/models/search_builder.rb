@@ -20,6 +20,7 @@ class SearchBuilder < Blacklight::SearchBuilder
     if current_q
       new_q            = current_q.gsub EscapeWorthy, '\1\\\\(\2\\\\)'
       solr_params['q'] = new_q
+      solr_params['debug'] = 'true'
     end
   end
 
@@ -31,3 +32,4 @@ class SearchBuilder < Blacklight::SearchBuilder
   #     solr_parameters[:custom] = blacklight_params[:user_value]
   #   end
 end
+
