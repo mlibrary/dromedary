@@ -3,26 +3,27 @@
 
 <!-- Load up stuff we keep in external files -->
 <!DOCTYPE config [
-        <!ENTITY headword_only_search   SYSTEM "solrconfig_med/entry_searches/headword_only_search.xml">
-        <!ENTITY headword_and_forms_search   SYSTEM "solrconfig_med/entry_searches/headword_and_forms_search.xml">
-        <!ENTITY everything_search   SYSTEM "solrconfig_med/entry_searches/everything_search.xml">
-        <!ENTITY citation_search SYSTEM "solrconfig_med/entry_searches/citation_search.xml">
-        <!ENTITY highlighting_defaults   SYSTEM "solrconfig_med/entry_searches/highlighting.xml">
+  <!ENTITY headword_only_search   SYSTEM "solrconfig_med/entry_searches/headword_only_search.xml">
+  <!ENTITY headword_and_forms_search   SYSTEM "solrconfig_med/entry_searches/headword_and_forms_search.xml">
+  <!ENTITY everything_search   SYSTEM "solrconfig_med/entry_searches/everything_search.xml">
+  <!ENTITY citation_search SYSTEM "solrconfig_med/entry_searches/citation_search.xml">
+  <!ENTITY highlighting_defaults   SYSTEM "solrconfig_med/entry_searches/highlighting.xml">
 
-        <!ENTITY headword_only_suggester SYSTEM "solrconfig_med/suggesters/headword_only_suggester.xml">
-        <!ENTITY headword_and_forms_suggester SYSTEM "solrconfig_med/suggesters/headword_and_forms_suggester.xml">
-        <!ENTITY oed_suggester SYSTEM "solrconfig_med/suggesters/oed_suggester.xml">
-        <!ENTITY doe_suggester SYSTEM "solrconfig_med/suggesters/doe_suggester.xml">
-
-
-        <!ENTITY bib_everything_search SYSTEM "solrconfig_med/bib_searches/everything_search.xml">
-        <!ENTITY bib_author_title_search SYSTEM "solrconfig_med/bib_searches/author_title_search.xml">
-        <!ENTITY bib_external_references_search SYSTEM "solrconfig_med/bib_searches/external_references_search.xml">
-        <!ENTITY bib_lalme_search SYSTEM "solrconfig_med/bib_searches/lalme_search.xml">
-        <!ENTITY bib_manuscript_search SYSTEM "solrconfig_med/bib_searches/manuscript_search.xml">
-        <!ENTITY bib_stencil_search SYSTEM "solrconfig_med/bib_searches/stencil_search.xml">
+  <!ENTITY headword_only_suggester SYSTEM "solrconfig_med/suggesters/headword_only_suggester.xml">
+  <!ENTITY headword_and_forms_suggester SYSTEM "solrconfig_med/suggesters/headword_and_forms_suggester.xml">
+  <!ENTITY oed_suggester SYSTEM "solrconfig_med/suggesters/oed_suggester.xml">
+  <!ENTITY doe_suggester SYSTEM "solrconfig_med/suggesters/doe_suggester.xml">
 
 
+  <!ENTITY bib_everything_search SYSTEM "solrconfig_med/bib_searches/everything_search.xml">
+  <!ENTITY bib_author_title_search SYSTEM "solrconfig_med/bib_searches/author_title_search.xml">
+  <!ENTITY bib_external_references_search SYSTEM "solrconfig_med/bib_searches/external_references_search.xml">
+  <!ENTITY bib_lalme_search SYSTEM "solrconfig_med/bib_searches/lalme_search.xml">
+  <!ENTITY bib_manuscript_search SYSTEM "solrconfig_med/bib_searches/manuscript_search.xml">
+  <!ENTITY bib_stencil_search SYSTEM "solrconfig_med/bib_searches/stencil_search.xml">
+
+  <!ENTITY quote_quote_search SYSTEM "solrconfig_med/quote_searches/quote_quote_search.xml">
+  <!ENTITY quote_everything_search SYSTEM "solrconfig_med/quote_searches/quote_everything_search.xml">
         ]>
 
 <config>
@@ -167,17 +168,24 @@
       <str name="fl">*</str>
       <str name="defType">edismax</str>
       <str name="facet.mincount">1</str>
+
+      &quote_everything_search;
+      &quote_quote_search;
+
       <str name="qf">keyword</str>
-      <str name="qf">keyword</str>
+      <str name="pf">keyword</str>
     </lst>
-
-
 
     <!-- Always restrict to quote documents -->
     <lst name="appends">
       <str name="fq">type:quote</str>
     </lst>
   </requestHandler>
+
+
+
+
+
   <!--## Suggest stuff ##-->
 
   <!--Mount suggester for headwords and forms at /headword_and_forms_suggester-->

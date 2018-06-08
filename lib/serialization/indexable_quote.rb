@@ -17,7 +17,10 @@ module Dromedary
 
     XSLT = Nokogiri::XSLT(File.read(AnnoyingUtilities::DROMEDARY_ROOT + 'indexer' + 'xslt' + 'Common.xsl'))
 
-    attr_accessor :quote, :entry_id, :cd, :md, :quote_html, :date, :text,
+    attr_accessor :quote, :quote_html, :text,
+                  :date,
+                  :entry_id, :headword, :pos,
+                  :cd, :md,
                   :scope, :rid, :title, :ms,
                   :citation,
                   :bib_id
@@ -54,7 +57,11 @@ module Dromedary
     include Representable::JSON
 
     property :quote
+
     property :entry_id
+    property :headword
+    property :pos
+    property :bib_id
     property :cd
     property :md
     property :quote_html

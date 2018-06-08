@@ -1,0 +1,70 @@
+<%# header bar for doc items in index view -%>
+
+<style>
+
+  h3 .quote {
+    font-size: 21px;
+  }
+
+  .citation-link {
+    font-size: 14px
+  }
+
+</style>
+
+<div class="documentHeader row">
+  <%# main title container for doc partial view
+      How many bootstrap columns need to be reserved
+      for bookmarks control depends on size.
+  -%>
+  <% doc_presenter = index_presenter(document) %>
+  <%# require 'pry'; binding.pry %>
+
+  <% document_actions = capture do %>
+    <%= render_index_doc_actions document, wrapping_class: "index-document-functions col-sm-3 col-lg-2" %>
+  <% end %>
+
+  <div class="col-md-12">
+    <div class="entry-panel panel">
+
+      <h3 class="index_title document-title-heading <%= document_actions.present? ? "col-sm-9 col-lg-10" : "col-md-12" %>">
+        <% if counter = document_counter_with_offset(document_counter) %>
+          <span class="document-counter">
+            <%= t('blacklight.search.documents.counter', counter: counter) %>
+          </span>
+        <% end %>
+        <span class="quote"><%== doc_presenter.document.fetch('quote_html') %></span>
+      </h3>
+
+      <div class="search-result def">
+
+        <div class="search-result def">
+          <div class="definition-block">
+            <div class="def-header">Associated headword</div>
+            <div class="definition">
+              <a href="/dictionary/<%= document.fetch('entry_id') %>">
+                <span class="headword"><%= document.fetch('headword').join(', ') %></span>
+                <span class="pos"><%= document.fetch('pos') %></span>
+              </a>
+            </div>
+          </div>
+
+          <div class="definition-block">
+            <div class="def-header">Associated bib entry</div>
+            <div class="definition">
+              <a href="bibliography/<%= document.fetch('bib_id') %>">
+                <%== doc_presenter.citation_link_text %>
+              </a>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
+
+  <%= document_actions %>
+</div>

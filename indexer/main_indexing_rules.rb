@@ -135,6 +135,8 @@ each_record do |entry, context|
     q = Dromedary::IndexableQuote.new(citation: citation)
     next if q.text == ''
     q.bib_id = hyp_to_bibid[q.rid.upcase] if q.rid
+    q.headword = entry.original_headwords
+    q.pos = entry.pos
     quote_indexer.put(q, context.position)
   end
 end

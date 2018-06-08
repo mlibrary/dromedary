@@ -1,10 +1,5 @@
 Rails.application.routes.draw do
 
-  #
-  # match "bibliography/(:id)/track" => 'bibliography#show', via: [:get, :post]
-  # match "bibliography/(:id)" => 'bibliography#show', via: [:get, :post]
-  # get "/bibliography" => 'bibliography#index', constraints: {query_string: ""}
-  # get "/bibliography/index", to: redirect('/bibliography'), constraints: {query_string: ""}
 
   mount Blacklight::Engine => '/'
 
@@ -25,6 +20,9 @@ Rails.application.routes.draw do
   match "bibliography/(:id)" => 'bibliography#show', via: [:get, :post],
         constraints: { :id => /\S\S+/, query_string: ""}
 
+  match "quotes/" => 'quotes#index', via: [:get, :post],
+        constraints: { query_string: ""}
+
   root to: "catalog#home"
 
 
@@ -41,6 +39,10 @@ Rails.application.routes.draw do
   end
 
   resource :search, only: [:index], as: 'bibliography', path: "/bibliography", controller: 'bibliography' do
+    concerns :searchable
+  end
+
+  resource :search, only: [:index], as: 'quotes', path: "/quotes", controller: 'quotes' do
     concerns :searchable
   end
 

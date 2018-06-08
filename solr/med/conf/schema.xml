@@ -242,7 +242,6 @@
 
   <field name="entry_id" type="string" indexed="true" stored="true" multiValued="false"/>
   <field name="bib_id" type="string" indexed="true" stored="true" multiValued="false"/>
-  <field name="citation_json" type="string" indexed="false" stored="true" multiValued="false"/>
   <field name="quote_html" type="string" indexed="false" stored="true" multiValued="false"/>
   <field name="scope" type="text" indexed="true" multiValued="false"/>
 
