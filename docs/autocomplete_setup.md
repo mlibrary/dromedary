@@ -4,49 +4,55 @@ The blacklight autocomplete setup is pretty brittle and needs some mucking
 about with to get it to work with multiple different input boxes that
 target different solr autocomplete endpoints. 
 
-## Catalog controller configuration
+## Configure autocomplete in config/autocomplete.yml
 
-You can set up multiple autocomplete configurations by doing the following
-(which mirrors the default blacklight configuration)
+```yaml
+# Autocomplete setup.
+# The format is:
+#   search_name:
+#     solr_endpoint: path_to_solr_handler
+#     search_component_name: mySuggester
+#
+# The search_name is the name given the search in the
+# `config.add_search_field(name, ...)` in catalog_controller
+#
+# The "keyword" config mirrors the default blacklight setup
 
-```ruby
+default: &default
+  keyword: 
+    solr_endpoint: path_to_solr_handler,
+    search_component_name: "mySuggester"
+  h:
+    solr_endpoint:         headword_only_suggester
+    search_component_name: headword_only_suggester
+  hnf:
+    solr_endpoint:         headword_and_forms_suggester
+    search_component_name: headword_and_forms_suggester
+  oed:
+    solr_endpoint:         oed_suggester
+    search_component_name: oed_suggester
 
-# Example
-  config.autocomplete = {
-       keyword: {
-         solr_endpoint: path_to_solr_handler,
-         search_component_name: "mySuggester"
-       },
-       # more configs here
-  }
+development:
+  <<: *default
 
-# Actual code is at the bottom of the catalog controller
+test:
+  <<: *default
 
-    config.autocomplete = {
-      h:   {
-        solr_endpoint:         "headword_only_suggester",
-        search_component_name: "headword_only_suggester"
-      },
-      hnf: {
-        solr_endpoint:         "headword_and_forms_suggester",
-        search_component_name: "headword_and_forms_suggester"
-      },
-      oed: {
-        solr_endpoint:         "oed_suggester",
-        search_component_name: "oed_suggester"
-      }
-    }
-
-
+production:
+  <<: *default
 
 ```
 
-`keyword` is the name of the search in the
-`config.add_search_field(name, ...)` and allows the search field picker
-dropdown to control which configuration is used.
+## Catalog controller configuration
 
+Now load the autocomplete setup into your blacklight configuration.
 
+```ruby
 
+# Autocomplete on multiple fields. See config/autocomplete.yml
+config.autocomplete = ActiveSupport::HashWithIndifferentAccess.new Rails.application.config_for(:autocomplete)
+
+```
 
 ## autocomplete.js.erb
 
