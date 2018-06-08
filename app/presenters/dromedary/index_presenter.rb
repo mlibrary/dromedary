@@ -66,7 +66,8 @@ module Dromedary
     # @return [SmartXML, nil] The definition transformed into HTML, or nil
     def def_html(sense)
       enclosed_def_xml = '<div>' + sense.definition_xml + '</div>'
-      SmartXML.new(xsl_transform_from_xml(enclosed_def_xml, DEF_XSLT))
+
+      Dromedary::SmartXML.new(xsl_transform_from_xml(enclosed_def_xml, DEF_XSLT))
     end
 
 
