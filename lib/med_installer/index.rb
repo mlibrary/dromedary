@@ -37,22 +37,29 @@ module MedInstaller
         core
       end
 
+      def bibset(filename)
+        @bibset ||= MiddleEnglishDictionary::Collection::BibSet.new(filename: filename)
+      end
+
+
       def hyp_to_bibid(filename)
+        return @hyp_to_bibid if @hyp_to_bibid
         logger.info "Building hyp_to_bibid mapping"
-        bibset = MiddleEnglishDictionary::Collection::BibSet.new(filename: filename)
-        bibset.reduce({}) do |acc, bib|
+        @hyp_to_bibid ||= bibset(filename).reduce({}) do |acc, bib|
           bib.hyps.each do |hyp|
-            acc[hyp] = bib.id
+            acc[hyp.gsub('\\', '').gsub(/[Tt]\d+\Z/, '').upcase] = bib.id
           end
           acc
         end
       end
 
-      def index(rulesfile:, datafile:, hyp_to_bibid:, writer:)
+      def index(rulesfile:, datafile:, bibfile:, writer:)
         indexer = ::Traject::Indexer.new
+        h2b = hyp_to_bibid(bibfile)
         indexer.settings do
           store 'med.data_file', datafile.to_s
-          store 'hyp_to_bibid', hyp_to_bibid
+          store 'bibfile', bibfile
+          store 'hyp_to_bibid', h2b
         end
 
 
@@ -66,7 +73,7 @@ module MedInstaller
         raise "Solr at #{AnnoyingUtilities.solr_url} not up" unless AnnoyingUtilities.solr_core.up?
         writer = select_writer(debug)
         fields = indexing_rules_file
-        index(rulesfile: fields, datafile: filename, writer: writer, hyp_to_bibid: hyp_to_bibid(bibfile))
+        index(rulesfile: fields, datafile: filename, writer: writer, bibfile: bibfile)
       end
 
       def commit
@@ -126,20 +133,18 @@ module MedInstaller
         logger.info "Reloading core definition"
         core.reload
 
-        bibmap = hyp_to_bibid(bib_file)
-
         logger.info "##### BEGIN ENTRY/QUOTE INDEXING #####"
-        index(rulesfile:    index_dir + 'main_indexing_rules.rb',
-              datafile:     entries_file,
-              writer:       writer,
-              hyp_to_bibid: bibmap)
+        index(rulesfile: index_dir + 'main_indexing_rules.rb',
+              datafile:  entries_file,
+              writer:    writer,
+              bibfile:   bib_file)
 
         logger.info "##### BEGIN BIB INDEXING #####"
 
-        index(rulesfile:    index_dir + 'bib_indexing_rules.rb',
-              datafile:     bib_file,
-              writer:       writer,
-              hyp_to_bibid: bibmap)
+        index(rulesfile: index_dir + 'bib_indexing_rules.rb',
+              datafile:  bib_file,
+              writer:    writer,
+              bibfile:   bib_file)
         commit
         MedInstaller::Solr.rebuild_suggesters(core)
         optimize

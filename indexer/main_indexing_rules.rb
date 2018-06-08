@@ -14,6 +14,7 @@ settings do
 end
 
 hyp_to_bibid = settings['hyp_to_bibid']
+bibset       = MiddleEnglishDictionary::Collection::BibSet.new(filename: settings['bibfile'])
 
 # Do a terrible disservice to traject and monkeypatch it to take
 # our existing logger
@@ -134,9 +135,23 @@ each_record do |entry, context|
   entry.all_citations.each do |citation|
     q = Dromedary::IndexableQuote.new(citation: citation)
     next if q.text == ''
-    q.bib_id = hyp_to_bibid[q.rid.upcase] if q.rid
+    if q.rid
+      begin
+        rid      = q.rid.gsub('\\', '').gsub(/[Tt]\d+\Z/, '').upcase # TODO: Take out when backslashes removed from HYP ids
+        bid = hyp_to_bibid[rid]
+        if bid
+          q.bib_id = bid
+          q.author = bibset[q.bib_id].author
+        else
+          logger.warn "RID #{rid} in #{entry.source} not found in bib_all.xml"
+        end
+      rescue => e
+        require 'pry'; binding.pry
+      end
+
+    end
     q.headword = entry.original_headwords
-    q.pos = entry.pos
+    q.pos      = entry.pos
     quote_indexer.put(q, context.position)
   end
 end

@@ -71,7 +71,8 @@ class QuotesController < ApplicationController
     # except in the relevancy case).
     #
     config.add_sort_field 'score desc', label: 'Relevance'
-    config.add_sort_field 'quote_date_sort asc, author_sort asc', label: 'Title'
+    config.add_sort_field 'quote_date_sort asc, author_sort asc', label: 'Date (oldest first)'
+    config.add_sort_field 'quote_date_sort desc, author_sort asc', label: 'Date (newest first)'
     config.add_sort_field 'author_sort asc, title_sort asc', label: 'Author'
 
 

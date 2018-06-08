@@ -38,27 +38,26 @@
 
       <div class="search-result def">
 
-        <div class="search-result def">
-          <div class="definition-block">
-            <div class="def-header">Associated headword</div>
-            <div class="definition">
-              <a href="/dictionary/<%= document.fetch('entry_id') %>">
-                <span class="headword"><%= document.fetch('headword').join(', ') %></span>
-                <span class="pos"><%= document.fetch('pos') %></span>
-              </a>
-            </div>
-          </div>
+        <div class="definition-block">
+          <div class="def-header">Associated bib entry</div>
+          <div class="definition">
+            <a href="bibliography/<%= document.fetch('bib_id') %>">
+              <%== doc_presenter.citation_link_text %>
+            </a>
 
-          <div class="definition-block">
-            <div class="def-header">Associated bib entry</div>
-            <div class="definition">
-              <a href="bibliography/<%= document.fetch('bib_id') %>">
-                <%== doc_presenter.citation_link_text %>
-              </a>
-
-            </div>
           </div>
         </div>
+
+        <div class="definition-block">
+          <div class="def-header">Associated headword</div>
+          <div class="definition">
+            <a href="/dictionary/<%= document.fetch('entry_id') %>">
+              <span class="headword"><%= document.fetch('headword').join(', ') %></span>
+              <span class="pos"><%= document.fetch('pos') %></span>
+            </a>
+          </div>
+        </div>
+
 
       </div>
 

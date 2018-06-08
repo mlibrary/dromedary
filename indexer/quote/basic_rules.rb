@@ -61,6 +61,10 @@ to_field 'quote_date_sort' do |bib, acc|
   end
 end
 
+to_field 'author_sort' do |bib, acc|
+
+end
+
 to_field 'quote_text', lazy_method(:quote)
 to_field 'quote_html', lazy_method(:quote_html)
 
@@ -77,7 +81,7 @@ to_field("json") do |q, acc|
 end
 
 to_field 'bib_id', lazy_method(:bib_id)
-
+to_field 'author', lazy_method(:author)
 
 # def initialize(citation: citation)
 #   self.quote      = citation.quote.text
