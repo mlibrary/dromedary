@@ -223,6 +223,8 @@
   <field name="quote_date" type="string" indexed="false" stored="true" multiValued="true"/>
   <field name="rid" type="string" indexed="true" stored="true" multiValued="true"/>
 
+  <field name="quote_date_sort" type="int" indexed="true" multiValued="false"/>
+
   <!--Dates-->
   <field name="md" type="int" indexed="true" stored="true" multiValued="true"/>
   <field name="cd" type="int" indexed="true" stored="true" multiValued="true"/>

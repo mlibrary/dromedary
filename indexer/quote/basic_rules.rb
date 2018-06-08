@@ -46,6 +46,13 @@ end
 
 to_field 'entry_id', lazy_method(:entry_id)
 
+FDS = /[\A\D](\d{4})\D/
+
+to_field 'quote_date_sort' do |bib, acc|
+  if match = FDS.match(bib.text)
+    acc << match[1].to_i
+  end
+end
 
 to_field 'quote_text', lazy_method(:quote)
 to_field 'quote_html', lazy_method(:quote_html)
