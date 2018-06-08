@@ -23,7 +23,7 @@ module Dromedary
                   :cd, :md,
                   :scope, :rid, :title, :ms,
                   :citation,
-                  :bib_id
+                  :bib_id, :author
 
     alias_method :med_id, :entry_id
 
@@ -62,6 +62,7 @@ module Dromedary
     property :headword
     property :pos
     property :bib_id
+    property :author
     property :cd
     property :md
     property :quote_html
