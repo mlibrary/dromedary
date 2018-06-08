@@ -12,7 +12,7 @@ end
 # When developing in tandem, a relative path is nice and easy
 
 # gem 'middle_english_dictionary', path: "/Users/dueberb/devel/med/middle_english_dictionary"
-gem 'middle_english_dictionary', '=1.4.3'
+gem 'middle_english_dictionary', '=1.4.4'
 
 
 # Rails and blacklight and such

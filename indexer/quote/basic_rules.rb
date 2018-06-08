@@ -32,7 +32,12 @@ def lazy_method(name)
   ->(rec, acc) {acc.replace Array(rec.send(name))}
 end
 
+
 to_field 'type' do |q, acc|
+  acc << 'quote'
+end
+
+to_field 'format' do |entry, acc|
   acc << 'quote'
 end
 
@@ -40,8 +45,25 @@ to_field 'id' do |q, acc|
   acc << SecureRandom.uuid
 end
 
-to_field 'entry_id', lazy_method(:entry_id)
+to_field 'keyword' do |q, acc|
+  acc << q.text.gsub(/\n/, ' ')
+end
 
+to_field 'entry_id', lazy_method(:entry_id)
+to_field 'headword', lazy_method(:headword)
+to_field 'pos', lazy_method(:pos)
+
+FDS = /[\A\D](\d{4})\D/
+
+to_field 'quote_date_sort' do |bib, acc|
+  if match = FDS.match(bib.text)
+    acc << match[1].to_i
+  end
+end
+
+to_field 'author_sort' do |bib, acc|
+
+end
 
 to_field 'quote_text', lazy_method(:quote)
 to_field 'quote_html', lazy_method(:quote_html)
@@ -54,11 +76,12 @@ to_field "quote_manuscript", lazy_method(:ms)
 to_field "quote_date", lazy_method(:date)
 to_field "scope", lazy_method(:scope)
 
-to_field("citation_json") do |q, acc|
+to_field("json") do |q, acc|
   acc << q.citation.to_json
 end
 
-
+to_field 'bib_id', lazy_method(:bib_id)
+to_field 'author', lazy_method(:author)
 
 # def initialize(citation: citation)
 #   self.quote      = citation.quote.text

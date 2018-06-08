@@ -3,12 +3,14 @@
     on the name of the controller %>
 
 <%
-  is_med = 'active' if controller_name == 'catalog'
-  is_bib = 'active' if controller_name == 'bibliography'
+  is_med    = 'active' if controller_name == 'catalog'
+  is_bib    = 'active' if controller_name == 'bibliography'
+  is_quotes = 'active' if controller_name == 'quotes'
 %>
 
 <ul class="header-nav-secondary">
    <li class="<%= is_med%>"><%= render partial: 'shared/nav/med' %></li>
    <li class="<%= is_bib%>"><%= render partial: 'shared/nav/bib' %></li>
+   <li class="<%= is_quotes%>"><%= render partial: 'shared/nav/quotes' %></li>
    <li><%= render partial: 'shared/nav/corpus' %></li>
 </ul>
