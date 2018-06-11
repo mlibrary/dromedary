@@ -47,7 +47,7 @@ module MedInstaller
         logger.info "Building hyp_to_bibid mapping"
         @hyp_to_bibid ||= bibset(filename).reduce({}) do |acc, bib|
           bib.hyps.each do |hyp|
-            acc[hyp.gsub('\\', '').gsub(/[Tt]\d+\Z/, '').upcase] = bib.id
+            acc[hyp.gsub('\\', '').gsub(/[Tt]\d+\Z/, '').upcase] = bib.id # TODO: Take out when backslashes removed from HYP ids
           end
           acc
         end
