@@ -3,6 +3,7 @@ $LOAD_PATH.unshift (Pathname.new(__dir__).parent + 'lib').to_s
 require 'annoying_utilities'
 require 'med_installer'
 require 'middle_english_dictionary'
+require 'json'
 
 require 'quote/quote_indexer'
 require 'serialization/indexable_quote'
@@ -13,7 +14,7 @@ settings do
   provide 'reader_class_name', 'MedInstaller::Traject::EntryJsonReader'
 end
 
-hyp_to_bibid = settings['hyp_to_bibid']
+hyp_to_bibid = JSON.load(File.open(AnnoyingUtilities.dromedary_root + 'config' + 'hyp_to_bibid.json'))
 bibset       = MiddleEnglishDictionary::Collection::BibSet.new(filename: settings['bibfile'])
 
 # Do a terrible disservice to traject and monkeypatch it to take
