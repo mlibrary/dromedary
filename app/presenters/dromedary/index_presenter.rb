@@ -80,7 +80,9 @@ module Dromedary
     # @param [MiddleEnglishDictionary::Entry::Citation] cit The citation object
     # @return [String, nil] The citatation transformed into HTML, or nil
     def cit_html(cit)
-      xsl_transform_from_xml(cit.xml, CIT_XSLT)
+      rid = cit.bib.stencil.rid
+      bibid = Dromedary::HYP_TO_BIBID[rid.upcase]
+      xsl_transform_from_xml(cit.xml, CIT_XSLT, ["bibid", "'#{bibid}'"])
     end
 
     alias_method :cite_html, :cit_html

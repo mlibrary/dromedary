@@ -24,7 +24,8 @@
         <% if document.has_key?('author') %>
           <span class="author"><%= doc_presenter.field_value('author') + ', ' %></span>
         <% end %>
-        <% biblink = link_to_document(document, doc_presenter.title_html.html_safe, counter: counter) %>
+        <% biblink = link_to doc_presenter.title_html.html_safe, "/bibliography/#{doc_presenter.bib.id}", document_link_params(document,counter: counter) %>
+
         <span class="bib-title">
           <% if doc_presenter.incipit? %>
             "<%== biblink %>&hellip;" (incipit)
