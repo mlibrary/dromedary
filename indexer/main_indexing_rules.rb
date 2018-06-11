@@ -137,7 +137,7 @@ each_record do |entry, context|
     next if q.text == ''
     if q.rid
       begin
-        rid      = q.rid.gsub('\\', '').gsub(/[Tt]\d+\Z/, '').upcase # TODO: Take out when backslashes removed from HYP ids
+        rid      = q.rid.gsub('\\', '').upcase # TODO: Take out when backslashes removed from HYP ids
         bid = hyp_to_bibid[rid]
         if bid
           q.bib_id = bid

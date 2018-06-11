@@ -46,9 +46,9 @@ module Dromedary
       # @param [String] xpath The xpath into the entry (root is '/ENTRYFREE')
       # @param [Nokogiri::XSLT] xslt The XSLT object used to do the transformation
       # @return [String,nil] The transfored text (usualy html), or nil if the xpath not found
-      def xsl_transform_from_node(node, xslt)
+      def xsl_transform_from_node(node, xslt, params=[])
         return nil if node.nil?
-        xml = xslt.apply_to(doc_from_node(node))
+        xml = xslt.apply_to(doc_from_node(node), params)
       end
 
 
@@ -57,9 +57,9 @@ module Dromedary
       # @param [String,nil] xml The raw XML string, or nil
       # @param [Nokogiri::XSLT] xslt The XSLT object used to do the transformation
       # @return [String,nil] The transfored text (usualy html), or nil if the xpath not found
-      def xsl_transform_from_xml(xml, xslt)
+      def xsl_transform_from_xml(xml, xslt, params=[])
         return nil if xml.nil?
-        xsl_transform_from_node(Nokogiri::XML(xml), xslt)
+        xsl_transform_from_node(Nokogiri::XML(xml), xslt, params)
       end
 
 

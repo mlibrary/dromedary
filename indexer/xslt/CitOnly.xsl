@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
     <xsl:import href="./indexer/xslt/Common.xsl"/>
-    
+    <xsl:param name="bibid"/>
+
+
     <xsl:output method="html" indent="yes"/>
     <xsl:template match="/CIT | cit">
 
@@ -37,8 +39,7 @@
            #########################################################-->
         <xsl:element name="a">
             <xsl:attribute name="href">
-                <xsl:text>cgi/m/mec/hyp-idx?type=id&amp;id=</xsl:text>
-                <xsl:value-of select="$RsomethingID"/>
+                <xsl:text>/bibliography/</xsl:text><xsl:value-of select="$bibid"/><xsl:text>?rid=</xsl:text><xsl:value-of select="$RsomethingID"/>
             </xsl:attribute>
             <span class="STNCL">
                 <span class="DATE">
