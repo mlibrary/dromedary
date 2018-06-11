@@ -17,19 +17,21 @@ Rails.application.routes.draw do
   match "bibliography/" => 'bibliography#index', via: [:get, :post],
         constraints: { query_string: ""}
 
+  match "bibliography/" => 'bibliography#index', via: [:get, :post]
+
   match "bibliography/(:id)" => 'bibliography#show', via: [:get, :post],
-        constraints: { :id => /\S\S+/, query_string: ""}
+        constraints: { :id => /\S\S+/}
 
   match "quotes/" => 'quotes#index', via: [:get, :post],
         constraints: { query_string: ""}
 
-  root to: "catalog#home"
+   root to: "catalog#home"
 
 
 
 
   # Force to go to root ('/'), not index.html
-  get "/#{default_route}", to: redirect('/'), constraints: {query_string: ""}
+  # get "/#{default_route}", to: redirect('/'), constraints: {query_string: ""}
   
   concern :searchable, Blacklight::Routes::Searchable.new
 
