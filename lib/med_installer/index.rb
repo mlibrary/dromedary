@@ -5,6 +5,7 @@ require 'med_installer/logger'
 require 'med_installer/solr'
 require 'middle_english_dictionary/collection/bib_set'
 require 'traject'
+require 'json'
 
 
 module MedInstaller
@@ -47,9 +48,15 @@ module MedInstaller
         logger.info "Building hyp_to_bibid mapping"
         @hyp_to_bibid ||= bibset(filename).reduce({}) do |acc, bib|
           bib.hyps.each do |hyp|
-            acc[hyp.gsub('\\', '').gsub(/[Tt]\d+\Z/, '').upcase] = bib.id # TODO: Take out when backslashes removed from HYP ids
+            acc[hyp.gsub('\\', '').upcase] = bib.id # TODO: Take out when backslashes removed from HYP ids
           end
           acc
+        end
+      end
+
+      def write_hyp_to_bib_id(bibfile)
+        File.open(AnnoyingUtilities.dromedary_root + 'config' + 'hyp_to_bibid.json', 'w:utf-8') do |out|
+          out.puts hyp_to_bibid(bibfile).to_json
         end
       end
 
@@ -73,6 +80,7 @@ module MedInstaller
         raise "Solr at #{AnnoyingUtilities.solr_url} not up" unless AnnoyingUtilities.solr_core.up?
         writer = select_writer(debug)
         fields = indexing_rules_file
+        write_hyp_to_bib_id(bibfile)
         index(rulesfile: fields, datafile: filename, writer: writer, bibfile: bibfile)
       end
 
@@ -132,6 +140,8 @@ module MedInstaller
 
         logger.info "Reloading core definition"
         core.reload
+
+        write_hyp_to_bib_id(bib_file)
 
         logger.info "##### BEGIN ENTRY/QUOTE INDEXING #####"
         index(rulesfile: index_dir + 'main_indexing_rules.rb',
