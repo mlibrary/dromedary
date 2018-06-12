@@ -127,4 +127,23 @@ class BibliographyController < ApplicationController
 
 
 
+  # ############################################# #
+  #            Allow HYP...IDs to redirect
+  #        and force uppercase IDs                #
+  # ############################################# #
+  #
+
+  def show
+    id = params[:id]
+    new_id = id.upcase
+    if id =~ /HYP/
+      new_id = Dromedary.hyp_to_bibid[id]
+    end
+    if id != new_id
+      redirect_to "/bibliography/#{new_id}", status: :moved_permanently
+    else
+      super
+    end
+  end
+
 end

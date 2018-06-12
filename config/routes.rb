@@ -12,10 +12,8 @@ Rails.application.routes.draw do
         :constraints => { :id => /[\p{Alnum}\-\.]+/ }, via: [:get, :post]
 
   match "bibliography/(:id)/track" => 'bibliography#show',
-        :constraints => { :id => /BIB[\d\-\.]+/ }, via: [:get, :post]
+        :constraints => { :id => /(?:BIB|HYP)[T\d\-\.]+/i }, via: [:get, :post]
 
-  match "bibliography/" => 'bibliography#index', via: [:get, :post],
-        constraints: { query_string: ""}
 
   match "bibliography/" => 'bibliography#index', via: [:get, :post]
 
@@ -32,7 +30,7 @@ Rails.application.routes.draw do
 
   # Force to go to root ('/'), not index.html
   # get "/#{default_route}", to: redirect('/'), constraints: {query_string: ""}
-  
+
   concern :searchable, Blacklight::Routes::Searchable.new
 
 
@@ -66,9 +64,9 @@ Rails.application.routes.draw do
 
   match '/contacts', to: 'contacts#new', via: 'get'
   resources "contacts", only: [:new, :create]
-  
+
   post 'static/search' => 'static#search'
-  
+
   get 'static/:action' => 'static', as: :static
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
