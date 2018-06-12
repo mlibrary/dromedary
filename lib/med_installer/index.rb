@@ -155,7 +155,7 @@ module MedInstaller
     class Full < Generic
       desc "Clear and reload solr, index entries and bib, build autosuggest, and optimize"
       argument :entries_file, required: true, desc: "Path to entries.json.gz"
-      argument :bib_file, required: true, desc: "Path to bib_all.xml"
+      argument :bibfile, required: true, desc: "Path to bib_all.xml"
       option :debug, type: :boolean, default: false, desc: "Write to debug file?"
 
 
