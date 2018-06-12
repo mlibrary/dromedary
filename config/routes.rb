@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
 
   mount Blacklight::Engine => '/'
+  mount BlacklightAdvancedSearch::Engine => '/'
+
 
   # Where should it look like it's mounted?
   default_route = 'dictionary'

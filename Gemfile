@@ -19,7 +19,7 @@ gem 'middle_english_dictionary', '=1.4.4'
 
 gem 'rails', '~> 5.1.4'
 gem 'blacklight', "~> 6.1"
-
+gem 'blacklight_advanced_search', '~> 6.3', '>= 6.3.1'
 
 # For bin/dromedary
 gem 'hanami-cli'

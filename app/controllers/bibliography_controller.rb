@@ -5,6 +5,13 @@ class BibliographyController < ApplicationController
 
 
   configure_blacklight do |config|
+    # default advanced config values
+    config.advanced_search ||= Blacklight::OpenStructWithHashAccess.new
+    # config.advanced_search[:qt] ||= 'advanced'
+    config.advanced_search[:url_key] ||= 'advanced'
+    config.advanced_search[:query_parser] ||= 'dismax'
+    config.advanced_search[:form_solr_parameters] ||= {}
+
     ## Class for sending and receiving requests from a search index
     # config.repository_class = Blacklight::Solr::Repository
     #
@@ -69,6 +76,7 @@ class BibliographyController < ApplicationController
           pf: '$bib_author_title_pf',
       }
     end
+
     config.add_search_field("bib_external_references", label: "External References") do |field|
       field.qt                    = "/bibsearch"
       field.solr_local_parameters = {
