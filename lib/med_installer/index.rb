@@ -15,13 +15,16 @@ module MedInstaller
       include MedInstaller::Logger
       include AnnoyingUtilities
 
+
       def index_dir
         AnnoyingUtilities::DROMEDARY_ROOT + 'indexer'
       end
 
+
       def indexing_rules_file
         raise "Set in subclass"
       end
+
 
       def select_writer(debug)
         writer = if debug
@@ -31,6 +34,7 @@ module MedInstaller
                  end
       end
 
+
       def core
         core = AnnoyingUtilities.solr_core
         # Commit with index building can take a looooong time. Set the timeout to 100seconds
@@ -38,10 +42,52 @@ module MedInstaller
         core
       end
 
+
+      def index(rulesfile:, datafile:, bibfile:, writer:)
+        indexer = ::Traject::Indexer.new
+        indexer.settings do
+          store 'med.data_file', datafile.to_s
+          store 'bibfile', bibfile
+        end
+
+
+        indexer.load_config_file rulesfile.to_s
+        indexer.load_config_file writer.to_s
+        exitstatus = indexer.process(File.open('/dev/null'))
+        logger.info "Traject running #{rulesfile} exited with status #{exitstatus}"
+      end
+
+
+      def call(filename:, bibfile:, debug:)
+        raise "Solr at #{AnnoyingUtilities.solr_url} not up" unless AnnoyingUtilities.solr_core.up?
+        writer = select_writer(debug)
+        fields = indexing_rules_file
+        index(rulesfile: fields, datafile: filename, writer: writer, bibfile: bibfile)
+      end
+
+
+      def commit
+        logger.info "Sending commit"
+        core.commit
+      end
+
+
+      def optimize
+        logger.info "Optimizing (long!)"
+        core.optimize
+      end
+
+    end
+
+    class HypToBibID < Hanami::CLI::Command
+      include MedInstaller::Logger
+
+      argument :bibfile, required: true, desc: "The location of bib_all.xml"
+
+
       def bibset(filename)
         @bibset ||= MiddleEnglishDictionary::Collection::BibSet.new(filename: filename)
       end
-
 
       def hyp_to_bibid(filename)
         return @hyp_to_bibid if @hyp_to_bibid
@@ -54,45 +100,18 @@ module MedInstaller
         end
       end
 
+
       def write_hyp_to_bib_id(bibfile)
         File.open(AnnoyingUtilities.dromedary_root + 'config' + 'hyp_to_bibid.json', 'w:utf-8') do |out|
           out.puts hyp_to_bibid(bibfile).to_json
         end
       end
 
-      def index(rulesfile:, datafile:, bibfile:, writer:)
-        indexer = ::Traject::Indexer.new
-        h2b = hyp_to_bibid(bibfile)
-        indexer.settings do
-          store 'med.data_file', datafile.to_s
-          store 'bibfile', bibfile
-          store 'hyp_to_bibid', h2b
-        end
-
-
-        indexer.load_config_file rulesfile.to_s
-        indexer.load_config_file writer.to_s
-        exitstatus = indexer.process(File.open('/dev/null'))
-        logger.info "Traject running #{rulesfile} exited with status #{exitstatus}"
-      end
-
-      def call(filename:, bibfile:, debug:)
-        raise "Solr at #{AnnoyingUtilities.solr_url} not up" unless AnnoyingUtilities.solr_core.up?
-        writer = select_writer(debug)
-        fields = indexing_rules_file
+      def call(bibfile:)
+        logger.info "Writing config/hyp_to_bibid.json"
         write_hyp_to_bib_id(bibfile)
-        index(rulesfile: fields, datafile: filename, writer: writer, bibfile: bibfile)
       end
 
-      def commit
-        logger.info "Sending commit"
-        core.commit
-      end
-
-      def optimize
-        logger.info "Optimizing (long!)"
-        core.optimize
-      end
 
     end
 
@@ -108,6 +127,11 @@ module MedInstaller
       def indexing_rules_file
         index_dir + 'main_indexing_rules.rb'
       end
+
+      def call(filename:, bibfile:, debug:)
+        HypToBibID.new(command_name: "hyp_to_bib_id").call(bibfile: bibfile)
+        super
+      end
     end
 
 
@@ -116,11 +140,14 @@ module MedInstaller
       argument :filename, required: true, desc: "The location of bib_all.xml"
       option :debug, type: :boolean, default: false, desc: "Write to debug file?"
 
+
       def indexing_rules_file
         index_dir + 'bib_indexing_rules.rb'
       end
 
+
       def call(filename:, debug:)
+        HypToBibID.new(command_name: "hyp_to_bib_id").call(bibfile: filename)
         super(filename: filename, bibfile: filename, debug: debug)
       end
     end
@@ -131,7 +158,8 @@ module MedInstaller
       argument :bib_file, required: true, desc: "Path to bib_all.xml"
       option :debug, type: :boolean, default: false, desc: "Write to debug file?"
 
-      def call(entries_file:, bib_file:, debug:)
+
+      def call(entries_file:, bibfile:, debug:)
         raise "Solr at #{AnnoyingUtilities.solr_url} not up" unless AnnoyingUtilities.solr_core.up?
         writer = select_writer(debug)
 
@@ -141,20 +169,20 @@ module MedInstaller
         logger.info "Reloading core definition"
         core.reload
 
-        write_hyp_to_bib_id(bib_file)
+        HypToBibID.new(command_name: "hyp_to_bib_id").call(bibfile: bibfile)
 
         logger.info "##### BEGIN ENTRY/QUOTE INDEXING #####"
         index(rulesfile: index_dir + 'main_indexing_rules.rb',
               datafile:  entries_file,
               writer:    writer,
-              bibfile:   bib_file)
+              bibfile:   bibfile)
 
         logger.info "##### BEGIN BIB INDEXING #####"
 
         index(rulesfile: index_dir + 'bib_indexing_rules.rb',
-              datafile:  bib_file,
+              datafile:  bibfile,
               writer:    writer,
-              bibfile:   bib_file)
+              bibfile:   bibfile)
         commit
         MedInstaller::Solr.rebuild_suggesters(core)
         optimize
