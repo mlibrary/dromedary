@@ -41,25 +41,17 @@ module Dromedary
 
     ##### XSLT TRANSFORMS #####
 
-    FORM_XSLT       = load_xslt('FormOnly.xsl')
-    DEF_XSLT        = load_xslt('DefOnly.xsl')
-    CIT_XSLT        = load_xslt('CitOnly.xsl')
-    ETYM_XSLT       = load_xslt('EtymOnly.xsl')
-    NOTE_XSLT       = load_xslt('NoteOnly.xsl')
-    SUPPLEMENT_XSLT = load_xslt('SupplementOnly.xsl')
-
-
     # There's only one FORM section, so just take care of it here
     # @return [String] the transformed form, or nil
     def form_html
-      xsl_transform_from_entry('/ENTRYFREE/FORM', FORM_XSLT)
+      xsl_transform_from_entry('/ENTRYFREE/FORM', load_xslt('FormOnly.xsl'))
     end
 
 
     # There's only one ETYM section, so just take care of it here
     # @return [String] the transformed etym, or nil
     def etym_html
-      xsl_transform_from_entry('/ENTRYFREE/ETYM', ETYM_XSLT)
+      xsl_transform_from_entry('/ENTRYFREE/ETYM', load_xslt('EtymOnly.xsl'))
     end
 
 
@@ -68,14 +60,14 @@ module Dromedary
     def def_html(sense)
       enclosed_def_xml = '<div>' + sense.definition_xml + '</div>'
 
-      Dromedary::SmartXML.new(xsl_transform_from_xml(enclosed_def_xml, DEF_XSLT))
+      Dromedary::SmartXML.new(xsl_transform_from_xml(enclosed_def_xml, load_xslt('DefOnly.xsl')))
     end
 
 
     # @param [MiddleEnglishDictionary::Entry::Note] note The note object
     # @return [String, nil] The note transformed into HTML, or nil
     def note_html(note)
-      xsl_transform_from_xml(note.xml, NOTE_XSLT)
+      xsl_transform_from_xml(note.xml, load_xslt('NoteOnly.xsl'))
     end
 
     def cit_xslt
@@ -96,7 +88,7 @@ module Dromedary
     # @param [MiddleEnglishDictionary::Entry::Supplement] supplement The supplement object
     # @return [String, nil] The supplement transformed into HTML, or nil
     def supplement_html(supplement)
-      xsl_transform_from_xml(supplement.xml, SUPPLEMENT_XSLT)
+      xsl_transform_from_xml(supplement.xml, load_xslt('SupplementOnly.xsl'))
     end
 
 

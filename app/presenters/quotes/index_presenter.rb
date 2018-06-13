@@ -38,7 +38,6 @@ module Dromedary
         @search_field = view_context.search_state.params_for_search['search_field']
       end
 
-      # TODO No reason to load these from disk each time in production
       def common_xsl
         load_xslt('Common.xsl')
       end
