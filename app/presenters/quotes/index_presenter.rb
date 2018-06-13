@@ -48,7 +48,8 @@ module Dromedary
       end
 
       def citation_link_text
-        xsl_transform_from_xml(@citation.bib.stencil.xml, citation_xsl)
+        bibxml = nokonode.at('//BIBL').to_xml
+        xsl_transform_from_xml(bibxml, citation_xsl)
       end
 
     end
