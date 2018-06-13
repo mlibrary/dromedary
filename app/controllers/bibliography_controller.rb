@@ -115,6 +115,7 @@ class BibliographyController < ApplicationController
 
     config.add_facet_fields_to_solr_request!
     config.add_facet_field 'lalme_expansion', label: 'LALME Region', collapse: false
+    config.add_facet_field 'laeme_expansion', label: 'LAEME Region', collapse: false
 
   end
 

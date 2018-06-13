@@ -8,6 +8,24 @@
                end
 %>
 
+
+<style>
+
+  div.lalme-laeme {
+    margin-left: 2em
+  }
+
+  .lalme-laeme-label {
+    font-weight: bold
+  }
+
+    .bib.manuscript {
+      padding-bottom: 1em;
+    }
+
+</style>
+
+
 <div class="bib manuscript">
   <div class="ms-title">
     <span class="title">
@@ -15,18 +33,29 @@
       <% if ms.cite %>
         <span class="cite"><%= ms.cite %></span>
       <% end %>
-    </span>
+    </span>.
+
+
     <% if ms.pref == 'all' %>
-    <span class="<%= prefclass %>">(Pref. MS)</span>
+      <span class="<%= prefclass %>">(Pref. MS)</span>
     <% end %>
     <% if ms.pref == 'part' %>
       <span class="<%= prefclass %>">(Pref. MS for part of text)</span>
     <% end %>
 
+
+    <% if ms.lalme %>
+      <div class="lalme-laeme">
+        <span class="lalme-laeme-label">LALME:</span>
+        <span class="lalme-laeme"><%== doc_presenter.ms_lalme_html(ms) %></span>
+      </div>
+    <% end %>
+
+    <% if ms.laeme %>
+      <div class="lalme-laeme">
+        <span class="lalme-laeme-label">LAEME:</span>
+        <span class="lalme-laeme"><%== doc_presenter.ms_laeme_html(ms) %></span>
+      </div>
+    <% end %>
   </div>
-  <% Array(ms.lalme_xml).each do |mslxml| %>
-    <div class="ms-lalme">
-      LALME: <%== doc_presenter.commonify(mslxml) %>
-    </div>
-  <% end %>
 </div>

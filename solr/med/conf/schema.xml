@@ -289,6 +289,9 @@
   <field name="lalme" type="me_text" stored="true" indexed="true" multiValued="true"/>
   <field name="lalme_expansion" type="string" stored="true" indexed="true" multiValued="true"/>
 
+  <field name="laeme" type="me_text" stored="true" indexed="true" multiValued="true"/>
+  <field name="laeme_expansion" type="string" stored="true" indexed="true" multiValued="true"/>
+
   <field name="manuscript_title" type="me_text" stored="true" indexed="true" multiValued="true"/>
   <field name="manuscript_keyword" type="me_text" stored="true" indexed="true" multiValued="true"/>
 
