@@ -8,8 +8,15 @@ module Dromedary
       DEFAULT_XSL_DIR = AnnoyingUtilities.xslt_dir
 
 
+      CACHED_XSL = {}
+
       def load_xslt(basename, xdir = DEFAULT_XSL_DIR)
-        Nokogiri::XSLT(File.open(xdir + basename, 'r:utf-8').read)
+        return CACHED_XSL[basename] if CACHED_XSL[basename]
+        xsl = Nokogiri::XSLT(File.open(xdir + basename, 'r:utf-8').read)
+        if ENV['RAILS_ENV'] == 'production'
+          CACHED_XSL[basename] = xsl
+        end
+        xsl
       end
     end
 
