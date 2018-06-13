@@ -35,7 +35,6 @@
         <xsl:otherwise>
           <xsl:apply-templates/>
         </xsl:otherwise>
-        ]
       </xsl:choose>
 
     </span>
