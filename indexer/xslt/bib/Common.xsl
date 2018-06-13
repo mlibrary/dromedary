@@ -3,7 +3,7 @@
                 xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs" version="1.0">
   <xsl:output method="html" indent="yes"/>
 
-  <xsl:template match="//EDITION|//WORK|//REF|//TITLE|//AUTHOR|//IPMEP|//JOLLIFFE|//WELLS|//REF|//ED|//REGION">
+  <xsl:template match="//EDITION|//WORK|//REF|//TITLE|//AUTHOR|//IPMEP|//JOLLIFFE|//WELLS|//REF|//ED|//REGION|//LALME|//LAEME">
     <span>
       <xsl:attribute name="class">
         <xsl:value-of select="local-name()"/>

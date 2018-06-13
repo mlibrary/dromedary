@@ -86,6 +86,14 @@ module Dromedary
         xsl_transform_from_xml('<div>' + ms.title_xml + '</div>', COMMON_XSL)
       end
 
+      def ms_lalme_html(ms)
+        ms.lalme_xml.map{|x| xsl_transform_from_xml(x, COMMON_XSL)}.join(" ")
+      end
+
+      def ms_laeme_html(ms)
+        ms.laeme_xml.map{|x| xsl_transform_from_xml(x, COMMON_XSL)}.join(" ")
+      end
+
 
 
       def e_editions_xmls
