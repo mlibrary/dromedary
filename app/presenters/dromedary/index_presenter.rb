@@ -12,6 +12,7 @@ module Dromedary
   class IndexPresenter < SimpleDelegator
 
     extend Dromedary::XSLTUtils::Class
+    include Dromedary::XSLTUtils::Class
     include Dromedary::XSLTUtils::Instance
 
     # @return [MiddleEnglishDictionary::Entry] The underlying entry object
@@ -77,12 +78,16 @@ module Dromedary
       xsl_transform_from_xml(note.xml, NOTE_XSLT)
     end
 
-    # @param [MiddleEnglishDictionary::Entry::Citation] cit The citation object
+    def cit_xslt
+      load_xslt('CitOnly.xsl')
+    end
+
+      # @param [MiddleEnglishDictionary::Entry::Citation] cit The citation object
     # @return [String, nil] The citatation transformed into HTML, or nil
     def cit_html(cit)
       rid = cit.bib.stencil.rid
       bibid = Dromedary.hyp_to_bibid[rid.upcase]
-      xsl_transform_from_xml(cit.xml, CIT_XSLT, ["bibid", "'#{bibid}'"])
+      xsl_transform_from_xml(cit.xml, cit_xslt, ["bibid", "'#{bibid}'"])
     end
 
     alias_method :cite_html, :cit_html
