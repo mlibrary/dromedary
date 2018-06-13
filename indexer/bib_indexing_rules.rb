@@ -94,6 +94,16 @@ to_field 'lalme_expansion' do |bib, acc|
 end
 
 
+# LAEME
+
+to_field 'laeme' do |bib, acc|
+  acc.replace bib.manuscripts.flat_map(&:laeme).flatten.uniq
+end
+
+to_field 'laeme_expansion' do |bib, acc|
+  acc.replace bib.manuscripts.flat_map(&:laeme_regions).flatten.uniq
+end
+
 # Manuscripts
 
 to_field 'manuscript_title' do |bib, acc|

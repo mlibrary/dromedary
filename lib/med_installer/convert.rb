@@ -9,9 +9,9 @@ module MedInstaller
   class Convert < Hanami::CLI::Command
     include MedInstaller::Logger
 
-    desc "Convert the xml files into (faster) json objects (takes a long time)"
+    desc "Convert the xml files into a (faster, more compact) json object (takes a long time)"
 
-    argument :datadir, required: true, desc: "The data directory. Converted files will be put in <datadir>/json"
+    argument :datadir, required: true, desc: "The data directory. Converted files will be <datadir>/entries.json.gz"
     argument :letter, required: false, desc: "one letter to convert"
 
 
