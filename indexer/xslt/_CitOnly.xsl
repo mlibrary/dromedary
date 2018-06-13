@@ -1,29 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 version="1.0">
-  <xsl:import href="./indexer/xslt/Common.xsl"/>
-  <xsl:import href="./indexer/xslt/_CitOnly.xsl"/>
+  <xsl:param name="bibid"/>
+
 
   <xsl:output method="html" indent="yes"/>
-
-
-  <xsl:template match="/SUPPLEMENT | /supplement">
-    <div class="SUPPLEMENT">
-      <xsl:for-each select="EG">
-        <xsl:apply-templates/>
-      </xsl:for-each>
-      <xsl:apply-templates select="/SUPPLEMENT/NOTE | /supplememt/NOTE"/>
-    </div>
-  </xsl:template>
-
-  <xsl:template match="EG">
-    <div class="EG">
-      <xsl:apply-templates/>
-    </div>
-  </xsl:template>
-
-
-  <!-- Copied in from CitOnly.xsl because load paths in XSLT are dumb -->
 
 
   <xsl:template match="//STNCL/MS">
@@ -63,11 +44,15 @@
   </xsl:template>
 
 
+
   <xsl:template match="Q">
     <span class="Q">
       <xsl:value-of select="."/>
       <xsl:text></xsl:text>
     </span>
   </xsl:template>
+
+  <!-- do we need to handle NOTE -->
+
 
 </xsl:stylesheet>

@@ -81,6 +81,15 @@ USG tags
     </xsl:template>
 
 
+    <xsl:template match="//DATE|//AUTHOR|//TITLE|//CIT|//SCOPE|//BIBL|//TAX|//NOTE|//EG">
+        <span>
+            <xsl:attribute name="class">
+                <xsl:value-of select="local-name()"/>
+            </xsl:attribute>
+            <xsl:apply-templates/>
+        </span>
+    </xsl:template>
+
 
 
 </xsl:stylesheet>
