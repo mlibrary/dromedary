@@ -78,7 +78,7 @@ module Dromedary
     # @return [String, nil] The citatation transformed into HTML, or nil
     def cit_html(cit)
       rid = cit.bib.stencil.rid
-      bibid = Dromedary.hyp_to_bibid[rid.upcase]
+      bibid = Dromedary.hyp_to_bibid[rid.upcase] if rid
       xsl_transform_from_xml(cit.xml, cit_xslt, ["bibid", "'#{bibid}'"])
     end
 
