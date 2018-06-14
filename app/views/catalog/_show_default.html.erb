@@ -18,8 +18,9 @@
       <% if doc_presenter.senses.size > 0 %>
         <div class="quotations-header-options">
           <span class="quotations-header-options-text">Quotations:</span>
-            <a class="show-all-button" href="#" onClick="$('.eg').show(); return false;">Show all</a>
-            <a class="hide-all-button" href="#" onClick="$('.eg').hide();return false">Hide
+          <a class="show-all-button" href="#" onClick="$('.eg').show(); return false;">Show
+            all</a>
+          <a class="hide-all-button" href="#" onClick="$('.eg').hide();return false">Hide
             all</a>
         </div>
       <% end %>
@@ -73,7 +74,7 @@
       <div class="entry-senses-title">Senses and Subsenses</div>
 
       <% doc_presenter.senses.each_with_index do |sense, index| %>
-          <%= render "catalog/show_entry/sense.html.erb", sense: sense, index: index, presenter: doc_presenter %>
+        <%= render "catalog/show_entry/sense.html.erb", sense: sense, index: index, presenter: doc_presenter %>
       <% end %>
     </div>
 
@@ -88,18 +89,11 @@
 
   <% if show_sups %>
     <h3 class="entry-supplemental-title">Supplemental Materials (draft)</h3>
-    <div class="table-responsive entry-supplement">
-      <table class="table table-striped">
-        <% sups.each do |sup| %>
-          <%# notes = sup.notes %>
-          <%# notes.each do |note| %>
-          <tr>
-            <td><%== doc_presenter.supplement_html(sup) %></td>
-          </tr>
-          <%# end %>
-        <% end %>
-      </table>
-    </div>
+    <% sups.each do |sup| %>
+      <div class="entry-supplement">
+        <%== doc_presenter.supplement_html(sup) %>
+      </div>
+    <% end %>
   <% end %>
 
   </div>

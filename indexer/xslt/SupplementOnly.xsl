@@ -10,64 +10,18 @@
   <xsl:template match="/SUPPLEMENT | /supplement">
     <div class="SUPPLEMENT">
       <xsl:for-each select="EG">
-        <xsl:apply-templates/>
+        <ul>
+          <xsl:apply-templates/>
+        </ul>
       </xsl:for-each>
       <xsl:apply-templates select="/SUPPLEMENT/NOTE | /supplememt/NOTE"/>
     </div>
   </xsl:template>
 
-  <xsl:template match="EG">
-    <div class="EG">
-      <xsl:apply-templates/>
-    </div>
+
+  <xsl:template match="SUPPLEMENT/EG/CIT">
+    <li><span class="CIT"><xsl:apply-templates/></span></li>
   </xsl:template>
 
-
-  <!-- Copied in from CitOnly.xsl because load paths in XSLT are dumb -->
-
-
-  <xsl:template match="//STNCL/MS">
-    <span clas="MS">
-      <xsl:text>(</xsl:text>
-      <xsl:value-of select="."/>
-      <xsl:text>)</xsl:text>
-    </span>
-  </xsl:template>
-
-  <xsl:template match="STNCL">
-    <xsl:variable name="rid">
-      <xsl:value-of select="current()/@RID"/>
-    </xsl:variable>
-    <span class="STNCL">
-      <xsl:choose>
-        <xsl:when test="$rid != ''">
-          <xsl:element name="a">
-            <xsl:attribute name="href">
-              <xsl:text>/bibliography/</xsl:text>
-              <xsl:value-of select="$rid"/>
-              <xsl:text>?rid=</xsl:text>
-              <xsl:value-of select="$rid"/>
-            </xsl:attribute>
-            <xsl:apply-templates/>
-          </xsl:element>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:apply-templates/>
-        </xsl:otherwise>
-        ]
-      </xsl:choose>
-
-    </span>
-    <xsl:text>:</xsl:text>
-
-  </xsl:template>
-
-
-  <xsl:template match="Q">
-    <span class="Q">
-      <xsl:value-of select="."/>
-      <xsl:text></xsl:text>
-    </span>
-  </xsl:template>
 
 </xsl:stylesheet>
