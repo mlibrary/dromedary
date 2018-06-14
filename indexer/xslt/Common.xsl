@@ -90,6 +90,18 @@ USG tags
         </span>
     </xsl:template>
 
+    <xsl:template match="//USE">
+        <span class="USE">
+            <xsl:text> </xsl:text><span class="note-title">Note</span>:
+            <xsl:apply-templates/>
+        </span>
+    </xsl:template>
 
+    <xsl:template match="//NOTE">
+        <div class="NOTE">
+            <xsl:text> </xsl:text><span class="note-title">Note</span>:
+            <xsl:apply-templates/>
+        </div>
+    </xsl:template>
 
 </xsl:stylesheet>
