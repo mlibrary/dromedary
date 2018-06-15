@@ -21,6 +21,7 @@ Rails.application.routes.draw do
         constraints: { :id => /\S\S+/}
 
 
+  match "dictionary/" => "catalog#home", via: [:get, :post]
 
   root to: "catalog#splash"
 
