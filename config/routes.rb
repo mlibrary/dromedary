@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   # Splash pages
   match "dictionary/" => "catalog#home", via: [:get, :post], constraints: {query_string: ""}
   match "bibliography/" => "bibliography#home", via: [:get, :post], constraints: {query_string: ""}
+  match "quotations/" => "quotes#home", via: [:get, :post], constraints: {query_string: ""}
 
 
   # Rails doesn't allow dots in matched ids by default, because reasons.
