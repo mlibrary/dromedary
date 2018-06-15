@@ -30,7 +30,7 @@
 
 <%= render :partial=>'/flash_msg' unless flash.empty? %>
 
-<% if @current_action != 'home' %>
+<% unless ['home', 'splash'].include?(action_name) %>
   <div class="search-bar--header">
       <div id="search-bar" class="container">
           <%= render_search_bar  %>
