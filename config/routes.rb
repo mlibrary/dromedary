@@ -20,10 +20,9 @@ Rails.application.routes.draw do
   match "bibliography/(:id)" => 'bibliography#show', via: [:get, :post],
         constraints: { :id => /\S\S+/}
 
-  match "quotes/" => 'quotes#index', via: [:get, :post],
-        constraints: { query_string: ""}
 
-   root to: "catalog#home"
+
+  root to: "catalog#splash"
 
 
 
@@ -42,7 +41,7 @@ Rails.application.routes.draw do
     concerns :searchable
   end
 
-  resource :search, only: [:index], as: 'quotes', path: "/quotes", controller: 'quotes' do
+  resource :search, only: [:index], as: 'quotes', path: "/quotations", controller: 'quotes' do
     concerns :searchable
   end
 
