@@ -6,6 +6,12 @@ Rails.application.routes.draw do
   # Where should it look like it's mounted?
   default_route = 'dictionary'
 
+
+  # Splash pages
+  match "dictionary/" => "catalog#home", via: [:get, :post], constraints: {query_string: ""}
+  match "bibliography/" => "bibliography#home", via: [:get, :post], constraints: {query_string: ""}
+
+
   # Rails doesn't allow dots in matched ids by default, because reasons.
   # Override the id matcher with an explicit constraint.
   match "#{default_route}/(:id)/track" => 'catalog#show',
@@ -21,7 +27,6 @@ Rails.application.routes.draw do
         constraints: { :id => /\S\S+/}
 
 
-  match "dictionary/" => "catalog#home", via: [:get, :post]
 
   root to: "catalog#splash"
 
