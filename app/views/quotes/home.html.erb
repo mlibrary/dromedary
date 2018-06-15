@@ -1,0 +1,22 @@
+<%#= replace :head do %>
+  <%#= link_to_repository %>
+<% #end %>
+
+<%= replace :skiplinks do %>
+  <%= render 'catalog/index_skiplinks' %>
+<% end %>
+
+<%# require 'pry'; binding.pry %>
+
+<%= replace :h1 do %>
+MEC Quotation Search
+<% end %>
+
+<div class="home-desc">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ligula sapien, ultrices a ipsum in, facilisis mattis libero. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget neque est.
+</div>
+
+<div class="search-bar-label">Seach for Bibliographic entries that include:</div>
+<div class="search-bar--home">
+  <%= render_search_bar  %>
+</div>
