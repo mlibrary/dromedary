@@ -9,7 +9,17 @@ class CatalogController < ApplicationController
   include Blacklight::Catalog
   include Dromedary::Catalog
 
-  # Force the
+  # Pick the layout
+  #
+  layout ->(controller) {
+    if action_name == 'splash'
+      require 'pry'; binding.pry
+      'splash'
+    else
+      'blacklight'
+    end
+
+  }
 
 
   configure_blacklight do |config|
@@ -265,7 +275,7 @@ class CatalogController < ApplicationController
     end
 
 
-   # Now we see how to over-ride Solr request handler defaults, in this
+    # Now we see how to over-ride Solr request handler defaults, in this
     # case for a BL "search field", which is really a dismax aggregate
     # of Solr search fields.
 
