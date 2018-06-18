@@ -13,7 +13,6 @@ class CatalogController < ApplicationController
   #
   layout ->(controller) {
     if action_name == 'splash'
-      require 'pry'; binding.pry
       'splash'
     else
       'blacklight'
