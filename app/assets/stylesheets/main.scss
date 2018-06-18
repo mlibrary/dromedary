@@ -111,7 +111,97 @@ ul.header-nav-secondary a:focus {
   background-color: #fafafa;
 }
 
-/** Body Home **/
+/** MEC Home Splash Page **/
+
+.splash-banner {
+  margin: 0;
+  background-image: asset-url("splash_banner.jpg");
+  background-size: cover;
+}
+
+.splash-container {
+  margin: 0 auto;
+  padding: 0 1rem;
+  max-width: 60rem;
+
+  a {
+    color: #fff;
+   }
+
+  .splash-text a:visited {
+    color: #fff;
+  }
+
+ .splash-text {
+    color: #fff;
+ }
+
+  .splash-text--large {
+    font-weight: bold;
+    font-size: 2.5em;
+    padding: 2em 0 .25em;
+    text-align: center;
+ }
+
+ .splash-text, .splash-text--large, .splash-text--medium {
+    text-shadow: 1px 1px #000;
+ }
+
+ .splash-text--medium {
+    font-size: 1.25em;
+    font-weight: 300;
+    line-height: 30px;
+    padding: 0 6.5em 4em;
+    text-align: center;
+ }
+
+ .splash-text--caption {
+    font-size: .5em;
+    text-align: right;
+    padding: 2em 0;
+ }
+
+ .splash-detail--heading {
+    padding-bottom: .5em;
+    font-size: 1.25em;
+ }
+
+  .splash-detail--light {
+    color: #fff;
+    font-weight: 300;
+    font-size: .9em;
+  }
+
+  .splash-detail--link {
+    color: #fff;
+    padding-top: 1.5em;
+    font-size: .9em;
+    font-weight: 300;
+    text-align: center;
+  }
+
+  .splash-detail--link a {
+    border: 1px solid #FFFFFF;
+    border-radius: 4px;
+    text-decoration: none;
+    padding: .45em .75em;
+  }
+}
+
+.splash-section {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  padding-bottom: 3.5em;
+  width: 100%;
+
+  ul.splash-list {
+    padding: 0 1em;
+    flex: 0 0 33%;
+  }
+}
+
+/** MED Body Home **/
 
 #main-container {
   padding: 0;
@@ -119,7 +209,7 @@ ul.header-nav-secondary a:focus {
 
 .fact-panel {
   background-color: #f2f2f2;
-  padding-top: 2.5em;
+  padding: 2.5em 0;
   margin: 0;
 }
 
@@ -848,8 +938,7 @@ li {
 
 .footer {
   width: 100%;
-  padding: 1.5rem 0;
-  margin-top: 3rem;
+  padding: 1rem 0;
 }
 
 .footer-subfooter {
@@ -903,6 +992,33 @@ li {
 }
 
 /** Media Queries **/
+
+
+@media only screen and (max-width: 1000px) {
+  
+  .splash-container {
+    .splash-text--medium {
+      padding: 0;
+     }  
+  }
+
+   .splash-section {
+    padding-top: 2em;
+
+     ul.splash-list {
+      padding: 1.5em 0;
+      flex: 1 100%;;
+    }
+
+    .splash-detail--light {
+    font-size: 1em;
+  }
+
+  .splash-detail--link {
+    font-size: 1em;
+    }
+  }
+}
 
 @media only screen and (max-width: 767px) {
 
