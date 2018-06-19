@@ -304,7 +304,7 @@ input {
   width: 100%;
   font-size: 1rem;
   line-height: inherit;
-  max-width: 24em; }
+  }
 
 .form-control--full-width {
   max-width: 100%; }
