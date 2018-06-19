@@ -1,8 +1,7 @@
-<div id="content" class="<%= show_content_classes %>">
-  <%= render_document_main_content_partial %>
+<div id="sidebar" class="<%= show_sidebar_classes %>">
+   <%= render partial: 'related_entries' %>
 </div>
 
-<div id="sidebar" class="<%= show_sidebar_classes %>">
-   <%= render_document_sidebar_partial %>
-   <%= render partial: 'related_entries' %>
+<div id="content" class="<%= show_content_classes %>">
+  <%= render_document_main_content_partial %>
 </div>
