@@ -696,6 +696,19 @@ ul.header-nav-secondary a:focus {
     padding-left: 2em;
   }
 
+  .citation-list-item {
+    padding: .75em 0;
+    border-bottom: .5px solid #e3e3e3;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:first-child {
+      padding-top: 0;
+    }
+  }
+
   .eg {
     padding-top: 1.5em;
   }
@@ -754,6 +767,23 @@ ul.header-nav-secondary a:focus {
   .entry-supplement table {
     border-radius: 4px;
     border: 1px solid #ccc;
+  }
+
+  .supplements-all {
+    padding: .5em 1em 1em 2em;
+  }
+
+  .entry-supplement {
+    border-bottom: .5px solid #e3e3e3;
+    padding: .5em 0;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:first-child {
+      padding-top: 0;
+    }
   }
 
   .entry-info tr,
