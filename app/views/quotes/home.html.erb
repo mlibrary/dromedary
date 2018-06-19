@@ -8,15 +8,14 @@
 
 <%# require 'pry'; binding.pry %>
 
-<%= replace :h1 do %>
-MEC Quotation Search
-<% end %>
+<section class="quotations-home">
+	<h1>MEC Quotation Search</h1> 
+	<div class="home-description">
+	 <p>Quotations illustrate the use of a word. This search helps you find a designated form, word, phrase or combination of words within stencils and quotations. Find out more in the <a href="/static/help_med#quotes">MEC Quotation Search Help</a> guide.</p>
+	</div>
 
-<div class="home-desc">
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ligula sapien, ultrices a ipsum in, facilisis mattis libero. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget neque est.
-</div>
-
-<div class="search-bar-label">Seach for Bibliographic entries that include:</div>
-<div class="search-bar--home">
-  <%= render_search_bar  %>
-</div>
+	<div class="search-bar-label">Search for Quotation entries that include:</div>
+	<div class="search-bar--light-bg">
+	  <%= render_search_bar  %>
+	</div>
+</section>

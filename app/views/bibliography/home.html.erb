@@ -8,18 +8,17 @@
 
 <%# require 'pry'; binding.pry %>
 
-<%= replace :h1 do %>
-MEC Bibliography Search
-<% end %>
+<section class="bib-home">
+	<h1>MEC Bibliography Search</h1> 
+	<div class="home-description">
+	  Bibliography results include only the manuscripts and editions
+	  used in the compilation of the <%= link_to "Middle English Dictionary", :dictionary %>.
+	  For information about other manuscripts and editions, consult the other Middle
+	  English bibliiographies accessible through the <a href="">Middle English Compendium</a>.
+	</div>
 
-<div class="home-desc">
-  Bibliography results include only the manuscripts and editions
-  used in the compilation of the <%= link_to "Middle English Dictionary", :dictionary %>.
-  For information about other manuscripts and editions, consult the other Middle
-  English bibliiographies accessible through the <a href="">Middle English Compendium</a>.
-</div>
-
-<div class="search-bar-label">Seach for Bibliographic entries that include:</div>
-<div class="search-bar--home">
-  <%= render_search_bar  %>
-</div>
+	<div class="search-bar-label">Search for Bibliographic entries that include:</div>
+	<div class="search-bar--light-bg">
+	  <%= render_search_bar  %>
+	</div>
+</section>
