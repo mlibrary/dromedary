@@ -89,11 +89,13 @@
 
   <% if show_sups %>
     <h3 class="entry-supplemental-title">Supplemental Materials (draft)</h3>
+    <div class="supplements-all">
     <% sups.each do |sup| %>
       <div class="entry-supplement">
         <%== doc_presenter.supplement_html(sup) %>
       </div>
     <% end %>
+    </div>
   <% end %>
 
   </div>
