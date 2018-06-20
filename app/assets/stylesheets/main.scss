@@ -163,6 +163,11 @@ ul.header-nav-secondary a:focus {
  .splash-detail--heading {
     padding-bottom: .5em;
     font-size: 1.25em;
+
+   a, a:visited {
+     text-decoration: none;
+     color: inherit;
+   }
  }
 
   .splash-detail--light {
@@ -214,6 +219,12 @@ ul.header-nav-secondary a:focus {
 .nav-detail--heading {
   padding-bottom: .5em;
   font-size: 1.25em;
+  
+  a, a:visited {
+    text-decoration: none;
+    color: inherit;
+  }
+
 }
 
 .nav-detail--light {

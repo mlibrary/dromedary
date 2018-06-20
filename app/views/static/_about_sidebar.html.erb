@@ -1,9 +1,14 @@
 <div id="about_sidebar" class="<%= sidebar_classes %> about-sbar">
   <div class="sidebars">
-    <h2>About</h2>
+    <h2>About the Middle English Compendium</h2>
     <ul class="help-ul">
-      <%= render partial: 'static/help_sidebar_link', locals: { path: 'about_med', label: "About the MED" } %>
-      <%= render partial: 'static/help_sidebar_link', locals: { path: '/catalog', label: "Back to Search" } %>
+      <li><a href="#med">Middle English Dictionary</a></li>
+      <li><a href="#bib">"Hyper"Bibliography</a></li>
+      <li><a href="#corpus">Corpus of Middle English Prose and Verse</a></li>
+      <li><a href="#acknowledgements">Acknowledgements</a></li>
+      <li><a href="#notes">Notes</a></li>
+      <%#= render partial: 'static/help_sidebar_link', locals: { path: 'about_med', label: "About the MED" } %>
+      <%#= render partial: 'static/help_sidebar_link', locals: { path: '/catalog', label: "Back to Search" } %>
       <%#= render partial: 'static/help_sidebar_link', locals: { path: 'about_project', label: "About the Digital Archives Project" } %>
       <%#= render partial: 'static/help_sidebar_link', locals: { path: 'rights', label: "Rights Statement" } %>
     </ul>
