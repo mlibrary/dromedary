@@ -45,7 +45,6 @@ body {
 
 .site-header {
   padding-bottom: 0;
-  box-shadow: 0 2px 5px rgba(0,0,0,.26);
 }
 
 .site-header-container {
@@ -309,7 +308,7 @@ ul.header-nav-secondary a:focus {
   }
 
   .twitter-typeahead {
-    width: 70%;
+    width: 80%;
   }
 
   select#search_field, .form-control {
@@ -326,10 +325,6 @@ ul.header-nav-secondary a:focus {
   .form-control {
     border: 1px solid #ccc;
     border-radius: 4px !important;
-  }
-
-  .input-group .form-control {
-    width: 75% !important;
   }
 
    button#search {
@@ -366,17 +361,13 @@ ul.header-nav-secondary a:focus {
     width: 100%;
   }
 
-  .input-group .form-control {
-    width: 75% !important;
-  }
-
   .form-control {
     border: 1px solid #ccc;
     border-radius: 4px !important;
   }
 
   .twitter-typeahead {
-    width: 60%;
+    width: 80%;
   }
 
   .input-group-addon {
@@ -424,7 +415,109 @@ ul.header-nav-secondary a:focus {
   border-bottom: 3px solid #0c5292;
 }
 
-/** Search Results Dictionary **/
+/** Search Bar - light background/Bib + Quotes**/
+
+.search-bar--light-bg {
+  padding: 1em;
+  margin: 0;
+  background-color: #fafafa;
+  box-shadow: inset 0 -2px 0 0 #E5E5E5;
+
+  .input-group {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .search-input-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%
+  }
+
+  .form-control {
+    border: 1px solid #ccc;
+    border-radius: 4px !important;
+  }
+
+  .twitter-typeahead {
+    width: 80%;
+  }
+
+  .input-group-addon {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 1;
+    text-align: center;
+    background-color: #fafafa;
+    border: none;
+    height: 40px;
+  }
+
+  button#search {
+    border-radius: 4px;
+    padding: 4px 35px;
+    height: 40px;
+  }
+
+  .submit-search-text {
+    font-size: 1.25em;
+  }
+
+  select#search_field, .form-control {
+    height: 40px;
+    padding: 9px 16px;
+    line-height: 1.5;
+    color: #555555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .form-control:focus {
+    border: 3px solid $u-m-yellow;
+  }
+}
+
+/** Home Page for Bib + Quotations **/
+
+.bib-home,
+.quotations-home {
+  padding: 5em 1em 8em;
+
+  h1 {
+    font-size: 1.5em;
+    text-align: center;
+    font-weight: 600;
+    color: #333333;
+  }
+
+  .home-description {
+    color: #6E6E6E;
+    padding: 1em 0 2em;
+    text-align: center;
+    width: 75%;
+    margin: 0 auto;
+    font-size: 1.15em;
+
+      a {
+      color: #126DC1;
+    }
+  }
+
+  .search-bar-label {
+    color: #4A4A4A;
+    font-weight: 600;
+    font-size: .85em;
+    padding: 0 0 .5em 2em;
+  }
+
+}
+
+/** Dictionary Results **/
 
 .documents-list {
   margin-bottom: 2em;
@@ -1058,7 +1151,8 @@ li {
 @media only screen and (max-width: 767px) {
 
   .search-bar--home,
-  .search-bar--header  {
+  .search-bar--header,
+  .search-bar--light-bg  {
     .search-input-group {
       justify-content: center;
       padding-top: .25em;
@@ -1097,7 +1191,8 @@ li {
 @media (max-width: 575.98px) {
 
   .search-bar--home,
-  .search-bar--header {
+  .search-bar--header,
+  .search-bar--light-bg {
     .search-input-group {
       width: 80%;
       justify-content: flex-start;
