@@ -78,7 +78,12 @@ module Dromedary
       def title_html
         # require 'pry'; binding.pry
         title_node = @nokonode.at('TITLE')
-        xsl_transform_from_node(title_node, COMMON_XSL)
+        title = xsl_transform_from_node(title_node, COMMON_XSL)
+        if bib.incipit?
+          %Q(<div class="incipit">"#{title}&hellip;" (incipit)</div>)
+        else
+          title
+        end
       end
 
 
