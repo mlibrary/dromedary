@@ -27,11 +27,7 @@
         <% biblink = link_to doc_presenter.title_html.html_safe, "/bibliography/#{doc_presenter.bib.id}", document_link_params(document,counter: counter) %>
 
         <span class="bib-title">
-          <% if doc_presenter.incipit? %>
-            "<%== biblink %>&hellip;" (incipit)
-          <% else %>
-            <%== biblink %>
-          <% end %>
+          <%== biblink %>
         </span>
         <% if doc_presenter.first_work %>
           <span class="work">[<%== doc_presenter.first_work %>]</span>
