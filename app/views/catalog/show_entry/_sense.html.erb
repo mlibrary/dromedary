@@ -22,15 +22,16 @@
       <div class="definition"><%== presenter.def_html(sense) %>
 
       <div class="quote-toggles">
-        <a class="quote-toggle <%= uid %>" href="#" onClick="$('.<%= uid%>').toggle(); return false">Show&nbsp;<%= num_citations %>&nbsp;<%= "Quote".pluralize(num_citations) %></a>
-        <a class="quote-toggle  <%= uid %> collapsed" href="#" onClick="$('.<%= uid%>').toggle(); return false">Hide&nbsp;<%= num_citations %>&nbsp;<%= "Quote".pluralize(num_citations) %></a>
+        <a class="quote-toggle <%= uid %> open" href="#" onClick="$('.<%= uid%>').toggle(); return false">Show&nbsp;<%= num_citations %>&nbsp;<%= "Quotation".pluralize(num_citations) %></a>
+        <a class="quote-toggle  <%= uid %> closer collapsed" href="#" onClick="$('.<%= uid%>').toggle(); return false">Hide&nbsp;<%= num_citations %>&nbsp;<%= "Quotation".pluralize(num_citations) %></a>
       </div>
     </div>
   </div>
 
-  <div class="egs">
+  <div class="egs collapsed <%= uid %>">
+    <h4>Associated quotations</h4>
     <% sense.egs.each do |eg| %>
-      <div class="eg collapsed <%= uid %>">
+      <div class="eg">
         <% if eg.subdef_entry and eg.subdef_entry =~ /\S/ %>
           <div class="subdef-entry-number"><%= eg.subdef_entry %></div>
         <% end %>
