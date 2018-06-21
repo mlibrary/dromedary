@@ -30,6 +30,11 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  en:
+    views:
+      static:
+        about-med:
+          title: TEST
   hello: "Hello world"
   lang:
     OE: Old English
@@ -58,10 +63,10 @@ en:
         zoom_out: '<span class="hidden-xs hidden-sm">Zoom Out </span>'
         search_highlights: '<span class="hidden-xs">Search <span class="hidden-sm">Keyword </span></span>Highlights'
     static:
-      about_med:
+      about-med:
         title: About the Middle English Compendium
         header: Middle English About
-      help_med:
+      help-med:
         title: Help in using the Middle English Dictionary
         header: Middle English Help
       about-daily:
