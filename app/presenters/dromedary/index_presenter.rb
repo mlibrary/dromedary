@@ -6,6 +6,7 @@ require 'middle_english_dictionary'
 require 'html_truncator'
 require 'dromedary/xslt_utils'
 require 'dromedary/smart_xml'
+require_relative "../common_presenters"
 
 module Dromedary
 
@@ -14,6 +15,8 @@ module Dromedary
     extend Dromedary::XSLTUtils::Class
     include Dromedary::XSLTUtils::Class
     include Dromedary::XSLTUtils::Instance
+
+    include Dromedary::CommonPresenters
 
     # @return [MiddleEnglishDictionary::Entry] The underlying entry object
     attr_reader :entry
@@ -132,33 +135,14 @@ module Dromedary
     # @return [Array<String>] The headwords as taken from the "highlight"
     # section of the solr return (with embedded tags for highlighting)
     def highlighted_official_headword
-      Array(hl_field('official_headword')).first
+      Array(hl_field(document,'official_headword')).first
     end
 
 
     # @return [Array<String>] The non-headword spellings as taken from the "highlight"
     # section of the solr return (with embedded tags for highlighting)
     def highlighted_other_spellings
-      hl_field('headword').reject {|w| w == highlighted_official_headword}
-    end
-
-
-    # A convenience method to get the highlighted values for a field if
-    # they're available, falling back to the regular document values for
-    # that field if they're not in the highlighted values section of the
-    # Solr response
-    #
-    # @param [String] Name of the solr field
-    # @return [Array<String>] The highlighted versions of the field given,
-    # or the non-highlighted values if there aren't any highlights.
-    def hl_field(k)
-      if @document.has_highlight_field?(k)
-        @document.highlight_field(k)
-      elsif @document.has_field?(k)
-        Array(@document.fetch(k))
-      else
-        []
-      end
+      hl_field(document, 'headword').reject {|w| w == highlighted_official_headword}
     end
 
   end

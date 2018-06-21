@@ -36,13 +36,23 @@
           <xsl:apply-templates/>
         </xsl:otherwise>
       </xsl:choose>
-
     </span>
     <xsl:text>:</xsl:text>
-
   </xsl:template>
 
 
+  <xsl:template match="//CIT">
+    <span class="CIT">
+    <xsl:choose>
+      <xsl:when test="@TYPE = 'B'">
+      [ <xsl:apply-templates/> ]
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:apply-templates/>
+      </xsl:otherwise>
+    </xsl:choose>
+    </span>
+  </xsl:template>
 
   <xsl:template match="Q">
     <span class="Q">

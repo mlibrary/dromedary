@@ -60,7 +60,7 @@
           <div class="def-header">Associated headword</div>
           <div class="definition">
             <a href="/dictionary/<%= document.fetch('entry_id') %>">
-              <span class="headword"><%= document.fetch('headword').join(', ') %></span>
+              <span class="headword"><%= doc_presenter.headword_display %></span>
             </a>
             <span class="pos"><%= document.fetch('pos').first %></span>
           </div>

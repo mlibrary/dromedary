@@ -80,8 +80,7 @@ USG tags
         </span>
     </xsl:template>
 
-
-    <xsl:template match="//DATE|//AUTHOR|//TITLE|//CIT|//SCOPE|//BIBL|//TAX|//NOTE|//EG">
+    <xsl:template match="//DATE|//AUTHOR|//TITLE|//SCOPE|//BIBL|//TAX|//NOTE|//EG">
         <span>
             <xsl:attribute name="class">
                 <xsl:value-of select="local-name()"/>
