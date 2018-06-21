@@ -223,7 +223,7 @@ class CatalogController < ApplicationController
     end
 
     # Anywhere
-    config.add_search_field("anywhere", label: "Anywhere") do |field|
+    config.add_search_field("anywhere", label: "Entire entry") do |field|
       field.qt                    = '/search'
       field.solr_parameters       = {:fq => 'type:entry'}
       field.solr_local_parameters = {
