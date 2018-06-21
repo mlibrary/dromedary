@@ -12,7 +12,7 @@
   <div class="entry-heading">
     <div class="entry-container">
       <div class="entry-headword">
-        <%= ent.original_headwords.join(", ") %>&nbsp;<span class="entry-pos"><%= ent.pos %></span>
+        <%== doc_presenter.headword_display(document) %>&nbsp;<span class="entry-pos"><%= ent.pos %></span>
       </div>
 
       <% if doc_presenter.senses.size > 0 %>

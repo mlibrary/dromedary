@@ -5,6 +5,7 @@ require 'delegate'
 require 'middle_english_dictionary'
 require 'html_truncator'
 require 'dromedary/xslt_utils'
+require_relative "../common_presenters"
 
 module Dromedary
 
@@ -14,6 +15,8 @@ module Dromedary
       extend Dromedary::XSLTUtils::Class
       include Dromedary::XSLTUtils::Class
       include Dromedary::XSLTUtils::Instance
+
+      include Dromedary::CommonPresenters
 
       attr_reader :document, :citation, :nokonode
 
@@ -50,6 +53,15 @@ module Dromedary
       def citation_link_text
         bibxml = nokonode.at('//BIBL').to_xml
         xsl_transform_from_xml(bibxml, citation_xsl)
+      end
+
+      def headword_display
+        hw = first_found_value_as_highlighted_array(document, ['official_headword', 'headword']).first
+        if document.has_key?('dub')
+          "?#{hw}"
+        else
+          hw
+        end
       end
 
     end
