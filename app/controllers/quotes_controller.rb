@@ -44,7 +44,7 @@ class QuotesController < ApplicationController
 
 
 
-    config.add_search_field("quote_everything", label: "Entire citation") do |field|
+    config.add_search_field("quote_everything", label: "Stencil and quotation") do |field|
       field.qt                    = "/quotesearch"
       field.solr_local_parameters = {
           qf: '$quote_everything_qf',
@@ -52,7 +52,7 @@ class QuotesController < ApplicationController
       }
     end
 
-    config.add_search_field("quote_quote", label: "Quote text") do |field|
+    config.add_search_field("quote_quote", label: "Quotation text only") do |field|
       field.qt                    = "/quotesearch"
       field.solr_local_parameters = {
           qf: '$quote_quote_qf',
