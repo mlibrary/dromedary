@@ -131,6 +131,11 @@ ul.header-nav-secondary a:focus {
     color: #fff;
   }
 
+  .splash-text a:hover {
+    color: #000;
+    background-color: $u-m-yellow;
+  }
+
  .splash-text {
     color: #fff;
  }
@@ -200,7 +205,7 @@ ul.header-nav-secondary a:focus {
 
   ul.splash-list {
     padding: 0 1em;
-    flex: 0 0 33%;
+    flex: 0 0 50%; //Change to 33% if adding Corpus back
   }
 }
 
