@@ -131,6 +131,11 @@ ul.header-nav-secondary a:focus {
     color: #fff;
   }
 
+  .splash-text a:hover {
+    color: #000;
+    background-color: $u-m-yellow;
+  }
+
  .splash-text {
     color: #fff;
  }
@@ -174,6 +179,7 @@ ul.header-nav-secondary a:focus {
     color: #fff;
     font-weight: 300;
     font-size: .9em;
+    height: 7.5em;
   }
 
   .splash-detail--link {
@@ -200,7 +206,7 @@ ul.header-nav-secondary a:focus {
 
   ul.splash-list {
     padding: 0 1em;
-    flex: 0 0 33%;
+    flex: 0 0 50%; //Change to 33% if adding Corpus back
   }
 }
 
@@ -856,15 +862,11 @@ ul.header-nav-secondary a:focus {
     text-decoration: none;
   }
 
-  a.hide-all-button {
-    color: #4E4E4E;
-    font-weight:normal;
-  }
-
+  a.hide-all-button,
   a.show-all-button {
     color: #126DC1;
     font-weight: 600;
-    text-decoration: underline;
+    padding: .25em;
   }
 
   .entry-info table,
@@ -1151,6 +1153,7 @@ li {
 
     .splash-detail--light {
     font-size: 1em;
+    height: auto;
   }
 
   .splash-detail--link {
