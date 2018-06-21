@@ -53,7 +53,7 @@ class BibliographyController < ApplicationController
 
 
 
-    config.add_search_field("bib_keyword", label: "Everything") do |field|
+    config.add_search_field("bib_keyword", label: "Entire entry") do |field|
       field.qt                    = "/bibsearch"
       field.solr_local_parameters = {
           qf: '$bib_everything_qf',
