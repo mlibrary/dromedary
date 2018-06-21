@@ -18,9 +18,9 @@
       <% if doc_presenter.senses.size > 0 %>
         <div class="quotations-header-options">
           <span class="quotations-header-options-text">Quotations:</span>
-          <a class="show-all-button" href="#" onClick="$('.eg').show(); return false;">Show
+          <a class="show-all-button" href="#" onClick="$('.egs').show(); $('.quote-toggle.open').hide(); $('.quote-toggle.closer').show();return false;">Show
             all</a>
-          <a class="hide-all-button" href="#" onClick="$('.eg').hide();return false">Hide
+          <a class="hide-all-button" href="#" onClick="$('.egs').hide(); $('.quote-toggle.open').show(); $('.quote-toggle.closer').hide(); return false">Hide
             all</a>
         </div>
       <% end %>
@@ -71,7 +71,7 @@
   <%# Get get senses plus their quotes and display %>
   <% unless doc_presenter.senses.size == 0 %>
     <div class="senses">
-      <div class="entry-senses-title">Senses and Subsenses</div>
+      <h3 class="entry-senses-title">Senses and Subsenses</h3>
 
       <% doc_presenter.senses.each_with_index do |sense, index| %>
         <%= render "catalog/show_entry/sense.html.erb", sense: sense, index: index, presenter: doc_presenter %>
