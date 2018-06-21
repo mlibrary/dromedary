@@ -19,7 +19,7 @@
             <%= t('blacklight.search.documents.counter', counter: counter) %>
           </span>
         <% end %>
-        <%= link_to_document document, doc_presenter.highlighted_official_headword, counter: counter %>
+        <%= link_to_document document, doc_presenter.headword_display(document).html_safe, counter: counter %>
         <span class="index-pos"><%== doc_presenter.part_of_speech_abbrev %></span>
       </h3>
 
