@@ -90,7 +90,7 @@ ul.header-nav-secondary a {
   text-decoration: none;
   padding: .5em;
   font-size: .85em;
-  margin-right: .65em;
+  margin: 0 .35em;
 }
 
 ul.header-nav-secondary a.active {
@@ -639,7 +639,79 @@ ul.header-nav-secondary a:focus {
   font-size: .75em;
 }
 
-/** Facets - Search Results **/
+/** Constraints, Facets + Sidebars **/
+
+#sidebar #appliedParams {
+  margin-top: 0;
+  background-color: #FAFAFA !important;
+  border: 1px solid #ddd;
+  margin-bottom: 2px;
+
+  .constraints-label {
+    font-weight: 600;
+    font-size: .9em;
+    padding-bottom: .5em;
+  }
+
+  .btn-group.appliedFilter.constraint.query {
+    padding-bottom: .25em;
+  }
+
+  .btn.btn-default.btn-sm.remove.dropdown-toggle {
+    float: right;
+  }
+
+  #startOverLink {
+  background-color: #fafafa;
+  border: none;
+  box-shadow: none;
+  color: #333333;
+  font-size: .85em;
+  font-weight: normal !important;
+  text-decoration: underline;
+  margin-top: 5px;
+  }
+
+  .btn-group.appliedFilter.constraint.filter {
+    padding-bottom: .25em;
+  }
+
+}
+
+#sidebar #appliedParams .constraint-value {
+  font-size: .8em;
+  background-color: #E2F4EB !important;
+  color: #044E2A;
+  border: 1px solid #057C42;
+  display: inline;
+  white-space: normal; 
+}
+
+#sidebar #appliedParams a.dropdown-toggle {
+  background-color: #E2F4EB !important;
+  border: 0;
+  padding: 0 !important;
+  margin: 0;
+}
+
+#sidebar #appliedParams .constraint-value .filterName::after {
+ color: #044E2A;
+}
+
+.glyphicon.glyphicon-remove {
+  color: #044E2A;
+}
+
+
+  .constraint-value.btn.btn-sm.btn-default.btn-disabled {
+  white-space: normal; 
+  max-width: 100% !important;
+  }
+
+
+span.filterValue {
+  padding-right: .5em;
+}
 
 .top-panel-heading.panel-heading {
   background-color: #FAFAFA;
