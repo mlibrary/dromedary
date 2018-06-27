@@ -106,13 +106,25 @@ end
 
 # Manuscripts
 
-to_field 'manuscript_title' do |bib, acc|
-  acc.replace bib.manuscripts.map(&:title).uniq
-end
 
 to_field 'manuscript_keyword' do |bib, acc, context|
   context.clipboard[:nokonode].xpath('MSLIST/MS').each do |ms|
     acc << ms.text
+  end
+end
+
+# For each MS, we'll concatanate both the abbreviation (REF)
+# and the expanded title with the CITE tag to get something
+# that can easily be searched.
+#
+# This gives us the manuscript abbreviation, the
+# manuscript title, and the full citation all at once,
+# so we don't need to index the title or the
+# abbreviation separately
+to_field 'manuscript_citation' do |bib, acc, context|
+  bib.manuscripts.each do |ms|
+    acc << [ms.ref, ms.cite].join(' ')
+    acc << [ms.title, ms.cite].join(' ')
   end
 end
 
