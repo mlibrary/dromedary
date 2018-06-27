@@ -17,7 +17,7 @@ module Dromedary
     # @return [Array<String>] The highlighted versions of the field given,
     # or the non-highlighted values if there aren't any highlights.
     def hl_field(document, k)
-      if document.has_highlight_field?(k)
+      if document.has_highlight_field?(k) and !document.highlight_field(k).empty?
         Array(document.highlight_field(k))
       elsif document.has_field?(k)
         Array(document.fetch(k))
