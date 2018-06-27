@@ -37,7 +37,6 @@
         </xsl:otherwise>
       </xsl:choose>
     </span>
-    <xsl:text>:</xsl:text>
   </xsl:template>
 
 
@@ -55,6 +54,7 @@
   </xsl:template>
 
   <xsl:template match="Q">
+    <xsl:text>: </xsl:text>
     <span class="Q">
       <xsl:value-of select="."/>
       <xsl:text> </xsl:text>
