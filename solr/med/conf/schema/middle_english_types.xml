@@ -44,6 +44,8 @@
 <fieldType name="me_sort" class="solr.TextField"
            positionIncrementGap="&tpig;">
 <analyzer>
+  <charFilter class="solr.PatternReplaceCharFilterFactory"
+              pattern="[()!?.;]" replacement=""/>
   <charFilter class="solr.ICUNormalizer2CharFilterFactory"/>
   <tokenizer class="solr.KeywordTokenizerFactory"/>
   <filter class="solr.ICUFoldingFilterFactory"/>

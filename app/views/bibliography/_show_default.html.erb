@@ -102,6 +102,15 @@
           <% doc_presenter.editions_xmls.each do |ed| %>
             <div class="edition"><%== ed %></div>
           <% end %>
+          <% doc_presenter.e_editions_title_link_pairs.each do |tl|
+            title = tl.first
+            url = tl.last
+          %>
+            <div class="edition"><a href="<%=url %>"><%== title%><%=
+              image_tag('external-link-white.svg', alt: 'Opens in a new window') %></a></div>
+
+
+          <% end %>
         </td>
       </tr>
 
