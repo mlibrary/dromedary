@@ -101,11 +101,11 @@ module Dromedary
 
 
 
-      def e_editions_xmls
+      def e_editions_title_link_pairs
         ee = @nokonode.xpath('//E-EDITION').map do |e|
           title = commonify(e.at('ED'))
           link  = e.at('LINK').text
-          %Q(<a href="#{link}">#{title}</a>)
+          [title, link]
         end
       end
 
@@ -135,7 +135,7 @@ module Dromedary
         editions = @nokonode.xpath('//STG/EDITION').map do |enode|
           commonify(enode)
         end
-        (editions + e_editions_xmls).uniq
+        editions.uniq
       end
 
 
