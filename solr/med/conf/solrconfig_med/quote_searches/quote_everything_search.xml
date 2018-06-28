@@ -1,9 +1,9 @@
 <str name="quote_everything_qf">
-  quote_text
+  quote_text^2
   keyword
 </str>
 
 <str name="quote_everything_pf">
-  quote_text
+  quote_text^2
   keyword
 </str>

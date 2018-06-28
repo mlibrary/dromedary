@@ -1,13 +1,13 @@
 <str name="headword_only_qf">
-  official_headword^1000
-  official_headword_exactish^500
+  official_headword_exactish^1000
+  official_headword^500
   headword_exactish^50
   headword^10
 </str>
 
 <str name="headword_only_pf">
-official_headword^1000
-official_headword_exactish^500
+official_headword_exactish^1000
+official_headword^500
 headword_exactish^50
 headword^10
 </str>
