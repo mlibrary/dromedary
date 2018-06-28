@@ -44,10 +44,19 @@ module MedInstaller
       @data_file = get_data_file(settings)
     end
 
+    # This is the dumbest thing ever, but we need to eliminate all pipes
+    # from the input, and this easiest way to do it.
+    #
+    # Of course, it presupposes there aren't any *wanted* pipes
+    # in the input, which for now we're just assuming.
+    def depipe_json(j)
+      j.gsub(/\|/, '')
+    end
+
     def each
       Zlib::GzipReader.new(File.open(@data_file)).each_with_index do |json_line, index|
         begin
-          entry = MiddleEnglishDictionary::Entry.from_json(json_line)
+          entry = MiddleEnglishDictionary::Entry.from_json(depipe_json(json_line))
           yield entry
         rescue => e
           require 'pry'; binding.pry
