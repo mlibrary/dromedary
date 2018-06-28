@@ -55,15 +55,6 @@ module Dromedary
         xsl_transform_from_xml(bibxml, citation_xsl)
       end
 
-      def headword_display
-        hw = first_found_value_as_highlighted_array(document, ['official_headword', 'headword']).first
-        if document.has_key?('dub')
-          "?#{hw}"
-        else
-          hw
-        end
-      end
-
     end
 
   end
