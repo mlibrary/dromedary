@@ -9,6 +9,7 @@ settings do
   store "log.batch_size", 2_500
   provide 'med.data_dir', Pathname(__dir__).parent.parent + 'data'
   provide "reader_class_name", 'MedInstaller::Traject::EntryJsonReader'
+  provide "solr_writer.batch_size", 1000
 end
 
 
@@ -61,9 +62,7 @@ to_field 'quote_date_sort' do |bib, acc|
   end
 end
 
-to_field 'author_sort' do |bib, acc|
-
-end
+to_field 'dubious', lazy_method(:dubious)
 
 to_field 'quote_text', lazy_method(:quote)
 to_field 'quote_html', lazy_method(:quote_html)

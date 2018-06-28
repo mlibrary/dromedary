@@ -10,7 +10,6 @@ module Dromedary
       default_settings = {
         'log.batch_size'    => 2_500,
         "reader_class_name" => 'MedInstaller::Traject::EntryJsonReader',
-        "med.data_file"     => AnnoyingUtilities::DROMEDARY_ROOT.parent + 'data/entries.json.gz',
         "solr_writer.batch_size" => 200,
 
         writer_file:        index_dir + 'writers' + 'localhost.rb',
@@ -23,7 +22,7 @@ module Dromedary
 
     def create_indexer!(settings = self.settings)
       @indexer = Traject::Indexer.new(settings)
-      settings[:rule_files].each {|rf| @indexer.load_config_file(rf)}
+      settings[:rule_files].each {|rf| logger.info "Loading #{rf}"; @indexer.load_config_file(rf)}
       @indexer.load_config_file(settings[:writer_file])
       @indexer
     end
@@ -33,14 +32,14 @@ module Dromedary
     end
 
     def put(record, position)
-      context = Traject::Indexer::Context.new(
+      ctxt = Traject::Indexer::Context.new(
         :source_record => record,
         :settings      => self.settings,
         :position      => position,
         :logger        => self.logger
       )
-      indexer.map_to_context!(context) # side-effects the context
-      writer.put(context)
+      indexer.map_to_context!(ctxt) # side-effects the context
+      writer.put(ctxt)
     end
   end
 
