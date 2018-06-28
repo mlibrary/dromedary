@@ -23,7 +23,8 @@ module Dromedary
                   :cd, :md,
                   :scope, :rid, :title, :ms,
                   :citation,
-                  :bib_id, :author
+                  :bib_id, :author,
+                  :dubious
 
     alias_method :med_id, :entry_id
 
