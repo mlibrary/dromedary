@@ -1,14 +1,14 @@
 <str name="headword_and_forms_qf">
-  official_headword^1000
-  official_headword_exactish^500
+  official_headword_exactish^1000
+  official_headword^500
   headword_exactish^50
   headword^10
   orth^1
 </str>
 
 <str name="headword_and_forms_pf">
-official_headword^1000
-official_headword_exactish^500
+official_headword_exactish^1000
+official_headword^500
 headword_exactish^50
 headword^10
 orth^1
