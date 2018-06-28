@@ -196,12 +196,15 @@
   <field name="headword_exactish" type="me_exactish" indexed="true" stored="true" multiValued="true"/>
   <copyField source="headword" dest="headword_exactish"/>
 
+  <field name="dubious" type="string" indexed="true" stored="true" multiValued="false" docValues="true"/>
+
   <field name="orth"         type="me_text" indexed="true" stored="true" multiValued="true"/>
 
   <!--Etymology and Part of speach-->
   <field name="pos"        type="string"  stored="true" indexed="true" multiValued="true" docValues="true"/>
   <field name="etyma_language" type="string" indexed="true" stored="true" multiValued="true" docValues="true"/>
   <field name="etyma_text" type="text" indexed="true" stored="true" multiValued="true"/>
+  <copyField source="etyma_language" dest="etyma_text"/>
 
   <!--Definitions and modern equivalents-->
   <field name="definition_text"   type="text"    indexed="true" stored="true" multiValued="true"/>

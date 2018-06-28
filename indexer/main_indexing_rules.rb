@@ -12,6 +12,7 @@ settings do
   store 'log.batch_size', 2_500
   provide 'med.data_dir', Pathname(__dir__).parent.parent + 'data'
   provide 'reader_class_name', 'MedInstaller::Traject::EntryJsonReader'
+  provide "solr_writer.batch_size", 250
 end
 
 hyp_to_bibid = JSON.load(File.open(AnnoyingUtilities.dromedary_root + 'config' + 'hyp_to_bibid.json'))
@@ -27,6 +28,10 @@ def entry_method(name)
   ->(rec, acc) {acc.replace Array(rec.send(name))}
 end
 
+# Grab the nokonode to make life easier
+each_record do |entry, context|
+  context.clipboard[:nokonode] = Nokogiri::XML(entry.xml)
+end
 
 # What do we have?
 to_field 'id', entry_method(:id)
@@ -40,8 +45,8 @@ to_field 'sequence', entry_method(:sequence)
 # Raw forms
 to_field 'xml', entry_method(:xml)
 to_field 'json', entry_method(:to_json)
-to_field 'keyword' do |entry, acc|
-  acc << Nokogiri::XML(entry.xml).text.gsub(/[\s\n]+/, ' ')
+to_field 'keyword' do |entry, acc, context|
+  acc << context.clipboard[:nokonode].text.gsub(/[\s\n]+/, ' ')
 end
 
 
@@ -49,6 +54,16 @@ end
 to_field 'official_headword', entry_method(:original_headwords)
 to_field 'headword', entry_method(:regularized_headwords)
 to_field 'orth', entry_method(:all_forms)
+
+
+# Dubious entry?
+each_record do |entry, context|
+  context.clipboard[:dubious] = context.clipboard[:nokonode].at('/ENTRYFREE').attr('DUB') == 'Y'
+end
+
+to_field 'dubious' do |entry, acc, context|
+  acc << 'Y' if context.clipboard[:dubious]
+end
 
 # We need to do the word sugggestions here (instead of in schema.xml
 # with copyField) because copyField allows duplicates.
@@ -149,10 +164,11 @@ each_record do |entry, context|
       rescue => e
         require 'pry'; binding.pry
       end
-
     end
+
     q.headword = entry.original_headwords
     q.pos      = entry.pos
+    q.dubious = 'Y' if context.clipboard[:dubious]
     quote_indexer.put(q, context.position)
   end
 end
