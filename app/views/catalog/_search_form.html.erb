@@ -27,6 +27,21 @@
                              autocomplete_config: "hithere",
                              autocomplete_enabled: autocomplete_enabled?,
                              autocomplete_path: blacklight.suggest_index_path }  %>
+      
+      <!--Keyboard drop down for special characters-->
+      <span class="dropdown keyboard">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <%=image_tag('keyboard-grey.svg', alt: 'Drop down menu for special character selection') %>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <ul class="keyboard-list">
+            <li><a href="#" id="thorn" class="dropdown-item" role="button" >Þ þ (thorn)</a></li>
+            <li><a href="#" id="eth" class="dropdown-item" role="button" >Ð ð (eth)</a></li>
+            <li><a href="#" id="yogh" class="dropdown-item" role="button" >Ȝ ȝ (yogh)</a></li>
+            <li><a href="#" id="ash" class="dropdown-item" role="button" >Æ æ (ash)</a></li>
+          </ul>
+        </div>
+      </span>
 
       <span class="input-group-btn">
         <button type="submit" class="btn btn-primary search-btn" id="search">
