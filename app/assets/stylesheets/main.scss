@@ -565,6 +565,84 @@ ul.header-nav-secondary a:focus {
 
 }
 
+/** Bib Show Page/Single Entry **/
+
+.bib-entry-panel {
+  color: #333;
+  padding-bottom: .15em;
+
+  a {
+    color: #126DC1;
+  }
+
+  a:visited {
+    color: #126DC1;
+  }
+
+ li {
+    margin-left: 1.5em;
+  }
+
+  .pref-all, 
+  .pref-part {
+    font-weight: bold;
+  }
+
+  .MSGROUP {
+    font-weight: bold;
+    padding-bottom: .75em;
+  }
+
+  .MSGROUP ul {
+    font-weight: normal;
+  }
+
+  .MSGROUP .USE {
+    display: block;
+    margin-top: 0.5em;
+  }
+
+  .note-title {
+    font-weight: bold
+  }
+
+  div.edition {
+    margin-bottom: 0.5em;
+  }
+
+  .MSGROUP .EDITION::before {
+    content: ' :: '
+  }
+
+  .external-reference .reftype {
+    font-style: italic;
+  }
+
+  .ms-lalme {
+    margin-left: 1.5em
+  }
+
+   div.lalme-laeme {
+    margin-left: 2em
+  }
+
+  .lalme-laeme-label {
+    font-weight: bold
+  }
+
+   .bib.manuscript {
+    padding-bottom: .5em;
+  }
+
+  ul.short-stencil-list {
+    padding: .5em .25em .75em 0;
+  }
+
+  li.short-stencil {
+    padding: .25em 0;
+  }
+}
+
 /** Dictionary Results **/
 
 .documents-list {
@@ -793,7 +871,7 @@ span.filterValue {
   margin-top: 2px;
 }
 
-/** Entry Page Dictionary **/
+/** Entry Page Dictionary/Bib **/
 
 .pagination-search-widgets {
   border: none;
@@ -802,7 +880,7 @@ span.filterValue {
 .entry-panel {
   background-color: #fff;
   box-shadow: 0 0 2px 0 rgba(0,0,0,0.12), 0 2px 4px 0 rgba(0,0,0,0.24);
-  margin-bottom: 3em;
+  margin-bottom: 2em;
 
   .entry-main-title {
     background-color: #E6F3FF;
@@ -815,11 +893,11 @@ span.filterValue {
     content: asset-url("med-entry.svg");
     position: relative;
     top: 4px;
-    padding-right: .25em;
+    padding-right: .65em;
   }
 
   .entry-headword {
-    font-size: 1.15em;
+    font-size: 1.45em;
   }
 
   .quotations-header-options {
@@ -841,7 +919,7 @@ span.filterValue {
 
   .entry-container {
     border-bottom: 2px solid #ccc;
-    height: 50px;
+    height: 60px;
   }
 
   h2.entry-main-title {
@@ -863,6 +941,7 @@ span.filterValue {
 
   .entry-intro-title {
     padding-top: 1.5em;
+    color: #333333;
   }
 
   .entry-senses-title {
@@ -883,6 +962,14 @@ span.filterValue {
   .entry-supplement {
     padding: 0 1em;
     font-size: .9em;
+  }
+
+  td.forms-title,
+  td.etymology-title {
+    color: #6E6E6E;
+    padding-left: 1.25em;
+    padding-right: 1.25em;
+    width: 30%;
   }
 
   .egs {
@@ -932,7 +1019,7 @@ span.filterValue {
     padding-top: 1em;
 
     .definition {
-    padding: 0 1.5em 2em;
+    padding: 0 1.5em 3em;
     }
   }
 
@@ -958,7 +1045,7 @@ span.filterValue {
   .quote-toggles {
     float: right;
     font-size: .9em;
-    padding-top: 1.25em;
+    padding: 1.25em 0;
   }
 
   .quote-toggles a {
@@ -1026,6 +1113,7 @@ tbody > tr > td,
 table.table.table-striped,
 .table-responsive, {
   border-radius: 5px;
+  margin-bottom: 2em;
 }
 
 .show-tools .panel-heading, 
