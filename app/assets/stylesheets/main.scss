@@ -643,6 +643,57 @@ ul.header-nav-secondary a:focus {
   }
 }
 
+/** Bib Results **/
+
+.bib-header {
+  padding: .5em 1em;
+  display: inline;
+
+  .author,
+  .bib-title a,
+  .work {
+   font-size: 1.6em;
+   line-height: 1.4;
+  }
+
+  .work {
+    padding-left: .25em;
+  }
+
+  .incipit {
+    float: left;
+    padding-right: .25em;
+    text-decoration: underline;
+  }
+}
+
+/** Quotes Results **/
+
+.quote-panel {
+
+  h3 {
+    padding: .75em 1em;
+  }
+
+  h3 .quote {
+    color: #4E4E4E;
+    font-size: 1.65em;
+  }
+
+  .definition-block {
+    padding: .5em 1em;
+  }
+
+  .citation-link {
+    font-size: 14px
+  }
+
+  span.pos {
+    font-style: italic;
+  }
+}
+
+
 /** Dictionary Results **/
 
 .documents-list {
@@ -669,7 +720,7 @@ ul.header-nav-secondary a:focus {
 .index_title.document-title-heading {
 
   a {
-    font-size: 1.5em;
+    font-size: 1.6em;
     color: #126DC1;
     text-decoration: underline;
     padding: 0;
@@ -682,7 +733,7 @@ ul.header-nav-secondary a:focus {
 
   span.index-pos {
     color: #6E6E6E;
-    font-size: 1.35em;
+    font-size: 1.4em;
     font-weight: 600;
   }
 }
@@ -850,7 +901,8 @@ span.filterValue {
   padding-top: 0;
 }
 
-.facet-label a {
+.facet-label a,
+.facet-label a:visited {
   color: #126DC1;
   text-decoration: none;
   font-size: .89em;
@@ -1019,7 +1071,7 @@ span.filterValue {
     padding-top: 1em;
 
     .definition {
-    padding: 0 1.5em 3em;
+    padding: 0 2em 3em;
     }
   }
 
@@ -1391,6 +1443,14 @@ li {
    .show-tools {
       margin-top: 1em;
     }
+
+    .bib-header {
+      .author,
+      .bib-title a,
+      .work {
+       font-size: 1em;
+      }
+  }
 }
 
 @media (max-width: 575.98px) {

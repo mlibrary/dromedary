@@ -1,21 +1,5 @@
 <%# header bar for doc items in index view -%>
 
-<style>
-
-  h3 .quote {
-    font-size: 21px;
-  }
-
-  .citation-link {
-    font-size: 14px
-  }
-
-  span.pos {
-    font-style: italic;
-  }
-
-</style>
-
 <div class="documentHeader row">
   <%# main title container for doc partial view
       How many bootstrap columns need to be reserved
@@ -29,7 +13,7 @@
   <% end %>
 
   <div class="col-md-12">
-    <div class="entry-panel panel">
+    <div class="entry-panel panel quote-panel">
 
       <h3 class="index_title document-title-heading <%= document_actions.present? ? "col-sm-9 col-lg-10" : "col-md-12" %>">
         <% if counter = document_counter_with_offset(document_counter) %>
@@ -41,35 +25,30 @@
       </h3>
 
       <div class="search-result def">
-
-        <div class="definition-block">
-          <div class="def-header">Associated bibliographic data</div>
-          <div class="definition">
-            <% if document.has_key?('bib_id') %>
-              <a href="bibliography/<%= document.fetch('bib_id') %>">
+          <div class="definition-block">
+            <div class="def-header">Associated bibliographic data</div>
+            <div class="definition">
+              <% if document.has_key?('bib_id') %>
+                <a href="bibliography/<%= document.fetch('bib_id') %>">
+                  <%== doc_presenter.citation_link_text %>
+                </a>
+              <% else %>
                 <%== doc_presenter.citation_link_text %>
+              <% end %>
+
+            </div>
+          </div>
+
+          <div class="definition-block">
+            <div class="def-header">Associated headword</div>
+            <div class="definition">
+              <a href="/dictionary/<%= document.fetch('entry_id') %>">
+                <span class="headword"><%= doc_presenter.headword_display(document) %></span>
               </a>
-            <% else %>
-              <%== doc_presenter.citation_link_text %>
-            <% end %>
-
+              <span class="pos"><%= document.fetch('pos').first %></span>
+            </div>
           </div>
         </div>
-
-        <div class="definition-block">
-          <div class="def-header">Associated headword</div>
-          <div class="definition">
-            <a href="/dictionary/<%= document.fetch('entry_id') %>">
-              <span class="headword"><%= doc_presenter.headword_display(document) %></span>
-            </a>
-            <span class="pos"><%= document.fetch('pos').first %></span>
-          </div>
-        </div>
-
-
-      </div>
-
-
     </div>
   </div>
 
