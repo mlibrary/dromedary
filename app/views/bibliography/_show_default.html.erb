@@ -1,56 +1,9 @@
 <% doc_presenter = index_presenter(document) %>
 <% bib = doc_presenter.bib %>
 
+<div class="entry-panel bib-entry-panel">
 
-<style>
-  li {
-    margin-left: 1.5em;
-    margin-bottom: 0.5em;
-  }
-
-  .pref-all, .pref-part {
-    font-weight: bold;
-  }
-
-  .MSGROUP {
-    font-weight: bold;
-  }
-
-  .MSGROUP ul {
-    font-weight: normal;
-  }
-
-  .MSGROUP .USE {
-    display: block;
-    margin-top: 0.5em;
-  }
-
-  .note-title {
-    font-weight: bold
-  }
-
-  div.edition {
-    margin-bottom: 0.5em;
-  }
-
-  .MSGROUP .EDITION::before {
-    content: ' :: '
-  }
-
-  .external-reference .reftype {
-    font-style: italic;
-  }
-
-  .ms-lalme {
-    margin-left: 1.5em
-  }
-
-
-</style>
-
-<div class="entry-panel">
-
-  <%# Display Heading for MED Entry %>
+  <%# Display Heading for Bib Entry %>
   <h2 class="entry-main-title">Middle English Bibliography Entry</h2>
 
   <%# Get title %>
@@ -62,13 +15,12 @@
     </div>
   </div>
 
-
   <div>
     <h3 class="entry-intro-title">Entry Info</h3>
   </div>
 
-  <div class="table-responsive entry-info">
-    <table class="table table-striped">
+  <div class="entry-info">
+    <table class="table table-striped bib-table">
       <% unless doc_presenter.external_reference_kvpairs.empty? %>
         <tr>
           <td class="forms-title">External References:</td>
@@ -106,8 +58,8 @@
             title = tl.first
             url = tl.last
           %>
-            <div class="edition"><a href="<%=url %>"><%== title%><%=
-              image_tag('external-link-white.svg', alt: 'Opens in a new window') %></a></div>
+            <div class="edition"><a href="<%=url %>" target="_blank"><%== title%><%=
+              image_tag('external-link-blue.svg', alt: 'Opens in a new window') %></a></div>
 
 
           <% end %>
