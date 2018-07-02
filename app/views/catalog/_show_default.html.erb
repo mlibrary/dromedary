@@ -71,7 +71,7 @@
   <%# Get get senses plus their quotes and display %>
   <% unless doc_presenter.senses.size == 0 %>
     <div class="senses">
-      <h3 class="entry-senses-title">Senses and Subsenses</h3>
+      <h3 class="entry-senses-title">Definitions (Senses and Subsenses)</h3>
 
       <% doc_presenter.senses.each_with_index do |sense, index| %>
         <%= render "catalog/show_entry/sense.html.erb", sense: sense, index: index, presenter: doc_presenter %>
