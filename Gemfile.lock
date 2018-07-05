@@ -83,12 +83,15 @@ GEM
     crass (1.0.4)
     declarative (0.0.10)
     declarative-option (0.1.0)
+    deep_merge (1.2.1)
     deprecation (1.0.0)
       activesupport
     diff-lcs (1.3)
     docile (1.3.1)
     dot-properties (0.1.3)
     erubi (1.7.1)
+    ettin (1.1.5)
+      deep_merge
     execjs (2.7.0)
     factory_bot (4.10.0)
       activesupport (>= 3.0.0)
@@ -331,6 +334,7 @@ DEPENDENCIES
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
   concurrent-ruby
+  ettin
   factory_bot_rails (~> 4.0)
   hanami-cli
   html_truncator (~> 0.2)

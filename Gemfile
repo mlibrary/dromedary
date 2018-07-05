@@ -17,7 +17,7 @@ gem 'middle_english_dictionary', '~>1.5.0'
 
 # Use Ettin for configuration
 #
-require 'ettin'
+gem 'ettin'
 
 # Rails and blacklight and such
 
