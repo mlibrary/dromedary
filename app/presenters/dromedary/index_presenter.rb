@@ -6,17 +6,18 @@ require 'middle_english_dictionary'
 require 'html_truncator'
 require 'dromedary/xslt_utils'
 require 'dromedary/smart_xml'
-require_relative "../common_presenters"
-
+require_relative '../common_presenters'
 module Dromedary
 
   class IndexPresenter < SimpleDelegator
+
+    include Rails.application.routes.url_helpers
+    include CommonPresenters
 
     extend Dromedary::XSLTUtils::Class
     include Dromedary::XSLTUtils::Class
     include Dromedary::XSLTUtils::Instance
 
-    include Dromedary::CommonPresenters
 
     # @return [MiddleEnglishDictionary::Entry] The underlying entry object
     attr_reader :entry
@@ -73,20 +74,7 @@ module Dromedary
       xsl_transform_from_xml(note.xml, load_xslt('NoteOnly.xsl'))
     end
 
-    def cit_xslt
-      load_xslt('CitOnly.xsl')
-    end
 
-      # @param [MiddleEnglishDictionary::Entry::Citation] cit The citation object
-    # @return [String, nil] The citatation transformed into HTML, or nil
-    def cit_html(cit)
-      rid = cit.bib.stencil.rid
-      bibid = Dromedary.hyp_to_bibid[rid.upcase] if rid
-      xsl_transform_from_xml(cit.xml, cit_xslt, ["bibid", "'#{bibid}'"])
-    end
-
-    alias_method :cite_html, :cit_html
-    alias_method :citation_html, :cit_html
 
     # @param [MiddleEnglishDictionary::Entry::Supplement] supplement The supplement object
     # @return [String, nil] The supplement transformed into HTML, or nil

@@ -5,18 +5,18 @@ require 'delegate'
 require 'middle_english_dictionary'
 require 'html_truncator'
 require 'dromedary/xslt_utils'
-require_relative "../common_presenters"
-
+require_relative '../common_presenters'
 module Dromedary
 
   module Quotes
     class IndexPresenter < SimpleDelegator
 
+      include Rails.application.routes.url_helpers
+      include CommonPresenters
       extend Dromedary::XSLTUtils::Class
       include Dromedary::XSLTUtils::Class
       include Dromedary::XSLTUtils::Instance
 
-      include Dromedary::CommonPresenters
 
       attr_reader :document, :citation, :nokonode
 
@@ -53,6 +53,10 @@ module Dromedary
       def citation_link_text
         bibxml = nokonode.at('//BIBL').to_xml
         xsl_transform_from_xml(bibxml, citation_xsl)
+      end
+
+      def dictionary_link(id)
+        catalog_path(id)
       end
 
     end

@@ -4,6 +4,7 @@ require 'yaml'
 require 'json'
 require 'uri'
 require 'med_installer/logger'
+require_relative '../config/load_local_config'
 
 module AnnoyingUtilities
 
@@ -29,13 +30,10 @@ module AnnoyingUtilities
   end
 
 
-
   def blacklight_solr_url(env = nil)
-    env       ||= ENV['RAILS_ENV'] || ENV['RAILS_ENVIRONMENT'] || 'development'
-    @solr_url ||= load_config_file('blacklight.yml')[env]['url']
+    Dromedary.config.blacklight.url
   end
 
-  alias_method :solr_url, :blacklight_solr_url
 
   def blacklight_config_file
     load_config_file('blacklight.yml')
@@ -43,7 +41,7 @@ module AnnoyingUtilities
 
 
   def solr_port(env = "development")
-    url = solr_url(env)
+    url = blacklight_solr_url
     m   = %r{https?://[^/]+?:(\d+)}.match(url.to_s)
     if m
       m[1]
@@ -70,7 +68,7 @@ module AnnoyingUtilities
   end
 
   def solr_core
-    uri      = URI(solr_url)
+    uri      = URI(blacklight_solr_url)
     path     = uri.path.split('/')
     corename = path.pop
     uri.path = path.join('/') # go up a level -- we popped off the core name

@@ -10,6 +10,7 @@
 # jetty_path is only required for rake tasks that need to know
 # how to start up solr, generally for automated testing. 
 
+
 development:
   adapter: solr
   url: <%= ENV['SOLR_URL'] || "http://127.0.0.1:9639/solr/med" %>
@@ -18,4 +19,4 @@ test: &test
   url: <%= ENV['SOLR_URL'] || "http://127.0.0.1:#{ENV['TEST_JETTY_PORT'] || 9639}/solr/med" %>
 production:
   adapter: solr
-  url: <%= ENV['SOLR_URL'] || "http://127.0.0.1:9639/solr/med" %>
+  url: <%= Dromedary.config.blacklight.url %>
