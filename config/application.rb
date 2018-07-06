@@ -17,6 +17,7 @@ module Dromedary
     config.autoload_paths << "#{Rails.root}/app/presenters"
 
     config.relative_url_root = Dromedary.config.relative_url_root
+    config.action_controller.relative_url_root = config.relative_url_root
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
