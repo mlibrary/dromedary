@@ -33,13 +33,7 @@ module MedQuotesHelper
 
             # binding.pry
 
-            
-
-            puts "IN med_quotes_help doc_presenter IS: #{doc_presenter}"
-
-            puts "IN med_quotes_help CITE IS: #{cite}"
             cite_html = doc_presenter.cit_html(cite)
-            puts "IN med_quotes_help AFTER doc_presenter.cit_html(cite) cite_html IS: #{cite_html}"
 
             quote_str = '<a href="' + cite_link + '" > ' + cite_html + '</a> '
 

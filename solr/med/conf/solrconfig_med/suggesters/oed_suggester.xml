@@ -1,14 +1,11 @@
 <searchComponent name="oed_suggester" class="solr.SuggestComponent">
 <lst name="suggester">
+  &common_suggester_components;
   <str name="name">oed_suggester</str>
-  <str name="lookupImpl">FSTLookupFactory</str>
   <str name="suggestAnalyzerFieldType">me_text</str>
   <str name="field">oed_norm</str>
-  <str name="exactMatchFirst">true</str>
-  <str name="buildOnStartup">false</str>
-  <str name="minPrefixChars">2</str>
-  <str name="dictionaryImpl">DocumentDictionaryFactory</str>
-  <str name="buildOnCommit">false</str>
+  <str name="storeDir">oed_suggester_index</str>
+
 </lst>
 </searchComponent>
 

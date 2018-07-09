@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 version="1.0">
-  <xsl:param name="bibid"/>
+  <xsl:param name="biburl"/>
 
 
   <xsl:output method="html" indent="yes"/>
@@ -21,11 +21,10 @@
     </xsl:variable>
     <span class="STNCL">
       <xsl:choose>
-        <xsl:when test="$rid != ''">
+        <xsl:when test="$biburl != ''">
           <xsl:element name="a">
             <xsl:attribute name="href">
-              <xsl:text>/bibliography/</xsl:text>
-              <xsl:value-of select="$rid"/>
+              <xsl:value-of select="$biburl"/>
               <xsl:text>?rid=</xsl:text>
               <xsl:value-of select="$rid"/>
             </xsl:attribute>

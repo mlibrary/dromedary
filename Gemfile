@@ -15,6 +15,10 @@ end
 gem 'middle_english_dictionary', '~>1.5.0'
 
 
+# Use Ettin for configuration
+#
+gem 'ettin'
+
 # Rails and blacklight and such
 
 gem 'rails', '~> 5.1.4'
@@ -44,7 +48,7 @@ gem 'xpath_list', require: false
 
 # Semantic logging?
 gem 'awesome_print'
-gem 'rails_semantic_logger'
+gem 'semantic_logger'
 
 # Contacts Email
 gem 'mail_form', '1.7.0'
@@ -64,20 +68,9 @@ group :development, :test do
     gem 'pry-byebug'
   end
 
-end
-
-# Use Puma as the app server
-gem 'puma', '~> 3.7'
-
-# Coverage and style
-group :development, :test do
   gem 'rubocop', require: false
-end
-
-# Debugging outside of Rubymine
-group :development, :test do
-  # gem "better_errors"
-  # gem "binding_of_caller"
+  # Use Puma as the app server
+  gem 'puma', '~> 3.7'
 end
 
 

@@ -5,6 +5,7 @@ test:
   adapter: async
 
 production:
-  adapter: redis
-  url: redis://localhost:6379/1
-  channel_prefix: middle_english_dictionary_production
+  adapter: <%= Dromedary.config.cable.adapter %>
+  url: <%= Dromedary.config.cable.url %>
+  channel_prefix: <%= Dromedary.config.cable.channel_prefix %>
+
