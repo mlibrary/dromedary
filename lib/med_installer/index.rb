@@ -59,7 +59,7 @@ module MedInstaller
 
 
       def call(filename:, bibfile:, debug:)
-        raise "Solr at #{AnnoyingUtilities.solr_url} not up" unless AnnoyingUtilities.solr_core.up?
+        raise "Solr at #{AnnoyingUtilities.blacklight_solr_url} not up" unless AnnoyingUtilities.solr_core.up?
         writer = select_writer(debug)
         fields = indexing_rules_file
         index(rulesfile: fields, datafile: filename, writer: writer, bibfile: bibfile)
@@ -160,7 +160,7 @@ module MedInstaller
 
 
       def call(entries_file:, bibfile:, debug:)
-        raise "Solr at #{AnnoyingUtilities.solr_url} not up" unless AnnoyingUtilities.solr_core.up?
+        raise "Solr at #{AnnoyingUtilities.blacklight_solr_url} not up" unless AnnoyingUtilities.solr_core.up?
         writer = select_writer(debug)
 
         logger.info "Clearing existing data"

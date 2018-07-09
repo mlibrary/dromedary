@@ -2,6 +2,7 @@ require_relative 'boot'
 
 require 'rails/all'
 require 'json'
+require_relative "load_local_config"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -14,6 +15,9 @@ module Dromedary
 
     config.autoload_paths << "#{Rails.root}/lib"
     config.autoload_paths << "#{Rails.root}/app/presenters"
+
+    config.relative_url_root = Dromedary.config.relative_url_root
+    config.action_controller.relative_url_root = config.relative_url_root
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

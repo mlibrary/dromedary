@@ -1,0 +1,18 @@
+blacklight:
+  adapter: solr
+  url: <%= ENV['SOLR_URL'] || "http://127.0.0.1:9639/solr/med" %>
+
+solr:
+  url: <%= ENV['SOLR_URL'] || "http://127.0.0.1:9639/solr/med" %>
+
+secret_key_base: <%= ENV["SECRET_KEY_BASE"] || "somesecretkey" %>
+
+relative_url_root: /m/middle-english-dictionary
+
+db:
+  url: unused
+
+cable:
+  adapter: async
+  url: unused
+  channel_prefix: dromedary
