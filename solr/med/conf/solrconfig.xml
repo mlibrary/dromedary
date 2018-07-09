@@ -9,6 +9,7 @@
   <!ENTITY citation_search SYSTEM "solrconfig_med/entry_searches/citation_search.xml">
   <!ENTITY highlighting_defaults   SYSTEM "solrconfig_med/entry_searches/highlighting.xml">
 
+  <!ENTITY common_suggester_components SYSTEM "solrconfig_med/suggesters/common.xml">
   <!ENTITY headword_only_suggester SYSTEM "solrconfig_med/suggesters/headword_only_suggester.xml">
   <!ENTITY headword_and_forms_suggester SYSTEM "solrconfig_med/suggesters/headword_and_forms_suggester.xml">
   <!ENTITY oed_suggester SYSTEM "solrconfig_med/suggesters/oed_suggester.xml">
