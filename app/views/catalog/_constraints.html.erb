@@ -1,6 +1,6 @@
 <% if query_has_constraints? %>
   <div id="appliedParams" class="clearfix constraints-container">
-    <span class="constraints-label">Current Filters</span>
+    <h3 class="constraints-label">Current Filters</h3>
     <%= render_constraints(params) %>
     <div>
       <%=link_to t('blacklight.search.start_over'), start_over_path, :class => "catalog_startOverLink", :id=>"startOverLink" %>
