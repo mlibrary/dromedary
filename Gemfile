@@ -22,6 +22,12 @@ gem 'ettin'
 # Rails and blacklight and such
 
 gem 'rails', '~> 5.1.4'
+
+# Security vulnerability CVE-2018-3760
+gem 'sprockets', '~>3.7.2'
+
+
+
 gem 'blacklight', "~> 6.1"
 
 
