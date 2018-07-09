@@ -3,14 +3,15 @@
     on the name of the controller %>
 
 <%
-  is_med    = 'active' if controller_name == 'catalog' and action_name != "splash"
-  is_bib    = 'active' if controller_name == 'bibliography'
-  is_quotes = 'active' if controller_name == 'quotes'
+  is_med    = 'class="active" aria-current="page"' if controller_name == 'catalog' and action_name != "splash"
+  is_bib    = 'class="active" aria-current="page"' if controller_name == 'bibliography'
+  is_quotes = 'class="active" aria-current="page"' if controller_name == 'quotes'
 %>
 
+
 <ul class="header-nav-secondary">
-   <li class="<%= is_med%>"><%= render partial: 'shared/nav/med' %></li>
-   <li class="<%= is_bib%>"><%= render partial: 'shared/nav/bib' %></li>
-   <li class="<%= is_quotes%>"><%= render partial: 'shared/nav/quotes' %></li>
+   <li <%== is_med%>><%= render partial: 'shared/nav/med' %></li>
+   <li <%== is_bib%>><%= render partial: 'shared/nav/bib' %></li>
+   <li <%== is_quotes%>><%= render partial: 'shared/nav/quotes' %></li>
 
 </ul>
