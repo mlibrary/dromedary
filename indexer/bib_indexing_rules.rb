@@ -131,7 +131,9 @@ end
 to_field 'stencil_keyword' do |bib, acc, context|
   node = context.clipboard[:nokonode]
   node.xpath('//STENCIL|//SHORTSTENCIL').each do |n|
-    acc << n.text
+    n.children.each do |child|
+      acc << child.text
+    end
   end
 end
 
