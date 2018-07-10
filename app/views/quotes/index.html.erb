@@ -12,7 +12,7 @@
   <% if ! has_search_parameters? %>
     New Search
   <% elsif @response.empty? %>
-    No Results
+    <span class="zero-results">No Results</span>
   <% elsif params[:f] and params[:f][:issue_identifier] %>
     <%= issue_title @document_list.first, complete: true %>
   <% end %>
@@ -29,10 +29,10 @@
 
   <% unless has_search_parameters? %>
     <%# if there are no input/search related params, display the "home" partial -%>
-    <%= render 'quotes/home' %>
+    <%= render 'home' %>
     <%#= render 'shared/sitelinks_search_box' %>
   <% else %>
-    <%= render 'quotes/search_results' %>
+    <%= render 'search_results' %>
 
     <script>
       // have to loop through all these else not all the paragraphs are shaved?
