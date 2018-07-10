@@ -4,8 +4,12 @@
     <% if search_fields.length > 1 %>
       <span class="input-group-addon for-search-field">
         <label for="search_field" class="sr-only"><%= t('blacklight.search.form.search_field.label') %></label>
+        <% selected = params[:search_field]
+           default = blacklight_config.search_fields.find{|x| x.last[:default]}
+           selected = selected || (default && default.last.key) || search_fields.first.first
+          %>
         <%= select_tag(:search_field,
-                       options_for_select(search_fields, h(params[:search_field])),
+                       options_for_select(search_fields, h(selected)),
                        title: t('blacklight.search.form.search_field.title'),
                        id: "search_field",
                        class: "search_field") %>

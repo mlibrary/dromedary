@@ -157,29 +157,29 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
-    config.add_show_field 'headword', label: 'Headwords'
-    config.add_show_field 'pos_abbrev', label: 'Part of Speech'
-    config.add_show_field 'discipline_usage', label: 'Professional Usage'
-    config.add_show_field 'etyma_language', label: 'Source Language'
-    config.add_show_field 'definition_text', label: 'Definition Text'
-    config.add_show_field 'quote_text', label: 'Quotation Text'
-    config.add_show_field 'quote_cd', label: 'Quotation CD'
-    config.add_show_field 'quote_md', label: 'Quotation MD'
-    config.add_show_field 'quote_rid', label: 'Quotation RID'
-    config.add_show_field 'quote_title', label: 'Quotation Title'
-    config.add_show_field 'headerword_exactish', label: 'Headword Exactish'
-    config.add_show_field 'headword_only_suggestions', label: 'Headword Only Suggestions'
-    config.add_show_field 'official_headword', label: 'Official Headword'
-    config.add_show_field 'official_headword_exactish', label: 'Official Headword Exactish'
-    config.add_show_field 'orth', label: 'Orth'
-    config.add_show_field 'id', label: 'ID'
-    config.add_show_field 'sequence', label: 'Sequence'
-    config.add_show_field 'title', label: 'Title'
-    config.add_show_field 'word_suggestion', label: 'Word Suggestion'
-    config.add_show_field 'oed_norm', label: 'OED Norm'
-    config.add_show_field 'keyword', label: 'Keyword'
-    config.add_show_field 'json', label: 'JSON'
-    config.add_show_field 'xml', label: 'XML'
+    # config.add_show_field 'headword', label: 'Headwords'
+    # config.add_show_field 'pos_abbrev', label: 'Part of Speech'
+    # config.add_show_field 'discipline_usage', label: 'Professional Usage'
+    # config.add_show_field 'etyma_language', label: 'Source Language'
+    # config.add_show_field 'definition_text', label: 'Definition Text'
+    # config.add_show_field 'quote_text', label: 'Quotation Text'
+    # config.add_show_field 'quote_cd', label: 'Quotation CD'
+    # config.add_show_field 'quote_md', label: 'Quotation MD'
+    # config.add_show_field 'quote_rid', label: 'Quotation RID'
+    # config.add_show_field 'quote_title', label: 'Quotation Title'
+    # config.add_show_field 'headerword_exactish', label: 'Headword Exactish'
+    # config.add_show_field 'headword_only_suggestions', label: 'Headword Only Suggestions'
+    # config.add_show_field 'official_headword', label: 'Official Headword'
+    # config.add_show_field 'official_headword_exactish', label: 'Official Headword Exactish'
+    # config.add_show_field 'orth', label: 'Orth'
+    # config.add_show_field 'id', label: 'ID'
+    # config.add_show_field 'sequence', label: 'Sequence'
+    # config.add_show_field 'title', label: 'Title'
+    # config.add_show_field 'word_suggestion', label: 'Word Suggestion'
+    # config.add_show_field 'oed_norm', label: 'OED Norm'
+    # config.add_show_field 'keyword', label: 'Keyword'
+    # config.add_show_field 'json', label: 'JSON'
+    # config.add_show_field 'xml', label: 'XML'
 
 
     # "fielded" search configuration. Used by pulldown among other places.
@@ -203,7 +203,18 @@ class CatalogController < ApplicationController
 
     # config.add_search_field 'Keywords', label: 'Everything'
 
-    config.add_search_field("hnf", label: "Headwords and Forms") do |field|
+
+
+    config.add_search_field("anywhere", label: "Entire entry") do |field|
+      field.qt                    = '/search'
+      field.solr_parameters       = {:fq => 'type:entry'}
+      field.solr_local_parameters = {
+          qf: '$everything_qf',
+          pf: '$everything_pf',
+      }
+    end
+
+    config.add_search_field("hnf", label: "Headwords and Forms", default: true) do |field|
       field.qt                    = "/search"
       field.solr_parameters       = {:fq => 'type:entry'}
       field.solr_local_parameters = {
@@ -222,15 +233,6 @@ class CatalogController < ApplicationController
       }
     end
 
-    # Anywhere
-    config.add_search_field("anywhere", label: "Entire entry") do |field|
-      field.qt                    = '/search'
-      field.solr_parameters       = {:fq => 'type:entry'}
-      field.solr_local_parameters = {
-        qf: '$everything_qf',
-        pf: '$everything_pf',
-      }
-    end
 
     # Citation search
     config.add_search_field("citation", label: "Citations") do |field|
