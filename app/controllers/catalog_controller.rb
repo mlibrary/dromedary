@@ -214,7 +214,7 @@ class CatalogController < ApplicationController
       }
     end
 
-    config.add_search_field("hnf", label: "Headwords and Forms", default: true) do |field|
+    config.add_search_field("hnf", label: "Headword (with alternate spellings)", default: true) do |field|
       field.qt                    = "/search"
       field.solr_parameters       = {:fq => 'type:entry'}
       field.solr_local_parameters = {
@@ -224,7 +224,7 @@ class CatalogController < ApplicationController
     end
 
     # Just the headwords
-    config.add_search_field("h", label: "Headwords only") do |field|
+    config.add_search_field("h", label: "Headword (preferred spelling only)") do |field|
       field.qt                    = '/search'
       field.solr_parameters       = {:fq => 'type:entry'}
       field.solr_local_parameters = {
@@ -233,19 +233,8 @@ class CatalogController < ApplicationController
       }
     end
 
-
-    # Citation search
-    config.add_search_field("citation", label: "Citations") do |field|
-      field.qt                    = '/search'
-      field.solr_parameters       = {:fq => 'type:entry'}
-      field.solr_local_parameters = {
-        qf: '$citation_qf',
-        pf: '$citation_pf'
-      }
-    end
-
     # Notes and definition (all the modern english, basically)
-    config.add_search_field('notes_and_def', label: "Definition and Notes") do |field|
+    config.add_search_field('notes_and_def', label: "Definition and notes") do |field|
       field.qt                    = '/search'
       field.solr_parameters       = {:fq => 'type:entry'}
       field.solr_local_parameters = {
@@ -265,8 +254,20 @@ class CatalogController < ApplicationController
     end
 
 
+    # Citation search
+    config.add_search_field("citation", label: "Associated quotes and manuscripts") do |field|
+      field.qt                    = '/search'
+      field.solr_parameters       = {:fq => 'type:entry'}
+      field.solr_local_parameters = {
+        qf: '$citation_qf',
+        pf: '$citation_pf'
+      }
+    end
+
+
+
     # OED Modern English equivalent(ish)
-    config.add_search_field("oed", label: "Modern English") do |field|
+    config.add_search_field("oed", label: "Modern English word equivalent") do |field|
       field.qt                    = '/search'
       field.solr_parameters       = {:fq => 'type:entry'}
       field.solr_local_parameters = {
