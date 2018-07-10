@@ -571,6 +571,17 @@ ul.header-nav-secondary a:focus {
 
 }
 
+// Zero results
+
+span.zero-results {
+     font-size: 1.5em;
+     font-weight: bold;
+   }
+   
+span.search-terms {
+  font-style: italic;
+}
+
 /** Bib Show Page/Single Entry **/
 
 .bib-entry-panel {
