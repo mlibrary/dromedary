@@ -1257,9 +1257,9 @@ body.blacklight-static,
 .compendium-staff {
   padding: 0 0 1em;
 
-li {
-  padding: .35em 0;
-}
+  li {
+    padding: .35em 0;
+  }
 }
 
 .title-secondary {
@@ -1341,6 +1341,27 @@ li {
 .sidebars ul li.current {
   border-left: 4px solid #0C5292;
   font-weight: bold;
+}
+
+.about-middle-col em,
+.about-middle-col i {
+  font-style: italic !important;
+}
+
+.help-middle-col i {
+  font-style: italic !important;
+}
+
+ul.about-list {
+    margin-left: 2em;
+
+  li {
+    list-style: disc;
+  }
+}
+
+.blacklight-static .search-bar--header {
+  display: none;
 }
 
 /** Footer **/
