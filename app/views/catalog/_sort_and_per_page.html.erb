@@ -1,4 +1,5 @@
 <div id="sortAndPerPage" class="clearfix">
   <%= render :partial => "paginate_compact", :object => @response if show_pagination? %>
+  <span class="search-term-filter"><%= render_constraints_query(params)%></span>
   <%= render_results_collection_tools wrapping_class: "search-widgets pull-right" %>
 </div>
