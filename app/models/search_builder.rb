@@ -15,6 +15,7 @@ class SearchBuilder < Blacklight::SearchBuilder
   EscapeWorthy = /([-\p{Alpha}])\((\p{Alpha}{1,3})\)/
 
 
+  # TODO: Get these values from blacklight_config
   NULL_SEARCH_SORT = {
      'catalog' => 'sequence asc',
      'bibliography' => 'title_sort asc, author_sort asc',
