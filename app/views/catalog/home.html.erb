@@ -24,23 +24,25 @@
 			<div class="col-sm-12 padding0">
 					<div class="col-sm-4">
 						<ul>
-              <li class="nav-detail--heading"><a href="/static/help_getting_started">How to get started</a></li>
-							<li class="nav-detail--light">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</li>
-							<li class="nav-detail--link"><a href="/static/help_getting_started">Getting started</a></li>
+              <li class="nav-detail--heading"><%= link_to "How to get started", static_path('help_med') %></li>
+							<li class="nav-detail--light">If you want to do more than just
+                look up a word, learn about Dictionary, Bibliography,
+                and Quotation Searches.</li>
+							<li class="nav-detail--link"><%= link_to "Getting started", static_path('help_med') %></li>
 						</ul>
 					</div>
 					<div class="col-sm-4">
 						<ul>
-              <li class="nav-detail--heading"><a href="/static/about_med">More ways to search</a></li>
-							<li class="nav-detail--light">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</li>
-							<li class="nav-detail--link"><a href="/static/help_search">Learn about advanced search options</a></li>
+              <li class="nav-detail--heading"><%= link_to "More ways to search", static_path('advanced_search')%></li>
+							<li class="nav-detail--light">You can change the scope of your search through the use of boolean and proximity operators and wildcard characters.</li>
+              <li class="nav-detail--link"><%= link_to "Learn about extended search options", static_path('advanced_search')%></li>
 						</ul>
 					</div>
 					<div class="col-sm-4">
 						<ul>
-              <li class="nav-detail--heading"><a href="/static/about_med">History of the MED</a></li>
-							<li class="nav-detail--light">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</li>
-							<li class="nav-detail--link"><a href="/static/about_med">Read more about's the MED's history</a></li>
+              <li class="nav-detail--heading"><%= link_to "History of the MED", static_path('about_med') %></li>
+							<li class="nav-detail--light">Almost 90 years in the making, the MED will always be a team effort and a work in progress.</li>
+							<li class="nav-detail--link"><%= link_to "Read more about's the MED's history", static_path('about_med') %></li>
 						</ul>
 				</div>
 			</div>
