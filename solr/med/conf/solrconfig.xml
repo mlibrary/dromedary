@@ -144,6 +144,9 @@
         &bib_lalme_search;
         &bib_manuscript_search;
         &bib_stencil_search;
+
+        <str name="qf">bib_keyword</str>
+        <str name="pf">bib_keyword</str>
     </lst>
     <!-- Always restrict to bib documents -->
     <lst name="appends">

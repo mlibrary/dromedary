@@ -1,10 +1,12 @@
 <div id="sortAndPerPage" class="clearfix">
   <%= render :partial => "paginate_compact", :object => @response if show_pagination? %>
+  <% unless [nil, "", "*"].include? params['q'] %>
   <span class="search-term-filter"><%=
     render_constraint_element(constraint_query_label(params),
                               "#{search_field_label(params)}: #{params[:q]}",
                               classes: ["query"],
                               remove: remove_constraint_url(params))
    %></span>
+    <% end %>
   <%= render_results_collection_tools wrapping_class: "search-widgets pull-right" %>
 </div>
