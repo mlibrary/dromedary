@@ -15,6 +15,12 @@ class SearchBuilder < Blacklight::SearchBuilder
   EscapeWorthy = /([-\p{Alpha}])\((\p{Alpha}{1,3})\)/
 
 
+  NULL_SEARCH_SORT = {
+     'catalog' => 'sequence asc',
+     'bibliography' => 'title_sort asc, author_sort asc',
+     'quotes' => 'quote_date_sort asc, author_sort asc'
+  }
+
   def escape_intersticial_parens(solr_params)
     current_q = solr_params['q']
     if current_q
@@ -25,10 +31,14 @@ class SearchBuilder < Blacklight::SearchBuilder
   end
 
   def default_to_everything_search(solr_params)
+    # require 'pry'; binding.pry
     q = solr_params['q']
     if q.nil? or q == "" or q =~ /}\Z/
       solr_params['q'] = '*'
       blacklight_params['q'] = '*'
+
+      solr_params['sort'] = NULL_SEARCH_SORT[blacklight_params['controller']]
+      blacklight_params['sort'] = NULL_SEARCH_SORT[blacklight_params['controller']]
     end
   end
 
