@@ -581,7 +581,11 @@ span.zero-results {
 span.search-terms {
   font-style: italic;
 }
-
+div.zero-results {
+  span.search-field {
+    font-style: italic;
+  }
+}
 /** Bib Show Page/Single Entry **/
 
 .bib-entry-panel {
