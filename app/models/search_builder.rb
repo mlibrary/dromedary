@@ -32,10 +32,9 @@ class SearchBuilder < Blacklight::SearchBuilder
   end
 
   def default_to_everything_search(solr_params)
-    # require 'pry'; binding.pry
     q = solr_params['q']
     if q.nil? or q == "" or q =~ /}\Z/
-      solr_params['q'] = '*'
+      solr_params['q'] = String(q) + '*'
       blacklight_params['q'] = '*'
 
       solr_params['sort'] = NULL_SEARCH_SORT[blacklight_params['controller']]
