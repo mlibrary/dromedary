@@ -25,13 +25,14 @@
 
   <!ENTITY quote_quote_search SYSTEM "solrconfig_med/quote_searches/quote_quote_search.xml">
   <!ENTITY quote_everything_search SYSTEM "solrconfig_med/quote_searches/quote_everything_search.xml">
-        ]>
+  ]>
 
 <config>
   <luceneMatchVersion>6.0.0</luceneMatchVersion>
   <dataDir>${solr.blacklight-core.data.dir:}</dataDir>
 
   <lib dir="conf/lib" regex=".*\.jar"/>
+  <lib dir="lib" regex=".*\.jar"/>
 
   <!--
      Remove the /select handler and set handleSelect to be true so passing
@@ -70,16 +71,12 @@
       &citation_search;
 
 
-
       <!--Some sane defaults-->
       <str name="facet.mincount">1</str>
-      <str name="qf">
-        official_headword_exactish^500
-        official_headword^100
-        headword_exactish^50
-        headword^10
-        orth^1
-      </str>
+
+
+      <str name="qf">everything_qf</str>
+      <str name="pf">everything_pf</str>
 
     </lst>
 
@@ -88,7 +85,6 @@
       <str name="fq">type:entry</str>
     </lst>
   </requestHandler>
-
 
 
   <requestHandler name="/document" class="solr.SearchHandler">
@@ -128,33 +124,32 @@
   <!-- Bib search handler -->
   <requestHandler name="/bibsearch" class="solr.SearchHandler" default="false">
 
-      <lst name="defaults">
-        <str name="echoParams">all</str>
-        <str name="wt">json</str>
-        <str name="indent">true</str>
-        <str name="fl">*</str>
-        <str name="defType">edismax</str>
-        <str name="facet.mincount">1</str>
+    <lst name="defaults">
+      <str name="echoParams">all</str>
+      <str name="wt">json</str>
+      <str name="indent">true</str>
+      <str name="fl">*</str>
+      <str name="defType">edismax</str>
+      <str name="facet.mincount">1</str>
 
-        <str name="lowercaseOperators">false</str>
+      <str name="lowercaseOperators">false</str>
 
-        &bib_everything_search;
-        &bib_author_title_search;
-        &bib_external_references_search;
-        &bib_lalme_search;
-        &bib_manuscript_search;
-        &bib_stencil_search;
+      &bib_everything_search;
+      &bib_author_title_search;
+      &bib_external_references_search;
+      &bib_lalme_search;
+      &bib_manuscript_search;
+      &bib_stencil_search;
 
-        <str name="qf">bib_keyword</str>
-        <str name="pf">bib_keyword</str>
+      <str name="qf">bib_everything_qf</str>
+      <str name="pf">bib_everything_pf</str>
+
     </lst>
     <!-- Always restrict to bib documents -->
     <lst name="appends">
       <str name="fq">type:bib</str>
     </lst>
   </requestHandler>
-
-
 
 
   <!-- Quote search -->
@@ -172,8 +167,8 @@
       &quote_everything_search;
       &quote_quote_search;
 
-      <str name="qf">keyword</str>
-      <str name="pf">keyword</str>
+      <str name="qf">quote_everything_qf</str>
+      <str name="pf">quote_everything_pf</str>
     </lst>
 
     <!-- Always restrict to quote documents -->
@@ -181,9 +176,6 @@
       <str name="fq">type:quote</str>
     </lst>
   </requestHandler>
-
-
-
 
 
   <!--## Suggest stuff ##-->
@@ -200,9 +192,8 @@
 
   &oed_suggester;
 
-<!-- Ditto for the Dictionary of Old English at /doe_suggester-->
+  <!-- Ditto for the Dictionary of Old English at /doe_suggester-->
   &doe_suggester;
-
 
 
   <!-- A SAMPLE SUGGEST SETUP
@@ -391,9 +382,9 @@
   <!-- The default high-performance update handler -->
   <updateHandler class="solr.DirectUpdateHandler2">
     <!--<updateLog>-->
-      <!--<str name="dir">${solr.ulog.dir:}</str>-->
-      <!--<int name="numVersionBuckets">${solr.ulog.numVersionBuckets:65536}-->
-      <!--</int>-->
+    <!--<str name="dir">${solr.ulog.dir:}</str>-->
+    <!--<int name="numVersionBuckets">${solr.ulog.numVersionBuckets:65536}-->
+    <!--</int>-->
     <!--</updateLog>-->
 
     <autoCommit>
