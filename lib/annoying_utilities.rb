@@ -17,6 +17,22 @@ module AnnoyingUtilities
 
   extend self
 
+  def data_dir
+    Pathname.new(Dromedary.config.data_dir)
+  end
+
+  def bibfile_path
+    data_dir + 'bib_all.xml'
+  end
+
+  def entries_path
+    data_dir + 'entries.json.gz'
+  end
+
+  def hyp_to_bibid_path
+    data_dir + 'hyp_to_bibid.json'
+  end
+
   def dromedary_root
     DROMEDARY_ROOT
   end

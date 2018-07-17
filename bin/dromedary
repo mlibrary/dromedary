@@ -35,6 +35,7 @@ MedInstaller::CLI.register 'convert', MedInstaller::Convert, aliases: ['json']
 MedInstaller::CLI.register 'index entries', MedInstaller::Index::Entries
 MedInstaller::CLI.register 'index bib', MedInstaller::Index::Bib
 MedInstaller::CLI.register 'index full', MedInstaller::Index::Full, aliases: ['all']
+MedInstaller::CLI.register 'index hyp_to_bibid', MedInstaller::Index::HypToBibID, aliases: ['mapping']
 
 
 MedInstaller::CLI.register 'solr install', MedInstaller::Solr::Install
