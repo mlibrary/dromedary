@@ -14,8 +14,6 @@ module MedInstaller
     desc "Convert the xml files into a (faster, more compact) json object (takes a long time)"
 
     argument :source_dir, required: true, desc: "The source data directory (something/xml/)"
-    argument :target_dir, default: Dromedary.config.data_dir, desc: "The dir with entries.json.gz, bib_all.xml, and hyp_to_bibid.json"
-
 
     def most_recent_file(filenames)
       filenames.sort {|a, b| File.mtime(a) <=> File.mtime(b)}.last
@@ -35,18 +33,17 @@ module MedInstaller
     DIR_NAME_REGEX = Regexp.new "/xml/([A-Z12][^/]*)/MED"
 
 
-    def call(source_dir:, target_dir:)
+    def call(source_dir:)
       source_data_path = Pathname(source_dir).realdirpath
-      target_data_path = Pathname(target_dir).realdirpath
 
       validate_xml_dir(source_data_path)
 
-      logger.info "Will put finished file in #{target_data_path}"
+      logger.info "Will put finished file in #{AnnoyingUtilities.entries_path}"
 
       entries_tmpfile = Pathname(Dir.tmpdir) + 'entries.json.tmp'
       entries_outfile = Zlib::GzipWriter.open(entries_tmpfile)
 
-      entries_targetfile = target_data_path + "entries.json.gz"
+      entries_targetfile = AnnoyingUtilities.entries_path
 
       oedfile = find_oed_file(source_data_path)
       logger.info "Loading OED links from #{oedfile} so we can push them into entries"
@@ -69,7 +66,7 @@ module MedInstaller
 
         entry = create_and_fill_entry(xmlfilepath: filename, oedlinks: oed, doelinks: doe)
         begin
-          entries_outfile.puts entry.to_json
+          entries_outfile.puts entry.to_json unless entry == :bad_entry
         rescue => e
           require 'pry'; binding.pry
         end
@@ -115,6 +112,7 @@ module MedInstaller
       MiddleEnglishDictionary::FileEmpty,
       MiddleEnglishDictionary::InvalidXML => e
       logger.error e.message
+      return :bad_entry
     rescue => e
       puts e
       require 'pry'; binding.pry

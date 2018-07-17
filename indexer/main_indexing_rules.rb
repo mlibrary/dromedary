@@ -4,6 +4,7 @@ require 'annoying_utilities'
 require 'med_installer'
 require 'middle_english_dictionary'
 require 'json'
+require_relative '../config/load_local_config'
 
 require 'quote/quote_indexer'
 require 'serialization/indexable_quote'
