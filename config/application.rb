@@ -26,7 +26,8 @@ module Dromedary
 
 
   def self.hyp_to_bibid
-    @hyp_to_bibid ||= JSON.load(File.open("#{Rails.root}/config/hyp_to_bibid.json"))
+    target = Pathname.new(Dromedary.data_dir) + 'hyp_to_bibid.json'
+    @hyp_to_bibid ||= JSON.load(File.open(target))
   end
 
 end
