@@ -58,7 +58,7 @@ module MedInstaller
       end
 
 
-      def call(filename:, bibfile:, debug:)
+      def call(debug:)
         raise "Solr at #{AnnoyingUtilities.blacklight_solr_url} not up" unless AnnoyingUtilities.solr_core.up?
         writer = select_writer(debug)
         fields = indexing_rules_file
@@ -79,12 +79,12 @@ module MedInstaller
 
     end
 
-     class Entries < Generic
+    # -----
+
+    class Entries < Generic
 
       desc "Index entries into solr using the traject configuration in indexer/main_indexing_rules"
 
-      argument :filename, required: true, desc: "The location of entries.json.gz"
-      argument :bibfile, required: true, desc: "The location of bib_all.xml"
       option :debug, type: :boolean, default: false, desc: "Write to debug file?"
 
 
@@ -92,16 +92,23 @@ module MedInstaller
         index_dir + 'main_indexing_rules.rb'
       end
 
-      def call(filename:, bibfile:, debug:)
+      def call(debug:)
         HypToBibID.new(command_name: "hyp_to_bib_id").call(bibfile: bibfile)
-        super
+        raise "Solr at #{AnnoyingUtilities.blacklight_solr_url} not up" unless AnnoyingUtilities.solr_core.up?
+        writer = select_writer(debug)
+        fields = indexing_rules_file
+        index(rulesfile: fields, datafile: AnnoyingUtilities.entries_path, writer: writer, bibfile: AnnoyingUtilities.bibfile_path)
       end
     end
 
 
+
+    # ------
+    #
+
+
     class Bib < Generic
       desc "Index entries into solr using the traject configuration in indexer/bib_indexing_rules"
-      argument :filename, required: true, desc: "The location of bib_all.xml"
       option :debug, type: :boolean, default: false, desc: "Write to debug file?"
 
 
@@ -110,20 +117,24 @@ module MedInstaller
       end
 
 
-      def call(filename:, debug:)
-        HypToBibID.new(command_name: "hyp_to_bib_id").call(bibfile: filename)
-        super(filename: filename, bibfile: filename, debug: debug)
+      def call(debug:)
+        HypToBibID.new(command_name: "hyp_to_bib_id").call
+        raise "Solr at #{AnnoyingUtilities.blacklight_solr_url} not up" unless AnnoyingUtilities.solr_core.up?
+        writer = select_writer(debug)
+        fields = indexing_rules_file
+        index(rulesfile: fields, datafile: AnnoyingUtilities.bibfile_path, writer: writer, bibfile: AnnoyingUtilities.bibfile_path)
       end
     end
 
+
+    #------
+
     class Full < Generic
       desc "Clear and reload solr, index entries and bib, build autosuggest, and optimize"
-      argument :entries_file, required: true, desc: "Path to entries.json.gz"
-      argument :bibfile, required: true, desc: "Path to bib_all.xml"
       option :debug, type: :boolean, default: false, desc: "Write to debug file?"
 
 
-      def call(entries_file:, bibfile:, debug:)
+      def call(debug:)
         raise "Solr at #{AnnoyingUtilities.blacklight_solr_url} not up" unless AnnoyingUtilities.solr_core.up?
         writer = select_writer(debug)
 
@@ -133,20 +144,20 @@ module MedInstaller
         logger.info "Reloading core definition"
         core.reload
 
-        HypToBibID.new(command_name: "hyp_to_bib_id").call(bibfile: bibfile)
+       HypToBibID.new(command_name: "hyp_to_bib_id").call
 
         logger.info "##### BEGIN ENTRY/QUOTE INDEXING #####"
         index(rulesfile: index_dir + 'main_indexing_rules.rb',
-              datafile:  entries_file,
+              datafile:  AnnoyingUtilities.entries_path,
               writer:    writer,
-              bibfile:   bibfile)
+              bibfile:   AnnoyingUtilities.bibfile_path)
 
         logger.info "##### BEGIN BIB INDEXING #####"
 
         index(rulesfile: index_dir + 'bib_indexing_rules.rb',
-              datafile:  bibfile,
+              datafile:  AnnoyingUtilities.bibfile_path,
               writer:    writer,
-              bibfile:   bibfile)
+              bibfile:   AnnoyingUtilities.bibfile_path)
         commit
         MedInstaller::Solr.rebuild_suggesters(core)
         optimize
@@ -156,20 +167,21 @@ module MedInstaller
 
     end
 
+    # -----
+
     class HypToBibID < Hanami::CLI::Command
       include MedInstaller::Logger
 
-      argument :data_dir, default: Dromedary.config.data_dir, desc: "The data_dir (contains bib_all.xml)"
-
+      desc "Create the mapping from HYP ids (RID) to bib IDs"
 
       def bibset(filename)
         @bibset ||= MiddleEnglishDictionary::Collection::BibSet.new(filename: filename)
       end
 
-      def hyp_to_bibid(filename)
+      def hyp_to_bibid
         return @hyp_to_bibid if @hyp_to_bibid
         logger.info "Building hyp_to_bibid mapping"
-        @hyp_to_bibid ||= bibset(filename).reduce({}) do |acc, bib|
+        @hyp_to_bibid ||= bibset(AnnoyingUtilities.bibfile_path).reduce({}) do |acc, bib|
           bib.hyps.each do |hyp|
             acc[hyp.gsub('\\', '').upcase] = bib.id # TODO: Take out when backslashes removed from HYP ids
           end
@@ -178,16 +190,16 @@ module MedInstaller
       end
 
 
-      def write_hyp_to_bib_id(bibfile)
-        File.open(bibfile, 'w:utf-8') do |out|
-          out.puts hyp_to_bibid(bibfile).to_json
+      def write_hyp_to_bib_id
+        logger.info "Writing hyp_to_bibid mapping at #{AnnoyingUtilities.hyp_to_bibid_path}"
+        File.open(AnnoyingUtilities.hyp_to_bibid_path, 'w:utf-8') do |out|
+          out.puts hyp_to_bibid.to_json
         end
       end
 
-      def call(data_dir:)
-        bibfile = Pathname.new(data_dir) + 'hyp_to_bibid.json'
-        logger.info "Writing #{bibfile}"
-        write_hyp_to_bib_id(bibfile)
+      def call(command_name: 'HypToBibID')
+        logger.info "Creating hyp_to_bibid.json"
+        write_hyp_to_bib_id
       end
 
 

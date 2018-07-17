@@ -24,10 +24,4 @@ module Dromedary
     # -- all .rb files in that directory are automatically loaded.
   end
 
-
-  def self.hyp_to_bibid
-    target = Pathname.new(Dromedary.data_dir) + 'hyp_to_bibid.json'
-    @hyp_to_bibid ||= JSON.load(File.open(target))
-  end
-
 end
