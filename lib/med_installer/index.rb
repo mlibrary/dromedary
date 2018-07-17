@@ -79,43 +79,7 @@ module MedInstaller
 
     end
 
-    class HypToBibID < Hanami::CLI::Command
-      include MedInstaller::Logger
-
-      argument :bibfile, required: true, desc: "The location of bib_all.xml"
-
-
-      def bibset(filename)
-        @bibset ||= MiddleEnglishDictionary::Collection::BibSet.new(filename: filename)
-      end
-
-      def hyp_to_bibid(filename)
-        return @hyp_to_bibid if @hyp_to_bibid
-        logger.info "Building hyp_to_bibid mapping"
-        @hyp_to_bibid ||= bibset(filename).reduce({}) do |acc, bib|
-          bib.hyps.each do |hyp|
-            acc[hyp.gsub('\\', '').upcase] = bib.id # TODO: Take out when backslashes removed from HYP ids
-          end
-          acc
-        end
-      end
-
-
-      def write_hyp_to_bib_id(bibfile)
-        File.open(AnnoyingUtilities.dromedary_root + 'config' + 'hyp_to_bibid.json', 'w:utf-8') do |out|
-          out.puts hyp_to_bibid(bibfile).to_json
-        end
-      end
-
-      def call(bibfile:)
-        logger.info "Writing config/hyp_to_bibid.json"
-        write_hyp_to_bib_id(bibfile)
-      end
-
-
-    end
-
-    class Entries < Generic
+     class Entries < Generic
 
       desc "Index entries into solr using the traject configuration in indexer/main_indexing_rules"
 
@@ -191,6 +155,45 @@ module MedInstaller
       end
 
     end
+
+    class HypToBibID < Hanami::CLI::Command
+      include MedInstaller::Logger
+
+      argument :data_dir, default: Dromedary.config.data_dir, desc: "The data_dir (contains bib_all.xml)"
+
+
+      def bibset(filename)
+        @bibset ||= MiddleEnglishDictionary::Collection::BibSet.new(filename: filename)
+      end
+
+      def hyp_to_bibid(filename)
+        return @hyp_to_bibid if @hyp_to_bibid
+        logger.info "Building hyp_to_bibid mapping"
+        @hyp_to_bibid ||= bibset(filename).reduce({}) do |acc, bib|
+          bib.hyps.each do |hyp|
+            acc[hyp.gsub('\\', '').upcase] = bib.id # TODO: Take out when backslashes removed from HYP ids
+          end
+          acc
+        end
+      end
+
+
+      def write_hyp_to_bib_id(bibfile)
+        File.open(bibfile, 'w:utf-8') do |out|
+          out.puts hyp_to_bibid(bibfile).to_json
+        end
+      end
+
+      def call(data_dir:)
+        bibfile = Pathname.new(data_dir) + 'hyp_to_bibid.json'
+        logger.info "Writing #{bibfile}"
+        write_hyp_to_bib_id(bibfile)
+      end
+
+
+    end
+
+
   end
 end
 
