@@ -4,6 +4,7 @@ require 'annoying_utilities'
 require 'med_installer'
 require 'middle_english_dictionary'
 require 'json'
+require_relative '../config/load_local_config'
 
 require 'quote/quote_indexer'
 require 'serialization/indexable_quote'
@@ -15,7 +16,7 @@ settings do
   provide "solr_writer.batch_size", 250
 end
 
-hyp_to_bibid = JSON.load(File.open(AnnoyingUtilities.dromedary_root + 'config' + 'hyp_to_bibid.json'))
+hyp_to_bibid = Dromedary.hyp_to_bibid
 bibset       = MiddleEnglishDictionary::Collection::BibSet.new(filename: settings['bibfile'])
 
 # Do a terrible disservice to traject and monkeypatch it to take

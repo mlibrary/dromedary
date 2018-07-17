@@ -16,10 +16,15 @@ module Dromedary
               logger.info "Using default env of 'development'"
               "development"
             end
-      logger.info "Working with environment #{env}"
-      logger.info "Loading config files #{Ettin.settings_files(Pathname.new(__dir__), env).join(', ')}"
+      logger.info "Working in rails environment '#{env}'"
       @config = Ettin.for(Ettin.settings_files(Pathname.new(__dir__), env))
       logger.info "Finished loading Ettin files"
+    end
+
+
+    def hyp_to_bibid
+      target = Pathname.new(Dromedary.config.data_dir) + 'hyp_to_bibid.json'
+      @hyp_to_bibid ||= JSON.load(File.open(target))
     end
   end
 

@@ -24,9 +24,4 @@ module Dromedary
     # -- all .rb files in that directory are automatically loaded.
   end
 
-
-  def self.hyp_to_bibid
-    @hyp_to_bibid ||= JSON.load(File.open("#{Rails.root}/config/hyp_to_bibid.json"))
-  end
-
 end
