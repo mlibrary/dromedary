@@ -3,6 +3,8 @@ require 'hanami/cli'
 require 'tempfile'
 require 'zlib'
 require 'serialization/indexable_quote'
+require 'annoying_utilities'
+
 
 module MedInstaller
   # Convert a bunch of Dromedary xml files into a more useful format.
@@ -11,22 +13,20 @@ module MedInstaller
 
     desc "Convert the xml files into a (faster, more compact) json object (takes a long time)"
 
-    argument :datadir, required: true, desc: "The data directory. Converted files will be <datadir>/entries.json.gz"
-    argument :letter, required: false, desc: "one letter to convert"
+    argument :source_dir, required: true, desc: "The source data directory (something/xml/)"
+    argument :target_dir, default: Dromedary.config.data_dir, desc: "The dir with entries.json.gz, bib_all.xml, and hyp_to_bibid.json"
 
 
     def most_recent_file(filenames)
       filenames.sort {|a, b| File.mtime(a) <=> File.mtime(b)}.last
     end
 
-    def find_oed_file(datapath)
-      xmldir     = datapath + 'xml'
+    def find_oed_file(xmldir)
       candidates = xmldir.children.select {|x| x.to_s =~ /MED2OED/}
       most_recent_file(candidates)
     end
 
-    def find_doe_file(datapath)
-      xmldir     = datapath + 'xml'
+    def find_doe_file(xmldir)
       candidates = xmldir.children.select {|x| x.to_s =~ /MED2DOE/}.sort
       most_recent_file(candidates)
     end
@@ -35,38 +35,30 @@ module MedInstaller
     DIR_NAME_REGEX = Regexp.new "/xml/([A-Z12][^/]*)/MED"
 
 
-    def call(datadir:, letter: nil)
-      datapath = Pathname(datadir).realdirpath
-      validate_xml_dir(datapath)
+    def call(source_dir:, target_dir:)
+      source_data_path = Pathname(source_dir).realdirpath
+      target_data_path = Pathname(target_dir).realdirpath
 
-      entries_tmpfile_name = Pathname(Dir.tmpdir) + 'entries.json.tmp'
-      quotes_tmpfile_name  = Pathname(Dir.tmpdir) + 'quotes.json.tmp'
+      validate_xml_dir(source_data_path)
 
-      logger.info "letter is #{letter}"
-      if letter.nil?
-        entries_targetfile = datapath + 'entries.json.gz'
-        quotes_targetfile  = datapath + 'quotes.json.gz'
-      else
-        entries_targetfile = datapath + "entries_#{letter}.json.gz"
-        quotes_targetfile  = datapath + "quotes_#{letter}.json.gz"
-      end
+      logger.info "Will put finished file in #{target_data_path}"
 
-      entries_outfile = Zlib::GzipWriter.open(entries_tmpfile_name)
-      quotes_outfile  = Zlib::GzipWriter.open(quotes_tmpfile_name)
+      entries_tmpfile = Pathname(Dir.tmpdir) + 'entries.json.tmp'
+      entries_outfile = Zlib::GzipWriter.open(entries_tmpfile)
 
-      logger.info "Targeting #{entries_targetfile}"
+      entries_targetfile = target_data_path + "entries.json.gz"
 
-      oedfile = find_oed_file(datapath)
+      oedfile = find_oed_file(source_data_path)
       logger.info "Loading OED links from #{oedfile} so we can push them into entries"
       oed = MiddleEnglishDictionary::Collection::OEDLinkSet.from_xml_file(oedfile)
 
-      doefile = find_doe_file(datapath)
+      doefile = find_doe_file(source_data_path)
       logger.info "Loading DOE links from #{doefile} so we can push them into entries, too"
       doe = MiddleEnglishDictionary::Collection::DOELinkSet.from_xml_file(doefile)
 
       count             = 0
       current_directory = ''
-      Dir.glob("#{datapath}/xml/#{letter}*/MED*xml").each do |filename|
+      Dir.glob("#{source_data_path}/*/MED*xml").each do |filename|
         count += 1
         logger.info "#{count} done" if count > 0 and count % 2500 == 0
         if File.empty?(filename)
@@ -78,9 +70,6 @@ module MedInstaller
         entry = create_and_fill_entry(xmlfilepath: filename, oedlinks: oed, doelinks: doe)
         begin
           entries_outfile.puts entry.to_json
-          entry.all_citations.each do |cite|
-            quotes_outfile.puts Dromedary::IndexableQuote.new(citation: cite).to_json
-          end
         rescue => e
           require 'pry'; binding.pry
         end
@@ -89,14 +78,12 @@ module MedInstaller
 
       #close the zipfiles
       entries_outfile.close
-      quotes_outfile.close
 
 
-      logger.info "Copying temporary files to real location at '#{datapath}'"
+      logger.info "Copying temporary file to real location at '#{entries_targetfile}'"
 
       # Copy the tempfile over if we made it this far
-      FileUtils.cp(entries_tmpfile_name, entries_targetfile)
-      FileUtils.cp(quotes_tmpfile_name, quotes_targetfile)
+      FileUtils.cp(entries_tmpfile, entries_targetfile)
     end
 
 
@@ -137,8 +124,6 @@ module MedInstaller
 
     def start_new_letter(datapath, this_letter)
       logger.info "Beginning work on words starting with #{this_letter}"
-      jdir = (datapath + 'json' + this_letter).to_s
-      FileUtils.mkpath(jdir) unless File.exists? jdir
     end
 
 
@@ -150,11 +135,11 @@ module MedInstaller
     end
 
 
-    def validate_xml_dir(datapath)
-      if Dir.exist?(datapath) and Dir.exist?(datapath + 'xml')
-        logger.info "Found xml directory at #{datapath + 'xml'}"
+    def validate_xml_dir(xmldir)
+      if Dir.exist?(xmldir)
+        logger.info "Found xml directory at #{xmldir}"
       else
-        raise "Can't find xml directory at #{datapath + 'xml'}. Exiting"
+        raise "Can't find xml directory at #{xmldir}. Exiting"
       end
     end
   end
