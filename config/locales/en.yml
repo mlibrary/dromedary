@@ -63,6 +63,9 @@ en:
         zoom_out: '<span class="hidden-xs hidden-sm">Zoom Out </span>'
         search_highlights: '<span class="hidden-xs">Search <span class="hidden-sm">Keyword </span></span>Highlights'
     static:
+      help:
+        title: Help in using the Middle English Dictionary
+        header: Middle English Help
       about-med:
         title: About the Middle English Compendium
         header: Middle English About
