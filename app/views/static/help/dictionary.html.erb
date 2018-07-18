@@ -1,0 +1,77 @@
+`
+<% @page_title = "Dictionary search options in the Middle English Dictionary" %>
+
+<div class="container help-container">
+  <div>
+    <%= render partial: 'static/help/sidebar' %>
+
+    <div id="med" class="<%= main_content_classes %> about-middle-col">
+
+      <h1 id="dictionary">How to Search the Dictionary</h1>
+
+      <p>Dictionary searches allow you to search within the parts of an entry
+        (such as headwords and forms, etymology or label, definition,
+        quotations). You can also find Middle English
+        words relevant to your area of interest (e.g., looking for
+        definitions that include the Modern English word "love" will help
+        find Middle English words related to various kinds of love).</p>
+
+      <p>A Dictionary search will retrieve dictionary entries that match your
+        terms.</p>
+
+      <h3>Dictionary search types</h3>
+      <dl>
+        <dt>Entire entry</dt>
+        <dd>A search of the entire entry will retrieve all entries containing
+          the word or phrase, text, author, date, etc.(or a combination of
+          these) you specify; search items could appear in any of the parts
+          of the entry (form section, definition, quotation, notes, etc.).
+        </dd>
+
+
+        <dt>Headword (with alternate spellings) <em>[Default]</em></dt>
+        <dd>A search within headword (with alternate spellings) searches for
+          your word in all orthographic forms and alternative spellings
+          recorded in the form section.
+        </dd>
+
+        <dt>Headword (preferred spelling only)</dt>
+        <dd>Searching within headword (preferred spelling only) is a
+          traditional dictionary lookup and matches your word exactly.
+        </dd>
+
+
+        <dt>Definition and Notes</dt>
+        <dd>A definition and notes search will retrieve all entries in which
+          the definitions contain the words, phrases or labels you specify.
+          Definitions are in modern English, though they may include
+          illustrative phrases in Middle English.
+        </dd>
+
+        <dt>Etymology</dt>
+        <dd>An etymology search will retrieve all entries whose etymological
+          statements contain the specified search term(s), e.g., an etymon,
+          cognates, dialect or modern equivalents, etc. It may be used to
+          retrieve any part of the contents of an etymological statement.
+        </dd>
+
+        <dt>Associated quotes and manuscripts</dt>
+        <dd>Searching within associated quotes and manuscripts will find
+          entries that contain the
+          search term anywhere within the quotations cited to illustrate a
+          particular sense of the word and the abbreviated forms (or
+          stencils) used to refer to the works in which the quotations are
+          found.
+        </dd>
+
+        <dt>Modern English</dt>
+        <dd>A modern English search will attempt to find an entry that has
+          been linked with an OED entry using that headword. Note that not
+          all MED entries have a related OED entry.
+        </dd>
+
+      </dl>
+
+    </div>
+  </div>
+</div>

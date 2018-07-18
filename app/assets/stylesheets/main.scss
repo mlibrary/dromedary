@@ -1366,10 +1366,17 @@ div.help-container {
     }
   }
 
+table {
+  margin-top: 3em;
+}
 table th, td {
   border-radius: 4px!important;
   border: 1px solid #ccc!important;
   padding: 0.25em;
+}
+
+table th {
+  font-weight: bold;
 }
 }
 

@@ -66,6 +66,8 @@ Rails.application.routes.draw do
 
     post 'static/search' => 'static#search'
 
+    get 'help' => 'help#root', as: :help_root
+    get 'help/:page' => 'help#page', as: :help
     get 'static/:action' => 'static', as: :static
 
     # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
