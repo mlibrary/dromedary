@@ -995,13 +995,14 @@ span.filterValue {
     height: 60px;
   }
 
+  .bib-container {
+    border-bottom: 2px solid #ccc;
+  }
+
   h2.entry-main-title {
     padding: 1em;
   }
 
-  .entry-heading {
-    height: 40px;
-  }
 
   .entry-main-title,
   .entry-intro-title,
@@ -1025,10 +1026,17 @@ span.filterValue {
     color: #4E4E4E;
   }
 
-  .entry-heading {
+
+
+  .entry-heading, .bib-heading {
     padding: 1em;
     font-weight: 600;
   }
+
+  .entry-heading {
+    height: 40px;
+  }
+
 
   .entry-info,
   .entry-senses,
