@@ -63,12 +63,15 @@ en:
         zoom_out: '<span class="hidden-xs hidden-sm">Zoom Out </span>'
         search_highlights: '<span class="hidden-xs">Search <span class="hidden-sm">Keyword </span></span>Highlights'
     static:
+      help:
+        title: Using the Middle English Dictionary
+        header: Using the Middle English Dictionary
+        operators-heading: How to search for phrases, wildcards, etc.
+        general-heading: General search information
+        special-characters-heading: Dealing with special characters (Þ, Ð, Ȝ, etc.)
       about-med:
         title: About the Middle English Compendium
-        header: Middle English About
-      help-med:
-        title: Help in using the Middle English Dictionary
-        header: Middle English Help
+        header: About the Middle English Compendium
       about-daily:
         title: About The Michigan Daily
         header: About The Michigan Daily
