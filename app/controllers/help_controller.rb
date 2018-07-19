@@ -1,10 +1,10 @@
 class HelpController < ApplicationController
 
-  def root
+  def help_root
     render "static/help", layout: 'static'
   end
 
-  def page
+  def help_page
     pg = params[:page]
     render "static/help/#{pg}", layout: 'static'
   end
