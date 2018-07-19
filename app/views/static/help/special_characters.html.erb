@@ -1,0 +1,42 @@
+<% @page_title = "Searching for special/ambiguous characters in the Middle English Dictionary" %>
+
+<div class="container help-container">
+  <div>
+    <%= render partial: 'static/help/sidebar' %>
+
+    <div id="med" class="<%= main_content_classes %> about-middle-col">
+
+      <h1 id="special-characters"><%= t('views.static.help.special-characters-heading') %></h1>
+
+      <p>The keyboard icon
+        (<%= image_tag('keyboard-grey.svg', alt: 'Drop down menu for special character selection') %>
+        )
+        next to the search box can be used to enter special characters
+        directly. You may
+        also substitute characters on a standard US keyboard, as shown below.
+        Thus,
+        for example, a search for <em>Þē̆de</em> is the exact same search as
+        one
+        for <em>thede</em></p>
+
+      <p>For
+        search purposes, the following sets of characters are considered
+        equivalent:</p>
+
+      <ul id="character-translation" class="help-enum">
+        <li>Þ þ (thorn) ↔ th</li>
+        <li>Ð ð (eth) ↔ d</li>
+        <li>Ȝ ȝ (yogh) ↔ z</li>
+        <li>Æ æ (ash) ↔ AE</li>
+        <li>Any accented character (e.g., ô,ī,ẹ̄, etc.) and its non-accented
+          version (o, i, e, etc.)
+        </li>
+        <li>Any other ligatures and its
+          two-character equivalent (e.g., Œ ↔ OE)
+        </li>
+        <li>j ↔ y ↔ i</li>
+        <li>u ↔ v</li>
+      </ul>
+    </div>
+  </div>
+</div>

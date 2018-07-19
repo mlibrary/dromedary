@@ -3,16 +3,16 @@
     <h2><%= t('views.static.help.header') %></h2>
     <ul class="help-ul">
       <li>
-        <a href="#general"><%= t('views.static.help.general-heading') %></a>
+        <a href="<%= help_root_path %>"><%= t('views.static.help.general-heading') %></a>
       </li>
-      <li><a href="#dictionary">How to search the Dictionary</a></li>
-      <li><a href="#bibliography">How to search the Bibliography</a></li>
-      <li><a href="#quotation">How to search the Quotations</a></li>
+      <li><a href="<%= help_path('dictionary')%>">Dictionary searches</a></li>
+      <li><a href="<%= help_path('bibliography')%>">Bibliography searches</a></li>
+      <li><a href="<%= help_path('quotations')%>">Quotation searches</a></li>
       <li>
-        <a href="#special-characters"><%= t('views.static.help.special-characters-heading') %></a>
+        <a href="<%= help_path('special_characters')%>"><%= t('views.static.help.special-characters-heading') %></a>
       </li>
       <li>
-        <a href="#operators"><%= t('views.static.help.operators-heading') %></a>
+        <a href="<%= help_path('extended')%>"><%= t('views.static.help.operators-heading') %></a>
       </li>
     </ul>
   </div>
