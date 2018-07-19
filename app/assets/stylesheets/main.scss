@@ -1409,6 +1409,16 @@ table th {
 }
 }
 
+// Weird search box doubling -- try to make one diappear
+
+.q.tt-input {
+  color: #666666;
+   }
+
+   .q.tt-hint {
+     color: transparent;
+   }
+
 
 
 
