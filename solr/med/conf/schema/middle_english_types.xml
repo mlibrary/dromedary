@@ -3,15 +3,11 @@
 <fieldType name="me_text" class="solr.TextField"
            positionIncrementGap="&tpig;">
   <analyzer type="index">
-    &middle_english_char_substitution_patterns;
-    &basic_text_chain;
-    <filter class="solr.SynonymFilterFactory" synonyms="&me_synonym_file;"
-            ignoreCase="true" expand="true"/>
+    &me_text_chain;
     <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
   </analyzer>
   <analyzer type="query">
-    &middle_english_char_substitution_patterns;
-    &basic_text_chain;
+    &me_text_chain;
     <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
   </analyzer>
 </fieldType>
