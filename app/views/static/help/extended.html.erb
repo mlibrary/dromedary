@@ -1,4 +1,4 @@
-`<% @page_title = "Extended search options in the Middle English Dictionary" %>
+<% @page_title = "Extended search options in the Middle English Dictionary" %>
 
 <div class="container help-container">
   <div>
@@ -27,19 +27,18 @@
 
           <td>Find any of several words</td>
           <td>
-            Enter separated by spaces
+            Enter several terms separated by spaces
           </td>
           <td>
             <strong>man woman child</strong> will find entries that have any
             of those three terms.
-
           </td>
         </tr>
         <tr>
 
           <td>Find an exact phrase</td>
           <td>
-            Enclose in double quotes
+            Enclose phrase in double quotes
           </td>
           <td>
             <strong>“man and woman”</strong> will only match when those three
@@ -55,11 +54,12 @@
           <td>Search for words with a common prefix (wildcard search)</td>
           <td>
 
-            Append an asterisk (*)
+            Append an asterisk (*) to the prefix
 
           </td>
           <td><strong>hel*</strong> will find entries that contain a term
-            that begins with <strong>hel</strong></td>
+            that begins with <strong>hel</strong> (e.g., <em>hel</em>, <em>helable</em>, <em>helde</em>)
+          </td>
         </tr>
         <tr>
 
@@ -93,8 +93,10 @@
 
           <td>Use a more complex AND/OR/NOT query (boolean search)</td>
           <td>
-            Use upppercase AND/OR/NOT in your query. You may also use
-            parentheses to group.
+           <p> Use upppercase AND/OR/NOT in your query. You may also use
+            parentheses to group.</p>
+
+            <p>Note that lower-case and/or/not will be treated as simple search terms.</p>
 
           </td>
           <td>
@@ -105,7 +107,7 @@
 
             <p><strong>(man AND woman) OR helle</strong> must have both “man”
               and “woman” or the word
-              “helle”</p>
+              “helle”, or both.</p>
             <p>Note that NOT can be used with other terms
               (<strong>helle NOT devil</strong>) or by itself, e.g.,
               <strong>NOT Chaucer</strong></p>
@@ -115,7 +117,7 @@
         <tr>
 
           <td>
-            Return all entries
+            Show <em>all</em> entries
           </td>
           <td>
             Press the search button while the search field is empty
@@ -136,7 +138,7 @@
           </td>
           <td>
             <strong>“man and wom*”</strong> or
-            <strong>“man and w?man”</strong> (BOTH UNSUPPORTED)
+            <strong>“man and w?man”</strong> (BOTH UNSUPPORTED because wildcards don't worth within a phrase)
           </td>
         </tr>
         <tr>
