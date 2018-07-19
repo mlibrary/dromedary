@@ -1,4 +1,4 @@
-<% if query_has_constraints? %>
+<% if !params[:f].blank? %>
   <div id="appliedParams" class="clearfix constraints-container">
     <h3 class="constraints-label">Current Filters</h3>
     <%= render_constraints(params) %>
