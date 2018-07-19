@@ -1,4 +1,13 @@
-<% if params['q'] =~ %r("[^"]*[*?][^"]*") %>
-<p>It looks like your query (<em><%= params['q']%></em>) contains a wildcard (* or ?).
-  Wildcards do not work in double-quoted phrase queries.</p>
+<% if m = %r("[^"]*[*?][^"]*").match(params['q']) %>
+<div class="flash">It looks like you have a phrase query that contains a wildcard (* or ?).
+  Wildcard characters in phrase queries are discarded, so your search for <%= m[0] %>
+  was interpreted as
+  <em><%= params['q'].gsub(/[?*]/, '') %></em>. See the <%= link_to "information on expanded
+  search options", help_path('expanded')%> for more details. </div>
+<% end %>
+
+<% if m = %r([?*]([^\s"\Z]+)).match( params['q']) %>
+  <div class="flash">Wildcard characters (* and ?) only work at the end of a term,
+    so your search for <%= m[0] %> was interpreted as <%= m[1]%>. See the <%= link_to "information on expanded
+  search options", help_path('expanded')%> for more details. </div>
 <% end %>

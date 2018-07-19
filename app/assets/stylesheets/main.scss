@@ -732,6 +732,23 @@ div.zero-results {
     font-size: .75em;
     font-weight: bold;
   }
+
+
+}
+
+.flash {
+  padding-top: 1em;
+  padding-bottom: 2em;
+  color: crimson;
+  font-size: 85%;
+
+  em {
+    font-style: italic;
+  }
+
+  a {
+    color: inherit;
+  }
 }
 
 #documents .document {
