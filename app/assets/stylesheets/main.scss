@@ -736,14 +736,14 @@ div.zero-results {
 
 }
 
-.flash {
+div.flash {
   padding-top: 1em;
   padding-bottom: 2em;
   color: crimson;
   font-size: 85%;
 
-  em {
-    font-style: italic;
+  span.searchterms {
+    font-style: italic
   }
 
   a {
@@ -1370,6 +1370,8 @@ body.blacklight-static,
 }
 
 div.help-container {
+
+margin-top: 2em;
   ul.help-enum {
     list-style-type: disc;
     margin-bottom: 10px;
