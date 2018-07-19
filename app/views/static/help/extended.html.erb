@@ -1,0 +1,158 @@
+<% @page_title = "Extended search options in the Middle English Dictionary" %>
+
+<div class="container help-container">
+  <div>
+    <%= render partial: 'static/help/sidebar' %>
+
+    <div id="med" class="<%= main_content_classes %> about-middle-col">
+
+
+      <h1 id="operators"><%= t('views.static.help.operators-heading') %></h1>
+`
+      <p>Several more advanced search operations are available if the basic
+        search
+        proves insufficient. The complete set of valid searches is
+        summarized below.</p>
+
+      <table>
+        <caption>Middle English Dictionary search examples</caption>
+        <tr>
+          <th class="goal">Search goal</th>
+          <th>Syntax</th>
+          <th>
+            Examples / Notes
+          </th>
+        </tr>
+        <tr>
+
+          <td>Find any of several words</td>
+          <td>
+            Enter several terms separated by spaces
+          </td>
+          <td>
+            <strong>man woman child</strong> will find entries that have any
+            of those three terms.
+          </td>
+        </tr>
+        <tr>
+
+          <td>Find an exact phrase</td>
+          <td>
+            Enclose phrase in double quotes
+          </td>
+          <td>
+            <strong>“man and woman”</strong> will only match when those three
+            terms
+            appear next to each other in that order. Note that the "and" here
+            is <em>not</em>
+            a boolean search operator.
+
+          </td>
+        </tr>
+        <tr>
+
+          <td>Search for words with a common prefix (wildcard search)</td>
+          <td>
+
+            Append an asterisk (*) to the prefix
+
+          </td>
+          <td><strong>hel*</strong> will find entries that contain a term
+            that begins with <strong>hel</strong> (e.g., <em>hel</em>, <em>helable</em>, <em>helde</em>)
+          </td>
+        </tr>
+        <tr>
+
+          <td>Allow one ambiguous character in a search term</td>
+          <td>
+
+            Use a question mark (?) to indicate “any character”
+
+          </td>
+          <td>
+            <strong>w?man</strong> will match any of woman, wyman, etc.
+          </td>
+        </tr>
+        <tr>
+
+          <td>Find words near each other (proximity search)</td>
+          <td>
+            Enclose in quotes and append, e.g., ‘~4’ (where “4” is the
+            maximum
+            number of other words between words in your phrase
+
+          </td>
+          <td>
+            <strong>“man woman”~5</strong> will find all occurrences of
+            <strong>man</strong> and <strong>woman</strong>
+            within 5 words of each other (regardless of ordering)
+
+          </td>
+        </tr>
+        <tr>
+
+          <td>Use a more complex AND/OR/NOT query (boolean search)</td>
+          <td>
+           <p> Use upppercase AND/OR/NOT in your query. You may also use
+            parentheses to group.</p>
+
+            <p>Note that lower-case and/or/not will be treated as simple search terms.</p>
+
+          </td>
+          <td>
+            <p><strong>“How darst” AND lord</strong> will return only things
+              with both the
+              phrase <strong>“how darst”</strong> and the word
+              <strong>“lord”</strong></p>
+
+            <p><strong>(man AND woman) OR helle</strong> must have both “man”
+              and “woman” or the word
+              “helle”, or both.</p>
+            <p>Note that NOT can be used with other terms
+              (<strong>helle NOT devil</strong>) or by itself, e.g.,
+              <strong>NOT Chaucer</strong></p>
+
+          </td>
+        </tr>
+        <tr>
+
+          <td>
+            Show <em>all</em> entries
+          </td>
+          <td>
+            Press the search button while the search field is empty
+
+          </td>
+          <td>
+            This can be useful if you want to just narrow entries using the
+            filters on
+            the left.
+
+          </td>
+        </tr>
+        <tr>
+
+          <td>Search for a phrase using a wildcard</td>
+          <td>
+            Not supported by the search engine used by the MED
+          </td>
+          <td>
+            <strong>“man and wom*”</strong> or
+            <strong>“man and w?man”</strong> (BOTH UNSUPPORTED because wildcards don't worth within a phrase)
+          </td>
+        </tr>
+        <tr>
+
+          <td>Find suffixes with a wildcard</td>
+          <td>
+            Not supported by the search engine used by the MED
+          </td>
+          <td>
+            <strong>*ly</strong> (UNSUPPORTED)
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
