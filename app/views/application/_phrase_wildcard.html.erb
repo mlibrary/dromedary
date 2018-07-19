@@ -1,0 +1,4 @@
+<% if params['q'] =~ %r("[^"]*[*?][^"]*") %>
+<p>It looks like your query (<em><%= params['q']%></em>) contains a wildcard (* or ?).
+  Wildcards do not work in double-quoted phrase queries.</p>
+<% end %>

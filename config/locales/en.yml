@@ -64,8 +64,8 @@ en:
         search_highlights: '<span class="hidden-xs">Search <span class="hidden-sm">Keyword </span></span>Highlights'
     static:
       help:
-        title: Using the Middle English Dictionary
-        header: Using the Middle English Dictionary
+        title: Using the Middle English Compendium
+        header: Using the Middle English Compendium
         operators-heading: Expanded search options for phrases, wildcards, etc.
         general-heading: General search information
         special-characters-heading: Special characters (Þ, Ð, Ȝ, etc.), accents, and ambigous letters
