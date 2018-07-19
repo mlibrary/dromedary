@@ -30,7 +30,7 @@ module MedInstaller
     end
 
 
-    DIR_NAME_REGEX = Regexp.new "/xml/([A-Z12][^/]*)/MED"
+    DIR_NAME_REGEX = Regexp.new "/([A-Z12][^/]*)/MED"
 
 
     def call(source_dir:)

@@ -38,10 +38,14 @@
 
   <!ENTITY basic_text_chain SYSTEM "schema/basic_text_chain.xml">
   <!ENTITY basic_text_chain_with_synonyms SYSTEM "schema/basic_text_chain_with_synonyms.xml">
+  <!ENTITY me_text_chain SYSTEM "schema/me_text_chain.xml">
+
   <!ENTITY text_types       SYSTEM "schema/text_types.xml">
   <!ENTITY numeric_types    SYSTEM "schema/numeric_types.xml">
   <!ENTITY delimited_types  SYSTEM "schema/delimited_types.xml">
   <!ENTITY middle_english_types SYSTEM "schema/middle_english_types.xml">
+
+
 
   <!-- ...and the dynanic fields -->
   <!ENTITY dynamic_fields    SYSTEM "schema/dynamic_fields.xml">
