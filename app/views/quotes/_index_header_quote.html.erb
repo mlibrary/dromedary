@@ -30,9 +30,7 @@
           <div class="definition">
             <% if document.has_key?('bib_id') %>
               <% url = bib_link_path(document.fetch('bib_id')) %>
-              <a href="<%= url %>">
-                <%== doc_presenter.citation_link_text %>
-              </a>
+              <a href="<%= url %>"><%== doc_presenter.citation_link_text %></a>
             <% else %>
               <%== doc_presenter.citation_link_text %>
             <% end %>
@@ -43,9 +41,7 @@
           <div class="def-header">Associated headword</div>
           <div class="definition">
             <% dictid = document.fetch('entry_id') %>
-            <a href="<%= url_for(controller: :catalog, action: :show, id: document.fetch('entry_id')) %>">
-              <span class="headword"><%= doc_presenter.headword_display(document) %></span>
-            </a>
+            <a href="<%= url_for(controller: :catalog, action: :show, id: document.fetch('entry_id')) %>"><span class="headword"><%= doc_presenter.headword_display(document) %></span></a>
             <span class="pos"><%= document.fetch('pos').first %></span>
           </div>
         </div>

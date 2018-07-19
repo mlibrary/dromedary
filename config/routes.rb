@@ -64,8 +64,9 @@ Rails.application.routes.draw do
     match '/contacts', to: 'contacts#new', via: 'get'
     resources "contacts", only: [:new, :create]
 
-    post 'static/search' => 'static#search'
+    # post 'static/search' => 'static#search'
 
+    get 'about' => 'static#about_med', as: :about
     get 'help' => 'help#root', as: :help_root
     get 'help/:page' => 'help#page', as: :help
     get 'static/:action' => 'static', as: :static
