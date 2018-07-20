@@ -1,0 +1,11 @@
+<%- if params[:q] and params[:search_field] and params[:search_field] != locals[:widest_search] %>
+
+
+  <% widesearch = blacklight_config.search_fields[locals[:widest_search]] %>
+  <p>Your search was restricted to  <span class="search-field"><%= search_field_label(params) %></span>.
+  <p>Try searching for <span class="searchterms"><%= params[:q] %></span> within
+    <span class="searchterms"><%= link_to(
+                                  widesearch.label,
+                                  url_for(search_state.params_for_search(search_field: widesearch.key))) %></span></p>
+  </p>
+<%- end %>
