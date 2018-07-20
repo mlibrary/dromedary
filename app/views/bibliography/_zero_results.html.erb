@@ -5,11 +5,8 @@
     No results were found matching your search for <span class="search-terms"><%= params['q']%></span>
   </p>
 
-    <%- if params[:q] and params[:search_field] and params[:search_field] != widest_search %>
-      <p>Your search was restricted to  <%= search_field_label(params) %>.
-      <%= link_to t('blacklight.search.zero_results.search_everything', field: blacklight_config.default_search_field.label).capitalize, url_for(search_state.params_for_search(search_field: widest_search)) %>
-      </p>
-    <%- end %>
+  <%= render "application/try_again", locals: {widest_search: widest_search} %>
 
+  <%= render "application/phrase_wildcard" %>
 
 </div>
