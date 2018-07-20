@@ -736,15 +736,16 @@ div.zero-results {
 
 }
 
+span.searchterms {
+  font-style: italic
+}
+
 div.flash {
   padding-top: 1em;
   padding-bottom: 2em;
   color: crimson;
   font-size: 85%;
 
-  span.searchterms {
-    font-style: italic
-  }
 
   a {
     color: inherit;
