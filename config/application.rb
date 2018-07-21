@@ -12,9 +12,12 @@ Bundler.require(*Rails.groups)
 JSON_FORMATTER = ->(log, logger) do
   h = log.to_h(logger.host)
   h[:application] = 'MED'
-  h[:ip] = h[:named_tags].delete(:ip)
-  h.delete(:named_tags) if h[:named_tags].empty?
-  h[:payload][:params].delete('utf8')
+  if h[:named_tags]
+    h[:ip] = h[:named_tags].delete(:ip) if h[:named_tags].has_key?(:ip)
+    h.delete(:named_tags) if h[:named_tags].empty?
+  end
+
+  h[:payload] && h[:payload][:params] && h[:payload][:params].delete('utf8')
 
   h.to_json
 end
