@@ -55,8 +55,9 @@ gem 'xpath_list', require: false
 # Semantic logging?
 gem 'awesome_print'
 gem 'semantic_logger'
-gem 'rails_semantic_logger'
 
+
+gem 'lograge'
 
 # Contacts Email
 gem 'mail_form', '1.7.0'
