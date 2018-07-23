@@ -21,3 +21,6 @@ cable:
 relative_url_root: /m/middle-english-dictionary
 
 data_dir: ./data
+
+log_dir: ./log
+

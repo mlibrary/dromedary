@@ -58,6 +58,9 @@ gem 'semantic_logger'
 gem 'rails_semantic_logger'
 
 
+
+gem 'lograge'
+
 # Contacts Email
 gem 'mail_form', '1.7.0'
 gem 'simple_form', '3.5.1'
