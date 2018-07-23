@@ -55,6 +55,8 @@ gem 'xpath_list', require: false
 # Semantic logging?
 gem 'awesome_print'
 gem 'semantic_logger'
+gem 'rails_semantic_logger'
+
 
 
 gem 'lograge'
