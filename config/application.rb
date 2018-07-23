@@ -35,7 +35,6 @@ module Dromedary
 
     config.log_level = :info
 
-
     config.lograge.enabled = true
 
     # add time to lograge
@@ -44,7 +43,6 @@ module Dromedary
     end
 
     config.lograge.custom_payload do |controller|
-      req = Thread.current[:request]
       {
         host:  controller.request.host,
         ip:    controller.request.ip,
@@ -53,7 +51,6 @@ module Dromedary
     end
 
     config.lograge.formatter = Lograge::Formatters::Json.new
-    # config.lograge.formatter = ->(data) {require 'pry'; binding.pry; data}
 
 
     # config.log_tags = {
