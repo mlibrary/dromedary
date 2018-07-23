@@ -31,8 +31,8 @@
   <luceneMatchVersion>6.0.0</luceneMatchVersion>
   <dataDir>${solr.blacklight-core.data.dir:}</dataDir>
 
-  <lib dir="conf/lib" regex=".*\.jar"/>
-  <lib dir="lib" regex=".*\.jar"/>
+  <lib dir="../../lib" regex=".*\.jar"/>
+  <lib dir="/hydra-dev/dromedary-data/lib" regex=".*\.jar"/>
 
   <!--
      Remove the /select handler and set handleSelect to be true so passing
