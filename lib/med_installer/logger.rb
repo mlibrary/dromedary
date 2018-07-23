@@ -17,7 +17,11 @@ module MedInstaller
     LOGGER = SemanticLogger['Dromedary']
 
     def logger
-      LOGGER
+      if defined? Rails
+        Rails.application.config.rails_semantic_logger
+      else
+        LOGGER
+      end
     end
   end
 end
