@@ -3,10 +3,24 @@ require_relative 'boot'
 require 'rails/all'
 require 'json'
 require_relative "load_local_config"
+require 'json'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
+
+JSON_FORMATTER = ->(log, logger) do
+  h = log.to_h(logger.host)
+  h[:application] = 'MED'
+  if h[:named_tags]
+    h[:ip] = h[:named_tags].delete(:ip) if h[:named_tags].has_key?(:ip)
+    h.delete(:named_tags) if h[:named_tags].empty?
+  end
+
+  h[:payload] && h[:payload][:params] && h[:payload][:params].delete('utf8')
+
+  h.to_json
+end
 
 module Dromedary
   class Application < Rails::Application
@@ -18,6 +32,15 @@ module Dromedary
 
     config.relative_url_root = Dromedary.config.relative_url_root
     config.action_controller.relative_url_root = config.relative_url_root
+
+    config.log_level = :info
+    config.log_tags = {
+      ip:         :remote_ip,
+    }
+
+    config.rails_semantic_logger.add_file_appender = false
+    config.semantic_logger.add_appender(file_name: "log/#{Rails.env}.log", level: :info)
+    config.semantic_logger.add_appender(file_name: "log/#{Rails.env}.json", formatter: JSON_FORMATTER, level: :info)
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
