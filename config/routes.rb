@@ -4,6 +4,12 @@ Rails.application.routes.draw do
 
     mount Blacklight::Engine => Dromedary.config.relative_url_root
 
+    if [1, '1', 'true', true].include? ENV['MED_DOWN'] 
+      match '*path' => 'static#temporarily_down', status: 302, via: [:get, :post]
+    end
+
+
+
 
     # Splash pages
     match "dictionary/" => "catalog#home", as: :dictionary_home, via: [:get, :post], constraints: {query_string: ""}
