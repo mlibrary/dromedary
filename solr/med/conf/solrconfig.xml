@@ -38,7 +38,7 @@
        as an argument to bin/solr start when called by
        bin/dromedary solr start -->
 
-  <lib dir="${dromedary.data_dir}/lib" regex=".*\.jar"/>
+  <lib dir="${dromedary.data_dir:./data}/lib" regex=".*\.jar"/>
 
   <!--
      Remove the /select handler and set handleSelect to be true so passing
