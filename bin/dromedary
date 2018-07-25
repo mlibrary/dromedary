@@ -50,6 +50,11 @@ MedInstaller::CLI.register 'solr optimize', MedInstaller::Solr::Optimize
 MedInstaller::CLI.register 'solr up', MedInstaller::Solr::Up, aliases: ['up?']
 MedInstaller::CLI.register 'solr shell', MedInstaller::Solr::Shell
 
+
+MedInstaller::CLI.register 'remote deploy', MedInstaller::Remote::Deploy
+MedInstaller::CLI.register 'remote restart', MedInstaller::Remote::Restart
+MedInstaller::CLI.register 'remote dromedary', MedInstaller::Remote::Dromedary
+MedInstaller::CLI.register 'remote exec', MedInstaller::Remote::Exec
 Hanami::CLI.new(MedInstaller::CLI).call
 
 
