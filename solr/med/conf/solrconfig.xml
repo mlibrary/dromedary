@@ -31,8 +31,14 @@
   <luceneMatchVersion>6.0.0</luceneMatchVersion>
   <dataDir>${solr.blacklight-core.data.dir:}</dataDir>
 
-  <lib dir="../../lib" regex=".*\.jar"/>
+  <!-- static route when deploying to testing/staging/production -->
   <lib dir="/hydra-dev/dromedary-data/lib" regex=".*\.jar"/>
+
+  <!-- local route based on current dromedary configuration, sent
+       as an argument to bin/solr start when called by
+       bin/dromedary solr start -->
+
+  <lib dir="${dromedary.data_dir}/lib" regex=".*\.jar"/>
 
   <!--
      Remove the /select handler and set handleSelect to be true so passing
