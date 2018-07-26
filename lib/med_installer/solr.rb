@@ -218,7 +218,9 @@ module MedInstaller
       def call(rails_env:)
         port    = Solr.get_port_with_logging(rails_env)
         portarg = "-p #{port}"
-        system "#{solr_bin} restart #{portarg}"
+        command = "#{solr_bin} restart #{portarg} -Ddromedary.data_dir=\"#{AnnoyingUtilities.data_dir}\""
+        logger.info "Starting solr with command:\n  #{command}"
+        system command
       end
     end
 
