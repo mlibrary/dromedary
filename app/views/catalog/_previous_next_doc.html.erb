@@ -19,15 +19,4 @@
     </div>
   <% end %>
 
-   <div class="pull-right">
-    <!--Adds Citation-->
-    <% if show_doc_actions? %>
-        <%= render_show_doc_actions @document do |config, inner| %>
-          <span class="<%= config.key %>">
-            <%= inner %>
-          </span>
-        <% end %>
-    <% end %>
-    <!--Ends Citation-->
-    </div>
 </div>
