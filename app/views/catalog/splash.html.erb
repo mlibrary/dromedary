@@ -1,26 +1,61 @@
-<section class="splash-banner">	
-  <div class="splash-container">	
-				<div class="splash-text">
-			    <h1 class="splash-text--large">Middle English Compendium</h1>
-			    <div class="splash-text--medium">
-			    	<p>The Middle English Compendium contains three Middle English electronic resources: the Middle English Dictionary, a Bibliography of Middle English prose and verse,  and a Corpus of Middle English Prose and Verse.</p>
-			  </div>
-       
-  <section class="splash-section">
-     <ul class="splash-list">
-        <li class="splash-detail--heading"><h2><a href="<%= dictionary_home_path%>">Middle English Dictionary</a></h2></li>
-        <li class="splash-detail--light">The world's largest searchable database of Middle English lexicon and usage for the period 1100-1500. An invaluable resource for lexicographers, language scholars, and all scholars in medieval studies. </li>
-        <li class="splash-detail--link"><a href="<%= dictionary_home_path%>">Go to the Middle English Dictionary</a></li>
-    </ul>
-    <ul class="splash-list">
-      <li class="splash-detail--heading"><h2><a href="<%= bib_home_path%>">Bibliography</a></h2></li>
-      <li class="splash-detail--light">A description of the authors, works, manuscripts, and editions cited in the Dictionary, the Bibliography also defines the abbreviated forms under which those works are referred to, and provides cross-references to major reference sites to allow further study.</li>
-      <li class="splash-detail--link"><a href="<%= bib_home_path%>">Go to the Bibliography</a></li>
-    </ul> 
-  </section>
-    
-    <div class="splash-text--caption">Background image: The Ellesmer Manuscript of Geoffrey Chaucer's The Canterbury Tales, c. 1400-1405. Shown is the introduction to "The Knight's Tale." <a href="http://www.huntington.org/WebAssets/Templates/content.aspx?id=6074" target="_blank"> Available online at the Huntington Library <%= image_tag('external-link-white.svg', alt: 'Opens in a new window') %></a>
-    </div>
+<section class="splash-banner">
+  <div class="splash-container">
+    <div class="splash-text">
+      <h1 class="splash-text--large">Middle English Compendium</h1>
+      <div class="splash-text--medium">
+        <p>The Middle English Compendium contains three Middle English
+          electronic resources: the Middle English Dictionary, a Bibliography
+          of Middle English prose and verse, and a Corpus of Middle English
+          Prose and Verse.</p>
+      </div>
 
+      <section class="splash-section">
+        <ul class="splash-list">
+          <li class="splash-detail--heading"><h2>
+            <a href="<%= dictionary_home_path %>">Middle English
+              Dictionary</a></h2></li>
+          <li class="splash-detail--light">The world's largest searchable
+            database of Middle English lexicon and usage for the period
+            1100-1500. An invaluable resource for lexicographers, language
+            scholars, and all scholars in medieval studies.
+          </li>
+          <li class="splash-detail--link">
+            <a href="<%= dictionary_home_path %>">Go to the Middle English
+              Dictionary</a></li>
+        </ul>
+        <ul class="splash-list">
+          <li class="splash-detail--heading">
+            <h2><a href="<%= bib_home_path %>">Bibliography</a></h2></li>
+          <li class="splash-detail--light">A description of the authors,
+            works, manuscripts, and editions cited in the Dictionary, the
+            Bibliography also defines the abbreviated forms under which those
+            works are referred to, and provides cross-references to major
+            reference sites to allow further study.
+          </li>
+          <li class="splash-detail--link">
+            <a href="<%= bib_home_path %>">Go to the Bibliography</a></li>
+        </ul>
+      </section>
+
+      <div class="splash-text--caption">Background image: The Ellesmer
+        Manuscript of Geoffrey Chaucer's The Canterbury Tales, c. 1400-1405.
+        Shown is the introduction to "The Knight's Tale."
+        <a href="http://www.huntington.org/WebAssets/Templates/content.aspx?id=6074" target="_blank">
+          Available online at the Huntington
+          Library <%= image_tag('external-link-white.svg', alt: 'Opens in a new window') %></a>
+      </div>
+    </div>
   </div>
+</section>
+
+<section class="fund-panel">
+  <h3>In Partnership with</h3>
+  <ul>
+    <li>
+      <a href="https://www.neh.gov/"><%= image_tag('neh_logo.jpg', alt: 'National Endowment for the Humanities logo', width: '300', class: 'fund-icon') %></a>
+    </li>
+    <li>
+      <a href="https://www.lib.umich.edu/"><%= image_tag('UMLib_logo.png', alt: 'U-M Library logo', width: '250', class: 'fund-icon') %></a>
+    </li>
+  </ul>
 </section>
