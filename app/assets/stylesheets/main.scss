@@ -110,8 +110,6 @@ ul.header-nav-secondary a:focus {
   background-color: #fafafa;
 }
 
-
-
 /** MEC Home Splash Page **/
 
 .never-ever-gonna-happen {
@@ -213,6 +211,28 @@ ul.header-nav-secondary a:focus {
   ul.splash-list {
     padding: 0 1em;
     flex: 0 0 50%; //Change to 33% if adding Corpus back
+  }
+}
+
+.fund-panel {
+  background-color: #fff;
+  padding: 1em 0 .5em;
+
+  h3 {
+    text-align: center;
+    font-weight: bold;
+    color: #333;
+  }
+
+  ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  img.fund-icon {
+    padding: .5em 1em;
   }
 }
 
@@ -581,6 +601,7 @@ span.zero-results {
 span.search-terms {
   font-style: italic;
 }
+
 div.zero-results {
   span.search-field {
     font-style: italic;
@@ -1291,6 +1312,11 @@ body.blacklight-static,
   line-height: 1.5;
 }
 
+#about_sidebar,
+#help_sidebar {
+  margin-bottom: .75em;
+}
+
 .about-lg {
   font-size: 1.05em;
   margin-bottom: .25em;
@@ -1301,6 +1327,7 @@ body.blacklight-static,
   background-color: #fff;
   padding: 1em 1.75em !important;
   border-radius: 3px;
+  margin-bottom: 2em;
 }
 
 .compendium-staff {
@@ -1620,6 +1647,11 @@ ul.about-list {
     .twitter-typeahead {
       width:70%;
     }
+  }
+
+  #about_sidebar,
+  #help_sidebar  {
+    padding: 0;
   }
 
 }
