@@ -218,6 +218,7 @@ ul.header-nav-secondary a:focus {
   background-color: #fff;
   padding: 1em 0 .5em;
 
+
   h3 {
     text-align: center;
     font-weight: bold;
@@ -230,6 +231,11 @@ ul.header-nav-secondary a:focus {
     align-items: center;
     flex-wrap: wrap;
   }
+
+  a, a:hover, a:visited {
+    background-color: transparent;
+  }
+
 
   img.fund-icon {
     padding: .5em 1em;
