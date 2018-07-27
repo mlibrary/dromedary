@@ -182,9 +182,9 @@ module MedInstaller
         solr_root       = AnnoyingUtilities.solr_root
         solr_solr_dir   = solr_root + 'server' + 'solr'
         solr_config_dir = solr_solr_dir + 'med'
-        solr_lib_dir    = solr_solr_dir + 'lib'
+        solr_lib_dir    = Pathname.new(AnnoyingUtilities.data_dir) + 'lib'
 
-        logger.info "Linking dromedary solr config stuff into the right spot based on .solr"
+        logger.info "Linking dromedary solr config stuff into the data dir"
         logger.info "Found solr directory #{solr_root}"
         logger.info "Linking  #{Solr::MED_CONFIG} into #{solr_config_dir}"
         status = system "rm -f '#{solr_config_dir}'; ln -s '#{Solr::MED_CONFIG}' '#{solr_config_dir}'"

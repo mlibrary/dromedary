@@ -28,22 +28,35 @@ module MedInstaller
 end
 
 
-MedInstaller::CLI.register 'extract', MedInstaller::Extract, aliases: ['unzip']
-MedInstaller::CLI.register 'convert', MedInstaller::Convert, aliases: ['json']
-# MedInstaller::CLI.register 'index', MedInstaller::Index
-
+# Index things into solr
 MedInstaller::CLI.register 'index entries', MedInstaller::Index::Entries
 MedInstaller::CLI.register 'index bib', MedInstaller::Index::Bib
 MedInstaller::CLI.register 'index full', MedInstaller::Index::Full, aliases: ['all']
+
+# Create the hyp_to_bibid.json mapping and put it in Dromedary.config.data_dir
 MedInstaller::CLI.register 'index hyp_to_bibid', MedInstaller::Index::HypToBibID, aliases: ['mapping']
 
+# Reload the solr config (necessary after a change to the solr config has been pushed)
+MedInstaller::CLI.register 'solr reload', MedInstaller::Solr::Reload, aliases: ['bounce']
 
+# Rebuild the indexing underlying autocomplete (should never be necessary, but...)
+MedInstaller::CLI.register 'solr rebuild_suggesters', MedInstaller::Solr::RebuildSuggesters
+
+
+# Remote deployment and execution
+MedInstaller::CLI.register 'remote deploy', MedInstaller::Remote::Deploy
+MedInstaller::CLI.register 'remote restart', MedInstaller::Remote::Restart
+MedInstaller::CLI.register 'remote dromedary', MedInstaller::Remote::Dromedary
+MedInstaller::CLI.register 'remote exec', MedInstaller::Remote::Exec
+MedInstaller::CLI.register 'remote maintenance_mode', MedInstaller::Remote::MaintenanceMode
+
+
+
+# Solr utilities for your development environment.
 MedInstaller::CLI.register 'solr install', MedInstaller::Solr::Install
-MedInstaller::CLI.register 'solr link', MedInstaller::Solr::Link
+#MedInstaller::CLI.register 'solr link', MedInstaller::Solr::Link # TODO: Fix this for solr libs
 MedInstaller::CLI.register 'solr start', MedInstaller::Solr::Start, aliases: ['restart']
 MedInstaller::CLI.register 'solr stop', MedInstaller::Solr::Stop
-MedInstaller::CLI.register 'solr reload', MedInstaller::Solr::Reload
-MedInstaller::CLI.register 'solr rebuild_suggesters', MedInstaller::Solr::RebuildSuggesters
 MedInstaller::CLI.register 'solr empty', MedInstaller::Solr::Empty, aliases: ['clear']
 MedInstaller::CLI.register 'solr commit', MedInstaller::Solr::Commit
 MedInstaller::CLI.register 'solr optimize', MedInstaller::Solr::Optimize
@@ -51,27 +64,12 @@ MedInstaller::CLI.register 'solr up', MedInstaller::Solr::Up, aliases: ['up?']
 MedInstaller::CLI.register 'solr shell', MedInstaller::Solr::Shell
 
 
-MedInstaller::CLI.register 'remote deploy', MedInstaller::Remote::Deploy
-MedInstaller::CLI.register 'remote restart', MedInstaller::Remote::Restart
-MedInstaller::CLI.register 'remote dromedary', MedInstaller::Remote::Dromedary
-MedInstaller::CLI.register 'remote exec', MedInstaller::Remote::Exec
+
+# Only for use is creating entries.json.gz
+MedInstaller::CLI.register 'extract', MedInstaller::Extract, aliases: ['unzip']
+MedInstaller::CLI.register 'convert', MedInstaller::Convert, aliases: ['json']
+
+
+
 Hanami::CLI.new(MedInstaller::CLI).call
-
-
-__END__
-
-zipfile = ARGV[0]
-datadir = ARGV[1]
-
-med = MedInstaller::Commands.new
-med.checkargs(zipfile, datadir)
-
-xmlpath = Pathname.new(datadir) + 'xml'
-xmlpath.mkpath
-
-$stderr.puts "Extracting all the xml files from #{zipfile}"
-med.extract_all(zipfile, xmlpath)
-
-
-
 
