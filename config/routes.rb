@@ -4,9 +4,7 @@ Rails.application.routes.draw do
 
     mount Blacklight::Engine => Dromedary.config.relative_url_root
 
-    if [1, '1', 'true', true].include? ENV['MED_DOWN'] 
-      match '*path' => 'static#temporarily_down', status: 302, via: [:get, :post]
-    end
+      match '*path' => 'static#maintenance_mode', status: 302, via: [:get, :post]
 
 
 
