@@ -48,9 +48,11 @@ MedInstaller::CLI.register 'remote deploy', MedInstaller::Remote::Deploy
 MedInstaller::CLI.register 'remote restart', MedInstaller::Remote::Restart
 MedInstaller::CLI.register 'remote dromedary', MedInstaller::Remote::Dromedary
 MedInstaller::CLI.register 'remote exec', MedInstaller::Remote::Exec
-MedInstaller::CLI.register 'remote maintenance_mode', MedInstaller::Remote::MaintenanceMode
 
 
+# Maintenance mode
+MedInstaller::CLI.register 'maintenance_mode on', MedInstaller::Control::MaintenanceModeOn
+MedInstaller::CLI.register 'maintenance_mode off', MedInstaller::Control::MaintenanceModeOff
 
 # Solr utilities for your development environment.
 MedInstaller::CLI.register 'solr install', MedInstaller::Solr::Install
