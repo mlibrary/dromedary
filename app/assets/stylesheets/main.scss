@@ -49,6 +49,7 @@ body {
 
 .site-header-container {
   display: flex;
+  display: -ms-flexbox;
   align-content: center;
   align-items: center;
 }
@@ -105,11 +106,6 @@ ul.header-nav-secondary li.active a {
   color: #126DC1;
 }
 
-ul.header-nav-secondary a:focus {
-  border: 2px solid $u-m-yellow;
-  background-color: #fafafa;
-}
-
 /** MEC Home Splash Page **/
 
 .never-ever-gonna-happen {
@@ -136,8 +132,10 @@ ul.header-nav-secondary a:focus {
   }
 
   .splash-text a:hover {
-    color: #000;
-    background-color: $u-m-yellow;
+    color: #e5e5e5;
+  }
+  .splash-text a:focus {
+    border: transparent;
   }
 
  .splash-text {
@@ -159,7 +157,7 @@ ul.header-nav-secondary a:focus {
     font-size: 1.25em;
     font-weight: 300;
     line-height: 30px;
-    padding: 0 6.5em 4em;
+    padding: 0 6.5em 2em;
     text-align: center;
  }
 
@@ -203,13 +201,17 @@ ul.header-nav-secondary a:focus {
 
 .splash-section {
   display: flex;
+  display: -ms-flexbox;
   flex-flow: row wrap;
   justify-content: space-between;
   padding-bottom: 3.5em;
   width: 100%;
+  min-height: 100%;
 
   ul.splash-list {
-    padding: 0 1em;
+    float: left;
+    width: 50%;
+    padding: .5em 1em 0;
     flex: 0 0 50%; //Change to 33% if adding Corpus back
   }
 }
@@ -227,12 +229,22 @@ ul.header-nav-secondary a:focus {
 
   ul {
     display: flex;
+    display: -ms-flexbox;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    min-height: 100%
+
+    li {
+      width: 50%;
+      flex: 0 0 50%;
+    }
   }
 
-  a, a:hover, a:visited {
+  a, 
+  a:hover,
+  a:focus, 
+  a:visited {
     background-color: transparent;
   }
 
@@ -333,11 +345,13 @@ ul.header-nav-secondary a:focus {
 
   .input-group {
     display: flex;
+    display: -ms-flexbox;
     flex-direction: row;
   }
 
   .search-input-group {
     display: flex;
+    display: -ms-flexbox;
     flex-direction: row;
     justify-content: space-evenly;
     width: 100%;
@@ -400,11 +414,13 @@ ul.header-nav-secondary a:focus {
 
   .input-group {
     display: flex;
+    display: -ms-flexbox;
     flex-direction: row;
   }
 
   .search-input-group {
     display: flex;
+    display: -ms-flexbox;
     flex-direction: row;
     justify-content: space-evenly;
     width: 100%;
@@ -505,11 +521,13 @@ ul.header-nav-secondary a:focus {
 
   .input-group {
     display: flex;
+    display: -ms-flexbox;
     flex-direction: row;
   }
 
   .search-input-group {
     display: flex;
+    display: -ms-flexbox;
     flex-direction: row;
     justify-content: space-evenly;
     width: 100%
@@ -1194,6 +1212,10 @@ span.filterValue {
     color: #126DC1;
     font-weight: 600;
     padding: .25em;
+
+    &:focus {
+      outline: none;
+    }
   }
 
   .entry-info table,
@@ -1527,6 +1549,7 @@ ul.about-list {
   padding: 0 1rem;
   max-width: 60rem;
   display: flex;
+  display: -ms-flexbox;
   flex-flow: row wrap;
   justify-content: space-between;
 
@@ -1610,6 +1633,7 @@ ul.about-list {
   .input-group-addon.for-search-field {
     width: 100%;
     display: flex;
+    display: -ms-flexbox;
     justify-content: center;
   }
   .submit-search-text {
