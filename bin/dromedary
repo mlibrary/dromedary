@@ -44,10 +44,12 @@ MedInstaller::CLI.register 'solr rebuild_suggesters', MedInstaller::Solr::Rebuil
 
 
 # Remote deployment and execution
-MedInstaller::CLI.register 'remote deploy', MedInstaller::Remote::Deploy
-MedInstaller::CLI.register 'remote restart', MedInstaller::Remote::Restart
-MedInstaller::CLI.register 'remote dromedary', MedInstaller::Remote::Dromedary
-MedInstaller::CLI.register 'remote exec', MedInstaller::Remote::Exec
+#
+MedInstaller::CLI.register 'deploy', MedInstaller::Remote::Deploy
+MedInstaller::CLI.register 'restart', MedInstaller::Remote::Restart
+
+MedInstaller::CLI.register 'remote', MedInstaller::Remote::Dromedary
+MedInstaller::CLI.register 'remote-exec', MedInstaller::Remote::Exec
 
 
 # Maintenance mode
