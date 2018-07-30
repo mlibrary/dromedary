@@ -13,12 +13,22 @@ module AnnoyingUtilities
   DEFAULT_SOLR   = DROMEDARY_ROOT.parent + 'solr'
   CONFIG_DIR     = DROMEDARY_ROOT + 'config'
 
+
+
   extend MedInstaller::Logger
 
   extend self
 
   def data_dir
     Pathname.new(Dromedary.config.data_dir)
+  end
+
+  def maintenance_mode_flag_file
+    data_dir + 'MAINTENANCE_MODE_ENABLED'
+  end
+
+  def maintenance_mode_enabled?
+    File.exist? maintenance_mode_flag_file
   end
 
   def bibfile_path
