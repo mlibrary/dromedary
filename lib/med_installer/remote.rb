@@ -64,11 +64,15 @@ module MedInstaller
       desc "Run a bin/dromedary command on a remote server"
       argument :target, required: true, desc: "Which deployment (testing/staging/production)"
       argument :command, required: true, desc: "The command to run (e.g., \"solr reload\" IN DOUBLE QUOTES)"
+      argument :arg1, required: false, default: ''
+      argument :arg2, required: false, default: ''
+      argument :arg3, required: false, default: ''
 
-      def call(target:, command:)
+      def call(target:, command:, arg1:, arg2:, arg3:)
         target = Remote.validate_target!(target)
         sleep(Remote::PANIC_PAUSE)
-        Remote.remote_exec(target, "bin/dromedary #{command}")
+        cmd = "bin/dromedary #{[command, arg1, arg2, arg3].join(' ').strip}"
+        Remote.remote_exec(target, cmd)
       end
     end
 
