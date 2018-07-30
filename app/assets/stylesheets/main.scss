@@ -79,6 +79,10 @@ body {
   background-color: $u-m-blue;
 }
 
+#user-util-collapse a:hover {
+  text-decoration: underline;
+}
+
 /** Header Nav Secondary **/
 
 ul.header-nav-secondary li {
@@ -104,6 +108,10 @@ ul.header-nav-secondary li.active {
 
 ul.header-nav-secondary li.active a {
   color: #126DC1;
+}
+
+ul.header-nav-secondary li:hover {
+  border-bottom: 2px solid #126DC1;
 }
 
 /** MEC Home Splash Page **/
@@ -132,10 +140,9 @@ ul.header-nav-secondary li.active a {
   }
 
   .splash-text a:hover {
-    color: #e5e5e5;
-  }
-  .splash-text a:focus {
-    border: transparent;
+    background-color: #fff;
+    color: #000;
+    text-shadow: none;
   }
 
  .splash-text {
@@ -174,6 +181,11 @@ ul.header-nav-secondary li.active a {
    a, a:visited {
      text-decoration: none;
      color: inherit;
+   }
+
+   a:hover {
+    background-color: #fff;
+    color: #000;
    }
  }
 
