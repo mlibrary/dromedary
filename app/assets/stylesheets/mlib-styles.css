@@ -167,8 +167,6 @@ a {
     color: #093864; }
   a:visited {
     color: #4c2c92; }
-  a:focus {
-    background: #FFCB05; }
 
 .text {
   max-width: 30em; }
@@ -825,7 +823,8 @@ code.code-tag {
 
 .site-logo {
   max-width: 3rem;
-  vertical-align: top; }
+  vertical-align: top;
+  width: 100%;           /* width value for IE */ }
   .site-logo + .site-title {
     margin-left: 0.75rem;
     border-left: solid 1.1px rgba(255, 255, 255, 0.75);
