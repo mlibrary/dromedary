@@ -23,6 +23,12 @@ module MedInstaller
       end
     end
 
+    def self.remote_exec(target, cmd)
+      logger.info "Telling #{target} to run #{cmd}"
+      full_command = "ssh deployhost exec -v --env=RAILS_ENV:production dromedary-#{target} app ruby #{cmd}"
+      system full_command
+    end
+
     class Deploy < Hanami::CLI::Command
       include MedInstaller::Logger
 
@@ -61,9 +67,8 @@ module MedInstaller
 
       def call(target:, command:)
         target = Remote.validate_target!(target)
-        logger.info "Telling #{target.upcase} to run 'bin/dromedary #{command}'"
         sleep(Remote::PANIC_PAUSE)
-        system "ssh deployhost exec -v --env=RAILS_ENV:production dromedary-#{target} ruby bin/dromedary #{command}"
+        Remote.remote_exec(target, "bin/dromedary #{command}")
       end
     end
 
@@ -77,7 +82,7 @@ module MedInstaller
       def call(target:, command:)
         target = Remote.validate_target!(target)
         sleep(Remote::PANIC_PAUSE)
-        system "ssh deployhost exec -v --env=RAILS_ENV:production dromedary-#{target} #{command}"
+        Remote.remote_exec(target, command)
       end
     end
 
