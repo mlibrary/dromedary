@@ -34,7 +34,7 @@ module MedInstaller
 
       desc "Deploy to a valid target (testing/staging/production)"
       argument :target, required: true, desc: "Which deployment (testing/staging/production)"
-      argument :branch, default: "", desc: "Which branch/tag/SHA to deploy"
+      argument :branch, default: "master", desc: "Which branch/tag/SHA to deploy"
 
       def call(target:, branch:)
         target = Remote.validate_target!(target)
