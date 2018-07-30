@@ -81,24 +81,5 @@ module MedInstaller
       end
     end
 
-    class MaintenanceMode < Hanami::CLI::Command
-      include MedInstaller::Logger
-
-
-      MAINTENANCE_MODE_TAG = "KEEP_maintenance_mode"
-
-
-      desc "Put the given remote into maintenance mode"
-      argument :target, required: true, desc: "Which deployment (testing/staging/production)"
-
-      def call(target:)
-        target = Remote.validate_target!(target)
-        sleep(Remote::PANIC_PAUSE)
-        logger.info "Putting #{target.upcase} into maintenance mode by checking out tag '#{MAINTENANCE_MODE_TAG}'"
-        system "ssh deployhost deploy -v dromedary-#{target} #{MAINTENANCE_MODE_TAG}"
-      end
-
-    end
-
   end
 end

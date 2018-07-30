@@ -1,8 +1,14 @@
+require 'annoying_utilities'
+
 Rails.application.routes.draw do
 
   scope Dromedary.config.relative_url_root do
 
     mount Blacklight::Engine => Dromedary.config.relative_url_root
+
+    # Shunt it all to the maintenace page if we need to
+    match '*path' => 'static#maintenance_mode', status: 302, via: [:get, :post],
+          constraints: ->(request) { AnnoyingUtilities.maintenance_mode_enabled? }
 
 
     # Splash pages
