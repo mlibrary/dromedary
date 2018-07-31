@@ -141,7 +141,7 @@ class BibliographyController < ApplicationController
       new_id = Dromedary.hyp_to_bibid[id]
     end
     if id != new_id
-      redirect_to "/bibliography/#{new_id}", status: :moved_permanently
+      redirect_to bib_link_path(id: new_id, rid: id), status: :moved_permanently
     else
       super
     end

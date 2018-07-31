@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     match "dictionary/(:id)/track" => 'catalog#show',
           :constraints                   => {:id => /[\p{Alnum}\-\.]+/}, via: [:get, :post]
 
-    match "bibliography/(:id)" => 'bibliography#show', as: :bib_link,
+    match "bibliography/:id(/*rest)" => 'bibliography#show', as: :bib_link,
           :constraints               => {:id => /(?:BIB|HYP)[T\d\-\.]+/i}, via: [:get, :post]
 
 
