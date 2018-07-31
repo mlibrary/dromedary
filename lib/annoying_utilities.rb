@@ -20,7 +20,11 @@ module AnnoyingUtilities
   extend self
 
   def data_dir
-    Pathname.new(Dromedary.config.data_dir)
+    Pathname.new(Dromedary.config.data_dir).realpath
+  end
+
+  def solr_dir
+    DROMEDARY_ROOT + 'solr'
   end
 
   def maintenance_mode_flag_file
