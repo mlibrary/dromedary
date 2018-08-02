@@ -809,7 +809,11 @@ code.code-tag {
   vertical-align: top; }
 
 .site-title-flex {
-  display: flex;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex; 
+  height: 60px; 
   align-items: center; }
 
 .site-link {
