@@ -57,7 +57,10 @@
 }
 
 .entry-info {
-    .HDORTH { font-weight: bold }
+    .HDORTH { 
+    font-weight: bold;
+    font-family: Helvetica, sans-serif;
+ }
     .ORTH { font-style: italic}
 }
 
