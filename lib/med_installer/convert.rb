@@ -126,7 +126,7 @@ module MedInstaller
 
 
     def letter_and_filename(f)
-      m           = %r(xml/((.*?)/(.*))\.xml\Z).match(f)
+      m           = %r((/(.*?)/(.*))\.xml\Z).match(f)
       this_letter = m[2]
       this_file   = m[1]
       return this_file, this_letter
