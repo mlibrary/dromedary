@@ -1,9 +1,10 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700');
 
 $u-m-blue: #00274c;
 $u-m-yellow: #ffcb05;
 
 /** Base Styles **/
+
 
 a {
   text-decoration: underline;
@@ -24,7 +25,9 @@ a {
 html,
 body {
   font-size: 16px;
+  font-family: "Source Sans Pro", Helvetica, sans-serif;
 }
+
 /** Utilities **/
 
 .padding0 {
@@ -68,10 +71,10 @@ body {
 }
 
 #user-util-collapse a {
-  font-size: .85em;
   color: #fff;
   text-decoration: none;
   padding: 0 .5em;
+  font-size: .95em;
 }
 
  #user-util-collapse a:focus {
@@ -94,7 +97,6 @@ ul.header-nav-secondary a {
   color: #333333;
   text-decoration: none;
   padding: .5em;
-  font-size: .85em;
   margin: 0 .35em;
 }
 
@@ -151,7 +153,7 @@ ul.header-nav-secondary li:hover {
 
   .splash-text--large {
     font-weight: bold;
-    font-size: 2.5em;
+    font-size: 2.75em;
     padding: 2em 0 .25em;
     text-align: center;
  }
@@ -161,7 +163,7 @@ ul.header-nav-secondary li:hover {
  }
 
  .splash-text--medium {
-    font-size: 1.25em;
+    font-size: 1.35em;
     font-weight: 300;
     line-height: 30px;
     padding: 0 6.5em 2em;
@@ -169,7 +171,7 @@ ul.header-nav-secondary li:hover {
  }
 
  .splash-text--caption {
-    font-size: .5em;
+    font-size: .55em;
     text-align: right;
     padding: 2em 0;
  }
@@ -192,14 +194,13 @@ ul.header-nav-secondary li:hover {
   .splash-detail--light {
     color: #fff;
     font-weight: 300;
-    font-size: .9em;
+    font-size: 1em;
     height: 7.5em;
   }
 
   .splash-detail--link {
     color: #fff;
     padding-top: 1.5em;
-    font-size: .9em;
     font-weight: 300;
   }
 
@@ -237,6 +238,7 @@ ul.header-nav-secondary li:hover {
     text-align: center;
     font-weight: bold;
     color: #333;
+    font-size: 1.1em;
   }
 
   ul {
@@ -280,7 +282,7 @@ ul.header-nav-secondary li:hover {
 
 .nav-detail--heading {
   padding-bottom: .5em;
-  font-size: 1.25em;
+  font-size: 1.35em;
 
   a, a:visited {
     text-decoration: none;
@@ -292,13 +294,11 @@ ul.header-nav-secondary li:hover {
 .nav-detail--light {
   color: #555;
   font-weight: 300;
-  font-size: .9em;
 }
 
 .nav-detail--link {
   color: #126DC1;
   padding-top: .25em;
-  font-size: .9em;
   font-weight: 300;
 }
 
@@ -328,7 +328,7 @@ ul.header-nav-secondary li:hover {
 
  .banner-text--large {
   font-weight: bold;
-  font-size: 2.75em;
+  font-size: 3em;
   padding: .5em 0 .25em;
  }
 
@@ -337,14 +337,14 @@ ul.header-nav-secondary li:hover {
  }
 
  .banner-text--medium {
-  font-size: 1.25em;
+  font-size: 1.5em;
   font-weight: 400;
   line-height: 30px;
  }
 
  .banner-text--caption {
   float: right;
-  font-size: .5em;
+  font-size: .55em;
  }
 
 /** Header panel search bar **/
@@ -417,11 +417,15 @@ ul.header-nav-secondary li:hover {
   }
 }
 
+  #q {
+    font-family: Helvetica, sans-serif;
+  }
+
 /** Home Page Search bar **/
 
 .search-bar--home {
   padding: .5em;
-  margin: 1em 0;
+  margin: 1.5em 0 1em;
   background-color: #333333;
 
   .input-group {
@@ -515,7 +519,7 @@ ul.header-nav-secondary li:hover {
   }
 
   ul.keyboard-list {
-    font-size: 1.25em;
+    font-size: 1.35em;
   }
    ul.keyboard-list li a {
     color: #4A4A4A;
@@ -599,7 +603,7 @@ ul.header-nav-secondary li:hover {
   padding: 5em 1em 8em;
 
   h1 {
-    font-size: 1.5em;
+    font-size: 1.75em;
     text-align: center;
     font-weight: 600;
     color: #333333;
@@ -611,7 +615,7 @@ ul.header-nav-secondary li:hover {
     text-align: center;
     width: 75%;
     margin: 0 auto;
-    font-size: 1.15em;
+    font-size: 1.35em;
 
       a {
       color: #126DC1;
@@ -621,18 +625,17 @@ ul.header-nav-secondary li:hover {
   .search-bar-label {
     color: #4A4A4A;
     font-weight: 600;
-    font-size: .85em;
     padding: 0 0 .5em 2em;
   }
 
 }
 
-// Zero results
+/** Zero results **/
 
 span.zero-results {
-     font-size: 1.5em;
-     font-weight: bold;
-   }
+  font-size: 1.75em;
+  font-weight: bold;
+}
 
 span.search-terms {
   font-style: italic;
@@ -681,7 +684,7 @@ div.zero-results {
   }
 
   .note-title {
-    font-weight: bold
+    font-weight: bold;
   }
 
   div.edition {
@@ -697,15 +700,15 @@ div.zero-results {
   }
 
   .ms-lalme {
-    margin-left: 1.5em
+    margin-left: 1.5em;
   }
 
    div.lalme-laeme {
-    margin-left: 2em
+    margin-left: 2em;
   }
 
   .lalme-laeme-label {
-    font-weight: bold
+    font-weight: bold;
   }
 
    .bib.manuscript {
@@ -730,7 +733,7 @@ div.zero-results {
   .author,
   .bib-title a,
   .work {
-   font-size: 1.6em;
+   font-size: 1.75em;
    line-height: 1.4;
   }
 
@@ -755,7 +758,7 @@ div.zero-results {
 
   h3 .quote {
     color: #4E4E4E;
-    font-size: 1.65em;
+    font-size: 1.85em;
   }
 
   .definition-block {
@@ -763,7 +766,7 @@ div.zero-results {
   }
 
   .citation-link {
-    font-size: 14px
+    font-size: 16px;
   }
 
   span.pos {
@@ -786,17 +789,20 @@ div.zero-results {
   margin-bottom: 0;
 
   .page_links {
-    font-size: .75em;
+    font-size: .78em;
     font-weight: bold;
   }
 
+}
 
+span.filterValue {
+  font-family: Helvetica, sans-serif;
 }
 
 bq {
   margin: 0;
   padding: 1.5em;
-  font-size: 80%;
+  font-size: 90%;
   font-family: Courier, Courier New, monospaced
 }
 
@@ -810,7 +816,6 @@ div.flash {
   color: crimson;
   font-size: 85%;
 
-
   a {
     color: inherit;
   }
@@ -823,11 +828,12 @@ div.flash {
 .index_title.document-title-heading {
 
   a {
-    font-size: 1.6em;
+    font-size: 1.75em;
     color: #126DC1;
     text-decoration: underline;
     padding: 0;
     font-weight: 600;
+    font-family: Helvetica, sans-serif;
   }
 
   .document-counter {
@@ -836,8 +842,9 @@ div.flash {
 
   span.index-pos {
     color: #6E6E6E;
-    font-size: 1.4em;
+    font-size: 1.5em;
     font-weight: 600;
+    font-family: Helvetica, sans-serif;
   }
 }
 
@@ -887,6 +894,10 @@ div.flash {
   font-style: italic;
 }
 
+.headword {
+  font-family: Helvetica, sans-serif;
+}
+
 .definition-block {
   background-color: #fafafa;
   padding: 1.25em;
@@ -899,7 +910,7 @@ div.flash {
 }
 
 .search-result {
-  font-size: .75em;
+  font-size: .85em;
 }
 
 /** Constraints, Facets + Sidebars **/
@@ -912,7 +923,7 @@ div.flash {
 
   .constraints-label {
     font-weight: 600;
-    font-size: .9em;
+    font-size: 1.15em;
     padding-bottom: .5em;
   }
 
@@ -946,7 +957,6 @@ div.flash {
 }
 
 #sidebar #appliedParams .constraint-value {
-  font-size: .8em;
   background-color: #E2F4EB !important;
   color: #044E2A;
   border: 1px solid #057C42;
@@ -969,12 +979,10 @@ div.flash {
   color: #044E2A;
 }
 
-
   .constraint-value.btn.btn-sm.btn-default.btn-disabled {
   white-space: normal;
   max-width: 100% !important;
   }
-
 
 span.filterValue {
   padding-right: .5em;
@@ -986,7 +994,7 @@ span.filterValue {
   margin-bottom: 2px;
 
   h2.facets-heading {
-    font-size: .88em;
+    font-size: 1em;
     font-weight: 600;
     color: #333;
   }
@@ -996,6 +1004,7 @@ span.filterValue {
   color: #4A4A4A;
   text-decoration: none;
   font-weight: 600;
+  font-size: 1.1em;
 }
 
 .panel-body.facet-panel,
@@ -1012,12 +1021,12 @@ span.filterValue {
 .facet-label a:visited {
   color: #126DC1;
   text-decoration: none;
-  font-size: .89em;
+  font-size: 1em;
  }
 
  .facet-count {
   color: #4A4A4A;
-  font-size: .89em;
+  font-size: 1em;
 }
 
 .facet-values .facet-label {
@@ -1045,7 +1054,7 @@ span.filterValue {
     background-color: #E6F3FF;
     color: #0C5292;
     font-weight: 600;
-    font-size: .85em;
+    font-size: 1em;
   }
 
   .entry-main-title:before {
@@ -1057,6 +1066,7 @@ span.filterValue {
 
   .entry-headword {
     font-size: 1.45em;
+    font-family: Helvetica, sans-serif;
   }
 
   .quotations-header-options {
@@ -1066,6 +1076,7 @@ span.filterValue {
 
   .quotations-header-options-text {
     font-weight: 600;
+    font-size: 1.2em;
   }
 
   .quotations-header-options a {
@@ -1089,14 +1100,17 @@ span.filterValue {
     padding: 1em;
   }
 
-
   .entry-main-title,
   .entry-intro-title,
   .entry-senses-title,
   .entry-supplemental-title {
     padding: .5em 1em;
     font-weight: 600;
-    font-size: .9em;
+    font-size: 1em;
+  }
+
+  .index_title.document-title-heading {
+    padding-top: .5em;
   }
 
   .entry-intro-title {
@@ -1110,9 +1124,8 @@ span.filterValue {
 
   .entry-headword {
     color: #4E4E4E;
+    font-family: Helvetica, sans-serif;
   }
-
-
 
   .entry-heading, .bib-heading {
     padding: 1em;
@@ -1123,12 +1136,11 @@ span.filterValue {
     height: 40px;
   }
 
-
   .entry-info,
   .entry-senses,
   .entry-supplement {
     padding: 0 1em;
-    font-size: .9em;
+    font-size: 1em;
   }
 
   td.forms-title,
@@ -1142,7 +1154,7 @@ span.filterValue {
   .egs {
     background-color: #FAFAFA;
     padding: 0 1em 1em;
-    font-size: .9em;
+    font-size: 1em;
   }
 
   .subdef-entry-number {
@@ -1211,7 +1223,7 @@ span.filterValue {
 
   .quote-toggles {
     float: right;
-    font-size: .9em;
+    font-size: 1em;
     padding: 1.25em 0;
   }
 
@@ -1224,6 +1236,7 @@ span.filterValue {
     color: #126DC1;
     font-weight: 600;
     padding: .25em;
+    font-size: 1.15em;
 
     &:focus {
       outline: none;
@@ -1268,11 +1281,11 @@ span.filterValue {
 
     .entry-supplement td {
       color: #6E6E6E;
-      font-size: .9em;
+      font-size: 1em;
     }
 
     td.quotes-control > * {
-      font-size: .75em;
+      font-size: .85em;
     }
 
     td.forms-list {
@@ -1300,7 +1313,7 @@ table.table.table-striped,
   background-color: #FAFAFA !important;
   border: 1px solid transparent !important;
   font-weight: 600;
-  font-size: .85em;
+  font-size: .95em;
   padding-bottom: 0;
 }
 
@@ -1322,12 +1335,17 @@ table.table.table-striped,
 .show-related {
 
   .related-link-subhead {
-    font-size: .85em;
+    font-size: .95em;
     padding-top: 1em;
   }
 
   .oed-subscription-warning {
     margin-bottom: 0;
+    font-size: .75em;
+  }
+
+  a.external-link {
+    font-size: 1.15em;
   }
 }
 
@@ -1340,7 +1358,7 @@ table.table.table-striped,
 
   #citationLink {
     padding: 0;
-    font-size: .75em;
+    font-size: .85em;
 }
 
 /** About + Help  **/
@@ -1358,8 +1376,9 @@ body.blacklight-static,
 }
 
 .about-lg {
-  font-size: 1.05em;
+  font-size: 1.15em;
   margin-bottom: .25em;
+  line-height: 1.5;
 }
 
 .about-middle-col,
@@ -1379,7 +1398,7 @@ body.blacklight-static,
 }
 
 .title-secondary {
-  font-size: .75em;
+  font-size: .85em;
   padding-top:0;
 }
 
@@ -1391,7 +1410,7 @@ body.blacklight-static,
   h2 {
     padding: .5em;
     font-weight: bold;
-    font-size: .9em;
+    font-size: 1em;
   }
 }
 
@@ -1402,14 +1421,14 @@ body.blacklight-static,
 
 .about-middle-col h1,
 .help-middle-col h1 {
-  font-size: 1.5em;
+  font-size: 1.65em;
   font-weight: bold;
   color: #333333;
 }
 
 .about-middle-col h2,
 .help-middle-col h2 {
-  font-size: 1.3em;
+  font-size: 1.5em;
   color: #333333;
   font-weight: bold;
   padding-top: 1em;
@@ -1417,7 +1436,7 @@ body.blacklight-static,
 
 .about-middle-col h3,
 .help-middle-col h3 {
-  font-size: 1.15em;
+  font-size: 1.35em;
   color: #333333;
   font-weight: bold;
   padding-top: 1em;
@@ -1427,6 +1446,7 @@ body.blacklight-static,
 .help-middle-col h4 {
   font-weight: bold;
   padding-top: .25em;
+  font-size: 1.15em;
 }
 
 .help-ul li {
@@ -1441,6 +1461,7 @@ body.blacklight-static,
     vertical-align: middle;
     width: inherit;
     text-decoration: none;
+    font-size: 1.1em;
   }
 }
 
@@ -1451,6 +1472,7 @@ margin-top: 2em;
     list-style-type: disc;
     margin-bottom: 10px;
     margin-left: 2em;
+
     li {
       margin-bottom: 10px;
       margin-left: 12px;
@@ -1463,18 +1485,17 @@ margin-top: 2em;
 
   dl {
     margin-left: 2em;
+    
     dt {
       font-weight: bold;
       margin-top: 2em;
-    }
-    dd {
-
     }
   }
 
 table {
   margin-top: 3em;
 }
+
 table th, td {
   border-radius: 4px!important;
   border: 1px solid #ccc!important;
@@ -1486,7 +1507,7 @@ table th {
 }
 }
 
-// Weird search box doubling -- try to make one diappear
+// Weird search box doubling -- try to make one disappear
 
 .q.tt-input {
   color: #666666;
@@ -1495,9 +1516,6 @@ table th {
    .q.tt-hint {
      color: transparent;
    }
-
-
-
 
 .sidebars ul {
   padding-bottom: .25em;
@@ -1572,8 +1590,11 @@ ul.about-list {
   li a {
     color: #fff;
     text-decoration: none;
-    font-size: .9em;
     font-weight: 300;
+  }
+
+  li.heading-medium {
+    font-size: 1.25em;
   }
 
   a:hover {
@@ -1613,12 +1634,12 @@ ul.about-list {
     }
 
     .splash-detail--light {
-    font-size: 1em;
+    font-size: 1.1em;
     height: auto;
   }
 
   .splash-detail--link {
-    font-size: 1em;
+    font-size: 1.1em;
     }
   }
 }
@@ -1667,7 +1688,7 @@ ul.about-list {
       .author,
       .bib-title a,
       .work {
-       font-size: 1em;
+       font-size: 1.1em;
       }
   }
 }
