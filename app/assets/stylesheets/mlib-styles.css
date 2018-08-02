@@ -158,7 +158,7 @@ body {
   .grid.grid--quarters > .grid-cell {
     flex: 0 0 25%; } }
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   color: #262626; }
 
 a {
@@ -175,7 +175,7 @@ a {
   font-size: 1.2rem; }
 
 .font-xsmall {
-  font-size: 0.8rem; }
+  font-size: 0.9rem; }
 
 .font-italic {
   font-style: italic; }
@@ -833,7 +833,7 @@ code.code-tag {
 
 .site-title {
   display: inline-block;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   line-height: 1.2; }
   .site-title + .site-title {
     margin-left: 0.75rem;
