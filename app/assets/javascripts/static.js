@@ -22,7 +22,7 @@ $( document ).ready(function() {
     
      $('#yogh').on('click', function () {
         var text = $('#q');
-        text.val(text.val() + 'ȝ');    
+        text.val(text.val() + 'ʒ');
     });
      $('#ash').on('click', function () {
         var text = $('#q');

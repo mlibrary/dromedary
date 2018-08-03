@@ -2,7 +2,7 @@
 class SearchBuilder < Blacklight::SearchBuilder
   include Blacklight::Solr::SearchBuilderBehavior
 
-  self.default_processor_chain += [:escape_intersticial_parens, :default_to_everything_search]
+  self.default_processor_chain += [:yogh_to_ezh, :escape_intersticial_parens, :default_to_everything_search]
 
 
   # q"=>"{!qf=$quote_everything_qf pf=$quote_everything_pf}right",
@@ -21,6 +21,10 @@ class SearchBuilder < Blacklight::SearchBuilder
      'bibliography' => 'title_sort asc, author_sort asc',
      'quotes' => 'quote_date_sort asc, author_sort asc'
   }
+
+  def yogh_to_ezh(solr_params)
+    solr_params['q'] = solr_params['q'].gsub(/[Ȝȝ]/, 'ʒ')
+  end
 
   def escape_intersticial_parens(solr_params)
     current_q = solr_params['q']
