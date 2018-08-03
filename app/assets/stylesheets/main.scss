@@ -5,7 +5,6 @@ $u-m-yellow: #ffcb05;
 
 /** Base Styles **/
 
-
 a {
   text-decoration: underline;
 }
@@ -51,8 +50,10 @@ body {
 }
 
 .site-header-container {
-  display: flex;
+  display: -webkit-box;
+  display: -webkit-flex;
   display: -ms-flexbox;
+  display: flex;
   align-content: center;
   align-items: center;
 }
@@ -194,7 +195,7 @@ ul.header-nav-secondary li:hover {
   .splash-detail--light {
     color: #fff;
     font-weight: 300;
-    font-size: 1em;
+    font-size: 1.05em;
     height: 7.5em;
   }
 
@@ -213,8 +214,10 @@ ul.header-nav-secondary li:hover {
 }
 
 .splash-section {
-  display: flex;
+  display: -webkit-box;
+  display: -webkit-flex;
   display: -ms-flexbox;
+  display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
   padding-bottom: 3.5em;
@@ -242,8 +245,10 @@ ul.header-nav-secondary li:hover {
   }
 
   ul {
-    display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
     display: -ms-flexbox;
+    display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
@@ -356,14 +361,18 @@ ul.header-nav-secondary li:hover {
   box-shadow: inset 0 -2px 0 0 #CCE6FF;
 
   .input-group {
-    display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
     display: -ms-flexbox;
+    display: flex;
     flex-direction: row;
   }
 
   .search-input-group {
-    display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
     display: -ms-flexbox;
+    display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     width: 100%;
@@ -428,15 +437,26 @@ ul.header-nav-secondary li:hover {
   margin: 1.5em 0 1em;
   background-color: #333333;
 
+  .navbar-form {
+    background-color:transparent !important;
+    border-color: none;
+    background-image:none;
+    box-shadow:none;  
+  }
+
   .input-group {
-    display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
     display: -ms-flexbox;
+    display: flex;
     flex-direction: row;
   }
 
   .search-input-group {
-    display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
     display: -ms-flexbox;
+    display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     width: 100%;
@@ -535,15 +555,26 @@ ul.header-nav-secondary li:hover {
   background-color: #fafafa;
   box-shadow: inset 0 -2px 0 0 #E5E5E5;
 
+  .navbar-form {
+    background-color:transparent !important;
+    border-color: none;
+    background-image:none;
+    box-shadow:none;  
+  }
+
   .input-group {
-    display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
     display: -ms-flexbox;
+    display: flex;
     flex-direction: row;
   }
 
   .search-input-group {
-    display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
     display: -ms-flexbox;
+    display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     width: 100%
@@ -600,7 +631,7 @@ ul.header-nav-secondary li:hover {
 
 .bib-home,
 .quotations-home {
-  padding: 5em 1em 8em;
+  padding: 4em 1em 8em;
 
   h1 {
     font-size: 1.75em;
@@ -611,7 +642,7 @@ ul.header-nav-secondary li:hover {
 
   .home-description {
     color: #6E6E6E;
-    padding: 1em 0 2em;
+    padding: 1em 0 1.5em;
     text-align: center;
     width: 75%;
     margin: 0 auto;
@@ -792,11 +823,14 @@ div.zero-results {
     font-size: .78em;
     font-weight: bold;
   }
-
 }
 
 span.filterValue {
   font-family: Helvetica, sans-serif;
+}
+
+.constraint-value a {
+  border: none;
 }
 
 bq {
@@ -901,6 +935,9 @@ div.flash {
 .definition-block {
   background-color: #fafafa;
   padding: 1.25em;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
 }
 
@@ -1578,8 +1615,10 @@ ul.about-list {
   margin: 0 auto;
   padding: 0 1rem;
   max-width: 60rem;
-  display: flex;
+  display: -webkit-box;
+  display: -webkit-flex;
   display: -ms-flexbox;
+  display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
 
@@ -1661,12 +1700,18 @@ ul.about-list {
     .input-group {
     display: block;
     }
+
+    select#search_field {
+      width: 98%;
+    }
   }
 
   .input-group-addon.for-search-field {
     width: 100%;
-    display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
     display: -ms-flexbox;
+    display: flex;
     justify-content: center;
   }
   .submit-search-text {
@@ -1710,11 +1755,21 @@ ul.about-list {
     .twitter-typeahead {
       width:70%;
     }
+
+     button#search {
+    border-radius: 4px;
+    padding: 4px 20px;
+    height: 40px;
+    }
   }
 
   #about_sidebar,
   #help_sidebar  {
     padding: 0;
+  }
+
+  .page_links {
+    margin-bottom: 1em;
   }
 
 }
