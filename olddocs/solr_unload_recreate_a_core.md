@@ -6,8 +6,8 @@ Obviously, substitute in the name of the core and/or port as necessary.
 
 ```bash
 
-curl "http://localhost:8082/solr/admin/cores?action=UNLOAD&core=dromedary_testing"
-
-curl "http://localhost:8082/solr/admin/cores?action=CREATE&name=dromedary_testing&config=solrconfig.xml&dataDir=data&instanceDir=/var/lib/solr-6.1.0/home/dromedary_testing&wt=json"
+curl "http://localhost:8081/solr/admin/cores?action=UNLOAD&name=dromedary_production
+curl "http://localhost:8081/solr/admin/cores?action=CREATE&name=dromedary_production&config=solrconfig.xml&dataDir=data&instanceDir=/var/lib/solr-6.5.0/home/dromedary_productiong&wt=json"
 
 ```
+
