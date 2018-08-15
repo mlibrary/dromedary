@@ -19,9 +19,9 @@ Traject::Indexer.send(:define_method, :logger, ->() {AnnoyingUtilities.logger})
 
 def bib_method(name)
   ->(rec, acc) do
-      values = Array(rec.send(name)).compact
-      acc.replace(values) unless values.empty?
-    end
+    values = Array(rec.send(name)).compact
+    acc.replace(values) unless values.empty?
+  end
 end
 
 def remove_leading_articles(str)
@@ -70,19 +70,25 @@ to_field 'title_sort' do |bib, acc|
   acc << title
 end
 
+to_field 'authortitle' do |bib, acc|
+  if bib.author
+    acc << [bib.author, bib.title_text].compact.join('.')
+  end
+end
+
 to_field 'incipit' do |bib, acc|
   acc << bib.incipit?.to_s
 end
 
 # External references
 
-to_field 'index',    bib_method(:indexes)
-to_field 'indexb',   bib_method(:indexbs)
-to_field 'indexc',   bib_method(:indexcs)
-to_field 'ipmep',    bib_method(:ipmeps)
+to_field 'index', bib_method(:indexes)
+to_field 'indexb', bib_method(:indexbs)
+to_field 'indexc', bib_method(:indexcs)
+to_field 'ipmep', bib_method(:ipmeps)
 to_field 'jolliffe', bib_method(:jolliffes)
-to_field 'severs',   bib_method(:severs)
-to_field 'wells',    bib_method(:wells)
+to_field 'severs', bib_method(:severs)
+to_field 'wells', bib_method(:wells)
 
 # LALME
 to_field 'lalme' do |bib, acc|

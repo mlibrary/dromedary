@@ -129,6 +129,16 @@ to_field('min_cd') do |entry, acc|
   acc << entry.all_citations.flat_map(&:cd).compact.min
 end
 
+# Author.Title
+# We special-case this 'cause people want to search on, e.g.,
+# Capgr.Chron. The '.' is *not* a breaking charactor for the
+# me_text or text data types, so we can just use one
+
+to_field 'authortitle' do |entry, acc|
+  acc.replace entry.all_stencils.map{|s| [s.author, s.title].compact.join('.').gsub(/\.+/, '.').gsub(/\.\Z/, '')}
+end
+
+
 # Notes
 to_field 'notes', entry_method(:notes)
 

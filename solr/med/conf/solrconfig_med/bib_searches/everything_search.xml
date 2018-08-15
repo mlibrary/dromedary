@@ -1,4 +1,5 @@
 <str name="bib_everything_qf">
+  authortitle^6
   author_exactish^6
   title_exactish^5
   author^4
@@ -9,6 +10,7 @@
 </str>
 
 <str name="bib_everything_pf">
+  authortitle^6
   author^5
   title^3
   stencil_keyword^2
