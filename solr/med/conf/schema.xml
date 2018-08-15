@@ -192,17 +192,17 @@
 
 
   <!--Headwords and orths-->
-  <field name="official_headword" type="me_text" indexed="true" stored="true" multiValued="true"/>
-  <field name="official_headword_exactish" type="me_exactish" indexed="true" stored="false" multiValued="true"/>
+  <field name="official_headword" type="me_headword" indexed="true" stored="true" multiValued="true"/>
+  <field name="official_headword_exactish" type="me_headword_exactish" indexed="true" stored="false" multiValued="true"/>
   <copyField source="official_headword" dest="official_headword_exactish"/>
 
-  <field name="headword"     type="me_text" indexed="true" stored="true" multiValued="true"/>
-  <field name="headword_exactish" type="me_exactish" indexed="true" stored="true" multiValued="true"/>
+  <field name="headword"     type="me_headword" indexed="true" stored="true" multiValued="true"/>
+  <field name="headword_exactish" type="me_headword_exactish" indexed="true" stored="true" multiValued="true"/>
   <copyField source="headword" dest="headword_exactish"/>
 
   <field name="dubious" type="string" indexed="true" stored="true" multiValued="false" docValues="true"/>
 
-  <field name="orth"         type="me_text" indexed="true" stored="true" multiValued="true"/>
+  <field name="orth"         type="me_headword" indexed="true" stored="true" multiValued="true"/>
 
   <!--Etymology and Part of speach-->
   <field name="pos"        type="string"  stored="true" indexed="true" multiValued="true" docValues="true"/>
@@ -225,6 +225,9 @@
   <!-- Quotes -->
   <field name="quote_text"  type="me_text" indexed="true" stored="true" multiValued="true"/>
   <field name="quote_title" type="me_text" indexed="true" stored="true" multiValued="true"/>
+
+  <!-- The quote author and title are sometimes jammed together with a '.' between. -->
+  <field name="authortitle" type="me_text" indexed="true" stored="true" multiValued="true"/>
 
   <field name="quote_manuscript" type="text" indexed="true" stored="true" multiValued="true"/>
   <field name="quote_date" type="string" indexed="false" stored="true" multiValued="true"/>
@@ -276,8 +279,8 @@
   <copyField source="author" dest="author_exactish"/>
 
 
-  <field name="title" type="me_text" stored="true" indexed="true" multiValued="false"/>
-  <field name="title_sort" type="me_sort" stored="true" indexed="true" multiValued="false"/>
+  <field name="title" type="me_text" stored="true" indexed="true" multiValued="true"/>
+  <field name="title_sort" type="me_sort" stored="true" indexed="true" multiValued="true"/>
 
   <field name="title_exactish" type="me_exactish" stored="false" indexed="true" multiValued="true"/>
   <copyField source="title" dest="title_exactish"/>
@@ -322,3 +325,4 @@
 
 
 </schema>
+

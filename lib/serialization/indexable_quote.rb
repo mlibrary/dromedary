@@ -23,7 +23,8 @@ module Dromedary
                   :cd, :md,
                   :scope, :rid, :title, :ms,
                   :citation,
-                  :bib_id, :author,
+                  :author, :title,
+                  :bib_id, :stencil_author, :stencil_title,
                   :dubious
 
     alias_method :med_id, :entry_id
@@ -41,6 +42,9 @@ module Dromedary
       self.rid      = stencil.rid
       self.date     = stencil.date
       self.title    = stencil.title
+      self.author   = stencil.author
+      self.stencil_title = stencil.title
+      self.stencil_author = stencil.author
       self.ms       = stencil.ms
       self.citation = citation
       self.text = citation.text

@@ -3,9 +3,11 @@
   headword_exactish^50
   headword^10
   orth^7
+  authortitle^6
   definition_text^5
   oed_norm^2
   keyword
+  quote_manuscript
 </str>
 
 <str name="everything_pf">
@@ -13,8 +15,11 @@
   headword_exactish^50
   headword^10
   orth^7
+  authortitle^6
   definition_text^5
   oed_norm^2
+  quote_manuscript
   keyword
+
 </str>
 
