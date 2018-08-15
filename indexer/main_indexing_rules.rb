@@ -135,7 +135,13 @@ end
 # me_text or text data types, so we can just use one
 
 to_field 'authortitle' do |entry, acc|
-  acc.replace entry.all_stencils.map{|s| [s.author, s.title].compact.join('.').gsub(/\.+/, '.').gsub(/\.\Z/, '')}
+  entry.all_stencils.each do |s|
+    acc <<[s.author, s.title].compact.join('.').gsub(/\.+/, '.').gsub(/\.\Z/, '')
+    acc << s.author
+    acc << s.title
+  end
+  acc.uniq!
+
 end
 
 

@@ -73,6 +73,9 @@ end
 to_field 'authortitle' do |bib, acc|
   if bib.author
     acc << [bib.author, bib.title_text].compact.join('.')
+    acc << bib.author
+    acc << bib.title_text
+    acc.uniq!
   end
 end
 

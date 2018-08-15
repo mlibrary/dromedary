@@ -77,6 +77,9 @@ to_field 'title', lazy_method(:title)
 
 to_field 'authortitle' do |q, acc|
     acc << [q.stencil_author, q.stencil_title].compact.join('.').gsub(/\.+/, '.').gsub(/\.\Z/, '')
+    acc << q.stencil_author
+    acc << q.stencil_title
+    acc.uniq!
   end
 
 
