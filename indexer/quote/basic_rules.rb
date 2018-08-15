@@ -18,16 +18,8 @@ end
 
 Traject::Indexer.send(:define_method, :logger, ->() {AnnoyingUtilities.logger})
 
-
-# For quotes, a record is a simple struct
-#   quote: <string>
-#   entry_id: "MED..."
-#   cd: date_of_creation.to_i,
-#   md: date_of_manuscript.to_i
-#   quote_html: html of the quote <string>,
-#   rid: rid for this stencil
-#   title: title of the stencil
-#   manuscript: manuscript abbreviation thing
+# Note that even though we're talking about quotations, the object
+# we're dealing with is an IndexableQuote (lib/serialization/indexable_quote.rb)
 
 def lazy_method(name)
   ->(rec, acc) {acc.replace Array(rec.send(name))}
@@ -81,6 +73,12 @@ end
 
 to_field 'bib_id', lazy_method(:bib_id)
 to_field 'author', lazy_method(:author)
+to_field 'title', lazy_method(:title)
+
+to_field 'authortitle' do |q, acc|
+    acc << [q.stencil_author, q.stencil_title].compact.join('.').gsub(/\.+/, '.').gsub(/\.\Z/, '')
+  end
+
 
 # def initialize(citation: citation)
 #   self.quote      = citation.quote.text

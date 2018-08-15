@@ -15,12 +15,8 @@ Spelling wasn't so much a "thing" for ME, so we'll do some messing around
 />
 
 
-
-
-<!--Ditch any parentheses and crap in the headwords -->
-<!--to avoid problems with tokenization-->
-
 <charFilter class="solr.PatternReplaceCharFilterFactory"
-            pattern="[()!?.;]" replacement=""
+            pattern="[k]" replacement="c"
 />
+
 
