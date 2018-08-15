@@ -121,8 +121,13 @@ module MedInstaller
         HypToBibID.new(command_name: "hyp_to_bib_id").call
         raise "Solr at #{AnnoyingUtilities.blacklight_solr_url} not up" unless AnnoyingUtilities.solr_core.up?
         writer = select_writer(debug)
-        fields = indexing_rules_file
-        index(rulesfile: fields, datafile: AnnoyingUtilities.bibfile_path, writer: writer, bibfile: AnnoyingUtilities.bibfile_path)
+        index(rulesfile: index_dir + 'bib_indexing_rules.rb',
+              datafile:  AnnoyingUtilities.bibfile_path,
+              writer:    writer,
+              bibfile:   AnnoyingUtilities.bibfile_path)
+        commit
+        optimize
+        commit
       end
     end
 

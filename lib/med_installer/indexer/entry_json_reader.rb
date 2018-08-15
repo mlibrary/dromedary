@@ -55,6 +55,7 @@ module MedInstaller
 
     def each
       Zlib::GzipReader.new(File.open(@data_file)).each_with_index do |json_line, index|
+        next unless json_line =~ /\S/
         begin
           entry = MiddleEnglishDictionary::Entry.from_json(depipe_json(json_line))
           yield entry

@@ -2,20 +2,60 @@
 
 <fieldType name="me_text" class="solr.TextField"
            positionIncrementGap="&tpig;">
-  <analyzer type="index">
-    &me_text_chain;
-    <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
-  </analyzer>
-  <analyzer type="query">
+  <analyzer>
     &me_text_chain;
     <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
   </analyzer>
 </fieldType>
 
+<!-- For headwords, we also want to eliminate interstitial punctuation -->
+
+<fieldType name="me_headword" class="solr.TextField"
+           positionIncrementGap="&tpig;">
+<analyzer>
+  <!--Ditch any parentheses and crap in the headwords -->
+  <!--to avoid problems with tokenization-->
+  <charFilter class="solr.PatternReplaceCharFilterFactory"
+              pattern="[()!?.;]" replacement=""
+  />
+  &me_text_chain;
+  <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+</analyzer>
+</fieldType>
+
+
+
         <!-- An exactish search, but for middle english text -->
 <fieldType name="me_exactish" class="solr.TextField"
            positionIncrementGap="&tpig;">
 <analyzer>
+  &middle_english_char_substitution_patterns;
+  <charFilter class="solr.ICUNormalizer2CharFilterFactory"/>
+  <tokenizer class="solr.KeywordTokenizerFactory"/>
+  <filter class="solr.ICUFoldingFilterFactory"/>
+  <filter class="solr.KeywordRepeatFilterFactory"/>
+  <!-- Some punctuation that should be turned into a space (probably just - and |). -->
+  <filter class="solr.PatternReplaceFilterFactory"
+          pattern="([\-\|])" replacement=" " replace="all"
+  />
+
+  <!-- Remove all other punctuation at the end of teh string -->
+  <filter class="solr.PatternReplaceFilterFactory"
+          pattern="(\p{Punct}$)" replacement="" replace="all"
+  />
+  <filter class="solr.TrimFilterFactory"/>
+  <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+</analyzer>
+</fieldType>
+
+
+        <!-- An exactish search for headwords  -->
+<fieldType name="me_headword_exactish" class="solr.TextField"
+           positionIncrementGap="&tpig;">
+<analyzer>
+  <charFilter class="solr.PatternReplaceCharFilterFactory"
+              pattern="[()!?.;]" replacement=""
+  />
   &middle_english_char_substitution_patterns;
   <charFilter class="solr.ICUNormalizer2CharFilterFactory"/>
   <tokenizer class="solr.KeywordTokenizerFactory"/>
