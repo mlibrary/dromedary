@@ -2,8 +2,31 @@
 
 <fieldType name="me_text" class="solr.TextField"
            positionIncrementGap="&tpig;">
-  <analyzer>
-    &me_text_chain;
+  <analyzer type="index">
+    <charFilter class="solr.ICUNormalizer2CharFilterFactory"/>
+    &middle_english_char_substitution_patterns;
+    <tokenizer class="solr.ICUTokenizerFactory"/>
+    <filter class="solr.ICUFoldingFilterFactory"/>
+    <filter class="solr.WordDelimiterGraphFilterFactory"
+            splitOnCaseChange="0"
+            splitOnNumerics="0"
+            preserveOriginal="1"
+    />
+    <filter class="solr.FlattenGraphFilterFactory"/>
+    <filter class="solr.KeywordRepeatFilterFactory"/>
+    <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+  </analyzer>
+  <analyzer type="query">
+    <charFilter class="solr.ICUNormalizer2CharFilterFactory"/>
+    &middle_english_char_substitution_patterns;
+    <tokenizer class="solr.ICUTokenizerFactory"/>
+    <filter class="solr.ICUFoldingFilterFactory"/>
+    <filter class="solr.WordDelimiterGraphFilterFactory"
+            splitOnCaseChange="0"
+            splitOnNumerics="0"
+            preserveOriginal="1"
+    />
+    <filter class="solr.KeywordRepeatFilterFactory"/>
     <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
   </analyzer>
 </fieldType>
