@@ -3,3 +3,5 @@
 <tokenizer class="solr.ICUTokenizerFactory"/>
 <filter class="solr.ICUFoldingFilterFactory"/>
 <filter class="solr.KeywordRepeatFilterFactory"/>
+
+
