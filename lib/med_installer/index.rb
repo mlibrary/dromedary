@@ -137,9 +137,10 @@ module MedInstaller
     class Full < Generic
       desc "Clear and reload solr, index entries and bib, build autosuggest, and optimize"
       option :debug, type: :boolean, default: false, desc: "Write to debug file?"
+      option :existing_hyp_to_bibid, type: :boolean, default: false, desc: "Don't create new hyp_to_bibid"
 
 
-      def call(debug:)
+      def call(debug:, existing_hyp_to_bibid:)
         raise "Solr at #{AnnoyingUtilities.blacklight_solr_url} not up" unless AnnoyingUtilities.solr_core.up?
         writer = select_writer(debug)
 
@@ -149,7 +150,7 @@ module MedInstaller
         logger.info "Reloading core definition"
         core.reload
 
-       HypToBibID.new(command_name: "hyp_to_bib_id").call
+       HypToBibID.new(command_name: "hyp_to_bib_id").call unless existing_hyp_to_bibid
 
         logger.info "##### BEGIN ENTRY/QUOTE INDEXING #####"
         index(rulesfile: index_dir + 'main_indexing_rules.rb',
