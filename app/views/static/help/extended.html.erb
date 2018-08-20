@@ -53,14 +53,16 @@
         </tr>
         <tr>
 
-          <td>Search for words with a common prefix (wildcard search)</td>
+          <td>Search for words with a common prefix or suffix (wildcard search)</td>
           <td>
 
-            Append an asterisk (*) to the prefix
+            Use an asterisk (*) to represent the missing characters.
 
           </td>
           <td><strong>hel*</strong> will find entries that contain a term
             that begins with <strong>hel</strong> (e.g., <em>hel</em>, <em>helable</em>, <em>helde</em>)
+            <p><strong>*mode</strong> with find all works that end with <strong>mode</strong> (e.g, <em>unthōle-mọ̄de</em>,
+              <em>thōle-mọ̄d(e</em>, and <em>mọ̄de</em> itself.</p>
           </td>
         </tr>
         <tr>
@@ -141,16 +143,6 @@
           <td>
             <strong>“man and wom*”</strong> or
             <strong>“man and w?man”</strong> (BOTH UNSUPPORTED because wildcards don't work within a phrase)
-          </td>
-        </tr>
-        <tr>
-
-          <td>Find suffixes with a wildcard</td>
-          <td>
-            Not supported by the search engine used by the MED
-          </td>
-          <td>
-            <strong>*ly</strong> (UNSUPPORTED)
           </td>
         </tr>
         </tbody>

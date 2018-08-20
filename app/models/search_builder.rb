@@ -45,7 +45,7 @@ class SearchBuilder < Blacklight::SearchBuilder
 
       blacklight_params['sort'] = NULL_SEARCH_SORT[blacklight_params['controller']]
     end
-  end
+      end
 
   ##
   # @example Adding a new step to the processor chain
