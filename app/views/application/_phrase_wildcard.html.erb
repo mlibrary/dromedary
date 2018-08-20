@@ -1,11 +1,9 @@
 <%
   wc_in_phrase = (m = %r("[^"]*[*?][^"]*").match(params['q'])) && m[0]
-  wc_at_start = (m = %r([?*]([^\s"\Z]+)).match(params['q'])) && [m[0], m[1]]
 %>
 
-<% if wc_in_phrase or wc_at_start %>
+<% if wc_in_phrase %>
   <div class="flash">
-    <% if wc_in_phrase %>
       <p>It looks like you have a phrase query that contains a wildcard (* or
         ?).
         Wildcard characters in phrase queries are discarded, so your search
@@ -13,13 +11,6 @@
         was interpreted as
         <span class="searchterms"><%= params['q'].gsub(/[?*]/, '') %></span>.
       </p>
-    <% end %>
-
-    <% if m = %r([?*]([^\s"\Z]+)).match(params['q']) %>
-      <p>Wildcard characters (* and ?) only work at the end of a term,
-        so your search for <span class="searchterms"><%= m[0] %></span> was
-        interpreted as <span class="searchterms"><%= m[1] %></span>.</p>
-    <% end %>
 
     <div>See the <%= link_to "information on expanded
       search options", help_path('expanded') %> for more details.
