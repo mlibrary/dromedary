@@ -91,7 +91,7 @@ class CatalogController < ApplicationController
     blacklight_config.index.document_presenter_class = Dromedary::IndexPresenter
 
     # What's the title field for each search result entry?
-    config.index.title_field = 'official_headword'
+    config.index.title_field = 'headword'
 
     # How should we choose how to display this item? (maybe not used if
     # you only have one type of record)
@@ -169,8 +169,6 @@ class CatalogController < ApplicationController
     # config.add_show_field 'quote_title', label: 'Quotation Title'
     # config.add_show_field 'headerword_exactish', label: 'Headword Exactish'
     # config.add_show_field 'headword_only_suggestions', label: 'Headword Only Suggestions'
-    # config.add_show_field 'official_headword', label: 'Official Headword'
-    # config.add_show_field 'official_headword_exactish', label: 'Official Headword Exactish'
     # config.add_show_field 'orth', label: 'Orth'
     # config.add_show_field 'id', label: 'ID'
     # config.add_show_field 'sequence', label: 'Sequence'

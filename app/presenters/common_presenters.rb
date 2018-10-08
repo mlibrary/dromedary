@@ -34,7 +34,7 @@ module CommonPresenters
   end
 
   def headword_display(document)
-    hw = first_found_value_as_highlighted_array(document, ['official_headword', 'headword']).join(', ')
+    hw = document.fetch('headword').join(", ")
     if document.has_key?('dubious')
       "?#{hw}"
     else
