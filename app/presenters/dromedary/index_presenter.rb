@@ -123,7 +123,7 @@ module Dromedary
     # @return [Array<String>] The headwords as taken from the "highlight"
     # section of the solr return (with embedded tags for highlighting)
     def highlighted_official_headword
-      Array(hl_field(document,'official_headword')).first
+      Array(hl_field(document,'headword')).first
     end
 
 
