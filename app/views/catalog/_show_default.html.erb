@@ -66,20 +66,31 @@
   One partial for the sense
     ...with one for an eg
     ...with one for a cite
-    
+
   -->
 
   <%# Get get senses plus their quotes and display %>
-  <% unless doc_presenter.senses.size == 0 %>
-    <div class="senses">
-      <h3 class="entry-senses-title">Definitions (Senses and Subsenses)</h3>
 
-      <% doc_presenter.senses.each_with_index do |sense, index| %>
-        <%= render "catalog/show_entry/sense.html.erb", sense: sense, index: index, presenter: doc_presenter %>
-      <% end %>
-    </div>
+  <div class="senses">
+    <h3 class="entry-senses-title">Definitions (Senses and Subsenses)</h3>
 
-  <% end %>
+    <% doc_presenter.sensestuff.each_with_index do |ss| %>
+      <%= render "catalog/show_entry/#{ss.class.name.split(/::/).last.downcase}.html.erb",
+                doc: ss, index: index, presenter: doc_presenter %>
+    <% end %>
+
+
+    <hr>
+
+
+    <% doc_presenter.senses.each_with_index do |sense, index| %>
+      <%= render "catalog/show_entry/sense.html.erb", sense: sense, index: index, presenter: doc_presenter %>
+    <% end %>
+
+    <% if doc_presenter.sensestuff.empty? %>
+      <div>No information available</div>
+    <% end %>
+  </div>
 
 
   <%# Get supplement and display %>
@@ -89,14 +100,15 @@
 
 
   <% if show_sups %>
-    <h3 class="entry-supplemental-title">Supplemental Materials (draft)</h3>
+    <h3 class="entry-supplemental-title">Supplemental Materials
+      (draft)</h3>
     <div class="supplements-all">
-    <% sups.each do |sup| %>
-      <div class="entry-supplement">
-        <%== doc_presenter.supplement_html(sup) %>
-      </div>
-    <% end %>
+      <% sups.each do |sup| %>
+        <div class="entry-supplement">
+          <%== doc_presenter.supplement_html(sup) %>
+        </div>
+      <% end %>
     </div>
   <% end %>
 
-  </div>
+</div>
