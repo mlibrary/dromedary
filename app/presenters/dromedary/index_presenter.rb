@@ -59,7 +59,7 @@ module Dromedary
     end
 
 
-    # @param [MiddleEnglishDictionary::Entry::Sense] sense The sense whose def you want
+    # @param [MiddleEnglishDictionary::Entry::Sense,MiddleEnglishDictionary::Entry::SenseGrp] sense The sense whose def you want
     # @return [SmartXML, nil] The definition transformed into HTML, or nil
     def def_html(sense)
       enclosed_def_xml = '<div>' + sense.definition_xml + '</div>'
@@ -97,6 +97,11 @@ module Dromedary
       headw = @entry.headwords.first.instance_variable_get(:@regs).first
       @entry.senses.each {|sen| sen.definition_xml.gsub! '~', headw}
       @entry.senses
+    end
+
+    # @return [Array<MiddleEnglishDictionary::Sense|SenseGrp|Supplement|Note>]
+    def sensestuff
+      @entry.sensestuff
     end
 
 
