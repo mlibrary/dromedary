@@ -43,7 +43,7 @@ to_field 'keyword' do |q, acc|
 end
 
 to_field 'entry_id', lazy_method(:entry_id)
-to_field 'headword', lazy_method(:headword)
+to_field 'headword', lazy_method(:regularized_headwords)
 to_field 'pos', lazy_method(:pos)
 
 FDS = /[\A\D](\d{4})\D/

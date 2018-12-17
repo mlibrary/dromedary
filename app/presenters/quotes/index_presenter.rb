@@ -41,6 +41,10 @@ module Dromedary
         @search_field = view_context.search_state.params_for_search['search_field']
       end
 
+      def headword_display(document)
+        document.fetch('headword').join(", ")
+      end
+
       def common_xsl
         load_xslt('Common.xsl')
       end
