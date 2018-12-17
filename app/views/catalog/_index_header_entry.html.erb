@@ -25,7 +25,9 @@
 
       <div class="search-result def">
         <% if hos = doc_presenter.highlighted_other_spellings and hos.count > 0 %>
-          <div class="index-spellings">Additional spellings: <span class="index-spellings--em"><%== hos.join(', ') %></span></div>
+          <div class="index-spellings">Additional spellings:
+            <span class="index-spellings--em"><%== hos.join(', ') %></span>
+          </div>
         <% end %>
 
         <div class="index-quotes-line">
@@ -35,13 +37,13 @@
 
         <div class="definition-block">
           <% sense = doc_presenter.senses.first %>
-          <% unless sense.nil? %>
+          <% if doc_presenter.senses.empty? %>
+            No definition available (stub entry)
+          <% else %>
             <%# Trim it down to 300 chars, to the nearest space-break %>
             <% cdef = doc_presenter.def_html(sense).truncate(200) %>
             <div class="def-header">Sense / Definition</div>
             <div class="definition"><%== cdef %><%= link_to("\u2026", document) %></div>
-          <% else %>
-            <div class="definition no-definition">No definition available</div>
           <% end %>
         </div>
       </div>
