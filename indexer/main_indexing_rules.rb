@@ -185,6 +185,7 @@ each_record do |entry, context|
     q.headword = entry.headwords
     q.pos      = entry.pos
     q.dubious = 'Y' if context.clipboard[:dubious]
+    q.entry = entry
     quote_indexer.put(q, context.position)
   end
 end

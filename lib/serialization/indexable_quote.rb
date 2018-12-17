@@ -25,7 +25,8 @@ module Dromedary
                   :citation,
                   :author, :title,
                   :bib_id, :stencil_author, :stencil_title,
-                  :dubious
+                  :dubious,
+                  :entry
 
     alias_method :med_id, :entry_id
 
