@@ -59,7 +59,7 @@ module Dromedary
     end
 
 
-    # @param [MiddleEnglishDictionary::Entry::Sense] sense The sense whose def you want
+    # @param [MiddleEnglishDictionary::Entry::Sense,MiddleEnglishDictionary::Entry::SenseGrp] sense The sense whose def you want
     # @return [SmartXML, nil] The definition transformed into HTML, or nil
     def def_html(sense)
       enclosed_def_xml = '<div>' + sense.definition_xml + '</div>'
@@ -99,6 +99,11 @@ module Dromedary
       @entry.senses
     end
 
+    # @return [Array<MiddleEnglishDictionary::Sense|SenseGrp|Supplement|Note>]
+    def sensestuff
+      @entry.sensestuff
+    end
+
 
     # @return [Integer] The number of quotes across all senses
     def quote_count
@@ -123,7 +128,7 @@ module Dromedary
     # @return [Array<String>] The headwords as taken from the "highlight"
     # section of the solr return (with embedded tags for highlighting)
     def highlighted_official_headword
-      Array(hl_field(document,'official_headword')).first
+      Array(hl_field(document,'headword')).first
     end
 
 

@@ -50,52 +50,16 @@
   </div>
 
 
-  <!--
-  If we have senses
-    display the heading
-    foreach sense
-      show the definition
-      if we have egs
-        show the collapse/expand link
-        foreach eg
-          display the eg subsense tag (if any)
-          foreach cite
-            display the cite
-
-  One partial for the sense
-    ...with one for an eg
-    ...with one for a cite
-    
-  -->
-
   <%# Get get senses plus their quotes and display %>
-  <% unless doc_presenter.senses.size == 0 %>
-    <div class="senses">
-      <h3 class="entry-senses-title">Definitions (Senses and Subsenses)</h3>
 
-      <% doc_presenter.senses.each_with_index do |sense, index| %>
-        <%= render "catalog/show_entry/sense.html.erb", sense: sense, index: index, presenter: doc_presenter %>
-      <% end %>
-    </div>
+  <div class="senses">
+    <h3 class="entry-senses-title">Definitions (Senses and Subsenses)</h3>
 
-  <% end %>
+    <%= render "catalog/show_entry/sensestuff.html.erb",
+               presenter: doc_presenter %>
 
-
-  <%# Get supplement and display %>
-  <% show_sups = true %>
-  <% sups = ent.supplements %>
-  <% show_sups = !(sups.nil? || sups.empty?) %>
-
-
-  <% if show_sups %>
-    <h3 class="entry-supplemental-title">Supplemental Materials (draft)</h3>
-    <div class="supplements-all">
-    <% sups.each do |sup| %>
-      <div class="entry-supplement">
-        <%== doc_presenter.supplement_html(sup) %>
-      </div>
-    <% end %>
-    </div>
-  <% end %>
 
   </div>
+
+
+</div>
