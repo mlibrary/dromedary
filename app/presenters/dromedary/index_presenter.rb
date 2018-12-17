@@ -75,7 +75,6 @@ module Dromedary
     end
 
 
-
     # @param [MiddleEnglishDictionary::Entry::Supplement] supplement The supplement object
     # @return [String, nil] The supplement transformed into HTML, or nil
     def supplement_html(supplement)
@@ -111,7 +110,6 @@ module Dromedary
     end
 
 
-
     ### XSL  ###
 
     # Given an xpath in the @entry nokonode (sent to #doc_from_xpath) and
@@ -128,7 +126,7 @@ module Dromedary
     # @return [Array<String>] The headwords as taken from the "highlight"
     # section of the solr return (with embedded tags for highlighting)
     def highlighted_official_headword
-      Array(hl_field(document,'headword')).first
+      Array(hl_field(document, 'headword')).first
     end
 
 
@@ -138,6 +136,14 @@ module Dromedary
       hl_field(document, 'headword').reject {|w| w == highlighted_official_headword}
     end
 
+    def headword_display(document)
+      hw = entry.original_headwords.join(", ")
+      if document.has_key?('dubious')
+        "?#{hw}"
+      else
+        hw
+      end
+    end
   end
 end
 

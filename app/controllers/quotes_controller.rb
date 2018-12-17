@@ -80,7 +80,7 @@ class QuotesController < ApplicationController
     #             Views and Presenters              #
     # ############################################# #
     #
-    blacklight_config.index.document_presenter_class = Dromedary::Quotes::IndexPresenter
+    config.index.document_presenter_class = Dromedary::Quotes::IndexPresenter
 
   end
 end

@@ -33,13 +33,6 @@ module CommonPresenters
     end
   end
 
-  def headword_display(document)
-    hw = entry.original_headwords.join(", ")
-    if document.has_key?('dubious')
-      "?#{hw}"
-    else
-      hw
-    end
-  end
+
 
 end
