@@ -54,7 +54,7 @@ gem 'blacklight', "~> 6.1"
 # For bin/dromedary
 gem 'hanami-cli'
 gem 'concurrent-ruby'
-gem 'rubyzip'
+gem 'rubyzip', "~> 1.2.2"
 gem 'nokogiri'
 
 
