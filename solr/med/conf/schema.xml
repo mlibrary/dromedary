@@ -192,10 +192,6 @@
 
 
   <!--Headwords and orths-->
-  <field name="official_headword" type="me_headword" indexed="true" stored="true" multiValued="true"/>
-  <field name="official_headword_exactish" type="me_headword_exactish" indexed="true" stored="false" multiValued="true"/>
-  <copyField source="official_headword" dest="official_headword_exactish"/>
-
   <field name="headword"     type="me_headword" indexed="true" stored="true" multiValued="true"/>
   <field name="headword_exactish" type="me_headword_exactish" indexed="true" stored="true" multiValued="true"/>
   <copyField source="headword" dest="headword_exactish"/>

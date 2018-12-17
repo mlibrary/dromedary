@@ -1,0 +1,17 @@
+<%# Given  sensegrp: ss, index: index, presenter: doc_presenter  %>
+
+
+<div class="sense sensegrp">
+  <div class="entry-senses sensegrp-line">
+    <div class="sense-number"><%= sensegrp.sensegrp_number %>.</div>
+    <div class="definition"><%== presenter.def_html(sensegrp) %></div>
+  </div>
+
+  <div class="entry-senses">
+    <% sensegrp.senses.each_with_index do |sense, i| %>
+      <%= render "catalog/show_entry/sense.html.erb",
+                 sense: sense, index: i, presenter: presenter %>
+    <% end %>
+  </div>
+</div>
+

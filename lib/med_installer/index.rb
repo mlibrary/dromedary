@@ -93,7 +93,7 @@ module MedInstaller
       end
 
       def call(debug:)
-        HypToBibID.new(command_name: "hyp_to_bib_id").call(bibfile: bibfile)
+        HypToBibID.new(command_name: "hyp_to_bib_id").call
         raise "Solr at #{AnnoyingUtilities.blacklight_solr_url} not up" unless AnnoyingUtilities.solr_core.up?
         writer = select_writer(debug)
         fields = indexing_rules_file

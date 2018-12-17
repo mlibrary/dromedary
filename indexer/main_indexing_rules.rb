@@ -52,9 +52,8 @@ end
 
 
 # headwords and forms
-to_field 'official_headword', entry_method(:original_headwords)
 to_field 'headword', entry_method(:regularized_headwords)
-to_field 'orth', entry_method(:all_forms)
+to_field 'orth', entry_method(:all_regularized_forms)
 
 
 # Dubious entry?
@@ -71,7 +70,7 @@ end
 
 to_field 'word_suggestions', entry_method(:all_forms)
 to_field('headword_only_suggestions') do |entry, acc|
-  hw = [entry.regularized_headwords, entry.original_headwords].flatten.uniq
+  hw = entry.regularized_headwords
   acc.replace hw
 end
 
@@ -183,7 +182,7 @@ each_record do |entry, context|
       end
     end
 
-    q.headword = entry.original_headwords
+    q.headword = entry.headwords
     q.pos      = entry.pos
     q.dubious = 'Y' if context.clipboard[:dubious]
     quote_indexer.put(q, context.position)
