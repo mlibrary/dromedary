@@ -1,0 +1,13 @@
+<%# Given presenter: doc_presenter  %>
+
+<div class="sense">
+  <% presenter.sensestuff.each_with_index do |ss, index| %>
+    <% base_class_name = ss.class.name.split(/::/).last.downcase %>
+    <% if base_class_name == "SENSE" %>
+      <%= render "catalog/show_entry/sense.html.erb", sense: ss, index: index, presenter: presenter %>
+    <% else %>
+      <%= render "catalog/show_entry/#{ss.class.name.split(/::/).last.downcase}.html.erb",
+                 sense: ss, sensegrp: ss, supplement: ss, note: ss, index: index, presenter: presenter %>
+    <% end %>
+  <% end %>
+</div>

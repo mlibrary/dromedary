@@ -1,8 +1,10 @@
-<%# We pass in
-        * the sense,
+<%#
+
+Given  sense: ss, index: index, presenter: doc_presenter
+
+        * the sense (as "doc"),
         * its index in the senses array (zero-based),
         * and the document presenter (for access to the #*_html methods).
-
 
       A sense has
         * a sense-number
@@ -15,6 +17,7 @@
   num_citations = sense.egs.flat_map(&:quotes).size
   uid = [sense.sense_number.to_s, index, 'toggle'].join('-')
 %>
+
 
 <div class="sense">
   <div class="entry-senses">
