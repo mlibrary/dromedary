@@ -40,7 +40,9 @@ module MedInstaller
         target = Remote.validate_target!(target)
         logger.info "Deploying #{branch} to #{target.upcase}"
         sleep(Remote::PANIC_PAUSE)
-        system "ssh deployhost deploy -v dromedary-#{target} #{branch}"
+        cmd = "ssh deployhost deploy -v dromedary-#{target} #{branch}"
+        logger.info cmd
+        system cmd
       end
     end
 
