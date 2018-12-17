@@ -254,7 +254,7 @@ GEM
     ruby-prof (0.17.0)
     ruby-progressbar (1.9.0)
     ruby_dep (1.5.0)
-    rubyzip (1.2.1)
+    rubyzip (1.2.2)
     sass (3.5.6)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -364,7 +364,7 @@ DEPENDENCIES
   rspec-rails (~> 3.6)
   rubocop
   ruby-prof
-  rubyzip
+  rubyzip (~> 1.2.2)
   sass-rails (~> 5.0)
   selenium-webdriver
   semantic_logger
