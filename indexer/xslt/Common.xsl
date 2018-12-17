@@ -8,10 +8,10 @@
            ########################-->
 
     <!--need to fix rend stuff but try this for now
-    
+
     85975 <HI REND="B">
  502 <HI REND="I">
- 
+
  238 <HI REND="S">
  166 <HI REND="SUP">
  20 <HI REND="b">
@@ -98,7 +98,7 @@ USG tags
 
     <xsl:template match="//NOTE">
         <div class="NOTE">
-            <xsl:text> </xsl:text><span class="note-title">Note</span>:
+            <xsl:text> </xsl:text><span class="note-title">Note: </span>
             <xsl:apply-templates/>
         </div>
     </xsl:template>
