@@ -3,7 +3,7 @@
 
 <div class="sense sensegrp">
   <div class="entry-senses sensegrp-line">
-    <div class="sense-number"><%= sensegrp.sensegrp_number %>.</div>
+    <div class="sense-number"><%= sensegrp.sensegrp_number.nil? ? '' : "#{sensegrp.sensegrp_number}." %></div>
     <div class="definition"><%== presenter.def_html(sensegrp) %></div>
   </div>
 
