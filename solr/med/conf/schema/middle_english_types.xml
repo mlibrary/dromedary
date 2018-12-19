@@ -98,6 +98,21 @@
 </analyzer>
 </fieldType>
 
+<!-- An exactish headword, but preserve leading- and trailing- dashes -->
+<fieldType name="me_prefix_suffix" class="solr.TextField" positionIncrementGap="&tpig;">
+  &middle_english_char_substitution_patterns;
+  <charFilter class="solr.ICUNormalizer2CharFilterFactory"/>
+  <tokenizer class="solr.KeywordTokenizerFactory"/>
+  <filter class="solr.ICUFoldingFilterFactory"/>
+  <filter class="solr.KeywordRepeatFilterFactory"/>
+  <!-- Some punctuation that should be turned into a space (just |). -->
+  <filter class="solr.PatternReplaceFilterFactory"
+          pattern="([\|])" replacement=" " replace="all"
+  />
+  <filter class="solr.TrimFilterFactory"/>
+</fieldType>
+
+
 
 
 <fieldType name="me_sort" class="solr.TextField"
