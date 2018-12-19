@@ -1,4 +1,5 @@
 <str name="everything_qf">
+  prefix_suffix^90
   headword_exactish^50
   headword^10
   orth^7
@@ -10,6 +11,7 @@
 </str>
 
 <str name="everything_pf">
+  prefix_suffix^90
   headword_exactish^50
   headword^10
   orth^7
