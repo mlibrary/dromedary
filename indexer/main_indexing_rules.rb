@@ -55,6 +55,18 @@ end
 to_field 'headword', entry_method(:regularized_headwords)
 to_field 'orth', entry_method(:all_regularized_forms)
 
+# suffixes and prefixes
+# So, we also want to prefer a suffix or prefix (start or ending
+# with a dash) on a headword, so we'll send it up again with
+# the dash escaped.
+
+to_field 'prefix_suffix' do |entry, acc|
+  entry.regularized_headwords.each do |hw|
+    if hw =~ /\A\-/ or hw =~ /\-\Z/
+      acc << hw
+    end
+  end
+end
 
 # Dubious entry?
 each_record do |entry, context|
