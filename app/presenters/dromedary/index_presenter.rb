@@ -58,6 +58,10 @@ module Dromedary
       xsl_transform_from_entry('/ENTRYFREE/ETYM', load_xslt('EtymOnly.xsl'))
     end
 
+    def language_abbreviations
+      entry.etym_languages
+    end
+
 
     # @param [MiddleEnglishDictionary::Entry::Sense,MiddleEnglishDictionary::Entry::SenseGrp] sense The sense whose def you want
     # @return [SmartXML, nil] The definition transformed into HTML, or nil

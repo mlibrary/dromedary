@@ -1254,7 +1254,7 @@ span.filterValue {
     background-color: #f2f2f2;
   }
 
-  .sensegrp-line + .entry-senses {
+  .sensegrp .sense:first-of-type .entry-senses {
     border-top: none;
   }
 
