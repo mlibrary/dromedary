@@ -47,8 +47,8 @@ gem 'rails', '~> 5.1.4'
 gem 'sprockets', '~>3.7.2'
 
 
-
-gem 'blacklight', "~> 6.1"
+# They messed with the auto-suggest code, so we're stuck here for a while
+gem 'blacklight', "~> 6.15.0"
 
 
 # For bin/dromedary
