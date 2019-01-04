@@ -14,12 +14,6 @@ end
 # gem 'middle_english_dictionary', path: "/Users/dueberb/devel/med/middle_english_dictionary"
 gem 'middle_english_dictionary', '~>1.8.0'
 
-# Deal with security alerts
-#
-# https://nvd.nist.gov/vuln/detail/CVE-2018-16468
-
-gem 'loofah', '~>2.2', '>=2.2.3'
-
 # https://nvd.nist.gov/vuln/detail/CVE-2018-16471
 
 gem 'rack', '~>2.0', '>=2.0.6'
@@ -34,6 +28,9 @@ gem 'loofah', '~>2.2', '>=2.2.3'
 
 gem 'rack', '~>2.0', '>=2.0.6'
 
+
+# Force not-using-bundler-2 until deployment gets fixed
+gem 'bundler', '~> 1.0'
 
 # Use Ettin for configuration
 #

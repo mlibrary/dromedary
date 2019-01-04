@@ -357,6 +357,7 @@ PLATFORMS
 DEPENDENCIES
   awesome_print
   blacklight (~> 6.15.0)
+  bundler (~> 1.0)
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
   concurrent-ruby
@@ -399,4 +400,4 @@ DEPENDENCIES
   xpath_list
 
 BUNDLED WITH
-   2.0.1
+   1.17.3
