@@ -68,7 +68,7 @@ en:
         header: Using the Middle English Dictionary
         operators-heading: Expanded search options for phrases, wildcards, etc.
         general-heading: General search information
-        special-characters-heading: Special characters (Þ, Ð, Ȝ, etc.), accents, and ambigous letters
+        special-characters-heading: Character equivalencies, special characters (Þ, Ð, Ȝ, etc.), accents, and ambigous letters
       about-med:
         title: About the Middle English Compendium
         header: About the Middle English Compendium
@@ -81,18 +81,18 @@ en:
       rights:
         title: Rights Statement
         header: Rights Statement
-      donors: 
+      donors:
         title: About The Kemp Family Foundation
         header: About The Kemp Family Foundation
-      using-page-viewer: 
+      using-page-viewer:
         title: Page Viewer, Plain Text & Download Help
         header: Page Viewer, Plain Text & Download Help
       contact:
         title: Contact Us
         header: Contact Us
       how-to-search:
-        title: How to Search  
-        header: How to Search  
+        title: How to Search
+        header: How to Search
       home:
         title: Home Page
         header: Home Page
@@ -116,5 +116,5 @@ en:
         page_title: Why Log In to the Michigan Daily Digital Archives?
         login_text: Continue to Login
         no_login_text: <i aria-ignore="true" class="glyphicon glyphicon-arrow-left"></i> Return to Previous Page
-  rights_statement: 
+  rights_statement:
     midaily: 'This collection, digitized in collaboration with the Michigan Daily and the Board of Student Publications, contains materials that are protected by copyright law. The Bentley Library provides access to digital collections where materials are in the public domain or the Bentley Library is permitted to provide access to the materials, either by the rightsholder or by copyright law. If you use an item from this collection, it is your responsibility to consider the work’s copyright status and obtain any required permission. If you have concerns about the inclusion of an item in this collection, please contact the Bentley Historical Library at bentley.ref@umich.edu.'
