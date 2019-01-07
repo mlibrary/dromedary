@@ -62,6 +62,13 @@ module Dromedary
       entry.etym_languages
     end
 
+    # Get a language_abbrev=>language mapping
+    def language_mapping
+      @nokonode.xpath('//ETYM/LANG/LG').each_with_object({}) do |n, h|
+        h[n.text] = n['EXPAN']
+      end
+    end
+
 
     # @param [MiddleEnglishDictionary::Entry::Sense,MiddleEnglishDictionary::Entry::SenseGrp] sense The sense whose def you want
     # @return [SmartXML, nil] The definition transformed into HTML, or nil

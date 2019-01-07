@@ -236,7 +236,6 @@ ul.header-nav-secondary li:hover {
   background-color: #fff;
   padding: 1em 0 .5em;
 
-
   h3 {
     text-align: center;
     font-weight: bold;
@@ -264,7 +263,6 @@ ul.header-nav-secondary li:hover {
   a:visited {
     background-color: transparent;
   }
-
 
   img.fund-icon {
     padding: .5em 1em;
@@ -805,7 +803,6 @@ div.zero-results {
   }
 }
 
-
 /** Dictionary Results **/
 
 .documents-list {
@@ -1303,7 +1300,6 @@ span.filterValue {
     border-bottom: .5px solid #e3e3e3;
     padding: .5em 0;
 
-
     li, .NOTE {
       padding-top: 1em;
     }
@@ -1394,6 +1390,19 @@ table.table.table-striped,
   a.external-link {
     font-size: 1.15em;
   }
+}
+
+.language-map {
+  font-size: 80%;
+
+  dt {
+    font-weight: bold;
+    margin-top: 0.5em;
+  }
+  dd {
+    margin-left: 1em
+  }
+
 }
 
 #citationLink:before {
@@ -1665,7 +1674,6 @@ ul.about-list {
 }
 
 /** Media Queries **/
-
 
 @media only screen and (max-width: 1000px) {
 

@@ -2,7 +2,7 @@
 <% ent = doc_presenter.entry %>
 
 <% if ent.oedlinks or ent.doelinks %>
-  <div class="panel panel-default show-related">
+  <div class="panel panel-default">
     <h3 class="panel-heading">Related Dictionary Entries</h3>
     <div class="panel-body">
 
@@ -14,7 +14,8 @@
           <% ent.oedlinks.each do |elink| %>
             <% oed_href = "http://www.oed.com/view/Entry/#{elink.target_id}" %>
             <li>
-              <a class="external-link" href=<%= oed_href %>><%== elink.term %> <img alt="Opens in a new window" src="/m/middle-english-dictionary/assets/external-link-blue-622a2080eed310c988c4462b76250bc28f3056e81fbd9b461b73ca2a1d9c6b99.svg"></a>
+              <a class="external-link" href=<%= oed_href %>><%== elink.term %>
+                <img alt="Opens in a new window" src="/m/middle-english-dictionary/assets/external-link-blue-622a2080eed310c988c4462b76250bc28f3056e81fbd9b461b73ca2a1d9c6b99.svg"></a>
             </li>
           <% end %>
         </ul>
@@ -26,11 +27,30 @@
           <% ent.doelinks.each do |elink| %>
             <% oed_href = "http://tapor.library.utoronto.ca/doe/?E#{elink.target_id}" %>
             <li>
-              <a class="external-link" href=<%= oed_href %>><%== elink.term %> <img alt="Opens in a new window" src="/m/middle-english-dictionary/assets/external-link-blue-622a2080eed310c988c4462b76250bc28f3056e81fbd9b461b73ca2a1d9c6b99.svg"></a>
+              <a class="external-link" href=<%= oed_href %>><%== elink.term %>
+                <img alt="Opens in a new window" src="/m/middle-english-dictionary/assets/external-link-blue-622a2080eed310c988c4462b76250bc28f3056e81fbd9b461b73ca2a1d9c6b99.svg"></a>
             </li>
           <% end %>
         </ul>
       <% end %>
+
+    </div>
+  </div>
+<% end %>
+
+<% language_mapping = doc_presenter.language_mapping %>
+
+<% if !language_mapping.empty? %>
+  <div class="panel panel-default">
+    <h3 class="panel-heading">Language abbreviation key</h3>
+    <div class="panel-body language-map">
+      <dl>
+        <% language_mapping.keys.sort.each do |abbr| %>
+            <dt><%= abbr %></dt>
+            <dd><%= language_mapping[abbr] %></dd>
+        <% end %>
+      </dl>
+
 
     </div>
   </div>
