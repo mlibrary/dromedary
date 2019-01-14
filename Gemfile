@@ -49,7 +49,7 @@ gem 'blacklight', "~> 6.15.0"
 
 
 # For bin/dromedary
-gem 'hanami-cli'
+gem 'hanami-cli', "0.2.0" # peg it until I can figure out what's wrong.
 gem 'concurrent-ruby'
 gem 'rubyzip', "~> 1.2.2"
 gem 'nokogiri'
