@@ -7,6 +7,11 @@ require_relative "logger"
 
 Zip.on_exists_proc = true
 
+
+# update 2019_updates u, slip_rights sr
+# set sr.attr = u.rights_current_attr
+# where u.slip_rights_attr <> sr.attr and u.full_id = sr.nid;
+
 module MedInstaller
   class Solr
     extend MedInstaller::Logger

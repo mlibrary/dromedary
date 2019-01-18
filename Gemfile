@@ -24,11 +24,6 @@ gem 'rack', '~>2.0', '>=2.0.6'
 
 gem 'loofah', '~>2.2', '>=2.2.3'
 
-# https://nvd.nist.gov/vuln/detail/CVE-2018-16471
-
-gem 'rack', '~>2.0', '>=2.0.6'
-
-
 # Force not-using-bundler-2 until deployment gets fixed
 gem 'bundler', '~> 1.0'
 
@@ -49,8 +44,7 @@ gem 'blacklight', "~> 6.15.0"
 
 
 # For bin/dromedary
-gem 'hanami-cli', "0.2.0" # peg it until I can figure out what's wrong.
-gem 'concurrent-ruby'
+gem 'hanami-cli', "0.2.0" # peg it until I we can update to 3.
 gem 'rubyzip', "~> 1.2.2"
 gem 'nokogiri'
 
@@ -59,14 +53,14 @@ gem 'nokogiri'
 gem "html_truncator", "~>0.2"
 
 # For solr indexing
-gem 'simple_solr_client', require: false
-gem 'traject', require: false
-if defined? JRUBY_VERSION
-  gem 'traject-marc4j_reader'
-end
+gem 'simple_solr_client', require: false # only for bin/dromedary stuff
+gem 'traject', require: false # only for indexing
+# if defined? JRUBY_VERSION
+#   gem 'traject-marc4j_reader'
+# end
 
 # Building lists of xpaths
-gem 'xpath_list', require: false
+gem 'xpath_list', require: false # only for data analysis
 
 
 # Semantic logging?
@@ -137,7 +131,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  gem 'capybara', '~> 2.13'
+  # gem 'capybara', '~> 2.13' # no longer deploying like this.
   gem 'selenium-webdriver'
   gem "rspec-rails", "~> 3.6"
 end
