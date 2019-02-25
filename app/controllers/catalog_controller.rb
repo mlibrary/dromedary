@@ -321,5 +321,15 @@ class CatalogController < ApplicationController
 
     # Autocomplete on multiple fields. See config/autocomplete.yml
     config.autocomplete = ActiveSupport::HashWithIndifferentAccess.new Rails.application.config_for(:autocomplete)
+
+
+
+    # Override show to deal with 404
+
+    def show(*args)
+      super()
+    rescue Blacklight::Exceptions::RecordNotFound => e
+      render "404", layout: 'static', status: 404, locals: {e: e, args: args, id: params['id']}
+    end
   end
 end
