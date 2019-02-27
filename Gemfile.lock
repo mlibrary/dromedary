@@ -369,6 +369,7 @@ DEPENDENCIES
   puma (~> 3.7)
   rack (~> 2.0, >= 2.0.6)
   rails (~> 5.1.4)
+  rake (~> 12.3)
   rsolr (>= 1.0)
   rspec-rails (~> 3.6)
   rubocop
