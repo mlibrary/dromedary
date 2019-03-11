@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     # Rails doesn't allow dots in matched ids by default, because reasons.
     # Override the id matcher with an explicit constraint.
     match "dictionary/:id(/)(track)" => 'catalog#show',
-          :constraints                   => {:id => /[\p{Alnum}\-\.]+/}, via: [:get, :post]
+          :constraints                   => {:id => /MED[\p{Alnum}\-\.]+/}, via: [:get, :post]
 
     match "bibliography/:id(/*rest)" => 'bibliography#show', as: :bib_link,
           :constraints               => {:id => /(?:BIB|HYP)[T\d\-\.]+/i}, via: [:get, :post]
@@ -81,7 +81,7 @@ Rails.application.routes.draw do
     # 404s
 
     match "quotations/*path" => "quotes#show404", via: [:get, :post]
-    match "catalog/*path" => "catalog#show404", via: [:get, :post]
+    match "dictionary/*path" => "catalog#show404", via: [:get, :post]
     match "bibliography/*path" => 'bibliography#show404', via: [:get, :post]
 
     # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
