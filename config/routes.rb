@@ -83,6 +83,8 @@ Rails.application.routes.draw do
     match "quotations/*path" => "quotes#show404", via: [:get, :post]
     match "dictionary/*path" => "catalog#show404", via: [:get, :post]
     match "bibliography/*path" => 'bibliography#show404', via: [:get, :post]
+    match "*path" => 'catalog#show404', via: [:get, :post]
+
 
     # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   end
