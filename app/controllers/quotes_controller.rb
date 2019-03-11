@@ -82,5 +82,9 @@ class QuotesController < ApplicationController
     #
     config.index.document_presenter_class = Dromedary::Quotes::IndexPresenter
 
+    def show404(*args)
+      render "application/404", layout: 'static', status: 404, locals: {args: args, id: params['id']}
+    end
+
   end
 end

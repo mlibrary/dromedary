@@ -331,5 +331,10 @@ class CatalogController < ApplicationController
     rescue Blacklight::Exceptions::RecordNotFound => e
       render "404", layout: 'static', status: 404, locals: {e: e, args: args, id: params['id']}
     end
+
+    def show404(*args)
+      render "application/404", layout: 'static', status: 404, locals: {args: args, id: params['id']}
+    end
+
   end
 end
