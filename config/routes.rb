@@ -78,6 +78,12 @@ Rails.application.routes.draw do
     get 'help/:page' => 'help#help_page', as: :help
     get 'static/:action' => 'static', as: :static
 
+    # 404s
+
+    match "quotations/*path" => "quotes#show404", via: [:get, :post]
+    match "catalog/*path" => "catalog#show404", via: [:get, :post]
+    match "bibliography/*path" => 'bibliography#show404', via: [:get, :post]
+
     # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   end
 end
