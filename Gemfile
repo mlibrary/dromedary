@@ -34,9 +34,10 @@ gem 'rake', '~> 12.3'
 #
 gem 'ettin'
 
-# Rails and blacklight and such
+# Rails
+#  https://groups.google.com/forum/#!topic/rubyonrails-security/GN7w9fFAQeI)
 
-gem 'rails', '~> 5.1.4'
+gem 'rails', '~> 5.1.6.2'
 
 # Security vulnerability CVE-2018-3760
 gem 'sprockets', '~>3.7.2'
