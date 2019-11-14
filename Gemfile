@@ -6,24 +6,36 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+###############################
+# SECURITY ALERTS
+##############################
+# https://nvd.nist.gov/vuln/detail/CVE-2018-16471
+gem 'rack', '~>2.0', '>=2.0.6'
+
+# https://nvd.nist.gov/vuln/detail/CVE-2018-16468
+# gem 'loofah', '~>2.2', '>=2.2.3'
+# https://github.com/advisories/GHSA-c3gv-9cxf-6f57
+gem "loofah", ">= 2.3.1"
+
+# https://github.com/advisories/GHSA-cr5j-953j-xw5p
+gem "nokogiri", ">= 1.10.4"
+
+# https://github.com/advisories/GHSA-5m2v-hc64-56h6
+gem 'rubyzip', "~> 1.3"
+
+# https://github.com/advisories/GHSA-r74q-gxcg-73hx
+gem 'simple_form', '~>5.0'
+
 #############################################
 # Non-default stuff added by the Dromedary team
+#############################################
 
 # When developing in tandem, a relative path is nice and easy
 
 # gem 'middle_english_dictionary', path: "/Users/dueberb/devel/med/middle_english_dictionary"
 gem 'middle_english_dictionary', '~>1.8.0'
 
-# https://nvd.nist.gov/vuln/detail/CVE-2018-16471
-
-gem 'rack', '~>2.0', '>=2.0.6'
-
-# Deal with security alerts
-#
-# https://nvd.nist.gov/vuln/detail/CVE-2018-16468
-
-gem 'loofah', '~>2.2', '>=2.2.3'
-
+# Use bundler 2
 gem 'bundler', '~> 2.0'
 
 # ,,, and explicitly pull in rake
@@ -48,8 +60,6 @@ gem 'blacklight', "~> 6.15.0"
 
 # For bin/dromedary
 gem 'hanami-cli', "0.2.0" # peg it until I we can update to 3.
-gem 'rubyzip', "~> 1.2.2"
-gem 'nokogiri'
 
 
 # For truncating html safely (making sure tags are balanced, etc.)
@@ -76,7 +86,6 @@ gem 'lograge', ">=0.11.1"
 
 # Contacts Email
 gem 'mail_form', '1.7.0'
-gem 'simple_form', '3.5.1'
 # Extendable layouts
 gem 'nestive', '0.6.0'
 
@@ -106,7 +115,7 @@ if defined? JRUBY_VERSION
   gem 'jdbc-sqlite3'
   gem 'jdbc-mysql'
 else
-  gem 'sqlite3'
+  gem 'sqlite3',  '~>1.3.13'
   # AR won't work with the latest mysql2, apparently
   # See https://stackoverflow.com/questions/49407254/gemloaderror-cant-activate-mysql2-0-5-0-3-18-already-activated-mysq
   gem 'mysql2', '< 0.5.0', require: false
