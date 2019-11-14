@@ -24,8 +24,7 @@ gem 'rack', '~>2.0', '>=2.0.6'
 
 gem 'loofah', '~>2.2', '>=2.2.3'
 
-# Force not-using-bundler-2 until deployment gets fixed
-gem 'bundler', '~> 1.0'
+gem 'bundler', '~> 2.0'
 
 # ,,, and explicitly pull in rake
 gem 'rake', '~> 12.3'
@@ -73,7 +72,7 @@ gem 'semantic_logger'
 
 
 
-gem 'lograge'
+gem 'lograge', ">=0.11.1"
 
 # Contacts Email
 gem 'mail_form', '1.7.0'
