@@ -115,7 +115,7 @@ if defined? JRUBY_VERSION
   gem 'jdbc-sqlite3'
   gem 'jdbc-mysql'
 else
-  gem 'sqlite3'
+  gem 'sqlite3',  '~>1.3.13'
   # AR won't work with the latest mysql2, apparently
   # See https://stackoverflow.com/questions/49407254/gemloaderror-cant-activate-mysql2-0-5-0-3-18-already-activated-mysq
   gem 'mysql2', '< 0.5.0', require: false
