@@ -187,7 +187,8 @@ GEM
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     public_suffix (4.0.1)
-    puma (3.12.1)
+    puma (4.1.0)
+      nio4r (~> 2.0)
     rack (2.0.7)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -355,10 +356,11 @@ DEPENDENCIES
   middle_english_dictionary (~> 1.8.0)
   mysql2 (< 0.5.0)
   nestive (= 0.6.0)
+  nio4r (= 2.5.2)
   nokogiri (>= 1.10.4)
   pry-byebug
   pry-rails
-  puma (~> 3.7)
+  puma (= 4.1.0)
   rack (~> 2.0, >= 2.0.6)
   rails (~> 5.1.6.2)
   rake (~> 12.3)
@@ -382,4 +384,4 @@ DEPENDENCIES
   xpath_list
 
 BUNDLED WITH
-   2.0.1
+   2.0.2
