@@ -43,7 +43,7 @@ module MedInstaller
       entries_tmpfile = Pathname(Dir.tmpdir) + 'entries.json.tmp'
       entries_outfile = Zlib::GzipWriter.open(entries_tmpfile)
 
-      entries_targetfile = AnnoyingUtilities.entries_path
+      entries_targetfile =  AnnoyingUtilities.data_dir + 'entries.json.gz'
 
       oedfile = find_oed_file(source_data_path)
       logger.info "Loading OED links from #{oedfile} so we can push them into entries"
