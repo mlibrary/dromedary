@@ -19,8 +19,17 @@ module AnnoyingUtilities
 
   extend self
 
-  def data_dir
+  attr_accessor :data_dir
+  def data_dir=(path)
+    @data_dir = Pathname.new(path).realpath
+  end
+
+  def live_data_dir
     Pathname.new(Dromedary.config.data_dir).realpath
+  end
+
+  def data_dir
+    @data_dir || live_data_dir
   end
 
   def solr_dir
@@ -28,7 +37,7 @@ module AnnoyingUtilities
   end
 
   def maintenance_mode_flag_file
-    data_dir + 'MAINTENANCE_MODE_ENABLED'
+    live_data_dir + 'MAINTENANCE_MODE_ENABLED'
   end
 
   def maintenance_mode_enabled?

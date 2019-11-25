@@ -19,6 +19,8 @@ module MedInstaller
     def call(zipfile:, datadir:)
       datapath = Pathname.new(datadir) + 'xml'
       datapath.mkpath
+
+      logger.info "Extract: read from #{zipfile}, target #{datapath}"
       Dir.mktmpdir do |tmpdir|
 
         zpath = Pathname.new(tmpdir) + 'med'

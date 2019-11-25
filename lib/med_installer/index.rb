@@ -170,7 +170,6 @@ module MedInstaller
         commit
         logger.info "Done"
       end
-
     end
 
     # -----
@@ -197,7 +196,7 @@ module MedInstaller
 
 
       def write_hyp_to_bib_id
-        logger.info "Writing hyp_to_bibid mapping at #{AnnoyingUtilities.hyp_to_bibid_path}"
+        logger.info "Creating and writing hyp_to_bibid mapping at #{AnnoyingUtilities.hyp_to_bibid_path}"
         File.open(AnnoyingUtilities.hyp_to_bibid_path, 'w:utf-8') do |out|
           out.puts hyp_to_bibid.to_json
         end

@@ -73,7 +73,7 @@ MedInstaller::CLI.register 'solr shell', MedInstaller::Solr::Shell
 MedInstaller::CLI.register 'extract', MedInstaller::Extract, aliases: ['unzip']
 MedInstaller::CLI.register 'convert', MedInstaller::Convert, aliases: ['json']
 
-
+MedInstaller::CLI.register 'extract_convert_index', MedInstaller::ExtractConvertIndex, aliases: ['load_new_data']
 
 Hanami::CLI.new(MedInstaller::CLI).call
 
