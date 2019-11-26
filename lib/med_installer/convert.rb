@@ -68,7 +68,7 @@ module MedInstaller
         begin
           entries_outfile.puts entry.to_json unless entry == :bad_entry
         rescue => e
-          require 'pry'; binding.pry
+          logger.error e.full_message
         end
       end
       logger.info "Finished converting #{count} entries."
@@ -114,9 +114,8 @@ module MedInstaller
       logger.error e.message
       return :bad_entry
     rescue => e
-      puts e
-      require 'pry'; binding.pry
-      puts "Error in #{entry.source}"
+      logger.error e.full_message
+      raise e
     end
 
 
