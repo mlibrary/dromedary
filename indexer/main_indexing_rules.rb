@@ -190,7 +190,8 @@ each_record do |entry, context|
           logger.warn "RID #{rid} in #{entry.source} not found in bib_all.xml"
         end
       rescue => e
-        require 'pry'; binding.pry
+        logger.error e.full_message
+        raise e
       end
     end
 
