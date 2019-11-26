@@ -40,8 +40,8 @@ module MedInstaller
       logger.info "Setting to maintenance mode during indexing"
       MedInstaller::Control::MaintenanceModeOn.new(command_name: 'maintenance_mode on').call('on')
 
-      logger.info "Copying generated files to build dir"
-      %w[entries.json.gz bib_all.xml].each do |f|
+      logger.info "Copying bib_all.xml to build dir #{build_dir}"
+      %w[bib_all.xml].each do |f|
         path = xmldir + f
         FileUtils.copy path, build_dir
       end
@@ -51,8 +51,11 @@ module MedInstaller
       logger.info "...done"
 
       logger.info "Copying files to live site"
-      %w[entries.json.gz bib_all.xml].each do |f|
+      %w[entries.json.gz bib_all.xml hyp_to_bibid.json].each do |f|
         path = build_dir + f
+        if ! path.exist?
+          logger.warn "File #{path} not found, can't be copied to #{original_data_dir}"
+        end
         FileUtils.copy path, original_data_dir
       end
 
