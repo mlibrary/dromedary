@@ -19,7 +19,7 @@ module MedInstaller
            desc:     "Force indexing even if the files in build aren't newer than those currently in this instance's data_dir"
 
     def call(force:)
-      MedInstaller::CopyFromBuild.call(force: force)
+      MedInstaller::CopyFromBuild.new(command_name: 'copy_from_build').call(force: force)
       MedInstaller::Index::Full.new(command_name: "index full").call(debug: false, existing_hyp_to_bibid: false)
     end
 
