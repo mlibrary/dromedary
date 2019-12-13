@@ -78,7 +78,15 @@ Rails.application.routes.draw do
     get 'help/:page' => 'help#help_page', as: :help
     get 'static/:action' => 'static', as: :static
 
+<<<<<<< Updated upstream
     # 404s
+=======
+    # Force a reload of the hyp-to-bibid mapping
+
+    get 'admin/reload_hyp_to_bibid' => 'admin#reload_hyp_to_bibid', as: :reload_hyp_to_bibid
+
+    # 404s -- will only match if nothing else did
+>>>>>>> Stashed changes
 
     match "quotations/*path" => "quotes#show404", via: [:get, :post]
     match "dictionary/*path" => "catalog#show404", via: [:get, :post]

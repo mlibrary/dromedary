@@ -84,7 +84,13 @@ MedInstaller::CLI.register 'solr shell', MedInstaller::Solr::Shell
 MedInstaller::CLI.register 'extract', MedInstaller::Extract, aliases: ['unzip']
 MedInstaller::CLI.register 'convert', MedInstaller::Convert, aliases: ['json']
 
+
+# So people can actually do stuff
+
 MedInstaller::CLI.register 'extract_convert_index', MedInstaller::ExtractConvertIndex, aliases: ['load_new_data']
+
+MedInstaller::CLI.register 'newdata prepare_new_data', MedInstaller::PrepareNewData
+MedInstaller::CLI.register 'newdata index_new_data', MedInstaller::CopyFromBuild
 
 Hanami::CLI.new(MedInstaller::CLI).call
 
