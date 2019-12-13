@@ -25,7 +25,8 @@ module MedInstaller
 
     def self.remote_exec(target, cmd)
       logger.info "Telling #{target} to run #{cmd}"
-      full_command = "ssh deployhost exec -v --env=RAILS_ENV:production dromedary-#{target} app ruby #{cmd}"
+      #full_command = "ssh deployhost exec -v --env=RAILS_ENV:production dromedary-#{target} app ruby #{cmd}"
+      full_command = %Q[ssh deployhost exec -v dromedary-#{target} "#{cmd}"]
       system full_command
     end
 
@@ -73,7 +74,7 @@ module MedInstaller
       def call(target:, command:, arg1:, arg2:, arg3:)
         target = Remote.validate_target!(target)
         sleep(Remote::PANIC_PAUSE)
-        cmd = "bin/dromedary #{[command, arg1, arg2, arg3].join(' ').strip}"
+        cmd = %Q[bin/dromedary #{[command, arg1, arg2, arg3].join(' ').strip}]
         Remote.remote_exec(target, cmd)
       end
     end

@@ -17,7 +17,8 @@ module Dromedary
 
 
     def hyp_to_bibid
-      target = Pathname.new(Dromedary.config.data_dir) + 'hyp_to_bibid.json'
+      target = Pathname.new(AnnoyingUtilities.data_dir) + 'hyp_to_bibid.json'
+      raise Errno::ENOENT.new("Can't find #{target}") unless target.exist?
       @hyp_to_bibid ||= JSON.load(File.open(target))
     end
   end
