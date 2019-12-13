@@ -18,8 +18,7 @@ module MedInstaller
     # Error types for CopyFromBuild
     class ConfigurationError < StandardError;
     end
-    class MissingDirectory < StandardError;
-    end
+
 
     class ErrorWithFileList < StandardError
       attr_accessor :files
@@ -30,6 +29,8 @@ module MedInstaller
       end
     end
 
+    class MissingDirectory < ErrorWithFileList;
+    end
     class FilesTooOld < ErrorWithFileList;
     end
     class FileMissing < ErrorWithFileList;
@@ -65,10 +66,10 @@ module MedInstaller
         FileUtils.copy_file(build_file(f), current_file(f))
       end
     rescue MissingDirectory, ConfigurationError, BuildFileMissing => e
-      error_and_raise(e)
+      error_with_file_list(e)
     rescue FilesTooOld => e
       msg = "File(s) #{e.files.join(', ')} in the build directory aren't newer than what's currently being used.\n\nDid you run 'prepare_new_data'?\n\nPass --force=true to force the copy anyway."
-      error_and_raise(FilesTooOld.new(msg))
+      error_with_file_list(FilesTooOld.new(msg))
     end
 
 
@@ -80,9 +81,9 @@ module MedInstaller
 
     def validate_build_files_exist!
       dne = NEEDED_FILES.each_with_object([]) do |f, missing|
-        missing << f unless build_file(f).exist?
+        bf = build_file(f)
+        missing << bf unless bf.exist?
       end
-
       unless dne.empty?
         raise BuildFileMissing.new("Can't find build file(s)", files: dne)
       end
@@ -103,8 +104,8 @@ module MedInstaller
 
     private
 
-    def error_and_raise(e)
-      logger.error e.message
+    def error_with_file_list(e)
+      logger.error e.message + "[#{e.files.join(", ")}]"
       raise e
     end
 
