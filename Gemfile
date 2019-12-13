@@ -6,6 +6,14 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+#####################################
+# Try to work around brokenness on
+# nectar.
+###################################
+
+gem 'nio4r', '=2.5.2'
+gem 'puma',  '=4.1.0'
+
 ###############################
 # SECURITY ALERTS
 ##############################
@@ -102,8 +110,6 @@ group :development, :test do
   end
 
   gem 'rubocop', require: false
-  # Use Puma as the app server
-  gem 'puma', '~> 3.7'
 end
 
 

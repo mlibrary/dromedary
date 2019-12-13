@@ -60,8 +60,8 @@ module MedInstaller
           entry = MiddleEnglishDictionary::Entry.from_json(depipe_json(json_line))
           yield entry
         rescue => e
-          require 'pry'; binding.pry
           logger.error "Error with json line #{index}: #{e}\n#{e.backtrace}"
+          raise e
         end
       end
     end
