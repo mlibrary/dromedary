@@ -1,5 +1,16 @@
 # Indexing (new) MED data
 
+## Synopsis if you've done this before
+
+* Download content of [the box folder](https://umich.box.com/s/ah2imm5webu32to343p2n6xur828zi5w),
+which creates `In_progress_MEC_files.zip`. Copy that file to nectar in the
+directory `/hydra-dev/dromedary-data/build`
+* Prepare the data for indexing: `ssh deployhost exec dromedary-staging "bin/dromedary newdata prepare /hydra-dev/dromedary-data/build/In_progress_MEC_files.zip"`
+* Actually index the data, which takes the relevant site out of commission for a while.
+  * Testing: `ssh deployhost exec dromedary-testing "bin/dromedary newdata index"`
+  * Staging: `ssh deployhost exec dromedary-staging "bin/dromedary newdata index"`
+  * Production:  `ssh deployhost exec dromedary-production "bin/dromedary newdata index"`
+
 ## Overview
 
 Deployment of both code and data is done from a unix-like command line. This can
@@ -54,4 +65,24 @@ ssh deployhost exec dromedary-staging "bin/dromedary newdata prepare /hydra-dev/
 
 _This will take quite a while_!
 
-You'll see log messages scroll by as the code churns through the raw data and works on it.
+Sadly, there's no way to get any feedback from the deployhost commands, so
+unless you see an error you just have to assume it's all
+going well.
+
+## Index the new data into a specific instance
+
+Now the data can be indexed into one of our three instanced: testing, staging,
+or production.
+
+_Each instance has it's own solr and must have its index created separately_!
+
+  * Testing: `ssh deployhost exec dromedary-testing "bin/dromedary newdata index"`
+  * Staging: `ssh deployhost exec dromedary-staging "bin/dromedary newdata index"`
+  * Production:  `ssh deployhost exec dromedary-production "bin/dromedary newdata index"`
+
+This doesn't take nearly as long as the prepare -- more like 30mn than over an hour. 
+While indexing is occurring, the MED will display a message stating that 
+"The MED is temporarily unavailable". Once indexing is finished, everything 
+will be back to normal.
+
+
