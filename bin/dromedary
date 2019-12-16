@@ -89,7 +89,7 @@ MedInstaller::CLI.register 'convert', MedInstaller::Convert, aliases: ['json']
 
 MedInstaller::CLI.register 'extract_convert_index', MedInstaller::ExtractConvertIndex, aliases: ['load_new_data']
 
-MedInstaller::CLI.register 'newdata preparea', MedInstaller::PrepareNewData
+MedInstaller::CLI.register 'newdata prepare', MedInstaller::PrepareNewData
 MedInstaller::CLI.register 'newdata index', MedInstaller::IndexNewData
 
 Hanami::CLI.new(MedInstaller::CLI).call
