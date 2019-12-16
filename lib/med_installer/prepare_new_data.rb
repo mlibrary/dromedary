@@ -25,17 +25,17 @@ module MedInstaller
       ## Ugh. Need to fix this so it's not so stupid. AnnoyingUtilities
       ## are too hard-coded. And hence annoying!
       #
-      #original_data_dir = AnnoyingUtilities.data_dir
-      #AnnoyingUtilities.data_dir = build_dir
-      #
-      #logger.info "Begin extraction from #{zipfile}"
-      #MedInstaller::Extract.new(command_name: "extract").call(zipfile: zipfile, datadir: build_dir)
-      #logger.info "...done"
-      #
-      #
-      #logger.info "Begin conversion of data in #{xmldir}"
-      #MedInstaller::Convert.new(command_name: 'convert').call(source_dir: xmldir)
-      #logger.info "...done"
+      original_data_dir = AnnoyingUtilities.data_dir
+      AnnoyingUtilities.data_dir = build_dir
+
+      logger.info "Begin extraction from #{zipfile}"
+      MedInstaller::Extract.new(command_name: "extract").call(zipfile: zipfile, datadir: build_dir)
+      logger.info "...done"
+
+
+      logger.info "Begin conversion of data in #{xmldir}"
+      MedInstaller::Convert.new(command_name: 'convert').call(source_dir: xmldir)
+      logger.info "...done"
 
       logger.info "Creating hyp_to_bibid file in build directory"
       mapping = hyp_to_bibid(xmldir + "bib_all.xml")
