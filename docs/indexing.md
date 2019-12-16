@@ -49,7 +49,9 @@ _This only needs to be done once_. All three instances
 (You can just copy and paste this)
 
 ```bash
-ssh deployhost exec dromedary-testing bin/dromedary newdata prepare /hydra-dev/dromedary-data/build/In_progress_MEC_files.zip
+ssh deployhost exec dromedary-staging "bin/dromedary newdata prepare /hydra-dev/dromedary-data/build/In_progress_MEC_files.zip"
 ```
+
+_This will take quite a while_!
 
 You'll see log messages scroll by as the code churns through the raw data and works on it.
