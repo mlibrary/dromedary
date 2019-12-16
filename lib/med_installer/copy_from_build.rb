@@ -68,7 +68,15 @@ module MedInstaller
     rescue MissingDirectory, ConfigurationError, BuildFileMissing => e
       error_with_file_list(e)
     rescue FilesTooOld => e
-      msg = "File(s) #{e.files.join(', ')} in the build directory aren't newer than what's currently being used.\n\nDid you run 'prepare_new_data'?\n\nPass --force=true to force the copy anyway."
+      msg = <<MSG
+ 
+     File(s) #{e.files.join(', ')} in the build directory aren't newer 
+     than what's currently being used.
+
+      Did you remember to first prepare new data with  'newdata prepare'?
+
+      You can add "--force=true"" to force the copy anyway."
+MSG
       error_with_file_list(FilesTooOld.new(msg))
     end
 
@@ -105,7 +113,7 @@ module MedInstaller
     private
 
     def error_with_file_list(e)
-      logger.error e.message + "[#{e.files.join(", ")}]"
+      logger.error "\n\n" + e.message + "[#{e.files.join(", ")}]"
       raise e
     end
 
