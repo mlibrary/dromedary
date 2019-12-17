@@ -18,7 +18,7 @@ module MedInstaller
 
     def logger
       if defined? Rails
-        Rails.application.config.rails_semantic_logger
+        Rails.logger
       else
         LOGGER
       end

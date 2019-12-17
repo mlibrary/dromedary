@@ -76,7 +76,7 @@ Rails.application.routes.draw do
     get 'about' => 'static#about_med', as: :about
     get 'help' => 'help#help_root', as: :help_root
     get 'help/:page' => 'help#help_page', as: :help
-    get 'static/:action' => 'static', as: :static
+    #get 'static/*' => 'static#about_med', as: :static
 
     # Force a reload of the hyp-to-bibid mapping
 
