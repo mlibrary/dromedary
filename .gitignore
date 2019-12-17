@@ -8,9 +8,10 @@
 /.idea/*
 *.iml
 
-# Don't do the solr data
+# Don't do the solr data or core.properties
 /solr/med/data
 /solr/med/conf/data
+/solr/med/core.properties
 /.solr
 
 # Or local data
