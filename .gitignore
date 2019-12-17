@@ -6,18 +6,21 @@
 
 # Skip IntelliJ stuff
 /.idea/*
+*.iml
 
 # Don't do the solr data
 /solr/med/data
+/solr/med/conf/data
 /.solr
 
+# Or local data
+/data
 
 # Ignore bundler config.
 /.bundle
 
-# Ignore the default SQLite database.
-/db/*.sqlite3
-/db/*.sqlite3-journal
+# We don't use a database.
+/db
 
 # Ignore all logfiles and tempfiles.
 /log/*

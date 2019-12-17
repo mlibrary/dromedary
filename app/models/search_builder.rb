@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 class SearchBuilder < Blacklight::SearchBuilder
   include Blacklight::Solr::SearchBuilderBehavior
+  include MedInstaller::Logger
 
   self.default_processor_chain += [:yogh_to_ezh,
                                    :escape_intersticial_parens,
@@ -36,6 +37,9 @@ class SearchBuilder < Blacklight::SearchBuilder
     current_q = solr_params['q']
     if current_q
       new_q            = current_q.gsub Parens_EscapeWorthy, '\1\\\\(\2\\\\)'
+      if new_q != current_q
+        logger.info "Turned ''#{current_q}' into '#{new_q}''"
+      end
       solr_params['q'] = new_q
       solr_params['debug'] = 'true'
     end
@@ -59,7 +63,6 @@ class SearchBuilder < Blacklight::SearchBuilder
     q = q.gsub(/\-\s+/, '\\\\- ')
     q = q.gsub(/\-\Z/, '\\\\-')
     solr_params['q'] = q
-    File.open('dash.txt', 'w:utf-8') {|f| f.puts "#{oq}\n#{q}"}
   end
 
   def default_to_everything_search(solr_params)
