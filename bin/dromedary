@@ -40,6 +40,9 @@ end
 
 
 # Index things into solr
+MedInstaller::CLI.register 'extract', MedInstaller::Extract, aliases: ['unzip']
+MedInstaller::CLI.register 'convert', MedInstaller::Convert, aliases: ['json']
+MedInstaller::CLI.register 'index copy_from_build', MedInstaller::CopyFromBuild
 MedInstaller::CLI.register 'index entries', MedInstaller::Index::Entries
 MedInstaller::CLI.register 'index bib', MedInstaller::Index::Bib
 MedInstaller::CLI.register 'index full', MedInstaller::Index::Full, aliases: ['all']
@@ -57,7 +60,9 @@ MedInstaller::CLI.register 'solr rebuild_suggesters', MedInstaller::Solr::Rebuil
 # Remote deployment and execution
 #
 MedInstaller::CLI.register 'deploy', MedInstaller::Remote::Deploy
-MedInstaller::CLI.register 'restart', MedInstaller::Remote::Restart
+
+# Restart removed from moku???
+#MedInstaller::CLI.register 'restart', MedInstaller::Remote::Restart
 
 MedInstaller::CLI.register 'remote', MedInstaller::Remote::Dromedary
 MedInstaller::CLI.register 'remote-exec', MedInstaller::Remote::Exec
@@ -80,11 +85,15 @@ MedInstaller::CLI.register 'solr shell', MedInstaller::Solr::Shell
 
 
 
-# Only for use is creating entries.json.gz
-MedInstaller::CLI.register 'extract', MedInstaller::Extract, aliases: ['unzip']
-MedInstaller::CLI.register 'convert', MedInstaller::Convert, aliases: ['json']
+
+
+
+# So people can actually do stuff
 
 MedInstaller::CLI.register 'extract_convert_index', MedInstaller::ExtractConvertIndex, aliases: ['load_new_data']
+
+MedInstaller::CLI.register 'newdata prepare', MedInstaller::PrepareNewData
+MedInstaller::CLI.register 'newdata index', MedInstaller::IndexNewData
 
 Hanami::CLI.new(MedInstaller::CLI).call
 

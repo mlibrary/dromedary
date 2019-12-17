@@ -102,7 +102,6 @@ module MedInstaller
     end
 
 
-
     # ------
     #
 
@@ -150,7 +149,10 @@ module MedInstaller
         logger.info "Reloading core definition"
         core.reload
 
-       HypToBibID.new(command_name: "hyp_to_bib_id").call unless existing_hyp_to_bibid
+        HypToBibID.new(command_name: "hyp_to_bib_id").call unless existing_hyp_to_bibid
+
+        logger.info "Setting to maintenance mode during indexing"
+        MedInstaller::Control::MaintenanceModeOn.new(command_name: 'maintenance_mode on').call('on')
 
         logger.info "##### BEGIN ENTRY/QUOTE INDEXING #####"
         index(rulesfile: index_dir + 'main_indexing_rules.rb',
@@ -169,6 +171,8 @@ module MedInstaller
         optimize
         commit
         logger.info "Done"
+        logger.info "New data in place. Making the site live again."
+        MedInstaller::Control::MaintenanceModeOff.new(command_name: 'maintenance_mode off').call('off')
       end
     end
 
