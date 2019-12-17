@@ -1,10 +1,22 @@
 # Indexing (new) MED data
 
+Note on permissions: Updating the data requires:
+  * An account on the dev machine (nectar) that is a member of the group 'dromedary-staging' on the dev machine (to 
+put `In_progress_MEC_files.zip` up there) 
+  * Permission to deploy dromedary via `moku`
+  
+Contact A&E if you need either.
+
+
 ## Synopsis
 
 * Download content of [the box folder](https://umich.box.com/s/ah2imm5webu32to343p2n6xur828zi5w),
 which creates `In_progress_MEC_files.zip`. Copy that file to the dev server (currently
 nectar) in the directory `/hydra-dev/dromedary-data/build`
+
+From any machine behind the LIT firewall, run (cut/paste) the following commands for
+the instance you're targeting.
+
 * Prepare the data for indexing (always done on staging, doesn't actually affect anything right away):
   * `ssh deployhost exec dromedary-staging "bin/dromedary newdata prepare /hydra-dev/dromedary-data/build/In_progress_MEC_files.zip"`
 * Actually index the data, which takes the relevant site out of commission for a while (30mn?)
