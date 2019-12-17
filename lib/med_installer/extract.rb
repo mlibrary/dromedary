@@ -1,6 +1,7 @@
 require 'zip'
 require 'tmpdir'
 require 'hanami/cli'
+require_relative '../../config/load_local_config'
 
 Zip.on_exists_proc = true
 
@@ -11,7 +12,10 @@ module MedInstaller
     desc "Extracts the individual xml files into <datadir>/xml/"
 
     argument :zipfile, required: true, desc: "The path to the zipfile (downloaded from Box)"
-    argument :datadir, required: true, desc: "The data directory. XML files will be put in <datadir>/xml"
+    argument :datadir,
+             required: false,
+             default:Pathname.new(Dromedary.config.build_dir).realdirpath,
+             desc: "The data directory. XML files will be put in <datadir>/xml"
     example ["~/Downloads/In_progress_MEDC_files.zip ~/devel/med/data"]
 
     # The In_progress zip file is composed of other zip files and the DTDs/css
@@ -19,6 +23,10 @@ module MedInstaller
     def call(zipfile:, datadir:)
       datapath = Pathname.new(datadir) + 'xml'
       datapath.mkpath
+
+      raise ArgumentError.new("Zipfile #{zipfile} not found") unless Pathname.new(zipfile).exist?
+      raise ArgumentError.new("Zipfile #{zipfile} not readable") unless Pathname.new(zipfile).readable?
+      raise ArgumentError.new("Zipfile #{zipfile} not readable") unless Pathname.new(zipfile).readable?
 
       logger.info "Extract: read from #{zipfile}, target #{datapath}"
       Dir.mktmpdir do |tmpdir|
