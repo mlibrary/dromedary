@@ -1,15 +1,18 @@
 # Indexing (new) MED data
 
-## Synopsis if you've done this before
+## Synopsis
 
 * Download content of [the box folder](https://umich.box.com/s/ah2imm5webu32to343p2n6xur828zi5w),
-which creates `In_progress_MEC_files.zip`. Copy that file to nectar in the
-directory `/hydra-dev/dromedary-data/build`
-* Prepare the data for indexing: `ssh deployhost exec dromedary-staging "bin/dromedary newdata prepare /hydra-dev/dromedary-data/build/In_progress_MEC_files.zip"`
-* Actually index the data, which takes the relevant site out of commission for a while.
+which creates `In_progress_MEC_files.zip`. Copy that file to the dev server (currently
+nectar) in the directory `/hydra-dev/dromedary-data/build`
+* Prepare the data for indexing (always done on staging, doesn't actually affect anything right away):
+  * `ssh deployhost exec dromedary-staging "bin/dromedary newdata prepare /hydra-dev/dromedary-data/build/In_progress_MEC_files.zip"`
+* Actually index the data, which takes the relevant site out of commission for a while (30mn?)
   * Testing: `ssh deployhost exec dromedary-testing "bin/dromedary newdata index"`
   * Staging: `ssh deployhost exec dromedary-staging "bin/dromedary newdata index"`
   * Production:  `ssh deployhost exec dromedary-production "bin/dromedary newdata index"`
+  
+Anyone deploying must have been given permission to do so from A&E.
 
 ## Overview
 
@@ -48,14 +51,18 @@ scp ~/Downloads/In_progress_MEC_files.zip nectar:/hydra-dev/dromedary-data/build
 ```
 
 If this doesn't make sense or you get errors (maybe you're not allowed to
-log into nectar?) ask A&E for help.
+deploy dromedary?) ask A&E for help.
 
 ## Prepare the new data for later indexing (do this *once*)
 
-We need to turn the raw data into something the program can use.
+We need to turn the raw data into something the program can use. This 
+doesn't change anything running, it just makes new files on disk
+that can be used later to actually update a running instance.
 
 _This only needs to be done once_. All three instances 
-(testing/staging/production) can use the same prepared data.
+(testing/staging/production) use the same prepared data for indexing,
+and we always run the prepare on staging because otherwise there
+are permissions errors.
 
 (You can just copy and paste this)
 
@@ -63,7 +70,7 @@ _This only needs to be done once_. All three instances
 ssh deployhost exec dromedary-staging "bin/dromedary newdata prepare /hydra-dev/dromedary-data/build/In_progress_MEC_files.zip"
 ```
 
-_This will take quite a while_!
+_This will take quite a while_! Like, upwards of an hour.
 
 Sadly, there's no way to get any feedback from the deployhost commands, so
 unless you see an error you just have to assume it's all
@@ -76,13 +83,15 @@ or production.
 
 _Each instance has it's own solr and must have its index created separately_!
 
+NOTE: While indexing is occurring, the instance in question will display a message stating that 
+"The MED is temporarily unavailable". Once indexing is finished, everything 
+will be back to normal.
+
   * Testing: `ssh deployhost exec dromedary-testing "bin/dromedary newdata index"`
   * Staging: `ssh deployhost exec dromedary-staging "bin/dromedary newdata index"`
   * Production:  `ssh deployhost exec dromedary-production "bin/dromedary newdata index"`
 
-This doesn't take nearly as long as the prepare -- more like 30mn than over an hour. 
-While indexing is occurring, the MED will display a message stating that 
-"The MED is temporarily unavailable". Once indexing is finished, everything 
-will be back to normal.
+This doesn't take nearly as long as the prepare -- more like 30mn or so. 
+
 
 
