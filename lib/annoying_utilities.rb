@@ -106,15 +106,17 @@ module AnnoyingUtilities
     solr_root
   end
 
-  def solr_core
+  def solr_client
     uri      = URI(blacklight_solr_url)
     path     = uri.path.split('/')
     corename = path.pop
     uri.path = path.join('/') # go up a level -- we popped off the core name
     solr_url = uri.to_s
+    SimpleSolrClient::Client.new(solr_url)
+  end
 
-    client = SimpleSolrClient::Client.new(solr_url)
-    client.core(corename)
+  def solr_core
+    solr_client.core(corename)
   end
 
 

@@ -87,21 +87,22 @@ module MedInstaller
         logger.info "Core at '#{core.url}' optimized"
       end
     end
+
     class Reload < Hanami::CLI::Command
       include MedInstaller::Logger
 
-      desc "Tell solr to reload the solr config without restarting"
+      desc "Tell solr to (re)load the solr config without restarting"
 
       def call(cmd)
+        client = AnnoyingUtilities.solr_client
         core = AnnoyingUtilities.solr_core
 
-        unless core.up?
-          logger.error "Solr core at #{core.url} did not respond (not up?)"
-          exit(1)
+        if core.up?
+          core.reload
+          logger.info "Core at '#{core.url}' reloaded"
+        else
+          # curl "${SOLR_ROOT}/admin/cores?action=CREATE&name=$core&config=solrconfig.xml&dataDir=data&instanceDir=$dir&wt=json
         end
-
-        core.reload
-        logger.info "Core at '#{core.url}' reloaded"
 
       end
     end
