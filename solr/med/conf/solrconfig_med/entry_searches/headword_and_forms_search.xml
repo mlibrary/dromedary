@@ -3,6 +3,7 @@
   headword_exactish^50
   headword^10
   orth^1
+  word_suggestions^1
 </str>
 
 <str name="headword_and_forms_pf">
