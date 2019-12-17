@@ -10,16 +10,42 @@ of commands.
 There are only a few that are useful -- most of the rest are used to build
 up these.
 
-## Deploy
+## NOTE: REMOTE EXEC 
+
+Any `bin/dromedary` command can be run on one of the installed
+instances with the format:
+
+`bin/dromedary remote <branch> "<command in double quotes>"`. 
+
+So, for example, to reload a solr core on staging, I'd do
+
+`bin/dromedary remote staging "solr reload"` 
+
+This constructs an ssh string that calls through deployhost.
+
+## Deploying the code
+
+_Time to run_: 10mn? But doesn't matter much because nothing switches over 
+until the whole deploy is done.
+
 * `bin/dromedary deploy [staging|training|production] [branch]` Runs a deploy. Exactly 
 the same as using the ssh command.
 
+Note that if the solr config has changed, you'll also want to reload the core:
+
+* `bin/dromedary remote <staging|training|production> "solr reload"`
+
 ## Maintenance mode
+
+_Time to run_: Nothingish.
 
 * `bin/dromedary maintenance_mode on`
 * `bin/dromedary maintenance_mode off`
 
 ## Index and such
+
+_Time to run_: An hour or more for the prepare step; about half an hour
+for the reindex.
 
 * `bin/dromedary newdata prepare <zipfile>` Extract data from the zipfile
 into the build directory and convert to files needed for indexing.
@@ -38,6 +64,9 @@ There are also finer-grained versions of these
 
 
 ## Solr
+
+_Time to run_: Totally depends on the state of the index. 
+The `reload` is instantaneous, though, which is nice.
 
 All these will give more information if called with `-h`.
 ```bash
