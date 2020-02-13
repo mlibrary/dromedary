@@ -2,6 +2,7 @@ FROM ruby:2.6
 ARG UNAME=app
 ARG UID=1000
 ARG GID=1000
+ARG URL_ROOT=/
 
 RUN apt-get update -yqq && apt-get install -yqq --no-install-recommends nodejs
 RUN gem install bundler
@@ -17,6 +18,7 @@ ENV RAILS_SERVE_STATIC_FILES true
 ENV RAILS_LOG_TO_STDOUT true
 ENV RAILS_ENV production
 ENV BUNDLE_PATH /gems
+ENV RAILS_RELATIVE_URL_ROOT $URL_ROOT
 
 # This can be anything but must be set.
 ENV SECRET_KEY_BASE 121222bccca
