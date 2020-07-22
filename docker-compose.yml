@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/src/app
+      - gem_cache:/gems
+  solr:
+    image: solr:6.6.5
+    ports:
+      - "8983:8983"
+    volumes:
+      - solr_core:/opt/solr/server/solr/dromedary
+
+volumes:
+  gem_cache:
+  solr_core:
