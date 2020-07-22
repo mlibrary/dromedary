@@ -75,7 +75,7 @@ gem 'ettin'
 # Rails
 #  https://groups.google.com/forum/#!topic/rubyonrails-security/GN7w9fFAQeI)
 
-gem 'rails', '~> 5.1.6.2'
+gem 'rails', '~> 5.0'
 
 # Security vulnerability CVE-2018-3760
 gem 'sprockets', '~>3.7.2'
@@ -112,7 +112,7 @@ gem 'semantic_logger'
 gem 'lograge', ">=0.11.1"
 
 # Contacts Email
-gem 'mail_form', '1.7.0'
+gem 'mail_form', '~>1.7'
 # Extendable layouts
 gem 'nestive', '0.6.0'
 
