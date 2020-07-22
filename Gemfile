@@ -12,21 +12,40 @@ end
 ###################################
 
 gem 'nio4r', '=2.5.2'
-gem 'puma',  '=4.1.0'
+# gem 'puma',  '=4.1.0'
+gem "puma", ">= 4.3.5" # https://github.com/advisories/GHSA-w64w-qqph-5gxm
 
 ###############################
 # SECURITY ALERTS
 ##############################
+
 # https://nvd.nist.gov/vuln/detail/CVE-2018-16471
-gem 'rack', '~>2.0', '>=2.0.6'
+# https://github.com/advisories/GHSA-5f9h-9pjv-v6j7
+gem "rack", ">= 2.1.4"
+
+#https://github.com/advisories/GHSA-g6wq-qcwm-j5g2
+gem "websocket-extensions", ">= 0.1.5"
+
+#https://github.com/advisories/GHSA-r5jw-62xg-j433
+gem "kaminari", ">= 1.2.1"
+
+#https://github.com/advisories/GHSA-2p68-f74v-9wc6
+gem "activesupport", ">= 5.2.4.3"
+
+# https://github.com/advisories/GHSA-jp5v-5gx4-jmj9
+gem "actionpack", ">= 5.2.4.3"
+
+# https://github.com/advisories/GHSA-xq5j-gw7f-jgj8
+gem "actionview", ">= 5.2.4.3"
+
 
 # https://nvd.nist.gov/vuln/detail/CVE-2018-16468
-# gem 'loofah', '~>2.2', '>=2.2.3'
 # https://github.com/advisories/GHSA-c3gv-9cxf-6f57
 gem "loofah", ">= 2.3.1"
 
 # https://github.com/advisories/GHSA-cr5j-953j-xw5p
-gem "nokogiri", ">= 1.10.4"
+# https://github.com/advisories/GHSA-7553-jr98-vx47
+gem "nokogiri", ">= 1.10.10"
 
 # https://github.com/advisories/GHSA-5m2v-hc64-56h6
 gem 'rubyzip', "~> 1.3"
