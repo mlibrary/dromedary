@@ -78,7 +78,7 @@ Finally, make a directory in which to keep the data
 mkdir -p $MEDDIR/data
 ```
 
-You should now have a directory struture of the form:
+You should now have a directory structure of the form:
 ```ruby
 med
  - data
@@ -95,6 +95,10 @@ First, you'll need to create `config/local.settings.yml`. Obviously,
 change the `/Users/dueberb/devel/med` bit to point to your own 
 med directory.
 
+NOTE: this doesn't currently work as written (26/01/2022). Modifying
+`config/settings/development.yml` to have the correct data dir and add the 
+build dir does seem to work. 
+
 ```yaml
 data_dir: /Users/dueberb/devel/med/data
 build_dir: /Users/dueberb/devel/med/data/build
@@ -109,6 +113,10 @@ The `blacklight.url` will be used to start/stop/reload the med core.
 ### b. Fire up solr and load the core for the first time
 
 Starting solr is easy: `bin/dromedary solr start`
+
+May need to ensure there is a `solr.xml` file in `dromedary/solr`. 
+Also may need to add `lucene-analyzers-icu-X.Y.Z.jar` where X/Y/Z is the solr version
+ to `dromedary/solr/lib` to get `ICUNormalizer2CharFilterFactory`.
 
 Loading the core is more annoying for now
 

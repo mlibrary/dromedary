@@ -20,7 +20,9 @@ cable:
 
 relative_url_root: /m/middle-english-dictionary
 
-data_dir: ./data
+#data_dir: ./data
 
 log_dir: ./log
 
+data_dir: /home/esty/github/mlibrary/med/data
+build_dir: /home/esty/github/mlibrary/med/data/build
