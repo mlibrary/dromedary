@@ -25,22 +25,23 @@ spec:
         io.kompose.service: web
     spec:
       containers:
-        - image: web
-          name: web
+        - name: web
+          image: dromedary_web:20220127.2
+          imagePullPolicy: Never
           ports:
             - containerPort: 3000
           resources: {}
           volumeMounts:
-            - mountPath: /usr/src/app
-              name: web-hostpath0
-            - mountPath: /gems
-              name: gem-cache
+#            - mountPath: /usr/src/app
+#              name: web-hostpath0
+#            - mountPath: /gems
+#              name: gem-cache
       restartPolicy: Always
       volumes:
         - hostPath:
             path: /home/esty/github/mlibrary/med/dromedary
           name: web-hostpath0
         - hostPath:
-            path: /home/esty/github/mlibrary/med/dromedary
+            path: /data/gems
           name: gem-cache
 status: {}

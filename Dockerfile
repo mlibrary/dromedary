@@ -23,5 +23,7 @@ RUN bundle install
 
 COPY --chown=$UID:$GID . /usr/src/app
 
-ENTRYPOINT ["./docker-entrypoint.sh"]
+#ENV SOLR_URL=
+
+#ENTRYPOINT ["./docker-entrypoint.sh"]
 CMD ["bin/rails", "s", "-b", "0.0.0.0"]

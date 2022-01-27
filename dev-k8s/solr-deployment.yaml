@@ -36,6 +36,6 @@ spec:
       restartPolicy: Always
       volumes:
         - hostPath:
-            path: /home/esty/github/mlibrary/med/dromedary
+            path: /data/solr-core
           name: solr-core
 status: {}
