@@ -23,6 +23,9 @@ RUN bundle install
 
 COPY --chown=$UID:$GID . /usr/src/app
 
+USER $UNAME
+RUN mkdir /usr/src/app/data
+
 #ENV SOLR_URL=
 
 #ENTRYPOINT ["./docker-entrypoint.sh"]

@@ -26,8 +26,11 @@ spec:
     spec:
       containers:
         - name: web
-          image: dromedary_web:20220127.2
-          imagePullPolicy: Never
+          image: estythomas/dromedary_web:20220127.4
+          imagePullPolicy: Always
+          env:
+            - name: SOLR_URL
+              value: http://nectar.umdl.umich.edu:8081/solr/dromedary_testing/
           ports:
             - containerPort: 3000
           resources: {}

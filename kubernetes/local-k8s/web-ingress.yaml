@@ -25,7 +25,3 @@ spec:
                 name: solr
                 port:
                   number: 8983
-#  tls:
-#    - hosts:
-#        - example.search.kubernetes.lib.umich.edu
-#      secretName: search-tls
