@@ -131,6 +131,7 @@ exists, even if it isn't currently loaded. You can just run the curl command aga
 ### c. Index the data for the first time
 
 First, get the `In_progress_MEC_files.zip` file as showing in [the indexing document](indexing.md). 
+(Note: this zip may not include a directory.) 
 Assuming you get it downloaded into ~/Downloads, you can:
 
 `bin/dromedary newdata prepare ~/DownloadsIn_progress_MEC_files.zip`
