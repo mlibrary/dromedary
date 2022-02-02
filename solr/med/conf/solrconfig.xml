@@ -81,7 +81,16 @@
       <str name="facet.mincount">1</str>
 
 
-      <str name="qf">everything_qf</str>
+      <str name="qf">
+        prefix_suffix^90
+        headword_exactish^50
+        headword^10
+        orth^7
+        authortitle^6
+        definition_text^5
+        oed_norm^2
+        keyword
+        quote_manuscript</str>
       <str name="pf">everything_pf</str>
 
     </lst>
@@ -147,7 +156,16 @@
       &bib_manuscript_search;
       &bib_stencil_search;
 
-      <str name="qf">bib_everything_qf</str>
+      <str name="qf">
+        authortitle^6
+        author_exactish^6
+        title_exactish^5
+        author^4
+        title^3
+        stencil_keyword^2
+        edition_keyword^2
+        keyword^1
+      </str>
       <str name="pf">bib_everything_pf</str>
 
     </lst>
@@ -173,7 +191,13 @@
       &quote_everything_search;
       &quote_quote_search;
 
-      <str name="qf">quote_everything_qf</str>
+      <str name="qf">
+        authortitle^6
+        quote_text^2
+        headword
+        quote_manuscript
+        keyword
+      </str>
       <str name="pf">quote_everything_pf</str>
     </lst>
 
