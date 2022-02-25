@@ -1,11 +1,8 @@
 name: Build latest data job image
 
 on:
-  workflow_dispatch:
-    inputs:
-      tag:
-        description: tag
-        required: true
+  push:
+     branches: [ kubernetes ] # definitely not permanent solution
 jobs:
   build:
     runs-on: ubuntu-latest
