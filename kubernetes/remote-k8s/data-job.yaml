@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pi
+spec:
+  template:
+    spec:
+      containers:
+        name: data
+        image: dromedary/data_jobber
+        imagePullPolicy: Always
+        env:
+          - name: SOLR_URL
+            value: http://nectar.umdl.umich.edu:8081/solr/dromedary_testing/
+        command:
+          - bin/dromedary
+          - newdata
+          - prepare
+          - $DATA_FILE;
+          - bin/dromedary
+          - newdata
+          - index
+      restartPolicy: Never
+  backoffLimit: 4

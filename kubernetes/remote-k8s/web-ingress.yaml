@@ -7,7 +7,7 @@ metadata:
     kubernetes.io/ingress.class: nginx
 spec:
   rules:
-    - host: testing.arclight.kubernetes.lib.umich.edu
+    - host: testing.middle-english.kubernetes.lib.umich.edu
       http:
         paths:
           - path: /
@@ -17,5 +17,5 @@ spec:
               servicePort: 80
   tls:
     - hosts:
-        - testing.arclight.kubernetes.lib.umich.edu
+        - testing.middle-english.kubernetes.lib.umich.edu
       secretName: search-tls
