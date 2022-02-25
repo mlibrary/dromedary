@@ -134,7 +134,7 @@ First, get the `In_progress_MEC_files.zip` file as showing in [the indexing docu
 (Note: this zip may not include a directory.) 
 Assuming you get it downloaded into ~/Downloads, you can:
 
-`bin/dromedary newdata prepare ~/DownloadsIn_progress_MEC_files.zip`
+`bin/dromedary newdata prepare ~/Downloads/In_progress_MEC_files.zip`
 `bin/dromedary newdata index`
 
 The former pre-processes the data into `../data/build`, the other
