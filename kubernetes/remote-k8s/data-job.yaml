@@ -10,9 +10,9 @@ spec:
           image: ghcr.io/mlibrary/dromedary/dromedary_data:20220225.5
           imagePullPolicy: Always
           command:
-#            - ls
             - ./index_data.sh
+          env:
+            - name: SOLR_URL
+              value: http://solr:8983/solr/dromedary_testing/
       restartPolicy: Never
-      imagePullSecrets:
-        - name: regcred
   backoffLimit: 1

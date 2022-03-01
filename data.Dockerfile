@@ -30,5 +30,3 @@ COPY --chown=$UID:$GID . /usr/src/app
 
 USER $UNAME
 RUN mkdir -p /usr/src/app/data/build
-
-#RUN bin/dromedary newdata prepare $DATA_FILE; bin/dromedary newdata index
