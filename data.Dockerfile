@@ -1,6 +1,6 @@
 FROM ruby:2.6
 
-ENV DATA_FILE=In_progress_MEC_files.zip
+ENV DATA_FILE=/opt/app-data/All_MED_and_BIB_files.zip
 ENV data_dir=/usr/src/app/data
 ENV build_dir=/usr/src/app/data/build
 ENV SOLR_URL=http://localhost:9639/solr

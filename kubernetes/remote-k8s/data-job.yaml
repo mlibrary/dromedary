@@ -7,12 +7,20 @@ spec:
     spec:
       containers:
         - name: data
-          image: ghcr.io/mlibrary/dromedary/dromedary_data:20220225.5
+          image: ghcr.io/mlibrary/dromedary/dromedary_data:20220426.1
           imagePullPolicy: Always
           command:
             - ./index_data.sh
           env:
             - name: SOLR_URL
               value: http://solr:8983/solr/dromedary_testing/
+          volumeMounts:
+            - mountPath: /opt/app-data
+              name: middle-english-prep
+      volumes:
+        - name: middle-english-prep
+          hostPath:
+            path: /mnt/legacy_cifs_middle_english_prep
+            type: Directory
       restartPolicy: Never
   backoffLimit: 1
