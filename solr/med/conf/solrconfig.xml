@@ -32,7 +32,8 @@
   <dataDir>${solr.blacklight-core.data.dir:}</dataDir>
 
   <!-- static route when deploying to testing/staging/production -->
-  <lib dir="/hydra-dev/dromedary-data/lib" regex=".*\.jar"/>
+<!--  <lib dir="/hydra-dev/dromedary-data/lib" regex=".*\.jar"/>-->
+  <lib dir="/opt/solr/server/lib" regex=".*\.jar"/>
 
   <!-- local route based on current dromedary configuration, sent
        as an argument to bin/solr start when called by
