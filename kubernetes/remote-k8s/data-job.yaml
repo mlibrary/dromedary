@@ -7,13 +7,20 @@ spec:
     spec:
       containers:
         - name: data
-          image: ghcr.io/mlibrary/dromedary/dromedary_data:20220426.1
+          image: ghcr.io/mlibrary/dromedary/dromedary_data:20220602.1
           imagePullPolicy: Always
           command:
-            - ./index_data.sh
+            - bundle
+            - exec
+            - rake
+            - check_data
           env:
             - name: SOLR_URL
               value: http://solr:8983/solr/dromedary_testing/
+            - name: DATA_FILE
+              value: /opt/app-data/All_MED_and_BIB_files.zip
+            - name: PROMETHEUS_PUSH_GATEWAY
+              value: http://pushgateway.middle-english-monitor:9091
           volumeMounts:
             - mountPath: /opt/app-data
               name: middle-english-prep
