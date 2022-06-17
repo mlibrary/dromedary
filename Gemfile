@@ -66,7 +66,7 @@ gem 'middle_english_dictionary', '~>1.8.0'
 gem 'bundler', '~> 2.0'
 
 # ,,, and explicitly pull in rake
-gem 'rake', '~> 12.3'
+gem 'rake', '~> 13.0'
 
 # Use Ettin for configuration
 #
@@ -169,6 +169,7 @@ gem 'jbuilder', '~> 2.5'
 ###############################
 gem "yabeda"
 gem "yabeda-prometheus"
+gem 'sidekiq'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

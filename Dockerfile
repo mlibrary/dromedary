@@ -6,14 +6,13 @@ ARG GID=1000
 RUN apt-get update -yqq && \
     apt-get install -yqq --no-install-recommends \
     apt-transport-https nodejs
-RUN gem install 'bundler:~>1.17.3' 'bundler:~>2.0.2'
+RUN gem install 'bundler:~>2.1.4'
 
 RUN groupadd -g $GID -o $UNAME
 RUN useradd -m -d /usr/src/app -u $UID -g $GID -o -s /bin/bash $UNAME
 RUN mkdir -p /gems && chown $UID:$GID /gems
 
-USER $UNAME
-COPY --chown=$UID:$GID Gemfile* /usr/src/app/
+COPY Gemfile* /usr/src/app/
 
 ENV RAILS_LOG_TO_STDOUT true
 ENV BUNDLE_PATH /gems
@@ -21,11 +20,12 @@ ENV BUNDLE_PATH /gems
 WORKDIR /usr/src/app
 RUN bundle install
 
-COPY --chown=$UID:$GID . /usr/src/app
+COPY . /usr/src/app
+
+RUN mkdir /usr/src/app/data
+RUN chown -R $UID:$GID /usr/src/app
 
 USER $UNAME
-RUN mkdir /usr/src/app/data
-
 #ENV SOLR_URL=
 
 #ENTRYPOINT ["./docker-entrypoint.sh"]

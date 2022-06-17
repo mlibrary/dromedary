@@ -78,6 +78,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.9)
+    connection_pool (2.2.5)
     crass (1.0.6)
     declarative (0.0.20)
     deep_merge (1.2.2)
@@ -232,10 +233,11 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.19.0, < 2.0)
     rainbow (3.1.1)
-    rake (12.3.3)
+    rake (13.0.6)
     rb-fsevent (0.11.0)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    redis (4.6.0)
     regexp_parser (2.2.0)
     representable (3.1.1)
       declarative (< 0.1.0)
@@ -300,6 +302,10 @@ GEM
       rubyzip (>= 1.2.2)
     semantic_logger (4.9.0)
       concurrent-ruby (~> 1.0)
+    sidekiq (6.4.2)
+      connection_pool (>= 2.2.2)
+      rack (~> 2.0)
+      redis (>= 4.2.0)
     simple_form (5.1.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
@@ -402,7 +408,7 @@ DEPENDENCIES
   puma (>= 4.3.5)
   rack (>= 2.1.4)
   rails (~> 5.0)
-  rake (~> 12.3)
+  rake (~> 13.0)
   rsolr (>= 1.0)
   rspec-rails (~> 3.6)
   rubocop
@@ -411,6 +417,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   selenium-webdriver
   semantic_logger
+  sidekiq
   simple_form (~> 5.0)
   simple_solr_client
   simplecov

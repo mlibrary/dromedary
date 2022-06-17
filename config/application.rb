@@ -52,6 +52,8 @@ module Dromedary
 
     config.lograge.formatter = Lograge::Formatters::Json.new
 
+    config.active_job.queue_adapter = :sidekiq
+
 
     # config.log_tags = {
     #   ip:         :remote_ip,
