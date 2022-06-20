@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
         - name: web
-          image: estythomas/dromedary_web:20220127.4
+          image: ghcr.io/mlibrary/dromedary/dromedary_web:20220617.1
           imagePullPolicy: Always
           env:
             - name: SOLR_URL

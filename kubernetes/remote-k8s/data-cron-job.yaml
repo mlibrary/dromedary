@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: data-cron
+spec:
+  schedule: "0,5,10,15,20,25,30,35,40,45,50,55 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: data-cron
+              image: ghcr.io/mlibrary/dromedary/dromedary_web:latest
+              imagePullPolicy: IfNotPresent
+              command:
+                - bundle
+                - exec
+                - rake
+                - check_data
+              env:
+                - name: DATA_FILE
+                  value: /opt/app-data/All_MED_and_BIB_files.zip
+                - name: PROMETHEUS_PUSH_GATEWAY
+                  value: http://pushgateway.middle-english-monitor:9091
+          restartPolicy: OnFailure
