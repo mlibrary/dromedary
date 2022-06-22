@@ -10,7 +10,7 @@ spec:
         spec:
           containers:
             - name: data-cron
-              image: ghcr.io/mlibrary/dromedary/dromedary_web:latest
+              image: ghcr.io/mlibrary/dromedary/dromedary_web:20220621.1
               imagePullPolicy: IfNotPresent
               command:
                 - bundle
@@ -19,7 +19,7 @@ spec:
                 - check_data
               env:
                 - name: DATA_FILE
-                  value: /opt/app-data/All_MED_and_BIB_files.zip
+                  value: /opt/app-data/All_MED_and_Bib_files.zip
                 - name: PROMETHEUS_PUSH_GATEWAY
                   value: http://pushgateway.middle-english-monitor:9091
           restartPolicy: OnFailure

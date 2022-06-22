@@ -15,6 +15,38 @@ module MedInstaller
 
     argument :source_dir, required: true, desc: "The source data directory (something/xml/)"
 
+    class YabedaHelper
+
+      attr_accessor :enabled
+
+      def new
+        @enabled = false
+        if ENV['PROMETHEUS_GATEWAY']
+          @enabled = true
+        end
+      end
+
+      def configure!
+        if enabled
+          Yabeda.configure do
+            group :convert_data do
+              gauge :error, tags: :err_msg, comment: "an error occuring in convert_data"
+            end
+          end
+
+          Yabeda.configure!
+        end
+      end
+
+      def log_error(err)
+        if enabled
+          Yabeda.convert_data.error.set({err_msg: err}, Time.now.to_i)
+          Yabeda::Prometheus.push_gateway.add(Yabeda::Prometheus.registry)
+        end
+      end
+
+    end
+
     def most_recent_file(filenames)
       filenames.sort {|a, b| File.mtime(a) <=> File.mtime(b)}.last
     end
@@ -34,6 +66,9 @@ module MedInstaller
 
 
     def call(source_dir:)
+      helper = YabedaHelper.new
+      helper.configure!
+
       source_data_path = Pathname(source_dir).realdirpath
 
       validate_xml_dir(source_data_path)
@@ -60,6 +95,7 @@ module MedInstaller
         logger.info "#{count} done" if count > 0 and count % 2500 == 0
         if File.empty?(filename)
           logger.error "File '#{filename}' is empty"
+          helper.log_error "File '#{filename}' is empty"
           next
         end
         current_directory = get_and_log_directory(filename, current_directory)
@@ -69,6 +105,7 @@ module MedInstaller
           entries_outfile.puts entry.to_json unless entry == :bad_entry
         rescue => e
           logger.error e.full_message
+          helper.log_error(e.full_message)
         end
       end
       logger.info "Finished converting #{count} entries."
@@ -112,9 +149,11 @@ module MedInstaller
       MiddleEnglishDictionary::FileEmpty,
       MiddleEnglishDictionary::InvalidXML => e
       logger.error e.message
+      helper.log_error(e.message)
       return :bad_entry
     rescue => e
       logger.error e.full_message
+      helper.log_error(e.full_message)
       raise e
     end
 
