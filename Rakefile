@@ -2,9 +2,14 @@
 # for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
 
 require_relative 'config/application'
-require_relative 'app/jobs/index_data_job'
+require_relative 'app/jobs/job_index'
 
 Rails.application.load_tasks
+
+desc 'sanity-check sidekiq'
+task :poke_sidekiq do
+  Dromedary::PokeSidekiqJob.perform_async
+end
 
 desc 'Check for updated data file'
 task :check_data do
@@ -27,7 +32,7 @@ task :check_data do
       Yabeda.check_data.duration_seconds.set({}, Time.now - START_TIME)
       Yabeda.check_data.last_success.set({}, Time.now.to_i)
       Yabeda::Prometheus.push_gateway.add(Yabeda::Prometheus.registry)
-      Dromedary::IndexDataJob.perform_later(ENV["DATA_FILE"])
+      Dromedary::IndexDataJob.perform_async (ENV["DATA_FILE"])
     end
   rescue => e
     Yabeda.check_data.last_failure.set({err_msg: e}, Time.now.to_i)
@@ -37,10 +42,10 @@ end
 
 desc 'add indexing job to sidekiq queue'
 task :queue_indexing do
-  Dromedary::IndexDataJob.perform_later(ENV["DATA_FILE"])
+  Dromedary::IndexDataJob.perform_async(ENV["DATA_FILE"])
 end
 
 desc 'do indexing job now'
 task :perform_indexing do
-  Dromedary::IndexDataJob.perform_now(ENV["DATA_FILE"])
+  Dromedary::IndexDataJob.perform(ENV["DATA_FILE"])
 end

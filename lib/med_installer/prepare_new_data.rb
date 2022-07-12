@@ -19,9 +19,9 @@ module MedInstaller
 
       attr_accessor :start_time, :enabled
 
-      def new
+      def initialize
         @enabled = false
-        if ENV['PROMETHEUS_GATEWAY']
+        if ENV['PROMETHEUS_PUSH_GATEWAY']
           @enabled = true
         end
       end
@@ -99,7 +99,7 @@ module MedInstaller
         end
         logger.info "Data now ready for /bin/dromedary newdata index_new_data"
         helper.log_success
-      rescue err
+      rescue => err
         helper.log_failure(err)
         raise err
       end

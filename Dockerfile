@@ -5,7 +5,7 @@ ARG GID=1000
 
 RUN apt-get update -yqq && \
     apt-get install -yqq --no-install-recommends \
-    apt-transport-https nodejs
+    apt-transport-https nodejs vim
 RUN gem install 'bundler:~>2.1.4'
 
 RUN groupadd -g $GID -o $UNAME

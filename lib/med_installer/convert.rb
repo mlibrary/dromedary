@@ -19,9 +19,9 @@ module MedInstaller
 
       attr_accessor :enabled
 
-      def new
+      def initialize
         @enabled = false
-        if ENV['PROMETHEUS_GATEWAY']
+        if ENV['PROMETHEUS_PUSH_GATEWAY']
           @enabled = true
         end
       end
@@ -66,8 +66,8 @@ module MedInstaller
 
 
     def call(source_dir:)
-      helper = YabedaHelper.new
-      helper.configure!
+      @helper = YabedaHelper.new
+      @helper.configure!
 
       source_data_path = Pathname(source_dir).realdirpath
 
@@ -95,7 +95,7 @@ module MedInstaller
         logger.info "#{count} done" if count > 0 and count % 2500 == 0
         if File.empty?(filename)
           logger.error "File '#{filename}' is empty"
-          helper.log_error "File '#{filename}' is empty"
+          @helper.log_error "File '#{filename}' is empty"
           next
         end
         current_directory = get_and_log_directory(filename, current_directory)
@@ -105,7 +105,7 @@ module MedInstaller
           entries_outfile.puts entry.to_json unless entry == :bad_entry
         rescue => e
           logger.error e.full_message
-          helper.log_error(e.full_message)
+          @helper.log_error(e.full_message)
         end
       end
       logger.info "Finished converting #{count} entries."
@@ -149,11 +149,11 @@ module MedInstaller
       MiddleEnglishDictionary::FileEmpty,
       MiddleEnglishDictionary::InvalidXML => e
       logger.error e.message
-      helper.log_error(e.message)
+      @helper.log_error(e.message)
       return :bad_entry
     rescue => e
       logger.error e.full_message
-      helper.log_error(e.full_message)
+      @helper.log_error(e.full_message)
       raise e
     end
 

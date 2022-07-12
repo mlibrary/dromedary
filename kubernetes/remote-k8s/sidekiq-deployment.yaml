@@ -26,14 +26,16 @@ spec:
     spec:
       containers:
         - name: sidekiq
-          image: ghcr.io/mlibrary/dromedary/dromedary_web:20220623.1
-          imagePullPolicy: Always
+          image: ghcr.io/mlibrary/dromedary/dromedary_web:20220711.1
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3001
           command:
             - bundle
             - exec
             - sidekiq
+            - -r
+            - ./app/jobs/job_index.rb
           env:
             - name: REDIS_URL
               value: redis://redis:6379

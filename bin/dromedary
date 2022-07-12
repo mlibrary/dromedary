@@ -94,6 +94,7 @@ MedInstaller::CLI.register 'extract_convert_index', MedInstaller::ExtractConvert
 
 MedInstaller::CLI.register 'newdata prepare', MedInstaller::PrepareNewData
 MedInstaller::CLI.register 'newdata index', MedInstaller::IndexNewData
+MedInstaller::CLI.register 'ping_prometheus', MedInstaller::PingPrometheus
 
 Hanami::CLI.new(MedInstaller::CLI).call
 
