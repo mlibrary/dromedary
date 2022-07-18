@@ -167,8 +167,7 @@ gem 'jbuilder', '~> 2.5'
 ###############################
 # Gems for automated indexing #
 ###############################
-gem "yabeda"
-gem "yabeda-prometheus"
+gem "prometheus-client", "~> 4.0"
 gem 'sidekiq'
 
 # Use Capistrano for deployment

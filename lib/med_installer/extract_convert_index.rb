@@ -5,6 +5,8 @@ require_relative 'control'
 
 require 'fileutils'
 
+require_relative 'job_monitoring'
+
 require_relative '../../config/load_local_config'
 
 module MedInstaller
@@ -16,6 +18,7 @@ module MedInstaller
     argument :zipfile, required: true, desc: "The path to the zipfile (downloaded from Box)"
 
     def call(zipfile:)
+      metrics = MiddleEnglishIndexMetrics.new({type: "extract_convert_index_data"})
       build_dir = Pathname.new(Dromedary.config.build_dir).realdirpath
       build_dir.mkpath
 
@@ -61,7 +64,7 @@ module MedInstaller
 
       logger.info "New data in place. Making the site live again."
       MedInstaller::Control::MaintenanceModeOff.new(command_name: 'maintenance_mode off').call('off')
-
+      metrics.log_success
     end
 
 

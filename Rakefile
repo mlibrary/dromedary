@@ -3,6 +3,7 @@
 
 require_relative 'config/application'
 require_relative 'app/jobs/job_index'
+require_relative 'lib/med_installer/job_monitoring'
 
 Rails.application.load_tasks
 
@@ -13,30 +14,18 @@ end
 
 desc 'Check for updated data file'
 task :check_data do
-  Yabeda.configure do
-    group :check_data do
-      gauge :duration_seconds, comment: "Time spent running check_data"
-      gauge :last_success, comment: "Last successful run of check_data"
-      gauge :last_failure, tags: :err_msg, comment: "Last failed run of check_data"
-    end
-  end
-
-  START_TIME = Time.now
-  Yabeda.configure!
+  metrics = MiddleEnglishIndexMetrics.new({type: "check_data"})
 
   UPDATE_WINDOW_SECONDS = 7*24*60*60 # should update once weekly
   begin
     # puts ENV["DATA_FILE"]
     last_modified = File.mtime(ENV["DATA_FILE"])
     if (Time.now - last_modified) < UPDATE_WINDOW_SECONDS
-      Yabeda.check_data.duration_seconds.set({}, Time.now - START_TIME)
-      Yabeda.check_data.last_success.set({}, Time.now.to_i)
-      Yabeda::Prometheus.push_gateway.add(Yabeda::Prometheus.registry)
+      metrics.log_success
       Dromedary::IndexDataJob.perform_async (ENV["DATA_FILE"])
     end
   rescue => e
-    Yabeda.check_data.last_failure.set({err_msg: e}, Time.now.to_i)
-    Yabeda::Prometheus.push_gateway.add(Yabeda::Prometheus.registry)
+    metrics.log_error(e)
   end
 end
 

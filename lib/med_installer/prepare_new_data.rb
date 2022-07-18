@@ -15,54 +15,9 @@ module MedInstaller
 
     argument :zipfile, required: true, desc: "The path to the zipfile (downloaded from Box). Must be on the server where the instance is running."
 
-    class YabedaHelper
-
-      attr_accessor :start_time, :enabled
-
-      def initialize
-        @enabled = false
-        if ENV['PROMETHEUS_PUSH_GATEWAY']
-          @enabled = true
-        end
-      end
-
-      def configure!
-        if enabled
-          Yabeda.configure do
-            group :prepare_data do
-              gauge :duration_seconds, comment: "Time spent running prepare_data"
-              gauge :last_success, comment: "Last successful run of prepare_data"
-              gauge :last_failure, tags: :err_msg, comment: "Last failed run of prepare_data"
-            end
-          end
-
-          @start_time = Time.now
-          Yabeda.configure!
-        end
-      end
-
-      def log_success
-        if enabled
-          Yabeda.prepare_data.duration_seconds.set({}, Time.now - @start_time)
-          Yabeda.prepare_data.last_success.set({}, Time.now.to_i)
-          Yabeda::Prometheus.push_gateway.add(Yabeda::Prometheus.registry)
-        end
-      end
-
-      def log_failure(err)
-        if enabled
-          Yabeda.prepare_data.last_failure.set({err_msg: err}, Time.now.to_i)
-          Yabeda::Prometheus.push_gateway.add(Yabeda::Prometheus.registry)
-        end
-      end
-
-    end
-
-
     def call(zipfile:)
       begin
-        helper = YabedaHelper.new
-        helper.configure!
+        metrics = MiddleEnglishIndexMetrics.new({type: "prepare_data"})
 
         build_dir = Pathname.new(Dromedary.config.build_dir).realdirpath
         build_dir.mkpath
@@ -98,9 +53,9 @@ module MedInstaller
           FileUtils.copy path, build_dir
         end
         logger.info "Data now ready for /bin/dromedary newdata index_new_data"
-        helper.log_success
+        metrics.log_success
       rescue => err
-        helper.log_failure(err)
+        metrics.log_error(err)
         raise err
       end
     end
