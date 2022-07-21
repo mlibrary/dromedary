@@ -15,7 +15,12 @@ class MiddleEnglishIndexMetrics
   end
 
   def log_error(err)
-    indexing_job_error.set({err_msg: err}, current_timestamp)
+    indexing_job_error.set(current_timestamp, labels: {err_msg: err})
+    gateway.add(registry)
+  end
+
+  def log_warning(warn)
+    indexing_job_warning.set(current_timestamp, labels: {warning: warn})
     gateway.add(registry)
   end
 
@@ -55,6 +60,13 @@ class MiddleEnglishIndexMetrics
     @indexing_job_error ||= registry.gauge(
       :indexing_job_error,
       docstring: "An error occurred during indexing!"
+    )
+  end
+
+  def indexing_job_warning
+    @indexing_job_warning ||= registry.gauge(
+      :indexing_job_warning,
+      docstring: "A warning occurred during indexing"
     )
   end
 

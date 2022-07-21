@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
         - name: sidekiq
-          image: ghcr.io/mlibrary/dromedary/dromedary_web:20220711.1
+          image: ghcr.io/mlibrary/dromedary/dromedary_web:20220719.1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3001
@@ -40,7 +40,7 @@ spec:
             - name: REDIS_URL
               value: redis://redis:6379
             - name: SOLR_URL
-              value: http://solr:8983/solr/dromedary_testing/
+              value: http://nectar.umdl.umich.edu:8081/solr/dromedary_testing/
             - name: DATA_FILE
               value: /opt/app-data/All_MED_and_Bib_files.zip
             - name: PROMETHEUS_PUSH_GATEWAY
