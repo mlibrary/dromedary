@@ -1,0 +1,5 @@
+image:
+  repository: ghcr.io/mlibrary/dromedary/dromedary_data
+  tag: "20220927.1"
+solrOptions:
+  javaMemory: "-Xms300m -Xmx300m"
