@@ -2,12 +2,15 @@ version: '3'
 
 services:
   web:
+    image: dromedary-web
     build: .
     ports:
       - "3000:3000"
     environment:
       - DATA_FILE=/usr/src/app/All_MED_and_Bib_files.zip
       - PROMETHEUS_PUSH_GATEWAY=http://pushgateway:9091
+      - SOLR_URL=http://nectar.umdl.umich.edu:8081/solr/dromedary_testing/
+      - REDIS_URL=redis://redis:6379
     volumes:
       - .:/usr/src/app
       - gem_cache:/gems
@@ -27,7 +30,23 @@ services:
   redis:
     image: redis:6-buster
     ports:
-      - 6380:6380
+      - 6380:6379
+
+  sidekiq:
+    image: dromedary-web
+    ports:
+      - 3001:3001
+    command:
+      - bundle
+      - exec
+      - sidekiq
+      - -r
+      - ./app/jobs/job_index.rb
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - SOLR_URL=http://nectar.umdl.umich.edu:8081/solr/dromedary_testing/
+      - DATA_FILE=/opt/app-data/All_MED_and_Bib_files.zip
+      - PROMETHEUS_PUSH_GATEWAY=http://pushgateway:9091
 
   prometheus:
     image: prom/prometheus

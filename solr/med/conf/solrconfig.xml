@@ -33,13 +33,13 @@
 
   <!-- static route when deploying to testing/staging/production -->
 <!--  <lib dir="/hydra-dev/dromedary-data/lib" regex=".*\.jar"/>-->
-  <lib dir="/opt/solr/server/lib" regex=".*\.jar"/>
+  <lib dir="/var/solr/um_plugins" regex=".*\.jar"/>
 
   <!-- local route based on current dromedary configuration, sent
        as an argument to bin/solr start when called by
        bin/dromedary solr start -->
 
-  <lib dir="${dromedary.data_dir:./data}/lib" regex=".*\.jar"/>
+<!--  <lib dir="${dromedary.data_dir:./data}/lib" regex=".*\.jar"/>-->
 
   <!--
      Remove the /select handler and set handleSelect to be true so passing

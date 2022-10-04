@@ -3,14 +3,15 @@ kind: CronJob
 metadata:
   name: data-cron
 spec:
-  schedule: "0,5,10,15,20,25,30,35,40,45,50,55 * * * *"
+  schedule: "0 * * * *"
   jobTemplate:
     spec:
       template:
         spec:
+          restartPolicy: OnFailure
           containers:
             - name: data-cron
-              image: ghcr.io/mlibrary/dromedary/dromedary_web:20220621.1
+              image: ghcr.io/mlibrary/dromedary/dromedary_web:20220930.1
               imagePullPolicy: IfNotPresent
               command:
                 - bundle
@@ -20,6 +21,13 @@ spec:
               env:
                 - name: DATA_FILE
                   value: /opt/app-data/All_MED_and_Bib_files.zip
-                - name: PROMETHEUS_PUSH_GATEWAY
-                  value: http://pushgateway.middle-english-monitor:9091
-          restartPolicy: OnFailure
+                - name: REDIS_URL
+                  value: redis://redis:6379
+              volumeMounts:
+                - mountPath: /opt/app-data
+                  name: middle-english-prep
+          volumes:
+            - name: middle-english-prep
+              hostPath:
+                path: /mnt/legacy_cifs_middle_english_prep
+                type: Directory

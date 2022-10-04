@@ -26,11 +26,15 @@ spec:
     spec:
       containers:
         - name: web
-          image: ghcr.io/mlibrary/dromedary/dromedary_web:20220622.1
+          image: ghcr.io/mlibrary/dromedary/dromedary_web:20220929.2
           imagePullPolicy: Always
           env:
             - name: SOLR_URL
               value: http://nectar.umdl.umich.edu:8081/solr/dromedary_testing/
+            - name: REDIS_URL
+              value: redis://redis:6379
+            - name: DATA_FILE
+              value: /opt/app-data/All_MED_and_Bib_files.zip
           ports:
             - containerPort: 3000
           resources: {}
