@@ -35,6 +35,10 @@
         <%= render :partial => 'shared/header_navbar' %>
     <% end %>
 
+    <% if ENV['DEBUG_ENV'] %>
+      x-forwarded host: <%= ENV["HTTP_X_FORWARDED_HOST"].inspect %>
+    <% end %>
+
     <%= area :main do %>
       <p>Main content goes here.</p>
     <% end %>

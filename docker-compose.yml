@@ -13,6 +13,7 @@ services:
       - PROMETHEUS_PUSH_GATEWAY=http://pushgateway:9091
       - SOLR_URL=http://nectar.umdl.umich.edu:8081/solr/dromedary_testing/
       - REDIS_URL=redis://redis:6379
+#      - DEBUG_ENV=true
     volumes:
       - .:/usr/src/app
       - gem_cache:/gems
