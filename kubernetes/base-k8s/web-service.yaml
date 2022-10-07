@@ -10,9 +10,12 @@ metadata:
   name: web
 spec:
   ports:
-    - name: "3000"
-      port: 80
+    - name: rails
+      port: 3000
       targetPort: 3000
+    - name: sidekiq
+      port: 3001
+      targetPort: 3001
   selector:
     io.kompose.service: web
 status:

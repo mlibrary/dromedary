@@ -6,13 +6,13 @@ metadata:
     kompose.version: 1.26.0 (40646f47)
   creationTimestamp: null
   labels:
-    io.kompose.service: sidekiq
-  name: sidekiq
+    io.kompose.service: web
+  name: web
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: sidekiq
+      io.kompose.service: web
   strategy:
     type: Recreate
   template:
@@ -22,32 +22,32 @@ spec:
         kompose.version: 1.26.0 (40646f47)
       creationTimestamp: null
       labels:
-        io.kompose.service: sidekiq
+        io.kompose.service: web
     spec:
       containers:
-        - name: sidekiq
-          image: ghcr.io/mlibrary/dromedary/dromedary_web:20220929.2
-          imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 3001
-          command:
-            - bundle
-            - exec
-            - sidekiq
-            - -r
-            - ./app/jobs/job_index.rb
+        - name: web
+          image: ghcr.io/mlibrary/dromedary/dromedary_web:20221004.1
+          imagePullPolicy: Always
           env:
-            - name: REDIS_URL
-              value: redis://redis:6379
             - name: SOLR_URL
               value: http://nectar.umdl.umich.edu:8081/solr/dromedary_testing/
+            - name: REDIS_URL
+              value: redis://redis:6379
             - name: DATA_FILE
               value: /opt/app-data/All_MED_and_Bib_files.zip
-            - name: PROMETHEUS_PUSH_GATEWAY
-              value: http://pushgateway.middle-english-monitor:9091
+            - name: DATA_DIR
+              value: /usr/src/app/data
+            - name: RAILS_ENV
+              value: development
+#            - name: RAILS_RELATIVE_URL_ROOT
+#              value: /
+          ports:
+            - containerPort: 3000
+          resources: {}
           volumeMounts:
             - mountPath: /opt/app-data
               name: middle-english-prep
+      restartPolicy: Always
       volumes:
         - name: middle-english-prep
           hostPath:
