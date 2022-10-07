@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx-proxied
+    nginx.ingress.kubernetes.io/auth-tls-verify-client: "on"
+    nginx.ingress.kubernetes.io/auth-tls-secret: middle-english-testing/puppet-ca
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+#    nginx.ingress.kubernetes.io/x-forwarded-prefix: "/m/middle-english-dictionary"
+  name: proxied
+spec:
+  rules:
+    - host: testing.middle-english.kubernetes.lib.umich.edu
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: web
+                port:
+                  number: 3000
+          - path: /assets
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: web
+                port:
+                  number: 80
+  tls:
+    - secretName: web-tls
+      hosts:
+        - testing.middle-english.kubernetes.lib.umich.edu
