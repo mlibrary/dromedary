@@ -1,0 +1,15 @@
+.git
+.gitignore
+
+log/*
+
+tmp/*
+
+*.swp
+*.swo
+
+data/
+solr/med/data/
+
+*Dockerfile*
+docker-compose.yml
