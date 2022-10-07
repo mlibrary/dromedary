@@ -23,6 +23,10 @@
 # We don't use a database.
 /db
 
+# ignore compiled assets
+/public/assets/*
+!/public/assets/.keep
+
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
