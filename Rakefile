@@ -14,18 +14,20 @@ end
 
 desc 'Check for updated data file'
 task :check_data do
-  metrics = MiddleEnglishIndexMetrics.new({type: "check_data"})
+  # metrics = MiddleEnglishIndexMetrics.new({type: "check_data"})
 
   UPDATE_WINDOW_SECONDS = 7*24*60*60 # should update once weekly
   begin
-    # puts ENV["DATA_FILE"]
+    puts ENV["DATA_FILE"]
     last_modified = File.mtime(ENV["DATA_FILE"])
+    puts last_modified
     if (Time.now - last_modified) < UPDATE_WINDOW_SECONDS
-      metrics.log_success
+      # metrics.log_success
+      puts "kicking off data job"
       Dromedary::IndexDataJob.perform_async (ENV["DATA_FILE"])
     end
   rescue => e
-    metrics.log_error(e)
+    # metrics.log_error(e)
   end
 end
 

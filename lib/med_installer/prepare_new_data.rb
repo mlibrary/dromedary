@@ -17,7 +17,7 @@ module MedInstaller
 
     def call(zipfile:)
       begin
-        metrics = MiddleEnglishIndexMetrics.new({type: "prepare_data"})
+        # metrics = MiddleEnglishIndexMetrics.new({type: "prepare_data"})
 
         build_dir = Pathname.new(Dromedary.config.build_dir).realdirpath
         build_dir.mkpath
@@ -53,9 +53,9 @@ module MedInstaller
           FileUtils.copy path, build_dir
         end
         logger.info "Data now ready for /bin/dromedary newdata index_new_data"
-        metrics.log_success
+        # metrics.log_success
       rescue => err
-        metrics.log_error(err)
+        # metrics.log_error(err)
         raise err
       end
     end

@@ -190,7 +190,7 @@ each_record do |entry, context|
         else
           warning = "RID #{rid} in #{entry.source} not found in bib_all.xml"
           logger.warn warning
-          MiddleEnglishIndexMetrics.new({type: "index_quotes"}).log_warning(warning)
+          # MiddleEnglishIndexMetrics.new({type: "index_quotes"}).log_warning(warning)
         end
       rescue => e
         logger.error e.full_message
