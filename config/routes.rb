@@ -2,9 +2,9 @@ require 'annoying_utilities'
 
 Rails.application.routes.draw do
 
-  scope Dromedary.config.relative_url_root do
+  scope '/' do
 
-    mount Blacklight::Engine => Dromedary.config.relative_url_root
+    mount Blacklight::Engine => '/'
 
     # Shunt it all to the maintenace page if we need to
     match '*path' => 'static#maintenance_mode', status: 302, via: [:get, :post],

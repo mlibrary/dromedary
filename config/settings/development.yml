@@ -18,7 +18,7 @@ cable:
   channel_prefix: dromedary
 
 
-relative_url_root: /m/middle-english-dictionary
+relative_url_root: /
 
 data_dir: ./data
 build_dir: ./data/build

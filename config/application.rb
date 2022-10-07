@@ -30,8 +30,8 @@ module Dromedary
     config.autoload_paths << "#{Rails.root}/lib"
     config.autoload_paths << "#{Rails.root}/app/presenters"
 
-    config.relative_url_root                   = Dromedary.config.relative_url_root
-    config.action_controller.relative_url_root = config.relative_url_root
+    config.relative_url_root                   = '/'
+    config.action_controller.relative_url_root = '/'
 
     config.log_level = :info
 
