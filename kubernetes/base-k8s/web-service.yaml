@@ -16,6 +16,9 @@ spec:
     - name: sidekiq
       port: 3001
       targetPort: 3001
+    - name: assets
+      port: 80
+      targetPort: 80
   selector:
     io.kompose.service: web
 status:

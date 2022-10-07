@@ -3,12 +3,13 @@ kind: PersistentVolumeClaim
 metadata:
   creationTimestamp: null
   labels:
-    io.kompose.service: web-claim0
-  name: web-claim0
+    io.kompose.service: web
+  name: data-prep
 spec:
+  storageClassName: rook-ceph-block
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 100Mi
+      storage: 10Gi
 status: {}
