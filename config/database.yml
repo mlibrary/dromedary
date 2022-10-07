@@ -22,5 +22,5 @@ test:
 
 production:
   <<: *default
-  url: <%= Dromedary.config.db.url %>
+  url: db/development.sqlite3
 

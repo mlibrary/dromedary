@@ -1,0 +1,29 @@
+blacklight:
+  adapter: solr
+  url: <%= ENV['SOLR_URL'] || "http://127.0.0.1:9639/solr/med" %>
+
+solr:
+  url: <%= ENV['SOLR_URL'] || "http://127.0.0.1:9639/solr/med" %>
+
+secret_key_base: <%= ENV["SECRET_KEY_BASE"] || "somesecretkey" %>
+
+
+
+db:
+  url: unused
+
+cable:
+  adapter: async
+  url: unused
+  channel_prefix: dromedary
+
+
+relative_url_root: <%= ENV["RAILS_RELATIVE_URL_ROOT"] || "/" %>
+
+data_dir: <%= ENV["DATA_DIR"] || "./data" %>
+build_dir: <%= ENV["BUILD_DIR"] || "./data/build" %>
+
+log_dir: <%= ENV["LOG_DIR"] || "./log" %>
+
+#data_dir: /home/esty/github/mlibrary/med/data
+#build_dir: /home/esty/github/mlibrary/med/data/build
