@@ -51,6 +51,9 @@ module Dromedary
 
     config.active_job.queue_adapter = :sidekiq
 
+    url_root = ENV['RAILS_RELATIVE_URL_ROOT'] || ""
+    config.assets.prefix = url_root + "/assets"
+
 
     # config.log_tags = {
     #   ip:         :remote_ip,
