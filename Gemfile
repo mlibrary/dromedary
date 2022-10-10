@@ -1,4 +1,3 @@
-source "https://gems.www.lib.umich.edu"
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
@@ -60,7 +59,7 @@ gem 'simple_form', '~>5.0'
 # When developing in tandem, a relative path is nice and easy
 
 # gem 'middle_english_dictionary', path: "/Users/dueberb/devel/med/middle_english_dictionary"
-gem 'middle_english_dictionary', '~>1.8.0'
+gem 'middle_english_dictionary', git: 'https://github.com/mlibrary/middle_english_dictionary', tag: '1.8.0'
 
 # Use bundler 2
 gem 'bundler', '~> 2.0'
@@ -100,7 +99,7 @@ gem 'traject', require: false # only for indexing
 # end
 
 # Building lists of xpaths
-gem 'xpath_list', require: false # only for data analysis
+gem 'xpath_list', git: 'https://github.com/billdueber/xpath_list', require: false # only for data analysis
 
 
 # Semantic logging?
