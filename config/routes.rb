@@ -2,9 +2,7 @@ require 'annoying_utilities'
 
 Rails.application.routes.draw do
 
-  scope '/' do
-
-    mount Blacklight::Engine => '/'
+    mount Blacklight::Engine => "/"
 
     # Shunt it all to the maintenace page if we need to
     match '*path' => 'static#maintenance_mode', status: 302, via: [:get, :post],
@@ -91,5 +89,4 @@ Rails.application.routes.draw do
 
 
     # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  end
 end
