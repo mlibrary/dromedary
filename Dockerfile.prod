@@ -1,4 +1,4 @@
-FROM ruby:2.6
+FROM ruby:2.6 AS webapp
 ARG UNAME=app
 ARG UID=1000
 ARG GID=1000
@@ -33,5 +33,10 @@ RUN RAILS_ENV=production bin/rails assets:precompile
 RUN chown -R $UID:$GID /usr/src/app
 USER $UNAME
 
-
 CMD ["bin/rails", "s", "-b", "0.0.0.0"]
+
+FROM nginx:mainline AS assets
+ENV NGINX_PORT=80
+ENV NGINX_PREFIX=/
+COPY --from=webapp /usr/src/app/kubernetes/assets.nginx /etc/nginx/templates/default.conf.template
+COPY --from=webapp /usr/src/app/public /usr/share/nginx/html/
