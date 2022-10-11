@@ -18,7 +18,7 @@ spec:
     spec:
       initContainers:
         - name: copy-assets
-          image: ghcr.io/mlibrary/dromedary/dromedary_web:20221007.1
+          image: ghcr.io/mlibrary/dromedary/dromedary_web:20221010.2
           imagePullPolicy: IfNotPresent
           volumeMounts:
             - mountPath: /opt/app-assets/assets
@@ -29,6 +29,7 @@ spec:
             - public/assets
             - /opt/app-assets/
       containers:
+        # NGINX
         - name: nginx
           image: nginx:mainline
           ports:
@@ -36,8 +37,9 @@ spec:
           volumeMounts:
             - mountPath: /usr/share/nginx/html
               name: static-assets
+        # RAILS
         - name: web
-          image: "ghcr.io/mlibrary/dromedary/dromedary_web:20221007.1"
+          image: "ghcr.io/mlibrary/dromedary/dromedary_web:20221010.1"
           imagePullPolicy: IfNotPresent
           env:
             - name: SOLR_URL
@@ -58,6 +60,7 @@ spec:
           volumeMounts:
             - mountPath: /opt/app-build
               name: data-prep
+        # SIDEKIQ
         - name: sidekiq
           image: ghcr.io/mlibrary/dromedary/dromedary_web:20221006.4
           imagePullPolicy: IfNotPresent
