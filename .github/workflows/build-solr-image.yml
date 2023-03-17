@@ -1,5 +1,5 @@
 ---
-name: "Build solr arm64 image"
+name: "Build solr image"
 
 on:
   workflow_dispatch:  # This allows to kick-off the action manually from GitHub Actions
@@ -24,7 +24,7 @@ jobs:
       - name: Build image and push to GitHub Container Registry
         uses: docker/build-push-action@v2
         with:
-          file: ./solr/solr-arm64.dockerfile
+          file: ./solr/Dockerfile
           context: ./solr
           push: true
-          tags: 'ghcr.io/mlibrary/dromedary/dromedary-solr:${{ github.ref_name }}, ghcr.io/mlibrary/dromedary/dromedary-solr:arm64'
+          tags: 'ghcr.io/mlibrary/dromedary/dromedary-solr:${{ github.ref_name }}, ghcr.io/mlibrary/dromedary/dromedary-solr:latest'
