@@ -27,4 +27,4 @@ jobs:
           file: ./solr/Dockerfile
           context: ./solr
           push: true
-          tags: 'ghcr.io/mlibrary/dromedary/solr:${{ github.ref_name }}, ghcr.io/mlibrary/dromedary/solr:latest'
+          tags: 'ghcr.io/mlibrary/dromedary/dromedary-solr:${{ github.ref_name }}, ghcr.io/mlibrary/dromedary/dromedary-solr:latest'
