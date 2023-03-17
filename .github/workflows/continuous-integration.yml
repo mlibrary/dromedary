@@ -1,0 +1,51 @@
+---
+name: Continuous Integration
+
+on:
+  workflow_dispatch:  # This allows to kick-off the action manually from GitHub Actions
+  push:
+  pull_request:
+
+env:
+  RAILS_ENV: "test"
+  DATABASE_URL: "postgresql://postgres:postgres@127.0.0.1:5432/umich-arclight-test"
+  SOLR_URL: "http://127.0.0.1:8983/solr/umich-arclight-test"
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    name: Ruby ${{ matrix.ruby }}
+    strategy:
+      matrix:
+        ruby:
+          - '2.7.7'
+    services:
+      db:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          # Maps tcp port 5432 on service container to the host
+          - 5432:5432
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+      - name: Run Solr (and create core)
+        run: docker run -d -p 8983:8983 -v $(pwd)/solr/arclight:/umich-arclight:ro  solr:8 solr-precreate umich-arclight-test /umich-arclight
+      - name: Yarn Install
+        run: yarn install
+      - name: Setup Database (db:setup)
+        run: bundle exec rake db:setup
+      - name: Continuous Integration (standard rb, rubocop, test, spec)
+        run: bundle exec rake
