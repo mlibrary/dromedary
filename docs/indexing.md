@@ -7,6 +7,12 @@ put `In_progress_MEC_files.zip` up there)
   
 Contact A&E if you need either.
 
+## Kubernetes
+
+You must be behind the LIT firewall to build the data image.
+`$ docker build -t ghcr.io/mlibrary/dromedary/dromedary_data:latest -f data.Dockerfile .`
+If the package is private (currently the case) then the pod will need an [ImagePullSecret](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/)
+
 
 ## Synopsis
 

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Start the app with EXPLAIN_PARTIALS=true to show locations of view partials
-if Rails.env.development?# && ENV['EXPLAIN_PARTIALS']
+if Rails.env.development? # && ENV['EXPLAIN_PARTIALS']
   module ExplainPartials
     def render(*args)
       rendered = super(*args).to_s

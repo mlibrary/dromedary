@@ -1,24 +1,19 @@
-require_relative 'index'
-require_relative 'control'
+require_relative "index"
+require_relative "control"
 
-require 'fileutils'
+require "fileutils"
 
-require_relative '../../config/load_local_config'
+require_relative "../../config/load_local_config"
 
 module MedInstaller
-
-
   # Copy the already-munged files from the build directory into this
   # instances data_dir, presumably for later indexing.
   class CopyFromBuild < Hanami::CLI::Command
-
     include MedInstaller::Logger
 
-
     # Error types for CopyFromBuild
-    class ConfigurationError < StandardError;
+    class ConfigurationError < StandardError
     end
-
 
     class ErrorWithFileList < StandardError
       attr_accessor :files
@@ -29,28 +24,29 @@ module MedInstaller
       end
     end
 
-    class MissingDirectory < ErrorWithFileList;
-    end
-    class FilesTooOld < ErrorWithFileList;
-    end
-    class FileMissing < ErrorWithFileList;
-    end
-    class BuildFileMissing < ErrorWithFileList;
+    class MissingDirectory < ErrorWithFileList
     end
 
+    class FilesTooOld < ErrorWithFileList
+    end
+
+    class FileMissing < ErrorWithFileList
+    end
+
+    class BuildFileMissing < ErrorWithFileList
+    end
 
     NEEDED_FILES = %w[entries.json.gz bib_all.xml hyp_to_bibid.json]
     option :force,
-           required: false,
-           default:  false,
-           values:   %w[true false],
-           desc:     "Force a copy even if the files in build aren't newer than those currently in this instance's data_dir"
-
+      required: false,
+      default: false,
+      values: %w[true false],
+      desc: "Force a copy even if the files in build aren't newer than those currently in this instance's data_dir"
 
     def call(**options)
-      @data_dir  = AnnoyingUtilities.data_dir
+      @data_dir = AnnoyingUtilities.data_dir
       @build_dir = Pathname.new(Dromedary.config.build_dir).realdirpath
-      @force     = options.fetch(:force)
+      @force = options.fetch(:force)
 
       validate_directories!
       validate_build_files_exist!
@@ -70,7 +66,7 @@ module MedInstaller
     rescue FilesTooOld => e
       msg = <<MSG
  
-     File(s) #{e.files.join(', ')} in the build directory aren't newer 
+     File(s) #{e.files.join(", ")} in the build directory aren't newer 
      than what's currently being used.
 
       Did you remember to first prepare new data with  'newdata prepare'?
@@ -79,7 +75,6 @@ module MedInstaller
 MSG
       error_with_file_list(FilesTooOld.new(msg))
     end
-
 
     def validate_directories!
       # Are the directories set and exist? Will raise if not
@@ -95,7 +90,6 @@ MSG
       unless dne.empty?
         raise BuildFileMissing.new("Can't find build file(s)", files: dne)
       end
-
     end
 
     def validate_files_not_too_old!
@@ -108,7 +102,6 @@ MSG
         raise FilesTooOld.new("Current files newer than build files", files: too_old)
       end
     end
-
 
     private
 
@@ -132,8 +125,5 @@ MSG
     def current_file(filename)
       Pathname.new(@data_dir) + filename
     end
-
-
   end
 end
-

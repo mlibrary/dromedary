@@ -1,0 +1,106 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: web
+  name: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: web
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.service: web
+    spec:
+      initContainers:
+        - name: copy-assets
+          image: ghcr.io/mlibrary/dromedary/dromedary_web:20221007.1
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - mountPath: /opt/app-assets/assets
+              name: static-assets
+          command:
+            - cp
+            - -r
+            - public/assets
+            - /opt/app-assets/
+      containers:
+        - name: nginx
+          image: nginx:mainline
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: /usr/share/nginx/html
+              name: static-assets
+        - name: web
+          image: "ghcr.io/mlibrary/dromedary/dromedary_web:20221007.1"
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: SOLR_URL
+              value: http://nectar.umdl.umich.edu:8081/solr/dromedary_testing/
+            - name: DATA_DIR
+              value: /opt/app-build
+            - name: BUILD_DIR
+              value: /opt/app-build/build
+            - name: RAILS_ENV
+              value: production
+#            - name: RAILS_RELATIVE_URL_ROOT
+#              value: '/m/middle-english-dictionary'
+#            - name: RAILS_SERVE_STATIC_FILES
+#              value: "true"
+          ports:
+            - containerPort: 3000
+          resources: {}
+          volumeMounts:
+            - mountPath: /opt/app-build
+              name: data-prep
+        - name: sidekiq
+          image: ghcr.io/mlibrary/dromedary/dromedary_web:20221006.4
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3001
+          command:
+            - bundle
+            - exec
+            - sidekiq
+            - -r
+            - ./app/jobs/job_index.rb
+          env:
+            - name: REDIS_URL
+              value: redis://redis:6379
+            - name: SOLR_URL
+              value: "http://admin:$(SOLR_PASS)@solr:8081/solr/middle-english/"
+            - name: DATA_FILE
+              value: /opt/app-data/All_MED_and_Bib_files.zip
+            - name: PROMETHEUS_PUSH_GATEWAY
+              value: http://pushgateway.middle-english-monitor:9091
+            - name: DATA_DIR
+              value: /opt/app-build
+            - name: BUILD_DIR
+              value: /opt/app-build/build
+            - name: SOLR_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: middle-english-solrcloud-security-bootstrap
+                  key: admin
+          volumeMounts:
+            - mountPath: /opt/app-data
+              name: middle-english-data
+            - mountPath: /opt/app-build
+              name: data-prep
+      restartPolicy: Always
+      volumes:
+        - name: middle-english-data
+          hostPath:
+            path: /mnt/legacy_cifs_middle_english_prep
+            type: Directory
+        - name: data-prep
+          persistentVolumeClaim:
+            claimName: data-prep
+        - name: static-assets
+          emptyDir: {}
+status: {}

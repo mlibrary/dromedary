@@ -1,5 +1,5 @@
-require 'hanami/cli'
-require 'annoying_utilities'
+require "hanami/cli"
+require "annoying_utilities"
 require_relative "logger"
 
 module MedInstaller
@@ -8,7 +8,6 @@ module MedInstaller
 
     VALID_TARGETS = %w[testing staging production]
     PANIC_PAUSE = 5
-
 
     def self.valid_target?(t)
       target = t.downcase
@@ -19,14 +18,14 @@ module MedInstaller
       if valid_target?(t)
         t.downcase
       else
-        raise "Target must be one of [#{VALID_TARGETS.join(', ')}]"
+        raise "Target must be one of [#{VALID_TARGETS.join(", ")}]"
       end
     end
 
     def self.remote_exec(target, cmd)
       logger.info "Telling #{target} to run #{cmd}"
-      #full_command = "ssh deployhost exec -v --env=RAILS_ENV:production dromedary-#{target} app ruby #{cmd}"
-      full_command = %Q[ssh deployhost exec dromedary-#{target} "#{cmd}"]
+      # full_command = "ssh deployhost exec -v --env=RAILS_ENV:production dromedary-#{target} app ruby #{cmd}"
+      full_command = %(ssh deployhost exec dromedary-#{target} "#{cmd}")
       system full_command
     end
 
@@ -47,7 +46,6 @@ module MedInstaller
       end
     end
 
-
     class Restart < Hanami::CLI::Command
       include MedInstaller::Logger
 
@@ -67,14 +65,14 @@ module MedInstaller
       desc "Run a bin/dromedary command on a remote server"
       argument :target, required: true, desc: "Which deployment (testing/staging/production)"
       argument :command, required: true, desc: "The command to run (e.g., \"solr reload\" IN DOUBLE QUOTES)"
-      argument :arg1, required: false, default: ''
-      argument :arg2, required: false, default: ''
-      argument :arg3, required: false, default: ''
+      argument :arg1, required: false, default: ""
+      argument :arg2, required: false, default: ""
+      argument :arg3, required: false, default: ""
 
       def call(target:, command:, arg1:, arg2:, arg3:)
         target = Remote.validate_target!(target)
         sleep(Remote::PANIC_PAUSE)
-        cmd = %Q[bin/dromedary #{[command, arg1, arg2, arg3].join(' ').strip}]
+        cmd = %(bin/dromedary #{[command, arg1, arg2, arg3].join(" ").strip})
         Remote.remote_exec(target, cmd)
       end
     end
@@ -92,6 +90,5 @@ module MedInstaller
         Remote.remote_exec(target, command)
       end
     end
-
   end
 end

@@ -1,10 +1,10 @@
-require 'mail_form'
+require "mail_form"
 
 class Contact < MailForm::Base
-  #attribute :contact_method, captcha: true
-  #attribute :category, validate: true
+  # attribute :contact_method, captcha: true
+  # attribute :category, validate: true
   attribute :username, validate: true
-  attribute :email, validate: /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\z/i
+  attribute :email, validate: /\A([\w.%+-]+)@([\w-]+\.)+(\w{2,})\z/i
   attribute :type
   attribute :message, validate: true
   attribute :referer, validate: false
@@ -15,24 +15,22 @@ class Contact < MailForm::Base
   # 'bhl-digital-support@umich.edu'
 
   # Temp email address instead of using "#{Settings.contact_address}", OR "#{Settings.permissions_address}",
-  divert_mail_to = "dueberb@umich.edu"
+  _divert_mail_to = "dueberb@umich.edu"
 
   def normal_header
-    nh = { 
-        subject: "BHL Daily Contact Form from #{username} about #{type}",
-        to: divert_mail_to,
-        from: "#{email}"
-      }
-    return nh
+    {
+      subject: "BHL Daily Contact Form from #{username} about #{type}",
+      to: divert_mail_to,
+      from: email.to_s
+    }
   end
 
   def permissions_header
-    ph = { 
-        subject: "DHL Daily Contact Form from #{username} about Permissions",
-        to: divert_mail_to,
-        from: "#{email}"
-      }
-    return ph
+    {
+      subject: "DHL Daily Contact Form from #{username} about Permissions",
+      to: divert_mail_to,
+      from: email.to_s
+    }
   end
 
   def headers
@@ -42,5 +40,4 @@ class Contact < MailForm::Base
       normal_header
     end
   end
-
 end

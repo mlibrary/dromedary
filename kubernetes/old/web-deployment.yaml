@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose -f docker-compose.yml convert --volumes hostPath
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: web
+  name: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: web
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose -f docker-compose.yml convert --volumes hostPath
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: web
+    spec:
+      containers:
+        - name: web
+          image: ghcr.io/mlibrary/dromedary/dromedary_web:20221004.1
+          imagePullPolicy: Always
+          env:
+            - name: SOLR_URL
+              value: http://nectar.umdl.umich.edu:8081/solr/dromedary_testing/
+            - name: REDIS_URL
+              value: redis://redis:6379
+            - name: DATA_FILE
+              value: /opt/app-data/All_MED_and_Bib_files.zip
+            - name: DATA_DIR
+              value: /usr/src/app/data
+            - name: RAILS_ENV
+              value: development
+#            - name: RAILS_RELATIVE_URL_ROOT
+#              value: /
+          ports:
+            - containerPort: 3000
+          resources: {}
+          volumeMounts:
+            - mountPath: /opt/app-data
+              name: middle-english-prep
+      restartPolicy: Always
+      volumes:
+        - name: middle-english-prep
+          hostPath:
+            path: /mnt/legacy_cifs_middle_english_prep
+            type: Directory
+status: {}

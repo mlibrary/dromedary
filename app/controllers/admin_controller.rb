@@ -7,5 +7,4 @@ class AdminController < ApplicationController
     flash[:notice] = "Reloaded hyp_to_bibid"
     redirect_to root_path
   end
-
 end

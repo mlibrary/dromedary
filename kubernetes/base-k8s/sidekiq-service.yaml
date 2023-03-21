@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose -f docker-compose.yml convert --volumes hostPath
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: web
+  name: web
+spec:
+  ports:
+    - name: sidekiq
+      port: 3001
+      targetPort: 3001
+  selector:
+    io.kompose.service: sidekiq
+status:
+  loadBalancer: {}

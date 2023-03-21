@@ -1,8 +1,9 @@
 # frozen_string_literal: true
+
 module Blacklight
   class IndexPresenter
     extend Deprecation
-    self.deprecation_horizon = 'Blacklight version 7.0.0'
+    self.deprecation_horizon = "Blacklight version 7.0.0"
 
     attr_reader :document, :configuration, :view_context
 
@@ -41,7 +42,7 @@ module Blacklight
     def render_document_index_label(*args)
       label(*args)
     end
-    deprecation_deprecate render_document_index_label: 'Use #label instead'
+    deprecation_deprecate render_document_index_label: "Use #label instead"
 
     ##
     # Render the index field label for a document
@@ -60,10 +61,10 @@ module Blacklight
     def render_index_field_value(*args)
       field_value(*args)
     end
-    deprecation_deprecate render_index_field_value: 'replaced by #field_value'
+    deprecation_deprecate render_index_field_value: "replaced by #field_value"
 
     # @deprecated
-    def get_field_values(field_config, options={})
+    def get_field_values(field_config, options = {})
       field_values(field_config, options)
     end
     deprecation_deprecate get_field_values: "replaced by #field_value"
@@ -82,23 +83,23 @@ module Blacklight
 
     private
 
-      ##
-      # Get the value for a document's field, and prepare to render it.
-      # - highlight_field
-      # - accessor
-      # - solr field
-      #
-      # Rendering:
-      #   - helper_method
-      #   - link_to_search
-      # @param [Blacklight::Configuration::Field] field_config solr field configuration
-      # @param [Hash] options additional options to pass to the rendering helpers
-      def field_values(field_config, options={})
-        FieldPresenter.new(view_context, document, field_config, options).render
-      end
+    ##
+    # Get the value for a document's field, and prepare to render it.
+    # - highlight_field
+    # - accessor
+    # - solr field
+    #
+    # Rendering:
+    #   - helper_method
+    #   - link_to_search
+    # @param [Blacklight::Configuration::Field] field_config solr field configuration
+    # @param [Hash] options additional options to pass to the rendering helpers
+    def field_values(field_config, options = {})
+      FieldPresenter.new(view_context, document, field_config, options).render
+    end
 
-      def field_config(field)
-        configuration.index_fields.fetch(field) { Configuration::NullField.new(field) }
-      end
+    def field_config(field)
+      configuration.index_fields.fetch(field) { Configuration::NullField.new(field) }
+    end
   end
 end

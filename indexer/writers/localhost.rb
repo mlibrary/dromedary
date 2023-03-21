@@ -1,8 +1,8 @@
-require 'traject'
-require 'traject/solr_json_writer'
+require "traject"
+require "traject/solr_json_writer"
 
-$LOAD_PATH.unshift Pathname.new(__dir__).parent.parent + 'lib'
-require 'annoying_utilities'
+$LOAD_PATH.unshift Pathname.new(__dir__).parent.parent + "lib"
+require "annoying_utilities"
 
 settings do
   provide "solr.url", AnnoyingUtilities.blacklight_solr_url

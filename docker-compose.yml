@@ -1,20 +1,86 @@
-version: '3'
-
+---
 services:
-  web:
-    build: .
+  app:
+    depends_on:
+      - db
+      - solr
+      - redis
+    image: dromedary
+    build:
+      dockerfile: Dockerfile
+      context: .
     ports:
-      - "3000:3000"
+      - "3000:3000" # Rails
+      - "1234:1234" # RubyMine
+      - "26162:26162" # RubyMine
+    environment:
+      - REDIS_URL=redis://redis:6379
     volumes:
-      - .:/usr/src/app
-      - gem_cache:/gems
+      - .:/opt/app
+      - data:/var/opt/app/data
+      - gems:/var/opt/app/gems
+  db:
+    ports:
+      - "5432:5432"
+    image: postgres:12-alpine
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - PGDATA=/var/lib/postgresql/data/db
+
+    volumes:
+      - db-data:/var/lib/postgresql/data
   solr:
-    image: solr:6.6.5
+    platform: linux/x86_64
+    image: ghcr.io/mlibrary/dromedary/dromedary-solr:arm64
     ports:
       - "8983:8983"
+    environment:
+      - SOLR_JAVA_MEM=-Xms1024m -Xmx1024m
+      - SOLR_HEAP=1024m
     volumes:
-      - solr_core:/opt/solr/server/solr/dromedary
-
+      - solr-conf:/opt/solr/server/solr/configsets/dromedary
+      - solr-data:/var/solr
+  redis:
+    image: redis:6-buster
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+  sidekiq:
+    depends_on:
+      - db
+      - solr
+      - redis
+    image: dromedary
+    ports:
+      - 3001:3001
+    environment:
+      - REDIS_URL=redis://redis:6379
+    volumes:
+      - .:/opt/app
+      - data:/var/opt/app/data
+      - gems:/var/opt/app/gems
+    command:
+      - sleep
+      - infinity
+#    command:
+#      - bundle
+#      - exec
+#      - sidekiq
+#      - -r
+#      - ./app/jobs/job_index.rb
 volumes:
-  gem_cache:
-  solr_core:
+  data:
+    driver_opts:
+      type: none
+      device: ${PWD}/data
+      o: bind
+  gems:
+  db-data:
+  solr-conf:
+    driver_opts:
+      type: none
+      device: ${PWD}/solr/dromedary
+      o: bind
+  solr-data:
+  redis-data:
