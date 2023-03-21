@@ -21,6 +21,9 @@ cable:
 relative_url_root: /
 
 data_dir: ./data
+build_dir: ./data/build
 
 log_dir: ./log
 
+#data_dir: /home/esty/github/mlibrary/med/data
+#build_dir: /home/esty/github/mlibrary/med/data/build

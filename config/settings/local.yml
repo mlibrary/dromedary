@@ -1,0 +1,5 @@
+data_dir: /home/esty/github/mlibrary/med/data
+build_dir: /home/esty/github/mlibrary/med/data/build
+
+blacklight:
+  url: http://localhost:9639/solr/med
