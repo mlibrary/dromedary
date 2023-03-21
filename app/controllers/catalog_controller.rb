@@ -1,10 +1,9 @@
 # frozen_string_literal: true
-#
+
 require_relative "concerns/catalog"
 
 class CatalogController < ApplicationController
-
-  #include Blacklight::
+  # include Blacklight::
 
   include Blacklight::Catalog
   include Dromedary::Catalog
@@ -12,14 +11,12 @@ class CatalogController < ApplicationController
   # Pick the layout
   #
   layout ->(controller) {
-    if action_name == 'splash'
-      'splash'
+    if action_name == "splash"
+      "splash"
     else
-      'blacklight'
+      "blacklight"
     end
-
   }
-
 
   configure_blacklight do |config|
     ## Class for sending and receiving requests from a search index
@@ -31,19 +28,18 @@ class CatalogController < ApplicationController
     ## Model that maps search index responses to the blacklight response model
     # config.response_model = Blacklight::Solr::Response
 
-
     #----------------------------------------------------------
     #   Dromedary-only stuff
     #----------------------------------------------------------
     # config.add_nav_action(:search, partial: 'shared/nav/search')
-    config.add_nav_action(:about, partial: 'shared/nav/about')
-    config.add_nav_action(:help, partial: 'shared/nav/help')
-    config.add_nav_action(:contact, partial: 'shared/nav/contact')
+    config.add_nav_action(:about, partial: "shared/nav/about")
+    config.add_nav_action(:help, partial: "shared/nav/help")
+    config.add_nav_action(:contact, partial: "shared/nav/contact")
 
     config.navbar.partials.delete(:search_history)
 
     # Show page tools items
-    #add_show_tools_partial(:print)
+    # add_show_tools_partial(:print)
     config.show.document_actions.delete(:email)
     config.show.document_actions.delete(:sms)
     ##--------------------------------------------------------
@@ -63,7 +59,7 @@ class CatalogController < ApplicationController
     # The "document" search handler, for getting a single document
     # See <requestHandler name="/document".../> in the solrconfig.xml
 
-    config.document_solr_path = 'document'
+    config.document_solr_path = "document"
 
     ##--------------------------------------------------------
     # Sorting and pagination in the Blacklight UI
@@ -76,8 +72,8 @@ class CatalogController < ApplicationController
     # label in pulldown is followed by the name of the SOLR field to sort by and
     # whether the sort is ascending or descending (it must be asc or desc
     # except in the relevancy case).
-    config.add_sort_field 'score desc', label: 'Relevance'
-    config.add_sort_field 'sequence asc', label: 'Alphabetical'
+    config.add_sort_field "score desc", label: "Relevance"
+    config.add_sort_field "sequence asc", label: "Alphabetical"
 
     ##--------------------------------------------------------
     # The search results (index) page
@@ -91,7 +87,7 @@ class CatalogController < ApplicationController
     blacklight_config.index.document_presenter_class = Dromedary::IndexPresenter
 
     # What's the title field for each search result entry?
-    config.index.title_field = 'headword'
+    config.index.title_field = "headword"
 
     # How should we choose how to display this item? (maybe not used if
     # you only have one type of record)
@@ -100,11 +96,10 @@ class CatalogController < ApplicationController
     # Add fields to the display
     # config.add_index_field 'orths', label: "Other forms"
 
-
     # solr field configuration for document/show views
-    #config.show.title_field = 'title_display'
-    #config.show.display_type_field = 'format'
-    #config.show.thumbnail_field = 'thumbnail_path_ss'
+    # config.show.title_field = 'title_display'
+    # config.show.display_type_field = 'format'
+    # config.show.thumbnail_field = 'thumbnail_path_ss'
     #
     # config.show.main_headword = 'main_headword'
     # config.show.headwords     = 'headwords'
@@ -135,9 +130,9 @@ class CatalogController < ApplicationController
     #  (useful when user clicks "more" on a large facet and wants to navigate alphabetically across a large set of results)
     # :index_range can be an array or range of prefixes that will be used to create the navigation (note: It is case sensitive when searching values)
 
-    config.add_facet_field 'pos', label: 'Part of Speech', collapse: false
-    config.add_facet_field 'discipline_usage', label: "Subject Labels", collapse: false
-    config.add_facet_field 'etyma_language', label: "Source Language", collapse: false
+    config.add_facet_field "pos", label: "Part of Speech", collapse: false
+    config.add_facet_field "discipline_usage", label: "Subject Labels", collapse: false
+    config.add_facet_field "etyma_language", label: "Source Language", collapse: false
 
     #     config.add_facet_field 'subject_topic_facet', label: 'Topic', limit: 20, index_range: 'A'..'Z'
     #     config.add_facet_field 'example_pivot_field', label: 'Pivot Field', :pivot => ['format', 'language_facet']
@@ -148,12 +143,10 @@ class CatalogController < ApplicationController
     #   :years_25 => {label: 'within 25 Years', fq: "pub_date:[#{Time.zone.now.year - 25 } TO *]"}
     # }
 
-
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
     # handler defaults, or have no facets.
     config.add_facet_fields_to_solr_request!
-
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
@@ -179,7 +172,6 @@ class CatalogController < ApplicationController
     # config.add_show_field 'json', label: 'JSON'
     # config.add_show_field 'xml', label: 'XML'
 
-
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
     #
@@ -198,82 +190,75 @@ class CatalogController < ApplicationController
     # solr request handler? The one set in config[:default_solr_parameters][:qt],
     # since we aren't specifying it otherwise.
 
-
     # config.add_search_field 'Keywords', label: 'Everything'
 
-
-
     config.add_search_field("anywhere", label: "Entire entry") do |field|
-      field.qt                    = '/search'
-      field.solr_parameters       = {:fq => 'type:entry'}
+      field.qt = "/search"
+      field.solr_parameters = {fq: "type:entry"}
       field.solr_local_parameters = {
-          qf: '$everything_qf',
-          pf: '$everything_pf',
+        qf: "$everything_qf",
+        pf: "$everything_pf"
       }
     end
 
     config.add_search_field("hnf", label: "Headword (with alternate spellings)", default: true) do |field|
-      field.qt                    = "/search"
-      field.solr_parameters       = {:fq => 'type:entry'}
+      field.qt = "/search"
+      field.solr_parameters = {fq: "type:entry"}
       field.solr_local_parameters = {
-        qf: '$headword_and_forms_qf',
-        pf: '$headword_and_forms_pf',
+        qf: "$headword_and_forms_qf",
+        pf: "$headword_and_forms_pf"
       }
     end
 
     # Just the headwords
     config.add_search_field("h", label: "Headword (preferred spelling only)") do |field|
-      field.qt                    = '/search'
-      field.solr_parameters       = {:fq => 'type:entry'}
+      field.qt = "/search"
+      field.solr_parameters = {fq: "type:entry"}
       field.solr_local_parameters = {
-        qf: '$headword_only_qf',
-        pf: '$headword_only_pf',
+        qf: "$headword_only_qf",
+        pf: "$headword_only_pf"
       }
     end
 
     # Notes and definition (all the modern english, basically)
-    config.add_search_field('notes_and_def', label: "Definition and notes") do |field|
-      field.qt                    = '/search'
-      field.solr_parameters       = {:fq => 'type:entry'}
+    config.add_search_field("notes_and_def", label: "Definition and notes") do |field|
+      field.qt = "/search"
+      field.solr_parameters = {fq: "type:entry"}
       field.solr_local_parameters = {
         qf: "definition_text^50 notes",
-        pf: "definition_text^50 notes",
+        pf: "definition_text^50 notes"
       }
     end
 
     # Etymology (why???)
-    config.add_search_field('etyma', label: "Etymology") do |field|
-      field.qt                    = '/search'
-      field.solr_parameters       = {:fq => 'type:entry'}
+    config.add_search_field("etyma", label: "Etymology") do |field|
+      field.qt = "/search"
+      field.solr_parameters = {fq: "type:entry"}
       field.solr_local_parameters = {
         qf: "etyma_text",
-        pf: "etyma_text",
+        pf: "etyma_text"
       }
     end
-
 
     # Citation search
     config.add_search_field("citation", label: "Associated quotes and manuscripts") do |field|
-      field.qt                    = '/search'
-      field.solr_parameters       = {:fq => 'type:entry'}
+      field.qt = "/search"
+      field.solr_parameters = {fq: "type:entry"}
       field.solr_local_parameters = {
-        qf: '$citation_qf',
-        pf: '$citation_pf'
+        qf: "$citation_qf",
+        pf: "$citation_pf"
       }
     end
-
-
 
     # OED Modern English equivalent(ish)
     config.add_search_field("oed", label: "Modern English word equivalent") do |field|
-      field.qt                    = '/search'
-      field.solr_parameters       = {:fq => 'type:entry'}
+      field.qt = "/search"
+      field.solr_parameters = {fq: "type:entry"}
       field.solr_local_parameters = {
-        qf: 'oed_norm',
-        pf: 'oed_norm',
+        qf: "oed_norm",
+        pf: "oed_norm"
       }
     end
-
 
     # Now we see how to over-ride Solr request handler defaults, in this
     # case for a BL "search field", which is really a dismax aggregate
@@ -313,28 +298,23 @@ class CatalogController < ApplicationController
     #   }
     # end
 
-
     # If there are more than this many search results, no spelling ("did you
     # mean") suggestion is offered.
     config.spell_max = 15
 
-
     # Autocomplete on multiple fields. See config/autocomplete.yml
     config.autocomplete = ActiveSupport::HashWithIndifferentAccess.new Rails.application.config_for(:autocomplete)
-
-
 
     # Override show to deal with 404
 
     def show(*args)
       super()
     rescue Blacklight::Exceptions::RecordNotFound => e
-      render "404", layout: 'static', status: 404, locals: {e: e, args: args, id: params['id']}
+      render "404", layout: "static", status: 404, locals: {e: e, args: args, id: params["id"]}
     end
 
     def show404(*args)
-      render "application/404", layout: 'static', status: 404, locals: {args: args, id: params['id']}
+      render "application/404", layout: "static", status: 404, locals: {args: args, id: params["id"]}
     end
-
   end
 end

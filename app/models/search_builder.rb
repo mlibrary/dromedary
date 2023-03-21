@@ -1,13 +1,13 @@
 # frozen_string_literal: true
+
 class SearchBuilder < Blacklight::SearchBuilder
   include Blacklight::Solr::SearchBuilderBehavior
   include MedInstaller::Logger
 
   self.default_processor_chain += [:yogh_to_ezh,
-                                   :escape_intersticial_parens,
-                                   :escape_prefix_suffix_dash,
-                                   :default_to_everything_search]
-
+    :escape_intersticial_parens,
+    :escape_prefix_suffix_dash,
+    :default_to_everything_search]
 
   # q"=>"{!qf=$quote_everything_qf pf=$quote_everything_pf}right",
   #
@@ -16,29 +16,29 @@ class SearchBuilder < Blacklight::SearchBuilder
   #
   # This might be a problem with the advanced search...
 
+  # standard:disable Naming/ConstantName
   Parens_EscapeWorthy = /([-\p{Alpha}])\((\p{Alpha}{1,3})\)/
-
+  # standard:enable Naming/ConstantName
 
   # TODO: Get these values from blacklight_config
   NULL_SEARCH_SORT = {
-    'catalog'      => 'sequence asc',
-    'bibliography' => 'title_sort asc, author_sort asc',
-    'quotes'       => 'quote_date_sort asc, author_sort asc'
+    "catalog" => "sequence asc",
+    # "bibliography" => "title_sort asc, author_sort asc",
+    "quotes" => "quote_date_sort asc, author_sort asc"
   }
-
 
   # These two characters are equivalent
   def yogh_to_ezh(solr_params)
-    solr_params['q'] = solr_params['q'].gsub(/[Ȝȝ]/, 'ʒ')
+    solr_params["q"] = solr_params["q"]&.gsub(/[Ȝȝ]/, "ʒ")
   end
 
   # Sometimes, you gotta escape the parens so things parse right
   def escape_intersticial_parens(solr_params)
-    current_q = solr_params['q']
+    current_q = solr_params["q"]
     if current_q
-      new_q                = current_q.gsub Parens_EscapeWorthy, '\1\\\\(\2\\\\)'
-      solr_params['q']     = new_q
-      solr_params['debug'] = 'true'
+      new_q = current_q.gsub Parens_EscapeWorthy, '\1\\\\(\2\\\\)'
+      solr_params["q"] = new_q
+      solr_params["debug"] = "true"
     end
   end
 
@@ -53,23 +53,23 @@ class SearchBuilder < Blacklight::SearchBuilder
   # ...so the beginning of the prefix actually follows a '}'
 
   def escape_prefix_suffix_dash(solr_params)
-    q                = solr_params['q']
-    q                = q.gsub(/\}\-/, '}\\\\-')
-    q                = q.gsub(/\s+-/, ' \\\\-')
-    q                = q.gsub(/\-\s+/, '\\\\- ')
-    q                = q.gsub(/\-\Z/, '\\\\-')
-    solr_params['q'] = q
+    q = solr_params["q"]
+    q = q&.gsub(/\}-/, '}\\\\-')
+    q = q&.gsub(/\s+-/, ' \\\\-')
+    q = q&.gsub(/-\s+/, '\\\\- ')
+    q = q&.gsub(/-\Z/, '\\\\-')
+    solr_params["q"] = q
   end
 
   def default_to_everything_search(solr_params)
-    q = solr_params['q']
-    if q.nil? or q == "" or q =~ /}\Z/
-      solr_params['q']       = String(q) + '*'
-      blacklight_params['q'] = '*'
+    q = solr_params["q"]
+    if q.nil? || (q == "") || q =~ (/}\Z/)
+      solr_params["q"] = String(q) + "*"
+      blacklight_params["q"] = "*"
 
-      solr_params['sort'] = NULL_SEARCH_SORT[blacklight_params['controller']]
+      solr_params["sort"] = NULL_SEARCH_SORT[blacklight_params["controller"]]
 
-      blacklight_params['sort'] = NULL_SEARCH_SORT[blacklight_params['controller']]
+      blacklight_params["sort"] = NULL_SEARCH_SORT[blacklight_params["controller"]]
     end
   end
 
@@ -81,4 +81,3 @@ class SearchBuilder < Blacklight::SearchBuilder
   #     solr_parameters[:custom] = blacklight_params[:user_value]
   #   end
 end
-

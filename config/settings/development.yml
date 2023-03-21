@@ -1,9 +1,9 @@
 blacklight:
   adapter: solr
-  url: <%= ENV['SOLR_URL'] || "http://127.0.0.1:9639/solr/med" %>
+  url: <%= ENV['SOLR_URL'] || "http://127.0.0.1:8983/solr/dromedary-development" %>
 
 solr:
-  url: <%= ENV['SOLR_URL'] || "http://127.0.0.1:9639/solr/med" %>
+  url: <%= ENV['SOLR_URL'] || "http://127.0.0.1:8983/solr/dromedary-development" %>
 
 secret_key_base: <%= ENV["SECRET_KEY_BASE"] || "somesecretkey" %>
 
@@ -18,7 +18,7 @@ cable:
   channel_prefix: dromedary
 
 
-relative_url_root: /m/middle-english-dictionary
+relative_url_root: /
 
 data_dir: ./data
 

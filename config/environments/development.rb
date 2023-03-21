@@ -1,4 +1,4 @@
-require_relative '../load_local_config'
+require_relative "../load_local_config"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -15,12 +15,12 @@ Rails.application.configure do
   config.consider_all_requests_local = true
 
   # Enable/disable caching. By default caching is disabled.
-  if Rails.root.join('tmp/caching-dev.txt').exist?
+  if Rails.root.join("tmp/caching-dev.txt").exist?
     config.action_controller.perform_caching = true
 
     config.cache_store = :memory_store
     config.public_file_server.headers = {
-      'Cache-Control' => "public, max-age=#{2.days.seconds.to_i}"
+      "Cache-Control" => "public, max-age=#{2.days.seconds.to_i}"
     }
   else
     config.action_controller.perform_caching = false
@@ -47,16 +47,12 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
-  config.assets.prefix = Dromedary.config.relative_url_root + '/assets'
-
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
-
-
 
   # Use bootsnap to make booting...er...snappier...under devel and testing
   # See https://github.com/Shopify/bootsnap/blob/master/README.md
@@ -97,5 +93,4 @@ Rails.application.configure do
   #       compile_cache_yaml: true # Compile YAML into a cache
   #   )
   # end
-
 end

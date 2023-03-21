@@ -1,5 +1,5 @@
-require 'hanami/cli'
-require 'annoying_utilities'
+require "hanami/cli"
+require "annoying_utilities"
 require_relative "logger"
 
 module MedInstaller
@@ -10,7 +10,7 @@ module MedInstaller
       desc "Turn on maintenance mode (redirect all pages to temp down page)"
 
       def call(command)
-        File.open AnnoyingUtilities.maintenance_mode_flag_file, 'w:utf-8' do |f|
+        File.open AnnoyingUtilities.maintenance_mode_flag_file, "w:utf-8" do |f|
           f.puts "To take out of maintenance mode, remove this file manually
                 or by running `bin/dromedary maintenance_mode off`"
         end
@@ -26,6 +26,3 @@ module MedInstaller
     end
   end
 end
-
-
-

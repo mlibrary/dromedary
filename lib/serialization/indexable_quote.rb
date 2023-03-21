@@ -1,7 +1,7 @@
 require 'annoying_utilities'
 require 'middle_english_dictionary'
 
-module Dromedary
+module Dromedary # standard:disable Lint/Syntax
   # For quotes, a record is a simple structure
   #   quote: <string>
   #   entry_id: "MED..."
@@ -13,7 +13,7 @@ module Dromedary
   #   title: title of the stencil
   #   manuscript_abbrev: manuscript abbreviation thing
   #   scope: the "scope" (page number-lik things)
-  class IndexableQuote
+  class IndexableQuote  # standard:disable Lint/Syntax
 
     XSLT = Nokogiri::XSLT(File.read(AnnoyingUtilities::DROMEDARY_ROOT + 'indexer' + 'xslt' + 'Common.xsl'))
 
@@ -30,6 +30,7 @@ module Dromedary
 
     alias_method :med_id, :entry_id
 
+    # standard:disable Lint/Syntax
     def initialize(citation: citation)
       self.quote      = citation.quote.text
       self.entry_id   = citation.entry_id
@@ -50,7 +51,8 @@ module Dromedary
       self.citation = citation
       self.text = citation.text
     end
-
+    # standard:enable Lint/Syntax
+    
     # Provide a JSON representation of this object and all its sub-objects
     # @return [String] json for this object
     def to_json
@@ -59,7 +61,7 @@ module Dromedary
 
   end
 
-  class IndexableQuoteRepresenter < Representable::Decorator
+  class IndexableQuoteRepresenter < Representable::Decorator  # standard:disable Lint/Syntax
     include Representable::JSON
 
     property :quote

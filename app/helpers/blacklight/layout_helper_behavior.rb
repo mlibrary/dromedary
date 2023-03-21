@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # Methods added to this helper will be available to all templates in the hosting
 # application
 module Blacklight
@@ -21,8 +22,8 @@ module Blacklight
     ##
     # Classes used for sizing the main content of a Blacklight page
     # @return [String]
-    def main_content_classes(offset=false)
-      retval = 'col-md-9 col-sm-8 col-xs-12'
+    def main_content_classes(offset = false)
+      retval = "col-md-9 col-sm-8 col-xs-12"
       if offset
         retval += title_content_classes
       end
@@ -30,22 +31,22 @@ module Blacklight
     end
 
     def title_content_classes
-      ' col-md-push-3 col-sm-push-4'
+      " col-md-push-3 col-sm-push-4"
     end
 
     ##
     # Classes used for sizing the sidebar content of a Blacklight page
     # @return [String]
     def sidebar_classes
-      'col-md-3 col-sm-4 col-xs-12'
+      "col-md-3 col-sm-4 col-xs-12"
     end
 
     ##
     # Class used for specifying main layout container classes. Can be
     # overwritten to return 'container-fluid' for Bootstrap full-width layout
-    # @return [String] 
+    # @return [String]
     def container_classes
-      'container'
+      "container"
     end
   end
 end

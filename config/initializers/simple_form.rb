@@ -1,4 +1,4 @@
-require 'simple_form'
+require "simple_form"
 SimpleForm.setup do |config|
   # config.error_notification_class = 'alert alert-danger'
   # config.button_class = 'btn btn-default'
@@ -7,8 +7,7 @@ SimpleForm.setup do |config|
   config.label_text = lambda { |label, required, explicit_label| "#{label} #{required}" }
 
   config.wrappers :default, class: :input,
-                            hint_class: :field_with_hint, error_class: :field_with_errors do |b|
-
+    hint_class: :field_with_hint, error_class: :field_with_errors do |b|
     # Determines whether to use HTML5 (:email, :url, ...)
     # and required attributes
     b.use :html5
@@ -37,9 +36,9 @@ SimpleForm.setup do |config|
 
     ## Inputs
     b.use :label
-    b.use :hint,  wrap_with: { tag: :span, class: :hint }
+    b.use :hint, wrap_with: {tag: :span, class: :hint}
     b.use :input
-    b.use :error, wrap_with: { tag: :span, class: :error }
+    b.use :error, wrap_with: {tag: :span, class: :error}
 
     ## full_messages_for
     # If you want to display the full error message for the attribute, you can
@@ -48,15 +47,14 @@ SimpleForm.setup do |config|
     # b.use :full_error, wrap_with: { tag: :span, class: :error }
   end
 
-  config.wrappers :vertical_form, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
+  config.wrappers :vertical_form, tag: "div", class: "form-group", error_class: "has-error" do |b|
     b.use :html5
     b.use :placeholder
-    b.use :label, class: 'control-label'
-    b.wrapper tag: 'div' do |ba|
-      ba.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
-      ba.use :input, class: 'form-control'
-      ba.use :error, wrap_with: { tag: 'span', class: 'help-block' }
+    b.use :label, class: "control-label"
+    b.wrapper tag: "div" do |ba|
+      ba.use :hint, wrap_with: {tag: "p", class: "help-block"}
+      ba.use :input, class: "form-control"
+      ba.use :error, wrap_with: {tag: "span", class: "help-block"}
     end
   end
-
 end

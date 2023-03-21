@@ -1,0 +1,33 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: data-cron
+spec:
+  schedule: "0 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: data-cron
+              image: ghcr.io/mlibrary/dromedary/dromedary_web:20220930.1
+              imagePullPolicy: IfNotPresent
+              command:
+                - bundle
+                - exec
+                - rake
+                - check_data
+              env:
+                - name: DATA_FILE
+                  value: /opt/app-data/All_MED_and_Bib_files.zip
+                - name: REDIS_URL
+                  value: redis://redis:6379
+              volumeMounts:
+                - mountPath: /opt/app-data
+                  name: middle-english-prep
+          volumes:
+            - name: middle-english-prep
+              hostPath:
+                path: /mnt/legacy_cifs_middle_english_prep
+                type: Directory

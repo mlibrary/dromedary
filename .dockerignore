@@ -1,0 +1,22 @@
+# Ignore everything
+*
+
+# Except
+!/app
+!/bin
+!/config
+!/data
+!/indexer
+!/lib
+!/log/.keep
+!/public
+!/solr/dromedary
+!/spec
+!/test
+!/tmp/.keep
+!/vendor
+config.ru
+Gemfile
+Gemfile.lock
+package.json
+Rakefile

@@ -125,7 +125,7 @@ ul.header-nav-secondary li:hover {
 
 .splash-banner {
   margin: 0;
-  background-image: asset-url("splash_banner.jpg");
+  background-image: image-url("splash_banner.jpg");
   background-size: cover;
 }
 
@@ -305,7 +305,7 @@ ul.header-nav-secondary li:hover {
 
 .banner {
   margin: 0;
-  background-image: asset-url("home_banner.jpg");
+  background-image: image-url("home_banner.jpg");
   background-size: cover;
 
   a {
@@ -1093,7 +1093,7 @@ span.filterValue {
   }
 
   .entry-main-title:before {
-    content: asset-url("med-entry.svg");
+    content: image-url("med-entry.svg");
     position: relative;
     top: 4px;
     padding-right: .65em;
@@ -1406,7 +1406,7 @@ table.table.table-striped,
 }
 
 #citationLink:before {
-  content: asset-url("citation.svg");
+  content: image-url("citation.svg");
   position: relative;
   top: 6px;
   padding-right: .5em;

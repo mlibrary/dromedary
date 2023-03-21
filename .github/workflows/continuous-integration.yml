@@ -8,8 +8,8 @@ on:
 
 env:
   RAILS_ENV: "test"
-  DATABASE_URL: "postgresql://postgres:postgres@127.0.0.1:5432/umich-arclight-test"
-  SOLR_URL: "http://127.0.0.1:8983/solr/umich-arclight-test"
+  DATABASE_URL: "postgresql://postgres:postgres@127.0.0.1:5432/dromedary-test"
+  SOLR_URL: "http://127.0.0.1:9639/solr/dromedary-test"
 
 jobs:
   ci:
@@ -41,11 +41,13 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
+        env:
+          BUNDLE_RUBYGEMS__PKG__GITHUB__COM: ${{secrets.GH_PACKAGE_READ_TOKEN}}
       - name: Run Solr (and create core)
-        run: docker run -d -p 8983:8983 -v $(pwd)/solr/arclight:/umich-arclight:ro  solr:8 solr-precreate umich-arclight-test /umich-arclight
+        run: docker run -d -p 9639:8983 -v $(pwd)/solr/dromedary:/dromedary:ro  ghcr.io/mlibrary/dromedary/dromedary-solr:latest solr-precreate dromedary-test /dromedary
       - name: Yarn Install
         run: yarn install
       - name: Setup Database (db:setup)
         run: bundle exec rake db:setup
-      - name: Continuous Integration (standard rb, rubocop, test, spec)
+      - name: Continuous Integration (standard, spec)
         run: bundle exec rake

@@ -1,0 +1,26 @@
+blacklight:
+  adapter: solr
+  url: <%= ENV['SOLR_URL'] || "http://127.0.0.1:8983/solr/dromedary-test" %>
+
+solr:
+  url: <%= ENV['SOLR_URL'] || "http://127.0.0.1:8983/solr/dromedary-test" %>
+
+secret_key_base: <%= ENV["SECRET_KEY_BASE"] || "somesecretkey" %>
+
+
+
+db:
+  url: unused
+
+cable:
+  adapter: async
+  url: unused
+  channel_prefix: dromedary
+
+
+relative_url_root: /
+
+data_dir: ./data
+
+log_dir: ./log
+
