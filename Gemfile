@@ -163,6 +163,7 @@ gem "jbuilder", "~> 2.5"
 ###############################
 gem "prometheus-client", "~> 4.0"
 gem "sidekiq"
+gem "okcomputer"
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
