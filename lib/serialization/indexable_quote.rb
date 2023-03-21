@@ -1,5 +1,5 @@
-require 'annoying_utilities'
-require 'middle_english_dictionary'
+require "annoying_utilities"
+require "middle_english_dictionary"
 
 module Dromedary # standard:disable Lint/Syntax
   # For quotes, a record is a simple structure
@@ -14,51 +14,49 @@ module Dromedary # standard:disable Lint/Syntax
   #   manuscript_abbrev: manuscript abbreviation thing
   #   scope: the "scope" (page number-lik things)
   class IndexableQuote  # standard:disable Lint/Syntax
-
-    XSLT = Nokogiri::XSLT(File.read(AnnoyingUtilities::DROMEDARY_ROOT + 'indexer' + 'xslt' + 'Common.xsl'))
+    XSLT = Nokogiri::XSLT(File.read(AnnoyingUtilities::DROMEDARY_ROOT + "indexer" + "xslt" + "Common.xsl"))
 
     attr_accessor :quote, :quote_html, :text,
-                  :date,
-                  :entry_id, :headword, :pos,
-                  :cd, :md,
-                  :scope, :rid, :title, :ms,
-                  :citation,
-                  :author, :title,
-                  :bib_id, :stencil_author, :stencil_title,
-                  :dubious,
-                  :entry
+      :date,
+      :entry_id, :headword, :pos,
+      :cd, :md,
+      :scope, :rid, :title, :ms,
+      :citation,
+      :author,
+      :bib_id, :stencil_author, :stencil_title,
+      :dubious,
+      :entry
 
     alias_method :med_id, :entry_id
 
     # standard:disable Lint/Syntax
-    def initialize(citation: citation)
-      self.quote      = citation.quote.text
-      self.entry_id   = citation.entry_id
-      self.cd         = citation.cd
-      self.md         = citation.md
+    def initialize(citation:)
+      self.quote = citation.quote.text
+      self.entry_id = citation.entry_id
+      self.cd = citation.cd
+      self.md = citation.md
       quote_node = Nokogiri::XML(citation.quote.xml)
       self.quote_html = XSLT.transform(quote_node).to_html.chomp
-      self.scope      = citation.bib.scope
+      self.scope = citation.bib.scope
 
-      stencil       = citation.bib.stencil
-      self.rid      = stencil.rid
-      self.date     = stencil.date
-      self.title    = stencil.title
-      self.author   = stencil.author
+      stencil = citation.bib.stencil
+      self.rid = stencil.rid
+      self.date = stencil.date
+      self.title = stencil.title
+      self.author = stencil.author
       self.stencil_title = stencil.title
       self.stencil_author = stencil.author
-      self.ms       = stencil.ms
+      self.ms = stencil.ms
       self.citation = citation
       self.text = citation.text
     end
     # standard:enable Lint/Syntax
-    
+
     # Provide a JSON representation of this object and all its sub-objects
     # @return [String] json for this object
     def to_json
       IndexableQuoteRepresenter.new(self).to_json
     end
-
   end
 
   class IndexableQuoteRepresenter < Representable::Decorator  # standard:disable Lint/Syntax
@@ -81,6 +79,4 @@ module Dromedary # standard:disable Lint/Syntax
     property :ms
     property :citation, decorator: MiddleEnglishDictionary::Entry::CitationRepresenter, class: MiddleEnglishDictionary::Entry::Citation
   end
-
-
 end
