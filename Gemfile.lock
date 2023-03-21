@@ -200,6 +200,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.14.2-x86_64-linux)
       racc (~> 1.4)
+    okcomputer (1.18.4)
     parallel (1.22.1)
     parser (3.2.1.1)
       ast (~> 2.4.1)
@@ -428,6 +429,7 @@ DEPENDENCIES
   nestive (= 0.6.0)
   nio4r (= 2.5.2)
   nokogiri (>= 1.10.10)
+  okcomputer
   pg
   prometheus-client (~> 4.0)
   pry-byebug
