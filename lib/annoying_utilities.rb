@@ -120,7 +120,7 @@ module AnnoyingUtilities
     when :ruby
       eval(File.read(filename)) # standard:disable Security/Eval
     when :yaml
-      YAML.safe_load(ERB.new(File.read(filename)).result)
+      YAML.safe_load(ERB.new(File.read(filename)).result, aliases: true)
     when :json
       JSON.parse(File.read(filename))
     end
