@@ -1,0 +1,37 @@
+FROM ruby:2.6
+ARG UNAME=app
+ARG UID=1000
+ARG GID=1000
+ARG URL_ROOT=/
+
+RUN curl https://deb.nodesource.com/setup_18.x | bash
+RUN curl https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+
+RUN apt-get update -yqq && apt-get install -yqq --no-install-recommends nodejs yarn
+RUN gem install bundler
+
+RUN groupadd -g $GID -o $UNAME
+RUN useradd -m -d /usr/src/app -u $UID -g $GID -o -s /bin/bash $UNAME
+RUN mkdir -p /gems && chown $UID:$GID /gems
+
+COPY --chown=$UID:$GID Gemfile* /usr/src/app/
+
+ENV RAILS_SERVE_STATIC_FILES true
+ENV RAILS_LOG_TO_STDOUT true
+ENV RAILS_ENV production
+ENV BUNDLE_PATH /gems
+
+# This can be anything but must be set.
+ENV SECRET_KEY_BASE 121222bccca
+
+WORKDIR /usr/src/app
+RUN bundle install --without development test
+
+COPY --chown=$UID:$GID . /usr/src/app
+RUN RAILS_ENV=production bin/rails assets:precompile
+RUN chown -R $UID:$GID /usr/src/app
+USER $UNAME
+
+
+CMD ["bin/rails", "s", "-b", "0.0.0.0"]

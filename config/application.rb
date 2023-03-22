@@ -31,6 +31,8 @@ module Dromedary
 
     config.relative_url_root = Dromedary.config.relative_url_root
     config.action_controller.relative_url_root = config.relative_url_root
+    # config.relative_url_root                   = '/'
+    # config.action_controller.relative_url_root = '/'
 
     config.log_level = :info
 
@@ -50,6 +52,7 @@ module Dromedary
     end
 
     config.lograge.formatter = Lograge::Formatters::Json.new
+    config.active_job.queue_adapter = :sidekiq
 
     # config.log_tags = {
     #   ip:         :remote_ip,

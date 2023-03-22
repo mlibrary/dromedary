@@ -1,0 +1,9 @@
+# helm upgrade middle-english-solr-cloud apache-solr/solr --version 0.6 --namespace middle-english-testing -f solr-helm-values.yml
+image:
+  repository: ghcr.io/mlibrary/dromedary/dromedary_data
+  tag: "20221003.3"
+solrOptions:
+  javaMemory: "-Xms300m -Xmx300m"
+  javaOpts: "-Dsolr.sharedLib=/var/solr/um_plugins/"
+  security:
+    authenticationType: "Basic"

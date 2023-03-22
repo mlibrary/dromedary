@@ -5,6 +5,7 @@ require "med_installer"
 require "middle_english_dictionary"
 require "json"
 require_relative "../config/load_local_config"
+require_relative "../lib/med_installer/job_monitoring"
 
 require "quote/quote_indexer"
 require "serialization/indexable_quote"
@@ -181,7 +182,9 @@ each_record do |entry, context|
           q.bib_id = bid
           q.author = bibset[q.bib_id].author
         else
-          logger.warn "RID #{rid} in #{entry.source} not found in bib_all.xml"
+          warning = "RID #{rid} in #{entry.source} not found in bib_all.xml"
+          logger.warn warning
+          # MiddleEnglishIndexMetrics.new({type: "index_quotes"}).log_warning(warning)
         end
       rescue => e
         logger.error e.full_message

@@ -1,8 +1,15 @@
 require "annoying_utilities"
 
 Rails.application.routes.draw do
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
   scope Dromedary.config.relative_url_root do
     mount Blacklight::Engine => Dromedary.config.relative_url_root
+    # config/routes.rb, at any priority that suits you
+    mount OkComputer::Engine, at: "/status"
+
+    # scope '/' do
+    #   mount Blacklight::Engine => '/'
 
     # Shunt it all to the maintenace page if we need to
     match "*path" => "static#maintenance_mode", :status => 302, :via => [:get, :post],
@@ -78,7 +85,5 @@ Rails.application.routes.draw do
     match "dictionary/*path" => "catalog#show404", :via => [:get, :post]
     match "bibliography/*path" => "bibliography#show404", :via => [:get, :post]
     match "*path" => "catalog#show404", :via => [:get, :post]
-
-    # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   end
 end

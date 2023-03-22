@@ -5,11 +5,11 @@
         <li class="heading-medium">Middle English Compendium</li>
         <li><a href="<%= dictionary_home_path%>">Middle English Dictionary</a></li>
         <li><a href="<%= bib_home_path%>">Bibliography</a></li>
-        <li><a href="https://quod.lib.umich.edu/c/cme/" target="_blank">Corpus <%= image_tag('external-link-white.svg', alt:'Opens in a new window') %></a></li>
+<!--        <li><a href="https://quod.lib.umich.edu/c/cme/" target="_blank">Corpus <%#= image_tag('external-link-white.svg', alt:'Opens in a new window') %></a></li>-->
+        <li><a href="https://quod.lib.umich.edu/c/cme/" target="_blank">Corpus <%= image_tag(asset_path('external-link-white.svg'), alt:'Opens in a new window') %></a></li>
       </ul>
      </section>
     <section>
-     
       <ul>
         <li class="heading-medium">Help and information</li>
         <li><%= link_to "Search Help", help_root_path %></li>
