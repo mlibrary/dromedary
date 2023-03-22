@@ -27,14 +27,19 @@ RUN chown $UID:$GID /var/opt/app/gems
 RUN touch $UID:$GID /var/opt/app/gems/.keep
 COPY --chown=$UID:$GID . /opt/app
 
-USER $UNAME
 WORKDIR $APP_PATH
 
+RUN ls -a
 RUN rm *.lock
 RUN gem install 'bundler:~>2.2.21'
 RUN bundle config --local build.sassc --disable-march-tune-native
-RUN bundle install
+
+RUN --mount=type=secret,id=gh_package_read_token \
+  read_token="$(cat /run/secrets/gh_package_read_token)" \
+  && BUNDLE_RUBYGEMS__PKG__GITHUB__COM=${read_token} bundle install
 RUN yarn install
+
+USER $UNAME
 
 ENV RAILS_ENV production
 RUN bundle exec rails assets:precompile

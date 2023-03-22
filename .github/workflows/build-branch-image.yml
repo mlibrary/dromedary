@@ -28,3 +28,5 @@ jobs:
           push: true
           tags: 'ghcr.io/mlibrary/dromedary/dromedary-branch:${{ github.ref_name }}, ghcr.io/mlibrary/dromedary/dromedary-branch:latest'
           file: .docker/branch.dockerfile
+          secrets:
+            "gh_package_read_token=${{ secrets.GH_PACKAGE_READ_TOKEN }}"

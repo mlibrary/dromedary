@@ -15,8 +15,10 @@
 !/test
 !/tmp/.keep
 !/vendor
-config.ru
-Gemfile
-Gemfile.lock
-package.json
-Rakefile
+!.yarnrc
+!config.ru
+!Gemfile
+!Gemfile.lock
+!package.json
+!Rakefile
+!yarn.lock
