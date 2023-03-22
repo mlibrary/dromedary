@@ -1,10 +1,7 @@
-# frozen_string_literal: true
-
 require_relative "concerns/catalog"
+require_relative "../presenters/dromedary/index_presenter"
 
 class CatalogController < ApplicationController
-  # include Blacklight::
-
   include Blacklight::Catalog
   include Dromedary::Catalog
 

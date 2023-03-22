@@ -1,6 +1,8 @@
+require_relative "concerns/catalog"
 require_relative "../presenters/bibliography/index_presenter"
 class BibliographyController < ApplicationController
   include Blacklight::Catalog
+  include Dromedary::Catalog
 
   configure_blacklight do |config|
     ## Class for sending and receiving requests from a search index
