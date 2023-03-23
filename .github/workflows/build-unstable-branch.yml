@@ -28,3 +28,5 @@ jobs:
           push: true
           tags: 'ghcr.io/mlibrary/dromedary/dromedary-unstable:${{ github.sha }}'
           file: .docker/unstable.dockerfile
+          secrets:
+            "gh_package_read_token=${{ secrets.GH_PACKAGE_READ_TOKEN }}"
