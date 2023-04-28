@@ -1,0 +1,33 @@
+name: Build main
+
+on:
+  push:
+    # When merged this should end up being branches: [master] (or,
+    # better yet, branches: [main]).
+    branches:
+    - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target:
+        - webapp
+        - assets
+    steps:
+    - uses: actions/checkout@v3
+    - uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - uses: docker/build-push-action@v2
+      with:
+        context: .
+        file: Dockerfile.prod
+        target: ${{ matrix.target }}
+        push: true
+        tags: |
+          ghcr.io/mlibrary/dromedary/dromedary_unstable_${{ matrix.target }}:latest
+          ghcr.io/mlibrary/dromedary/dromedary_unstable_${{ matrix.target }}:${{ github.sha }}
