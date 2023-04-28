@@ -5,10 +5,10 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-#source "https://rubygems.pkg.github.com/mlibrary" do
-  #gem "middle_english_dictionary", "1.9.0"
-#end
-gem 'middle_english_dictionary', git: 'https://github.com/mlibrary/middle_english_dictionary', tag: 'v1.9.1'
+# source "https://rubygems.pkg.github.com/mlibrary" do
+# gem "middle_english_dictionary", "1.9.0"
+# end
+gem "middle_english_dictionary", git: "https://github.com/mlibrary/middle_english_dictionary", tag: "v1.9.1"
 
 gem "pg"
 
@@ -99,7 +99,7 @@ gem "traject", require: false # only for indexing
 # end
 
 # Building lists of xpaths
-#gem 'xpath_list', git: 'https://github.com/billdueber/xpath_list', require: false # only for data analysis
+# gem 'xpath_list', git: 'https://github.com/billdueber/xpath_list', require: false # only for data analysis
 
 # Semantic logging?
 gem "awesome_print"
