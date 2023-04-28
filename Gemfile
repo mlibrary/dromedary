@@ -5,9 +5,10 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-source "https://rubygems.pkg.github.com/mlibrary" do
-  gem "middle_english_dictionary", "1.9.0"
-end
+#source "https://rubygems.pkg.github.com/mlibrary" do
+  #gem "middle_english_dictionary", "1.9.0"
+#end
+gem 'middle_english_dictionary', git: 'https://github.com/mlibrary/middle_english_dictionary', tag: '1.9.0'
 
 gem "pg"
 
