@@ -9,6 +9,7 @@
 !/indexer
 !/lib
 !/log/.keep
+!/nginx
 !/public
 !/solr/dromedary
 !/spec
