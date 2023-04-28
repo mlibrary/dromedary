@@ -124,8 +124,9 @@ group :development, :test do
     gem "pry-byebug"
   end
 
-  gem "standard", require: false
 end
+
+gem "standard"
 
 #############################################
 
