@@ -392,10 +392,12 @@ GEM
     websocket-extensions (0.1.5)
     yell (2.2.2)
 
-GEM
-  remote: https://rubygems.pkg.github.com/mlibrary/
+GIT
+  remote: https://github.com/mlibrary/middle_english_dictionary
+  revision: 075d8c4ef6332de8091e946881414a0105ca2e46
+  tag: v1.9.1
   specs:
-    middle_english_dictionary (1.9.0)
+    middle_english_dictionary (1.9.1)
       multi_json
       nokogiri
       representable
