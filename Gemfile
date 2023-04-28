@@ -123,7 +123,6 @@ group :development, :test do
     gem "ruby-prof"
     gem "pry-byebug"
   end
-
 end
 
 gem "standard"
