@@ -2,7 +2,6 @@ FROM ruby:2.6 AS webapp
 ARG UNAME=app
 ARG UID=1000
 ARG GID=1000
-ARG URL_ROOT=/
 
 RUN curl https://deb.nodesource.com/setup_18.x | bash
 RUN curl https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
@@ -17,7 +16,7 @@ RUN mkdir -p /gems && chown $UID:$GID /gems
 
 COPY --chown=$UID:$GID Gemfile* /usr/src/app/
 
-ENV RAILS_SERVE_STATIC_FILES true
+ENV RAILS_RELATIVE_URL_ROOT /m/middle-english-dictionary
 ENV RAILS_LOG_TO_STDOUT true
 ENV RAILS_ENV production
 ENV BUNDLE_PATH /gems
