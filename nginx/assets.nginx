@@ -4,6 +4,6 @@ server {
   server_name  localhost;
 
   location ${NGINX_PREFIX} {
-    alias /usr/share/nginx/html;
+    alias /usr/share/nginx/html/;
   }
 }
