@@ -10,7 +10,7 @@ Rails.application.load_tasks
 
 desc "sanity-check sidekiq"
 task :poke_sidekiq do
-  Dromedary::PokeSidekiqJob.perform_async
+  PokeSidekiqJob.perform_async
 end
 
 desc "Check for updated data file"
@@ -27,7 +27,7 @@ task :check_data do
     if (Time.now - last_modified) < UPDATE_WINDOW_SECONDS
       # metrics.log_success
       puts "kicking off data job"
-      Dromedary::IndexDataJob.perform_async(ENV["DATA_FILE"])
+      IndexDataJob.perform_async(ENV["DATA_FILE"])
     end
   rescue => _e
     # metrics.log_error(e)
@@ -35,11 +35,11 @@ task :check_data do
 end
 
 desc "add indexing job to sidekiq queue"
-task :queue_indexing do
-  Dromedary::IndexDataJob.perform_async(ENV["DATA_FILE"])
+task queue_indexing: :environment do
+  IndexDataJob.perform_async(ENV["DATA_FILE"])
 end
 
 desc "do indexing job now"
 task :perform_indexing do
-  Dromedary::IndexDataJob.perform(ENV["DATA_FILE"])
+  IndexDataJob.perform(ENV["DATA_FILE"])
 end
