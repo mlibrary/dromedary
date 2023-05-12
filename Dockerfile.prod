@@ -12,7 +12,6 @@ RUN gem install bundler
 
 RUN groupadd -g $GID -o $UNAME
 RUN useradd -m -d /usr/src/app -u $UID -g $GID -o -s /bin/bash $UNAME
-RUN mkdir -p /gems && chown $UID:$GID /gems
 
 COPY --chown=$UID:$GID Gemfile* /usr/src/app/
 
