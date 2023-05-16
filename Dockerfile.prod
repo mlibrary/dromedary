@@ -1,24 +1,26 @@
-FROM ruby:2.6 AS webapp
+FROM ruby:2.7 AS webapp
+
 ARG UNAME=app
 ARG UID=1000
 ARG GID=1000
+ARG ARCH=amd64
+
+ENV BUNDLE_PATH /gems
+ENV RAILS_LOG_TO_STDOUT true
+ENV RAILS_RELATIVE_URL_ROOT /m/middle-english-dictionary
+ENV RAILS_ENV production
 
 RUN curl https://deb.nodesource.com/setup_18.x | bash
 RUN curl https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
 RUN apt-get update -yqq && apt-get install -yqq --no-install-recommends nodejs yarn
-RUN gem install bundler
 
 RUN groupadd -g $GID -o $UNAME
 RUN useradd -m -d /usr/src/app -u $UID -g $GID -o -s /bin/bash $UNAME
+RUN gem install bundler
 
 COPY --chown=$UID:$GID Gemfile* /usr/src/app/
-
-ENV RAILS_RELATIVE_URL_ROOT /m/middle-english-dictionary
-ENV RAILS_LOG_TO_STDOUT true
-ENV RAILS_ENV production
-ENV BUNDLE_PATH /gems
 
 # This can be anything but must be set.
 ENV SECRET_KEY_BASE 121222bccca
