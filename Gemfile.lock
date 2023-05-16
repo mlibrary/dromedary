@@ -59,6 +59,22 @@ GEM
     autoprefixer-rails (10.4.13.0)
       execjs (~> 2)
     awesome_print (1.9.2)
+    aws-eventstream (1.2.0)
+    aws-partitions (1.763.0)
+    aws-sdk-core (3.172.0)
+      aws-eventstream (~> 1, >= 1.0.2)
+      aws-partitions (~> 1, >= 1.651.0)
+      aws-sigv4 (~> 1.5)
+      jmespath (~> 1, >= 1.6.1)
+    aws-sdk-kms (1.64.0)
+      aws-sdk-core (~> 3, >= 3.165.0)
+      aws-sigv4 (~> 1.1)
+    aws-sdk-s3 (1.122.0)
+      aws-sdk-core (~> 3, >= 3.165.0)
+      aws-sdk-kms (~> 1)
+      aws-sigv4 (~> 1.4)
+    aws-sigv4 (1.5.2)
+      aws-eventstream (~> 1, >= 1.0.2)
     bindex (0.8.1)
     blacklight (6.15.0)
       bootstrap-sass (~> 3.2)
@@ -85,6 +101,7 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.2.2)
     connection_pool (2.3.0)
+    content_disposition (1.0.0)
     crass (1.0.6)
     date (3.3.3)
     debase (0.2.4.1)
@@ -100,6 +117,8 @@ GEM
       unf (>= 0.0.5, < 1.0.0)
     dot-properties (0.1.4)
       bundler (>= 2.2.33)
+    down (5.4.0)
+      addressable (~> 2.8)
     erubi (1.12.0)
     ettin (1.3.0)
       deep_merge
@@ -142,6 +161,7 @@ GEM
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    jmespath (1.6.2)
     jquery-rails (4.5.1)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
@@ -330,6 +350,9 @@ GEM
       websocket (~> 1.0)
     semantic_logger (4.12.0)
       concurrent-ruby (~> 1.0)
+    shrine (3.4.0)
+      content_disposition (~> 1.0)
+      down (~> 5.1)
     sidekiq (6.5.8)
       connection_pool (>= 2.2.5, < 3)
       rack (~> 2.0)
@@ -409,6 +432,7 @@ DEPENDENCIES
   actionview (>= 5.2.4.3)
   activesupport (>= 5.2.4.3)
   awesome_print
+  aws-sdk-s3
   blacklight (~> 6.15.0)
   bundler (~> 2.0)
   coffee-rails (~> 4.2)
@@ -446,6 +470,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   selenium-webdriver
   semantic_logger
+  shrine (~> 3.0)
   sidekiq
   simple_form (~> 5.0)
   simple_solr_client

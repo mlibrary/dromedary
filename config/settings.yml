@@ -1,0 +1,13 @@
+storage:
+  service: local
+
+  local:
+    # We can't use Rails.root here, so the fallback to root + "storage" is in storage.yml
+    root: <%= ENV["MEC_UPLOAD_ROOT"] %>
+
+  aws:
+    access_key_id: <%= ENV["AWS_ACCESS_KEY_ID"] %>
+    secret_access_key: <%= ENV["AWS_SECRET_ACCESS_KEY"] %>
+    region: <%= ENV["AWS_S3_REGION"] || "us-east-1" %>
+    bucket: <%= ENV["AWS_S3_BUCKET"] %>
+

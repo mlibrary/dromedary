@@ -193,3 +193,6 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "rsolr", ">= 1.0"
 gem "jquery-rails"
+
+gem "aws-sdk-s3", require: false
+gem "shrine", "~> 3.0"

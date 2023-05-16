@@ -1,0 +1,7 @@
+<h1>Corpus Updates</h1>
+
+<ul>
+<% @updates.each do |update| %>
+  <li><%= update.id %>: <%= update.zip_file %></li>
+<% end %>
+</ul>

@@ -17,6 +17,8 @@ cable:
   url: unused
   channel_prefix: dromedary
 
+storage:
+  service: aws
 
 relative_url_root: <%= ENV["RAILS_RELATIVE_URL_ROOT"] || "/" %>
 

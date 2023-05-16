@@ -82,7 +82,7 @@ services:
 #      - sidekiq
 #      - -r
 #      - ./app/jobs/job_index.rb
-      - solr_core:/opt/solr/server/solr/dromedary
+#      - solr_core:/opt/solr/server/solr/dromedary
 #  data:
 #    build:
 #      dockerfile: data.Dockerfile

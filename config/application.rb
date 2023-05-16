@@ -54,6 +54,10 @@ module Dromedary
     config.lograge.formatter = Lograge::Formatters::Json.new
     config.active_job.queue_adapter = :sidekiq
 
+    config.active_record.yaml_column_permitted_classes =
+      %w[String Integer NilClass Float Time Date FalseClass Hash Array DateTime TrueClass BigDecimal
+      ActiveSupport::TimeWithZone ActiveSupport::TimeZone ActiveSupport::HashWithIndifferentAccess]
+
     # config.log_tags = {
     #   ip:         :remote_ip,
     # }

@@ -7,3 +7,10 @@
 **/tmp
 !**/.keep
 .byebug_history
+.bash_history
+/.gem/
+/.local/
+/public/assets/*
+
+config/settings.local.yml
+config/settings/*.local.yml

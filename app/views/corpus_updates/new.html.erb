@@ -1,0 +1,7 @@
+<h1>New Corpus Update</h1>
+
+<%= form_for(@corpus_update) do |f| %>
+  <%= f.label :complete_zip_file %>
+  <%= f.file_field :zip_file, multiple: false, direct_upload: false %>
+  <%= f.submit "Upload" %>
+<% end %>
