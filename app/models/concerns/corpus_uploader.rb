@@ -1,0 +1,2 @@
+class CorpusUploader < Shrine
+end
