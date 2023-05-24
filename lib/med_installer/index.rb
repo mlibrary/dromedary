@@ -1,6 +1,7 @@
 require "hanami/cli"
 require "pathname"
 require "annoying_utilities"
+require "solr_helper"
 require "med_installer/logger"
 require "med_installer/solr"
 require "middle_english_dictionary/collection/bib_set"
@@ -120,7 +121,7 @@ module MedInstaller
       option :existing_hyp_to_bibid, type: :boolean, default: false, desc: "Don't create new hyp_to_bibid"
 
       def call(debug:, existing_hyp_to_bibid:)
-        raise "Solr at #{AnnoyingUtilities.blacklight_solr_url} not up" unless AnnoyingUtilities.solr_core.up?
+        raise "Solr at #{SolrHelper.blacklight_solr_url} not up" unless SolrHelper.solr_collection
         writer = select_writer(debug)
 
         logger.info "Clearing existing data"
