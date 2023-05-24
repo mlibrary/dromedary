@@ -27,11 +27,6 @@ class SolrHelper
       Collection.new(@solr_connection, collection_name.to_s)
     end
 
-    class Collection
-      def initialize(solr_connection, collection_name)
-      end
-    end
-
     def collections
       response = get('admin/collections', {action: 'LIST'})
       response['collections']
@@ -44,6 +39,28 @@ class SolrHelper
         raise RuntimeError.new, json_response['error']
       end
       json_response
+    end
+
+    class Collection
+      attr_accessor :solr_connection, :collection_name
+
+      def initialize(solr_connection, collection_name)
+        @solr_connection = solr_connection
+        @collection_name = collection_name
+      end
+
+      def new_collection_name
+        "#{collection_name}_new"
+      end
+
+      def create_new
+        @solr_connection.post(
+          ["admin/collections?action=CREATE",
+           "&name=#{new_collection_name}",
+           "&collection.configName=#{collection_name}",
+           "&numShards=1"].join("")
+         )
+      end
     end
 
   end

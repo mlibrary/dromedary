@@ -30,6 +30,10 @@ module MedInstaller
         end
       end
 
+      def collection
+        SolrHelper.solr_collection
+      end
+
       def core
         core = AnnoyingUtilities.solr_core
         # Commit with index building can take a looooong time. Set the timeout to 100seconds
@@ -124,8 +128,8 @@ module MedInstaller
         raise "Solr at #{SolrHelper.blacklight_solr_url} not up" unless SolrHelper.solr_collection
         writer = select_writer(debug)
 
-        logger.info "Clearing existing data"
-        core.clear
+        logger.info "Creating new collection"
+        collection.create_new
 
         logger.info "Reloading core definition"
         core.reload
