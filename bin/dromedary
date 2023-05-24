@@ -72,22 +72,6 @@ MedInstaller::CLI.register 'remote-exec', MedInstaller::Remote::Exec
 MedInstaller::CLI.register 'maintenance_mode on', MedInstaller::Control::MaintenanceModeOn
 MedInstaller::CLI.register 'maintenance_mode off', MedInstaller::Control::MaintenanceModeOff
 
-# Solr utilities for your development environment.
-MedInstaller::CLI.register 'solr install', MedInstaller::Solr::Install
-#MedInstaller::CLI.register 'solr link', MedInstaller::Solr::Link # TODO: Fix this for solr libs
-MedInstaller::CLI.register 'solr start', MedInstaller::Solr::Start, aliases: ['restart']
-MedInstaller::CLI.register 'solr stop', MedInstaller::Solr::Stop
-MedInstaller::CLI.register 'solr empty', MedInstaller::Solr::Empty, aliases: ['clear']
-MedInstaller::CLI.register 'solr commit', MedInstaller::Solr::Commit
-MedInstaller::CLI.register 'solr optimize', MedInstaller::Solr::Optimize
-MedInstaller::CLI.register 'solr up', MedInstaller::Solr::Up, aliases: ['up?']
-MedInstaller::CLI.register 'solr shell', MedInstaller::Solr::Shell
-
-
-
-
-
-
 # So people can actually do stuff
 
 MedInstaller::CLI.register 'extract_convert_index', MedInstaller::ExtractConvertIndex, aliases: ['load_new_data']
