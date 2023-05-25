@@ -3,7 +3,7 @@ require "hanami/cli"
 require "tempfile"
 require "zlib"
 require "serialization/indexable_quote"
-require "annoying_utilities"
+require "solr_helper"
 
 module MedInstaller
   # Convert a bunch of Dromedary xml files into a more useful format.
@@ -37,12 +37,12 @@ module MedInstaller
 
       validate_xml_dir(source_data_path)
 
-      logger.info "Will put finished file in #{AnnoyingUtilities.entries_path}"
+      logger.info "Will put finished file in #{SolrHelper.entries_path}"
 
       entries_tmpfile = Pathname(Dir.tmpdir) + "entries.json.tmp"
       entries_outfile = Zlib::GzipWriter.open(entries_tmpfile)
 
-      entries_targetfile = AnnoyingUtilities.data_dir + "entries.json.gz"
+      entries_targetfile = SolrHelper.data_dir + "entries.json.gz"
 
       oedfile = find_oed_file(source_data_path)
       logger.info "Loading OED links from #{oedfile} so we can push them into entries"

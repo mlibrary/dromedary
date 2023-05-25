@@ -1,6 +1,7 @@
 $LOAD_PATH.unshift Pathname.new(__dir__).to_s
 $LOAD_PATH.unshift (Pathname.new(__dir__).parent + "lib").to_s
 require "annoying_utilities"
+require 'solr_helper'
 require "med_installer"
 require "middle_english_dictionary"
 require "json"

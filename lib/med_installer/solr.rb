@@ -1,6 +1,7 @@
 require "middle_english_dictionary"
 require "hanami/cli"
 require "annoying_utilities"
+require "solr_helper"
 require "simple_solr_client"
 
 require_relative "logger"
@@ -15,9 +16,8 @@ module MedInstaller
   class Solr
     extend MedInstaller::Logger
 
-    DROMEDARY_ROOT = AnnoyingUtilities::DROMEDARY_ROOT
-    MED_CONFIG = DROMEDARY_ROOT + "solr" + "med"
-    SOLR_LIBS = DROMEDARY_ROOT + "solr" + "lib"
+    MED_CONFIG = SolrHelper.solr_config_dir
+    SOLR_LIBS = SolrHelper.solr_libs_dir
 
     def self.get_port_with_logging(rails_env)
       p = AnnoyingUtilities.solr_port
@@ -51,9 +51,9 @@ module MedInstaller
       desc "Force solr to commit"
 
       def call(cmd)
-        core = AnnoyingUtilities.solr_core
+        collection = SolrHelper.solr_collection
 
-        unless core.up?
+        unless collection
           logger.error "Solr core at #{core.url} did not respond (not up?)"
           exit(1)
         end
