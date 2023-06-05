@@ -5,6 +5,8 @@ require "simple_solr_client"
 
 require_relative "logger"
 
+require "my_simple_solr_client"
+
 Zip.on_exists_proc = true
 
 # update 2019_updates u, slip_rights sr
@@ -46,7 +48,7 @@ module MedInstaller
       autocomplete.keys.each do |key|
         suggester_path = autocomplete[key]["solr_endpoint"]
         logger.info "   Recreate suggester for #{suggester_path}"
-        _resp = core.get "/#{suggester_path}", {"suggest.build" => "true"}
+        _resp = core.get "config/#{suggester_path}", {"suggest.build" => "true"}
       end
     end
 

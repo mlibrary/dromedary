@@ -16,17 +16,9 @@ RUN apt-get update -yqq && \
 
 ENV APP_PATH /opt/app
 RUN groupadd -g $GID -o $UNAME
-RUN useradd -m -d $APP_PATH -u $UID -g $GID -o -s /bin/bash $UNAME
-RUN mkdir /var/opt/app
-RUN mkdir /var/opt/app/data
-RUN mkdir /var/opt/app/gems
-RUN chown $UID:$GID /var/opt/app
-RUN chown $UID:$GID /var/opt/app/data
-RUN touch $UID:$GID /var/opt/app/data/.keep
-RUN chown $UID:$GID /var/opt/app/gems
-RUN touch $UID:$GID /var/opt/app/gems/.keep
-COPY --chown=$UID:$GID . /opt/app
+RUN useradd -M -d $APP_PATH -u $UID -g $GID -o -s /bin/bash $UNAME
 
+COPY . $APP_PATH
 WORKDIR $APP_PATH
 
 RUN ls -a
@@ -39,9 +31,11 @@ RUN --mount=type=secret,id=gh_package_read_token \
   && BUNDLE_RUBYGEMS__PKG__GITHUB__COM=${read_token} bundle install
 RUN yarn install
 
+RUN chown --recursive $UID:$GID $APP_PATH
 USER $UNAME
 
 ENV RAILS_ENV production
 RUN bundle exec rails assets:precompile
 
+ENV RAILS_LOG_TO_STDOUT true
 CMD ["bundle", "exec", "bin/rails", "s", "-b", "0.0.0.0"]

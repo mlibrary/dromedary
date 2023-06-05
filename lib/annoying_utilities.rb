@@ -5,6 +5,7 @@ require "json"
 require "uri"
 require "med_installer/logger"
 require_relative "../config/load_local_config"
+require "my_simple_solr_client"
 
 module AnnoyingUtilities
   DROMEDARY_ROOT = Pathname(__dir__).parent.realdirpath
@@ -105,10 +106,12 @@ module AnnoyingUtilities
     uri = URI(blacklight_solr_url)
     path = uri.path.split("/")
     corename = path.pop
-    uri.path = path.join("/") # go up a level -- we popped off the core name
+    # _collections = path.pop
+    _solr = path.pop
+    uri.path = path.join("/") # go up a level -- we popped off the api/c/collection name
     solr_url = uri.to_s
 
-    client = SimpleSolrClient::Client.new(solr_url)
+    client = MySimpleSolrClient::Client.new(solr_url)
     client.core(corename)
   end
 
