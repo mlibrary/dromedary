@@ -20,8 +20,14 @@ class UpdateService
   def process(corpus_update)
     enforce_inactive!
     lock_update(corpus_update.id)
+
+    corpus_update.preparing!
     prepare(corpus_update)
+
+    corpus_update.indexing!
     index
+
+    corpus_update.complete!
     unlock_update
   end
 
