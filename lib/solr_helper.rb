@@ -122,8 +122,31 @@ class SolrHelper
          )
       end
 
+      def get(path, args = {})
+        response = @solr_connection.get(path, args)
+        json_response = response.body
+        if json_response['error']
+          raise RuntimeError.new, json_response['error']
+        end
+        json_response
+      end
+
+      def post_json(path, object_to_post)
+        response = @solr_connection.post(path, JSON.dump(object_to_post), {'Content-type' => 'application/json'})
+        json_response = response.body
+        puts json_response.inspect
+        if json_response['error']
+          raise RuntimeError.new, json_response['error']
+        end
+        json_response
+      end
+
       def commit
         update({'commit' => {}}, new_collection_name)
+      end
+
+      def optimize
+        update({'optimize' => {}}, new_collection_name)
       end
 
       def update(object_to_post, url_infix)

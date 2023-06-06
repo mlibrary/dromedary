@@ -60,7 +60,7 @@ module MedInstaller
 
       def optimize
         logger.info "Optimizing (long!)"
-        core.optimize
+        collection.optimize
       end
     end
 
