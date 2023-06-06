@@ -19,9 +19,7 @@ RUN gem install bundler
 
 RUN mkdir -p /var/opt/app/data
 RUN mkdir -p /var/opt/app/gems
-RUN chown -R $UID:$GID /var/opt/app 
-RUN touch $UID:$GID /var/opt/app/data/.keep 
-RUN touch $UID:$GID /var/opt/app/gems/.keep
+RUN chown -R $UID:$GID /var/opt/app
 
 RUN chown -R $UID:$GID /opt/app
 COPY --chown=$UID:$GID Gemfile* /opt/app/
