@@ -1,0 +1,70 @@
+---
+services:
+  app:
+    depends_on:
+      - db
+    image: dromedary
+    build:
+      dockerfile: Dockerfile
+      context: .
+      network: host
+#   ports:
+#     - "3000:3000" # Rails
+#     - "1234:1234" # RubyMine
+#     - "26162:26162" # RubyMine
+    environment:
+#     - REDIS_URL=redis://redis:6379
+      - RAILS_ENV=development
+      - SOLR_URL=http://$(SOLR_USER):$(SOLR_PASSWORD)@localhost:8983/solr/staging/
+    volumes:
+#     - .:/opt/app
+      - data:/var/opt/app/data
+      - gems:/var/opt/app/gems
+    networks:
+      hostnet: {}
+
+  db:
+    ports:
+      - "5432:5432"
+    image: postgres:12-alpine
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - PGDATA=/var/lib/postgresql/data/db
+
+# redis:
+#   image: redis:6-buster
+#   ports:
+#     - "6379:6379"
+#   volumes:
+#     - redis-data:/data
+
+# sidekiq:
+#   depends_on:
+#     - db
+#     - redis
+#   image: dromedary
+#   ports:
+#     - 3001:3001
+#   environment:
+#     - REDIS_URL=redis://redis:6379
+#   volumes:
+#     - .:/opt/app
+#     - data:/var/opt/app/data
+#     - gems:/var/opt/app/gems
+#   command:
+#     - sleep
+#     - infinity
+
+volumes:
+  data:
+    driver_opts:
+      type: none
+      device: ${PWD}/data
+      o: bind
+  gems:
+  redis-data:
+
+networks:
+  hostnet:
+    external: true
+    name: host

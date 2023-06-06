@@ -6,12 +6,13 @@
 !/bin
 !/config
 !/data
+!/db
 !/indexer
 !/lib
 !/log/.keep
 !/nginx
 !/public
-!/solr/dromedary
+!/solr/med
 !/spec
 !/test
 !/tmp/.keep

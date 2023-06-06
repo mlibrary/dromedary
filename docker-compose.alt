@@ -1,0 +1,58 @@
+---
+services:
+  app:
+    depends_on:
+      - db
+      - solr
+    image: dromedary
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+     - "3000:3000" # Rails
+     - "1234:1234" # RubyMine
+     - "26162:26162" # RubyMine
+    environment:
+      - SOLR_URL=http://solr:8983/solr
+      - SOLR_COLLECTION=dromedary-development
+    volumes:
+      - .:/opt/app
+      - data:/var/opt/app/data
+      - gems:/var/opt/app/gems
+    command:
+      - sleep
+      - infinity
+
+  db:
+    image: postgres:12-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - PGDATA=/var/lib/postgresql/data/db
+    volumes:
+      - db:/var/lib/postgresql/data
+
+  solr:
+    image: solr:dromedary
+    build:
+      dockerfile: ./Dockerfile
+      context: ./solr
+    ports:
+      - "8983:8983"
+    entrypoint:
+      - bash
+      - "-c"
+      - "exec solr -c -f"
+    volumes:
+      - solr:/var/lib/solr/data
+
+volumes:
+  data:
+    driver_opts:
+      type: none
+      device: ${PWD}/data
+      o: bind
+  gems:
+  db:
+  solr:
