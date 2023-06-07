@@ -141,7 +141,7 @@ module MedInstaller
         MedInstaller::Solr.rebuild_suggesters(collection)
         optimize
         commit
-        logger.info "Done!"
+        logger.info "TODO: RENAME THE NEW COLLECTION WE CREATED"
       end
     end
 
