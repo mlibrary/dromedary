@@ -1,8 +1,8 @@
-require 'faraday'
+require "faraday"
 
 class SolrHelper
   def self.blacklight_solr_url
-    "#{ENV['SOLR_URL']}/#{ENV['SOLR_COLLECTION']}"
+    "#{ENV["SOLR_URL"]}/#{ENV["SOLR_COLLECTION"]}"
   end
 
   def self.solr_collection
@@ -26,27 +26,27 @@ class SolrHelper
 
   def self.live_data_dir
     Pathname.new(Dromedary.config.data_dir).realpath
-    path = ENV['DATA_DIR'] || "./data/"
+    path = ENV["DATA_DIR"] || "./data/"
     Pathname.new(path).realpath
   end
 
   def self.solr_config_dir
-    path = ENV['SOLR_CONFIG_DIR'] || "./solr/med/"
+    path = ENV["SOLR_CONFIG_DIR"] || "./solr/med/"
     Pathname.new(path).realpath
   end
 
   def self.solr_libs_dir
-    path = ENV['SOLR_LIBS_DIR'] || "./solr/lib/"
+    path = ENV["SOLR_LIBS_DIR"] || "./solr/lib/"
     Pathname.new(path).realpath
   end
 
   def self.dot_solr
-    path = ENV['DOT_SOLR'] || "./.solr/"
+    path = ENV["DOT_SOLR"] || "./.solr/"
     Pathname.new(path).realpath
   end
 
   def self.index_dir
-    path = ENV['INDEX_DIR'] || "./indexer/"
+    path = ENV["INDEX_DIR"] || "./indexer/"
     Pathname.new(path).realpath
   end
 
@@ -67,7 +67,7 @@ class SolrHelper
       @solr_connection = Faraday.new(
         url: solr_url
       ) do |conn|
-        conn.request :authorization, :basic, ENV['SOLR_USER'], ENV['SOLR_PASSWORD']
+        conn.request :authorization, :basic, ENV["SOLR_USER"], ENV["SOLR_PASSWORD"]
         conn.response :json
       end
     end
@@ -78,25 +78,25 @@ class SolrHelper
     end
 
     def collections
-      response = get('admin/collections', {action: 'LIST'})
-      response['collections']
+      response = get("admin/collections", {action: "LIST"})
+      response["collections"]
     end
 
     def get(path, args = {})
       response = @solr_connection.get(path, args)
       json_response = response.body
-      if json_response['error']
-        raise RuntimeError.new, json_response['error']
+      if json_response["error"]
+        raise RuntimeError.new, json_response["error"]
       end
       json_response
     end
 
     def post_json(path, object_to_post)
-      response = @solr_connection.post(path, JSON.dump(object_to_post), {'Content-type' => 'application/json'})
+      response = @solr_connection.post(path, JSON.dump(object_to_post), {"Content-type" => "application/json"})
       json_response = response.body
       puts json_response.inspect
-      if json_response['error']
-        raise RuntimeError.new, json_response['error']
+      if json_response["error"]
+        raise RuntimeError.new, json_response["error"]
       end
       json_response
     end
@@ -116,43 +116,42 @@ class SolrHelper
       def create_new
         @solr_connection.post(
           ["admin/collections?action=CREATE",
-           "&name=#{new_collection_name}",
-           "&collection.configName=#{collection_name}",
-           "&numShards=1"].join("")
-         )
+            "&name=#{new_collection_name}",
+            "&collection.configName=#{collection_name}",
+            "&numShards=1"].join("")
+        )
       end
 
       def get(path, args = {})
         response = @solr_connection.get(path, args)
         json_response = response.body
-        if json_response['error']
-          raise RuntimeError.new, json_response['error']
+        if json_response["error"]
+          raise RuntimeError.new, json_response["error"]
         end
         json_response
       end
 
       def post_json(path, object_to_post)
-        response = @solr_connection.post(path, JSON.dump(object_to_post), {'Content-type' => 'application/json'})
+        response = @solr_connection.post(path, JSON.dump(object_to_post), {"Content-type" => "application/json"})
         json_response = response.body
         puts json_response.inspect
-        if json_response['error']
-          raise RuntimeError.new, json_response['error']
+        if json_response["error"]
+          raise RuntimeError.new, json_response["error"]
         end
         json_response
       end
 
       def commit
-        update({'commit' => {}}, new_collection_name)
+        update({"commit" => {}}, new_collection_name)
       end
 
       def optimize
-        update({'optimize' => {}}, new_collection_name)
+        update({"optimize" => {}}, new_collection_name)
       end
 
       def update(object_to_post, url_infix)
-        post_json("#{url_infix}/update",  object_to_post)
+        post_json("#{url_infix}/update", object_to_post)
       end
     end
-
   end
 end

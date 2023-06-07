@@ -23,7 +23,7 @@ module MedInstaller
       xmldir = build_dir + "xml"
       xmldir.mkpath
 
-      ## Ugh. Need to fix this so it's not so stupid. 
+      ## Ugh. Need to fix this so it's not so stupid.
       #
       _original_data_dir = SolrHelper.data_dir
       SolrHelper.data_dir = build_dir
