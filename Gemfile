@@ -98,6 +98,8 @@ gem "traject", require: false # only for indexing
 #   gem 'traject-marc4j_reader'
 # end
 
+gem "faraday"
+
 # Building lists of xpaths
 # gem 'xpath_list', git: 'https://github.com/billdueber/xpath_list', require: false # only for data analysis
 

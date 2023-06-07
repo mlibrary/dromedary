@@ -23,11 +23,10 @@ module MedInstaller
       xmldir = build_dir + "xml"
       xmldir.mkpath
 
-      ## Ugh. Need to fix this so it's not so stupid. AnnoyingUtilities
-      ## are too hard-coded. And hence annoying!
+      ## Ugh. Need to fix this so it's not so stupid.
       #
-      _original_data_dir = AnnoyingUtilities.data_dir
-      AnnoyingUtilities.data_dir = build_dir
+      _original_data_dir = SolrHelper.data_dir
+      SolrHelper.data_dir = build_dir
 
       logger.info "Begin extraction from #{zipfile}"
       MedInstaller::Extract.new(command_name: "extract").call(zipfile: zipfile, datadir: build_dir)
@@ -49,7 +48,7 @@ module MedInstaller
         path = xmldir + f
         FileUtils.copy path, build_dir
       end
-      logger.info "Data now ready for /bin/dromedary newdata index_new_data"
+      logger.info "Data now ready for /bin/dromedary newdata index"
       # metrics.log_success
     rescue => err # standard:disable Lint/UselessRescue
       # metrics.log_error(err)

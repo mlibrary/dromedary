@@ -1,6 +1,7 @@
 require "hanami/cli"
 require "pathname"
 require "annoying_utilities"
+require "solr_helper"
 require "med_installer/logger"
 require "med_installer/solr"
 require "middle_english_dictionary/collection/bib_set"
@@ -11,10 +12,9 @@ module MedInstaller
   module Index
     class Generic < Hanami::CLI::Command
       include MedInstaller::Logger
-      include AnnoyingUtilities
 
       def index_dir
-        AnnoyingUtilities::DROMEDARY_ROOT + "indexer"
+        SolrHelper.index_dir
       end
 
       def indexing_rules_file
@@ -29,11 +29,8 @@ module MedInstaller
         end
       end
 
-      def core
-        core = AnnoyingUtilities.solr_core
-        # Commit with index building can take a looooong time. Set the timeout to 100seconds
-        core.rawclient.receive_timeout = 200_000 # 200 seconds
-        core
+      def collection
+        SolrHelper.solr_collection
       end
 
       def index(rulesfile:, datafile:, bibfile:, writer:)
@@ -50,7 +47,7 @@ module MedInstaller
       end
 
       def call(debug:)
-        raise "Solr at #{AnnoyingUtilities.blacklight_solr_url} not up" unless AnnoyingUtilities.solr_core.up?
+        raise "Solr at #{SolrHelper.blacklight_solr_url} not up" unless SolrHelper.solr_collection
         writer = select_writer(debug)
         fields = indexing_rules_file
         index(rulesfile: fields, datafile: filename, writer: writer, bibfile: bibfile)
@@ -58,12 +55,12 @@ module MedInstaller
 
       def commit
         logger.info "Sending commit"
-        core.commit
+        collection.commit
       end
 
       def optimize
         logger.info "Optimizing (long!)"
-        core.optimize
+        collection.optimize
       end
     end
 
@@ -80,10 +77,10 @@ module MedInstaller
 
       def call(debug:)
         HypToBibID.new(command_name: "hyp_to_bib_id").call
-        raise "Solr at #{AnnoyingUtilities.blacklight_solr_url} not up" unless AnnoyingUtilities.solr_core.up?
+        raise "Solr at #{SolrHelper.blacklight_solr_url} not up" unless SolrHelper.solr_collection
         writer = select_writer(debug)
         fields = indexing_rules_file
-        index(rulesfile: fields, datafile: AnnoyingUtilities.entries_path, writer: writer, bibfile: AnnoyingUtilities.bibfile_path)
+        index(rulesfile: fields, datafile: SolrHelper.entries_path, writer: writer, bibfile: SolrHelper.bibfile_path)
       end
     end
 
@@ -100,12 +97,12 @@ module MedInstaller
 
       def call(debug:)
         HypToBibID.new(command_name: "hyp_to_bib_id").call
-        raise "Solr at #{AnnoyingUtilities.blacklight_solr_url} not up" unless AnnoyingUtilities.solr_core.up?
+        raise "Solr at #{SolrHelper.blacklight_solr_url} not up" unless SolrHelper.solr_collection
         writer = select_writer(debug)
         index(rulesfile: index_dir + "bib_indexing_rules.rb",
-          datafile:  AnnoyingUtilities.bibfile_path,
+          datafile:  SolrHelper.bibfile_path,
           writer:    writer,
-          bibfile:   AnnoyingUtilities.bibfile_path)
+          bibfile:   SolrHelper.bibfile_path)
         commit
         optimize
         commit
@@ -120,39 +117,31 @@ module MedInstaller
       option :existing_hyp_to_bibid, type: :boolean, default: false, desc: "Don't create new hyp_to_bibid"
 
       def call(debug:, existing_hyp_to_bibid:)
-        raise "Solr at #{AnnoyingUtilities.blacklight_solr_url} not up" unless AnnoyingUtilities.solr_core.up?
+        raise "Solr at #{SolrHelper.blacklight_solr_url} not up" unless SolrHelper.solr_collection
         writer = select_writer(debug)
 
-        logger.info "Clearing existing data"
-        core.clear
-
-        logger.info "Reloading core definition"
-        core.reload
+        logger.info "Creating new collection"
+        collection.create_new
 
         HypToBibID.new(command_name: "hyp_to_bib_id").call unless existing_hyp_to_bibid
 
-        logger.info "Setting to maintenance mode during indexing"
-        MedInstaller::Control::MaintenanceModeOn.new(command_name: "maintenance_mode on").call("on")
-
         logger.info "##### BEGIN ENTRY/QUOTE INDEXING #####"
         index(rulesfile: index_dir + "main_indexing_rules.rb",
-          datafile:  AnnoyingUtilities.entries_path,
+          datafile:  SolrHelper.entries_path,
           writer:    writer,
-          bibfile:   AnnoyingUtilities.bibfile_path)
+          bibfile:   SolrHelper.bibfile_path)
 
         logger.info "##### BEGIN BIB INDEXING #####"
 
         index(rulesfile: index_dir + "bib_indexing_rules.rb",
-          datafile:  AnnoyingUtilities.bibfile_path,
+          datafile:  SolrHelper.bibfile_path,
           writer:    writer,
-          bibfile:   AnnoyingUtilities.bibfile_path)
+          bibfile:   SolrHelper.bibfile_path)
         commit
-        MedInstaller::Solr.rebuild_suggesters(core)
+        MedInstaller::Solr.rebuild_suggesters(collection)
         optimize
         commit
-        logger.info "Done"
-        logger.info "New data in place. Making the site live again."
-        MedInstaller::Control::MaintenanceModeOff.new(command_name: "maintenance_mode off").call("off")
+        logger.info "Done!"
       end
     end
 
@@ -170,7 +159,7 @@ module MedInstaller
       def hyp_to_bibid
         return @hyp_to_bibid if @hyp_to_bibid
         logger.info "Building hyp_to_bibid mapping"
-        @hyp_to_bibid ||= bibset(AnnoyingUtilities.bibfile_path).each_with_object({}) do |bib, acc|
+        @hyp_to_bibid ||= bibset(SolrHelper.bibfile_path).each_with_object({}) do |bib, acc|
           bib.hyps.each do |hyp|
             acc[hyp.delete("\\").upcase] = bib.id # TODO: Take out when backslashes removed from HYP ids
           end
@@ -178,8 +167,8 @@ module MedInstaller
       end
 
       def write_hyp_to_bib_id
-        logger.info "Creating and writing hyp_to_bibid mapping at #{AnnoyingUtilities.hyp_to_bibid_path}"
-        File.open(AnnoyingUtilities.hyp_to_bibid_path, "w:utf-8") do |out|
+        logger.info "Creating and writing hyp_to_bibid mapping at #{SolrHelper.hyp_to_bibid_path}"
+        File.open(SolrHelper.hyp_to_bibid_path, "w:utf-8") do |out|
           out.puts hyp_to_bibid.to_json
         end
       end

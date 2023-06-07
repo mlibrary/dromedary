@@ -8,6 +8,10 @@ settings do
   provide "log.batch_size", 2_500
   provide "med.data_dir", Pathname(__dir__).parent.parent + "data"
   provide "reader_class_name", "MedInstaller::Traject::BibReader"
+  provide "solr_writer.basic_auth_user", ENV["SOLR_USER"]
+  provide "solr_writer.basic_auth_password", ENV["SOLR_PASSWORD"]
+  # Traject assumes /update/json but that throws a 401 error with collections
+  provide "solr.update_url", "#{SolrHelper.blacklight_solr_url}/update"
 end
 
 # Do a terrible disservice to traject and monkeypatch it to take

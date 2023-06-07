@@ -1,7 +1,0 @@
-<charFilter class="solr.ICUNormalizer2CharFilterFactory"/>
-  &middle_english_char_substitution_patterns;
-<tokenizer class="solr.ICUTokenizerFactory"/>
-<filter class="solr.ICUFoldingFilterFactory"/>
-<filter class="solr.KeywordRepeatFilterFactory"/>
-
-

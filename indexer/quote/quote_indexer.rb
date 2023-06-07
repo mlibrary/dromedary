@@ -5,7 +5,7 @@ module Dromedary
     attr_accessor :settings, :indexer, :logger
 
     def initialize(passed_settings = {})
-      index_dir = AnnoyingUtilities::DROMEDARY_ROOT + "indexer"
+      index_dir = SolrHelper.index_dir
       default_settings = {
         "log.batch_size" => 2_500,
         "reader_class_name" => "MedInstaller::Traject::EntryJsonReader",

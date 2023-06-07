@@ -6,12 +6,14 @@
 !/bin
 !/config
 !/data
+!/db
 !/indexer
 !/lib
 !/log/.keep
 !/nginx
 !/public
-!/solr/dromedary
+!/solr/med
+!/solr/lib
 !/spec
 !/test
 !/tmp/.keep
@@ -22,4 +24,5 @@
 !Gemfile.lock
 !package.json
 !Rakefile
+!tiny-set.zip
 !yarn.lock

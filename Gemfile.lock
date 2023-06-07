@@ -415,6 +415,7 @@ DEPENDENCIES
   debase
   ettin
   factory_bot_rails (~> 4.0)
+  faraday
   hanami-cli (= 0.2.0)
   html_truncator (~> 0.2)
   jbuilder (~> 2.5)
@@ -460,4 +461,4 @@ DEPENDENCIES
   websocket-extensions (>= 0.1.5)
 
 BUNDLED WITH
-   2.4.12
+   2.4.13

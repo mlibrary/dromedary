@@ -1,6 +1,7 @@
 require "middle_english_dictionary"
 require "hanami/cli"
 require "annoying_utilities"
+require "solr_helper"
 require "simple_solr_client"
 
 require_relative "logger"
@@ -14,14 +15,9 @@ Zip.on_exists_proc = true
 module MedInstaller
   class Solr
     extend MedInstaller::Logger
-    URL = "http://mirrors.gigenet.com/apache/lucene/solr/6.6.3/solr-6.6.3.tgz"
-    DIR_EXTRACTED_FROM_SOLR_TARGZ = "solr-6.6.3" # make this better!
 
-    DROMEDARY_ROOT = AnnoyingUtilities::DROMEDARY_ROOT
-    MED_CONFIG = DROMEDARY_ROOT + "solr" + "med"
-    SOLR_LIBS = DROMEDARY_ROOT + "solr" + "lib"
-    DOT_SOLR = AnnoyingUtilities::DOT_SOLR
-    DEFAULT_SOLR = AnnoyingUtilities::DEFAULT_SOLR
+    MED_CONFIG = SolrHelper.solr_config_dir
+    SOLR_LIBS = SolrHelper.solr_libs_dir
 
     def self.get_port_with_logging(rails_env)
       p = AnnoyingUtilities.solr_port
@@ -55,9 +51,9 @@ module MedInstaller
       desc "Force solr to commit"
 
       def call(cmd)
-        core = AnnoyingUtilities.solr_core
+        collection = SolrHelper.solr_collection
 
-        unless core.up?
+        unless collection
           logger.error "Solr core at #{core.url} did not respond (not up?)"
           exit(1)
         end
@@ -127,45 +123,6 @@ module MedInstaller
         end
         core.clear.commit
         logger.info "Solr core at #{core.url} emptied out"
-      end
-    end
-
-    class Install < Hanami::CLI::Command
-      include MedInstaller::Logger
-
-      desc "Download and install solr to the given directory"
-
-      option :installdir, default: AnnoyingUtilities::DROMEDARY_ROOT.parent, desc: "The install directory (default: next to dromedary)"
-
-      def call(installdir:)
-        installpath = Pathname(installdir).realdirpath
-        solrpath = installpath + DIR_EXTRACTED_FROM_SOLR_TARGZ
-        lnpath = installpath + "solr"
-        solr_solr_dir = lnpath + "server" + "solr"
-        _solr_config_dir = solr_solr_dir + "med"
-        _solr_lib_dir = solr_solr_dir + "lib"
-
-        logger.info "Download/extract from #{URL}"
-        logger.info "Installing in directory #{installpath}"
-        status = system(%(curl '#{URL}' | tar -C '#{installpath}' -x -z -f -))
-
-        raise "Something went wrong with download / extract: #{status}" unless status
-
-        logger.info "Making a symlink so we can use #{lnpath} instead of #{solrpath}"
-        lncmd = "rm -f '#{lnpath}'; ln -s '#{solrpath}' '#{lnpath}'"
-        status = system lncmd
-        raise "Trouble symlinking #{solrpath} to #{lnpath}" unless status
-
-        logger.info "Storing path to solr directory in dromedary/.solr"
-        File.open(DOT_SOLR, "w:utf-8") do |out|
-          out.puts lnpath.to_s
-        end
-        Link.new(command_name: "solr link").call("solr link")
-      rescue => err
-        logger.error err.message
-        logger.error err.backtrace
-        logger.error "Exiting"
-        exit(1)
       end
     end
 

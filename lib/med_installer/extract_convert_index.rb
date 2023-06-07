@@ -24,11 +24,10 @@ module MedInstaller
       xmldir = build_dir + "xml"
       xmldir.mkpath
 
-      # Ugh. Need to fix this so it's not so stupid. AnnoyingUtilities
-      # are too hard-coded. And hence annoying!
+      # Ugh. Need to fix this so it's not so stupid.
 
-      original_data_dir = AnnoyingUtilities.data_dir
-      AnnoyingUtilities.data_dir = build_dir
+      original_data_dir = SolrHelper.data_dir
+      SolrHelper.data_dir = build_dir
 
       logger.info "Begin extraction from #{zipfile}"
       MedInstaller::Extract.new(command_name: "extract").call(zipfile: zipfile, datadir: build_dir)

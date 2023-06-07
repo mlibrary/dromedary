@@ -1,6 +1,7 @@
 $LOAD_PATH.unshift Pathname.new(__dir__).to_s
 $LOAD_PATH.unshift (Pathname.new(__dir__).parent + "lib").to_s
 require "annoying_utilities"
+require "solr_helper"
 require "med_installer"
 require "middle_english_dictionary"
 require "json"
@@ -15,6 +16,9 @@ settings do
   provide "med.data_dir", Pathname(__dir__).parent.parent + "data"
   provide "reader_class_name", "MedInstaller::Traject::EntryJsonReader"
   provide "solr_writer.batch_size", 250
+  provide "solr_writer.basic_auth_user", ENV["SOLR_USER"]
+  provide "solr_writer.basic_auth_password", ENV["SOLR_PASSWORD"]
+  provide "solr.update_url", "#{SolrHelper.blacklight_solr_url}/update"
 end
 
 hyp_to_bibid = Dromedary.hyp_to_bibid
