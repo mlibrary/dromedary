@@ -17,6 +17,10 @@ class UpdateService
     !!active_update_id
   end
 
+  def active_update_id
+    redis.get(UPDATE_ID_KEY)
+  end
+
   def process(corpus_update)
     enforce_inactive!
     lock_update(corpus_update.id)
@@ -28,6 +32,10 @@ class UpdateService
     index
 
     corpus_update.complete!
+  rescue => e
+    corpus_update.failed!
+    raise e
+  ensure
     unlock_update
   end
 
@@ -38,10 +46,6 @@ class UpdateService
     if id
       raise AlreadyUpdatingError, "Already processing id: #{id}"
     end
-  end
-
-  def active_update_id
-    redis.get(UPDATE_ID_KEY)
   end
 
   def lock_update(id)

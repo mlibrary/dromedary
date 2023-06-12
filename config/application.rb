@@ -34,9 +34,12 @@ module Dromedary
     # config.relative_url_root                   = '/'
     # config.action_controller.relative_url_root = '/'
 
+    config.time_zone = 'Eastern Time (US & Canada)'
+
     config.log_level = :info
 
     config.lograge.enabled = false
+
 
     # add time to lograge
     config.lograge.custom_options = lambda do |event|

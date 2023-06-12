@@ -30,6 +30,10 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  time:
+    formats:
+      default: "%B %e, %Y - %l:%M %p"
+      full: "%B %e, %Y - %l:%M %p"
   en:
     views:
       static:

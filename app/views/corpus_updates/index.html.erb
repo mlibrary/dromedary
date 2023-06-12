@@ -1,7 +1,22 @@
 <h1>Corpus Updates</h1>
 
-<ul>
-<% @updates.each do |update| %>
-  <li><%= update.id %>: <%= update.corpus_url %></li>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Created</th>
+      <th>Updated</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+<% @corpus_updates.each do |update| %>
+  <tr>
+    <td><%= update.id %></td>
+    <td><%= l update.created_at.in_time_zone %></td>
+    <td><%= l update.updated_at.in_time_zone, format: :full %></td>
+    <td><%= update.status %></td>
+  </tr>
+  </tbody>
 <% end %>
-</ul>
+</table>

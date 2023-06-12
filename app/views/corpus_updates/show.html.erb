@@ -1,0 +1,23 @@
+<h1>Corpus Update Details</h1>
+<p><%= link_to "Back to list", corpus_updates_path %></p>
+
+<dl class="item-detail">
+  <dt>ID:</dt>
+  <dd><%= @corpus_update.id %></dd>
+
+  <dt>Created:</dt>
+  <dd><%= l @corpus_update.created_at.in_time_zone %></dd>
+
+  <dt>Updated:</dt>
+  <dd><%= l @corpus_update.updated_at.in_time_zone, format: :full %></dd>
+
+  <dt>Status:</dt>
+  <dd><%= @corpus_update.status %></dd>
+</dl>
+
+<%= form_for(@corpus_update, url: process_update_corpus_update_path, method: :post) do |f| %>
+  <%= f.submit "Process", disabled: @update_in_progress %>
+  <% if @update_in_progress %>
+    <span><i>Update with <%= link_to "ID #{@active_update_id}", corpus_update_path(@active_update_id) %> is in progress</i></span>
+  <% end %>
+<% end %>

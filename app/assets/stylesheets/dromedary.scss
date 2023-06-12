@@ -384,3 +384,17 @@ $screen-xs-max: 1200px;
     }
   }
 }
+
+dl.item-detail {
+  display: grid;
+  grid-template-columns: max-content auto;
+}
+
+dl.item-detail dt {
+  grid-column: 1;
+  padding-right: 2rem;
+}
+
+dl.item-detail dd {
+  grid-column: 2;
+}

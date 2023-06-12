@@ -23,6 +23,10 @@ class CorpusUpdate < ApplicationRecord
     self.status = Status::Complete
   end
 
+  def failed(cause = "Unknown error")
+    self.status = Status::Failed
+  end
+
   def preparing!
     preparing
     save
@@ -35,6 +39,11 @@ class CorpusUpdate < ApplicationRecord
 
   def complete!
     complete
+    save
+  end
+
+  def failed!(cause = "Unknown error")
+    failed(cause)
     save
   end
 

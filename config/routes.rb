@@ -11,6 +11,10 @@ Rails.application.routes.draw do
     # scope '/' do
     #   mount Blacklight::Engine => '/'
 
+    resources :corpus_updates, only: [:index, :new, :create, :show] do
+      post "process_update", on: :member
+    end
+
     # Shunt it all to the maintenace page if we need to
     match "*path" => "static#maintenance_mode", :status => 302, :via => [:get, :post],
       :constraints => ->(request) { AnnoyingUtilities.maintenance_mode_enabled? }
@@ -64,8 +68,6 @@ Rails.application.routes.draw do
         delete "clear"
       end
     end
-
-    resources :corpus_updates, only: [:index, :new, :create, :show]
 
     match "/contacts", to: "contacts#new", via: "get"
     resources "contacts", only: [:new, :create]
