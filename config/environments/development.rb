@@ -1,4 +1,4 @@
-require_relative "../load_local_config"
+# frozen_string_literal: true
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
