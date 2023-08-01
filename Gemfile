@@ -70,9 +70,10 @@ gem "bundler", "~> 2.0"
 # ,,, and explicitly pull in rake
 gem "rake", "~> 13.0"
 
-# Use Ettin for configuration
+# Use Ettin for configuration and Canister for DI
 #
 gem "ettin"
+gem "canister"
 
 # Rails
 #  https://groups.google.com/forum/#!topic/rubyonrails-security/GN7w9fFAQeI)
