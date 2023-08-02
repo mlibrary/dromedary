@@ -44,7 +44,9 @@ services:
       - .:/opt/app
       - data:/var/lib/app/data
       - gems:/var/lib/app/gems
-    command: bash -c "/opt/app/bin/wait-for solr:8983 db:5432 &&  bundle exec rspec"
+    command:
+      - sleep
+      - infinity
 
   db:
     image: postgres:12-alpine

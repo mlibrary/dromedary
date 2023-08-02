@@ -22,6 +22,11 @@ reason (e.g., the solr is down or something):
 
 
 ## Development Quick Start
+
+### SUPER quick start
+
+The steps enumerated and explained below can be run via `bin/setup_dev.sh`.
+
 #### Handy Dandy Aliases (Optional)
 ```shell
 alias dc="docker-compose"
