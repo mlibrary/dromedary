@@ -24,6 +24,28 @@ services:
       - sleep
       - infinity
 
+  # Copy of app for running tests
+  test:
+    depends_on:
+      - db
+      - solr
+    image: dromedary
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - "3001:3001" # Rails
+    environment:
+      - SOLR_ROOT=http://solr:8983/solr
+      - SOLR_URL=http://solr:8983/solr/dromedary-test
+      - SOLR_COLLECTION=dromedary-test
+      - DATA_DIRECTORY=/var/lib/app/data
+    volumes:
+      - .:/opt/app
+      - data:/var/lib/app/data
+      - gems:/var/lib/app/gems
+    command: bash -c "/opt/app/bin/wait-for solr:8983 db:5432 &&  bundle exec rspec"
+
   db:
     image: postgres:12-alpine
     ports:

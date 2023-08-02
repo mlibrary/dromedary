@@ -14,7 +14,8 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources
 
 RUN apt-get update -yqq && \
     apt-get install -yqq --no-install-recommends \
-    vim nodejs yarn apt-transport-https
+    vim nodejs yarn apt-transport-https \
+    netcat
 
 RUN groupadd -g $GID -o $UNAME
 RUN useradd -m -d /opt/app -u $UID -g $GID -o -s /bin/bash $UNAME
@@ -30,7 +31,10 @@ COPY --chown=$UID:$GID . /opt/app
 
 USER $UNAME
 WORKDIR /opt/app
+
+ENV BUNDLE_PATH /var/opt/app/gems
 RUN gem install 'bundler:~>2.2.21'
-RUN bundle config --local build.sassc --disable-march-tune-native
+RUN bundle config build.sassc --disable-march-tune-native
+RUN bundle install
 
 CMD ["sleep", "infinity"]
