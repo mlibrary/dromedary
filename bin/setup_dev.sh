@@ -20,4 +20,4 @@ docker-compose exec app yarn install
 docker-compose exec app bundle exec rails db:setup
 docker-compose exec solr solr create_collection -d med -c dromedary-development
 docker-compose exec solr solr create_collection -d med -c dromedary-test
-docker-compose exec app bundle exec rails s -b 0.0.0.0
+docker-compose exec -d app bundle exec rails s -b 0.0.0.0
