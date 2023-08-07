@@ -36,8 +36,8 @@ module MedInstaller
     def call(build_directory:)
       # @metrics = MiddleEnglishIndexMetrics.new({type: "convert_data"})
 
-      build_directory = Pathname.new(build_directory)
-      source_data_path =build_directory + "xml"
+      build_directory = Pathname.new(build_directory).realpath
+      source_data_path = build_directory + "xml"
 
       validate_xml_dir(source_data_path)
 
