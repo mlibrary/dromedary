@@ -3,6 +3,7 @@ require "hanami/cli"
 require "tempfile"
 require "zlib"
 require "serialization/indexable_quote"
+require_relative "services"
 require "annoying_utilities"
 
 module MedInstaller
@@ -12,7 +13,9 @@ module MedInstaller
 
     desc "Convert the xml files into a (faster, more compact) json object (takes a long time)"
 
-    argument :source_dir, required: true, desc: "The source data directory (something/xml/)"
+    option :build_directory,
+      default: Services[:build_directory],
+      desc: "The source data directory (contains 'xml' dir)"
 
     def most_recent_file(filenames)
       filenames.max { |a, b| File.mtime(a) <=> File.mtime(b) }
@@ -30,19 +33,19 @@ module MedInstaller
 
     DIR_NAME_REGEX = Regexp.new "/([A-Z12][^/]*)/MED"
 
-    def call(source_dir:)
+    def call(build_directory:)
       # @metrics = MiddleEnglishIndexMetrics.new({type: "convert_data"})
 
-      source_data_path = Pathname(source_dir).realdirpath
+      build_directory = Pathname.new(build_directory)
+      source_data_path =build_directory + "xml"
 
       validate_xml_dir(source_data_path)
 
-      logger.info "Will put finished file in #{AnnoyingUtilities.entries_path}"
+      logger.info "Using data in #{source_data_path}, finished files in #{build_directory}"
 
       entries_tmpfile = Pathname(Dir.tmpdir) + "entries.json.tmp"
       entries_outfile = Zlib::GzipWriter.open(entries_tmpfile)
-
-      entries_targetfile = AnnoyingUtilities.data_dir + "entries.json.gz"
+      entries_targetfile = build_directory + "entries.json.gz"
 
       oedfile = find_oed_file(source_data_path)
       logger.info "Loading OED links from #{oedfile} so we can push them into entries"

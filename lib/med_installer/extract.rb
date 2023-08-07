@@ -2,6 +2,7 @@ require "zip"
 require "tmpdir"
 require "hanami/cli"
 require_relative "../../config/load_local_config"
+require_relative "services"
 
 Zip.on_exists_proc = true
 
@@ -12,23 +13,23 @@ module MedInstaller
     desc "Extracts the individual xml files into <datadir>/xml/"
 
     argument :zipfile, required: true, desc: "The path to the zipfile (downloaded from Box)"
-    argument :datadir,
+    argument :build_directory,
       required: false,
-      default: Pathname.new(Dromedary.config.build_dir).realdirpath,
-      desc: "The data directory. XML files will be put in <datadir>/xml"
-    example ["~/Downloads/In_progress_MEDC_files.zip ~/devel/med/data"]
+      default: Services[:build_directory],
+      desc: "The build directory. XML files will be put in <datadir>/xml"
+    example ["~/Downloads/In_progress_MEDC_files.zip ~/devel/med/data/build_20230101"]
 
     # The In_progress zip file is composed of other zip files and the DTDs/css
     # Take them in turn
-    def call(zipfile:, datadir:)
-      datapath = Pathname.new(datadir) + "xml"
-      datapath.mkpath
+    def call(zipfile:, build_directory:)
+      build_path = Pathname.new(build_directory) + "xml"
+      build_path.mkpath
 
       raise ArgumentError.new("Zipfile #{zipfile} not found") unless Pathname.new(zipfile).exist?
       raise ArgumentError.new("Zipfile #{zipfile} not readable") unless Pathname.new(zipfile).readable?
       raise ArgumentError.new("Zipfile #{zipfile} not readable") unless Pathname.new(zipfile).readable?
 
-      logger.info "Extract: read from #{zipfile}, target #{datapath}"
+      logger.info "Extract: read from #{zipfile}, target #{build_path}"
       Dir.mktmpdir do |tmpdir|
         zpath = Pathname.new(tmpdir) + "med"
         zpath.mkpath
@@ -43,12 +44,12 @@ module MedInstaller
             when matches_zipfile_for_entries
               m = matches_zipfile_for_entries.match(basename)
               first_letter_of_dir = m[1]
-              extract_entries(basename, datapath, entry, first_letter_of_dir, zpath)
+              extract_entries(basename, build_path, entry, first_letter_of_dir, zpath)
             when "LINKS_done.zip"
-              extract_links(basename, datapath, zpath, entry)
+              extract_links(basename, build_path, zpath, entry)
             else
-              logger.debug "Putting #{basename} in #{datapath}"
-              entry.extract((datapath + basename).to_s)
+              logger.debug "Putting #{basename} in #{build_path}"
+              entry.extract((build_path + basename).to_s)
             end
           end
         end
