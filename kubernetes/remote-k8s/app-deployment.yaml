@@ -48,13 +48,13 @@ spec:
               value: /opt/app-build/build
             - name: RAILS_ENV
               value: production
-#            - name: RAILS_RELATIVE_URL_ROOT
-#              value: '/m/middle-english-dictionary'
-#            - name: RAILS_SERVE_STATIC_FILES
-#              value: "true"
+          #            - name: RAILS_RELATIVE_URL_ROOT
+          #              value: '/m/middle-english-dictionary'
+          #            - name: RAILS_SERVE_STATIC_FILES
+          #              value: "true"
           ports:
             - containerPort: 3000
-          resources: {}
+          resources: { }
           volumeMounts:
             - mountPath: /opt/app-build
               name: data-prep
@@ -102,5 +102,5 @@ spec:
           persistentVolumeClaim:
             claimName: data-prep
         - name: static-assets
-          emptyDir: {}
-status: {}
+          emptyDir: { }
+status: { }

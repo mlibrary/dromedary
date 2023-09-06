@@ -18,7 +18,6 @@ Replace `bin/bundle` by running `bundle binstubs bundler --force`, then run this
   end
 end
 
-require "rubygems"
 require "bundler/setup"
 
 # Add the local lib
@@ -39,62 +38,67 @@ module MedInstaller
 end
 
 
+# Let's simplify things:
+
+# Unzip and convert new data into a build directory 
+require "med_installer/prepare"
+MedInstaller::CLI.register 'newdata prepare', MedInstaller::Prepare
+
+# Or do them one at a time
+MedInstaller::CLI.register "newdata extract", MedInstaller::Extract
+MedInstaller::CLI.register "newdata convert", MedInstaller::Covert
+
+# Actually index
 # Index things into solr
-MedInstaller::CLI.register 'extract', MedInstaller::Extract, aliases: ['unzip']
-MedInstaller::CLI.register 'convert', MedInstaller::Convert, aliases: ['json']
-MedInstaller::CLI.register 'index copy_from_build', MedInstaller::CopyFromBuild
-MedInstaller::CLI.register 'index entries', MedInstaller::Index::Entries
-MedInstaller::CLI.register 'index bib', MedInstaller::Index::Bib
-MedInstaller::CLI.register 'index full', MedInstaller::Index::Full, aliases: ['all']
-
-# Create the hyp_to_bibid.json mapping and put it in Dromedary.config.data_dir
-MedInstaller::CLI.register 'index hyp_to_bibid', MedInstaller::Index::HypToBibID, aliases: ['mapping']
-
-# Reload the solr config (necessary after a change to the solr config has been pushed)
-MedInstaller::CLI.register 'solr reload', MedInstaller::Solr::Reload, aliases: ['bounce']
-
-# Rebuild the indexing underlying autocomplete (should never be necessary, but...)
-MedInstaller::CLI.register 'solr rebuild_suggesters', MedInstaller::Solr::RebuildSuggesters
-
-
-# Remote deployment and execution
+# MedInstaller::CLI.register 'extract', MedInstaller::Extract, aliases: ['unzip']
+# MedInstaller::CLI.register 'convert', MedInstaller::Convert, aliases: ['json']
+# MedInstaller::CLI.register 'index copy_from_build', MedInstaller::CopyFromBuild
+# MedInstaller::CLI.register 'index entries', MedInstaller::Index::Entries
+# MedInstaller::CLI.register 'index bib', MedInstaller::Index::Bib
+# MedInstaller::CLI.register 'index full', MedInstaller::Index::Full, aliases: ['all']
 #
-MedInstaller::CLI.register 'deploy', MedInstaller::Remote::Deploy
+# # Create the hyp_to_bibid.json mapping and put it in Dromedary.config.data_dir
+MedInstaller::CLI.register 'index hyp_to_bibid', MedInstaller::Index::HypToBibID, aliases: ['mapping']
+#
+# # Reload the solr config (necessary after a change to the solr config has been pushed)
+# MedInstaller::CLI.register 'solr reload', MedInstaller::Solr::Reload, aliases: ['bounce']
+#
+# # Rebuild the indexing underlying autocomplete (should never be necessary, but...)
+# MedInstaller::CLI.register 'solr rebuild_suggesters', MedInstaller::Solr::RebuildSuggesters
+#
+#
+# # Remote deployment and execution
+# #
+# MedInstaller::CLI.register 'deploy', MedInstaller::Remote::Deploy
+#
+# # Restart removed from moku???
+# #MedInstaller::CLI.register 'restart', MedInstaller::Remote::Restart
+#
+# MedInstaller::CLI.register 'remote', MedInstaller::Remote::Dromedary
+# MedInstaller::CLI.register 'remote-exec', MedInstaller::Remote::Exec
+#
+#
+# # Maintenance mode
+# MedInstaller::CLI.register 'maintenance_mode on', MedInstaller::Control::MaintenanceModeOn
+# MedInstaller::CLI.register 'maintenance_mode off', MedInstaller::Control::MaintenanceModeOff
+#
+# # Solr utilities for your development environment.
+# MedInstaller::CLI.register 'solr install', MedInstaller::Solr::Install
+# #MedInstaller::CLI.register 'solr link', MedInstaller::Solr::Link # TODO: Fix this for solr libs
+# MedInstaller::CLI.register 'solr start', MedInstaller::Solr::Start, aliases: ['restart']
+# MedInstaller::CLI.register 'solr stop', MedInstaller::Solr::Stop
+# MedInstaller::CLI.register 'solr empty', MedInstaller::Solr::Empty, aliases: ['clear']
+# MedInstaller::CLI.register 'solr commit', MedInstaller::Solr::Commit
+# MedInstaller::CLI.register 'solr optimize', MedInstaller::Solr::Optimize
+# MedInstaller::CLI.register 'solr up', MedInstaller::Solr::Up, aliases: ['up?']
+# MedInstaller::CLI.register 'solr shell', MedInstaller::Solr::Shell
 
-# Restart removed from moku???
-#MedInstaller::CLI.register 'restart', MedInstaller::Remote::Restart
-
-MedInstaller::CLI.register 'remote', MedInstaller::Remote::Dromedary
-MedInstaller::CLI.register 'remote-exec', MedInstaller::Remote::Exec
-
-
-# Maintenance mode
-MedInstaller::CLI.register 'maintenance_mode on', MedInstaller::Control::MaintenanceModeOn
-MedInstaller::CLI.register 'maintenance_mode off', MedInstaller::Control::MaintenanceModeOff
-
-# Solr utilities for your development environment.
-MedInstaller::CLI.register 'solr install', MedInstaller::Solr::Install
-#MedInstaller::CLI.register 'solr link', MedInstaller::Solr::Link # TODO: Fix this for solr libs
-MedInstaller::CLI.register 'solr start', MedInstaller::Solr::Start, aliases: ['restart']
-MedInstaller::CLI.register 'solr stop', MedInstaller::Solr::Stop
-MedInstaller::CLI.register 'solr empty', MedInstaller::Solr::Empty, aliases: ['clear']
-MedInstaller::CLI.register 'solr commit', MedInstaller::Solr::Commit
-MedInstaller::CLI.register 'solr optimize', MedInstaller::Solr::Optimize
-MedInstaller::CLI.register 'solr up', MedInstaller::Solr::Up, aliases: ['up?']
-MedInstaller::CLI.register 'solr shell', MedInstaller::Solr::Shell
 
 
 
-
-
-
-# So people can actually do stuff
-
-MedInstaller::CLI.register 'extract_convert_index', MedInstaller::ExtractConvertIndex, aliases: ['load_new_data']
-
-MedInstaller::CLI.register 'newdata prepare', MedInstaller::PrepareNewData
-MedInstaller::CLI.register 'newdata index', MedInstaller::IndexNewData
-MedInstaller::CLI.register 'ping_prometheus', MedInstaller::PingPrometheus
+# MedInstaller::CLI.register 'newdata index', MedInstaller::IndexNewData
+# MedInstaller::CLI.register 'ping_prometheus', MedInstaller::PingPrometheus
+# MedInstaller::CLI.register 'extract_convert_index', MedInstaller::ExtractConvertIndex, aliases: ['load_new_data']
 
 Hanami::CLI.new(MedInstaller::CLI).call
 

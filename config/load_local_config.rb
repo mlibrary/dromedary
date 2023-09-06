@@ -1,8 +1,16 @@
 require "ettin"
 require_relative "../lib/med_installer/logger"
-
+require_relative "../lib/services"
 module Dromedary
   class << self
+    # For whatever historical reasons, this uses the Ettin gem to load
+    # up yaml files. The list of places it looks are:
+    #         root/"settings.yml",
+    #         root/"settings"/"#{env}.yml",
+    #         root/"environments"/"#{env}.yml",
+    #         root/"settings.local.yml",
+    #         root/"settings"/"#{env}.local.yml",
+    #         root/"environments"/"#{env}.local.yml"
     def config
       return @config unless @config.nil?
       env = if defined? Rails
@@ -12,11 +20,13 @@ module Dromedary
       else
         "development"
       end
+      require "pry"
+      binding.pry
       @config = Ettin.for(Ettin.settings_files(Pathname.new(__dir__), env))
     end
 
     def hyp_to_bibid
-      target = Pathname.new(AnnoyingUtilities.data_dir) + "hyp_to_bibid.json"
+      target = Dromedary::Services[:data_dir] + "/" + "hyp_to_bibid.json"
       raise Errno::ENOENT.new("Can't find #{target}") unless target.exist?
       @hyp_to_bibid ||= JSON.parse(File.read(target))
     end
