@@ -20,9 +20,8 @@ module Dromedary
       else
         "development"
       end
-      require "pry"
-      binding.pry
-      @config = Ettin.for(Ettin.settings_files(Pathname.new(__dir__), env))
+      # @config = Ettin.for(Ettin.settings_files(Pathname.new(__dir__), env))
+      @config = Dromedary::Services
     end
 
     def hyp_to_bibid

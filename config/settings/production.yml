@@ -1,13 +1,13 @@
-blacklight:
-  adapter: solr
-  url: <%= Services[:solr_url] %>
-
-solr:
-  url: <%= Services[:solr_url] %>
+#load_stuff: <%  require (Pathname.new(__dir__).parent.parent + "lib" + "services").to_s %>
+#
+#blacklight:
+#  adapter: solr
+#  url: <%= Services[:solr_url] %>
+#
+#solr:
+#  url: <%= Services[:solr_url] %>
 
 secret_key_base: <%= ENV["SECRET_KEY_BASE"] || "somesecretkey" %>
-
-
 
 db:
   url: unused
@@ -18,10 +18,10 @@ cable:
   channel_prefix: dromedary
 
 
-relative_url_root: <%= ENV["RAILS_RELATIVE_URL_ROOT"] || "/" %>
-
-data_dir: <%= Services[:data_directory] || "#{Rails.root}/data" %>
-build_root: <%= Services[:build_root] || "#{Rails.root}/data/build" %>
-
-log_dir: <%= Services[:log_dir] || "./log" %>
+#relative_url_root: <%= ENV["RAILS_RELATIVE_URL_ROOT"] || "/" %>
+#
+#data_dir: <%= Services[:data_directory] || "#{Rails.root}/data" %>
+#build_root: <%= Services[:build_root] || "#{Rails.root}/data/build" %>
+#
+#log_dir: <%= Services[:log_dir] || "./log" %>
 

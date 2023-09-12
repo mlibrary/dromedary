@@ -1,18 +1,18 @@
 $LOAD_PATH.unshift Pathname.new(__dir__).to_s
 $LOAD_PATH.unshift (Pathname.new(__dir__).parent + "lib").to_s
-require "annoying_utilities"
 require "med_installer"
 require "middle_english_dictionary"
 require "json"
 require_relative "../config/load_local_config"
 require_relative "../lib/med_installer/job_monitoring"
+require_relative "../lib/services"
 
 require "quote/quote_indexer"
 require "serialization/indexable_quote"
 
 settings do
   store "log.batch_size", 2_500
-  provide "med.data_dir", Pathname(__dir__).parent.parent + "data"
+  provide "med.data_dir", Services[:data_directory]
   provide "reader_class_name", "MedInstaller::Traject::EntryJsonReader"
   provide "solr_writer.batch_size", 250
 end
@@ -23,7 +23,7 @@ bibset = MiddleEnglishDictionary::Collection::BibSet.new(filename: settings["bib
 # Do a terrible disservice to traject and monkeypatch it to take
 # our existing logger
 
-Traject::Indexer.send(:define_method, :logger, -> { AnnoyingUtilities.logger })
+Traject::Indexer.send(:define_method, :logger, -> { Services[:logger] })
 
 def entry_method(name)
   ->(rec, acc) { acc.replace Array(rec.send(name)) }

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "services"
+require_relative "../services"
 require_relative "extract"
 require_relative "convert"
 
@@ -16,7 +16,7 @@ module MedInstaller
 
     option :build_directory,
       required: false,
-      default: Services[:build_directory],
+      default: Dromedary::Services[:build_directory],
       desc: "The build directory. XML files will be extracted to <build_directory>/xml"
 
     def call(zipfile:, build_directory:)

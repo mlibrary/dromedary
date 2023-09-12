@@ -1,19 +1,19 @@
 $LOAD_PATH.unshift Pathname.new(__dir__).to_s
 $LOAD_PATH.unshift (Pathname.new(__dir__).parent + "lib").to_s
-require "annoying_utilities"
 require "med_installer"
 require "middle_english_dictionary"
+require "services"
 
 settings do
   provide "log.batch_size", 2_500
-  provide "med.data_dir", Pathname(__dir__).parent.parent + "data"
+  provide "med.data_dir", Services[:data_directory]
   provide "reader_class_name", "MedInstaller::Traject::BibReader"
 end
 
 # Do a terrible disservice to traject and monkeypatch it to take
 # our existing logger
 
-Traject::Indexer.send(:define_method, :logger, -> { AnnoyingUtilities.logger })
+Traject::Indexer.send(:define_method, :logger, -> { Services[:logger] })
 
 def bib_method(name)
   ->(rec, acc) do

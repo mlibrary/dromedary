@@ -26,8 +26,9 @@ $LOAD_PATH.unshift (Pathname(__dir__).parent + 'lib').to_s
 $LOAD_PATH.unshift (Pathname(__dir__).parent + 'indexer').to_s
 
 # Now we can actually load stuff
-#
+
 require 'hanami/cli'
+require "services"
 require 'med_installer'
 
 # Set this up as a CLI
@@ -46,7 +47,7 @@ MedInstaller::CLI.register 'newdata prepare', MedInstaller::Prepare
 
 # Or do them one at a time
 MedInstaller::CLI.register "newdata extract", MedInstaller::Extract
-MedInstaller::CLI.register "newdata convert", MedInstaller::Covert
+MedInstaller::CLI.register "newdata convert", MedInstaller::Convert
 
 # Actually index
 # Index things into solr

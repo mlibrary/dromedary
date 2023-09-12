@@ -9,10 +9,10 @@ module Dromedary
   Services.register(:build_root) { ENV["BUILD_ROOT"] || "#{Services[:data_directory]}/build" }
   Services.register(:build_directory) do
     default = begin
-                yyyymmdd = Date.today.strftime("%Y%m%d")
-                default_build_dir = "build_#{yyyymmdd}"
-                "#{Services[:build_root]}/#{default_build_dir}"
-              end
+      yyyymmdd = Date.today.strftime("%Y%m%d")
+      default_build_dir = "build_#{yyyymmdd}"
+      "#{Services[:build_root]}/#{default_build_dir}"
+    end
     ENV["BUILD_DIRECTORY"] || default
   end
 
@@ -31,4 +31,7 @@ module Dromedary
     end
   end
 
+  Services.register(:logger) { Rails.logger }
+
+  Services.register(:secret_key_base) { ENV["SECRET_KEY_BASE"] || "somesecretkey" }
 end

@@ -1,8 +1,7 @@
 require_relative "index"
 require_relative "control"
 require_relative "copy_from_build"
-require_relative "../../config/load_local_config"
-
+require_relative "../services"
 module MedInstaller
   # Copy the already-munged files from the build directory into this
   # instances data_dir, presumably for later indexing.
@@ -11,7 +10,7 @@ module MedInstaller
 
     option :build_directory,
       required: false,
-      default: Services[:build_directory],
+      default: Dromedary::Services[:build_directory],
       desc: "The build directory with entries.json.gz and hyp_to_bibid.json"
     
     def call(force:)

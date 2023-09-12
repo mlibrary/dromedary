@@ -1,7 +1,7 @@
 require "zip"
 require "tmpdir"
 require "hanami/cli"
-require_relative "../../config/load_local_config"
+# require_relative "../../config/load_local_config"
 require_relative "../services"
 
 Zip.on_exists_proc = true
@@ -10,12 +10,12 @@ module MedInstaller
   class Extract < Hanami::CLI::Command
     # include MedInstaller::Logger
     include SemanticLogger::Loggable
-    desc "Extracts the individual xml files into <datadir>/xml/"
+    desc "First step of 'prepare'. Extracts the individual xml files into <datadir>/xml/"
 
     argument :zipfile, required: true, desc: "The path to the zipfile (downloaded from Box)"
     argument :build_directory,
       required: false,
-      default: Services[:build_directory],
+      default: Dromedary::Services[:build_directory],
       desc: "The build directory. XML files will be put in <build_directory>/xml"
 
     # The In_progress zip file is composed of other zip files and the DTDs/css

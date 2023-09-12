@@ -1,26 +1,26 @@
-blacklight:
-  adapter: solr
-  url: <%= Services[:solr_url] %>
-
-solr:
-  url: <%= Services[:solr_url] %>
+#blacklight:
+#  adapter: solr
+#  url: <%= Dromedary::Services[:solr_url] %>
+#
+#solr:
+#  url: <%= Dromedary::Services[:solr_url] %>
 
 secret_key_base: <%= ENV["SECRET_KEY_BASE"] || "somesecretkey" %>
 
 
 
-db:
-  url: unused
-
-cable:
-  adapter: async
-  url: unused
-  channel_prefix: dromedary
-
-
-relative_url_root: <%= ENV["RAILS_RELATIVE_URL_ROOT"] || "/" %>
-
-data_dir: <%= Dromedary::Services[:data_directory] || "#{Rails.root}/data" %>
-build_root: <%= Dromedary::Services[:build_root] || "#{Rails.root}/data/build" %>
-
-log_dir: <%= Dromedary::Services[:log_dir] || "./log" %>
+#db:
+#  url: unused
+#
+#cable:
+#  adapter: async
+#  url: unused
+#  channel_prefix: dromedary
+#
+#
+#relative_url_root: <%= ENV["RAILS_RELATIVE_URL_ROOT"] || "/" %>
+#
+#data_dir: <%= Dromedary::Services[:data_directory] || "#{Rails.root}/data" %>
+#build_root: <%= Dromedary::Services[:build_root] || "#{Rails.root}/data/build" %>
+#
+#log_dir: <%= Dromedary::Services[:log_dir] || "./log" %>
