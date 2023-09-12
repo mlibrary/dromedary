@@ -3,7 +3,7 @@ require "hanami/cli"
 require "tempfile"
 require "zlib"
 require "serialization/indexable_quote"
-require_relative "../services"
+require_relative "../dromedary/services"
 
 module MedInstaller
   # Convert a bunch of Dromedary xml files into a more useful format.

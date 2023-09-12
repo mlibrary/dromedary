@@ -1,7 +1,7 @@
 require_relative "index"
 require_relative "control"
 require_relative "copy_from_build"
-require_relative "../services"
+require_relative "../dromedary/services"
 module MedInstaller
   # Copy the already-munged files from the build directory into this
   # instances data_dir, presumably for later indexing.

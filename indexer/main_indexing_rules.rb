@@ -5,7 +5,7 @@ require "middle_english_dictionary"
 require "json"
 require_relative "../config/load_local_config"
 require_relative "../lib/med_installer/job_monitoring"
-require_relative "../lib/services"
+require_relative "../lib/dromedary/services"
 
 require "quote/quote_indexer"
 require "serialization/indexable_quote"

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "../services"
+require_relative "../dromedary/services"
 require_relative "extract"
 require_relative "convert"
 

@@ -1,7 +1,7 @@
 require_relative "boot"
 require "rails/all"
 require "json"
-require_relative "../lib/services"
+require_relative "../lib/dromedary/services"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.

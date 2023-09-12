@@ -1,6 +1,6 @@
 require "ettin"
 require_relative "../lib/med_installer/logger"
-require_relative "../lib/services"
+require_relative "../lib/dromedary/services"
 module Dromedary
   class << self
     # For whatever historical reasons, this uses the Ettin gem to load
