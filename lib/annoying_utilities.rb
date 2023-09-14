@@ -30,7 +30,7 @@ module AnnoyingUtilities
   # standard:enable  Lint/DuplicateMethods
 
   def live_data_dir
-    Pathname.new(Dromedary.config.data_dir).realpath
+    Pathname.new(Dromedary::Services[:data_directory]).realpath
   end
 
   def solr_dir

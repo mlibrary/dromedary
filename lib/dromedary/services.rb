@@ -18,14 +18,14 @@ module Dromedary
 
   Services.register(:relative_url_root) { "/" }
 
-  Services.register(:solr_root) { ENV["SOLR_ROOT"].chomp("/") }
-  Services.register(:solr_collection) { ENV["SOLR_COLLECTION"] }
+  Services.register(:solr_root) { ENV["SOLR_ROOT"].chomp("/") || "http://solr/solr" }
+  Services.register(:solr_collection) { ENV["SOLR_COLLECTION"] || "dromedary" }
 
   Services.register(:solr_url) do
-    if Services[:solr_root] and Services[:solr_collection]
-      Services[:solr_root] + "/" + Services[:solr_collection]
-    elsif ENV["SOLR_URL"]
+    if ENV["SOLR_URL"]
       ENV["SOLR_URL"]
+    elsif Services[:solr_root] and Services[:solr_collection]
+      Services[:solr_root] + "/" + Services[:solr_collection]
     else
       raise "SOLR_ROOT/SOLR_COLLECTION not defined, nor is SOLR_URL"
     end

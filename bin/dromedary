@@ -49,6 +49,9 @@ MedInstaller::CLI.register 'newdata prepare', MedInstaller::Prepare
 MedInstaller::CLI.register "newdata extract", MedInstaller::Extract
 MedInstaller::CLI.register "newdata convert", MedInstaller::Convert
 
+require "med_installer/index"
+MedInstaller::CLI.register 'index full', MedInstaller::Index::Full, aliases: ['all']
+
 # Actually index
 # Index things into solr
 # MedInstaller::CLI.register 'extract', MedInstaller::Extract, aliases: ['unzip']
@@ -56,7 +59,6 @@ MedInstaller::CLI.register "newdata convert", MedInstaller::Convert
 # MedInstaller::CLI.register 'index copy_from_build', MedInstaller::CopyFromBuild
 # MedInstaller::CLI.register 'index entries', MedInstaller::Index::Entries
 # MedInstaller::CLI.register 'index bib', MedInstaller::Index::Bib
-# MedInstaller::CLI.register 'index full', MedInstaller::Index::Full, aliases: ['all']
 #
 # # Create the hyp_to_bibid.json mapping and put it in Dromedary.config.data_dir
 MedInstaller::CLI.register 'index hyp_to_bibid', MedInstaller::Index::HypToBibID, aliases: ['mapping']

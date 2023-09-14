@@ -33,6 +33,8 @@ module Dromedary
     # config.relative_url_root                   = '/'
     # config.action_controller.relative_url_root = '/'
 
+    config.blacklight_url = Dromedary::Services[:solr_url]
+    
     config.log_level = :info
 
     config.lograge.enabled = false

@@ -179,6 +179,7 @@
   <!-- non-dynamic fields -->
 
   <!--Basics-->
+  <field name="_version_" type="long" indexed="true" stored="true" multiValued="false"/>
   <field name="id"   type="string" indexed="true" stored="true" required="true" multiValued="false" docValues="false" />
   <field name="type" type="string"  stored="true"  indexed="true"  multiValued="false"  docValues="true" />
   <field name="sequence" type="float" stored="true" indexed="true" multiValued="false"/>
