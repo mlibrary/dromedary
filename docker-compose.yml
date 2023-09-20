@@ -43,12 +43,21 @@ services:
       context: ./solr
     ports:
       - "8983:8983"
-    entrypoint:
-      - bash
-      - "-c"
-      - "exec solr -c -f"
+      - "9983:9983"
     volumes:
       - solr:/var/lib/solr/data
+    command:
+      - /bin/bash
+      - -c
+      - |
+        solr -c
+        solr auth enable -type basicAuth -credentials solr:solr
+        sleep infinity
+# To be made an internal method we can call via code or CLI
+#curl -X PUT --header "Content-Type:application/octet-stream" --data-binary \
+#   @/opt/solr/server/my_config_sets/med.zip \
+#   http://solr:solr@localhost:8983/api/cluster/configs/med
+#curl 'http://solr:solr@localhost:8983/solr/admin/collections?action=CREATE&numShards=1&name=med&collection.configName=med'
 
 volumes:
   data:

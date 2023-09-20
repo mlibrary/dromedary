@@ -83,7 +83,7 @@
  http://wiki.apache.org/solr/SchemaXml
 -->
 
-<schema name="dueber_blacklight_med_solr" version="0.1">
+<schema name="med_solr" version="1.6">
   <!-- attribute "name" is the name of this schema and is only used for display purposes.
        version="x.y" is Solr's version number for the schema syntax and
        semantics.  It should not normally be changed by applications.
@@ -156,7 +156,7 @@
    <!-- If you remove this field, you must _also_ disable the update log in solrconfig.xml
       or Solr won't start. _version_ and update log are required for SolrCloud
    -->
-   <field name="_version_" type="long" indexed="true" stored="false" multiValued="false" />
+   <field name="_version_" type="long" indexed="true"  multiValued="false" />
 
    <!-- points to the root document of a block of nested documents. Required for nested
       document support, may be removed otherwise
@@ -179,7 +179,6 @@
   <!-- non-dynamic fields -->
 
   <!--Basics-->
-  <field name="_version_" type="long" indexed="true" stored="true" multiValued="false"/>
   <field name="id"   type="string" indexed="true" stored="true" required="true" multiValued="false" docValues="false" />
   <field name="type" type="string"  stored="true"  indexed="true"  multiValued="false"  docValues="true" />
   <field name="sequence" type="float" stored="true" indexed="true" multiValued="false"/>
