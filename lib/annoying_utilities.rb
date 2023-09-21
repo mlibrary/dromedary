@@ -39,7 +39,7 @@ module AnnoyingUtilities
   # standard:enable  Lint/DuplicateMethods
 
   def live_data_dir
-    Pathname.new(Dromedary::Services[:data_directory]).realpath
+    Pathname.new(Dromedary::Services[:live_data_dir])
   end
 
   def solr_dir
@@ -63,7 +63,7 @@ module AnnoyingUtilities
   end
 
   def hyp_to_bibid_path
-    build_directory + "hyp_to_bibid.json"
+    live_data_dir + "hyp_to_bibid.json"
   end
 
   def dromedary_root

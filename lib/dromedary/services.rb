@@ -8,6 +8,7 @@ module Dromedary
   Services = Canister.new
   Services.register(:root_directory) { Pathname(__dir__).parent.realdirpath }
   Services.register(:data_root) { ENV["DATA_ROOT"] }
+  Services.register(:live_data_dir) { Pathname.new(Services[:data_root]) + "live_data" }
   Services.register(:build_directory) do
     default = begin
       yyyymmdd = Date.today.strftime("%Y%m%d")
