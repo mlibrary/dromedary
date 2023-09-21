@@ -13,10 +13,10 @@
 
 development:
   adapter: solr
-  url: <%= Dromedary::Services[:solr_url] %>
+  url: <%= Dromedary::Services[:solr_embedded_auth_url] %>
 test: &test
   adapter: solr
-  url: <%= Dromedary::Services[:solr_url] %>
+  url: <%= Dromedary::Services[:solr_embedded_auth_url] %>
 production:
   adapter: solr
-  url: <%= Dromedary::Services[:solr_url] %>
+  url: <%= Dromedary::Services[:solr_embedded_auth_url] %>

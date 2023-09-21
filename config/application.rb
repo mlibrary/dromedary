@@ -22,6 +22,7 @@ Bundler.require(*Rails.groups)
 
 module Dromedary
   class Application < Rails::Application
+    
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
 
@@ -33,7 +34,7 @@ module Dromedary
     # config.relative_url_root                   = '/'
     # config.action_controller.relative_url_root = '/'
 
-    config.blacklight_url = Dromedary::Services[:solr_url]
+    config.blacklight_url = Dromedary::Services[:solr_embedded_auth_url]
     
     config.log_level = :info
 

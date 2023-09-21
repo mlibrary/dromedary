@@ -10,7 +10,7 @@ module MedInstaller
   class Convert < Hanami::CLI::Command
     include SemanticLogger::Loggable
 
-    desc "Second step of 'prepare'. Convert the xml files into a (faster, more compact) json object (takes a long time)"
+    desc "[STEP 2 of 'prepare'] Convert the xml files into a (faster, more compact) json object (takes a long time)"
 
     option :build_directory,
       default: Dromedary::Services[:build_directory],

@@ -49,8 +49,8 @@ MedInstaller::CLI.register 'newdata prepare', MedInstaller::Prepare
 MedInstaller::CLI.register "newdata extract", MedInstaller::Extract
 MedInstaller::CLI.register "newdata convert", MedInstaller::Convert
 
-require "med_installer/index"
-MedInstaller::CLI.register 'index full', MedInstaller::Index::Full, aliases: ['all']
+require "med_installer/index_new_data"
+MedInstaller::CLI.register 'newdata index_existing', MedInstaller::IndexNewData
 
 # Actually index
 # Index things into solr
@@ -67,7 +67,7 @@ MedInstaller::CLI.register 'index hyp_to_bibid', MedInstaller::Index::HypToBibID
 # MedInstaller::CLI.register 'solr reload', MedInstaller::Solr::Reload, aliases: ['bounce']
 #
 # # Rebuild the indexing underlying autocomplete (should never be necessary, but...)
-# MedInstaller::CLI.register 'solr rebuild_suggesters', MedInstaller::Solr::RebuildSuggesters
+MedInstaller::CLI.register 'solr rebuild_suggesters', MedInstaller::Solr::RebuildSuggesters
 #
 #
 # # Remote deployment and execution

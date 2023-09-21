@@ -8,7 +8,7 @@ module MySimpleSolrClient
   # particular core.
 
   class Client
-    attr_reader :base_url, :rawclient
+    attr_reader :base_url, :rawclient, :solr_connection
 
     def initialize(url)
       # puts "initialize(#{url})"
@@ -19,7 +19,7 @@ module MySimpleSolrClient
       @solr_connection = Faraday.new(
         url: url
       ) do |conn|
-        conn.request :authorization, :basic, ENV["SOLR_USER"], ENV["SOLR_PASSWORD"]
+        conn.request :authorization, :basic, Dromedary::Services[:solr_username], Dromedary::Services[:solr_password]
         conn.response :json
       end
 

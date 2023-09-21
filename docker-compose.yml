@@ -14,10 +14,9 @@ services:
 #     - "1234:1234" # RubyMine
 #     - "26162:26162" # RubyMine
     environment:
-      - SOLR_URL=http://solr:8983/solr/dromedary-development
       - SOLR_ROOT=http://solr:8983/solr
-      - SOLR_COLLECTION=dromedary-development
-      - DATA_DIRECTORY=/var/lib/app/data
+      - SOLR_COLLECTION=med-development
+      - DATA_ROOT=/var/lib/app/data
     volumes:
       - .:/opt/app
       - data:/var/lib/app/data
@@ -46,6 +45,9 @@ services:
       - "9983:9983"
     volumes:
       - solr:/var/lib/solr/data
+    environment:
+      - SOLR_USERNAME=solr
+      - SOLR_PASSWORD=solr
     command:
       - /bin/bash
       - -c
@@ -55,7 +57,7 @@ services:
         sleep infinity
 # To be made an internal method we can call via code or CLI
 #curl -X PUT --header "Content-Type:application/octet-stream" --data-binary \
-#   @/opt/solr/server/my_config_sets/med.zip \
+#   @/opt/solr/server/my_config_sets/med/med.zip \
 #   http://solr:solr@localhost:8983/api/cluster/configs/med
 #curl 'http://solr:solr@localhost:8983/solr/admin/collections?action=CREATE&numShards=1&name=med&collection.configName=med'
 

@@ -6,6 +6,7 @@
 #  url: <%= Dromedary::Services[:solr_url] %>
 
 secret_key_base: <%= ENV["SECRET_KEY_BASE"] || "somesecretkey" %>
+relative_url_root: <%= ENV["RAILS_RELATIVE_URL_ROOT"] || "/" %>
 
 
 
@@ -18,7 +19,6 @@ secret_key_base: <%= ENV["SECRET_KEY_BASE"] || "somesecretkey" %>
 #  channel_prefix: dromedary
 #
 #
-#relative_url_root: <%= ENV["RAILS_RELATIVE_URL_ROOT"] || "/" %>
 #
 #data_dir: <%= Dromedary::Services[:data_directory] || "#{Rails.root}/data" %>
 #build_root: <%= Dromedary::Services[:build_root] || "#{Rails.root}/data/build" %>

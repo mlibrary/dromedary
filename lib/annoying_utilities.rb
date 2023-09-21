@@ -5,6 +5,7 @@ require "json"
 require "uri"
 require "med_installer/logger"
 require_relative "../config/load_local_config"
+require "dromedary/services"
 require "my_simple_solr_client"
 
 module AnnoyingUtilities
@@ -20,12 +21,20 @@ module AnnoyingUtilities
   # standard:disable Lint/DuplicateMethods
   attr_accessor :data_dir
 
-  def data_dir=(path)
-    @data_dir = Pathname.new(path).realpath
+  # def data_dir=(path)
+  #   @data_dir = Pathname.new(path).realpath
+  # end
+  #
+  # def data_dir
+  #   @data_dir || live_data_dir
+  # end
+
+  def data_directory
+    Pathname.new(Dromedary::Services[:data_directory])
   end
 
-  def data_dir
-    @data_dir || live_data_dir
+  def build_directory
+    Pathname.new(Dromedary::Services[:build_directory])
   end
   # standard:enable  Lint/DuplicateMethods
 
@@ -46,15 +55,15 @@ module AnnoyingUtilities
   end
 
   def bibfile_path
-    data_dir + "bib_all.xml"
+    data_directory + "bib_all.xml"
   end
 
   def entries_path
-    data_dir + "entries.json.gz"
+    build_directory + "entries.json.gz"
   end
 
   def hyp_to_bibid_path
-    data_dir + "hyp_to_bibid.json"
+    build_directory + "hyp_to_bibid.json"
   end
 
   def dromedary_root
@@ -70,7 +79,8 @@ module AnnoyingUtilities
   end
 
   def blacklight_solr_url(env = nil)
-    Dromedary.config.blacklight.url
+    # Dromedary.config.blacklight.url
+    Dromedary::Services[:solr_embedded_auth_url]
   end
 
   def blacklight_config_file

@@ -1,4 +1,5 @@
 require "ettin"
+require "pathname"
 require_relative "../lib/med_installer/logger"
 require_relative "../lib/dromedary/services"
 module Dromedary
@@ -25,7 +26,7 @@ module Dromedary
     end
 
     def hyp_to_bibid
-      target = Dromedary::Services[:data_dir] + "/" + "hyp_to_bibid.json"
+      target = Pathname(Dromedary::Services[:build_directory] + "hyp_to_bibid.json")
       raise Errno::ENOENT.new("Can't find #{target}") unless target.exist?
       @hyp_to_bibid ||= JSON.parse(File.read(target))
     end

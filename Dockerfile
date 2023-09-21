@@ -10,7 +10,7 @@ ARG ARCH=amd64
 ENV BUNDLE_PATH /var/opt/app/gems
 ENV RAILS_LOG_TO_STDOUT true
 
-RUN curl https://deb.nodesource.com/setup_12.x | bash
+RUN curl https://deb.nodesource.com/setup_16.x | bash
 RUN curl https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 

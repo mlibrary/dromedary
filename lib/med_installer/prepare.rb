@@ -9,7 +9,7 @@ module MedInstaller
   class Prepare < Hanami::CLI::Command
     include MedInstaller::Logger
 
-    desc "Extract data from a zipfile and convert to data suitable for indexing"
+    desc "Extract/convert data from a zipfile"
     argument :zipfile,
       required: true,
       desc: "Zipfile which contains all the MED data"
