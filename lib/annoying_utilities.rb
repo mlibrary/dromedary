@@ -30,7 +30,7 @@ module AnnoyingUtilities
   # end
 
   def data_directory
-    Pathname.new(Dromedary::Services[:data_directory])
+    Pathname.new(Dromedary::Services[:xml_directory])
   end
 
   def build_directory

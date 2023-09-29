@@ -12,7 +12,7 @@ require "serialization/indexable_quote"
 
 settings do
   store "log.batch_size", 2_500
-  provide "med.data_dir", Dromedary::Services[:data_directory]
+  provide "med.data_dir", Dromedary::Services[:xml_directory]
   provide "reader_class_name", "MedInstaller::Traject::EntryJsonReader"
   provide "solr_writer.batch_size", 250
   provide "solr_writer.basic_auth_user", Dromedary::Services[:solr_username]
