@@ -7,7 +7,7 @@ require "uri"
 module Dromedary
   Services = Canister.new
   Services.register(:root_directory) { Pathname(__dir__).parent.realdirpath }
-  Services.register(:data_root) { ENV["DATA_ROOT"] }
+  Services.register(:data_root) { Pathname.new(ENV["DATA_ROOT"]) }
   Services.register(:live_data_dir) do
     if ENV["LIVE_DATA_DIRECTORY"]
       Pathname.new(ENV["LIVE_DATA_DIRECTORY"])
@@ -16,7 +16,7 @@ module Dromedary
     end
   end
 
-  Services.register(:build_root) { Pathname.new(ENV["BUILD_ROOT"] || Services[:data_root] + "build")}
+  Services.register(:build_root) { Pathname.new(ENV["BUILD_ROOT"] || (Services[:data_root] + "build")) }
 
   Services.register(:build_directory) do
     default = begin

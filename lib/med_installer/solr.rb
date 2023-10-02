@@ -50,7 +50,7 @@ module MedInstaller
         logger.info "   Recreate suggester for #{suggester_path}"
         # _resp = core.get "config/#{suggester_path}", {"suggest.build" => "true"}
         connection = MySimpleSolrClient::Client.new(Dromedary::Services[:solr_embedded_auth_url])
-        connection.solr_connection.get "#{suggester_path}", {"suggest.build" => "true"}
+        resp = connection.solr_connection.get "#{suggester_path}", {"suggest.build" => "true"}
       end
     end
 

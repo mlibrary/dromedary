@@ -48,7 +48,6 @@ module Dromedary
       # @param [Hash] request_params
       # @param [Hash] suggest_config
       def initialize(response, request_params, suggest_config)
-        ``
         @response = response
         @request_params = request_params
         @suggest_path = suggest_config[:solr_endpoint]
@@ -56,7 +55,7 @@ module Dromedary
       end
 
       ##
-      # Trys the suggestor response to return suggestions if they are
+      # Trust the suggestor response to return suggestions if they are
       # present
       # @return [Array]
       def suggestions

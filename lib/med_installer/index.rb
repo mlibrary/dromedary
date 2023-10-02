@@ -118,7 +118,7 @@ module MedInstaller
       desc "Clear and reload solr, index entries and bib, build autosuggest, and optimize"
       option :debug, type: :boolean, default: false, desc: "Write to debug file?"
       option :existing_hyp_to_bibid, type: :boolean, default: false, desc: "Don't create new hyp_to_bibid"
-      option :build_directory, type: :string, required: false, 
+      option :build_directory, type: :string, required: false,
         default: Dromedary::Services[:build_directory],
         desc: "The build directory (contains entries.json and xml/)"
       def call(debug:, existing_hyp_to_bibid:, build_directory:)
@@ -151,8 +151,8 @@ module MedInstaller
           bibfile:   AnnoyingUtilities.bibfile_path)
         commit
         MedInstaller::Solr.rebuild_suggesters(core)
-        optimize
         commit
+        optimize
         logger.info "Done"
         logger.info "New data in place. Making the site live again."
         MedInstaller::Control::MaintenanceModeOff.new(command_name: "maintenance_mode off").call("off")

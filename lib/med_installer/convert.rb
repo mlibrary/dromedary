@@ -81,7 +81,7 @@ module MedInstaller
 
       # Copy the tempfile over if we made it this far
       FileUtils.cp(entries_tmpfile, entries_targetfile)
-      
+
       logger.info "Creating the hyperbib mapping"
       create_hyperbib_mapping(build_directory: build_directory)
     end

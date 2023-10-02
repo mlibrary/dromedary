@@ -22,7 +22,6 @@ Bundler.require(*Rails.groups)
 
 module Dromedary
   class Application < Rails::Application
-    
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
 
@@ -35,7 +34,7 @@ module Dromedary
     # config.action_controller.relative_url_root = '/'
 
     config.blacklight_url = Dromedary::Services[:solr_embedded_auth_url]
-    
+
     config.log_level = :info
 
     config.lograge.enabled = false
@@ -71,10 +70,9 @@ module Dromedary
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
-    
-    # Done with all that? Now pull in local Ettin-based configuration. 
-    
+
+    # Done with all that? Now pull in local Ettin-based configuration.
+
     require_relative "load_local_config"
   end
-  
 end

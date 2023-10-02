@@ -9,7 +9,7 @@ settings do
   provide "med.data_dir", Dromedary::Services[:xml_directory]
   provide "reader_class_name", "MedInstaller::Traject::BibReader"
   provide "solr_writer.basic_auth_user", Dromedary::Services[:solr_username]
-  provide "solr_writer.basic_auth_password", Dromedary::Services[:solr_password]  
+  provide "solr_writer.basic_auth_password", Dromedary::Services[:solr_password]
 end
 
 # Do a terrible disservice to traject and monkeypatch it to take
