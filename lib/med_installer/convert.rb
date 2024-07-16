@@ -35,13 +35,12 @@ module MedInstaller
     def call(build_directory:)
       # @metrics = MiddleEnglishIndexMetrics.new({type: "convert_data"})
       Dromedary::Services.register(:build_directory) { build_directory }
-      build_directory = Pathname.new(build_directory).realpath
-      xmldir = build_directory + "xml"
+      xmldir = Dromedary::Services.build_xml_directory
 
       validate_xml_dir(xmldir)
       entries_tmpfile = Pathname(Dir.tmpdir) + "entries.json.tmp"
       entries_outfile = Zlib::GzipWriter.open(entries_tmpfile)
-      entries_targetfile = build_directory + "entries.json.gz"
+      entries_targetfile = Dromedary::Services.entries_gz_file
 
       oedfile = find_oed_file(xmldir)
       logger.info "Loading OED links from #{oedfile} so we can push them into entries"
@@ -89,8 +88,8 @@ module MedInstaller
     private
 
     def create_hyperbib_mapping(build_directory:)
-      bib_all_file = build_directory + "xml" + "bib_all.xml"
-      mapping_file = build_directory + "hyp_to_bibid.json"
+      bib_all_file = Pathname.new(build_directory) + "xml" + "bib_all.xml"
+      mapping_file = Pathname.new(build_directory) + "hyp_to_bibid.json"
       bibset = MiddleEnglishDictionary::Collection::BibSet.new(filename: bib_all_file)
       hyp_to_bibid = bibset.each_with_object({}) do |bib, acc|
         bib.hyps.each do |hyp|

@@ -11,6 +11,10 @@ end
 gem "middle_english_dictionary", git: "https://github.com/mlibrary/middle_english_dictionary", tag: "v1.9.1"
 
 gem "pg"
+gem "date_named_file"
+gem "zinzout"
+gem "solr_cloud-connection"
+
 
 #####################################
 # Try to work around brokenness on
@@ -51,9 +55,6 @@ gem "loofah", ">= 2.3.1"
 # https://github.com/advisories/GHSA-cr5j-953j-xw5p
 # https://github.com/advisories/GHSA-7553-jr98-vx47
 gem "nokogiri", ">= 1.10.10"
-
-# https://github.com/advisories/GHSA-5m2v-hc64-56h6
-gem "rubyzip", "~> 1.3"
 
 # https://github.com/advisories/GHSA-r74q-gxcg-73hx
 gem "simple_form", "~>5.0"

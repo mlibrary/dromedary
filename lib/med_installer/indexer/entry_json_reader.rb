@@ -7,7 +7,7 @@ require "zlib"
 #   2) Responds to the usual ruby #each, returning a source record from each #each.
 #      (Including Enumerable is prob a good idea too)
 #
-# We don't need an IO stream, but we'll just ignore it
+# We don't need an IO stream, but we'll one and just ignore it
 #
 # Reader settings are
 #   'med.data_file' => the data file (entries.ndj)

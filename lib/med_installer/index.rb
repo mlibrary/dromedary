@@ -31,7 +31,7 @@ module MedInstaller
 
       def core
         core = AnnoyingUtilities.solr_core
-        # Commit with index building can take a looooong time. Set the timeout to 100seconds
+        # Commit with index building can take a looooong time. Set the timeout to something long
         core.rawclient.receive_timeout = 200_000 # 200 seconds
         core
       end
