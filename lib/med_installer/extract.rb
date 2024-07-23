@@ -3,6 +3,7 @@ require "tmpdir"
 require "hanami/cli"
 # require_relative "../../config/load_local_config"
 require_relative "../dromedary/services"
+require "semantic_logger"
 
 Zip.on_exists_proc = true
 

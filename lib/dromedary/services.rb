@@ -34,7 +34,7 @@ module Dromedary
     Services[:build_directory] + "xml"
   end
 
-  Services.register(:bib_all_xml) do
+  Services.register(:bib_all_xml_file) do
     Services[:build_xml_directory] + "bib_all.xml"
   end
   

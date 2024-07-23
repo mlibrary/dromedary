@@ -12,7 +12,7 @@ require "json"
 #   'med.bib_file' => the data file (bib_all.xml)
 
 require "middle_english_dictionary"
-require_relative "../../../lib/annoying_utilities"
+require "dromedary/services"
 
 module MedInstaller
   # Traject readers need to take an io object (which we don't need) and the
@@ -34,7 +34,7 @@ module MedInstaller
     DATAFILEKEY = "med.data_file"
 
     def initialize(settings)
-      @data_file = get_data_file(settings)
+      @data_file = Services[:bib_all_xml_file]
     end
 
     def each

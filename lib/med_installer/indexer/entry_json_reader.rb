@@ -13,7 +13,7 @@ require "zlib"
 #   'med.data_file' => the data file (entries.ndj)
 
 require "middle_english_dictionary"
-require_relative "../../../lib/annoying_utilities"
+require "dromedary/services"
 
 module MedInstaller
   # Traject readers need to take an io object (which we don't need) and the
@@ -30,12 +30,8 @@ module MedInstaller
     include Enumerable
     include MedInstaller::Logger
 
-    DATAFILEKEY = "med.data_file"
-
-    attr_accessor :oed_set, :doe_set
-
     def initialize(settings)
-      @data_file = get_data_file(settings)
+      @data_file = Services[:entries_gz_file]
     end
 
     # This is the dumbest thing ever, but we need to eliminate all pipes
@@ -57,14 +53,6 @@ module MedInstaller
           logger.error "Error with json line #{index}: #{e}\n#{e.backtrace}"
           raise e
         end
-      end
-    end
-
-    def get_data_file(settings)
-      if settings.has_key?(DATAFILEKEY)
-        Pathname.new(settings[DATAFILEKEY])
-      else
-        raise "Need to specify filename in #{DATAFILEKEY} for #{self.class}"
       end
     end
   end

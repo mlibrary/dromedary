@@ -3,11 +3,13 @@
 require "dromedary/services"
 require "date_named_file"
 require "solr_cloud/connection"
+require "med_installer/extract"
+require "med_installer/convert"
+require "solr_cloud/connection"
 
 module MedInstaller
-
   # Run a complete indexing workflow, including
-  # * Find the new .zip file to index and extract it into individual files in 
+  # * Find the new .zip file to index and extract it into individual files in
   #   Services.build_directory (date-named directory under DATA_ROOT/build).
   #   This recursively extracts the xml files.
   # * Convert the data from the zip file into entries, saved as solr documents
@@ -20,23 +22,31 @@ module MedInstaller
   # * Hard commit
   # * Rebuild the solr suggesters
   # * Optimize
-  # This class is basically piggy-backing on the work done for the `bin/dromedary` CLI, 
+  # This class is basically piggy-backing on the work done for the `bin/dromedary` CLI,
   # but with less redirection and more stuff pulled from the Services object
   class IndexingSteps
-
     attr_accessor :data_root, :build_dir
+    Services = Dromedary::Services
 
-    def initialize(data_root = Servies.data_root, build_dir = Services.build_directory)
+    def initialize(data_root = Services.data_root, build_dir = Services.build_directory)
       @data_root = data_root
       @build_dir = build_dir
     end
 
-    def most_recent_zip_file(data_dir: data_root) end
+    def index(filename: most_recent_zip_file)
+      prepare_build_directory
+      extract_zip_to_build_directory
+      verify_unzipped_files!
+      create_solr_documents
+      create_solr_collection_for_indexing!
+    end
 
-    def entries_file(build_directory: build_dir) end
+    def most_recent_zip_file(data_dir: data_root)
+      Pathname(data_root) + "tiny-set.zip" # TODO
+    end
 
     # Make sure all the directories we're going to use exist
-    def prepare_build_directory(build_dir: build_dir)
+    def prepare_build_directory(build_dir: Services[:build_directory])
       bdir = Pathname.new(build_dir).realdirpath
       xmldir = bdir + "xml"
       bdir.mkpath
@@ -45,12 +55,20 @@ module MedInstaller
 
     # Recursively extract data from the zipfile
     def extract_zip_to_build_directory(zipfile: most_recent_zip_file, build_directory: build_dir)
-      prepare_build_directory(build_directory)
       MedInstaller::Extract.new(command_name: "extract").call(zipfile: zipfile, build_directory: build_directory)
     end
 
     # Make sure the zipfile produced the stuff we're expecting, at least cursorily.
-    def verify_unzipped_files!(build_directory = build_dir) end
+    # As opposed to doing it right, we'll just look for:
+    #   * bib_all.xml
+    #   * MED2DOE*xml and MED2OED*xml
+    def verify_unzipped_files!(build_directory = build_dir)
+      xml_dir = Pathname.new(build_directory) + "xml"
+      files = xml_dir.children.map(&:basename).map(&:to_s)
+      raise "Can't find bib_all.xml in #{xml_dir}" unless files.include?("bib_all.xml")
+      raise "Can't find MED2OED links file in #{xml_dir}" if files.grep(/MED2OED.*xml/).empty?
+      raise "Can't find MED2DOE links file in #{xml_dir}" if files.grep(/MED2DOE.*xml/).empty?
+    end
 
     # Build up the entries, based on the xml files along with the oed/doe linkage files
     # This:
@@ -69,10 +87,10 @@ module MedInstaller
     # @param solr_configuration_directory [String, Pathname] Local path to solr `conf` directory
     # @return [String] URL to the solr collection
     def create_solr_collection_for_indexing!(collection_name: Services.build_solr_collection_name,
-                                             solr_root: Services.solr_root,
-                                             solr_username: Services.solr_username,
-                                             solr_password: Services.solr_password,
-                                             solr_configuration_directory: Services.solr_conf_directory)
+      solr_root: Services.solr_root,
+      solr_username: Services.solr_username,
+      solr_password: Services.solr_password,
+      solr_configuration_directory: Services.solr_conf_directory)
 
       sroot = SolrCloud::Connection.new(url: solr_root, user: solr_username, password: solr_password)
       unless sroot.has_configset?(collection_name)
@@ -85,9 +103,9 @@ module MedInstaller
     end
 
     def generic_indexing_call(rulesfile:,
-                              datafile:,
-                              bib_all_file: Services[:bib_all_file],
-                              writer: Services[:solr_writer])
+      datafile:,
+      bib_all_file: Services[:bib_all_file],
+      writer: Services[:solr_writer])
       indexer = ::Traject::Indexer.new
       indexer.settings do
         store "med.data_file", datafile.to_s
@@ -102,14 +120,14 @@ module MedInstaller
 
     # Actually index the documents in entries.json.gz
     # @param entries_filename [String] Path to entries.json.gz
-    def index_entries(entries_filename: Services.entries_gz_file,
-                      solr_collection_url: Services.solr_embedded_auth_url,
-                      hyp_to_bibid_filename: Services.hyp_to_bibid_filename)
-
-
-
-
+    def index_entries
+      generic_indexing_call(rulesfile: Dromedary::Services[:entry_indexing_rules],
+        datafile: Dromedary::Services[:entries_gz_file])
     end
 
+    def index_bibs
+      generic_indexing_call(rulesfile: Dromedary::Services[:bib_indexing_rules],
+        datafile: Dromedary::Services[:bib_all_xml_file])
+    end
   end
 end
