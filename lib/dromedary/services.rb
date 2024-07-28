@@ -6,7 +6,7 @@ require "uri"
 
 module Dromedary
   Services = Canister.new
-  Services.register(:root_directory) { Pathname(__dir__).parent.realdirpath }
+  Services.register(:root_directory) { Pathname(__dir__).parent.parent.realdirpath }
   Services.register(:data_root) { Pathname.new(ENV["DATA_ROOT"]) }
   Services.register(:live_data_dir) do
     if ENV["LIVE_DATA_DIRECTORY"]
@@ -70,10 +70,10 @@ module Dromedary
     "#{Services[:solr_collection]}_#{Services["build_date_suffix"]}"
   end
 
-  Services.register(:solr_root) { ENV["SOLR_ROOT"].chomp("/") || "http://solr/solr" }
+  Services.register(:solr_root) { ENV["SOLR_ROOT"].chomp("/") || "http://solr:8983/" }
   Services.register(:solr_collection) { ENV["SOLR_COLLECTION"] || "med" }
   Services.register(:solr_username) { ENV["SOLR_USERNAME"] || "solr" }
-  Services.register(:solr_password) { ENV["SOLR_PASSWORD"] || "solr" }
+  Services.register(:solr_password) { ENV["SOLR_PASSWORD"] || "SolrRocks" }
   
   Services.register(:build_solr_collection_name) do 
     "#{Services.solr_collection}_#{Services.build_date_suffix}"
@@ -81,7 +81,7 @@ module Dromedary
   
   Services.register(:solr_url) do
     if Services[:solr_root] and Services[:solr_collection]
-      Services[:solr_root] + "/" + Services[:solr_collection]
+      Services[:solr_root] + "/solr/" + Services[:solr_collection]
     else
       raise "Configuration error: Need both SOLR_ROOT/SOLR_COLLECTION to be defined"
     end
@@ -95,7 +95,7 @@ module Dromedary
   end
 
   Services.register(:solr_conf_directory) do
-    ENV["SOLR_CONF_DIRECTORY"] || Services[:root_directory] + "solr" + "med" + "conf"
+    ENV["SOLR_CONF_DIRECTORY"] || Services[:root_directory] + "solr" + "dromedary" + "conf"
   end
 
 

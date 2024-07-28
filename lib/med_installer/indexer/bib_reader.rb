@@ -34,7 +34,7 @@ module MedInstaller
     DATAFILEKEY = "med.data_file"
 
     def initialize(settings)
-      @data_file = Services[:bib_all_xml_file]
+      @data_file = Dromedary::Services[:bib_all_xml_file]
     end
 
     def each

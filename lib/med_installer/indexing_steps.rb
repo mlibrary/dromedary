@@ -6,6 +6,7 @@ require "solr_cloud/connection"
 require "med_installer/extract"
 require "med_installer/convert"
 require "solr_cloud/connection"
+require "traject"
 
 module MedInstaller
   # Run a complete indexing workflow, including
@@ -27,10 +28,17 @@ module MedInstaller
   class IndexingSteps
     attr_accessor :data_root, :build_dir
     Services = Dromedary::Services
+    include SemanticLogger::Loggable
 
     def initialize(data_root = Services.data_root, build_dir = Services.build_directory)
       @data_root = data_root
       @build_dir = build_dir
+      @coll_conf_name = Services.build_solr_collection_name
+
+      @sconn = SolrCloud::Connection.new(url: Services[:solr_root],
+                                         user: Services[:solr_username],
+                                         password: Services[:solr_password])
+      @build_collection = nil # will be created
     end
 
     def index(filename: most_recent_zip_file)
@@ -38,9 +46,17 @@ module MedInstaller
       extract_zip_to_build_directory
       verify_unzipped_files!
       create_solr_documents
-      create_solr_collection_for_indexing!
+      @build_collection = create_solr_collection_for_indexing!
+      collection_url = @build_collection.connection.url.chomp("/") + "/solr/#{@build_collection.name}"
+      logger.info "Going to index targeting #{collection_url}"
+      index_entries(solr_url: collection_url)
+      index_bibs(solr_url: collection_url)
+      rebuild_suggesters(solr_url: collection_url)
     end
 
+    # TODO: Use the real name, and put the path to it in Services based on a NEW_DATA_FILE_NAME
+    # or somehting like that.
+    # TODO: All that shit doesn't need to live in Services. Pull the build-specific stuff out here.
     def most_recent_zip_file(data_dir: data_root)
       Pathname(data_root) + "tiny-set.zip" # TODO
     end
@@ -85,31 +101,39 @@ module MedInstaller
     # @param solr_username [String] Solr login username
     # @param solr_password [String] Solr login password
     # @param solr_configuration_directory [String, Pathname] Local path to solr `conf` directory
-    # @return [String] URL to the solr collection
-    def create_solr_collection_for_indexing!(collection_name: Services.build_solr_collection_name,
-      solr_root: Services.solr_root,
-      solr_username: Services.solr_username,
-      solr_password: Services.solr_password,
-      solr_configuration_directory: Services.solr_conf_directory)
+    # @return [SolrCloud::Connection::Collection] Name of the new solr collection
+    def create_solr_collection_for_indexing!(collection_name: @coll_conf_name,
+                                             solr_root: Services.solr_root,
+                                             solr_username: Services.solr_username,
+                                             solr_password: Services.solr_password,
+                                             solr_configuration_directory: Services.solr_conf_directory)
 
       sroot = SolrCloud::Connection.new(url: solr_root, user: solr_username, password: solr_password)
-      unless sroot.has_configset?(collection_name)
+      if sroot.has_configset?(collection_name)
+        logger.warn "Configset #{collection_name} already existed; using it"
+      else
         sroot.create_configset(name: collection_name, confdir: solr_configuration_directory)
+        logger.info "Created collection #{collection_name} based on directory #{solr_configuration_directory}"
       end
-      unless sroot.has_collection?(collection_name)
+
+      if sroot.has_collection?(collection_name)
+        raise "Won't index into an existing collection, and '#{collection_name}' already exists. Aborting"
+      else
         sroot.create_collection(name: collection_name, configset: collection_name)
       end
-      sroot.get_collection(collection_name).url
+      sroot.get_collection(collection_name)
     end
 
     def generic_indexing_call(rulesfile:,
-      datafile:,
-      bib_all_file: Services[:bib_all_file],
-      writer: Services[:solr_writer])
+                              datafile:,
+                              solr_url:,
+                              bib_all_xml_file: Services[:bib_all_xml_file],
+                              writer: Services[:solr_writer])
       indexer = ::Traject::Indexer.new
       indexer.settings do
         store "med.data_file", datafile.to_s
-        store "bibfile", bib_all_file
+        store "bibfile", bib_all_xml_file
+        store "solr.url", solr_url
       end
 
       indexer.load_config_file rulesfile.to_s
@@ -120,14 +144,30 @@ module MedInstaller
 
     # Actually index the documents in entries.json.gz
     # @param entries_filename [String] Path to entries.json.gz
-    def index_entries
+    def index_entries(solr_url:)
       generic_indexing_call(rulesfile: Dromedary::Services[:entry_indexing_rules],
-        datafile: Dromedary::Services[:entries_gz_file])
+                            datafile: Dromedary::Services[:entries_gz_file],
+                            solr_url: solr_url)
     end
 
-    def index_bibs
+    def index_bibs(solr_url:)
       generic_indexing_call(rulesfile: Dromedary::Services[:bib_indexing_rules],
-        datafile: Dromedary::Services[:bib_all_xml_file])
+                            datafile: Dromedary::Services[:bib_all_xml_file], solr_url: solr_url)
     end
+
+    def rebuild_suggesters(solr_url:, env: "production")
+      logger.info "Recreating suggest indexes"
+      autocomplete_filename = Services[:root_directory] + "config" + "autocomplete.yml"
+      autocomplete_map = YAML.safe_load(ERB.new(File.read(autocomplete_filename)).result, aliases: true)[env]
+      require "pry"; binding.pry
+      autocomplete_map.keys.each do |key|
+        suggester_path = autocomplete_map[key]["solr_endpoint"]
+        logger.info "   Recreate suggester for #{suggester_path}"
+        # _resp = core.get "config/#{suggester_path}", {"suggest.build" => "true"}
+        connection = MySimpleSolrClient::Client.new(Dromedary::Services[:solr_embedded_auth_url])
+        resp = connection.solr_connection.get "#{suggester_path}", {"suggest.build" => "true"}
+      end
+    end
+
   end
 end

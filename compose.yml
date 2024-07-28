@@ -11,19 +11,20 @@ services:
     ports:
       - "3000:3000" # Rails
       - "1111:1111"
-#     - "1234:1234" # RubyMine
-#     - "26162:26162" # RubyMine
+      - "1234:1234" # RubyMine
+      - "26162:26162" # RubyMine
     environment:
-      - SOLR_ROOT=http://solr:8983/solr
+      - SOLR_ROOT=http://solr:8983/
       - SOLR_COLLECTION=med-development
+      - SOLR_USERNAME=solr
+      - SOLR_PASSWORD=SolrRocks
       - DATA_ROOT=/var/lib/app/data
     volumes:
       - .:/opt/app
       - data:/var/lib/app/data
       - gems:/var/lib/app/gems
     command:
-      - sleep
-      - infinity
+      - "bin/rails -s -b 0.0.0.0"
 
   db:
     image: postgres:12-alpine
@@ -36,25 +37,43 @@ services:
       - db:/var/lib/postgresql/data
 
   solr:
-    image: solr:dromedary
-    build:
-      dockerfile: ./Dockerfile
-      context: ./solr
+    build: solr/container
     ports:
-      - "8983:8983"
-      - "9983:9983"
-    volumes:
-      - solr:/var/lib/solr/data
+      - "9090:8983"
     environment:
-      - SOLR_USERNAME=solr
-      - SOLR_PASSWORD=solr
-    command:
-      - /bin/bash
-      - -c
-      - |
-        solr -c
-        solr auth enable -type basicAuth -credentials solr:solr
-        sleep infinity
+      - ZK_HOST=zoo:2181
+    depends_on:
+      - zoo
+    command: solr-foreground
+
+  zoo:
+    image: zookeeper
+    ports:
+      - 9091:2181
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=0.0.0.0:2888:3888;2181
+
+#  solr:
+#    image: solr:dromedary
+#    build:
+#      dockerfile: ./Dockerfile
+#      context: ./solr
+#    ports:
+#      - "8983:8983"
+#      - "9983:9983"
+#    volumes:
+#      - solr:/var/lib/solr/data
+#    environment:
+#      - SOLR_USERNAME=solr
+#      - SOLR_PASSWORD=solr
+#    command:
+#      - /bin/bash
+#      - -c
+#      - |
+#        solr -c
+#        solr auth enable -type basicAuth -credentials solr:solr
+#        sleep infinity
 # To be made an internal method we can call via code or CLI
 #curl -X PUT --header "Content-Type:application/octet-stream" --data-binary \
 #   @/opt/solr/server/my_config_sets/med/med.zip \

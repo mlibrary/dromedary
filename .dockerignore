@@ -1,5 +1,5 @@
 # Ignore everything
-*
+#*
 
 # Except
 !/app
@@ -14,6 +14,7 @@
 !/public
 !/solr/dromedary
 !/solr/med
+!/solr/lib
 !/spec
 !/test
 !/tmp/.keep

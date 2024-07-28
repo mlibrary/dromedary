@@ -31,7 +31,7 @@ module MedInstaller
     include MedInstaller::Logger
 
     def initialize(settings)
-      @data_file = Services[:entries_gz_file]
+      @data_file = Dromedary::Services[:entries_gz_file]
     end
 
     # This is the dumbest thing ever, but we need to eliminate all pipes
