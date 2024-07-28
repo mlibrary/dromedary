@@ -6,7 +6,7 @@ services:
       - solr
     image: dromedary
     build:
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.prod
       context: .
     ports:
       - "3000:3000" # Rails
@@ -23,8 +23,6 @@ services:
       - .:/opt/app
       - data:/var/lib/app/data
       - gems:/var/lib/app/gems
-    command:
-      - "bin/rails -s -b 0.0.0.0"
 
   db:
     image: postgres:12-alpine
