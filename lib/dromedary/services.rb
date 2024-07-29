@@ -71,9 +71,20 @@ module Dromedary
   end
 
   Services.register(:solr_root) { ENV["SOLR_ROOT"].chomp("/") || "http://solr:8983/" }
-  Services.register(:solr_collection) { ENV["SOLR_COLLECTION"] || "med" }
+  Services.register(:solr_collection_base) { ENV["SOLR_COLLECTION_BASE"] || "med" }
+  Services.register(:solr_collection) { ENV["SOLR_COLLECTION"] || Services[:solr_collection_base] }
   Services.register(:solr_username) { ENV["SOLR_USERNAME"] || "solr" }
   Services.register(:solr_password) { ENV["SOLR_PASSWORD"] || "SolrRocks" }
+
+  Services.register(:solr_connection) do
+    SolrCloud::Connection.new(url: Services[:solr_root],
+                              user: Services[:solr_username],
+                              password: Services[:solr_password])
+  end
+
+  Services.register(:solr_current_production_collection) do
+    Services[:solr_connection].get_collection("")
+  end
   
   Services.register(:build_solr_collection_name) do 
     "#{Services.solr_collection}_#{Services.build_date_suffix}"

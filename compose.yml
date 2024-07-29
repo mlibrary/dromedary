@@ -15,7 +15,8 @@ services:
       - "26162:26162" # RubyMine
     environment:
       - SOLR_ROOT=http://solr:8983/
-      - SOLR_COLLECTION=med-development
+      - SOLR_COLLECTION=med-prod
+      - SOLR_COLLECTION_BASE=med
       - SOLR_USERNAME=solr
       - SOLR_PASSWORD=SolrRocks
       - DATA_ROOT=/var/lib/app/data
@@ -23,6 +24,11 @@ services:
       - .:/opt/app
       - data:/var/lib/app/data
       - gems:/var/lib/app/gems
+    command:
+      - bin/rails
+      - s
+      - -b
+      - 0.0.0.0
 
   db:
     image: postgres:12-alpine

@@ -26,27 +26,37 @@ module MedInstaller
   # This class is basically piggy-backing on the work done for the `bin/dromedary` CLI,
   # but with less redirection and more stuff pulled from the Services object
   class IndexingSteps
-    attr_accessor :data_root, :build_dir
+    attr_reader :data_root, :build_dir, :xml_dir, :uid, :zipfile, :connection
     Services = Dromedary::Services
     include SemanticLogger::Loggable
 
-    def initialize(data_root = Services.data_root, build_dir = Services.build_directory)
+
+    def initialize(data_root = Services.data_root,
+                   build_dir = Services.build_directory,
+                   connection: Services[:solr_connection],
+                   zipfile: nil)
       @data_root = data_root
-      @build_dir = build_dir
+      @build_dir = Pathname.new(build_dir).realdirpath
+      @xml_dir = @build_dir + "xml"
+      @connection = connection
+
+      @zipfile ||= most_recent_zip_file
+      @uid = uid(@zipfile)
+
       @coll_conf_name = Services.build_solr_collection_name
 
-      @sconn = SolrCloud::Connection.new(url: Services[:solr_root],
-                                         user: Services[:solr_username],
-                                         password: Services[:solr_password])
-      @build_collection = nil # will be created
     end
 
-    def index(filename: most_recent_zip_file)
+    def index
+      check_to_see_if_this_file_has_already_been_indexed!
+
       prepare_build_directory
       extract_zip_to_build_directory
       verify_unzipped_files!
+
       create_solr_documents
-      @build_collection = create_solr_collection_for_indexing!
+
+      @build_collection = create_configset_and_collection!
       collection_url = @build_collection.connection.url.chomp("/") + "/solr/#{@build_collection.name}"
       logger.info "Going to index targeting #{collection_url}"
       index_entries(solr_url: collection_url)
@@ -54,23 +64,47 @@ module MedInstaller
       rebuild_suggesters(solr_url: collection_url)
     end
 
+    def check_to_see_if_this_file_has_already_been_indexed!
+      existing_index = existing_index_for_this_zipfile
+      if existing_index
+        msg = "File '#{zipfile}' appears to have already been indexed, based on sharing an MD5 digest."
+        raise msg
+      end
+    end
+
+
+    # Check to see if we've already created an index based on this file
+    # (as envidenced by the digest string being a part of a collection name)
+    # @return [String, nil] Name of the existing collection, or nil
+    def existing_index_for_this_zipfile
+      @connection.collection_names.grep(Regexp.new(digest)).first
+    end
+
+
+
+    def digest(file = @zipfile)
+      @digest ||=  Digest::MD5.file(file).hexdigest
+    end
+
+    def uid(file = @zipfile)
+      [Services[:solr_collection_base], digest(file), Services[:build_date_suffix]].join("_")
+    end
+
     # TODO: Use the real name, and put the path to it in Services based on a NEW_DATA_FILE_NAME
     # or somehting like that.
     # TODO: All that shit doesn't need to live in Services. Pull the build-specific stuff out here.
-    def most_recent_zip_file(data_dir: data_root)
-      Pathname(data_root) + "tiny-set.zip" # TODO
+    def most_recent_zip_file(dir: @data_root)
+      Pathname(dir) + "tiny-set.zip" # TODO
     end
 
     # Make sure all the directories we're going to use exist
-    def prepare_build_directory(build_dir: Services[:build_directory])
-      bdir = Pathname.new(build_dir).realdirpath
-      xmldir = bdir + "xml"
-      bdir.mkpath
-      xmldir.mkpath
+    def prepare_build_directory
+      build_dir.mkpath
+      xml_dir.mkpath
     end
 
     # Recursively extract data from the zipfile
-    def extract_zip_to_build_directory(zipfile: most_recent_zip_file, build_directory: build_dir)
+    def extract_zip_to_build_directory(zipfile: @zipfile, build_directory: @build_dir)
       MedInstaller::Extract.new(command_name: "extract").call(zipfile: zipfile, build_directory: build_directory)
     end
 
@@ -94,35 +128,41 @@ module MedInstaller
       MedInstaller::Convert.new(command_name: "convert").call(build_directory: build_directory)
     end
 
-    # Create a new collection for this build. This will upload the configuration, create
-    # the collection, and then return the full URL to that collection.
-    # @param collection_name [String] The name of the collection to create
-    # @param solr_root [String] URL to the root of the solr service (https://blah/solr)
-    # @param solr_username [String] Solr login username
-    # @param solr_password [String] Solr login password
-    # @param solr_configuration_directory [String, Pathname] Local path to solr `conf` directory
-    # @return [SolrCloud::Connection::Collection] Name of the new solr collection
-    def create_solr_collection_for_indexing!(collection_name: @coll_conf_name,
-                                             solr_root: Services.solr_root,
-                                             solr_username: Services.solr_username,
-                                             solr_password: Services.solr_password,
-                                             solr_configuration_directory: Services.solr_conf_directory)
-
-      sroot = SolrCloud::Connection.new(url: solr_root, user: solr_username, password: solr_password)
-      if sroot.has_configset?(collection_name)
-        logger.warn "Configset #{collection_name} already existed; using it"
-      else
-        sroot.create_configset(name: collection_name, confdir: solr_configuration_directory)
-        logger.info "Created collection #{collection_name} based on directory #{solr_configuration_directory}"
-      end
-
-      if sroot.has_collection?(collection_name)
-        raise "Won't index into an existing collection, and '#{collection_name}' already exists. Aborting"
-      else
-        sroot.create_collection(name: collection_name, configset: collection_name)
-      end
-      sroot.get_collection(collection_name)
+    def create_configset_and_collection!(uid: @uid, solr_configuration_directory: Services.solr_conf_directory)
+      connection.create_configset(name: uid, confdir: solr_configuration_directory)
+      connection.create_collection(name: uid, configset: uid)
+      connection.get_collection(uid)
     end
+    #
+    # # Create a new collection for this build. This will upload the configuration, create
+    # # the collection, and then return the full URL to that collection.
+    # # @param collection_name [String] The name of the collection to create
+    # # @param solr_root [String] URL to the root of the solr service (https://blah/solr)
+    # # @param solr_username [String] Solr login username
+    # # @param solr_password [String] Solr login password
+    # # @param solr_configuration_directory [String, Pathname] Local path to solr `conf` directory
+    # # @return [SolrCloud::Connection::Collection] Name of the new solr collection
+    # def create_solr_collection_for_indexing!(collection_name: @coll_conf_name,
+    #                                          solr_root: Services.solr_root,
+    #                                          solr_username: Services.solr_username,
+    #                                          solr_password: Services.solr_password,
+    #                                          solr_configuration_directory: Services.solr_conf_directory)
+    #
+    #   sroot = SolrCloud::Connection.new(url: solr_root, user: solr_username, password: solr_password)
+    #   if sroot.has_configset?(collection_name)
+    #     logger.warn "Configset #{collection_name} already existed; using it"
+    #   else
+    #     sroot.create_configset(name: collection_name, confdir: solr_configuration_directory)
+    #     logger.info "Created collection #{collection_name} based on directory #{solr_configuration_directory}"
+    #   end
+    #
+    #   if sroot.has_collection?(collection_name)
+    #     raise "Won't index into an existing collection, and '#{collection_name}' already exists. Aborting"
+    #   else
+    #     sroot.create_collection(name: collection_name, configset: collection_name)
+    #   end
+    #   sroot.get_collection(collection_name)
+    # end
 
     def generic_indexing_call(rulesfile:,
                               datafile:,
@@ -159,7 +199,6 @@ module MedInstaller
       logger.info "Recreating suggest indexes"
       autocomplete_filename = Services[:root_directory] + "config" + "autocomplete.yml"
       autocomplete_map = YAML.safe_load(ERB.new(File.read(autocomplete_filename)).result, aliases: true)[env]
-      require "pry"; binding.pry
       autocomplete_map.keys.each do |key|
         suggester_path = autocomplete_map[key]["solr_endpoint"]
         logger.info "   Recreate suggester for #{suggester_path}"
