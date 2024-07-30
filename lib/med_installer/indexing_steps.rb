@@ -30,7 +30,6 @@ module MedInstaller
     Services = Dromedary::Services
     include SemanticLogger::Loggable
 
-
     def initialize(data_root = Services.data_root,
                    build_dir = Services.build_directory,
                    connection: Services[:solr_connection],
@@ -61,7 +60,9 @@ module MedInstaller
       logger.info "Going to index targeting #{collection_url}"
       index_entries(solr_url: collection_url)
       index_bibs(solr_url: collection_url)
+      @build_collection.commit
       rebuild_suggesters(solr_url: collection_url)
+      @build_collection.commit
     end
 
     def check_to_see_if_this_file_has_already_been_indexed!
@@ -72,7 +73,6 @@ module MedInstaller
       end
     end
 
-
     # Check to see if we've already created an index based on this file
     # (as envidenced by the digest string being a part of a collection name)
     # @return [String, nil] Name of the existing collection, or nil
@@ -80,10 +80,8 @@ module MedInstaller
       @connection.collection_names.grep(Regexp.new(digest)).first
     end
 
-
-
     def digest(file = @zipfile)
-      @digest ||=  Digest::MD5.file(file).hexdigest
+      @digest ||= Digest::MD5.file(file).hexdigest
     end
 
     def uid(file = @zipfile)
@@ -133,6 +131,7 @@ module MedInstaller
       connection.create_collection(name: uid, configset: uid)
       connection.get_collection(uid)
     end
+
     #
     # # Create a new collection for this build. This will upload the configuration, create
     # # the collection, and then return the full URL to that collection.
@@ -202,9 +201,7 @@ module MedInstaller
       autocomplete_map.keys.each do |key|
         suggester_path = autocomplete_map[key]["solr_endpoint"]
         logger.info "   Recreate suggester for #{suggester_path}"
-        # _resp = core.get "config/#{suggester_path}", {"suggest.build" => "true"}
-        connection = MySimpleSolrClient::Client.new(Dromedary::Services[:solr_embedded_auth_url])
-        resp = connection.solr_connection.get "#{suggester_path}", {"suggest.build" => "true"}
+        resp = @build_collection.get "solr/#{@build_collection.name}/#{suggester_path}", { "suggest.build" => "true" }
       end
     end
 
