@@ -39,4 +39,5 @@ RUN gem install 'bundler:~>2.2.21'
 RUN bundle config build.sassc --disable-march-tune-native
 RUN bundle install
 
-CMD ["sleep", "infinity"]
+#CMD ["sleep", "infinity"]
+CMD ["bin/rails", "s", "-b", "0.0.0.0"]
