@@ -31,5 +31,7 @@ require 'hanami/cli'
 require "dromedary/services"
 require "med_installer/indexing_steps"
 
-indexer = MedInstaller::IndexingSteps.new
+filename = ARGV.shift
+
+indexer = MedInstaller::IndexingSteps.new(zipfile: filename)
 indexer.index

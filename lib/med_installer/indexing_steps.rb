@@ -39,7 +39,7 @@ module MedInstaller
       @xml_dir = @build_dir + "xml"
       @connection = connection
 
-      @zipfile ||= most_recent_zip_file
+      @zipfile = zipfile || most_recent_zip_file
       @uid = uid(@zipfile)
 
       @coll_conf_name = Services.build_solr_collection_name
@@ -63,6 +63,11 @@ module MedInstaller
       @build_collection.commit
       rebuild_suggesters(solr_url: collection_url)
       @build_collection.commit
+
+      upload_hyp_to_bibid_to_solr
+
+      @build_collection.alias_as("mec-preview", force: true)
+
     end
 
     def check_to_see_if_this_file_has_already_been_indexed!
@@ -126,6 +131,8 @@ module MedInstaller
       MedInstaller::Convert.new(command_name: "convert").call(build_directory: build_directory)
     end
 
+
+    # @return [SolrCloud::Collection]
     def create_configset_and_collection!(uid: @uid, solr_configuration_directory: Services.solr_conf_directory)
       connection.create_configset(name: uid, confdir: solr_configuration_directory)
       connection.create_collection(name: uid, configset: uid)
@@ -205,5 +212,11 @@ module MedInstaller
       end
     end
 
+    def upload_hyp_to_bibid_to_solr
+      filepath = Pathname.new(@build_dir) + "hyp_to_bibid.json"
+      doc = { id: "hyp_to_bibid", data: File.read(filepath.to_s)}
+    end
+    
   end
 end
+

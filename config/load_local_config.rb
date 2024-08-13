@@ -25,8 +25,8 @@ module Dromedary
       @config = Dromedary::Services
     end
 
-    def hyp_to_bibid
-      target = Pathname(Dromedary::Services[:live_data_dir]) + "hyp_to_bibid.json"
+    def hyp_to_bibid(dir = Dromedary::Services[:live_data_dir] )
+      target = Pathname(dir) + "hyp_to_bibid.json"
       raise Errno::ENOENT.new("Can't find #{target}") unless target.exist?
       @hyp_to_bibid ||= JSON.parse(File.read(target))
     end

@@ -47,15 +47,17 @@ ENV SECRET_KEY_BASE 121222bccca
 
 RUN bundle config build.sassc --disable-march-tune-native
 RUN bundle config set path /gems
-RUN bundle config set without 'test development'
+
+RUN #bundle config set without 'test development'
 RUN bundle install -j 4
 
 RUN RAILS_ENV=production bin/rails assets:precompile
 #CMD ["sleep", "infinity"]
+ENV RAILS_ENV development
 CMD ["bin/rails", "s", "-b", "0.0.0.0"]
 
-FROM nginx:mainline AS assets
-ENV NGINX_PORT=80
-ENV NGINX_PREFIX=/
-COPY --from=app /opt/app/nginx/assets.nginx /etc/nginx/templates/default.conf.template
-COPY --from=app /opt/app/public /usr/share/nginx/html/
+#FROM nginx:mainline AS assets
+#ENV NGINX_PORT=80
+#ENV NGINX_PREFIX=/
+#COPY --from=app /opt/app/nginx/assets.nginx /etc/nginx/templates/default.conf.template
+#COPY --from=app /opt/app/public /usr/share/nginx/html/

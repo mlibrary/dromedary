@@ -15,15 +15,15 @@ services:
       - "26162:26162" # RubyMine
     environment:
       - SOLR_ROOT=http://solr:8983/
-      - SOLR_COLLECTION=med-prod
+      - SOLR_COLLECTION=med-preview
       - SOLR_COLLECTION_BASE=med
       - SOLR_USERNAME=solr
       - SOLR_PASSWORD=SolrRocks
-      - DATA_ROOT=/var/lib/app/data
+      - DATA_ROOT=/mec/data
     volumes:
       - .:/opt/app
-      - data:/var/lib/app/data
-      - gems:/var/lib/app/gems
+      - data:/mec/data
+      - gems:/opt/app/gems
     command:
       - bin/rails
       - s
@@ -44,6 +44,8 @@ services:
     build: solr/container
     ports:
       - "9090:8983"
+    volumes:
+      - solr:/var/lib/solr/data
     environment:
       - ZK_HOST=zoo:2181
     depends_on:
@@ -93,3 +95,8 @@ volumes:
   gems:
   db:
   solr:
+    driver_opts:
+      type: none
+      device: ${PWD}/solr_data
+      o: bind
+

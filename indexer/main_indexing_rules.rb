@@ -19,13 +19,13 @@ settings do
   provide "solr_writer.basic_auth_password", Dromedary::Services[:solr_password]
 end
 
-hyp_to_bibid = Dromedary.hyp_to_bibid
+hyp_to_bibid = Dromedary.hyp_to_bibid(Dromedary::Services[:build_directory])
 bibset = MiddleEnglishDictionary::Collection::BibSet.new(filename: settings["bibfile"])
 
 # Do a terrible disservice to traject and monkeypatch it to take
 # our existing logger
 
-Traject::Indexer.send(:define_method, :logger, -> { Services[:logger] })
+Traject::Indexer.send(:define_method, :logger, -> { Dromedary::Services[:logger] })
 
 def entry_method(name)
   ->(rec, acc) { acc.replace Array(rec.send(name)) }
