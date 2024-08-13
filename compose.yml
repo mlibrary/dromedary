@@ -6,7 +6,7 @@ services:
       - solr
     image: dromedary
     build:
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile
       context: .
     ports:
       - "3000:3000" # Rails

@@ -66,7 +66,7 @@ gem "simple_form", "~>5.0"
 # When developing in tandem, a relative path is nice and easy
 
 # Use bundler 2
-gem "bundler", "~> 2.0"
+gem "bundler", "~>2.4.22"
 
 # ,,, and explicitly pull in rake
 gem "rake", "~> 13.0"

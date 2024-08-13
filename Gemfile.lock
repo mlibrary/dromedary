@@ -420,7 +420,7 @@ DEPENDENCIES
   activesupport (>= 5.2.4.3)
   awesome_print
   blacklight (~> 6.15.0)
-  bundler (~> 2.0)
+  bundler (~> 2.4.22)
   canister
   coffee-rails (~> 4.2)
   date_named_file
@@ -473,4 +473,4 @@ DEPENDENCIES
   zinzout
 
 BUNDLED WITH
-   2.4.12
+   2.4.22

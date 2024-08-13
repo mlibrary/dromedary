@@ -70,7 +70,7 @@ module Dromedary
     "#{Services[:solr_collection]}_#{Services["build_date_suffix"]}"
   end
 
-  Services.register(:solr_root) { ENV["SOLR_ROOT"].chomp("/") || "http://solr:8983/" }
+  Services.register(:solr_root) { (ENV["SOLR_ROOT"] || "http://solr:8983/").chomp("/") }
   Services.register(:solr_collection_base) { ENV["SOLR_COLLECTION_BASE"] || "med" }
   Services.register(:solr_collection) { ENV["SOLR_COLLECTION"] || Services[:solr_collection_base] }
   Services.register(:solr_username) { ENV["SOLR_USERNAME"] || "solr" }
@@ -106,7 +106,7 @@ module Dromedary
   end
 
   Services.register(:solr_conf_directory) do
-    ENV["SOLR_CONF_DIRECTORY"] || Services[:root_directory] + "solr" + "dromedary" + "conf"
+    ENV["SOLR_CONF_DIRECTORY"] || (Services[:root_directory] + "solr" + "dromedary" + "conf")
   end
 
 
