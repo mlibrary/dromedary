@@ -73,7 +73,12 @@ module MedInstaller
       @build_collection.commit
       rebuild_suggesters(solr_url: collection_url)
       @build_collection.commit
+
+      logger.info "Cleaning up"
+      @build_dir.rmtree
+
       @build_collection.alias_as("med-preview", force: true)
+
 
     end
 
