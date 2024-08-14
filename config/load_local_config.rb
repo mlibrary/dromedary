@@ -2,6 +2,8 @@ require "ettin"
 require "pathname"
 require_relative "../lib/med_installer/logger"
 require_relative "../lib/dromedary/services"
+require_relative "../lib/med_installer/hyp_to_bibid"
+
 module Dromedary
   class << self
     # For whatever historical reasons, this uses the Ettin gem to load
@@ -21,14 +23,11 @@ module Dromedary
       else
         "development"
       end
-      # @config = Ettin.for(Ettin.settings_files(Pathname.new(__dir__), env))
       @config = Dromedary::Services
     end
 
-    def hyp_to_bibid(dir = Dromedary::Services[:live_data_dir] )
-      target = Pathname(dir) + "hyp_to_bibid.json"
-      raise Errno::ENOENT.new("Can't find #{target}") unless target.exist?
-      @hyp_to_bibid ||= JSON.parse(File.read(target))
+    def hyp_to_bibid(collection: Services[:solr_current_collection])
+      @hyp_to_bibid ||= MedInstaller::HypToBibId.get_from_solr(collection: Services[:solr_current_collection])
     end
   end
 

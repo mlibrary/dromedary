@@ -1,5 +1,5 @@
 # Ignore everything
-#*
+*
 
 # Except
 !/app
@@ -13,6 +13,7 @@
 !/nginx
 !/public
 !/solr/dromedary
+!/solr/container
 !/solr/med
 !/solr/lib
 !/spec

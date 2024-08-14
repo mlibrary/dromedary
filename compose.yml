@@ -41,11 +41,9 @@ services:
       - db:/var/lib/postgresql/data
 
   solr:
-    build: solr/container
+    build: solr/.
     ports:
       - "9090:8983"
-    volumes:
-      - solr:/var/lib/solr/data
     environment:
       - ZK_HOST=zoo:2181
     depends_on:
@@ -58,7 +56,7 @@ services:
       - 9091:2181
     environment:
       ZOO_MY_ID: 1
-      ZOO_SERVERS: server.1=0.0.0.0:2888:3888;2181
+#      ZOO_SERVERS: server.1=0.0.0.0:2888:3888;2181
 
 #  solr:
 #    image: solr:dromedary

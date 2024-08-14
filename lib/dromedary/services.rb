@@ -82,8 +82,8 @@ module Dromedary
                               password: Services[:solr_password])
   end
 
-  Services.register(:solr_current_production_collection) do
-    Services[:solr_connection].get_collection("")
+  Services.register(:solr_current_collection) do
+    Services[:solr_connection].get_collection(Servies[:solr_collection])
   end
   
   Services.register(:build_solr_collection_name) do 

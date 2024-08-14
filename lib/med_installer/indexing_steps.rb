@@ -5,6 +5,7 @@ require "date_named_file"
 require "solr_cloud/connection"
 require "med_installer/extract"
 require "med_installer/convert"
+require "med_installer/hyp_to_bibid"
 require "solr_cloud/connection"
 require "traject"
 
@@ -40,9 +41,9 @@ module MedInstaller
       @connection = connection
 
       @zipfile = zipfile || most_recent_zip_file
-      @uid = uid(@zipfile)
+      @uid = generate_uid(@zipfile)
 
-      @coll_conf_name = Services.build_solr_collection_name
+      @coll_and_configset_name = Services.build_solr_collection_name
 
     end
 
@@ -55,16 +56,22 @@ module MedInstaller
 
       create_solr_documents
 
+      logger.info "Creating configset/collection #{@coll_and_configset_name}"
       @build_collection = create_configset_and_collection!
       collection_url = @build_collection.connection.url.chomp("/") + "/solr/#{@build_collection.name}"
+
+      logger.info "Uploading hyp_to_bibid to the new collection"
+      upload_hyp_to_bibid_to_solr
+      @build_collection.commit
+
+      return 1
+
       logger.info "Going to index targeting #{collection_url}"
       index_entries(solr_url: collection_url)
       index_bibs(solr_url: collection_url)
       @build_collection.commit
       rebuild_suggesters(solr_url: collection_url)
       @build_collection.commit
-
-      upload_hyp_to_bibid_to_solr
 
       @build_collection.alias_as("mec-preview", force: true)
 
@@ -89,7 +96,7 @@ module MedInstaller
       @digest ||= Digest::MD5.file(file).hexdigest
     end
 
-    def uid(file = @zipfile)
+    def generate_uid(file = @zipfile)
       [Services[:solr_collection_base], digest(file), Services[:build_date_suffix]].join("_")
     end
 
@@ -133,10 +140,10 @@ module MedInstaller
 
 
     # @return [SolrCloud::Collection]
-    def create_configset_and_collection!(uid: @uid, solr_configuration_directory: Services.solr_conf_directory)
-      connection.create_configset(name: uid, confdir: solr_configuration_directory)
-      connection.create_collection(name: uid, configset: uid)
-      connection.get_collection(uid)
+    def create_configset_and_collection!(name: @coll_and_configset_name, solr_configuration_directory: Services.solr_conf_directory)
+      connection.create_configset(name: name, confdir: solr_configuration_directory)
+      connection.create_collection(name: name, configset: name)
+      connection.get_collection(name)
     end
 
     #
@@ -214,7 +221,7 @@ module MedInstaller
 
     def upload_hyp_to_bibid_to_solr
       filepath = Pathname.new(@build_dir) + "hyp_to_bibid.json"
-      doc = { id: "hyp_to_bibid", data: File.read(filepath.to_s)}
+      MedInstaller::HypToBibId.dump_file_to_solr(collection: @build_collection, filename: filepath.to_s)
     end
     
   end
