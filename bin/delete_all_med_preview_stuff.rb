@@ -32,5 +32,5 @@ require "dromedary/services"
 require "med_installer/indexing_steps"
 
 indexer = MedInstaller::IndexingSteps.new(zipfile: "/mec/data/A.zip")
-indexer.connection.collections.each {|c| c.delete! if c.name =~ /\Amed_/}
-indexer.connection.configsets.each {|c| c.delete! if c.name =~ /\Amed_/}
+indexer.connection.collections.each {|c| c.delete! if c.name =~ /\Amed-preview/}
+indexer.connection.configsets.each {|c| c.delete! if c.name =~ /\Amed-preview/}

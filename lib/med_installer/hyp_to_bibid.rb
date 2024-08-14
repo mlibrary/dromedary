@@ -11,7 +11,7 @@ module MedInstaller
     # @param data [Hash] the hyp_to_bibid hash
     def self.dump_file_to_solr(collection:, filename:)
       data = File.read(filename)
-      doc = { id: "hyp_to_bibid", data: data}
+      doc = { id: "hyp_to_bibid", hyp_to_bibid: data}
       collection.add(doc)
       collection.commit(hard: true)
     end
@@ -20,10 +20,10 @@ module MedInstaller
     # @param collection [SolrCloud::Collection]
     # @return [Hash] the hyp_to_bibid hash
     def self.get_from_solr(collection:)
-      select = "solr/#{collection.name}/select"
-      resp = collection.get(select, q: "id:hyp_to_bibid")
+      hyp_handler = "solr/#{collection.name}/hyp_to_bibid"
+      resp = collection.get(hyp_handler)
       doc = resp.body["response"]["docs"].first
-      JSON.parse(doc[:data])
+      JSON.parse(doc["hyp_to_bibid"])
     end
     
   end

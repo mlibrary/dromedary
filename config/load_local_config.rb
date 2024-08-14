@@ -26,8 +26,8 @@ module Dromedary
       @config = Dromedary::Services
     end
 
-    def hyp_to_bibid(collection: Services[:solr_current_collection])
-      @hyp_to_bibid ||= MedInstaller::HypToBibId.get_from_solr(collection: Services[:solr_current_collection])
+    def hyp_to_bibid(collection: Dromedary::Services[:solr_current_collection])
+      @hyp_to_bibid ||= MedInstaller::HypToBibId.get_from_solr(collection: collection)
     end
   end
 

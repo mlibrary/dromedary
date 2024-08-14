@@ -56,15 +56,16 @@ module MedInstaller
 
       create_solr_documents
 
+
       logger.info "Creating configset/collection #{@coll_and_configset_name}"
       @build_collection = create_configset_and_collection!
       collection_url = @build_collection.connection.url.chomp("/") + "/solr/#{@build_collection.name}"
 
+      Services.register(:current_build_solr_collection) { @build_collection }
+
       logger.info "Uploading hyp_to_bibid to the new collection"
       upload_hyp_to_bibid_to_solr
       @build_collection.commit
-
-      return 1
 
       logger.info "Going to index targeting #{collection_url}"
       index_entries(solr_url: collection_url)
@@ -72,8 +73,7 @@ module MedInstaller
       @build_collection.commit
       rebuild_suggesters(solr_url: collection_url)
       @build_collection.commit
-
-      @build_collection.alias_as("mec-preview", force: true)
+      @build_collection.alias_as("med-preview", force: true)
 
     end
 

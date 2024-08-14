@@ -22,7 +22,7 @@ module Dromedary
             solr_endpoint: repository.blacklight_config.autocomplete_path,
             search_component_name: "mySuggester"
           }
-        end
+                               end
       end
 
       # suggestions will send along our configuration instead of just
