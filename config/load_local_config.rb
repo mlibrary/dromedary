@@ -27,7 +27,18 @@ module Dromedary
     end
 
     def hyp_to_bibid(collection: Dromedary::Services[:solr_current_collection])
-      @hyp_to_bibid ||= MedInstaller::HypToBibId.get_from_solr(collection: collection)
+      current_real_collection = underlying_real_collection_name
+      if @recorded_real_collection_name != current_real_collection
+        @hyp_to_bibid = MedInstaller::HypToBibId.get_from_solr(collection: collection)
+        @recorded_real_collection_name = current_real_collection
+      end
+      @hyp_to_bibid
+    end
+
+    # @param coll [SolrCloud::Alias]
+    def underlying_real_collection_name(coll:  Dromedary::Services[:solr_current_collection])
+      return coll.name unless coll.alias?
+      underlying_real_collection_name(coll: coll.collection)
     end
   end
 
