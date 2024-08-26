@@ -20,6 +20,7 @@ services:
       - SOLR_USERNAME=solr
       - SOLR_PASSWORD=SolrRocks
       - DATA_ROOT=/mec/data
+      - BUILD_ROOT=/mec/data/build
     volumes:
       - .:/opt/app
       - data:/mec/data
