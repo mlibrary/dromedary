@@ -27,41 +27,32 @@ module MedInstaller
   # This class is basically piggy-backing on the work done for the `bin/dromedary` CLI,
   # but with less redirection and more stuff pulled from the Services object
   class IndexingSteps
-    attr_reader :data_root, :build_dir, :xml_dir, :uid, :zipfile, :connection
+    attr_reader :build_dir, :xml_dir, :uid, :zipfile, :connection
     Services = Dromedary::Services
     include SemanticLogger::Loggable
 
-    def initialize(data_root = Services.data_root,
-                   build_dir = Services.build_directory,
-                   connection: Services[:solr_connection],
-                   zipfile: nil)
-      @data_root = data_root
+    def initialize(zipfile:,
+                   build_dir: Services.build_directory,
+                   connection: Services[:solr_connection]
+                   )
       @build_dir = Pathname.new(build_dir).realdirpath
       @xml_dir = @build_dir + "xml"
       @connection = connection
-
-      @zipfile = zipfile || most_recent_zip_file
-      @uid = generate_uid(@zipfile)
-
-      @coll_and_configset_name = Services.build_solr_collection_name
+      @zipfile = zipfile
+      @coll_and_configset_name = Services.name_of_solr_collection_to_index_into
 
     end
 
     def index
-      check_to_see_if_this_file_has_already_been_indexed!
-
       prepare_build_directory
       extract_zip_to_build_directory
       verify_unzipped_files!
-
       create_solr_documents
 
-
-      logger.info "Creating configset/collection #{@coll_and_configset_name}"
       @build_collection = create_configset_and_collection!
-      collection_url = @build_collection.connection.url.chomp("/") + "/solr/#{@build_collection.name}"
 
-      Services.register(:current_build_solr_collection) { @build_collection }
+      # TODO: SolrCloud::Collection should have a `#url` method, for god's sake
+      collection_url = @build_collection.connection.url.chomp("/") + "/solr/#{@build_collection.name}"
 
       logger.info "Uploading hyp_to_bibid to the new collection"
       upload_hyp_to_bibid_to_solr
@@ -71,45 +62,12 @@ module MedInstaller
       index_entries(solr_url: collection_url)
       index_bibs(solr_url: collection_url)
       @build_collection.commit
-      rebuild_suggesters(solr_url: collection_url)
+      rebuild_suggesters
       @build_collection.commit
 
       logger.info "Cleaning up"
       @build_dir.rmtree
-
-      @build_collection.alias_as("med-preview", force: true)
-
-
-    end
-
-    def check_to_see_if_this_file_has_already_been_indexed!
-      existing_index = existing_index_for_this_zipfile
-      if existing_index
-        msg = "File '#{zipfile}' appears to have already been indexed, based on sharing an MD5 digest."
-        raise msg
-      end
-    end
-
-    # Check to see if we've already created an index based on this file
-    # (as envidenced by the digest string being a part of a collection name)
-    # @return [String, nil] Name of the existing collection, or nil
-    def existing_index_for_this_zipfile
-      @connection.collection_names.grep(Regexp.new(digest)).first
-    end
-
-    def digest(file = @zipfile)
-      @digest ||= Digest::MD5.file(file).hexdigest
-    end
-
-    def generate_uid(file = @zipfile)
-      [Services[:solr_collection_base], digest(file), Services[:build_date_suffix]].join("_")
-    end
-
-    # TODO: Use the real name, and put the path to it in Services based on a NEW_DATA_FILE_NAME
-    # or somehting like that.
-    # TODO: All that shit doesn't need to live in Services. Pull the build-specific stuff out here.
-    def most_recent_zip_file(dir: @data_root)
-      Pathname(dir) + "tiny-set.zip" # TODO
+      @build_collection.alias_as(Services[:preview_alias], force: true)
     end
 
     # Make sure all the directories we're going to use exist
@@ -146,41 +104,11 @@ module MedInstaller
 
     # @return [SolrCloud::Collection]
     def create_configset_and_collection!(name: @coll_and_configset_name, solr_configuration_directory: Services.solr_conf_directory)
+      logger.info "Creating configset/collection #{name}"
       connection.create_configset(name: name, confdir: solr_configuration_directory)
       connection.create_collection(name: name, configset: name)
       connection.get_collection(name)
     end
-
-    #
-    # # Create a new collection for this build. This will upload the configuration, create
-    # # the collection, and then return the full URL to that collection.
-    # # @param collection_name [String] The name of the collection to create
-    # # @param solr_root [String] URL to the root of the solr service (https://blah/solr)
-    # # @param solr_username [String] Solr login username
-    # # @param solr_password [String] Solr login password
-    # # @param solr_configuration_directory [String, Pathname] Local path to solr `conf` directory
-    # # @return [SolrCloud::Connection::Collection] Name of the new solr collection
-    # def create_solr_collection_for_indexing!(collection_name: @coll_conf_name,
-    #                                          solr_root: Services.solr_root,
-    #                                          solr_username: Services.solr_username,
-    #                                          solr_password: Services.solr_password,
-    #                                          solr_configuration_directory: Services.solr_conf_directory)
-    #
-    #   sroot = SolrCloud::Connection.new(url: solr_root, user: solr_username, password: solr_password)
-    #   if sroot.has_configset?(collection_name)
-    #     logger.warn "Configset #{collection_name} already existed; using it"
-    #   else
-    #     sroot.create_configset(name: collection_name, confdir: solr_configuration_directory)
-    #     logger.info "Created collection #{collection_name} based on directory #{solr_configuration_directory}"
-    #   end
-    #
-    #   if sroot.has_collection?(collection_name)
-    #     raise "Won't index into an existing collection, and '#{collection_name}' already exists. Aborting"
-    #   else
-    #     sroot.create_collection(name: collection_name, configset: collection_name)
-    #   end
-    #   sroot.get_collection(collection_name)
-    # end
 
     def generic_indexing_call(rulesfile:,
                               datafile:,
@@ -196,27 +124,35 @@ module MedInstaller
 
       indexer.load_config_file rulesfile.to_s
       indexer.load_config_file writer.to_s
-      exitstatus = indexer.process(File.open("/dev/null"))
+      null_file_because_the_real_data_file_is_stored_in_med_dot_data_file = File.open("/dev/null")
+      exitstatus = indexer.process(null_file_because_the_real_data_file_is_stored_in_med_dot_data_file)
       logger.info "Traject running #{rulesfile} exited with status #{exitstatus}"
+      exitstatus
     end
 
     # Actually index the documents in entries.json.gz
-    # @param entries_filename [String] Path to entries.json.gz
+    # @param solr_url[String]
+    # @return [Integer] exit status
     def index_entries(solr_url:)
       generic_indexing_call(rulesfile: Dromedary::Services[:entry_indexing_rules],
                             datafile: Dromedary::Services[:entries_gz_file],
                             solr_url: solr_url)
     end
 
+    # Actually index the bibs as expressed in bib_all.xml
+    # @param solr_url[String]
+    # @return [Integer] exit status
     def index_bibs(solr_url:)
       generic_indexing_call(rulesfile: Dromedary::Services[:bib_indexing_rules],
                             datafile: Dromedary::Services[:bib_all_xml_file], solr_url: solr_url)
     end
 
-    def rebuild_suggesters(solr_url:, env: "production")
+    # Rebuild the suggesters that provide autocomplete/typeahead functionality for @build_collection
+    # @param rails_env [String] "production" or "development"
+    def rebuild_suggesters(rails_env: (ENV["RAILS_ENV"] || "production"))
       logger.info "Recreating suggest indexes"
       autocomplete_filename = Services[:root_directory] + "config" + "autocomplete.yml"
-      autocomplete_map = YAML.safe_load(ERB.new(File.read(autocomplete_filename)).result, aliases: true)[env]
+      autocomplete_map = YAML.safe_load(ERB.new(File.read(autocomplete_filename)).result, aliases: true)[rails_env]
       autocomplete_map.keys.each do |key|
         suggester_path = autocomplete_map[key]["solr_endpoint"]
         logger.info "   Recreate suggester for #{suggester_path}"
@@ -224,11 +160,11 @@ module MedInstaller
       end
     end
 
+    # Send the new hyp_to_bibid.json file to the currently defined build_collection
     def upload_hyp_to_bibid_to_solr
       filepath = Pathname.new(@build_dir) + "hyp_to_bibid.json"
       MedInstaller::HypToBibId.dump_file_to_solr(collection: @build_collection, filename: filepath.to_s)
     end
-    
   end
 end
 

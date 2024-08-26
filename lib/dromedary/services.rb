@@ -7,20 +7,19 @@ require "uri"
 module Dromedary
   Services = Canister.new
   Services.register(:root_directory) { Pathname(__dir__).parent.parent.realdirpath }
-  Services.register(:data_root) { Pathname.new(ENV["DATA_ROOT"]) }
-  Services.register(:live_data_dir) do
-    if ENV["LIVE_DATA_DIRECTORY"]
-      Pathname.new(ENV["LIVE_DATA_DIRECTORY"])
-    else
-      Pathname.new(Services[:data_root]) + "live_data"
-    end
-  end
+
+
+  #### NAMING ####
+
+  Services.register(:production_alias) { ENV["SOLR_PRODUCTION_ALIAS"] || "med-production" }
+  Services.register(:preview_alias) {   ENV["SOLR_PREVIEW_ALIAS"]     ||  "med-preview" }
+
   Services.register(:relative_url_root) { "/" }
 
 
-  ################ Build directory and files ################
+  ################ Reindexing stuff ################
 
-  Services.register(:build_root) { Pathname.new(ENV["BUILD_ROOT"] || (Services[:data_root] + "build")) }
+  Services.register(:build_root) { Pathname.new(ENV["BUILD_ROOT"]) }
   Services.register(:build_date_suffix) do
     Time.now.strftime("%Y%m%d%H%M")
   end
@@ -65,10 +64,15 @@ module Dromedary
     (Services.indexing_rules_directory + "writers" + "containerized_solr_writer.rb").to_s
   end
 
-  ################ Solr stuff ##################
-  Services.register(:build_solr_core) do
-    "#{Services[:solr_collection]}_#{Services["build_date_suffix"]}"
+  Services.register(:name_of_solr_collection_to_index_into) do
+    "#{Services.solr_collection}_#{Services.build_date_suffix}"
   end
+
+  Services.register(:solr_collection_to_index_into) do
+    Services[:solr_connection].get_collection(Services[:name_of_solr_collection_to_index_into])
+  end
+
+  ################ Production solr stuff ##################
 
   Services.register(:solr_root) { (ENV["SOLR_ROOT"] || "http://solr:8983/").chomp("/") }
   Services.register(:solr_collection_base) { ENV["SOLR_COLLECTION_BASE"] || "med" }
@@ -84,10 +88,6 @@ module Dromedary
 
   Services.register(:solr_current_collection) do
     Services[:solr_connection].get_collection(Services[:solr_collection])
-  end
-  
-  Services.register(:build_solr_collection_name) do 
-    "#{Services.solr_collection}_#{Services.build_date_suffix}"
   end
   
   Services.register(:solr_url) do
@@ -110,7 +110,7 @@ module Dromedary
   end
 
 
-  # Services.register(:logger) { Rails.logger }
+  Services.register(:logger) { ::Rails.logger }
 
   Services.register(:secret_key_base) { ENV["SECRET_KEY_BASE"] || "somesecretkey" }
 end

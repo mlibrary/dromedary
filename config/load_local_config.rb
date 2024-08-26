@@ -6,6 +6,10 @@ require_relative "../lib/med_installer/hyp_to_bibid"
 
 module Dromedary
   class << self
+    def logger
+      MedInstaller::Logger::LOGGER
+    end
+
     # For whatever historical reasons, this uses the Ettin gem to load
     # up yaml files. The list of places it looks are:
     #         root/"settings.yml",
@@ -27,10 +31,12 @@ module Dromedary
     end
 
     def hyp_to_bibid(collection: Dromedary::Services[:solr_current_collection])
-      current_real_collection = underlying_real_collection_name
-      if @recorded_real_collection_name != current_real_collection
+      logger.info "Trying to get hyp_to_bibid for collection #{collection}"
+      current_real_collection_name = underlying_real_collection_name(coll: collection)
+      logger.info "Real collection name identified as #{current_real_collection_name}"
+      if @recorded_real_collection_name != current_real_collection_name
         @hyp_to_bibid = MedInstaller::HypToBibId.get_from_solr(collection: collection)
-        @recorded_real_collection_name = current_real_collection
+        @recorded_real_collection_name = current_real_collection_name
       end
       @hyp_to_bibid
     end
