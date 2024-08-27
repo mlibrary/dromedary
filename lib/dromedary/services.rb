@@ -31,7 +31,7 @@ module Dromedary
     br.mkpath
     br
   end
-  
+
   Services.register(:build_date_suffix) do
     Time.now.strftime("%Y%m%d%H%M")
   end
@@ -79,7 +79,7 @@ module Dromedary
   end
 
   Services.register(:name_of_solr_collection_to_index_into) do
-    "#{Services.solr_collection}_#{Services.build_date_suffix}"
+    "#{Services.solr_collection_base}_#{Services.build_date_suffix}"
   end
 
   Services.register(:solr_collection_to_index_into) do
