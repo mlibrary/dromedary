@@ -67,6 +67,8 @@ module MedInstaller
 
       logger.info "Cleaning up"
       @build_dir.rmtree
+
+      logger.info "Point #{Services[:preview_alias]} at the new #{@build_collection.name} collection "
       @build_collection.alias_as(Services[:preview_alias], force: true)
     end
 

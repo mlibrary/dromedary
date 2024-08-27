@@ -21,7 +21,7 @@ module Dromedary
   Services.register(:production_alias) { ENV["SOLR_PRODUCTION_ALIAS"] || "med-production" }
   Services.register(:preview_alias) {   ENV["SOLR_PREVIEW_ALIAS"]     ||  "med-preview" }
 
-  Services.register(:relative_url_root) { "/" }
+  Services.register(:relative_url_root) { ENV['RAILS_RELATIVE_URL_ROOT'] || '/' }
 
 
   ################ Reindexing stuff ################
