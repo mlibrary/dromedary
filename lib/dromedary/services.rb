@@ -7,7 +7,14 @@ require "uri"
 module Dromedary
   Services = Canister.new
   Services.register(:root_directory) { Pathname(__dir__).parent.parent.realdirpath }
+  Services.register(:tmp_dir) do
+    tmpdir = Pathname.new(Services[:root_directory] + "tmp")
+    tmpdir.mkpath
+    tmpdir
+  end
 
+  # The "live data dir" is no longer used for anything but holding onto the
+  # maintenance mode flag.
 
   #### NAMING ####
 

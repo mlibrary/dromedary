@@ -38,16 +38,12 @@ module AnnoyingUtilities
   end
   # standard:enable  Lint/DuplicateMethods
 
-  def live_data_dir
-    Pathname.new(Dromedary::Services[:live_data_dir])
-  end
-
   def solr_dir
-    DROMEDARY_ROOT + "solr"
+    Dromedary::Services[:root_directory] + "solr"
   end
 
   def maintenance_mode_flag_file
-    live_data_dir + "MAINTENANCE_MODE_ENABLED"
+    Dromedary::Services[:tmp_dir] + "MAINTENANCE_MODE_ENABLED"
   end
 
   def maintenance_mode_enabled?
@@ -62,12 +58,8 @@ module AnnoyingUtilities
     build_directory + "entries.json.gz"
   end
 
-  def hyp_to_bibid_path
-    live_data_dir + "hyp_to_bibid.json"
-  end
-
   def dromedary_root
-    DROMEDARY_ROOT
+    Dromedary::Services[:root_directory]
   end
 
   def indexer_dir

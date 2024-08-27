@@ -38,8 +38,7 @@ module MedInstaller
       xmldir = Dromedary::Services.build_xml_directory
 
       validate_xml_dir(xmldir)
-      entries_tmpfile = Pathname(build_directory) + "tmp" + "entries.json.tmp"
-      entries_tmpfile.mkpath
+      entries_tmpfile = Dromedary::Services[:tmp_dir] + "entries.json.tmp"
       entries_outfile = Zlib::GzipWriter.open(entries_tmpfile)
       entries_targetfile = Dromedary::Services.entries_gz_file
 
