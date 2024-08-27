@@ -8,7 +8,7 @@ module Dromedary
   Services = Canister.new
   Services.register(:root_directory) { Pathname(__dir__).parent.parent.realdirpath }
   Services.register(:tmp_dir) do
-    tmpdir = Pathname.new(Services[:root_directory] + "tmp")
+    tmpdir = Services[:root_directory] + "tmp"
     tmpdir.mkpath
     tmpdir
   end
@@ -26,14 +26,21 @@ module Dromedary
 
   ################ Reindexing stuff ################
 
-  Services.register(:build_root) { Pathname.new(ENV["BUILD_ROOT"]) }
+  Services.register(:build_root) do
+    br = Pathname.new(ENV["BUILD_ROOT"])
+    br.mkpath
+    br
+  end
+  
   Services.register(:build_date_suffix) do
     Time.now.strftime("%Y%m%d%H%M")
   end
 
   Services.register(:build_directory) do
-    default = Services[:build_root] + "build_#{Services["build_date_suffix"]}"
-    Pathname.new(ENV["BUILD_DIRECTORY"] || default)
+    default = Services[:build_root] + "build_#{Services[:build_date_suffix]}"
+    bd = Pathname.new(ENV["BUILD_DIRECTORY"] || default)
+    bd.mkpath
+    bd
   end
 
   Services.register(:build_xml_directory) do
