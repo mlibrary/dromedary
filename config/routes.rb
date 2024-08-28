@@ -5,8 +5,9 @@ require "dromedary/services"
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  scope Dromedary::Services[:relative_url_root] do
-    mount Blacklight::Engine => Dromedary.config.relative_url_root
+  # This scope should go away. The production prefix is managed at the Rack level.
+  scope "/" do
+    mount Blacklight::Engine => "/"
     # config/routes.rb, at any priority that suits you
     mount OkComputer::Engine, at: "/status"
 

@@ -2,8 +2,6 @@
 
 require_relative "config/environment"
 
-run Rails.application
-# this is in the routes now
-# map Dromedary.config.relative_url_root || "/" do
-#   run Rails.application
-# end
+map Dromedary.config.relative_url_root || "/" do
+  run Rails.application
+end
