@@ -13,10 +13,10 @@
 
 development:
   adapter: solr
-  url: <%= ENV['SOLR_URL'] || "http://solr:8983/solr/dromedary-development" %>
+  url: <%= Dromedary::Services[:solr_embedded_auth_url] %>
 test: &test
   adapter: solr
-  url: <%= ENV['SOLR_URL'] || "http://solr:#{ENV['TEST_JETTY_PORT'] || 8983}/solr/dromedary-test" %>
+  url: <%= Dromedary::Services[:solr_embedded_auth_url] %>
 production:
   adapter: solr
-  url: <%= ENV['SOLR_URL'] || "http://solr:8983/solr/dromedary" %>
+  url: <%= Dromedary::Services[:solr_embedded_auth_url] %>

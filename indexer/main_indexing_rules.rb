@@ -1,29 +1,31 @@
 $LOAD_PATH.unshift Pathname.new(__dir__).to_s
 $LOAD_PATH.unshift (Pathname.new(__dir__).parent + "lib").to_s
-require "annoying_utilities"
 require "med_installer"
 require "middle_english_dictionary"
 require "json"
 require_relative "../config/load_local_config"
 require_relative "../lib/med_installer/job_monitoring"
+require_relative "../lib/dromedary/services"
 
 require "quote/quote_indexer"
 require "serialization/indexable_quote"
 
 settings do
   store "log.batch_size", 2_500
-  provide "med.data_dir", Pathname(__dir__).parent.parent + "data"
+  provide "med.data_dir", Dromedary::Services[:xml_directory]
   provide "reader_class_name", "MedInstaller::Traject::EntryJsonReader"
   provide "solr_writer.batch_size", 250
+  provide "solr_writer.basic_auth_user", Dromedary::Services[:solr_username]
+  provide "solr_writer.basic_auth_password", Dromedary::Services[:solr_password]
 end
 
-hyp_to_bibid = Dromedary.hyp_to_bibid
+hyp_to_bibid = Dromedary.hyp_to_bibid(collection: Dromedary::Services[:solr_collection_to_index_into])
 bibset = MiddleEnglishDictionary::Collection::BibSet.new(filename: settings["bibfile"])
 
 # Do a terrible disservice to traject and monkeypatch it to take
 # our existing logger
 
-Traject::Indexer.send(:define_method, :logger, -> { AnnoyingUtilities.logger })
+Traject::Indexer.send(:define_method, :logger, -> { Dromedary::Services[:logger] })
 
 def entry_method(name)
   ->(rec, acc) { acc.replace Array(rec.send(name)) }

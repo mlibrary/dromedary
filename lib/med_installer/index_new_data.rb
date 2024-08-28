@@ -1,23 +1,19 @@
 require_relative "index"
 require_relative "control"
 require_relative "copy_from_build"
-require_relative "../../config/load_local_config"
-
+require_relative "../dromedary/services"
 module MedInstaller
-  # Copy the already-munged files from the build directory into this
-  # instances data_dir, presumably for later indexing.
+
   class IndexNewData < Hanami::CLI::Command
     include MedInstaller::Logger
 
-    option :force,
+    option :build_directory,
       required: false,
-      default: false,
-      values: %w[true false],
-      desc: "Force indexing even if the files in build aren't newer than those currently in this instance's data_dir"
+      default: Dromedary::Services[:build_directory],
+      desc: "The build directory with entries.json.gz and hyp_to_bibid.json"
 
-    def call(force:)
-      MedInstaller::CopyFromBuild.new(command_name: "copy_from_build").call(force: force)
-      MedInstaller::Index::Full.new(command_name: "index full").call(debug: false, existing_hyp_to_bibid: false)
+    def call(build_directory:)
+      MedInstaller::Index::Full.new(command_name: "index full").call(debug: false, existing_hyp_to_bibid: false, build_directory: build_directory)
     end
   end
 end

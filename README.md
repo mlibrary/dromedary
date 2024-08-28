@@ -22,20 +22,27 @@ reason (e.g., the solr is down or something):
 
 
 ## Development Quick Start
+
+### SUPER quick start
+
+The steps enumerated and explained below can be run via `bin/setup_dev.sh`.
+
 #### Handy Dandy Aliases (Optional)
 ```shell
 alias dc="docker-compose"
 alias dce="dc exec --"
 alias abe="dce app bundle exec"
 ```
-### Build application image
+### Build application and solr image
 The default is **amd64** architecture a.k.a. Intel
 ```shell
 docker-compose build app
+docker-compose build solr
 ```
 For Apple Silicon use **arm64** architecture
 ```shell
 docker-compose build --build-arg ARCH=arm64 app
+docker-compose build --build-arg ARCH=arm64 solr
 ```
 ### Login into docker GitHub packages
 ```shell
@@ -92,28 +99,19 @@ docker-compose exec -- app bundle exec rails db:setup
 NOTES
 * Names of the databases are defined in **./config/database.yml**
 * The environment variable **DATABASE_URL** takes precedence over configured values.
-### Create solr cores
+### Create solr collections
 ```shell
-docker-compose exec -- solr solr create_core -d dromedary -c dromedary-development 
-docker-compose exec -- solr solr create_core -d dromedary -c dromedary-test 
+docker-compose exec -- solr solr create_collection -d dromedary -c dromedary-development 
+docker-compose exec -- solr solr create_collection -d dromedary -c dromedary-test 
 ```
 If you need to recreate a core run delete and create_core (e.g. dromedary-test)
 ```shell
 docker-compose exec -- solr solr delete -c dromedary-test
-docker-compose exec -- solr solr create_core -d dromedary -c dromedary-test 
+docker-compose exec -- solr solr create_collection -d dromedary -c dromedary-test 
 ```
 NOTES
 * Names of the solr cores are defined in **./config/blacklight.yml** file.
 * The environment variable **SOLR_URL** takes precedence over configured values.
-### Restart SideKiq
-```shell
-docker-compose restart sidekiq
-```
-NOTES
-* **Resque.redis** is assigned in the **./config/initializers/resque.rb** file.
-* The **REDIS_URL** is referenced in the **./config/cable.yml** file.
-* The environment variable **REDIS_URL** takes precedence over configured values.
-* Environment variable **REDIS_URL** is set to **redis://redis:6379** in the **docker-compose.yml** file.
 ### Start development rails server
 ```shell
 docker-compose exec -- app bundle exec rails s -b 0.0.0.0
@@ -129,11 +127,10 @@ docker-compose up -d
 ```shell
 docker-compose exec -- app bundle exec rails s -b 0.0.0.0
 ```
-The gems, database, solr, and redis use volumes to persit between the ups and downs of development.
+The gems, database, and solr redis use volumes to persit between the ups and downs of development.
 When things get flakey you have the option to simply delete any or all volumes after you bring it all down.
 If you remove all volumes just repeat the [Development quick start](#development-quick-start), otherwise
 you'll need to run the appropriate steps depending on which volumes you deleted:
-* For gems run the [Bundle install](#bundle-install) and [Restart Resque and Resque-Web](#restart-resque-and-resque-web) steps.
+* For gems run the [Bundle install](#bundle-install) step.
 * For database run the [Setup databases](#setup-databases) step.
-* For solr run the [Create solr cores](#create-solr-cores) step.
-* For redis there is nothing else to do.
+* For solr run the [Create solr collections](#create-solr-collections) step.

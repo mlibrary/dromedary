@@ -1,19 +1,20 @@
 $LOAD_PATH.unshift Pathname.new(__dir__).to_s
 $LOAD_PATH.unshift (Pathname.new(__dir__).parent + "lib").to_s
-require "annoying_utilities"
 require "med_installer"
 require "middle_english_dictionary"
+require "dromedary/services"
 
 settings do
   provide "log.batch_size", 2_500
-  provide "med.data_dir", Pathname(__dir__).parent.parent + "data"
+  provide "med.data_dir", Dromedary::Services[:xml_directory]
   provide "reader_class_name", "MedInstaller::Traject::BibReader"
+  provide "solr_writer.basic_auth_user", Dromedary::Services[:solr_username]
+  provide "solr_writer.basic_auth_password", Dromedary::Services[:solr_password]
 end
 
 # Do a terrible disservice to traject and monkeypatch it to take
 # our existing logger
-
-Traject::Indexer.send(:define_method, :logger, -> { AnnoyingUtilities.logger })
+# Traject::Indexer.send(:define_method, :logger, -> { Dromedary::Services[:logger] })
 
 def bib_method(name)
   ->(rec, acc) do

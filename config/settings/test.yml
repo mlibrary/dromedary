@@ -1,9 +1,9 @@
 blacklight:
   adapter: solr
-  url: <%= ENV['SOLR_URL'] || "http://127.0.0.1:8983/solr/dromedary-test" %>
+  url: <%= Services[:solr_url] %>
 
 solr:
-  url: <%= ENV['SOLR_URL'] || "http://127.0.0.1:8983/solr/dromedary-test" %>
+  url: <%= Services[:solr_url] %>
 
 secret_key_base: <%= ENV["SECRET_KEY_BASE"] || "somesecretkey" %>
 
@@ -18,9 +18,9 @@ cable:
   channel_prefix: dromedary
 
 
-relative_url_root: /
+relative_url_root: <%= ENV["RAILS_RELATIVE_URL_ROOT"] || "/" %>
 
-data_dir: ./data
+data_dir: <%= Services[:xml_directory] || "#{Rails.root}/data" %>
+build_root: <%= Services[:build_root] || "#{Rails.root}/data/build" %>
 
-log_dir: ./log
-
+log_dir: <%= Services[:log_dir] || "./log" %>

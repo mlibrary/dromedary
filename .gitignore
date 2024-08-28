@@ -7,3 +7,4 @@
 **/tmp
 !**/.keep
 .byebug_history
+/solr_logs

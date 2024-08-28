@@ -33,7 +33,7 @@
         see the <%= link_to "MEC copyright statement", about_path(anchor: 'copyright') %>
         and the
         <a href="https://www.lib.umich.edu/library-administration/library-copyright-statement">U-M Library Copyright Policy</a>.
-    Data last refreshed November 2019.
+    Data last refreshed <%= Dromedary.collection_creation_date.strftime("%A, %B %-e, %Y") %>.
      </p>
     </div>
 </div>

@@ -31,7 +31,7 @@ module MedInstaller
 
       def core
         core = AnnoyingUtilities.solr_core
-        # Commit with index building can take a looooong time. Set the timeout to 100seconds
+        # Commit with index building can take a looooong time. Set the timeout to something long
         core.rawclient.receive_timeout = 200_000 # 200 seconds
         core
       end
@@ -118,9 +118,12 @@ module MedInstaller
       desc "Clear and reload solr, index entries and bib, build autosuggest, and optimize"
       option :debug, type: :boolean, default: false, desc: "Write to debug file?"
       option :existing_hyp_to_bibid, type: :boolean, default: false, desc: "Don't create new hyp_to_bibid"
-
-      def call(debug:, existing_hyp_to_bibid:)
+      option :build_directory, type: :string, required: false,
+        default: Dromedary::Services[:build_directory],
+        desc: "The build directory (contains entries.json and xml/)"
+      def call(debug:, existing_hyp_to_bibid:, build_directory:)
         raise "Solr at #{AnnoyingUtilities.blacklight_solr_url} not up" unless AnnoyingUtilities.solr_core.up?
+        Dromedary::Services.register(:build_directory) { build_directory }
         writer = select_writer(debug)
 
         logger.info "Clearing existing data"
@@ -148,8 +151,8 @@ module MedInstaller
           bibfile:   AnnoyingUtilities.bibfile_path)
         commit
         MedInstaller::Solr.rebuild_suggesters(core)
-        optimize
         commit
+        optimize
         logger.info "Done"
         logger.info "New data in place. Making the site live again."
         MedInstaller::Control::MaintenanceModeOff.new(command_name: "maintenance_mode off").call("off")
@@ -170,7 +173,8 @@ module MedInstaller
       def hyp_to_bibid
         return @hyp_to_bibid if @hyp_to_bibid
         logger.info "Building hyp_to_bibid mapping"
-        @hyp_to_bibid ||= bibset(AnnoyingUtilities.bibfile_path).each_with_object({}) do |bib, acc|
+        bibfile = Pathname.new(Dromedary::Services[:build_directory]) + "xml" + "bib_all.xml"
+        @hyp_to_bibid ||= bibset(bibfile).each_with_object({}) do |bib, acc|
           bib.hyps.each do |hyp|
             acc[hyp.delete("\\").upcase] = bib.id # TODO: Take out when backslashes removed from HYP ids
           end

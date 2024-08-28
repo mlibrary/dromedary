@@ -1,8 +1,23 @@
 require "ettin"
+require "pathname"
 require_relative "../lib/med_installer/logger"
+require_relative "../lib/dromedary/services"
+require_relative "../lib/med_installer/hyp_to_bibid"
 
 module Dromedary
   class << self
+    def logger
+      MedInstaller::Logger::LOGGER
+    end
+
+    # For whatever historical reasons, this uses the Ettin gem to load
+    # up yaml files. The list of places it looks are:
+    #         root/"settings.yml",
+    #         root/"settings"/"#{env}.yml",
+    #         root/"environments"/"#{env}.yml",
+    #         root/"settings.local.yml",
+    #         root/"settings"/"#{env}.local.yml",
+    #         root/"environments"/"#{env}.local.yml"
     def config
       return @config unless @config.nil?
       env = if defined? Rails
@@ -12,13 +27,32 @@ module Dromedary
       else
         "development"
       end
-      @config = Ettin.for(Ettin.settings_files(Pathname.new(__dir__), env))
+      @config = Dromedary::Services
     end
 
-    def hyp_to_bibid
-      target = Pathname.new(AnnoyingUtilities.data_dir) + "hyp_to_bibid.json"
-      raise Errno::ENOENT.new("Can't find #{target}") unless target.exist?
-      @hyp_to_bibid ||= JSON.parse(File.read(target))
+    def hyp_to_bibid(collection: Dromedary::Services[:solr_current_collection])
+      logger.info "Trying to get hyp_to_bibid for collection #{collection}"
+      current_real_collection_name = underlying_real_collection_name(coll: collection)
+      logger.info "Real collection name identified as #{current_real_collection_name}"
+      if @recorded_real_collection_name != current_real_collection_name
+        @hyp_to_bibid = MedInstaller::HypToBibId.get_from_solr(collection: collection)
+        @recorded_real_collection_name = current_real_collection_name
+        @collection_creation_date = nil
+      end
+      @hyp_to_bibid
+    end
+
+    # @param coll [SolrCloud::Alias]
+    def underlying_real_collection_name(coll:  Dromedary::Services[:solr_current_collection])
+      return coll.name unless coll.alias?
+      underlying_real_collection_name(coll: coll.collection)
+    end
+
+    def collection_creation_date(coll:  Dromedary::Services[:solr_current_collection])
+      return @collection_creation_date if defined? @collection_creation_date
+      real_collection_name = underlying_real_collection_name(coll: coll)
+      m = /(\d{4})(\d{2})(\d{2})\d{4}\Z/.match(real_collection_name)
+      @collection_creation_date = Time.parse(m[1..3].join("-"))
     end
   end
 

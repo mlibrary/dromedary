@@ -14,7 +14,6 @@ require_relative "med_installer/remote"
 require_relative "med_installer/control"
 
 require_relative "med_installer/copy_from_build"
-require_relative "med_installer/prepare_new_data"
 require_relative "med_installer/index_new_data"
 
 require_relative "med_installer/ping_prometheus"

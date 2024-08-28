@@ -5,6 +5,8 @@ require "json"
 require "uri"
 require "med_installer/logger"
 require_relative "../config/load_local_config"
+require "dromedary/services"
+require "my_simple_solr_client"
 
 module AnnoyingUtilities
   DROMEDARY_ROOT = Pathname(__dir__).parent.realdirpath
@@ -19,25 +21,29 @@ module AnnoyingUtilities
   # standard:disable Lint/DuplicateMethods
   attr_accessor :data_dir
 
-  def data_dir=(path)
-    @data_dir = Pathname.new(path).realpath
+  # def data_dir=(path)
+  #   @data_dir = Pathname.new(path).realpath
+  # end
+  #
+  # def data_dir
+  #   @data_dir || live_data_dir
+  # end
+
+  def data_directory
+    Pathname.new(Dromedary::Services[:xml_directory])
   end
 
-  def data_dir
-    @data_dir || live_data_dir
+  def build_directory
+    Pathname.new(Dromedary::Services[:build_directory])
   end
   # standard:enable  Lint/DuplicateMethods
 
-  def live_data_dir
-    Pathname.new(Dromedary.config.data_dir).realpath
-  end
-
   def solr_dir
-    DROMEDARY_ROOT + "solr"
+    Dromedary::Services[:root_directory] + "solr"
   end
 
   def maintenance_mode_flag_file
-    live_data_dir + "MAINTENANCE_MODE_ENABLED"
+    Dromedary::Services[:tmp_dir] + "MAINTENANCE_MODE_ENABLED"
   end
 
   def maintenance_mode_enabled?
@@ -45,19 +51,15 @@ module AnnoyingUtilities
   end
 
   def bibfile_path
-    data_dir + "bib_all.xml"
+    data_directory + "bib_all.xml"
   end
 
   def entries_path
-    data_dir + "entries.json.gz"
-  end
-
-  def hyp_to_bibid_path
-    data_dir + "hyp_to_bibid.json"
+    build_directory + "entries.json.gz"
   end
 
   def dromedary_root
-    DROMEDARY_ROOT
+    Dromedary::Services[:root_directory]
   end
 
   def indexer_dir
@@ -69,7 +71,8 @@ module AnnoyingUtilities
   end
 
   def blacklight_solr_url(env = nil)
-    Dromedary.config.blacklight.url
+    # Dromedary.config.blacklight.url
+    Dromedary::Services[:solr_embedded_auth_url]
   end
 
   def blacklight_config_file
@@ -105,10 +108,12 @@ module AnnoyingUtilities
     uri = URI(blacklight_solr_url)
     path = uri.path.split("/")
     corename = path.pop
-    uri.path = path.join("/") # go up a level -- we popped off the core name
+    # _collections = path.pop
+    _solr = path.pop
+    uri.path = path.join("/") # go up a level -- we popped off the api/c/collection name
     solr_url = uri.to_s
 
-    client = SimpleSolrClient::Client.new(solr_url)
+    client = MySimpleSolrClient::Client.new(solr_url)
     client.core(corename)
   end
 

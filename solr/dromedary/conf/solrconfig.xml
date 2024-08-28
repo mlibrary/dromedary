@@ -117,6 +117,18 @@
     </lst>
   </requestHandler>
 
+  <!-- ################################################
+     #             hyp_to_bibid                     #
+     ################################################  -->
+
+  <requestHandler name="/hyp_to_bibid" class="solr.SearchHandler">
+    <lst name="defaults">
+      <str name="echoParams">all</str>
+      <str name="fl">*</str>
+      <str name="rows">1</str>
+      <str name="q">{!raw f=id v=hyp_to_bibid}</str>
+    </lst>
+  </requestHandler>
 
   <!-- ################################################
        #             BIB SEARCH                       #

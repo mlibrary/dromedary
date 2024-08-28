@@ -1,29 +1,26 @@
-blacklight:
-  adapter: solr
-  url: <%= ENV['SOLR_URL'] || "http://solr:8983/solr/dromedary-development" %>
-
-solr:
-  url: <%= ENV['SOLR_URL'] || "http://solr:8983/solr/dromedary-development" %>
+#blacklight:
+#  adapter: solr
+#  url: <%= Dromedary::Services[:solr_url] %>
+#
+#solr:
+#  url: <%= Dromedary::Services[:solr_url] %>
 
 secret_key_base: <%= ENV["SECRET_KEY_BASE"] || "somesecretkey" %>
+relative_url_root: <%= ENV["RAILS_RELATIVE_URL_ROOT"] || "/" %>
 
 
 
-db:
-  url: unused
-
-cable:
-  adapter: async
-  url: unused
-  channel_prefix: dromedary
-
-
-relative_url_root: /
-
-data_dir: ./data
-build_dir: ./data/build
-
-log_dir: ./log
-
-#data_dir: /home/esty/github/mlibrary/med/data
-#build_dir: /home/esty/github/mlibrary/med/data/build
+#db:
+#  url: unused
+#
+#cable:
+#  adapter: async
+#  url: unused
+#  channel_prefix: dromedary
+#
+#
+#
+#data_dir: <%= Dromedary::Services[:xml_directory] || "#{Rails.root}/data" %>
+#build_root: <%= Dromedary::Services[:build_root] || "#{Rails.root}/data/build" %>
+#
+#log_dir: <%= Dromedary::Services[:log_dir] || "./log" %>

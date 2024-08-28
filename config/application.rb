@@ -1,8 +1,7 @@
 require_relative "boot"
-
 require "rails/all"
 require "json"
-require_relative "load_local_config"
+require_relative "../lib/dromedary/services"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -29,10 +28,12 @@ module Dromedary
     config.autoload_paths << "#{Rails.root}/lib"
     config.autoload_paths << "#{Rails.root}/app/presenters"
 
-    config.relative_url_root = Dromedary.config.relative_url_root
+    config.relative_url_root = Dromedary::Services[:relative_url_root]
     config.action_controller.relative_url_root = config.relative_url_root
     # config.relative_url_root                   = '/'
     # config.action_controller.relative_url_root = '/'
+
+    config.blacklight_url = Dromedary::Services[:solr_embedded_auth_url]
 
     config.log_level = :info
 
@@ -54,6 +55,8 @@ module Dromedary
     config.lograge.formatter = Lograge::Formatters::Json.new
     config.active_job.queue_adapter = :sidekiq
 
+    config.active_record.yaml_column_permitted_classes = [ActiveSupport::HashWithIndifferentAccess]
+
     # config.log_tags = {
     #   ip:         :remote_ip,
     # }
@@ -67,5 +70,9 @@ module Dromedary
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+
+    # Done with all that? Now pull in local Ettin-based configuration.
+
+    require_relative "load_local_config"
   end
 end

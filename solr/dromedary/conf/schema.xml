@@ -173,7 +173,8 @@
      tokens
    -->
 
-
+  <!-- Just for hyp_to_bibid data -->
+  <field name="hyp_to_bibid" type="string" indexed="false" stored="true" multiValued="false" docValues="false"/>
 
 
   <!-- non-dynamic fields -->
