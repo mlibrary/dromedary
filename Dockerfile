@@ -51,7 +51,13 @@ RUN bundle config set path /gems
 RUN #bundle config set without 'test development'
 RUN bundle install -j 4
 
+# Asset precompilation
+# Because of...I don't know why...it wants the SOLR stuff defined
+ENV SOLR_ROOT http://solr:8983/
+ENV SOLR_COLLECTION med-preview
+ENV RAILS_ROOT /m/middle-english-dictionary
 RUN RAILS_ENV=production bin/rails assets:precompile
+
 #CMD ["sleep", "infinity"]
 ENV RAILS_ENV development
 CMD ["bin/rails", "s", "-b", "0.0.0.0"]

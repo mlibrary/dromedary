@@ -21,6 +21,7 @@ services:
       - SOLR_PASSWORD=SolrRocks
       - DATA_ROOT=/mec/data
       - BUILD_ROOT=/mec/data/build
+      - RAILS_ROOT=/m/middle-english-dictionary
     volumes:
       - .:/opt/app
       - data:/mec/data

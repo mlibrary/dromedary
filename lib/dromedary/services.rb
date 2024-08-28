@@ -90,7 +90,7 @@ module Dromedary
 
   Services.register(:solr_root) { (ENV["SOLR_ROOT"] || "http://solr:8983/").chomp("/") }
   Services.register(:solr_collection_base) { ENV["SOLR_COLLECTION_BASE"] || "med" }
-  Services.register(:solr_collection) { ENV["SOLR_COLLECTION"] || Services[:solr_collection_base] }
+  Services.register(:solr_collection) { ENV["SOLR_COLLECTION"] }
   Services.register(:solr_username) { ENV["SOLR_USERNAME"] || "solr" }
   Services.register(:solr_password) { ENV["SOLR_PASSWORD"] || "SolrRocks" }
 
@@ -101,7 +101,12 @@ module Dromedary
   end
 
   Services.register(:solr_current_collection) do
-    Services[:solr_connection].get_collection(Services[:solr_collection])
+    c = Services[:solr_connection]
+    name = Services[:solr_collection]
+    if !(c.has_collection?(name))
+      Services[:logger].warn "Collection/Alias #{name} not found. Probably ok for first-time indexing, but a problem otherwise"
+    end
+    c.get_collection(name)
   end
   
   Services.register(:solr_url) do

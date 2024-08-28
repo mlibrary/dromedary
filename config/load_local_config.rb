@@ -37,6 +37,7 @@ module Dromedary
       if @recorded_real_collection_name != current_real_collection_name
         @hyp_to_bibid = MedInstaller::HypToBibId.get_from_solr(collection: collection)
         @recorded_real_collection_name = current_real_collection_name
+        @collection_creation_date = nil
       end
       @hyp_to_bibid
     end
@@ -48,9 +49,10 @@ module Dromedary
     end
 
     def collection_creation_date(coll:  Dromedary::Services[:solr_current_collection])
+      return @collection_creation_date if defined? @collection_creation_date
       real_collection_name = underlying_real_collection_name(coll: coll)
       m = /(\d{4})(\d{2})(\d{2})\d{4}\Z/.match(real_collection_name)
-      Time.parse(m[1..3].join("-"))
+      @collection_creation_date = Time.parse(m[1..3].join("-"))
     end
   end
 
