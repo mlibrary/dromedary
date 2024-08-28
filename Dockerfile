@@ -59,7 +59,7 @@ ENV RAILS_ROOT /m/middle-english-dictionary
 RUN RAILS_ENV=production bin/rails assets:precompile
 
 #CMD ["sleep", "infinity"]
-ENV RAILS_ENV development
+ENV RAILS_ENV production
 CMD ["bin/rails", "s", "-b", "0.0.0.0"]
 
 #FROM nginx:mainline AS assets
