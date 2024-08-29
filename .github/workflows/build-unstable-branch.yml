@@ -28,6 +28,5 @@ jobs:
           tags: 'ghcr.io/mlibrary/dromedary/dromedary-unstable:${{ github.sha }}'
           file: ./Dockerfile
           target: production
-          build-args:
-            - RAILS_RELATIVE_URL_ROOT=/m/middle-english-dictionary
-
+          build-args: |
+            RAILS_RELATIVE_URL_ROOT=/m/middle-english-dictionary
