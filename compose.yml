@@ -8,7 +8,6 @@ services:
     build:
       dockerfile: Dockerfile
       context: .
-      target: development
       args:
         UID: ${UID:-1000}
         GID: ${GID:-1000}

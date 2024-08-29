@@ -22,7 +22,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     git \
     unzip \
     libpq-dev \
-    ##### FIXME: remove these once useles gems are trimmed \
+    ##### FIXME: remove these once useless gems are trimmed \
     libmariadb-dev \
     libsqlite3-dev \
     ##### What is netcat here for???
@@ -96,6 +96,8 @@ RUN --mount=type=cache,id=med-bundle-dev,sharing=locked,target=/vendor/bundle \
 #############
 FROM gems-prod AS production
 
+ARG RAILS_RELATIVE_URL_ROOT
+
 COPY . .
 RUN chown -R ${UID}:${GID} /gems && chown -R ${UID}:${GID} /opt/app
 
@@ -103,9 +105,17 @@ RUN chown -R ${UID}:${GID} /gems && chown -R ${UID}:${GID} /opt/app
 EXPOSE 3000
 USER $UNAME
 
-ENV SECRET_KEY_BASE 121222bccca
+### temporarily required to start up/precompile
+ENV SOLR_ROOT=bogus
+ENV SOLR_COLLECTION=bogus
+###
+
 ENV RAILS_ENV production
-RUN RAILS_ENV=production bin/rails assets:precompile
+ENV RAILS_SERVE_STATIC_FILES true
+ENV SECRET_KEY_BASE 121222bccca
+ENV RAILS_RELATIVE_URL_ROOT=${RAILS_RELATIVE_URL_ROOT}
+
+RUN bin/rails assets:precompile
 
 CMD ["bin/rails", "s", "-b", "0.0.0.0"]
 
