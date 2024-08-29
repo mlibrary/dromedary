@@ -2,11 +2,18 @@ require "annoying_utilities"
 
 require "dromedary/services"
 
+# This is a very expensive-to-find workaround for https://github.com/rails/rails/issues/21459
+#
+# The relative root URL *MUST NOT* end in a slash, but the script_name *MUST*, in order to
+# avoid chopping off the last segment of the prefix for things like suggest_index_path.
+Rails.application.routes.default_url_options ||= {}
+Rails.application.routes.default_url_options[:script_name] = Dromedary::Services[:relative_url_root].chomp("/") + "/"
+
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   # This scope should go away. The production prefix is managed at the Rack level.
-  scope "/" do
+  # scope "/" do
     mount Blacklight::Engine => "/"
     # config/routes.rb, at any priority that suits you
     mount OkComputer::Engine, at: "/status"
@@ -88,5 +95,5 @@ Rails.application.routes.draw do
     match "dictionary/*path" => "catalog#show404", :via => [:get, :post]
     match "bibliography/*path" => "bibliography#show404", :via => [:get, :post]
     match "*path" => "catalog#show404", :via => [:get, :post]
-  end
+  # end
 end
