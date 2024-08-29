@@ -14,17 +14,20 @@ jobs:
           fetch-depth: 0
 
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build image and push to GitHub Container Registry
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v5
         with:
           context: .
           push: true
           tags: 'ghcr.io/mlibrary/dromedary/dromedary-unstable:${{ github.sha }}'
           file: ./Dockerfile
+          target: production
+          build-args:
+            - RAILS_RELATIVE_URL_ROOT=/m/middle-english-dictionary
 

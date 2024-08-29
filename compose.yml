@@ -8,8 +8,11 @@ services:
     build:
       dockerfile: Dockerfile
       context: .
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
     ports:
-      - "3000:3000" # Rails
+      - "127.0.0.1:3000:3000" # Rails
       - "1111:1111"
       - "1234:1234" # RubyMine
       - "26162:26162" # RubyMine
@@ -21,16 +24,9 @@ services:
       - SOLR_PASSWORD=SolrRocks
       - DATA_ROOT=/mec/data
       - BUILD_ROOT=/mec/data/build
-      - RAILS_ROOT=/m/middle-english-dictionary
     volumes:
       - .:/opt/app
       - data:/mec/data
-      - gems:/opt/app/gems
-    command:
-      - bin/rails
-      - s
-      - -b
-      - 0.0.0.0
 
   db:
     image: postgres:12-alpine
@@ -92,7 +88,6 @@ volumes:
       type: none
       device: ${PWD}/data
       o: bind
-  gems:
   db:
   solr:
     driver_opts:

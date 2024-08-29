@@ -49,7 +49,8 @@ module Dromedary
     end
 
     def collection_creation_date(coll:  Dromedary::Services[:solr_current_collection])
-      return @collection_creation_date if defined? @collection_creation_date
+      return @collection_creation_date if defined?(@collection_creation_date) && !@collection_creation_date.nil?
+
       real_collection_name = underlying_real_collection_name(coll: coll)
       m = /(\d{4})(\d{2})(\d{2})\d{4}\Z/.match(real_collection_name)
       @collection_creation_date = Time.parse(m[1..3].join("-"))

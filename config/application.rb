@@ -30,6 +30,7 @@ module Dromedary
 
     config.relative_url_root = Dromedary::Services[:relative_url_root]
     config.action_controller.relative_url_root = config.relative_url_root
+    # config.assets.prefix = Dromedary::Services[:relative_url_root]
     # config.relative_url_root                   = '/'
     # config.action_controller.relative_url_root = '/'
 
