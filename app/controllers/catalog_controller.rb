@@ -193,6 +193,7 @@ class CatalogController < ApplicationController
       field.qt = "/search"
       field.solr_parameters = {fq: "type:entry"}
       field.solr_local_parameters = {
+        type: "edismax",
         qf: "$everything_qf",
         pf: "$everything_pf"
       }
@@ -202,6 +203,7 @@ class CatalogController < ApplicationController
       field.qt = "/search"
       field.solr_parameters = {fq: "type:entry"}
       field.solr_local_parameters = {
+        type: "edismax",
         qf: "$headword_and_forms_qf",
         pf: "$headword_and_forms_pf"
       }
@@ -212,6 +214,7 @@ class CatalogController < ApplicationController
       field.qt = "/search"
       field.solr_parameters = {fq: "type:entry"}
       field.solr_local_parameters = {
+        type: "edismax",
         qf: "$headword_only_qf",
         pf: "$headword_only_pf"
       }
@@ -222,6 +225,7 @@ class CatalogController < ApplicationController
       field.qt = "/search"
       field.solr_parameters = {fq: "type:entry"}
       field.solr_local_parameters = {
+        type: "edismax",
         qf: "definition_text^50 notes",
         pf: "definition_text^50 notes"
       }
@@ -232,6 +236,7 @@ class CatalogController < ApplicationController
       field.qt = "/search"
       field.solr_parameters = {fq: "type:entry"}
       field.solr_local_parameters = {
+        type: "edismax",
         qf: "etyma_text",
         pf: "etyma_text"
       }
@@ -242,6 +247,7 @@ class CatalogController < ApplicationController
       field.qt = "/search"
       field.solr_parameters = {fq: "type:entry"}
       field.solr_local_parameters = {
+        type: "edismax",
         qf: "$citation_qf",
         pf: "$citation_pf"
       }
@@ -252,6 +258,7 @@ class CatalogController < ApplicationController
       field.qt = "/search"
       field.solr_parameters = {fq: "type:entry"}
       field.solr_local_parameters = {
+        type: "edismax",
         qf: "oed_norm",
         pf: "oed_norm"
       }
