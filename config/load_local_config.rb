@@ -40,6 +40,7 @@ module Dromedary
         @collection_creation_date = nil
       end
       @hyp_to_bibid
+
     end
 
     # @param coll [SolrCloud::Alias]

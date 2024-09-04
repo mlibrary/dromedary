@@ -3,39 +3,47 @@
     <section>
       <ul>
         <li class="heading-medium">Middle English Compendium</li>
-        <li><a href="<%= dictionary_home_path%>">Middle English Dictionary</a></li>
-        <li><a href="<%= bib_home_path%>">Bibliography</a></li>
-<!--        <li><a href="https://quod.lib.umich.edu/c/cme/" target="_blank">Corpus <%#= image_tag('external-link-white.svg', alt:'Opens in a new window') %></a></li>-->
-        <li><a href="https://quod.lib.umich.edu/c/cme/" target="_blank">Corpus <%= image_tag(asset_path('external-link-white.svg'), alt:'Opens in a new window') %></a></li>
+        <li><a href="<%= dictionary_home_path %>">Middle English Dictionary</a></li>
+        <li><a href="<%= bib_home_path %>">Bibliography</a></li>
+        <!--        <li><a href="https://quod.lib.umich.edu/c/cme/" target="_blank">Corpus <%#= image_tag('external-link-white.svg', alt:'Opens in a new window') %></a></li>-->
+        <li>
+          <a href="https://quod.lib.umich.edu/c/cme/" target="_blank">Corpus <%= image_tag(asset_path('external-link-white.svg'), alt: 'Opens in a new window') %></a>
+        </li>
       </ul>
-     </section>
+    </section>
     <section>
       <ul>
         <li class="heading-medium">Help and information</li>
         <li><%= link_to "Search Help", help_root_path %></li>
         <li><%= link_to "About the MEC", about_path %></li>
       </ul>
-     </section>
-     <section>
+    </section>
+    <section>
       <ul>
         <li class="heading-medium">Contact Us</li>
         <li><a href="https://umich.qualtrics.com/jfe/form/SV_43fHANnBfEOjO4J">Contact Us</a></li>
         <li><a href="mailto:mec-info@umich.edu">mec-info@umich.edu</a></li>
       </ul>
 
-     </section>
+    </section>
   </div>
 </footer>
 <div class="footer-subfooter footer--light">
-   <div class="footer-container">
-      <p class="font-xsmall">©<%= Time.now.year %>  Regents of the University of Michigan.
-        For details about this collection's copyright
-        see the <%= link_to "MEC copyright statement", about_path(anchor: 'copyright') %>
-        and the
-        <a href="https://www.lib.umich.edu/library-administration/library-copyright-statement">U-M Library Copyright Policy</a>.
-    Data last refreshed <%= Dromedary.collection_creation_date.strftime("%A, %B %-e, %Y") %>.
-     </p>
-    </div>
+  <div class="footer-container">
+    <p class="font-xsmall">©<%= Time.now.year %>  Regents of the University of Michigan.
+      For details about this collection's copyright
+      see the <%= link_to "MEC copyright statement", about_path(anchor: 'copyright') %>
+      and the
+      <a href="https://www.lib.umich.edu/library-administration/library-copyright-statement">U-M Library Copyright
+        Policy</a>.
+      Data last refreshed <%= if Dromedary::Services[:looks_like_first_upload]
+                                "never"
+                              else
+                                Dromedary.collection_creation_date.strftime("%A, %B %-e, %Y")
+                              end
+    %>.
+    </p>
+  </div>
 </div>
 
 

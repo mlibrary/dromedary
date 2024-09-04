@@ -23,9 +23,25 @@ module Dromedary
 
   Services.register(:relative_url_root) { ENV['RAILS_RELATIVE_URL_ROOT'] || '/' }
 
+  Services.register(:allow_admin_access) do
+    ["1", 1, "true", "TRUE"].include? ENV["ALLOW_ADMIN_ACCESS"]
+  end
 
 
   ################ Generic Solr stuff ##################
+
+  # If there's no collection there, and we're in the "allow admin access" case, it might just
+  # be the first time we're trying to upload data.
+
+  Services.register(:looks_like_first_upload) do
+    if Services[:allow_admin_access] and Services[:solr_current_collection].nil?
+      logger = Services[:logger]
+      logger.warn "Admin access allowed and collection is nil. Assuming this is the first upload of a new install"
+      logger.warn "Otherwise, something went very wrong"
+      true
+    end
+  end
+
 
   Services.register(:solr_root) { (ENV["SOLR_ROOT"] || "http://solr:8983/").chomp("/") }
   Services.register(:solr_collection_base) { ENV["SOLR_COLLECTION_BASE"] || "med" }

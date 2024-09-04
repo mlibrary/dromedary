@@ -92,10 +92,6 @@ Rails.application.routes.draw do
   get "help/:page" => "help#help_page", :as => :help
   # get 'static/*' => 'static#about_med', as: :static
 
-  # Force a reload of the hyp-to-bibid mapping
-
-  get "admin/reload_hyp_to_bibid" => "admin#reload_hyp_to_bibid", :as => :reload_hyp_to_bibid
-
   # 404s -- will only match if nothing else did
 
   match "quotations/*path" => "quotes#show404", :via => [:get, :post]

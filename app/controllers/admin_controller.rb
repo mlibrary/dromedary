@@ -1,10 +1,7 @@
 class AdminController < ApplicationController
-  extend MedInstaller::Logger
+  def home
+  end
 
-  def reload_hyp_to_bibid
-    logger.info "Reloading hyp_to_bibid"
-    Dromedary.load_fresh_hyp_to_bibid
-    flash[:notice] = "Reloaded hyp_to_bibid"
-    redirect_to root_path
+  def release
   end
 end
