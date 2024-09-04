@@ -43,22 +43,23 @@
     The Preview collection / alias doesn't yet exist; you need to upload a .zip file, below.
   <% end %>
 
+
   <% if state.same %>
     <h2>Preview and Production currently point to the same data. </h2>
-    <p>If you started an indexing job by uploading a file, this page will
-      change once that upload is complete. Information about the new solr index will
-      be displayed, and you
+    <p>If preview data were available to release to production, a button to do so would appear here.</p>
+
+    <p>If you've just started an indexing job by uploading a file, this page won't
+      change until that indexing process is complete. At that point, loading this page
+      will show changes in the summary table above, and you
       can spot-check this preview site to make sure it's all ok.</p>
-    <p>A button will also appear, giving you the option to release the preview data
-      to production. There is no downtime at all; the only obvious difference will be
-      the "last indexed" date in the footer of each page on the production site.</p>
   <% elsif state.preview.nil? %>
     <h2>Preview data is currently undefined</h2>
     <p>Maybe nothing has ever been uploaded in this application instance? Uploading and indexing
       a new file will fix this issue.</p>
   <% else %>
     <h2>Note: There is new data in Preview.</h2>
-    <p>Once the preview data has been indexed and verified, just press the button to have
+    <p>You can browse the new data using this preview site. Once you're happy,
+      return here and press the button to have
       production instances start using the new data. There is no downtime, and no change should
       be noticed other than the date change at the bottom of each page.</p>
 
