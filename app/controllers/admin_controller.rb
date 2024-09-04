@@ -1,7 +1,93 @@
+require "dromedary/services"
+
 class AdminController < ApplicationController
+
+  State = Struct.new(:connection, :preview, :production, :same)
+
+  def current_state
+    connection = Dromedary::Services[:solr_connection]
+    preview_alias_name = Dromedary::Services[:preview_alias]
+    preview = connection.get_collection preview_alias_name
+    production_alias_name = Dromedary::Services[:production_alias]
+    production = connection.get_collection production_alias_name
+    same = (preview and production and (preview.collection.name == production.collection.name))
+    State.new(connection, preview, production, same)
+  end
+
+  def nothing_exists?(state = current_state)
+    state.production.nil? and state.preview.nil?
+  end
+
   def home
+    render "admin/home", locals: { state: current_state}
+  end
+
+  def check_errors(state = current_state)
+    # Verify that we have everything
+    connection = state.connection
+    preview_alias_name = Dromedary::Services[:preview_alias]
+    preview = state.preview
+    production_alias_name = Dromedary::Services[:production_alias]
+    production = state.production
+    sample_collection_name = "#{Dromedary::Services[:solr_collection_base]}_202410101115"
+    sample_collection_form = "#{Dromedary::Services[:solr_collection_base]}_YYYYMMDDHHmm"
+
+    errors = []
+    if preview.nil?
+      errors << <<~NOALIAS
+        The solr collection preview alias #{preview_alias_name} doesn't exist. Maybe indexing
+        was never actually run?
+      NOALIAS
+    end
+
+    if preview and not preview.alias?
+      errors << <<~NOTALIAS
+        The solr collection preview alias #{preview_alias_name} should just be an alias that points 
+        at a real solr collection, with a timestamped name of the form #{sample_collection_name}. 
+        #{preview_alias_name} is pointing at an actual collection, which should never happen. To fix
+        this, rename the collection to a valid timestamped named (of the form #{sample_collection_form}),
+        then create the alias "#{preview_alias_name}" to point at it.
+      NOTALIAS
+    end
+
+    if production and (not production.alias?)
+      errors << <<~PRODNOTALIAS
+        The solr collection alias for production data, #{production_alias_name}, is not, in fact, an alias,
+        but a "real" collection with real data in it. That should never happen, and is likely the result
+        of someone trying to fix something else that went wrong. To fix this, you should rename the
+        collection #{production_alias_name} to an appropriate timestamp-based name (something like 
+        #{sample_collection_name}, of the form #{sample_collection_form}), and then create an alias named
+        #{production_alias_name} that points to it. 
+      PRODNOTALIAS
+    end
+
+    if state.production and state.preview and (Dromedary.underlying_real_collection_name(coll: preview) ==
+      Dromedary.underlying_real_collection_name(coll: production))
+      errors << <<~SAME
+        SAME DATA. Preview (#{preview_alias_name}) and production (#{production_alias_name}) already both point
+        to the same underlying data, collection #{Dromedary.underlying_real_collection_name(coll: preview)}.
+        Exited without doing anything.
+      SAME
+    end
+
+    errors
   end
 
   def release
+    state = current_state
+    errors = check_errors(state)
+    if errors.size == 0
+      real_collection_name = Dromedary.underlying_real_collection_name(coll: state.preview)
+      if state.production
+        state.production.switch_collection_to(real_collection_name)
+      else
+        state.preview.collection.alias_as(Dromedary::Services[:production_alias])
+      end
+      state = current_state
+      redirect_to action: "home"
+    else
+      render "admin/home", locals: { state: state, errors: errors }
+    end
+
   end
 end

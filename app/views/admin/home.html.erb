@@ -1,2 +1,80 @@
-<h1>Admin#home</h1>
-<p>Find me in app/views/admin/home.html.erb</p>
+<div id="med" class="col-md-9 col-sm-8 col-xs-12 about-middle-col">
+
+  <h1>Administration: Data upload and push to production</h1>
+
+  <% if defined? errors and errors.size > 0 %>
+    <p>Errors Encountered trying to release preview data to production.</p>
+    <ul class="about-list">
+      <% errors.each do |emsg| %>
+        <li><%= emsg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <% if state.preview %>
+    <table class="admin-table">
+      <tr>
+        <th></th>
+        <th>Preview</th>
+        <th>Production</th>
+      </tr>
+      <tr>
+        <td>Indexed items</td>
+        <td><%= state.preview.count %></td>
+        <td><%= (state.production && state.production.count) || "N/A" %></td>
+      </tr>
+      <tr>
+        <td>Date indexed</td>
+        <td><%= Dromedary.collection_creation_date(coll: state.preview).strftime("%F") %></td>
+        <td><%= (state.production && Dromedary.collection_creation_date(coll: state.production).strftime("%F")) || "N/A" %></td>
+      </tr>
+      <tr>
+        <td>Alias</td>
+        <td><%= state.preview.name %></td>
+        <td><%= (state.production && state.production.name )|| "N/A"%></td>
+      </tr>
+      <tr>
+        <td>Collection</td>
+        <td><%= state.preview.collection.name %></td>
+        <td><%= (state.production && state.production.collection.name) || "N/A"%></td>
+      </tr>
+    </table>
+  <% elsif state.preview.nil? %>
+    The Preview collection / alias doesn't yet exist; you need to upload a .zip file, below.
+  <% end %>
+
+  <% if state.same %>
+    <h2>Preview and Production currently point to the same data. </h2>
+    <p>If you started an indexing job by uploading a file, this page will
+      change once that upload is complete. Information about the new solr index will
+      be displayed, and you
+      can spot-check this preview site to make sure it's all ok.</p>
+    <p>A button will also appear, giving you the option to release the preview data
+      to production. There is no downtime at all; the only obvious difference will be
+      the "last indexed" date in the footer of each page on the production site.</p>
+  <% elsif state.preview.nil? %>
+    <h2>Preview data is currently undefined</h2>
+    <p>Maybe nothing has ever been uploaded in this application instance? Uploading and indexing
+      a new file will fix this issue.</p>
+  <% else %>
+    <h2>Note: There is new data in Preview.</h2>
+    <p>Once the preview data has been indexed and verified, just press the button to have
+      production instances start using the new data. There is no downtime, and no change should
+      be noticed other than the date change at the bottom of each page.</p>
+
+    <form action="/admin/release">
+      <button type="submit">Release preview data to production</button>
+    </form>
+  <% end %>
+
+
+
+  <h2>Upload a new file</h2>
+  <p>Upload a new .zip file to for indexing. Indexing takes anywhere from 30-45 minutes.</p>
+  <p>Indexing will take place in the background. Currently, there's no good way to track its progress;
+    this preview site will just suddenly have the newly-indexed data.</p>
+  <p>You can check this page to see if the new data if ready to viewed here, and then (if everything is
+    ok) released to production. </p>
+
+
+</div>

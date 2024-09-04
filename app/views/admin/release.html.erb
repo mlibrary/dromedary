@@ -1,2 +1,17 @@
-<h1>Admin#release</h1>
-<p>Find me in app/views/admin/release.html.erb</p>
+<h1>Release</h1>
+
+<% if errors.nil? %>
+  <h2>Success</h2>
+  <p>Switched production solr alias <em><%= production_alias_name %></em> to point to actual collection
+    <em><%= collection_name %></em>.
+  </p>
+
+<% else %>
+  <h2>Errors</h2>
+
+  <% errors.each do |emsg| %>
+    <p><%= emsg %></p>
+  <% end %>
+
+<% end %>
+
