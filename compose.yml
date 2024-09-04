@@ -25,6 +25,7 @@ services:
       - SOLR_REPLICATION_FACTOR=1
       - DATA_ROOT=/mec/data
       - BUILD_ROOT=/mec/data/build
+      - ALLOW_ADMIN_ACCESS=1
     volumes:
       - .:/opt/app
       - data:/mec/data

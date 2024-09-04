@@ -14,86 +14,93 @@ Rails.application.routes.draw do
 
   # This scope should go away. The production prefix is managed at the Rack level.
   # scope "/" do
-    mount Blacklight::Engine => "/"
-    # config/routes.rb, at any priority that suits you
-    mount OkComputer::Engine, at: "/status"
+  mount Blacklight::Engine => "/"
+  # config/routes.rb, at any priority that suits you
+  mount OkComputer::Engine, at: "/status"
 
-    # scope '/' do
-    #   mount Blacklight::Engine => '/'
+  # scope '/' do
+  #   mount Blacklight::Engine => '/'
 
-    # Shunt it all to the maintenace page if we need to
-    match "*path" => "static#maintenance_mode", :status => 302, :via => [:get, :post],
-      :constraints => ->(request) { AnnoyingUtilities.maintenance_mode_enabled? }
+  # Shunt it all to the maintenace page if we need to
+  match "*path" => "static#maintenance_mode", :status => 302, :via => [:get, :post],
+        :constraints => ->(request) { AnnoyingUtilities.maintenance_mode_enabled? }
 
-    # Splash pages
-    match "dictionary/" => "catalog#home", :as => :dictionary_home, :via => [:get, :post], :constraints => {query_string: ""}
-    match "bibliography/" => "bibliography#home", :as => :bib_home, :via => [:get, :post], :constraints => {query_string: ""}
-    match "quotations/" => "quotes#home", :as => :quotes_home, :via => [:get, :post], :constraints => {query_string: ""}
+  # Admin access for uploading new data and changing the alias
 
-    # Rails doesn't allow dots in matched ids by default, because reasons.
-    # Override the id matcher with an explicit constraint.
-    match "dictionary/:id(/)(track)" => "catalog#show",
-      :constraints => {id: /MED[\p{Alnum}\-.]+/}, :via => [:get, :post]
+  if [1, "1", "true"].include? ENV["ALLOW_ADMIN_ACCESS"]
+    match "admin/" => "admin#home", via: [:get, :post]
+    match "admin/release" => "admin#release", via: [:get]
+  end
 
-    match "bibliography/:id(/*rest)" => "bibliography#show", :as => :bib_link,
-      :constraints => {id: /(?:BIB|HYP)[T\d\-.]+/i}, :via => [:get, :post]
+  # Splash pages
+  match "dictionary/" => "catalog#home", :as => :dictionary_home, :via => [:get, :post], :constraints => { query_string: "" }
+  match "bibliography/" => "bibliography#home", :as => :bib_home, :via => [:get, :post], :constraints => { query_string: "" }
+  match "quotations/" => "quotes#home", :as => :quotes_home, :via => [:get, :post], :constraints => { query_string: "" }
 
-    match "bibliography/" => "bibliography#index", :via => [:get, :post]
+  # Rails doesn't allow dots in matched ids by default, because reasons.
+  # Override the id matcher with an explicit constraint.
+  match "dictionary/:id(/)(track)" => "catalog#show",
+        :constraints => { id: /MED[\p{Alnum}\-.]+/ }, :via => [:get, :post]
 
-    root to: "catalog#splash"
+  match "bibliography/:id(/*rest)" => "bibliography#show", :as => :bib_link,
+        :constraints => { id: /(?:BIB|HYP)[T\d\-.]+/i }, :via => [:get, :post]
 
-    # Force to go to root ('/'), not index.html
-    # get "/dictionary", to: redirect('/'), constraints: {query_string: ""}
+  match "bibliography/" => "bibliography#index", :via => [:get, :post]
 
-    concern :searchable, Blacklight::Routes::Searchable.new
+  root to: "catalog#splash"
 
-    resource :search, only: [:index], as: "catalog", path: "/dictionary", controller: "catalog" do
-      concerns :searchable
+  # Force to go to root ('/'), not index.html
+  # get "/dictionary", to: redirect('/'), constraints: {query_string: ""}
+
+  concern :searchable, Blacklight::Routes::Searchable.new
+
+  resource :search, only: [:index], as: "catalog", path: "/dictionary", controller: "catalog" do
+    concerns :searchable
+  end
+
+  resource :search, only: [:index], as: "bibliography", path: "/bibliography", controller: "bibliography" do
+    concerns :searchable
+  end
+
+  resource :search, only: [:index], as: "quotes", path: "/quotations", controller: "quotes" do
+    concerns :searchable
+  end
+
+  get "/search" => "catalog#search", :as => :search
+
+  concern :exportable, Blacklight::Routes::Exportable.new
+
+  resources :solr_documents, only: [:show], path: "/dictionary", controller: "catalog" do
+    concerns :exportable
+  end
+
+  resources :bookmarks do
+    concerns :exportable
+
+    collection do
+      delete "clear"
     end
+  end
 
-    resource :search, only: [:index], as: "bibliography", path: "/bibliography", controller: "bibliography" do
-      concerns :searchable
-    end
+  match "/contacts", to: "contacts#new", via: "get"
+  resources "contacts", only: [:new, :create]
 
-    resource :search, only: [:index], as: "quotes", path: "/quotations", controller: "quotes" do
-      concerns :searchable
-    end
+  # post 'static/search' => 'static#search'
 
-    get "/search" => "catalog#search", :as => :search
+  get "about" => "static#about_med", :as => :about
+  get "help" => "help#help_root", :as => :help_root
+  get "help/:page" => "help#help_page", :as => :help
+  # get 'static/*' => 'static#about_med', as: :static
 
-    concern :exportable, Blacklight::Routes::Exportable.new
+  # Force a reload of the hyp-to-bibid mapping
 
-    resources :solr_documents, only: [:show], path: "/dictionary", controller: "catalog" do
-      concerns :exportable
-    end
+  get "admin/reload_hyp_to_bibid" => "admin#reload_hyp_to_bibid", :as => :reload_hyp_to_bibid
 
-    resources :bookmarks do
-      concerns :exportable
+  # 404s -- will only match if nothing else did
 
-      collection do
-        delete "clear"
-      end
-    end
-
-    match "/contacts", to: "contacts#new", via: "get"
-    resources "contacts", only: [:new, :create]
-
-    # post 'static/search' => 'static#search'
-
-    get "about" => "static#about_med", :as => :about
-    get "help" => "help#help_root", :as => :help_root
-    get "help/:page" => "help#help_page", :as => :help
-    # get 'static/*' => 'static#about_med', as: :static
-
-    # Force a reload of the hyp-to-bibid mapping
-
-    get "admin/reload_hyp_to_bibid" => "admin#reload_hyp_to_bibid", :as => :reload_hyp_to_bibid
-
-    # 404s -- will only match if nothing else did
-
-    match "quotations/*path" => "quotes#show404", :via => [:get, :post]
-    match "dictionary/*path" => "catalog#show404", :via => [:get, :post]
-    match "bibliography/*path" => "bibliography#show404", :via => [:get, :post]
-    match "*path" => "catalog#show404", :via => [:get, :post]
+  match "quotations/*path" => "quotes#show404", :via => [:get, :post]
+  match "dictionary/*path" => "catalog#show404", :via => [:get, :post]
+  match "bibliography/*path" => "bibliography#show404", :via => [:get, :post]
+  match "*path" => "catalog#show404", :via => [:get, :post]
   # end
 end
