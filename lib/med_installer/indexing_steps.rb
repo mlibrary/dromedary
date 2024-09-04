@@ -105,10 +105,12 @@ module MedInstaller
 
 
     # @return [SolrCloud::Collection]
-    def create_configset_and_collection!(name: @coll_and_configset_name, solr_configuration_directory: Services.solr_conf_directory)
-      logger.info "Creating configset/collection #{name}"
+    def create_configset_and_collection!(name: @coll_and_configset_name,
+                                         solr_configuration_directory: Services.solr_conf_directory,
+                                         replication_factor: Services[:solr_replication_factor])
+      logger.info "Creating configset/collection #{name}, replication factor #{replication_factor}"
       connection.create_configset(name: name, confdir: solr_configuration_directory)
-      connection.create_collection(name: name, configset: name)
+      connection.create_collection(name: name, configset: name, replication_factor: replication_factor)
       connection.get_collection(name)
     end
 
