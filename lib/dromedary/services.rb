@@ -24,6 +24,48 @@ module Dromedary
   Services.register(:relative_url_root) { ENV['RAILS_RELATIVE_URL_ROOT'] || '/' }
 
 
+
+  ################ Generic Solr stuff ##################
+
+  Services.register(:solr_root) { (ENV["SOLR_ROOT"] || "http://solr:8983/").chomp("/") }
+  Services.register(:solr_collection_base) { ENV["SOLR_COLLECTION_BASE"] || "med" }
+  Services.register(:solr_collection) { ENV["SOLR_COLLECTION"] }
+  Services.register(:solr_username) { ENV["SOLR_USERNAME"] || "solr" }
+  Services.register(:solr_password) { ENV["SOLR_PASSWORD"] || "SolrRocks" }
+
+  Services.register(:solr_replication_factor) { (ENV["SOLR_REPLICATION_FACTOR"] || 3).to_i }
+
+  Services.register(:solr_connection) do
+    SolrCloud::Connection.new(url: Services[:solr_root],
+                              user: Services[:solr_username],
+                              password: Services[:solr_password])
+  end
+
+  Services.register(:solr_current_collection) do
+    c = Services[:solr_connection]
+    name = Services[:solr_collection]
+    if !(c.has_collection?(name))
+      Services[:logger].warn "Collection/Alias #{name} not found. Probably ok for first-time indexing, but a problem otherwise"
+    end
+    c.get_collection(name)
+  end
+
+  Services.register(:solr_url) do
+    if Services[:solr_root] and Services[:solr_collection]
+      Services[:solr_root] + "/solr/" + Services[:solr_collection]
+    else
+      raise "Configuration error: Need both SOLR_ROOT/SOLR_COLLECTION to be defined"
+    end
+  end
+
+  Services.register(:solr_embedded_auth_url) do
+    uri = URI(Services[:solr_url])
+    uri.user = Services[:solr_username]
+    uri.password = Services[:solr_password]
+    uri.to_s
+  end
+
+
   ################ Reindexing stuff ################
 
   Services.register(:build_root) do
@@ -84,44 +126,6 @@ module Dromedary
 
   Services.register(:solr_collection_to_index_into) do
     Services[:solr_connection].get_collection(Services[:name_of_solr_collection_to_index_into])
-  end
-
-  ################ Production solr stuff ##################
-
-  Services.register(:solr_root) { (ENV["SOLR_ROOT"] || "http://solr:8983/").chomp("/") }
-  Services.register(:solr_collection_base) { ENV["SOLR_COLLECTION_BASE"] || "med" }
-  Services.register(:solr_collection) { ENV["SOLR_COLLECTION"] }
-  Services.register(:solr_username) { ENV["SOLR_USERNAME"] || "solr" }
-  Services.register(:solr_password) { ENV["SOLR_PASSWORD"] || "SolrRocks" }
-
-  Services.register(:solr_connection) do
-    SolrCloud::Connection.new(url: Services[:solr_root],
-                              user: Services[:solr_username],
-                              password: Services[:solr_password])
-  end
-
-  Services.register(:solr_current_collection) do
-    c = Services[:solr_connection]
-    name = Services[:solr_collection]
-    if !(c.has_collection?(name))
-      Services[:logger].warn "Collection/Alias #{name} not found. Probably ok for first-time indexing, but a problem otherwise"
-    end
-    c.get_collection(name)
-  end
-  
-  Services.register(:solr_url) do
-    if Services[:solr_root] and Services[:solr_collection]
-      Services[:solr_root] + "/solr/" + Services[:solr_collection]
-    else
-      raise "Configuration error: Need both SOLR_ROOT/SOLR_COLLECTION to be defined"
-    end
-  end
-
-  Services.register(:solr_embedded_auth_url) do
-    uri = URI(Services[:solr_url])
-    uri.user = Services[:solr_username]
-    uri.password = Services[:solr_password]
-    uri.to_s
   end
 
   Services.register(:solr_conf_directory) do
