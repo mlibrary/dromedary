@@ -16,6 +16,8 @@ gem "date_named_file"
 gem "zinzout"
 gem "solr_cloud-connection"
 
+gem "shrine", "~>3.0"
+gem "aws-sdk-s3", "~> 1.14"
 
 #####################################
 # Try to work around brokenness on
