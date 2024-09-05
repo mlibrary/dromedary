@@ -25,6 +25,9 @@ services:
       - SOLR_REPLICATION_FACTOR=1
       - DATA_ROOT=/mec/data
       - BUILD_ROOT=/mec/data/build
+    env_file:
+      - path: .app.env
+        required: false
     volumes:
       - .:/opt/app
       - data:/mec/data

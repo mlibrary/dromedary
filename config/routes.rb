@@ -89,6 +89,14 @@ Rails.application.routes.draw do
 
     get "admin/reload_hyp_to_bibid" => "admin#reload_hyp_to_bibid", :as => :reload_hyp_to_bibid
 
+    # FIXME: Come up with something more robust to toggle all of the uploading
+    if Dromedary::Services[:aws_bucket].present?
+      get "/updates", to: "updates#index"
+      mount Shrine.presign_endpoint(:incoming), at: "/s3/params"
+      mount Shrine.uppy_s3_multipart(:incoming), at: "/s3/multipart"
+    end
+
+
     # 404s -- will only match if nothing else did
 
     match "quotations/*path" => "quotes#show404", :via => [:get, :post]
