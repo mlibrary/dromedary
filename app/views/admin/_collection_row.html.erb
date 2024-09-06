@@ -1,0 +1,22 @@
+<tr class="<%= c.alias_display %>">
+  <td><%= c.alias_display %></td>
+  <td><%= c.name %></td>
+  <td><%= c.count %></td>
+  <td><%= c.date.strftime("%c") %></td>
+  <% if c.aliases.empty? and c.deletable %>
+    <td class="danger">
+      <%= form_with url: "/admin/delete", method: :post do |f| %>
+        <%= f.hidden_field "collection", value: c.name %>
+        <%= f.submit "Delete" %>
+      <% end %>
+    </td>
+  <% end %>
+
+  <% if c.aliases.size == 1 and c.aliases.first.name == "med-preview" %>
+    <td>
+      <%= form_with url: "/admin/release", method: :get do |f| %>
+        <%= f.submit "Release" %>
+        </td>
+      <% end %>
+      </tr>
+  <% end %>

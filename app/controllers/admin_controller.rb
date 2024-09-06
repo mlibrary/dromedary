@@ -2,7 +2,40 @@ require "dromedary/services"
 
 class AdminController < ApplicationController
 
-  State = Struct.new(:connection, :preview, :production, :same)
+  layout "uploader"
+
+
+  class MedSolrCollection < SimpleDelegator
+
+    NAME_MATCHER = Regexp.new  "\\A#{Dromedary::Services[:solr_collection_base]}_\\d{12}\\Z"
+
+
+    attr_accessor :deletable
+    def initialize(collection)
+      @collection = collection
+      super(@collection)
+      @deletable = false
+    end
+
+    def is_med_collection?
+      NAME_MATCHER.match?(name)
+    end
+
+    def alias_display
+      if aliased?
+        alias_names.join(", ")
+      else
+        "none"
+      end
+    end
+
+    def date
+      Dromedary.compute_collection_creation_date(name)
+    end
+
+  end
+
+  State = Struct.new(:connection, :preview, :production, :same, :collections)
 
   def current_state
     connection = Dromedary::Services[:solr_connection]
@@ -11,15 +44,37 @@ class AdminController < ApplicationController
     production_alias_name = Dromedary::Services[:production_alias]
     production = connection.get_collection production_alias_name
     same = (preview and production and (preview.collection.name == production.collection.name))
-    State.new(connection, preview, production, same)
+    collections = connection.only_collections.map{|c| MedSolrCollection.new(c)}
+                            .select{|c| c.is_med_collection?}
+                            .sort{|a,b| b.date <=> a.date}
+    aliased_collections = collections.count{|c| c.aliased? }
+    keep = aliased_collections + 1
+    collections[keep..-1].each {|c| c.deletable = true}
+    State.new(connection, preview, production, same, collections)
   end
 
   def nothing_exists?(state = current_state)
     state.production.nil? and state.preview.nil?
   end
 
+
+
+
   def home
     render "admin/home", locals: { state: current_state}
+  end
+
+  def delete
+    collection_name = params[:collection]
+    collections = current_state.collections
+    collection = MedSolrCollection.new(collections.select{|x| x.name == collection_name}).first
+    if collection.deletable
+      collection.delete!
+    else
+      raise "Collection '#{collection.name}' not deleteable.
+      Deletable value is #{collection.deletable}. Deleteables are #{collections.select{|c| c.deletable}}"
+    end
+    render js: "window.location = '/admin';"
   end
 
   def check_errors(state = current_state)
@@ -84,7 +139,7 @@ class AdminController < ApplicationController
         state.preview.collection.alias_as(Dromedary::Services[:production_alias])
       end
       state = current_state
-      redirect_to action: "home"
+      render js: "window.location = '/admin';"
     else
       render "admin/home", locals: { state: state, errors: errors }
     end

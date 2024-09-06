@@ -47,9 +47,12 @@ module MedInstaller
       prepare_build_directory
       extract_zip_to_build_directory
       verify_unzipped_files!
-      create_solr_documents
 
       @build_collection = create_configset_and_collection!
+
+      create_solr_documents
+
+
 
       # TODO: SolrCloud::Collection should have a `#url` method, for god's sake
       collection_url = @build_collection.connection.url.chomp("/") + "/solr/#{@build_collection.name}"

@@ -26,9 +26,9 @@ services:
       - DATA_ROOT=/mec/data
       - BUILD_ROOT=/mec/data/build
       - ALLOW_ADMIN_ACCESS=1
-#    env_file:
-#      - path: .app.env
-#      - required: false
+    env_file:
+      - path: .app.env
+        required: false
     volumes:
       - .:/opt/app
       - data:/mec/data

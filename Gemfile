@@ -16,8 +16,10 @@ gem "date_named_file"
 gem "zinzout"
 gem "solr_cloud-connection"
 
-gem "shrine", "~>3.0"
-gem "aws-sdk-s3", "~> 1.14"
+gem "shrine", "~> 3.6"
+gem "aws-sdk-s3", "~> 1.160"
+gem "content_disposition", "~> 1.0"
+gem "uppy-s3_multipart", "~> 1.2"
 
 #####################################
 # Try to work around brokenness on
@@ -199,7 +201,4 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "rsolr", ">= 1.0"
 gem "jquery-rails"
 
-gem "shrine", "~> 3.6"
-gem "aws-sdk-s3", "~> 1.160"
-gem "content_disposition", "~> 1.0"
-gem "uppy-s3_multipart", "~> 1.2"
+

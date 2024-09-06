@@ -167,7 +167,7 @@ module Dromedary
   end
 
   # FIXME: Come up with something more robust to toggle all of the uploading
-  if Services[:aws_bucket].present?
+  if Services[:aws_bucket]
     Shrine.storages = {
       incoming: Shrine::Storage::S3.new(**Services[:shrine_incoming_storage])
     }

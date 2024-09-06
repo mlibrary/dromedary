@@ -29,8 +29,8 @@ Rails.application.routes.draw do
 
   if [1, "1", "true"].include? ENV["ALLOW_ADMIN_ACCESS"]
     match "admin/" => "admin#home", via: [:get, :post]
-    match "admin/release" => "admin#release", via: [:get]
-    get "/admin/updates", to: "updates#index"
+    get   "admin/release" => "admin#release", via: [:get]
+    post  "admin/delete", to: "admin#delete"
     mount Shrine.presign_endpoint(:incoming), at: "/s3/params"
     mount Shrine.uppy_s3_multipart(:incoming), at: "/s3/multipart"
   end

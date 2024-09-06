@@ -53,8 +53,20 @@ module Dromedary
       return @collection_creation_date if defined?(@collection_creation_date) && !@collection_creation_date.nil?
 
       real_collection_name = underlying_real_collection_name(coll: coll)
-      m = /(\d{4})(\d{2})(\d{2})\d{4}\Z/.match(real_collection_name)
-      @collection_creation_date = Time.parse(m[1..3].join("-"))
+      @collection_creation_date = compute_collection_creation_date(real_collection_name)
+    end
+
+    def compute_collection_creation_date(coll)
+      name  = case coll
+              when String
+                coll
+              when SolrCloud::Collection
+                coll.name
+              else
+                raise "Need a collection or its name"
+              end
+      m = /(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})\Z/.match(name)
+      Time.parse(m[1..3].join("-") + "-" + m[4..5].join(":"))
     end
   end
 

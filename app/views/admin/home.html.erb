@@ -11,38 +11,21 @@
     </ul>
   <% end %>
 
-  <% if state.preview %>
-    <table class="admin-table">
-      <tr>
-        <th></th>
-        <th>Preview</th>
-        <th>Production</th>
-      </tr>
-      <tr>
-        <td>Indexed items</td>
-        <td><%= state.preview.count %></td>
-        <td><%= (state.production && state.production.count) || "N/A" %></td>
-      </tr>
-      <tr>
-        <td>Date indexed</td>
-        <td><%= Dromedary.collection_creation_date(coll: state.preview).strftime("%F") %></td>
-        <td><%= (state.production && Dromedary.collection_creation_date(coll: state.production).strftime("%F")) || "N/A" %></td>
-      </tr>
-      <tr>
-        <td>Alias</td>
-        <td><%= state.preview.name %></td>
-        <td><%= (state.production && state.production.name )|| "N/A"%></td>
-      </tr>
-      <tr>
-        <td>Collection</td>
-        <td><%= state.preview.collection.name %></td>
-        <td><%= (state.production && state.production.collection.name) || "N/A"%></td>
-      </tr>
-    </table>
-  <% elsif state.preview.nil? %>
-    The Preview collection / alias doesn't yet exist; you need to upload a .zip file, below.
-  <% end %>
 
+  <h2>Existing collections</h2>
+  <table class="admin-table">
+    <tr>
+      <th>Aliases</th>
+      <th>Collection</th>
+      <th>Docs</th>
+      <th>Created</th>
+      <th>Action</th>
+    </tr>
+
+    <% state.collections.each_with_index do |c, i| %>
+      <%= render partial: "collection_row", locals: { c: c} %>
+    <% end %>
+  </table>
 
   <% if state.same %>
     <h2>Preview and Production currently point to the same data. </h2>
@@ -53,29 +36,73 @@
       will show changes in the summary table above, and you
       can spot-check this preview site to make sure it's all ok.</p>
   <% elsif state.preview.nil? %>
-    <h2>Preview data is currently undefined</h2>
+    <h2>No Preview alias/collection found</h2>
     <p>Maybe nothing has ever been uploaded in this application instance? Uploading and indexing
-      a new file will fix this issue.</p>
+      a new file will address this issue.</p>
   <% else %>
     <h2>Note: There is new data in Preview.</h2>
     <p>You can browse the new data using this preview site. Once you're happy,
       return here and press the button to have
       production instances start using the new data. There is no downtime, and no change should
       be noticed other than the date change at the bottom of each page.</p>
-
-    <form action="/admin/release">
-      <button type="submit">Release preview data to production</button>
-    </form>
   <% end %>
 
 
 
   <h2>Upload a new file</h2>
-  <p>Upload a new .zip file to for indexing. Indexing takes anywhere from 30-45 minutes.</p>
-  <p>Indexing will take place in the background. Currently, there's no good way to track its progress;
-    this preview site will just suddenly have the newly-indexed data.</p>
-  <p>You can check this page to see if the new data if ready to viewed here, and then (if everything is
-    ok) released to production. </p>
+  <p>Upload a new .zip file for indexing.</p>
 
+  <div id="uppy"></div>
+
+  <script type="module">
+  import { Uppy, Dashboard, AwsS3 } from "https://releases.transloadit.com/uppy/v4.3.0/uppy.min.mjs"
+  function onUploadComplete(result) {
+    console.log(
+      'Upload complete! We’ve uploaded these files:',
+      result.successful,
+    )
+
+  }
+  function onUploadSuccess(file, data) {
+    console.log(
+      'Upload success! We’ve uploaded this file:',
+      file.meta['name'],
+    )
+    $("#upload_info").show("slow");
+  }
+
+  const uppy = new Uppy({
+    restrictions: {
+      maxNumberOfFiles: 1,
+      allowedFileTypes: [".zip"],
+    }
+  })
+    .use(Dashboard, {
+      inline: true,
+      target: '#uppy',
+      height: '10em'
+    })
+    .use(AwsS3, {
+      shouldUseMultipart(file) {
+        return file.size > 5 * 2 ** 20
+      },
+      endpoint: '<%= Dromedary::Services[:relative_url_root]  %>'
+    })
+
+  uppy.on('complete', onUploadComplete)
+  uppy.on('upload-success', onUploadSuccess)
+  </script>
+
+  <div id="upload_info" style="display: none">
+    <p>Indexing takes anywhere from 30-60 minutes.</p>
+
+    <p>You can reload this page to see if the new data are ready to be viewed.</p>
+
+    <p>Indexing will take place in the background. Currently, there's no good way to track its progress;
+      this preview site will just suddenly have the newly-indexed data.</p>
+
+  </div>
 
 </div>
+
+
