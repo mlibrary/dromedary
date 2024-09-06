@@ -74,7 +74,7 @@ class AdminController < ApplicationController
       raise "Collection '#{collection.name}' not deleteable.
       Deletable value is #{collection.deletable}. Deleteables are #{collections.select{|c| c.deletable}}"
     end
-    render js: "window.location = '/admin';"
+    render js: "window.location = '#{admin_path}';"
   end
 
   def check_errors(state = current_state)
@@ -139,7 +139,7 @@ class AdminController < ApplicationController
         state.preview.collection.alias_as(Dromedary::Services[:production_alias])
       end
       state = current_state
-      render js: "window.location = '/admin';"
+      render js: "window.location = '#{admin_path}';"
     else
       render "admin/home", locals: { state: state, errors: errors }
     end

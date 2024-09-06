@@ -5,7 +5,7 @@
   <td><%= c.date.strftime("%c") %></td>
   <% if c.aliases.empty? and c.deletable %>
     <td class="danger">
-      <%= form_with url: "/admin/delete", method: :post do |f| %>
+      <%= form_with url: admin_delete_path, method: :post do |f| %>
         <%= f.hidden_field "collection", value: c.name %>
         <%= f.submit "Delete" %>
       <% end %>
@@ -14,7 +14,7 @@
 
   <% if c.aliases.size == 1 and c.aliases.first.name == "med-preview" %>
     <td>
-      <%= form_with url: "/admin/release", method: :get do |f| %>
+      <%= form_with url: admin_release_path, method: :get do |f| %>
         <%= f.submit "Release" %>
         </td>
       <% end %>

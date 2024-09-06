@@ -26,6 +26,7 @@ services:
       - DATA_ROOT=/mec/data
       - BUILD_ROOT=/mec/data/build
       - ALLOW_ADMIN_ACCESS=1
+      - RAILS_RELATIVE_URL_ROOT=/m/middle-english-dictionary
     env_file:
       - path: .app.env
         required: false
