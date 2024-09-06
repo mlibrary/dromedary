@@ -1,0 +1,20 @@
+<%= extends :static do %>
+
+  <%= replace :head do %>
+    <link href="https://releases.transloadit.com/uppy/v4.3.0/uppy.min.css" rel="stylesheet">
+  <% end %>
+
+  <%= replace :main do %>
+
+    <div class="<%= container_classes %>">
+
+      <div class="row">
+        <%= yield %>
+      </div>
+
+    </div>
+
+
+  <% end %>
+
+<% end %>

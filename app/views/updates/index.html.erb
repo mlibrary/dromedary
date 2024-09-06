@@ -1,0 +1,38 @@
+<h1>Upload Compendium Data</h1>
+<div id="uppy"></div>
+
+<script type="module">
+  import { Uppy, Dashboard, AwsS3 } from "https://releases.transloadit.com/uppy/v4.3.0/uppy.min.mjs"
+  function onUploadComplete(result) {
+    console.log(
+      'Upload complete! We’ve uploaded these files:',
+      result.successful,
+    )
+  }
+  function onUploadSuccess(file, data) {
+    console.log(
+      'Upload success! We’ve uploaded this file:',
+      file.meta['name'],
+    )
+  }
+
+  const uppy = new Uppy({
+    restrictions: {
+      maxNumberOfFiles: 1,
+      allowedFileTypes: [".zip"],
+    }
+  })
+    .use(Dashboard, {
+      inline: true,
+      target: '#uppy'
+    })
+    .use(AwsS3, {
+      shouldUseMultipart(file) {
+        return file.size > 5 * 2 ** 20
+      },
+      endpoint: '<%= root_path %>'
+    })
+
+  uppy.on('complete', onUploadComplete)
+  uppy.on('upload-success', onUploadSuccess)
+</script>

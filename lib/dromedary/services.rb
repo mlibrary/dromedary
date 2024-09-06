@@ -3,6 +3,7 @@
 require "canister"
 require "date"
 require "uri"
+require "shrine/storage/s3"
 
 module Dromedary
   Services = Canister.new
@@ -148,6 +149,46 @@ module Dromedary
     ENV["SOLR_CONF_DIRECTORY"] || (Services[:root_directory] + "solr" + "dromedary" + "conf")
   end
 
+  # Incoming storage configuration; only for when uploader is enabled
+  Services.register(:aws_bucket) { ENV["AWS_BUCKET"] }
+  Services.register(:aws_region) { ENV["AWS_REGION"] }
+  Services.register(:aws_access_key_id) { ENV["AWS_ACCESS_KEY_ID"] }
+  Services.register(:aws_secret_access_key) { ENV["AWS_SECRET_ACCESS_KEY"] }
+  Services.register(:bucket_incoming_prefix) { ENV["BUCKET_INCOMING_PREFIX"] }
+
+  Services.register(:shrine_incoming_storage) do
+    {
+      prefix: Services[:bucket_incoming_prefix],
+      bucket: Services[:aws_bucket],
+      region: Services[:aws_region],
+      access_key_id: Services[:aws_access_key_id],
+      secret_access_key: Services[:aws_secret_access_key]
+    }
+  end
+
+  # FIXME: Come up with something more robust to toggle all of the uploading
+  if Services[:aws_bucket].present?
+    Shrine.storages = {
+      incoming: Shrine::Storage::S3.new(**Services[:shrine_incoming_storage])
+    }
+
+    Shrine.plugin :rack_file
+    Shrine.plugin :presign_endpoint, presign_options: -> (request) {
+      # Uppy will send the "filename" and "type" query parameters
+      filename = request.params["filename"]
+      type     = request.params["type"]
+
+      {
+        content_disposition:    ContentDisposition.inline(filename), # set download filename
+        content_type:           type,                                # set content type (required if using DigitalOcean Spaces)
+        content_length_range:   0..(10*1024*1024),                   # limit upload size to 10 MB
+      }
+    }
+
+    Shrine.plugin :uppy_s3_multipart
+  end
+
+  #######
 
   Services.register(:logger) { ::Rails.logger }
 

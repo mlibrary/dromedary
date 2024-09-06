@@ -9,3 +9,4 @@
 !**/.keep
 .byebug_history
 /solr_logs
+.app.env
