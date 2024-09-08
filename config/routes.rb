@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   # Admin access for uploading new data and changing the alias
 
   if [1, "1", "true"].include? ENV["ALLOW_ADMIN_ACCESS"]
-    match "admin/" => "admin#home", via: [:get, :post]
+    match "admin" => "admin#home", via: [:get, :post]
     get   "admin/release" => "admin#release", via: [:get]
     post  "admin/delete", to: "admin#delete"
     mount Shrine.presign_endpoint(:incoming), at: "/s3/params"
