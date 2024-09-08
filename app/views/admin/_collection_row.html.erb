@@ -12,7 +12,7 @@
     </td>
   <% end %>
 
-  <% if c.aliases.size == 1 and c.aliases.first.name == "med-preview" %>
+  <% if c.aliases.size == 1 and c.aliases.first.name == Dromedary::Services[:preview_alias] %>
     <td>
       <%= form_with url: admin_release_path, method: :get do |f| %>
         <%= f.submit "Release" %>
