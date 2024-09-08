@@ -49,7 +49,7 @@ class AdminController < ApplicationController
                             .sort{|a,b| b.date <=> a.date}
     aliased_collections = collections.count{|c| c.aliased? }
     keep = aliased_collections + 1
-    collections[keep..-1].&each {|c| c.deletable = true}
+    collections[keep..-1] && collections[keep..-1].each {|c| c.deletable = true}
     State.new(connection, preview, production, same, collections)
   end
 
