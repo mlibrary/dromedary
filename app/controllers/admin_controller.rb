@@ -47,9 +47,15 @@ class AdminController < ApplicationController
     collections = connection.only_collections.map{|c| MedSolrCollection.new(c)}
                             .select{|c| c.is_med_collection?}
                             .sort{|a,b| b.date <=> a.date}
-    aliased_collections = collections.count{|c| c.aliased? }
-    keep = aliased_collections + 1
+    num_of_aliased_collections = collections.count{|c| c.aliased? }
+    first_collection_is_empty = (collections.first and collections.first.count == 0)
+
+    # Keep all the aliased ones, plus one more, plus _another_ one if the first collection is empty
+    keep = num_of_aliased_collections + 1
+    keep += 1 if first_collection_is_empty
+
     collections[keep..-1] && collections[keep..-1].each {|c| c.deletable = true}
+
     State.new(connection, preview, production, same, collections)
   end
 
