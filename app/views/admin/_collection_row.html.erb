@@ -1,7 +1,13 @@
 <tr class="<%= c.alias_display %>">
   <td><%= c.alias_display %></td>
   <td><%= c.name %></td>
-  <td><%= c.count %></td>
+  <td>
+    <% if c.count == 0 and i == 0 %>
+      0 [still indexing?]
+    <% else %>
+      <%= c.count %>
+    <% end %>
+  </td>
   <td><%= c.date.strftime("%c") %></td>
   <% if c.aliases.empty? and c.deletable %>
     <td class="danger">

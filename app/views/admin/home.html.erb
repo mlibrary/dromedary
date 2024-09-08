@@ -23,7 +23,7 @@
     </tr>
 
     <% state.collections.each_with_index do |c, i| %>
-      <%= render partial: "collection_row", locals: { c: c} %>
+      <%= render partial: "collection_row", locals: { c: c, i: i} %>
     <% end %>
   </table>
 
