@@ -66,7 +66,7 @@ module Dromedary
                 raise "Need a collection or its name"
               end
       m = /(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})\Z/.match(name)
-      Time.now *m[1..5]
+      Time.new *m[1..5]
     end
   end
 
