@@ -2,15 +2,41 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-table.admin-table {
-  td { font-size: 90%; }
-  th { font-weight: bold; }
-  td.danger input {
-    background-color: #843534;
-    border-bottom-color: #722;}
-  input { padding: 4px; }
-  tr.med-production { color: forestgreen}
-  tr.med-preview { color: #843534}
-  tr.none { color: #888888}
+div.med-admin {
 
+  ul { list-style: disc outside;
+  margin-left: 2em;}
+
+
+  table.admin-table {
+    td {
+      font-size: 90%;
+    }
+
+    th {
+      font-weight: bold;
+    }
+
+    td.danger input {
+      background-color: #843534;
+      border-bottom-color: #722;
+    }
+
+    input {
+      padding: 4px;
+    }
+
+    tr.med-production {
+      color: forestgreen
+    }
+
+    tr.med-preview {
+      color: #843534
+    }
+
+    tr.none {
+      color: #888888
+    }
+
+  }
 }

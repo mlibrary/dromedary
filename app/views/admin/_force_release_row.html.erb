@@ -5,7 +5,7 @@
   <td class="danger">
     <%= form_with url: admin_force_release_path, method: :get do |f| %>
       <%= f.hidden_field "collection", value: c.name %>
-      <%= f.submit "Force Release" %>
+      <%= f.submit "Revert production to use this!" %>
     <% end %>
   </td>
 </tr>

@@ -1,4 +1,4 @@
-<div id="med" class="col-md-9 col-sm-8 col-xs-12 about-middle-col">
+<div id="med" class="col-md-9 col-sm-8 col-xs-12 about-middle-col med-admin">
 
   <h1>Administration: Data upload and push to production</h1>
 
@@ -29,12 +29,8 @@
 
   <% if collections.released? and collections.preview %>
     <h2>Preview and Production currently point to the same data. </h2>
-    <p>If preview data were available to release to production, a button to do so would appear here.</p>
-
-    <p>If you've just started an indexing job by uploading a file, this page won't
-      change until that indexing process is complete. At that point, loading this page
-      will show changes in the summary table above, and you
-      can spot-check this preview site to make sure it's all ok.</p>
+    <p>If new preview data were available to release to production, A "Release" button
+      would appear above.</p>
   <% elsif collections.preview.nil? %>
     <h2>No Preview alias/collection found</h2>
     <p>Maybe nothing has ever been uploaded in this application instance? Uploading and indexing
@@ -104,10 +100,42 @@
   </div>
 
 
-  <h2>Force Release</h2>
+  <h2>Data update process and how to deal with a failed or incorrect data update</h2>
 
-  <p>If something has gone haywire, and you need to go back to a previous index,
-  use a button below to do so. <strong>Nothing will be deleted.</strong></p>
+  <% prea = Dromedary::Services[:preview_alias] %>
+  <% proa  = Dromedary::Services[:production_alias] %>
+
+  <p>Solr allows the use of <em>aliases</em> that reference a "real" collection. We take
+  advantage of that as follows:
+    <ul>
+      <li>The preview site always uses the alias <em><%= prea %></em></li>
+      <li>The production site always uses the alias <em><%= proa %></em></li>
+      <li>Uploading new data creates a brand-new collection and then changes the <em><%= prea %></em>
+      alias to point to that new collection.</li>
+      <li>"Releasing to production" just means changing the <em><%= proa %></em> alias to point
+      at the same data referenced by the <em><%= prea %></em> alias.</li>
+    </ul>
+  </p>
+
+  <p>So, the "happy path" is:
+  <ul>
+    <li>Upload data</li>
+    <li>Check it in Preview</li>
+    <li>Release it to production</li>
+  </ul></p>
+
+  <h3>Case 1: the Preview data looks wrong but you haven't Released it</h3>
+  <p>Simply upload fixed data. The <em><%= prea %></em> alias will be changed to point
+  to the new data, and you can proceed like normal, ignoring the collection with the "bad" data.</p>
+
+  <h3>Case 2: the bad data was Released to production</h3>
+  <p>The MEC keeps old solr data around until we delete it using buttons in the table at the
+  top of this page.</p>
+
+  <p>You can use the table below to "revert" production data to an earlier collection.
+  <em>All this does is change the <em><%= prea %></em> and <em><%= proa %></em> alises to
+  point to whichever older collection you pick. <strong>Nothing will be deleted.</strong></p>
+
 
   <table class="admin-table">
     <tr>
