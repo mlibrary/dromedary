@@ -95,7 +95,7 @@ module Dromedary
   end
 
   Services.register(:build_date_suffix) do
-    Time.current.strftime("%Y%m%d%H%M")
+    Time.now.strftime("%Y%m%d%H%M")
   end
 
   Services.register(:build_directory) do
