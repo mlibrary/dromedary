@@ -1,28 +1,31 @@
 <tr class="<%= c.alias_display %>">
   <td><%= c.alias_display %></td>
   <td><%= c.name %></td>
-  <td>
-    <% if c.count == 0 and i == 0 %>
-      0 [still indexing?]
-    <% else %>
-      <%= c.count %>
-    <% end %>
-  </td>
+  <td><%= c.count %></td>
   <td><%= c.date.strftime("%c") %></td>
-  <% if c.aliases.empty? and c.deletable %>
+  <% if !c.do_not_delete %>
     <td class="danger">
       <%= form_with url: admin_delete_path, method: :post do |f| %>
         <%= f.hidden_field "collection", value: c.name %>
         <%= f.submit "Delete" %>
       <% end %>
     </td>
-  <% end %>
-
-  <% if c.aliases.size == 1 and c.aliases.first.name == Dromedary::Services[:preview_alias] %>
+  <% elsif c.preview? and (not c.production?) %>
     <td>
       <%= form_with url: admin_release_path, method: :get do |f| %>
         <%= f.submit "Release" %>
-        </td>
       <% end %>
-      </tr>
+    </td>
+  <% else %>
+    <td></td>
   <% end %>
+</tr>
+
+<% if c.count == 0 and i == 0 and ((Time.now - c.date) < 3600) %>
+  <tr class="still_indexing">
+    <td class="message" colspan="5">
+      <%= c.name %> may still be indexing. Check again in <%= c.expected_completion_in_minutes %> minutes.
+    </td>
+  </tr>
+<% end %>
+

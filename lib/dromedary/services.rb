@@ -4,6 +4,9 @@ require "canister"
 require "date"
 require "uri"
 require "shrine/storage/s3"
+require "active_support"
+require "active_support/core_ext/time"
+require "solr_cloud/connection"
 
 module Dromedary
   Services = Canister.new
@@ -92,7 +95,7 @@ module Dromedary
   end
 
   Services.register(:build_date_suffix) do
-    Time.now.strftime("%Y%m%d%H%M")
+    Time.current.strftime("%Y%m%d%H%M")
   end
 
   Services.register(:build_directory) do
