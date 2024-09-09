@@ -2,7 +2,7 @@ require "dromedary/services"
 
 class MedSolrCollection < SimpleDelegator
 
-  EXPECTED_INDEXING_TIME_IN_SECONDS = 75 * 60
+  EXPECTED_INDEXING_TIME_IN_MINUTES = 75
   TOO_DARN_LONG_IN_MINUTES = 80
 
   attr_accessor :do_not_delete
@@ -45,7 +45,11 @@ class MedSolrCollection < SimpleDelegator
   end
 
   def expected_completion_time
-    creation_time + EXPECTED_INDEXING_TIME_IN_SECONDS
+    creation_time + EXPECTED_INDEXING_TIME_IN_MINUTES * 60
+  end
+
+  def expected_completion_in_minutes
+    EXPECTED_INDEXING_TIME_IN_MINUTES - age_in_minutes
   end
 
   def failure?

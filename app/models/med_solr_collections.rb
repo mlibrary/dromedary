@@ -51,6 +51,15 @@ class MedSolrCollections
     self.select{|c| c.might_still_be_running?}.first
   end
 
+
+  # We can "force release" anything that isn't one of the following:
+  #   * production (it's already released)
+  #   * preview (it would have a release option already)
+  #   * count == 0 (no data to release)
+  def force_release_candidates
+    self.reject{|c| c.aliased? or c.count == 0}
+  end
+
   # A "keeper" is is preview, production, anything that might still be running,
   # and one more that has data in it
   def set_keepers!

@@ -14,8 +14,8 @@
     <td>
       <%= form_with url: admin_release_path, method: :get do |f| %>
         <%= f.submit "Release" %>
-        </td>
       <% end %>
+    </td>
   <% else %>
     <td></td>
   <% end %>
@@ -24,7 +24,7 @@
 <% if c.count == 0 and i == 0 and ((Time.now - c.date) < 3600) %>
   <tr class="still_indexing">
     <td class="message" colspan="5">
-      <%= c.name %> may still be indexing. Check again in <%= (((c.date + 3600) - Time.now) / 60).to_i %> minutes.
+      <%= c.name %> may still be indexing. Check again in <%= c.expected_completion_in_minutes %> minutes.
     </td>
   </tr>
 <% end %>

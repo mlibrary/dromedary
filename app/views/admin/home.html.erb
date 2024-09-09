@@ -103,6 +103,25 @@
 
   </div>
 
+
+  <h2>Force Release</h2>
+
+  <p>If something has gone haywire, and you need to go back to a previous index,
+  use a button below to do so. <strong>Nothing will be deleted.</strong></p>
+
+  <table class="admin-table">
+    <tr>
+      <th>Collection</th>
+      <th>Docs</th>
+      <th>Created</th>
+      <th>Action</th>
+    </tr>
+
+    <% collections.force_release_candidates.each do |c, i| %>
+      <%= render partial: "force_release_row", locals: { c: c} %>
+    <% end %>
+  </table>
+
 </div>
 
 

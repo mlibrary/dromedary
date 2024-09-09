@@ -62,26 +62,46 @@ class AdminController < ApplicationController
     if collections.released?
       errors << <<~SAME
         SAME DATA. Preview (#{preview_alias_name}) and production (#{production_alias_name}) already both point
-        to the same underlying data, collection #{Dromedary.underlying_real_collection_name(coll: preview)}.
+        to the same underlying data, collection #{collections.preview.name}.
         Exited without doing anything.
       SAME
     end
-
     errors
   end
 
   def release
     errors = check_errors
-    if errors.size == 0
-      if collections.production
-        collections.production.get_alias(Dromedary::Services[:production_alias]).delete!
-      end
-      collections.preview.collection.alias_as(Dromedary::Services[:production_alias])
+    if errors.empty?
+      enact_release(collection: collections.preview)
       render js: "window.location = '#{admin_path}';"
     else
       Rails.logger.warn errors
       render "admin/home", locals: { collections: collections, errors: errors }
     end
+  end
 
+  # When we force a release, also delete the med-preview alias
+  def force_release
+    collection_name = params[:collection]
+    target = collections[collection_name]
+    errors = []
+    if target.nil?
+      errors << "Collection #{collection_name} doensn't exist. Aborting"
+    end
+    if errors.empty?
+      collections.preview && collections.preview.aliases.each{|a| a.delete!}
+      enact_release(collection: target)
+      render js: "window.location = '#{admin_path}';"
+    else
+      Rails.logger.warn errors
+      render "admin/home", locals: { collections: collections, errors: errors }
+    end
+  end
+
+  def enact_release(collection:)
+    if collections.production
+      collections.production.get_alias(Dromedary::Services[:production_alias]).delete!
+    end
+    collection.alias_as(Dromedary::Services[:production_alias])
   end
 end
