@@ -22,12 +22,12 @@
       <th>Action</th>
     </tr>
 
-    <% state.collections.each_with_index do |c, i| %>
+    <% collections.each_with_index do |c, i| %>
       <%= render partial: "collection_row", locals: { c: c, i: i} %>
     <% end %>
   </table>
 
-  <% if state.same %>
+  <% if collections.released? and collections.preview %>
     <h2>Preview and Production currently point to the same data. </h2>
     <p>If preview data were available to release to production, a button to do so would appear here.</p>
 
@@ -35,7 +35,7 @@
       change until that indexing process is complete. At that point, loading this page
       will show changes in the summary table above, and you
       can spot-check this preview site to make sure it's all ok.</p>
-  <% elsif state.preview.nil? %>
+  <% elsif collections.preview.nil? %>
     <h2>No Preview alias/collection found</h2>
     <p>Maybe nothing has ever been uploaded in this application instance? Uploading and indexing
       a new file will address this issue.</p>
@@ -92,12 +92,14 @@
   </script>
 
   <div id="upload_info" style="display: none">
-    <p>Indexing takes anywhere from 30-60 minutes.</p>
+    <p>Indexing generally takes between 60 and 70 minutes.</p>
 
-    <p>You can reload this page to see if the new data are ready to be viewed.</p>
+    <p>You can check back at this page to see if the new data are ready to be viewed.
+    Reload it at after about <%= (Time.now + 70*60).strftime("%I:%M %P") %> to see if it's done.</p>
 
     <p>Indexing will take place in the background. Currently, there's no good way to track its progress;
-      this preview site will just suddenly have the newly-indexed data.</p>
+      this admin page will show the "release" button when it's ready, and this
+      overall preview site will be using the newly-indexed data.</p>
 
   </div>
 

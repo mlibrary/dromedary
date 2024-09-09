@@ -29,8 +29,8 @@ $LOAD_PATH.unshift (Pathname(__dir__).parent + 'indexer').to_s
 
 require 'hanami/cli'
 require "dromedary/services"
-require "med_installer/indexing_steps"
 
-indexer = MedInstaller::IndexingSteps.new(zipfile: "/mec/data/A.zip")
-indexer.connection.collections.each {|c| c.delete! if c.name =~ /\Amed-preview/}
-indexer.connection.configsets.each {|c| c.delete! if c.name =~ /\Amed-preview/}
+conn = Dromedary::Services[:solr_connection]
+conn.aliases.each{|a| a.delete!}
+conn.collections.each{|x| x.delete!}
+conn.configsets.each{|x| x.delete!}
