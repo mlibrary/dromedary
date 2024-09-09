@@ -80,16 +80,17 @@ class AdminController < ApplicationController
     end
   end
 
-  # When we force a release, also delete the med-preview alias
+  # When we force a release, also force med-preview to the same collections
   def force_release
     collection_name = params[:collection]
     target = collections[collection_name]
     errors = []
     if target.nil?
-      errors << "Collection #{collection_name} doensn't exist. Aborting"
+      errors << "Collection #{collection_name} doesn't exist. Aborting"
     end
     if errors.empty?
       collections.preview && collections.preview.aliases.each{|a| a.delete!}
+      target.alias_as(Dromedary::Services[:preview_alias])
       enact_release(collection: target)
       render js: "window.location = '#{admin_path}';"
     else
