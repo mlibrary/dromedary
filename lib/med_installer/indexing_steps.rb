@@ -73,6 +73,13 @@ module MedInstaller
       logger.info "Cleaning up"
       @build_dir.rmtree
 
+      # The suggesters aren't building on all the solr-operator nodes and we can't figure out why.
+      # So, set up for buildOnOptimize in solrconfig and call an optimize here.
+      # Again, just throwing hope at the wind here.
+
+      @build_collection.get("solr/#{@build_collection.name}/update?optimize=true")
+
+
       logger.info "Point #{Services[:preview_alias]} at the new #{@build_collection.name} collection "
       @build_collection.alias_as(Services[:preview_alias], force: true)
     end
@@ -162,11 +169,6 @@ module MedInstaller
       logger.info "Recreating suggest indexes"
       logger.info "  Start with a hard commit"
       @build_collection.commit(hard: true)
-
-      logger.info "Sleep 10 seconds to allow all replicas to get up to speed."
-      logger.info "   ...no, I don't know for sure that the 'sleep' is helping, but some replicas"
-      logger.info "      seem to not get the index built."
-      sleep 10
 
       autocomplete_filename = Services[:root_directory] + "config" + "autocomplete.yml"
       autocomplete_map = YAML.safe_load(ERB.new(File.read(autocomplete_filename)).result, aliases: true)[rails_env]
