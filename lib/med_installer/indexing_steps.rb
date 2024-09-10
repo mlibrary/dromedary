@@ -163,6 +163,11 @@ module MedInstaller
       logger.info "  Start with a hard commit"
       @build_collection.commit(hard: true)
 
+      logger.info "Sleep 10 seconds to allow all replicas to get up to speed."
+      logger.info "   ...no, I don't know for sure that the 'sleep' is helping, but some replicas"
+      logger.info "      seem to not get the index built."
+      sleep 10
+
       autocomplete_filename = Services[:root_directory] + "config" + "autocomplete.yml"
       autocomplete_map = YAML.safe_load(ERB.new(File.read(autocomplete_filename)).result, aliases: true)[rails_env]
       autocomplete_map.keys.each do |key|
