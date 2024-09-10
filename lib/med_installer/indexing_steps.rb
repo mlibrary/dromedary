@@ -67,9 +67,8 @@ module MedInstaller
       logger.info "Going to index targeting #{collection_url}"
       index_entries(solr_url: collection_url)
       index_bibs(solr_url: collection_url)
-      @build_collection.commit
       rebuild_suggesters
-      @build_collection.commit
+      @build_collection.commit(hard: true)
 
       logger.info "Cleaning up"
       @build_dir.rmtree
@@ -161,12 +160,21 @@ module MedInstaller
     # @param rails_env [String] "production" or "development"
     def rebuild_suggesters(rails_env: (ENV["RAILS_ENV"] || "production"))
       logger.info "Recreating suggest indexes"
+      logger.info "  Start with a hard commit"
+      @build_collection.commit(hard: true)
+
+      logger.info "Sleep 10 seconds to allow all replicas to get up to speed."
+      logger.info "   ...no, I don't know for sure that the 'sleep' is helping, but some replicas"
+      logger.info "      seem to not get the index built."
+      sleep 10
+
       autocomplete_filename = Services[:root_directory] + "config" + "autocomplete.yml"
       autocomplete_map = YAML.safe_load(ERB.new(File.read(autocomplete_filename)).result, aliases: true)[rails_env]
       autocomplete_map.keys.each do |key|
         suggester_path = autocomplete_map[key]["solr_endpoint"]
         logger.info "   Recreate suggester for #{suggester_path}"
         resp = @build_collection.get "solr/#{@build_collection.name}/#{suggester_path}", { "suggest.build" => "true" }
+        @build_collection.commit(hard: true)
       end
     end
 
