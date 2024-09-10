@@ -517,4 +517,17 @@
     </arr>
   </requestHandler>
 
+
+  <updateHandler class="solr.DirectUpdateHandler2">
+
+    <updateLog>
+      <str name="dir">${solr.ulog.dir:}</str>
+    </updateLog>
+
+    <autoCommit>
+      <maxTime>15000</maxTime>
+      <openSearcher>false</openSearcher>
+    </autoCommit>
+
+  </updateHandler>
 </config>
