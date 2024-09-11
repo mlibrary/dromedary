@@ -8,8 +8,7 @@
 </lst>
 </searchComponent>
 
-<requestHandler name="/doe_suggester" class="solr.SearchHandler"
-                startup="lazy">
+<requestHandler name="/doe_suggester" class="solr.SearchHandler">
 <lst name="defaults">
   <str name="suggest">true</str>
   <str name="suggest.count">15</str>

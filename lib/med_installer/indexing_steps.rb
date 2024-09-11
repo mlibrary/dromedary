@@ -68,17 +68,9 @@ module MedInstaller
       index_entries(solr_url: collection_url)
       index_bibs(solr_url: collection_url)
       rebuild_suggesters
-      @build_collection.commit(hard: true)
 
       logger.info "Cleaning up"
       @build_dir.rmtree
-
-      # The suggesters aren't building on all the solr-operator nodes and we can't figure out why.
-      # So, set up for buildOnOptimize in solrconfig and call an optimize here.
-      # Again, just throwing hope at the wind here.
-
-      @build_collection.get("solr/#{@build_collection.name}/update?optimize=true")
-
 
       logger.info "Point #{Services[:preview_alias]} at the new #{@build_collection.name} collection "
       @build_collection.alias_as(Services[:preview_alias], force: true)
@@ -176,7 +168,6 @@ module MedInstaller
         suggester_path = autocomplete_map[key]["solr_endpoint"]
         logger.info "   Recreate suggester for #{suggester_path}"
         resp = @build_collection.get "solr/#{@build_collection.name}/#{suggester_path}", { "suggest.build" => "true" }
-        @build_collection.commit(hard: true)
       end
     end
 
