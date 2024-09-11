@@ -86,10 +86,16 @@ module MedInstaller
       #
       # SO...now we're going back one level of software malpractice
       #   * Set `buildOnStartup=true` for if a node disappears somewhere along the line
-      #   * Wait until we're sure a soft commit has happened.
-      #
-      #
+      #   * Set `buildOnCommit=true` and decide to not care that it's gonna happen a zillion
+      #     times when it doesn't need to
+      #   * Note that the autocommit it set for 15000ms (15 seconds) and sleep that long
+      #   * Send a hard commit
+      #   * Ignore all the lovely code in `rebuild_suggesters` and feel sad.
+
       # rebuild_suggesters
+
+      sleep 16
+      @build_collection.commit(hard: true)
 
       logger.info "Cleaning up"
       @build_dir.rmtree
