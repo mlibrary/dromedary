@@ -2,6 +2,6 @@
 <str name="exactMatchFirst">true</str>
 <str name="minPrefixChars">2</str>
 <str name="dictionaryImpl">DocumentDictionaryFactory</str>
-<str name="buildOnCommit">true</str>
+<str name="buildOnCommit">false</str>
 <str name="buildOnOptimize">false</str>
 <str name="buildOnStartup">true</str>

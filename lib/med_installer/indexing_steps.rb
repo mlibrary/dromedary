@@ -169,6 +169,8 @@ module MedInstaller
         logger.info "   Recreate suggester for #{suggester_path}"
         resp = @build_collection.get "solr/#{@build_collection.name}/#{suggester_path}", { "suggest.build" => "true" }
       end
+      logger.info "   ...and finish with another hard commit"
+      @build_collection.commit(hard: true)
     end
 
     # Send the new hyp_to_bibid.json file to the currently defined build_collection
