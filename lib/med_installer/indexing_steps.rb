@@ -55,7 +55,7 @@ module MedInstaller
         a.delete! unless [Dromedary::Services[:production_alias], Dromedary::Services[:preview_alias]].include? a.name
       end
 
-      create_solr_documents
+      create_unified_documents
 
       # TODO: SolrCloud::Collection should have a `#url` method, for god's sake
       collection_url = @build_collection.connection.url.chomp("/") + "/solr/#{@build_collection.name}"
@@ -95,6 +95,8 @@ module MedInstaller
       @build_dir.rmtree
 
       logger.info "Point #{Services[:preview_alias]} at the new #{@build_collection.name} collection "
+      preview_alias = connection.get_alias(Dromedary::Services[:preview_alias])
+      preview_alias && preview_alias.delete!
       @build_collection.alias_as(Services[:preview_alias], force: true)
     end
 
@@ -125,7 +127,7 @@ module MedInstaller
     # This:
     #   * creates entries.json.gz in the build_directory (build in tmp, then copied)
     #   * creates the hyp_to_bibid.json file in the build directory, based on the bib_all.xml file
-    def create_solr_documents(build_directory: build_dir)
+    def create_unified_documents(build_directory: build_dir)
       MedInstaller::Convert.new(command_name: "convert").call(build_directory: build_directory)
     end
 
@@ -191,6 +193,8 @@ module MedInstaller
         logger.info "   Recreate suggester for #{suggester_path}"
         resp = @build_collection.get "solr/#{@build_collection.name}/#{suggester_path}", { "suggest.build" => "true" }
       end
+      logger.info "   ...and finish with another hard commit"
+      @build_collection.commit(hard: true)
     end
 
     # Send the new hyp_to_bibid.json file to the currently defined build_collection
