@@ -10,8 +10,7 @@
   </lst>
 </searchComponent>
 
-<requestHandler name="/headword_only_suggester" class="solr.SearchHandler"
-                startup="lazy">
+<requestHandler name="/headword_only_suggester" class="solr.SearchHandler">
 <lst name="defaults">
   <str name="suggest">true</str>
   <str name="suggest.count">15</str>

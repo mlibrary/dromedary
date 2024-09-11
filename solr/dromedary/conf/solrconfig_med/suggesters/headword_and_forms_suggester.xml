@@ -11,8 +11,7 @@
 </searchComponent>
 
 <requestHandler name="/headword_and_forms_suggester"
-                class="solr.SearchHandler"
-                startup="lazy">
+                class="solr.SearchHandler">
 <lst name="defaults">
   <str name="suggest">true</str>
   <str name="suggest.count">15</str>
