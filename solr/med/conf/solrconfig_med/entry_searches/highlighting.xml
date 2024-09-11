@@ -1,8 +1,0 @@
-<!--Highlighting mostly won't work because we're stuck displaying stuff based-->
-<!--on the raw XML, so solr-level highlighting will get double-escaped or-->
-<!--whatnot. Still potentially useful for autocomplete-->
-
-<str name="hl">true</str>
-<str name="hl.fl">headword,orth</str>
-<str name="hl.method">unified</str>
-<str name="hl.fragsize">0</str> <!-- use the whole field -->
