@@ -67,7 +67,35 @@ module MedInstaller
       logger.info "Going to index targeting #{collection_url}"
       index_entries(solr_url: collection_url)
       index_bibs(solr_url: collection_url)
-      rebuild_suggesters
+
+
+      # Normally, we would rebuild the suggesters here. Testing has shown that the command either
+      # doesn't propagate to, or doesn't execute on, all the replicas. After a wild variety of
+      # attempts to force things along:
+      #   * hard commits
+      #   * hard optimize with `buildOnOptimize = true`
+      #   * sprinkling `sleep` statements around
+      #
+      # ...we've given up and are just using `buildOnCommit`. The documentation discourages this,
+      # since it's building on every soft commit, but it's the only thing that seems to work.
+      #
+      # Thus 'rebuild the suggesters' is reduced to "make sure a commit has happened."
+      # An early attempt to just throw in a hard commit (with `buildOnCommit=true` set) in the middle
+      # of the night gave a 60-second timeout error, because who the hell knows what's going on
+      # inside the solr operator and/or our particular setup.
+      #
+      # SO...now we're going back one level of software malpractice
+      #   * Set `buildOnStartup=true` for if a node disappears somewhere along the line
+      #   * Set `buildOnCommit=true` and decide to not care that it's gonna happen a zillion
+      #     times when it doesn't need to
+      #   * Note that the autocommit it set for 15000ms (15 seconds) and sleep that long
+      #   * Send a hard commit
+      #   * Ignore all the lovely code in `rebuild_suggesters` and feel sad.
+
+      # rebuild_suggesters
+
+      sleep 16
+      @build_collection.commit(hard: true)
 
       logger.info "Cleaning up"
       @build_dir.rmtree
