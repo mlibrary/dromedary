@@ -424,15 +424,14 @@
 
   <!-- The default high-performance update handler -->
   <updateHandler class="solr.DirectUpdateHandler2">
-    <!--<updateLog>-->
-    <!--<str name="dir">${solr.ulog.dir:}</str>-->
-    <!--<int name="numVersionBuckets">${solr.ulog.numVersionBuckets:65536}-->
-    <!--</int>-->
-    <!--</updateLog>-->
+
+    <updateLog>
+      <str name="dir">${solr.ulog.dir:}</str>
+    </updateLog>
 
     <autoCommit>
       <maxTime>15000</maxTime>
-      <openSearcher>false</openSearcher>
+      <openSearcher>true</openSearcher>
     </autoCommit>
 
   </updateHandler>
@@ -518,16 +517,5 @@
   </requestHandler>
 
 
-  <updateHandler class="solr.DirectUpdateHandler2">
 
-    <updateLog>
-      <str name="dir">${solr.ulog.dir:}</str>
-    </updateLog>
-
-    <autoCommit>
-      <maxTime>15000</maxTime>
-      <openSearcher>false</openSearcher>
-    </autoCommit>
-
-  </updateHandler>
 </config>
