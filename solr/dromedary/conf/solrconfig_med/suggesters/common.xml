@@ -1,6 +1,8 @@
 <str name="lookupImpl">FSTLookupFactory</str>
 <str name="exactMatchFirst">true</str>
-<str name="buildOnStartup">false</str>
 <str name="minPrefixChars">2</str>
 <str name="dictionaryImpl">DocumentDictionaryFactory</str>
+
+<str name="buildOnOptimize">false</str>
 <str name="buildOnCommit">false</str>
+<str name="buildOnStartup">true</str>
