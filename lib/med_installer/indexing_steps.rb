@@ -23,7 +23,6 @@ module MedInstaller
   # * Index the bibliographic entries (from bib_all.xml)
   # * Hard commit
   # * Rebuild the solr suggesters
-  # * Optimize
   # This class is basically piggy-backing on the work done for the `bin/dromedary` CLI,
   # but with less redirection and more stuff pulled from the Services object
   class IndexingSteps
@@ -39,7 +38,7 @@ module MedInstaller
       @xml_dir = @build_dir + "xml"
       @connection = connection
       @zipfile = zipfile
-      @coll_and_configset_name = Services.name_of_solr_collection_to_index_into
+      @coll_and_configset_name = Services[:name_of_solr_collection_to_index_into]
 
     end
 
@@ -55,7 +54,7 @@ module MedInstaller
         a.delete! unless [Dromedary::Services[:production_alias], Dromedary::Services[:preview_alias]].include? a.name
       end
 
-      create_solr_documents
+      create_unified_documents
 
       # TODO: SolrCloud::Collection should have a `#url` method, for god's sake
       collection_url = @build_collection.connection.url.chomp("/") + "/solr/#{@build_collection.name}"
@@ -64,7 +63,7 @@ module MedInstaller
       upload_hyp_to_bibid_to_solr
       @build_collection.commit
 
-      logger.info "Going to index targeting #{collection_url}"
+      logger.info "Starting to index, targeting #{collection_url}"
       index_entries(solr_url: collection_url)
       index_bibs(solr_url: collection_url)
       @build_collection.commit
@@ -105,7 +104,7 @@ module MedInstaller
     # This:
     #   * creates entries.json.gz in the build_directory (build in tmp, then copied)
     #   * creates the hyp_to_bibid.json file in the build directory, based on the bib_all.xml file
-    def create_solr_documents(build_directory: build_dir)
+    def create_unified_documents(build_directory: build_dir)
       MedInstaller::Convert.new(command_name: "convert").call(build_directory: build_directory)
     end
 
