@@ -44,6 +44,19 @@ module MedInstaller
     end
 
     def index
+
+      # Do some basic checks against the solr
+
+      url = Dromedary::Services[:solr_url]
+      connection_url = @connection.url
+      logger.info "Trying to connect to #{Dromedary::Services[:solr_url]}"
+      logger.info "Connection thinks its url is #{@connection.url}"
+      logger.info "Trying to use curl -I to hit #{connection_url}:"
+      curl_output = `curl -I #{connection_url}`
+      logger.info "Curl output: #{curl_output}"
+      require "yaml"
+      logger.info "System: #{@connection.system.to_yaml}\n\n"
+
       prepare_build_directory
       extract_zip_to_build_directory
       verify_unzipped_files!
