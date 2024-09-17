@@ -8,6 +8,7 @@ require "med_installer/convert"
 require "med_installer/hyp_to_bibid"
 require "solr_cloud/connection"
 require "traject"
+require "yaml"
 
 module MedInstaller
   # Run a complete indexing workflow, including
@@ -40,10 +41,45 @@ module MedInstaller
       @connection = connection
       @zipfile = zipfile
       @coll_and_configset_name = Services[:name_of_solr_collection_to_index_into]
-
     end
 
     def index
+
+      # Do some basic checks against the solr
+
+      url = Dromedary::Services[:solr_url]
+      connection_url = @connection.url
+      logger.info "Trying to connect to #{Dromedary::Services[:solr_url]}"
+      logger.info "Connection thinks its url is #{@connection.url}"
+      logger.debug "System: #{@connection.system.to_yaml}\n\n"
+
+      # We were dealing with some instabilities in the k8s cluster in 2024.09 when we wanted
+      # to release this, resulting nodes loosing track of zookeeper and suggesters not getting
+      # built (calls would time out). Attempt to brute-force this by hitting the individual
+      # solr URLs directly, taking advantage of knowledge about how many replicas and what
+      # they're called that we'd really rather not have to know.
+      #
+      # If things are working as planned, we can just make the single call to
+      # `rebuild_suggesters` and accept the default connection and call it a day.
+      #
+      # To run in once for each configured solr replica, we need the following:
+      # * ENV[DIRECT_URLS_TO_SOLR_REPLICAS]: A space-delimited set of urls of the form
+      #   "http://solr-solrcloud-1:8083" or whatever. This is the same format as the
+      #   generic (cluster-level) connection string found in ENV[SOLR_URL]
+      # * A non-falsey value for ENV[MANUALLY_BUILD_SUGGESTERS] to enable it.
+      # @dueberb 2024.09.17
+
+      logger.info "Checking to see if we should try to build suggesters on each solr replica individually"
+      direct_urls_string = Services[:direct_urls_to_solr_replicas]
+      if direct_replica_urls and Services[:manually_build_suggesters]
+        logger.info "Will target #{direct_replica_urls.count} replicas for 'manual' builds of suggester index:"
+        direct_replica_urls.each do |u|
+          logger.info "- '#{u}'"
+        end
+      else
+        logger.info "Nope. Will just target the single logical solr url"
+      end
+
       prepare_build_directory
       extract_zip_to_build_directory
       verify_unzipped_files!
@@ -69,7 +105,26 @@ module MedInstaller
       index_bibs(solr_url: collection_url)
 
       @build_collection.commit
-      rebuild_suggesters
+
+      if direct_replica_urls and Services[:manually_build_suggesters]
+        urls = direct_replica_urls
+        pause_time = (ENV["PAUSE_TIME"] || 60).to_i
+        half_pause_time = pause_time / 2
+        logger.info "Sleeping for #{pause_time} seconds so things can crash and restart if that's what they're doing."
+        sleep half_pause_time # Let whatever restarts are going to happen, happen.
+        logger.info "...#{half_pause_time}"
+        sleep (pause_time - half_pause_time)
+        logger.info "...#{pause_time}"
+        urls.each do |direct_url|
+          logger.info "Rebuild suggesters at '#{direct_url}'"
+          conn = SolrCloud::Connection.new(url: direct_url, user: @connection.user, password: @connection.password)
+          rebuild_suggesters(connection: conn)
+        end
+      else
+        logger.info "Rebuilding suggesters against just the default #{@connection}"
+        rebuild_suggesters # This is the "happy path" if the k8s cluster is behaving
+      end
+
       @build_collection.commit
 
       logger.info "Cleaning up: remove temporary files"
@@ -160,14 +215,20 @@ module MedInstaller
 
     # Rebuild the suggesters that provide autocomplete/typeahead functionality for @build_collection
     # @param rails_env [String] "production" or "development"
-    def rebuild_suggesters(rails_env: (ENV["RAILS_ENV"] || "production"))
-      logger.info "Recreating suggest indexes"
+    def rebuild_suggesters(rails_env: (ENV["RAILS_ENV"] || "production"),
+                           collection_name: @build_collection.name,
+                           connection: @connection)
+      logger.info "Recreating suggest indexes for #{collection_name}"
       autocomplete_filename = Services[:root_directory] + "config" + "autocomplete.yml"
       autocomplete_map = YAML.safe_load(ERB.new(File.read(autocomplete_filename)).result, aliases: true)[rails_env]
-      autocomplete_map.keys.each do |key|
-        suggester_path = autocomplete_map[key]["solr_endpoint"]
-        logger.info "   Recreate suggester for #{suggester_path}"
-        resp = @build_collection.get "solr/#{@build_collection.name}/#{suggester_path}", { "suggest.build" => "true" }
+      autocomplete_map.keys.each do |suggester_name|
+        suggester_path = autocomplete_map[suggester_name]["solr_endpoint"]
+        logger.info "   Recreate suggester for #{suggester_name} in #{collection_name} at #{connection.url}"
+        begin
+          resp = connection.get "solr/#{collection_name}/#{suggester_path}", { "suggest.build" => "true" }
+        rescue => e
+          raise "Error trying to build suggester : #{e.message}"
+        end
       end
     end
 
@@ -176,6 +237,13 @@ module MedInstaller
       filepath = Pathname.new(@build_dir) + "hyp_to_bibid.json"
       MedInstaller::HypToBibId.dump_file_to_solr(collection: @build_collection, filename: filepath.to_s)
     end
+
+    # Parse out URLS
+    def direct_replica_urls
+      return nil unless Services[:direct_urls_to_solr_replicas] && (Services[:direct_urls_to_solr_replicas] =~ /\S/)
+      Services[:direct_urls_to_solr_replicas].split(/\s+/).map{|x| x.strip}.reject{|x| x == "" or x.nil?}
+    end
+
   end
 end
 

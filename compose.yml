@@ -28,6 +28,9 @@ services:
       - ALLOW_ADMIN_ACCESS=1
       - RAILS_RELATIVE_URL_ROOT=/m/middle-english-dictionary
       - TZ=America/New_York
+      - "DIRECT_URLS_TO_SOLR_REPLICAS=http://solr:8983 http://solr:8983"
+      - MANUALLY_BUILD_SUGGESTERS=true
+      - PAUSE_TIME=10
     env_file:
       - path: .app.env
         required: false
@@ -53,7 +56,7 @@ services:
   solr:
     build: solr/.
     ports:
-      - "9090:8983"
+      - "9172:8983"
     environment:
       - ZK_HOST=zoo:2181
     depends_on:
