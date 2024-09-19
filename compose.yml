@@ -29,7 +29,7 @@ services:
       - RAILS_RELATIVE_URL_ROOT=/m/middle-english-dictionary
       - TZ=America/New_York
       - "DIRECT_URLS_TO_SOLR_REPLICAS=http://solr:8983 http://solr:8983"
-      - MANUALLY_BUILD_SUGGESTERS=true
+      - MANUALLY_BUILD_SUGGESTERS=false
       - PAUSE_TIME=10
     env_file:
       - path: .app.env
