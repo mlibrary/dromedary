@@ -14,7 +14,7 @@ gem "middle_english_dictionary", git: "https://github.com/mlibrary/middle_englis
 gem "pg"
 gem "date_named_file"
 gem "zinzout"
-gem "solr_cloud-connection"
+gem "solr_cloud-connection", ">=0.6.0"
 
 gem "shrine", "~> 3.6"
 gem "aws-sdk-s3", "~> 1.160"

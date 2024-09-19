@@ -88,6 +88,19 @@ module Dromedary
 
   ################ Reindexing stuff ################
 
+  # For "manually" build suggesters using direct links to cluster replicas, because
+  # the cluster was losing nodes and the suggester indexes weren't getting build.
+
+  Services.register(:direct_urls_to_solr_replicas) do
+    ENV["DIRECT_URLS_TO_SOLR_REPLICAS"] or nil
+  end
+
+  Services.register(:manually_build_suggesters) do
+    val = ENV["MANUALLY_BUILD_SUGGESTERS"]
+    val =~ /\S/ and !(["false", 0, "0"].include? val.downcase)
+  end
+
+
   Services.register(:build_root) do
     br = Pathname.new(ENV["BUILD_ROOT"])
     br.mkpath
