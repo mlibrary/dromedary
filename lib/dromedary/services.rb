@@ -17,8 +17,12 @@ module Dromedary
     tmpdir
   end
 
-  # The "live data dir" is no longer used for anything but holding onto the
-  # maintenance mode flag.
+  # Rack is suppsed to handle X-Forwarded-Host but seems to not do so. So, when we're
+  # running with the proxy handlers and don't explicitly set the path, it borks.
+
+  Services.register(:rails_url_host) { ENV["RAILS_URL_HOST"] || nil }
+
+
 
   #### NAMING ####
 

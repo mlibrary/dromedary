@@ -9,6 +9,13 @@ require "dromedary/services"
 Rails.application.routes.default_url_options ||= {}
 Rails.application.routes.default_url_options[:script_name] = Dromedary::Services[:relative_url_root].chomp("/") + "/"
 
+# Have to add when using X-Forwarded-Host and a relative URL. It's a hack.
+
+
+if Dromedary::Services[:rails_url_host]
+  Rails.application.routes.default_url_options[:host] = Dromedary::Services[:rails_url_host]
+end
+
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
