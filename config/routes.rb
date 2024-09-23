@@ -14,6 +14,7 @@ Rails.application.routes.default_url_options[:script_name] = Dromedary::Services
 
 if Dromedary::Services[:rails_url_host]
   Rails.application.routes.default_url_options[:host] = Dromedary::Services[:rails_url_host]
+  Rails.application.routes.default_url_options[:protocol] = Dromedary::Services[:rails_url_protocol]
 end
 
 Rails.application.routes.draw do
