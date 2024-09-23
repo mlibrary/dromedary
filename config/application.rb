@@ -23,6 +23,10 @@ Bundler.require(*Rails.groups)
 module Dromedary
   class Application < Rails::Application
 
+    # CORS with rails running not-at-the-root turns out to be mostly broken.
+    # So we do this, which stinks.
+    config.action_controller.forgery_protection_origin_check = false
+
     config.time_zone = 'Eastern Time (US & Canada)'
 
     # Initialize configuration defaults for originally generated Rails version.
