@@ -21,7 +21,7 @@ module Dromedary
   # running with the proxy handlers and don't explicitly set the path, it borks.
 
   Services.register(:rails_url_host) { ENV["RAILS_URL_HOST"] || nil }
-  Services.register(:rails_url_protocol) { ENV["RAILS_URL_PROTOCOL"] || nil } }
+  Services.register(:rails_url_protocol) { ENV["RAILS_URL_PROTOCOL"] || nil }
 
 
   #### NAMING ####
