@@ -13,6 +13,8 @@ S.register(:underlying_collection_name) {Concurrent::Atom.new(:no_underlying_nam
 def update_timeout_variables
   Rails.logger.warn "################# CHECK FOR UPDATE ########################"
   collection = S[:solr_current_collection]
+  # Bail if there's no current collection
+  return unless collection
   actual_current_underlying_collection_name = collection.collection.name
   expected_underlying_collection_name = S[:underlying_collection_name].value
   if actual_current_underlying_collection_name != expected_underlying_collection_name
