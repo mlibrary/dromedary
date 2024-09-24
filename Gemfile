@@ -21,6 +21,8 @@ gem "aws-sdk-s3", "~> 1.160"
 gem "content_disposition", "~> 1.0"
 gem "uppy-s3_multipart", "~> 1.2"
 
+gem "concurrent-ruby"
+
 # CORS
 gem 'rack-cors'
 

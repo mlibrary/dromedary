@@ -39,7 +39,7 @@
       Data last refreshed <%= if Dromedary::Services[:looks_like_first_upload]
                                 "never"
                               else
-                                Dromedary.collection_creation_date.strftime("%A, %B %-e, %Y")
+                                Dromedary.collection_creation_date_string
                               end
     %>.
     </p>
