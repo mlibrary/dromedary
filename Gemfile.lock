@@ -453,6 +453,7 @@ DEPENDENCIES
   bundler (~> 2.4.22)
   canister
   coffee-rails (~> 4.2)
+  concurrent-ruby
   content_disposition (~> 1.0)
   date_named_file
   debase
