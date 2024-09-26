@@ -2,6 +2,7 @@ require_relative "boot"
 require "rails/all"
 require "json"
 require_relative "../lib/dromedary/services"
+require_relative "../lib/dromedary/abbreviated_json_format"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -44,24 +45,14 @@ module Dromedary
     config.blacklight_url = Dromedary::Services[:solr_embedded_auth_url]
 
     config.log_level = :info
+    config.rails_semantic_logger.add_file_appender = false
+    config.semantic_logger.backtrace_level = :error
+    config.log_tags = {
+      ip: :remote_ip
+    }
 
-    config.lograge.enabled = false
-
-    # add time to lograge
-    config.lograge.custom_options = lambda do |event|
-      {time: event.time}
-    end
-
-    config.lograge.custom_payload do |controller|
-      {
-        host: controller.request.host,
-        ip: controller.request.ip,
-        query: controller.request.query_parameters
-      }
-    end
-
-    config.lograge.formatter = Lograge::Formatters::Json.new
-    config.active_job.queue_adapter = :sidekiq
+    config.rails_semantic_logger.format = Dromedary::AbbreviatedJsonFormat.new
+    config.semantic_logger.add_appender(io: $stdout)
 
     config.active_record.yaml_column_permitted_classes = [ActiveSupport::HashWithIndifferentAccess]
 

@@ -112,8 +112,9 @@ gem "traject", require: false # only for indexing
 # Semantic logging?
 gem "awesome_print"
 gem "semantic_logger"
+gem "rails_semantic_logger"
 
-gem "lograge", ">=0.11.1"
+# gem "lograge", ">=0.11.1"
 
 # Contacts Email
 gem "mail_form", "~>1.7"
