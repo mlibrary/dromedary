@@ -23,7 +23,6 @@ docker compose up -d
 
 ### Test access to the application and solr
 
-
 * **Error page**: http://localhost:3000/. Don't let that confuse you.
 * **Splash page**: http://localhost:3000/m/middle-english-dictionary.
 * **Solr admin**:
@@ -34,11 +33,23 @@ docker compose up -d
 **NOTE** At this point you can't do any searches, because there's no data in the
 solr yet.
 
+
 ### Indexing a file locally
 
-The local 
+NOTE: You can't index a file locally through the administration interface -- that's 
+hooked directly to an AWS bucket, and won't affect your local install at all
+(it'll replace the `preview` solr data).
 
+* Make sure  
 
+```shell
+docker compose run app -- bin/index_new_file.rb <path>/<to file>.zip
+```
+
+Give it however long it takes (a couple minutes for a minimal file,
+and around an hour for a full file). 
+
+You'll know it's done when the 
 
 
 # OLD STUFF 
