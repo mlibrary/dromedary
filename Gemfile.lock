@@ -191,11 +191,6 @@ GEM
     llhttp-ffi (0.4.0)
       ffi-compiler (~> 1.0)
       rake (~> 13.0)
-    lograge (0.12.0)
-      actionpack (>= 4)
-      activesupport (>= 4)
-      railties (>= 4)
-      request_store (~> 1.0)
     loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -274,6 +269,10 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.5.0)
       loofah (~> 2.19, >= 2.19.1)
+    rails_semantic_logger (4.17.0)
+      rack
+      railties (>= 5.1)
+      semantic_logger (~> 4.16)
     railties (5.2.8.1)
       actionpack (= 5.2.8.1)
       activesupport (= 5.2.8.1)
@@ -291,8 +290,6 @@ GEM
       declarative (< 0.1.0)
       trailblazer-option (>= 0.1.1, < 0.2.0)
       uber (< 0.2.0)
-    request_store (1.5.1)
-      rack (>= 1.4)
     rexml (3.2.5)
     roda (3.83.0)
       rack
@@ -355,7 +352,7 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    semantic_logger (4.12.0)
+    semantic_logger (4.16.1)
       concurrent-ruby (~> 1.0)
     shrine (3.6.0)
       content_disposition (~> 1.0)
@@ -464,7 +461,6 @@ DEPENDENCIES
   jquery-rails
   kaminari (>= 1.2.1)
   listen
-  lograge (>= 0.11.1)
   loofah (>= 2.3.1)
   mail_form (~> 1.7)
   middle_english_dictionary!
@@ -480,6 +476,7 @@ DEPENDENCIES
   puma (>= 4.3.5)
   rack (>= 2.1.4)
   rails (~> 5.0)
+  rails_semantic_logger
   rake (~> 13.0)
   rsolr (>= 1.0)
   rspec-rails (~> 3.6)
