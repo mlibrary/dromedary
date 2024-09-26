@@ -43,15 +43,6 @@ services:
       - -b
       - 0.0.0.0
 
-  db:
-    image: postgres:12-alpine
-    ports:
-      - "5432:5432"
-    environment:
-      - POSTGRES_PASSWORD=postgres
-      - PGDATA=/var/lib/postgresql/data/db
-    volumes:
-      - db:/var/lib/postgresql/data
 
   solr:
     build: solr/.
