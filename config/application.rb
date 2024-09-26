@@ -57,9 +57,9 @@ module Dromedary
 
     config.active_record.yaml_column_permitted_classes = [ActiveSupport::HashWithIndifferentAccess]
 
-    # config.log_tags = {
-    #   ip:         :remote_ip,
-    # }
+    config.log_tags = {
+      ip:         :remote_ip,
+    }
     # config.rails_semantic_logger.quiet_assets = true
     # config.rails_semantic_logger.format = :json
 
