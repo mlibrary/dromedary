@@ -50,8 +50,9 @@ module Dromedary
     config.log_tags = {
       ip: :remote_ip
     }
-
-    config.rails_semantic_logger.format = Dromedary::AbbreviatedJsonFormat.new
+    # Just use the standard :json logger and worry about filtering on the receiving end
+    # config.rails_semantic_logger.format = Dromedary::AbbreviatedJsonFormat.new
+    config.rails_semantic_logger.format = :json
     config.semantic_logger.add_appender(io: $stdout)
 
     config.active_record.yaml_column_permitted_classes = [ActiveSupport::HashWithIndifferentAccess]
