@@ -31,9 +31,7 @@ Confusingly, there are three separate repositories:
   solr configuration, in particular the suggesters (for autocomplete).
 * [Tour of the application code](docs/application_code.md) is a quick look at how
   the MED differs from a stock Rails application.
-* [Deployment to production](docs/deployment.md) shows the steps for building the 
-  correct image and getting it running on the production cluster, as well as
-  how to roll back if something went wrong.
+
 
 ### Access links
 * **Public-facing application**: https://quod.lib.umich.edu/m/middle-english-dictionary/
@@ -44,79 +42,6 @@ Confusingly, there are three separate repositories:
 This repo currently runs on Ruby 2.x and Blacklight 5.x, and there are no plans
 to upgrade either.
 
-
-<pre>
-
-
-
-</pre>
-
-<hr>
-<hr>
-
-
-
-
-# OLD STUFF 
-
-* [Indexing new data](docs/indexing.md), when new data is made available.
-
-For developers:
-* [Overview: what can you do with the bin/dromedary helper script?](docs/dromedary_executable.md)
-* [Deploying new _code_](docs/deploying.md) for when changes have been made 
-to the rails application, or solr config.
-* [How to set up autocomplete for multiple search fields](docs/autocomplete_setup.md)
-* [Quick and easy(?) instructions](docs/setting_up_dev_environment_on_unix_or_mac.md) for the initial setup
-
-## Setting maintenance mode
-
-Maintenance mode (where folks get a message that the MED is down) happens 
-automatically during indexing. If it needs to be set for some other 
-reason (e.g., the solr is down or something):
-
-* `ssh deployhost exec dromedary-production "bin/dromedary maintenance_mode on"`
-* `ssh deployhost exec dromedary-production "bin/dromedary maintenance_mode off"`
-
-
-## Development Quick Start
-
-### SUPER quick start
-
-The steps enumerated and explained below can be run via `bin/setup_dev.sh`.
-
-#### Handy Dandy Aliases (Optional)
-```shell
-alias dc="docker-compose"
-alias dce="dc exec --"
-alias abe="dce app bundle exec"
-```
-### Build application and solr image
-The default is **amd64** architecture a.k.a. Intel
-```shell
-docker-compose build app
-docker-compose build solr
-```
-For Apple Silicon use **arm64** architecture
-```shell
-docker-compose build --build-arg ARCH=arm64 app
-docker-compose build --build-arg ARCH=arm64 solr
-```
-### Login into docker GitHub packages
-```shell
- docker login ghcr.io --username <github-user> --password <personal-access-token>
-```
-### Bring up development environment
-```shell
-docker-compose up -d
-```
-
-
-Verify the application is running http://localhost:3000/
-
-## Bring it all down then back up again
-```shell
-docker-compose down
-```
 ```shell
 docker-compose up -d
 ```
