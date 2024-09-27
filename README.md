@@ -1,6 +1,63 @@
 # Dromedary -- Middle English Dictionary Application
 
-A new discovery system for the Middle English Dictionary.
+A new(-ish, these days) discovery system for the Middle English Dictionary.
+
+Confusingly, there are three separate repositories:
+ * [dromedary](https://github.com/mlibrary/dromedary), this repo, is the
+   **Rails application**. The name was given the project
+   when someone decided we should start naming project with nonsense words.
+ * [middle_english_dictionary](https://github.com/mlibrary/middle_english_dictionary) is
+   not, as one might expect, the Middle English Dictionary code. Instead,
+   it's the code that pulls out indexable data from each little 
+   XML file, inserts things like links to the OED and DOE, and serves
+   as the basis for building solr documents.
+ * [middle-english-argocd](https://github.com/mlibrary/middle-english-argocd)(_private_) is the argocd setup which deals with environment
+   variables and secrets, and serves to push the application to production. It also
+   has a small-but-valid .zip file under the `sample_data` directory.
+
+## Documentation
+* [Setting up a development environment](docs/setting_up.md) runs through
+  how to get the docker-compose-based dev environment off the ground and
+  index some data into its local solr. 
+* [Overview of indexing](docs/indexing.md) talks about what the indexing
+  process does, where the important files are, and what code might be
+  interesting.
+* [Configuration](docs/configuration.md) does a _very_ brief run through
+  the important ENV values. In general, the [compose.yml](compose.yml) file,
+  the argocd repository, and especially [lib/dromedary/services.rb](lib/dromedary/services.rb)
+  will be the best place to see what values are available to change. _Don't do that
+  unless you know what you're doing, though_.
+* [Solr setup](docs/solr_setup.md) looks at the interesting bits of the
+  solr configuration, in particular the suggesters (for autocomplete).
+* [Tour of the application code](docs/application_code.md) is a quick look at how
+  the MED differs from a stock Rails application.
+* [Deployment to production](docs/deployment.md) shows the steps for building the 
+  correct image and getting it running on the production cluster, as well as
+  how to roll back if something went wrong.
+
+### Access links
+* **Public-facing application**: https://quod.lib.umich.edu/m/middle-english-dictionary/
+* **"Preview" application with exposed Admin panel**: https://preview.med.lib.umich.edu/m/middle-english-dictionary/admin
+
+### About upgrading
+
+This repo currently runs on Ruby 2.x and Blacklight 5.x, and there are no plans
+to upgrade either.
+
+
+<pre>
+
+
+
+</pre>
+
+<hr>
+<hr>
+
+
+
+
+# OLD STUFF 
 
 * [Indexing new data](docs/indexing.md), when new data is made available.
 
@@ -52,71 +109,10 @@ docker-compose build --build-arg ARCH=arm64 solr
 ```shell
 docker-compose up -d
 ```
-NOTES
-* The ***sidekiq*** container will exit because we have yet to do a ***bundle install!***.
-> ### Install bundler
-> ```shell
-> docker-compose exec -- gem install 'bundler:~>2.2.21'
-> RUN bundle config --local build.sassc --disable-march-tune-native
-> ```
-> This was moved into the Dockerfile so it is no longer is necessary but is left here as a reminder so it will not be forgotten.
->
-> Need to revisit why setting the bundler version is necessary in the first place!
-### Configure bundler
-```shell
-docker-compose exec -- app bundle config set rubygems.pkg.github.com <personal-access-token>
-```
-The above command creates the following file: ./bundle/config
-```yaml
----
-BUNDLE_RUBYGEMS__PKG__GITHUB__COM: "<personal-access-token>"
-```
-NOTES
-* [Personal access tokens (classic)](https://github.com/settings/tokens) Token you have generated that can be used to access the [GitHub API](https://docs.github.com/en) -- read:packages.
-* Replace <personal-access-token> with your personal access token.
 
-### Bundle install
-```shell
-docker-compose exec -- app bundle install
-```
-NOTES
-* Environment variable **BUNDLE_PATH** is set to **/var/opt/app/gems** in the **Dockerfile**.
-### Yarn install
-```shell
-docker-compose exec -- app yarn install
-```
-NOTES
-* Investigate using a volume for **node_modules** directory like we do for **gems**
-### Setup databases
-```shell
-docker-compose exec -- app bundle exec rails db:setup
-```
-If you need to recreate the databases run db:drop and then db:setup.
-```shell
-docker-compose exec -- app bundle exec rails db:drop
-docker-compose exec -- app bundle exec rails db:setup
-```
-NOTES
-* Names of the databases are defined in **./config/database.yml**
-* The environment variable **DATABASE_URL** takes precedence over configured values.
-### Create solr collections
-```shell
-docker-compose exec -- solr solr create_collection -d dromedary -c dromedary-development 
-docker-compose exec -- solr solr create_collection -d dromedary -c dromedary-test 
-```
-If you need to recreate a core run delete and create_core (e.g. dromedary-test)
-```shell
-docker-compose exec -- solr solr delete -c dromedary-test
-docker-compose exec -- solr solr create_collection -d dromedary -c dromedary-test 
-```
-NOTES
-* Names of the solr cores are defined in **./config/blacklight.yml** file.
-* The environment variable **SOLR_URL** takes precedence over configured values.
-### Start development rails server
-```shell
-docker-compose exec -- app bundle exec rails s -b 0.0.0.0
-```
+
 Verify the application is running http://localhost:3000/
+
 ## Bring it all down then back up again
 ```shell
 docker-compose down
@@ -124,13 +120,6 @@ docker-compose down
 ```shell
 docker-compose up -d
 ```
-```shell
-docker-compose exec -- app bundle exec rails s -b 0.0.0.0
-```
-The gems, database, and solr redis use volumes to persit between the ups and downs of development.
-When things get flakey you have the option to simply delete any or all volumes after you bring it all down.
-If you remove all volumes just repeat the [Development quick start](#development-quick-start), otherwise
-you'll need to run the appropriate steps depending on which volumes you deleted:
-* For gems run the [Bundle install](#bundle-install) step.
-* For database run the [Setup databases](#setup-databases) step.
-* For solr run the [Create solr collections](#create-solr-collections) step.
+
+Note that there's no data in it yet, so lots of actions will throw errors. It's time
+to index some data.

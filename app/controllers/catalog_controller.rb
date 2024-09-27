@@ -187,7 +187,12 @@ class CatalogController < ApplicationController
     # solr request handler? The one set in config[:default_solr_parameters][:qt],
     # since we aren't specifying it otherwise.
 
-    # config.add_search_field 'Keywords', label: 'Everything'
+
+    ######################### WHAT ARE THE DOLLAR-SIGN VARIABLES??? ############
+    # These are sent to solr as the actual string (e.g., solr gets "$everything_qf").
+    # They are then expanded by solr withing the solr process based on configuration
+    # files there. See, e.g., solr/dromedary/conf/solrconfig_med/entry_searches/everything_search.xml
+    # for an example.
 
     config.add_search_field("anywhere", label: "Entire entry") do |field|
       field.qt = "/search"

@@ -86,11 +86,6 @@ module MedInstaller
 
       @build_collection = create_configset_and_collection!
 
-      # Delete any leftover crap from when we had different aliases.
-      @connection.aliases.each do |a|
-        a.delete! unless [Dromedary::Services[:production_alias], Dromedary::Services[:preview_alias]].include? a.name
-      end
-
       create_combined_documents
 
       # TODO: SolrCloud::Collection should have a `#url` method, for god's sake
