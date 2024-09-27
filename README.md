@@ -27,7 +27,7 @@ Confusingly, there are three separate repositories:
   the argocd repository, and especially [lib/dromedary/services.rb](lib/dromedary/services.rb)
   will be the best place to see what values are available to change. _Don't do that
   unless you know what you're doing, though_.
-* [Solr setup](docs/solr_setup.md) looks at the interesting bits of the
+* [Solr setup](docs/solr.md) looks at the interesting bits of the
   solr configuration, in particular the suggesters (for autocomplete).
 * [Tour of the application code](docs/application_code.md) is a quick look at how
   the MED differs from a stock Rails application.
