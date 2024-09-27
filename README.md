@@ -2,54 +2,59 @@
 
 A new(-ish, these days) discovery system for the Middle English Dictionary.
 
-## Repositories
+Confusingly, there are three separate repositories:
+ * [dromedary](https://github.com/mlibrary/dromedary), this repo, is the
+   **Rails application**. The name was given the project
+   when someone decided we should start naming project with nonsense words.
+ * [middle_english_dictionary](https://github.com/mlibrary/middle_english_dictionary) is
+   not, as one might expect, the Middle English Dictionary code. Instead,
+   it's the code that pulls out indexable data from each little 
+   XML file, inserts things like links to the OED and DOE, and serves
+   as the basis for building solr documents.
+ * [middle-english-argocd](https://github.com/mlibrary/middle-english-argocd)(_private_) is the argocd setup which deals with environment
+   variables and secrets, and serves to push the application to production. It also
+   has a small-but-valid .zip file under the `sample_data` directory.
 
-* **Public Repository for app**: https://github.com/mlibrary/dromedary
-* **Private repository for argo build**: https://github.com/mlibrary/middle-english-argocd
+## Documentation
+* [Setting up a development environment](docs/setting_up.md) runs through
+  how to get the docker-compose-based dev environment off the ground and
+  index some data into its local solr. 
+* [Overview of indexing](docs/indexing.md) talks about what the indexing
+  process does, where the important files are, and what code might be
+  interesting.
+* [Configuration](docs/configuration.md) does a _very_ brief run through
+  the important ENV values. In general, the [compose.yml](compose.yml) file,
+  the argocd repository, and especially [lib/dromedary/services.rb](lib/dromedary/services.rb)
+  will be the best place to see what values are available to change. _Don't do that
+  unless you know what you're doing, though_.
+* [Solr setup](docs/solr_setup.md) looks at the interesting bits of the
+  solr configuration, in particular the suggesters (for autocomplete).
+* [Tour of the application code](docs/application_code.md) is a quick look at how
+  the MED differs from a stock Rails application.
+* [Deployment to production](docs/deployment.md) shows the steps for building the 
+  correct image and getting it running on the production cluster, as well as
+  how to roll back if something went wrong.
 
-If you need access to the private repo, get in touch with A&E.
+### Access links
+* **Public-facing application**: https://quod.lib.umich.edu/m/middle-english-dictionary/
+* **"Preview" application with exposed Admin panel**: https://preview.med.lib.umich.edu/m/middle-english-dictionary/admin
 
-## Setup your development environment
+### About upgrading
 
-The development environment is set up to use `docker compose` to manage 
-the rails application, solr, and zookeeper (used to manage solr).
-
-To build and start running the application:
-
-```shell
-docker compose build
-docker compose up -d
-```
-
-### Test access to the application and solr
-
-* **Error page**: http://localhost:3000/. Don't let that confuse you.
-* **Splash page**: http://localhost:3000/m/middle-english-dictionary.
-* **Solr admin**:
-  * **url**: http://localhost:9172
-  * **username**: solr
-  * **password** SolrRocks
-
-**NOTE** At this point you can't do any searches, because there's no data in the
-solr yet.
+This repo currently runs on Ruby 2.x and Blacklight 5.x, and there are no plans
+to upgrade either.
 
 
-### Indexing a file locally
+<pre>
 
-NOTE: You can't index a file locally through the administration interface -- that's 
-hooked directly to an AWS bucket, and won't affect your local install at all
-(it'll replace the `preview` solr data).
 
-* Make sure  
 
-```shell
-docker compose run app -- bin/index_new_file.rb <path>/<to file>.zip
-```
+</pre>
 
-Give it however long it takes (a couple minutes for a minimal file,
-and around an hour for a full file). 
+<hr>
+<hr>
 
-You'll know it's done when the 
+
 
 
 # OLD STUFF 
@@ -107,6 +112,7 @@ docker-compose up -d
 
 
 Verify the application is running http://localhost:3000/
+
 ## Bring it all down then back up again
 ```shell
 docker-compose down
@@ -114,3 +120,6 @@ docker-compose down
 ```shell
 docker-compose up -d
 ```
+
+Note that there's no data in it yet, so lots of actions will throw errors. It's time
+to index some data.
