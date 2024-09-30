@@ -410,6 +410,8 @@ GEM
       slop (~> 4.0)
       yell
     transproc (1.1.1)
+    ttl_memoizeable (0.4.0)
+      activesupport
     twitter-typeahead-rails (0.11.1.pre.corejavascript)
       actionpack (>= 3.1)
       jquery-rails
@@ -498,6 +500,7 @@ DEPENDENCIES
   sqlite3 (~> 1.3.13)
   standard
   traject
+  ttl_memoizeable
   tzinfo-data
   uglifier (>= 1.3.0)
   uppy-s3_multipart (~> 1.2)
