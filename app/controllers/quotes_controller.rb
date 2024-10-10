@@ -44,6 +44,7 @@ class QuotesController < ApplicationController
     config.add_search_field("quote_everything", label: "Quotation including citation") do |field|
       field.qt = "/quotesearch"
       field.solr_local_parameters = {
+        type: "edismax",
         qf: "$quote_everything_qf",
         pf: "$quote_everything_pf"
       }
@@ -52,6 +53,7 @@ class QuotesController < ApplicationController
     config.add_search_field("quote_quote", label: "Quotation text only") do |field|
       field.qt = "/quotesearch"
       field.solr_local_parameters = {
+        type: "edismax",
         qf: "$quote_quote_qf",
         pf: "$quote_quote_pf"
       }

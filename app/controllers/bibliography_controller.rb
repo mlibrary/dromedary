@@ -53,6 +53,7 @@ class BibliographyController < ApplicationController
     config.add_search_field("bib_keyword", label: "Entire entry") do |field|
       field.qt = "/bibsearch"
       field.solr_local_parameters = {
+        type: "edismax",
         qf: "$bib_everything_qf",
         pf: "$bib_everything_pf"
       }
@@ -61,6 +62,7 @@ class BibliographyController < ApplicationController
     config.add_search_field("bib_author_title", label: "Author/Title") do |field|
       field.qt = "/bibsearch"
       field.solr_local_parameters = {
+        type: "edismax",
         qf: "$bib_author_title_qf",
         pf: "$bib_author_title_pf"
       }
@@ -68,6 +70,7 @@ class BibliographyController < ApplicationController
     config.add_search_field("bib_external_references", label: "External References") do |field|
       field.qt = "/bibsearch"
       field.solr_local_parameters = {
+        type: "edismax",
         qf: "$bib_external_references_qf",
         pf: "$bib_external_references_pf"
       }
@@ -76,6 +79,7 @@ class BibliographyController < ApplicationController
     config.add_search_field("bib_lalme", label: "LALME/LAEME") do |field|
       field.qt = "/bibsearch"
       field.solr_local_parameters = {
+        type: "edismax",
         qf: "$bib_lalme_qf",
         pf: "$bib_lalme_pf"
       }
@@ -84,6 +88,7 @@ class BibliographyController < ApplicationController
     config.add_search_field("bib_manuscript", label: "Manuscripts") do |field|
       field.qt = "/bibsearch"
       field.solr_local_parameters = {
+        type: "edismax",
         qf: "$bib_manuscript_qf",
         pf: "$bib_manuscript_pf"
       }
