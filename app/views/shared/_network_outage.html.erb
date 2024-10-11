@@ -1,0 +1,20 @@
+<% startTime = Time.new(2024, 10, 12, 8, 0)
+   endTime = Time.new(2024, 10, 12, 16, 0)
+   currentTime = Time.now
+%>
+<% if startTime < currentTime and currentTime < endTime %>
+  <!-- Copy the below HTML -->
+  <section class="banner--warning" style="color: #212B36; padding: 0.5rem 0; background-color: #FF8A58; font-size: 16px;">
+    <div class="container container--full">
+      <div class="banner__inner-container" style="display: flex; gap: 0.5rem; align-items:flex-start;">
+        <svg xmlns="http://www.w3.org/2000/svg" height="1rem" viewBox="0 0 24 24" width="1rem" fill="currentColor" focusable="false" aria-hidden="true" style="flex-shrink: 0;margin-top:.25rem">
+        <path d="M0 0h24v24H0z" fill="none"/>
+        <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+        </svg>
+        <span class="visually-hidden sr-only">Warning Alert</span>
+        <p style="margin: 0;">This site will not be available from 8am through 4pm Saturday, October 12th, while
+          necessary network maintenance is performed.</p>
+      </div>
+    </div>
+  </section>
+<% end %>

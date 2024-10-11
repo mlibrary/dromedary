@@ -24,8 +24,12 @@
             <%= render :partial=>'/secondary_util_links' %>
       </div>
     </div>
+    <%= render :partial=> "shared/network_outage" %>
 
   </div>
+
+
+
 </header>
 
 <%= render :partial=>'/flash_msg' unless flash.empty? %>
