@@ -12,6 +12,11 @@ To build and start running the application:
 
 ```shell
 docker compose build
+
+# One time only, you'll need to create and build up the database
+docker compose run app bin/rails db:create
+docker compose run app bin/rails db:migrate
+
 docker compose up -d
 ```
 

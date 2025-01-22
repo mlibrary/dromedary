@@ -37,15 +37,12 @@ module Dromedary
 
     config.relative_url_root = Dromedary::Services[:relative_url_root]
     config.action_controller.relative_url_root = config.relative_url_root
-    # config.assets.prefix = Dromedary::Services[:relative_url_root]
-    # config.relative_url_root                   = '/'
-    # config.action_controller.relative_url_root = '/'
-
     config.blacklight_url = Dromedary::Services[:solr_embedded_auth_url]
 
     config.log_level = :info
+    config.web_console.whiny_requests = false
 
-    config.lograge.enabled = false
+    config.lograge.enabled = true
 
     # add time to lograge
     config.lograge.custom_options = lambda do |event|
