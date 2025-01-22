@@ -7,18 +7,18 @@ require_relative "../lib/dromedary/services"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-# JSON_FORMATTER = ->(log, logger) do
-#   h               = log.to_h(logger.host)
-#   h[:application] = 'MED'
-#   if h[:named_tags]
-#     h[:ip] = h[:named_tags].delete(:ip) if h[:named_tags].has_key?(:ip)
-#     h.delete(:named_tags) if h[:named_tags].empty?
-#   end
-#
-#   h[:payload] && h[:payload][:params] && h[:payload][:params].delete('utf8')
-#
-#   h.to_json
-# end
+JSON_FORMATTER = ->(log, logger) do
+  h               = log.to_h(logger.host)
+  h[:application] = 'MED'
+  if h[:named_tags]
+    h[:ip] = h[:named_tags].delete(:ip) if h[:named_tags].has_key?(:ip)
+    h.delete(:named_tags) if h[:named_tags].empty?
+  end
+
+  ditch_payload_keys = %w(utf8 )
+  h[:payload] && h[:payload][:params] && h[:payload][:params].delete('utf8')
+  h.to_json
+end
 
 module Dromedary
   class Application < Rails::Application
@@ -42,35 +42,37 @@ module Dromedary
     config.log_level = :info
     config.web_console.whiny_requests = false
 
-    config.lograge.enabled = true
+    # config.lograge.enabled = true
 
     # add time to lograge
-    config.lograge.custom_options = lambda do |event|
-      {time: event.time}
-    end
+    # config.lograge.custom_options = lambda do |event|
+    #   {time: event.time}
+    # end
 
-    config.lograge.custom_payload do |controller|
-      {
-        host: controller.request.host,
-        ip: controller.request.ip,
-        query: controller.request.query_parameters
-      }
-    end
+    # config.lograge.custom_payload do |controller|
+    #   {
+    #     host: controller.request.host,
+    #     ip: controller.request.ip,
+    #     query: controller.request.query_parameters
+    #   }
+    # end
+    #
+    # config.lograge.formatter = Lograge::Formatters::Json.new
 
-    config.lograge.formatter = Lograge::Formatters::Json.new
     config.active_job.queue_adapter = :sidekiq
-
     config.active_record.yaml_column_permitted_classes = [ActiveSupport::HashWithIndifferentAccess]
 
-    # config.log_tags = {
-    #   ip:         :remote_ip,
-    # }
-    # config.rails_semantic_logger.quiet_assets = true
-    # config.rails_semantic_logger.format = :json
+    config.log_tags = {
+      ip:         :remote_ip,
+    }
 
-    # config.rails_semantic_logger.add_file_appender = false
+    config.rails_semantic_logger.console_logger = false
+    config.rails_semantic_logger.quiet_assets = true
+    config.rails_semantic_logger.format = :json
+
+    config.rails_semantic_logger.add_file_appender = false
     # config.semantic_logger.add_appender(file_name: "log/#{Rails.env}.log", level: :info)
-    # config.semantic_logger.add_appender(file_name: "log/#{Rails.env}.json", formatter: JSON_FORMATTER, level: :info)
+    config.semantic_logger.add_appender(file_name: "log/#{Rails.env}.json", formatter: JSON_FORMATTER, level: :info)
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
