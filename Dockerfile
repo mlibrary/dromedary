@@ -22,10 +22,9 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     git \
     unzip \
     libpq-dev \
-    ##### FIXME: remove these once useless gems are trimmed \
+    libsqlite3-dev\
     libmariadb-dev \
     libsqlite3-dev \
-    ##### What is netcat here for???
     netcat
 
 RUN --mount=type=cache,sharing=locked,target=/var/cache/apt \
