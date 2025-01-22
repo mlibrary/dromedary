@@ -40,7 +40,6 @@ module Dromedary
     config.blacklight_url = Dromedary::Services[:solr_embedded_auth_url]
 
     config.log_level = :info
-    config.web_console.whiny_requests = false
 
     # config.lograge.enabled = true
 
