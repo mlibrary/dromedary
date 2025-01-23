@@ -65,17 +65,12 @@ module Dromedary
       ip:         :remote_ip,
     }
 
+    config.rails_semantic_logger.add_file_appender = false
     config.rails_semantic_logger.console_logger = false
     config.rails_semantic_logger.quiet_assets = true
-    config.rails_semantic_logger.format = :json
+    config.colorize_logging = false
 
-    config.rails_semantic_logger.add_file_appender = false
-    # config.semantic_logger.add_appender(file_name: "log/#{Rails.env}.log", level: :info)
-    config.semantic_logger.add_appender(file_name: "log/#{Rails.env}.json", formatter: JSON_FORMATTER, level: :info)
-
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration should go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded.
+    config.semantic_logger.add_appender(io: $stdout, formatter: :logfmt, level: :info)
 
     # Done with all that? Now pull in local Ettin-based configuration.
 

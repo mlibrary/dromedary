@@ -32,6 +32,7 @@ services:
       - "DIRECT_URLS_TO_SOLR_REPLICAS=http://solr:8983 http://solr:8983"
       - MANUALLY_BUILD_SUGGESTERS=true
       - PAUSE_TIME=10
+      - RAILS_LOG_TO_STDOUT=true
     env_file:
       - path: .app.env
         required: false

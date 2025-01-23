@@ -8,9 +8,7 @@ require "ttl_memoizeable"
 module Dromedary
   class << self
     extend TTLMemoizeable
-    def logger
-      Rails.logger || MedInstaller::Logger::LOGGER
-    end
+    include MedInstaller::Logger
 
     # For whatever historical reasons, this uses the Ettin gem to load
     # up yaml files. The list of places it looks are:
@@ -35,7 +33,6 @@ module Dromedary
 
     def hyp_to_bibid
       collection = Dromedary::Services[:solr_current_collection]
-      Rails.logger.warn "################# Fetching HyperBib ########################"
       MedInstaller::HypToBibId.get_from_solr(collection: collection)
     end
 

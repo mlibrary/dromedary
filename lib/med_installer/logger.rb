@@ -8,16 +8,16 @@ module MedInstaller
       end
     end
 
-    Formatter = MEDFormatter.new(time_format: "%Y-%m-%d:%H:%M:%S")
-    SemanticLogger.add_appender(io: $stderr, level: :info, formatter: Formatter)
-    LOGGER = SemanticLogger["Dromedary"]
+    LOGGER = if defined? Rails
+               Rails.logger
+             else
+               SemanticLogger.add_appender(io: $stderr, level: :info, formatter: :logfmt)
+               SemanticLogger["MED Indexer"]
+             end
+
 
     def logger
-      if defined? Rails
-        Rails.logger
-      else
-        LOGGER
-      end
+      LOGGER
     end
   end
 end
