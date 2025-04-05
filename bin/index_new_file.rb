@@ -31,6 +31,9 @@ require 'hanami/cli'
 require "dromedary/services"
 require "med_installer/indexing_steps"
 
+# require "simplecov"
+# SimpleCov.start
+
 filename = ARGV.shift
 
 indexer = MedInstaller::IndexingSteps.new(zipfile: filename)
