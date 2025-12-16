@@ -36,7 +36,7 @@
       and the
       <a href="https://www.lib.umich.edu/library-administration/library-copyright-statement">U-M Library Copyright
         Policy</a>.
-      Data last refreshed <%= if Dromedary::Services[:looks_like_first_upload]
+      Data last refreshed <%= if Dromedary::Services[:looks_like_first_upload] or  Dromedary.collection_creation_date_string =~ /never/i
                                 "never"
                               else
                                 Dromedary.collection_creation_date_string
