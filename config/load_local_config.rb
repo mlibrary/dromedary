@@ -40,7 +40,7 @@ module Dromedary
     end
 
     def collection_creation_date
-      Rails.logger.warn "################# Fetching creation date ########################"
+      Rails.logger.debug "################# Fetching creation date ########################"
       collection = Dromedary::Services[:solr_current_collection]
       if collection
         Dromedary.compute_collection_creation_date collection.collection.name
