@@ -1,6 +1,6 @@
 <% if !params[:f].blank? %>
   <div id="appliedParams" class="clearfix constraints-container">
-    <h3 class="constraints-label">Current Filters</h3>
+    <h2 class="constraints-label">Current Filters</h2>
     <%= render_constraints(params) %>
     <div>
       <%=link_to t('blacklight.search.start_over'), start_over_path, :class => "catalog_startOverLink", :id=>"startOverLink" %>

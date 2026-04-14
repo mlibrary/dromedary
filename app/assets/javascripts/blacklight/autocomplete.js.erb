@@ -106,5 +106,9 @@ Blacklight.onLoad(function () {
     // Inititalize with the current value of the controller.
     $('[data-autocomplete-enabled]').each(BlacklightAutoComplete.setup_controller);
 
+    // Hide the Typeahead hint input from assistive technologies — it is a
+    // decorative overlay with no label and should not be focusable.
+    $('.tt-hint').attr('aria-hidden', 'true');
+
 });
 
