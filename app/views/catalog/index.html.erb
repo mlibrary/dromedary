@@ -13,6 +13,8 @@
     <span class="zero-results">No Results</span>
   <% elsif params[:f] and params[:f][:issue_identifier] %>
     <%= issue_title @document_list.first, complete: true %>
+  <% else %>
+    <span class="sr-only">Search Results</span>
   <% end %>
 <% end %>
 

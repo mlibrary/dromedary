@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -39,9 +39,11 @@
       x-forwarded host: <%= ENV["HTTP_X_FORWARDED_HOST"].inspect %>
     <% end %>
 
-    <%= area :main do %>
-      <p>Main content goes here.</p>
-    <% end %>
+    <main id="main-content" tabindex="-1">
+      <%= area :main do %>
+        <p>Main content goes here.</p>
+      <% end %>
+    </main>
 
     <%= render :partial => 'shared/footer' %>
 
