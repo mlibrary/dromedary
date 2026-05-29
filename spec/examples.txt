@@ -1,0 +1,17 @@
+example_id                          | status | run_time        |
+----------------------------------- | ------ | --------------- |
+./spec/system/search_spec.rb[1:1:1] | passed | 0.21205 seconds |
+./spec/system/search_spec.rb[1:2:1] | passed | 0.84753 seconds |
+./spec/system/search_spec.rb[1:2:2] | passed | 0.55634 seconds |
+./spec/system/search_spec.rb[1:2:3] | passed | 0.60759 seconds |
+./spec/system/search_spec.rb[1:2:4] | passed | 0.56397 seconds |
+./spec/system/search_spec.rb[1:3:1] | passed | 0.01217 seconds |
+./spec/system/search_spec.rb[1:3:2] | passed | 0.00801 seconds |
+./spec/system/search_spec.rb[1:4:1] | passed | 0.01248 seconds |
+./spec/system/search_spec.rb[1:4:2] | passed | 0.3489 seconds  |
+./spec/system/search_spec.rb[1:5:1] | passed | 0.63832 seconds |
+./spec/system/search_spec.rb[1:6:1] | passed | 0.01236 seconds |
+./spec/system/search_spec.rb[1:6:2] | passed | 0.05608 seconds |
+./spec/system/search_spec.rb[1:7:1] | passed | 0.00997 seconds |
+./spec/system/search_spec.rb[1:8:1] | passed | 0.83482 seconds |
+./spec/system/search_spec.rb[1:9:1] | passed | 0.00762 seconds |

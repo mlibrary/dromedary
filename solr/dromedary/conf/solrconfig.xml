@@ -36,13 +36,20 @@
        Docker image. No <lib> directive needed. -->
 
   <!--
-     Remove the /select handler and set handleSelect to be true so passing
-     a qt value will change the requestHandler used.
-
+     handleSelect was removed in Solr 9. The /select handler must be explicitly
+     defined for RSolr and other Solr clients that send queries to /select.
      -->
 
-  <!-- <requestHandler name="/select" class="solr.SearchHandler"></requestHandler>-->
-  <requestDispatcher handleSelect="true">
+  <requestHandler name="/select" class="solr.SearchHandler">
+    <lst name="defaults">
+      <str name="echoParams">all</str>
+      <str name="wt">json</str>
+      <str name="indent">true</str>
+      <str name="fl">*</str>
+      <str name="defType">edismax</str>
+    </lst>
+  </requestHandler>
+  <requestDispatcher handleSelect="false">
 
     <requestParsers enableRemoteStreaming="true"
                     multipartUploadLimitInKB="2048000"

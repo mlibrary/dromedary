@@ -1,5 +1,7 @@
 source "https://rubygems.org"
 
+ruby "~> 2.7"
+
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
@@ -103,9 +105,6 @@ gem "html_truncator", "~>0.2"
 # For solr indexing
 gem "simple_solr_client", require: false # only for bin/dromedary stuff
 gem "traject", require: false # only for indexing
-# if defined? JRUBY_VERSION
-#   gem 'traject-marc4j_reader'
-# end
 
 # Building lists of xpaths
 # gem 'xpath_list', git: 'https://github.com/billdueber/xpath_list', require: false # only for data analysis
@@ -128,10 +127,8 @@ group :development, :test do
   # Faster boot times
 
   gem "listen", require: false
-  unless defined? JRUBY_VERSION
-    gem "ruby-prof"
-    gem "pry-byebug"
-  end
+  gem "ruby-prof"
+  gem "pry-byebug"
 end
 
 gem "standard"
@@ -139,16 +136,10 @@ gem "standard"
 #############################################
 
 # Databases
-
-if defined? JRUBY_VERSION
-  gem "jdbc-sqlite3"
-  gem "jdbc-mysql"
-else
-  gem "sqlite3", "~>1.3.13"
-  # AR won't work with the latest mysql2, apparently
-  # See https://stackoverflow.com/questions/49407254/gemloaderror-cant-activate-mysql2-0-5-0-3-18-already-activated-mysq
-  gem "mysql2", "< 0.5.0", require: false
-end
+gem "sqlite3", "~>1.3.13"
+# AR won't work with the latest mysql2, apparently
+# See https://stackoverflow.com/questions/49407254/gemloaderror-cant-activate-mysql2-0-5-0-3-18-already-activated-mysq
+gem "mysql2", "< 0.5.0", require: false
 
 # JS and CSS
 gem "sass-rails", "~> 5.0"
@@ -180,6 +171,7 @@ gem "okcomputer"
 
 group :development, :test do
   # gem 'capybara', '~> 2.13' # no longer deploying like this.
+  gem "capybara"
   gem "selenium-webdriver"
   gem "rspec-rails", "~> 3.6"
 end
@@ -198,7 +190,7 @@ group :test do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw]
 
 gem "rsolr", ">= 1.0"
 gem "jquery-rails"

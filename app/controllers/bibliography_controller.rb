@@ -36,6 +36,9 @@ class BibliographyController < ApplicationController
       rows: 100
     }
 
+    # Solr 10 removed qt dispatch; target /bibsearch handler directly
+    config.solr_path = "bibsearch"
+
     # Solr path to the single-document handler
     config.document_solr_path = "bibdoc"
 

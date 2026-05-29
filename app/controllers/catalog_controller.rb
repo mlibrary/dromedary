@@ -49,9 +49,9 @@ class CatalogController < ApplicationController
     }
 
     # The "normal" search path as defined as a requestHandler in solrconfig.xml
-    # Often this is 'select'; the Blacklight default is 'search'.
+    # Solr 10 removed handleSelect/qt dispatch, so we must target /search directly.
     # See <requestHandler name="/search".../> in the solrconfig.xml
-    # config.solr_path = 'search'
+    config.solr_path = "search"
 
     # The "document" search handler, for getting a single document
     # See <requestHandler name="/document".../> in the solrconfig.xml

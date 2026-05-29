@@ -35,8 +35,10 @@ module Dromedary
     config.autoload_paths << "#{Rails.root}/lib"
     config.autoload_paths << "#{Rails.root}/app/presenters"
 
-    config.relative_url_root = Dromedary::Services[:relative_url_root]
-    config.action_controller.relative_url_root = config.relative_url_root
+    unless Rails.env.test?
+      config.relative_url_root = Dromedary::Services[:relative_url_root]
+      config.action_controller.relative_url_root = config.relative_url_root
+    end
     # config.assets.prefix = Dromedary::Services[:relative_url_root]
     # config.relative_url_root                   = '/'
     # config.action_controller.relative_url_root = '/'

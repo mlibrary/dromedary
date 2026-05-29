@@ -2,12 +2,18 @@ require "annoying_utilities"
 
 require "dromedary/services"
 
-# This is a very expensive-to-find workaround for https://github.com/rails/rails/issues/21459
+# Workaround for https://github.com/rails/rails/issues/21459 -- without this, engine-proxy
+# helpers (e.g. blacklight.suggest_index_path) drop the relative-URL-root prefix in
+# environments where SCRIPT_NAME is not set by a proxy (tests, direct rack invocations).
 #
-# The relative root URL *MUST NOT* end in a slash, but the script_name *MUST*, in order to
-# avoid chopping off the last segment of the prefix for things like suggest_index_path.
+# NOTE: do NOT add a trailing slash here.  merge_script_names in Rails 5.2 routes_proxy.rb
+# calls Array#slice(0, context_parts) where context_parts can go negative when the
+# script_name has a trailing slash, causing nil.join('/') -- NoMethodError.
+# add_prefix already calls prefix.chomp('/'), so the trailing slash is never needed.
 Rails.application.routes.default_url_options ||= {}
-Rails.application.routes.default_url_options[:script_name] = Dromedary::Services[:relative_url_root].chomp("/") + "/"
+unless Rails.env.test?
+  Rails.application.routes.default_url_options[:script_name] = Dromedary::Services[:relative_url_root].chomp("/")
+end
 
 # Have to add when using X-Forwarded-Host and a relative URL. It's a hack.
 
@@ -102,7 +108,7 @@ Rails.application.routes.draw do
   get "about" => "static#about_med", :as => :about
   get "help" => "help#help_root", :as => :help_root
   get "help/:page" => "help#help_page", :as => :help
-  # get 'static/*' => 'static#about_med', as: :static
+  get "static/*path" => "static#about_med", as: :static
 
   # 404s -- will only match if nothing else did
 

@@ -38,7 +38,6 @@ class SearchBuilder < Blacklight::SearchBuilder
     if current_q
       new_q = current_q.gsub Parens_EscapeWorthy, '\1\\\\(\2\\\\)'
       solr_params["q"] = new_q
-      solr_params["debug"] = "true"
     end
   end
 
