@@ -44,6 +44,7 @@ ENV RAILS_LOG_TO_STDOUT true
 
 WORKDIR /opt/app
 COPY Gemfile* .
+COPY vendor/ vendor/
 
 #############
 FROM base AS base-dev

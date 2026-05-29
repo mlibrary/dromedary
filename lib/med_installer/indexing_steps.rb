@@ -220,7 +220,7 @@ module MedInstaller
         suggester_path = autocomplete_map[suggester_name]["solr_endpoint"]
         logger.info "   Recreate suggester for #{suggester_name} in #{collection_name} at #{connection.url}"
         begin
-          resp = connection.get "solr/#{collection_name}/#{suggester_path}", { "suggest.build" => "true" }
+          resp = connection.get "solr/#{collection_name}/#{suggester_path}?suggest.build=true"
         rescue => e
           raise "Error trying to build suggester : #{e.message}"
         end
