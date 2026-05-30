@@ -72,15 +72,15 @@ Rails.application.routes.draw do
 
   concern :searchable, Blacklight::Routes::Searchable.new
 
-  resource :search, only: [:index], as: "catalog", path: "/dictionary", controller: "catalog" do
+  resource :search, only: [], as: "catalog", path: "/dictionary", controller: "catalog" do
     concerns :searchable
   end
 
-  resource :search, only: [:index], as: "bibliography", path: "/bibliography", controller: "bibliography" do
+  resource :search, only: [], as: "bibliography", path: "/bibliography", controller: "bibliography" do
     concerns :searchable
   end
 
-  resource :search, only: [:index], as: "quotes", path: "/quotations", controller: "quotes" do
+  resource :search, only: [], as: "quotes", path: "/quotations", controller: "quotes" do
     concerns :searchable
   end
 

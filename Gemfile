@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "~> 2.7"
+ruby "~> 3.3"
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
@@ -75,7 +75,7 @@ gem "simple_form", "~>5.0"
 # When developing in tandem, a relative path is nice and easy
 
 # Use bundler 2
-gem "bundler", "~>2.4.22"
+gem "bundler", "~>2.5"
 
 # ,,, and explicitly pull in rake
 gem "rake", "~> 13.0"
@@ -88,16 +88,15 @@ gem "canister"
 # Rails
 #  https://groups.google.com/forum/#!topic/rubyonrails-security/GN7w9fFAQeI)
 
-gem "rails", "~> 7.1.0"
+gem "rails", "~> 8.1.0"
 
 # Security vulnerability CVE-2018-3760
 # Keep Sprockets 3.x through Phase 5; upgrade to 4.x in Phase 6
 gem "sprockets", "~>3.7.2"
 
-gem "blacklight", "~> 8.12.0"
-
-# Bootstrap 4 (required by BL7; replaces bootstrap-sass which was BL6 transitive dep)
-gem "bootstrap", "~> 4.6"
+gem "blacklight", "~> 9.0"
+# Bootstrap 5 (required by BL9)
+gem "bootstrap", "~> 5.3"
 gem "autoprefixer-rails"
 gem "font-awesome-rails"
 
@@ -182,9 +181,6 @@ end
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem "web-console", ">= 3.3.0"
-  # RubyMine Docker-Compose Debugging
-  gem "debase"
-  gem "ruby-debug-ide"
 end
 
 group :test do

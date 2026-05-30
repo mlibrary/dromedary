@@ -1,0 +1,157 @@
+═══════════════════════════════════════════════════════════════════════════
+Token Analysis: Session ses_18eed3f40ffe483nJHCHx0Wtib
+Model: claude-sonnet-4.6
+═══════════════════════════════════════════════════════════════════════════
+
+WARNINGS
+───────────────────────────────────────────────────
+- OpenCode export failed for session ses_18eed3f40ffe483nJHCHx0Wtib. Context sections were skipped: JSON Parse error: Unterminated string
+
+TOKEN BREAKDOWN BY CATEGORY
+─────────────────────────────────────────────────────────────────────────
+Estimated using tokenizer analysis of message content:
+
+Input Categories:
+  USER      ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░      0.7% (1,360)
+  TOOLS     ██████████████████████████████   99.3% (198,713)
+
+  Subtotal: 200,073 estimated input tokens
+
+Output Categories:
+  ASSISTANT ██████████░░░░░░░░░░░░░░░░░░░░    33.1% (14,375)
+  REASONING ████████████████████░░░░░░░░░░    66.9% (29,013)
+
+  Subtotal: 43,388 estimated output tokens
+
+Local Total: 243,461 tokens (estimated)
+
+TOOL USAGE BREAKDOWN
+─────────────────────────────────────────────────────────────────────────
+read                 ███████████████░░░░░░░░░░░░░░░    50.2% (99,743)   63x
+ctx_batch_execute    ████░░░░░░░░░░░░░░░░░░░░░░░░░░    14.9% (29,668)   17x
+intellij_agentbridge_list_project_files ███░░░░░░░░░░░░░░░░░░░░░░░░░░░     9.0% (17,924)    3x
+ctx_search           ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░     7.7% (15,222)   10x
+task                 ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░      5.0% (9,880)    8x
+ctx_execute          ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░      5.0% (9,880)   27x
+intellij_agentbridge_search_text █░░░░░░░░░░░░░░░░░░░░░░░░░░░░░      1.8% (3,490)   15x
+bash                 █░░░░░░░░░░░░░░░░░░░░░░░░░░░░░      1.7% (3,417)   11x
+ctx_fetch_and_index  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░      1.6% (3,206)    4x
+todowrite            ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░      1.2% (2,470)   19x
+question             ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░      0.8% (1,586)   15x
+ctx_stats            ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░        0.3% (627)    1x
+edit                 ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░        0.3% (568)   96x
+grep                 ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░        0.2% (479)   11x
+skill                ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░        0.2% (426)    2x
+compress             ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░         0.0% (75)    7x
+intellij_agentbridge_memory_store ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░         0.0% (42)    1x
+write                ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░          0.0% (5)    1x
+intellij_agentbridge_list_directory_tree ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░          0.0% (5)    1x
+
+TOP CONTRIBUTORS
+─────────────────────────────────────────────────────────────────────────
+• read                         99,743 tokens (41.0%)
+• ctx_batch_execute            29,668 tokens (12.2%)
+• intellij_agentbridge_list_project_files 17,924 tokens (7.4%)
+• ctx_search                   15,222 tokens (6.3%)
+• task                         9,880 tokens (4.1%)
+
+═══════════════════════════════════════════════════════════════════════════
+MOST RECENT API CALL
+─────────────────────────────────────────────────────────────────────────
+
+Raw telemetry from last API response:
+  Input (fresh):              1 tokens
+  Cache read:           118,737 tokens
+  Cache write:            1,153 tokens
+  Output:                    54 tokens
+  Provider total:       119,945 tokens
+  ─────────────────────────────────────
+  Total:                119,945 tokens
+
+═══════════════════════════════════════════════════════════════════════════
+SESSION TOTALS (All 321 API calls)
+─────────────────────────────────────────────────────────────────────────
+
+Assistant messages observed: 326 (structural count)
+
+Total tokens processed across the entire session (for cost calculation):
+
+  Input tokens:             359 (fresh tokens across all calls)
+  Cache read:        28,343,451 (cached tokens across all calls)
+  Cache write:        1,412,693 (tokens written to cache)
+  Output tokens:        185,241 (all model responses)
+  ─────────────────────────────────────
+  Session Total:     29,941,744 tokens (for billing)
+  Cache read calls:         310 / 321
+  Cache write calls:        321 / 321
+
+═══════════════════════════════════════════════════════════════════════════
+ESTIMATED SESSION COST (API Key Pricing)
+─────────────────────────────────────────────────────────────────────────
+
+You appear to be on a subscription plan (API cost is $0).
+Here's what this session would cost with direct API access:
+
+  Input tokens:             359 × $0.00/M  = $0.0000
+  Output tokens:        185,241 × $0.00/M  = $0.0000
+─────────────────────────────────────────────────────────────────────────
+ESTIMATED TOTAL: $0.0000
+
+Note: This estimate uses standard API pricing from models.json.
+Actual API costs may vary based on provider and context size.
+
+═══════════════════════════════════════════════════════════════════════════
+AVAILABLE SUBAGENTS (in task tool definition)
+─────────────────────────────────────────────────────────────────────────
+
+These subagents are embedded in the task tool description and consume tokens on every API call.
+
+  Subagent               Description                                        Tokens
+  ───────────────────────────────────────────────────────────────────────
+  explore                Fast agent specialized for exploring codebases. U…    ~104
+  general                General-purpose agent for researching complex que…     ~30
+  ───────────────────────────────────────────────────────────────────────
+  Total: ~134 tokens (2 subagents available)
+
+  Note: Full task tool description is ~0 tokens (includes instructions/examples).
+
+═══════════════════════════════════════════════════════════════════════════
+LOADED SKILLS (on-demand content)
+─────────────────────────────────────────────────────────────────────────
+
+Skills loaded during this session via the skill tool.
+
+  Skill                  Message #     Tokens     Calls
+  ─────────────────────────────────────────────────────
+  aqca                           #2        424        2x
+  ─────────────────────────────────────────────────────
+  Total: 424 tokens (1 skill loaded)
+
+  Note: Loaded skill content stays in context (protected from pruning).
+
+═══════════════════════════════════════════════════════════════════════════
+SUBAGENT COSTS (8 child sessions, 33 API calls)
+─────────────────────────────────────────────────────────────────────────
+
+  explore                      $0.0000  (19,925 tokens, 2 calls)
+  explore                      $0.0000  (39,918 tokens, 5 calls)
+  explore                      $0.0000  (15,245 tokens, 2 calls)
+  explore                      $0.0000  (269,623 tokens, 14 calls)
+  explore                      $0.0000  (15,790 tokens, 2 calls)
+  explore                      $0.0000  (33,359 tokens, 3 calls)
+  explore                      $0.0000  (18,603 tokens, 2 calls)
+  explore                      $0.0000  (25,232 tokens, 3 calls)
+─────────────────────────────────────────────────────────────────────────
+Subagent Total:            $0.0000  (437,695 tokens, 33 calls)
+
+═══════════════════════════════════════════════════════════════════════════
+SUMMARY
+─────────────────────────────────────────────────────────────────────────
+
+                          Cost        Tokens          API Calls
+  Main session:      $    0.0000    29,941,744           321
+  Subagents:         $    0.0000       437,695            33
+─────────────────────────────────────────────────────────────────────────
+  TOTAL:             $    0.0000    30,379,439           354
+
+═══════════════════════════════════════════════════════════════════════════
