@@ -16,6 +16,7 @@ Zip.on_exists_proc = true
 module MedInstaller
   class Solr
     extend MedInstaller::Logger
+
     URL = "http://mirrors.gigenet.com/apache/lucene/solr/6.6.3/solr-6.6.3.tgz"
     DIR_EXTRACTED_FROM_SOLR_TARGZ = "solr-6.6.3" # make this better!
 
@@ -50,12 +51,13 @@ module MedInstaller
         logger.info "   Recreate suggester for #{suggester_path}"
         # _resp = core.get "config/#{suggester_path}", {"suggest.build" => "true"}
         connection = MySimpleSolrClient::Client.new(Dromedary::Services[:solr_embedded_auth_url])
-        resp = connection.solr_connection.get "#{suggester_path}", {"suggest.build" => "true"}
+        connection.solr_connection.get suggester_path.to_s, {"suggest.build" => "true"}
       end
     end
 
     class Commit < Hanami::CLI::Command
       include MedInstaller::Logger
+
       desc "Force solr to commit"
 
       def call(cmd)
@@ -73,6 +75,7 @@ module MedInstaller
 
     class Optimize < Hanami::CLI::Command
       include MedInstaller::Logger
+
       desc "Optimize solr index"
 
       def call(cmd)

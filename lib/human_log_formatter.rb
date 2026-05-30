@@ -79,7 +79,7 @@ class HumanLogFormatter < SemanticLogger::Formatters::Color
 
   def value_wrap(val)
     if val.is_a?(String) && (val.size > 67)
-      word_wrap(val, line_width: 67).gsub(/\n/, "\n#{" " * 24}")
+      word_wrap(val, line_width: 67).gsub("\n", "\n#{" " * 24}")
     else
       val
     end

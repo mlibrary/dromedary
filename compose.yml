@@ -62,6 +62,8 @@ services:
     depends_on:
       - zoo
     command: solr-foreground
+    volumes:
+      - solr:/var/solr
 
   zoo:
     image: zookeeper
@@ -78,8 +80,4 @@ volumes:
       o: bind
   db:
   solr:
-    driver_opts:
-      type: none
-      device: ${PWD}/solr_data
-      o: bind
 

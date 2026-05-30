@@ -11,12 +11,13 @@
 #   nil.join("/")   => NoMethodError
 #
 # Fix: treat empty previous_script_name the same as nil.
-Rails.application.config.after_initialize do
-  module MergeScriptNamesEmptyStringFix
-    def merge_script_names(previous_script_name, new_script_name)
-      return new_script_name if previous_script_name.nil? || previous_script_name.empty?
-      super
-    end
+module MergeScriptNamesEmptyStringFix
+  def merge_script_names(previous_script_name, new_script_name)
+    return new_script_name if previous_script_name.nil? || previous_script_name.empty?
+    super
   end
+end
+
+Rails.application.config.after_initialize do
   ActionDispatch::Routing::RoutesProxy.prepend(MergeScriptNamesEmptyStringFix)
 end

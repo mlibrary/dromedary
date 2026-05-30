@@ -17,7 +17,6 @@ end
 
 # Have to add when using X-Forwarded-Host and a relative URL. It's a hack.
 
-
 if Dromedary::Services[:rails_url_host]
   Rails.application.routes.default_url_options[:host] = Dromedary::Services[:rails_url_host]
   Rails.application.routes.default_url_options[:protocol] = Dromedary::Services[:rails_url_protocol]
@@ -37,31 +36,31 @@ Rails.application.routes.draw do
 
   # Shunt it all to the maintenace page if we need to
   match "*path" => "static#maintenance_mode", :status => 302, :via => [:get, :post],
-        :constraints => ->(request) { AnnoyingUtilities.maintenance_mode_enabled? }
+    :constraints => ->(request) { AnnoyingUtilities.maintenance_mode_enabled? }
 
   # Admin access for uploading new data and changing the alias
 
   if [1, "1", "true"].include? ENV["ALLOW_ADMIN_ACCESS"]
-    match "admin" => "admin#home", via: [:get, :post]
-    get   "admin/release" => "admin#release", via: [:get]
-    get   "admin/force_release" => "admin#force_release", via: [:get]
-    post  "admin/delete", to: "admin#delete"
+    match "admin" => "admin#home", :via => [:get, :post]
+    get "admin/release" => "admin#release", :via => [:get]
+    get "admin/force_release" => "admin#force_release", :via => [:get]
+    post "admin/delete", to: "admin#delete"
     mount Shrine.presign_endpoint(:incoming), at: "/s3/params"
     mount Shrine.uppy_s3_multipart(:incoming), at: "/s3/multipart"
   end
 
   # Splash pages
-  match "dictionary/" => "catalog#home", :as => :dictionary_home, :via => [:get, :post], :constraints => { query_string: "" }
-  match "bibliography/" => "bibliography#home", :as => :bib_home, :via => [:get, :post], :constraints => { query_string: "" }
-  match "quotations/" => "quotes#home", :as => :quotes_home, :via => [:get, :post], :constraints => { query_string: "" }
+  match "dictionary/" => "catalog#home", :as => :dictionary_home, :via => [:get, :post], :constraints => {query_string: ""}
+  match "bibliography/" => "bibliography#home", :as => :bib_home, :via => [:get, :post], :constraints => {query_string: ""}
+  match "quotations/" => "quotes#home", :as => :quotes_home, :via => [:get, :post], :constraints => {query_string: ""}
 
   # Rails doesn't allow dots in matched ids by default, because reasons.
   # Override the id matcher with an explicit constraint.
   match "dictionary/:id(/)(track)" => "catalog#show",
-        :constraints => { id: /MED[\p{Alnum}\-.]+/ }, :via => [:get, :post]
+    :constraints => {id: /MED[\p{Alnum}\-.]+/}, :via => [:get, :post]
 
   match "bibliography/:id(/*rest)" => "bibliography#show", :as => :bib_link,
-        :constraints => { id: /(?:BIB|HYP)[T\d\-.]+/i }, :via => [:get, :post]
+    :constraints => {id: /(?:BIB|HYP)[T\d\-.]+/i}, :via => [:get, :post]
 
   match "bibliography/" => "bibliography#index", :via => [:get, :post]
 
@@ -108,7 +107,7 @@ Rails.application.routes.draw do
   get "about" => "static#about_med", :as => :about
   get "help" => "help#help_root", :as => :help_root
   get "help/:page" => "help#help_page", :as => :help
-  get "static/*path" => "static#about_med", as: :static
+  get "static/*path" => "static#about_med", :as => :static
 
   # 404s -- will only match if nothing else did
 

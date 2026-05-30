@@ -39,9 +39,9 @@ class CatalogController < ApplicationController
     # add_show_tools_partial(:print)
     config.show.document_actions.delete(:email)
     config.show.document_actions.delete(:sms)
-    ##--------------------------------------------------------
+    # #--------------------------------------------------------
     # Talking to solr
-    ##--------------------------------------------------------
+    # #--------------------------------------------------------
     #
     ## Default parameters to send to solr for all search-like requests. See also SearchBuilder#processed_parameters
     config.default_solr_params = {
@@ -58,9 +58,9 @@ class CatalogController < ApplicationController
 
     config.document_solr_path = "document"
 
-    ##--------------------------------------------------------
+    # #--------------------------------------------------------
     # Sorting and pagination in the Blacklight UI
-    ##--------------------------------------------------------
+    # #--------------------------------------------------------
 
     # Options for items to show per page, each number in the array represent another option to choose from.
     config.per_page = [20, 100]
@@ -72,9 +72,9 @@ class CatalogController < ApplicationController
     config.add_sort_field "score desc", label: "Relevance"
     config.add_sort_field "sequence asc", label: "Alphabetical"
 
-    ##--------------------------------------------------------
+    # #--------------------------------------------------------
     # The search results (index) page
-    ##--------------------------------------------------------
+    # #--------------------------------------------------------
 
     ## Default parameters to send on single-document requests to Solr.
     # These settings are the Blackligt defaults (see SearchHelper#solr_doc_params) or
@@ -186,7 +186,6 @@ class CatalogController < ApplicationController
     # This one uses all the defaults set by the solr request handler. Which
     # solr request handler? The one set in config[:default_solr_parameters][:qt],
     # since we aren't specifying it otherwise.
-
 
     ######################### WHAT ARE THE DOLLAR-SIGN VARIABLES??? ############
     # These are sent to solr as the actual string (e.g., solr gets "$everything_qf").

@@ -120,7 +120,11 @@ RSpec.describe "Dromedary regression checklist", type: :system do
     it "renders without error when accessed directly" do
       # Print view is at /dictionary/:id/print or catalog#print
       # Try the print endpoint via the catalog route
-      get_response = page.driver.browser.get("/dictionary?q=love&format=print") rescue nil
+      begin
+        page.driver.browser.get("/dictionary?q=love&format=print")
+      rescue
+        nil
+      end
       visit "/dictionary?q=love"
       expect(page).to have_http_status(:ok)
     end

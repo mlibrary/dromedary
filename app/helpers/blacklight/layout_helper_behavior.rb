@@ -10,7 +10,7 @@ module Blacklight
     end
 
     def html_tag_attributes
-      { lang: I18n.locale }
+      {lang: I18n.locale}
     end
 
     def show_sidebar_classes
@@ -54,7 +54,7 @@ module Blacklight
     end
 
     def extra_body_classes
-      @extra_body_classes ||= ["blacklight-#{controller.controller_name}", "blacklight-#{[controller.controller_name, controller.action_name].join('-')}"]
+      @extra_body_classes ||= ["blacklight-#{controller.controller_name}", "blacklight-#{[controller.controller_name, controller.action_name].join("-")}"]
     end
   end
 end
