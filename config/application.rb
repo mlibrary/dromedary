@@ -45,6 +45,9 @@ module Dromedary
 
     config.blacklight_url = Dromedary::Services[:solr_embedded_auth_url]
 
+    # secrets.yml is deprecated since Rails 7.2; set secret_key_base directly
+    config.secret_key_base = Dromedary::Services[:secret_key_base]
+
     config.log_level = :info
 
     config.lograge.enabled = false
