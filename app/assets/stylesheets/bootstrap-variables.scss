@@ -1,26 +1,26 @@
-// $navbar-bgcolor: #00274C;
+// Bootstrap 4 variable overrides
+// These are imported before @import 'bootstrap' (via _globals.scss -> blacklight/blacklight)
+
 $navbar-bgcolor: #F2F2F2;
 $footer-bgcolor: #00274C;
 $header-bgcolor: #00274C;
 $body-bgcolor: #F2F2F2;
 
-$image-viewer-bgcolor: #333; // #323333;
-$home-site-search-bgcolor:  #333;
-$index-site-search-bgcolor:  #e5e5e5;
+$image-viewer-bgcolor: #333;
+$home-site-search-bgcolor: #333;
+$index-site-search-bgcolor: #e5e5e5;
 
-// $brand-primary: red;
+// $primary: red;   // BS4: was $brand-primary in BS3 (commented out)
 
-$text-color:            #4a4a4a !default; // $gray-dark !default;
-$btn-default-color:     #333333 !default;
+// BS4 renamed variables:
+$body-color: #4a4a4a;               // BS3: $text-color
+// $btn-default-color removed (BS3 only; use .btn-secondary in HTML)
 
 $body-bg: $body-bgcolor;
 $link-color: #126dc1;
-$link-active-color: #0c5292;
-$link-focus-color: rgb(94, 158, 214);
+$link-hover-color: #0c5292;         // BS3: $link-active-color
 
-$padding-base-vertical: 9px;
-$padding-base-horizontal: 16px;
+$input-btn-padding-y: 9px;          // BS3: $padding-base-vertical
+$input-btn-padding-x: 16px;         // BS3: $padding-base-horizontal
 
-// $sys-font-family: $base-fonts;
-
-$highlight-color: rgba(5, 166, 86, 0.36);
+$highlight-color: rgba(5, 166, 86, 0.36);  // App-defined, not a Bootstrap variable

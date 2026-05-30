@@ -23,16 +23,18 @@
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
-    <%= area :head %>
+    <%= yield :head %>
 
     <%= render "static/google_analytics" %>
 
   </head>
     
-  <body class="<%= render_body_class %>" <%= area :data %>>
+  <body class="<%= render_body_class %>" <%= yield :data %>>
 
-    <%= area :header do %>
-        <%= render :partial => 'shared/header_navbar' %>
+    <% if content_for?(:header) %>
+      <%= yield :header %>
+    <% else %>
+      <%= render partial: 'shared/header_navbar' %>
     <% end %>
 
     <% if ENV['DEBUG_ENV'] %>
@@ -40,12 +42,14 @@
     <% end %>
 
     <main id="main-content" tabindex="-1">
-      <%= area :main do %>
-        <p>Main content goes here.</p>
+      <% if content_for?(:main) %>
+        <%= yield :main %>
+      <% else %>
+        <%= yield %>
       <% end %>
     </main>
 
-    <%= render :partial => 'shared/footer' %>
+    <%= render partial: 'shared/footer' %>
 
     <% if ENV['DEBUG_CSS'] %>
     <div class="debug-breakpoints visible-xs-block">XS</div>

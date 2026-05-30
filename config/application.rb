@@ -30,7 +30,7 @@ module Dromedary
     config.time_zone = 'Eastern Time (US & Canada)'
 
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.1
+    config.load_defaults 7.1
 
     config.autoload_paths << "#{Rails.root}/lib"
     config.autoload_paths << "#{Rails.root}/app/presenters"

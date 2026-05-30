@@ -1,16 +1,12 @@
-<%= extends :application do %>
+<% content_for :main do %>
 
-  <%= replace :main do %>
+  <div class="<%= container_classes %>">
 
-    <div class="<%= container_classes %>">
-
-      <div class="row">
-        <%= yield %>
-      </div>
-
+    <div class="row">
+      <%= yield %>
     </div>
 
-
-  <% end %>
+  </div>
 
 <% end %>
+<%= render template: "layouts/application" %>

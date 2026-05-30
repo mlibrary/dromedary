@@ -88,13 +88,18 @@ gem "canister"
 # Rails
 #  https://groups.google.com/forum/#!topic/rubyonrails-security/GN7w9fFAQeI)
 
-gem "rails", "~> 5.0"
+gem "rails", "~> 7.1.0"
 
 # Security vulnerability CVE-2018-3760
+# Keep Sprockets 3.x through Phase 5; upgrade to 4.x in Phase 6
 gem "sprockets", "~>3.7.2"
 
-# They messed with the auto-suggest code, so we're stuck here for a while
-gem "blacklight", "~> 6.15.0"
+gem "blacklight", "~> 8.12.0"
+
+# Bootstrap 4 (required by BL7; replaces bootstrap-sass which was BL6 transitive dep)
+gem "bootstrap", "~> 4.6"
+gem "autoprefixer-rails"
+gem "font-awesome-rails"
 
 # For bin/dromedary
 gem "hanami-cli", "0.2.0" # peg it until I we can update to 3.
@@ -117,8 +122,6 @@ gem "lograge", ">=0.11.1"
 
 # Contacts Email
 gem "mail_form", "~>1.7"
-# Extendable layouts
-gem "nestive", "0.6.0"
 
 # Use pry for the console
 group :development, :test do
@@ -136,15 +139,15 @@ gem "standard"
 #############################################
 
 # Databases
-gem "sqlite3", "~>1.3.13"
+gem "sqlite3", ">= 1.3.13"
 # AR won't work with the latest mysql2, apparently
 # See https://stackoverflow.com/questions/49407254/gemloaderror-cant-activate-mysql2-0-5-0-3-18-already-activated-mysq
 gem "mysql2", "< 0.5.0", require: false
 
 # JS and CSS
-gem "sass-rails", "~> 5.0"
+gem "sass-rails", "~> 6.0"
 gem "uglifier", ">= 1.3.0"
-gem "coffee-rails", "~> 4.2"
+# coffee-rails removed: no Rails 6 support and bibliography.coffee is empty
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 # gem 'turbolinks', '~> 5'
@@ -173,7 +176,7 @@ group :development, :test do
   # gem 'capybara', '~> 2.13' # no longer deploying like this.
   gem "capybara"
   gem "selenium-webdriver"
-  gem "rspec-rails", "~> 3.6"
+  gem "rspec-rails", "~> 6.0"
 end
 
 group :development do
@@ -194,5 +197,3 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw]
 
 gem "rsolr", ">= 1.0"
 gem "jquery-rails"
-
-

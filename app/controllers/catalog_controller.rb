@@ -1,4 +1,4 @@
-require_relative "concerns/catalog"
+require_relative "concerns/dromedary/catalog"
 require_relative "../presenters/dromedary/index_presenter"
 
 class CatalogController < ApplicationController
@@ -324,6 +324,32 @@ class CatalogController < ApplicationController
 
     def show404(*args)
       render "application/404", layout: "static", status: 404, locals: {args: args, id: params["id"]}
+    end
+
+    # Override BL7 suggest to support dromedary's per-search-field Solr suggest handlers.
+    # config.autocomplete maps search_field keys to solr_endpoint + search_component_name.
+    # BL7 default uses a single config.autocomplete_path, which dromedary does not set.
+    def suggest
+      search_field = params[:search_field].presence
+      autocomplete = blacklight_config.autocomplete
+      cfg = (autocomplete && search_field) ? autocomplete[search_field] : {}
+      cfg ||= {}
+
+      endpoint = cfg["solr_endpoint"] || cfg[:solr_endpoint]
+      component = cfg["search_component_name"] || cfg[:search_component_name]
+
+      if endpoint && component
+        request_params = {q: params[:q].to_s}
+        begin
+          results = search_service.repository.connection.send_and_receive(endpoint, params: request_params)
+          suggestions = Blacklight::Suggest::Response.new(results, request_params, "suggest", component).suggestions
+          render json: suggestions
+        rescue => _e
+          render json: []
+        end
+      else
+        render json: []
+      end
     end
   end
 end

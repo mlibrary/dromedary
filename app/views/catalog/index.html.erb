@@ -2,11 +2,11 @@
   <%#= link_to_repository %>
 <% #end %>
 
-<%= replace :skiplinks do %>
+<% content_for :skiplinks do %>
   <%= render 'index_skiplinks' %>
 <% end %>
 
-<%= replace :h1 do %>
+<% content_for :h1 do %>
   <% if ! has_search_parameters? %>
     New Search
   <% elsif @response.empty? %>

@@ -1,5 +1,5 @@
-require_relative "concerns/catalog"
-require_relative "../presenters/bibliography/index_presenter"
+require_relative "concerns/dromedary/catalog"
+require_relative "../presenters/dromedary/bib/index_presenter"
 class BibliographyController < ApplicationController
   include Blacklight::Catalog
   include Dromedary::Catalog

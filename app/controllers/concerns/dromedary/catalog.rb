@@ -3,11 +3,12 @@
 module Dromedary::Catalog
   extend ActiveSupport::Concern
 
-  include Blacklight::Base
+  include Blacklight::Controller
 
   # get search results from the solr index
   def index
-    (@response, @document_list) = search_results(params)
+    (@response, deprecated_document_list) = search_service.search_results
+    @document_list = deprecated_document_list
     respond_to do |format|
       format.html {} # no longer store_preferred_view
       format.rss { render layout: false }

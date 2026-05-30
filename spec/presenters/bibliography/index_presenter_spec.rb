@@ -1,6 +1,6 @@
 require "rails_helper"
 
-require_relative "../../../app/presenters/bibliography/index_presenter"
+require_relative "../../../app/presenters/dromedary/bib/index_presenter"
 
 class MockView < ActionView::Base
   def search_state

@@ -1,17 +1,14 @@
-<%= extends :application do %>
+<% content_for :main do %>
 
-  <%= replace :main do %>
-
-    <div>
+  <div>
 
   
 
-      <div>
-        <%= yield %>
-      </div>
-
+    <div>
+      <%= yield %>
     </div>
 
-  <% end %>
+  </div>
 
 <% end %>
+<%= render template: "layouts/application" %>

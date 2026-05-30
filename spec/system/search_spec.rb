@@ -57,14 +57,14 @@ RSpec.describe "Dromedary regression checklist", type: :system do
     it "per-page selector is present" do
       fill_in "q", with: "god"
       click_button "Search"
-      expect(page).to have_css("select[name='per_page'], .per-page, #per-page")
+      expect(page).to have_css("select[name='per_page'], .per-page, #per-page, #per_page-dropdown")
         .or(have_content("per page"))
     end
 
     it "sort selector is present" do
       fill_in "q", with: "god"
       click_button "Search"
-      expect(page).to have_css("select[name='sort'], .sort-widget, #sort-widget")
+      expect(page).to have_css("select[name='sort'], .sort-widget, #sort-widget, #sort-dropdown")
         .or(have_content("Sort by"))
     end
   end

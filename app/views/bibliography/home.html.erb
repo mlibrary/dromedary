@@ -2,7 +2,7 @@
   <%#= link_to_repository %>
 <% #end %>
 
-<%= replace :skiplinks do %>
+<% content_for :skiplinks do %>
   <%= render 'catalog/index_skiplinks' %>
 <% end %>
 
@@ -16,6 +16,6 @@
 
 	<div class="search-bar-label">Search bibliographic entries:</div>
 	<div class="search-bar--light-bg">
-	  <%= render_search_bar  %>
+	  <%= render Blacklight::SearchBarComponent.new(url: search_action_url, params: search_state.params_for_search.except(:qt)) %>
 	</div>
 </section>
