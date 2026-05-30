@@ -15,10 +15,10 @@
 
           <%= simple_form_for @contact, :html => {:class => 'form-horizontal' } do |f| %>
             <div class="container-fluid inner-form">
-              <div class="col-md-6 col-xs-12 padded">
+              <div class="col-md-6 col-12 padded">
                 <%= f.input :username, label: "Your Name", placeholder: 'Your name please', :required => true %>
               </div>
-              <div class="col-md-6 col-xs-12">
+              <div class="col-md-6 col-12">
                 <%= f.input :email, label: "Email", placeholder: 'you@example.com', :required => true %>
               </div>
             </div>

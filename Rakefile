@@ -3,7 +3,8 @@
 
 require_relative "config/application"
 # require "standard/rake"
-require_relative "app/jobs/job_index"
+require_relative "app/jobs/poke_sidekiq_job"
+require_relative "app/jobs/index_data_job"
 require_relative "lib/med_installer/job_monitoring"
 
 Rails.application.load_tasks
@@ -39,7 +40,7 @@ task queue_indexing: :environment do
   IndexDataJob.perform_async(ENV["DATA_FILE"])
 end
 
-desc "do indexing job now"
+desc "perform indexing job now"
 task :perform_indexing do
   IndexDataJob.perform(ENV["DATA_FILE"])
 end

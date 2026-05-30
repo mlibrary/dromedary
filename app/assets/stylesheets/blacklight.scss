@@ -1,3 +1,5 @@
+// Bootstrap 4 variable overrides must be imported before blacklight/blacklight
+// (which imports Bootstrap 4 internally)
 @import 'globals';
 
 @import 'blacklight/blacklight';

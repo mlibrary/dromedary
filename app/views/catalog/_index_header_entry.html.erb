@@ -43,7 +43,7 @@
             <%# Trim it down to 300 chars, to the nearest space-break %>
             <% cdef = doc_presenter.def_html(sense).truncate(200) %>
             <div class="def-header">Sense / Definition</div>
-            <div class="definition"><%== cdef %><%= link_to("\u2026", document) %></div>
+            <div class="definition"><%== cdef %><%= link_to document do %><span aria-hidden="true">&#x2026;</span><span class="sr-only">Read full entry for <%= doc_presenter.headword_display(document) %></span><% end %></div>
           <% end %>
         </div>
       </div>

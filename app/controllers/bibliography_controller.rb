@@ -1,5 +1,5 @@
-require_relative "concerns/catalog"
-require_relative "../presenters/bibliography/index_presenter"
+require_relative "concerns/dromedary/catalog"
+require_relative "../presenters/dromedary/bib/index_presenter"
 class BibliographyController < ApplicationController
   include Blacklight::Catalog
   include Dromedary::Catalog
@@ -35,6 +35,9 @@ class BibliographyController < ApplicationController
     config.default_solr_params = {
       rows: 100
     }
+
+    # Solr 10 removed qt dispatch; target /bibsearch handler directly
+    config.solr_path = "bibsearch"
 
     # Solr path to the single-document handler
     config.document_solr_path = "bibdoc"

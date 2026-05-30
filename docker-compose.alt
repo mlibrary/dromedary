@@ -43,9 +43,9 @@ services:
     entrypoint:
       - bash
       - "-c"
-      - "exec solr -c -f"
+      - "exec solr-fg -c"
     volumes:
-      - solr:/var/lib/solr/data
+      - solr:/var/solr
 
 volumes:
   data:

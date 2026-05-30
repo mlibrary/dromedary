@@ -1,5 +1,5 @@
-require_relative "concerns/catalog"
-require_relative "../presenters/quotes/index_presenter"
+require_relative "concerns/dromedary/catalog"
+require_relative "../presenters/dromedary/quotes/index_presenter"
 
 class QuotesController < ApplicationController
   include Blacklight::Catalog

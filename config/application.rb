@@ -22,26 +22,30 @@ Bundler.require(*Rails.groups)
 
 module Dromedary
   class Application < Rails::Application
-
     # CORS with rails running not-at-the-root turns out to be mostly broken.
     # So we do this, which stinks.
     config.action_controller.forgery_protection_origin_check = false
 
-    config.time_zone = 'Eastern Time (US & Canada)'
+    config.time_zone = "Eastern Time (US & Canada)"
 
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.1
+    config.load_defaults 8.1
 
     config.autoload_paths << "#{Rails.root}/lib"
     config.autoload_paths << "#{Rails.root}/app/presenters"
 
-    config.relative_url_root = Dromedary::Services[:relative_url_root]
-    config.action_controller.relative_url_root = config.relative_url_root
+    unless Rails.env.test?
+      config.relative_url_root = Dromedary::Services[:relative_url_root]
+      config.action_controller.relative_url_root = config.relative_url_root
+    end
     # config.assets.prefix = Dromedary::Services[:relative_url_root]
     # config.relative_url_root                   = '/'
     # config.action_controller.relative_url_root = '/'
 
     config.blacklight_url = Dromedary::Services[:solr_embedded_auth_url]
+
+    # secrets.yml is deprecated since Rails 7.2; set secret_key_base directly
+    config.secret_key_base = Dromedary::Services[:secret_key_base]
 
     config.log_level = :info
 

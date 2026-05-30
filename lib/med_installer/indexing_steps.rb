@@ -6,7 +6,6 @@ require "solr_cloud/connection"
 require "med_installer/extract"
 require "med_installer/convert"
 require "med_installer/hyp_to_bibid"
-require "solr_cloud/connection"
 require "traject"
 require "yaml"
 
@@ -33,9 +32,8 @@ module MedInstaller
     include SemanticLogger::Loggable
 
     def initialize(zipfile:,
-                   build_dir: Services.build_directory,
-                   connection: Services[:solr_connection]
-                   )
+      build_dir: Services.build_directory,
+      connection: Services[:solr_connection])
       @build_dir = Pathname.new(build_dir).realdirpath
       @xml_dir = @build_dir + "xml"
       @connection = connection
@@ -44,11 +42,10 @@ module MedInstaller
     end
 
     def index
-
       # Do some basic checks against the solr
 
-      url = Dromedary::Services[:solr_url]
-      connection_url = @connection.url
+      Dromedary::Services[:solr_url]
+      @connection.url
       logger.info "Trying to connect to #{Dromedary::Services[:solr_url]}"
       logger.info "Connection thinks its url is #{@connection.url}"
       logger.debug "System: #{@connection.system.to_yaml}\n\n"
@@ -70,8 +67,8 @@ module MedInstaller
       # @dueberb 2024.09.17
 
       logger.info "Checking to see if we should try to build suggesters on each solr replica individually"
-      direct_urls_string = Services[:direct_urls_to_solr_replicas]
-      if direct_replica_urls and Services[:manually_build_suggesters]
+      Services[:direct_urls_to_solr_replicas]
+      if direct_replica_urls && Services[:manually_build_suggesters]
         logger.info "Will target #{direct_replica_urls.count} replicas for 'manual' builds of suggester index:"
         direct_replica_urls.each do |u|
           logger.info "- '#{u}'"
@@ -101,14 +98,14 @@ module MedInstaller
 
       @build_collection.commit
 
-      if direct_replica_urls and Services[:manually_build_suggesters]
+      if direct_replica_urls && Services[:manually_build_suggesters]
         urls = direct_replica_urls
         pause_time = (ENV["PAUSE_TIME"] || 60).to_i
         half_pause_time = pause_time / 2
         logger.info "Sleeping for #{pause_time} seconds so things can crash and restart if that's what they're doing."
         sleep half_pause_time # Let whatever restarts are going to happen, happen.
         logger.info "...#{half_pause_time}"
-        sleep (pause_time - half_pause_time)
+        sleep(pause_time - half_pause_time)
         logger.info "...#{pause_time}"
         urls.each do |direct_url|
           logger.info "Rebuild suggesters at '#{direct_url}'"
@@ -160,11 +157,10 @@ module MedInstaller
       MedInstaller::Convert.new(command_name: "convert").call(build_directory: build_directory)
     end
 
-
     # @return [SolrCloud::Collection]
     def create_configset_and_collection!(name: @coll_and_configset_name,
-                                         solr_configuration_directory: Services.solr_conf_directory,
-                                         replication_factor: Services[:solr_replication_factor])
+      solr_configuration_directory: Services.solr_conf_directory,
+      replication_factor: Services[:solr_replication_factor])
       logger.info "Creating configset/collection #{name}, replication factor #{replication_factor}"
       connection.create_configset(name: name, confdir: solr_configuration_directory)
       connection.create_collection(name: name, configset: name, replication_factor: replication_factor)
@@ -172,10 +168,10 @@ module MedInstaller
     end
 
     def generic_indexing_call(rulesfile:,
-                              datafile:,
-                              solr_url:,
-                              bib_all_xml_file: Services[:bib_all_xml_file],
-                              writer: Services[:solr_writer])
+      datafile:,
+      solr_url:,
+      bib_all_xml_file: Services[:bib_all_xml_file],
+      writer: Services[:solr_writer])
       indexer = ::Traject::Indexer.new
       indexer.settings do
         store "med.data_file", datafile.to_s
@@ -185,7 +181,7 @@ module MedInstaller
 
       indexer.load_config_file rulesfile.to_s
       indexer.load_config_file writer.to_s
-      null_file_because_the_real_data_file_is_stored_in_med_dot_data_file = File.open("/dev/null")
+      null_file_because_the_real_data_file_is_stored_in_med_dot_data_file = File.open(File::NULL)
       exitstatus = indexer.process(null_file_because_the_real_data_file_is_stored_in_med_dot_data_file)
       logger.info "Traject running #{rulesfile} exited with status #{exitstatus}"
       exitstatus
@@ -196,8 +192,8 @@ module MedInstaller
     # @return [Integer] exit status
     def index_entries(solr_url:)
       generic_indexing_call(rulesfile: Dromedary::Services[:entry_indexing_rules],
-                            datafile: Dromedary::Services[:entries_gz_file],
-                            solr_url: solr_url)
+        datafile: Dromedary::Services[:entries_gz_file],
+        solr_url: solr_url)
     end
 
     # Actually index the bibs as expressed in bib_all.xml
@@ -205,14 +201,14 @@ module MedInstaller
     # @return [Integer] exit status
     def index_bibs(solr_url:)
       generic_indexing_call(rulesfile: Dromedary::Services[:bib_indexing_rules],
-                            datafile: Dromedary::Services[:bib_all_xml_file], solr_url: solr_url)
+        datafile: Dromedary::Services[:bib_all_xml_file], solr_url: solr_url)
     end
 
     # Rebuild the suggesters that provide autocomplete/typeahead functionality for @build_collection
     # @param rails_env [String] "production" or "development"
-    def rebuild_suggesters(rails_env: (ENV["RAILS_ENV"] || "production"),
-                           collection_name: @build_collection.name,
-                           connection: @connection)
+    def rebuild_suggesters(rails_env: ENV["RAILS_ENV"] || "production",
+      collection_name: @build_collection.name,
+      connection: @connection)
       logger.info "Recreating suggest indexes for #{collection_name}"
       autocomplete_filename = Services[:root_directory] + "config" + "autocomplete.yml"
       autocomplete_map = YAML.safe_load(ERB.new(File.read(autocomplete_filename)).result, aliases: true)[rails_env]
@@ -220,7 +216,7 @@ module MedInstaller
         suggester_path = autocomplete_map[suggester_name]["solr_endpoint"]
         logger.info "   Recreate suggester for #{suggester_name} in #{collection_name} at #{connection.url}"
         begin
-          resp = connection.get "solr/#{collection_name}/#{suggester_path}", { "suggest.build" => "true" }
+          connection.get "solr/#{collection_name}/#{suggester_path}?suggest.build=true"
         rescue => e
           raise "Error trying to build suggester : #{e.message}"
         end
@@ -236,9 +232,7 @@ module MedInstaller
     # Parse out URLS
     def direct_replica_urls
       return nil unless Services[:direct_urls_to_solr_replicas] && (Services[:direct_urls_to_solr_replicas] =~ /\S/)
-      Services[:direct_urls_to_solr_replicas].split(/\s+/).map{|x| x.strip}.reject{|x| x == "" or x.nil?}
+      Services[:direct_urls_to_solr_replicas].split(/\s+/).map { |x| x.strip }.reject { |x| x == "" or x.nil? }
     end
-
   end
 end
-

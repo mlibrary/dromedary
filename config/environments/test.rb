@@ -1,6 +1,12 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  # Disable relative URL root in test so Capybara rack_test can visit paths
+  # like "/" without the /m/middle-english-dictionary prefix.  In production
+  # the reverse proxy strips the prefix before Rails sees the request.
+  config.relative_url_root = nil
+  config.action_controller.relative_url_root = nil
+
   # The test environment is used exclusively to run your application's
   # test suite. You never need to work with it otherwise. Remember that
   # your test database is "scratch space" for the test suite and is wiped

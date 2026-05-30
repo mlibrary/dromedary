@@ -45,7 +45,7 @@ module MedInstaller
 
         indexer.load_config_file rulesfile.to_s
         indexer.load_config_file writer.to_s
-        exitstatus = indexer.process(File.open("/dev/null"))
+        exitstatus = indexer.process(File.open(File::NULL))
         logger.info "Traject running #{rulesfile} exited with status #{exitstatus}"
       end
 

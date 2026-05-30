@@ -23,18 +23,16 @@ module Dromedary
   Services.register(:rails_url_host) { ENV["RAILS_URL_HOST"] || nil }
   Services.register(:rails_url_protocol) { ENV["RAILS_URL_PROTOCOL"] || nil }
 
-
   #### NAMING ####
 
   Services.register(:production_alias) { ENV["SOLR_PRODUCTION_ALIAS"] || "med-production" }
-  Services.register(:preview_alias) {   ENV["SOLR_PREVIEW_ALIAS"]     ||  "med-preview" }
+  Services.register(:preview_alias) { ENV["SOLR_PREVIEW_ALIAS"] || "med-preview" }
 
-  Services.register(:relative_url_root) { ENV['RAILS_RELATIVE_URL_ROOT'] || '/' }
+  Services.register(:relative_url_root) { ENV["RAILS_RELATIVE_URL_ROOT"] || "/" }
 
   Services.register(:allow_admin_access) do
     ["1", 1, "true", "TRUE"].include? ENV["ALLOW_ADMIN_ACCESS"]
   end
-
 
   ################ Generic Solr stuff ##################
 
@@ -42,14 +40,13 @@ module Dromedary
   # be the first time we're trying to upload data.
 
   Services.register(:looks_like_first_upload) do
-    if Services[:allow_admin_access] and Services[:solr_current_collection].nil?
+    if Services[:allow_admin_access] && Services[:solr_current_collection].nil?
       logger = Services[:logger]
       logger.warn "Admin access allowed and collection is nil. Assuming this is the first upload of a new install"
       logger.warn "Otherwise, something went very wrong"
       true
     end
   end
-
 
   Services.register(:solr_root) { (ENV["SOLR_ROOT"] || "http://solr:8983/").chomp("/") }
   Services.register(:solr_collection_base) { ENV["SOLR_COLLECTION_BASE"] || "med" }
@@ -61,21 +58,21 @@ module Dromedary
 
   Services.register(:solr_connection) do
     SolrCloud::Connection.new(url: Services[:solr_root],
-                              user: Services[:solr_username],
-                              password: Services[:solr_password])
+      user: Services[:solr_username],
+      password: Services[:solr_password])
   end
 
   Services.register(:solr_current_collection) do
     c = Services[:solr_connection]
     name = Services[:solr_collection]
-    if !(c.has_collection?(name))
+    if !c.has_collection?(name)
       Services[:logger].warn "Collection/Alias #{name} not found. Probably ok for first-time indexing, but a problem otherwise"
     end
     c.get_collection(name)
   end
 
   Services.register(:solr_url) do
-    if Services[:solr_root] and Services[:solr_collection]
+    if Services[:solr_root] && Services[:solr_collection]
       Services[:solr_root] + "/solr/" + Services[:solr_collection]
     else
       raise "Configuration error: Need both SOLR_ROOT/SOLR_COLLECTION to be defined"
@@ -88,7 +85,6 @@ module Dromedary
     uri.password = Services[:solr_password]
     uri.to_s
   end
-
 
   ################ Reindexing stuff ################
 
@@ -103,7 +99,6 @@ module Dromedary
     val = ENV["MANUALLY_BUILD_SUGGESTERS"]
     val =~ /\S/ and !(["false", 0, "0"].include? val.downcase)
   end
-
 
   Services.register(:build_root) do
     br = Pathname.new(ENV["BUILD_ROOT"])
@@ -129,12 +124,12 @@ module Dromedary
   Services.register(:bib_all_xml_file) do
     Services[:build_xml_directory] + "bib_all.xml"
   end
-  
+
   # Legacy usage
   Services.register(:xml_directory) { Services["build_xml_directory"] }
 
   Services.register(:entries_gz_file) do
-    Services[:build_directory] +  "entries.json.gz"
+    Services[:build_directory] + "entries.json.gz"
   end
 
   Services.register(:hyp_to_bibid_file) do
@@ -193,15 +188,15 @@ module Dromedary
     }
 
     Shrine.plugin :rack_file
-    Shrine.plugin :presign_endpoint, presign_options: -> (request) {
+    Shrine.plugin :presign_endpoint, presign_options: ->(request) {
       # Uppy will send the "filename" and "type" query parameters
       filename = request.params["filename"]
-      type     = request.params["type"]
+      type = request.params["type"]
 
       {
-        content_disposition:    ContentDisposition.inline(filename), # set download filename
-        content_type:           type,                                # set content type (required if using DigitalOcean Spaces)
-        content_length_range:   0..(10*1024*1024),                   # limit upload size to 10 MB
+        content_disposition: ContentDisposition.inline(filename), # set download filename
+        content_type: type,                                # set content type (required if using DigitalOcean Spaces)
+        content_length_range: 0..(10 * 1024 * 1024)                   # limit upload size to 10 MB
       }
     }
 

@@ -2,15 +2,20 @@ require "annoying_utilities"
 
 require "dromedary/services"
 
-# This is a very expensive-to-find workaround for https://github.com/rails/rails/issues/21459
+# Workaround for https://github.com/rails/rails/issues/21459 -- without this, engine-proxy
+# helpers (e.g. blacklight.suggest_index_path) drop the relative-URL-root prefix in
+# environments where SCRIPT_NAME is not set by a proxy (tests, direct rack invocations).
 #
-# The relative root URL *MUST NOT* end in a slash, but the script_name *MUST*, in order to
-# avoid chopping off the last segment of the prefix for things like suggest_index_path.
+# NOTE: do NOT add a trailing slash here.  merge_script_names in Rails 5.2 routes_proxy.rb
+# calls Array#slice(0, context_parts) where context_parts can go negative when the
+# script_name has a trailing slash, causing nil.join('/') -- NoMethodError.
+# add_prefix already calls prefix.chomp('/'), so the trailing slash is never needed.
 Rails.application.routes.default_url_options ||= {}
-Rails.application.routes.default_url_options[:script_name] = Dromedary::Services[:relative_url_root].chomp("/") + "/"
+unless Rails.env.test?
+  Rails.application.routes.default_url_options[:script_name] = Dromedary::Services[:relative_url_root].chomp("/")
+end
 
 # Have to add when using X-Forwarded-Host and a relative URL. It's a hack.
-
 
 if Dromedary::Services[:rails_url_host]
   Rails.application.routes.default_url_options[:host] = Dromedary::Services[:rails_url_host]
@@ -31,31 +36,31 @@ Rails.application.routes.draw do
 
   # Shunt it all to the maintenace page if we need to
   match "*path" => "static#maintenance_mode", :status => 302, :via => [:get, :post],
-        :constraints => ->(request) { AnnoyingUtilities.maintenance_mode_enabled? }
+    :constraints => ->(request) { AnnoyingUtilities.maintenance_mode_enabled? }
 
   # Admin access for uploading new data and changing the alias
 
   if [1, "1", "true"].include? ENV["ALLOW_ADMIN_ACCESS"]
-    match "admin" => "admin#home", via: [:get, :post]
-    get   "admin/release" => "admin#release", via: [:get]
-    get   "admin/force_release" => "admin#force_release", via: [:get]
-    post  "admin/delete", to: "admin#delete"
+    match "admin" => "admin#home", :via => [:get, :post]
+    get "admin/release" => "admin#release", :via => [:get]
+    get "admin/force_release" => "admin#force_release", :via => [:get]
+    post "admin/delete", to: "admin#delete"
     mount Shrine.presign_endpoint(:incoming), at: "/s3/params"
     mount Shrine.uppy_s3_multipart(:incoming), at: "/s3/multipart"
   end
 
   # Splash pages
-  match "dictionary/" => "catalog#home", :as => :dictionary_home, :via => [:get, :post], :constraints => { query_string: "" }
-  match "bibliography/" => "bibliography#home", :as => :bib_home, :via => [:get, :post], :constraints => { query_string: "" }
-  match "quotations/" => "quotes#home", :as => :quotes_home, :via => [:get, :post], :constraints => { query_string: "" }
+  match "dictionary/" => "catalog#home", :as => :dictionary_home, :via => [:get, :post], :constraints => {query_string: ""}
+  match "bibliography/" => "bibliography#home", :as => :bib_home, :via => [:get, :post], :constraints => {query_string: ""}
+  match "quotations/" => "quotes#home", :as => :quotes_home, :via => [:get, :post], :constraints => {query_string: ""}
 
   # Rails doesn't allow dots in matched ids by default, because reasons.
   # Override the id matcher with an explicit constraint.
   match "dictionary/:id(/)(track)" => "catalog#show",
-        :constraints => { id: /MED[\p{Alnum}\-.]+/ }, :via => [:get, :post]
+    :constraints => {id: /MED[\p{Alnum}\-.]+/}, :via => [:get, :post]
 
   match "bibliography/:id(/*rest)" => "bibliography#show", :as => :bib_link,
-        :constraints => { id: /(?:BIB|HYP)[T\d\-.]+/i }, :via => [:get, :post]
+    :constraints => {id: /(?:BIB|HYP)[T\d\-.]+/i}, :via => [:get, :post]
 
   match "bibliography/" => "bibliography#index", :via => [:get, :post]
 
@@ -66,15 +71,15 @@ Rails.application.routes.draw do
 
   concern :searchable, Blacklight::Routes::Searchable.new
 
-  resource :search, only: [:index], as: "catalog", path: "/dictionary", controller: "catalog" do
+  resource :search, only: [], as: "catalog", path: "/dictionary", controller: "catalog" do
     concerns :searchable
   end
 
-  resource :search, only: [:index], as: "bibliography", path: "/bibliography", controller: "bibliography" do
+  resource :search, only: [], as: "bibliography", path: "/bibliography", controller: "bibliography" do
     concerns :searchable
   end
 
-  resource :search, only: [:index], as: "quotes", path: "/quotations", controller: "quotes" do
+  resource :search, only: [], as: "quotes", path: "/quotations", controller: "quotes" do
     concerns :searchable
   end
 
@@ -102,7 +107,7 @@ Rails.application.routes.draw do
   get "about" => "static#about_med", :as => :about
   get "help" => "help#help_root", :as => :help_root
   get "help/:page" => "help#help_page", :as => :help
-  # get 'static/*' => 'static#about_med', as: :static
+  get "static/*path" => "static#about_med", :as => :static
 
   # 404s -- will only match if nothing else did
 

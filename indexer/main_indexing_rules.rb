@@ -19,7 +19,7 @@ settings do
   provide "solr_writer.basic_auth_password", Dromedary::Services[:solr_password]
 end
 
-hyp_to_bibid = MedInstaller::HypToBibId.get_from_solr(collection:  Dromedary::Services[:solr_collection_to_index_into])
+hyp_to_bibid = MedInstaller::HypToBibId.get_from_solr(collection: Dromedary::Services[:solr_collection_to_index_into])
 bibset = MiddleEnglishDictionary::Collection::BibSet.new(filename: settings["bibfile"])
 
 # Do a terrible disservice to traject and monkeypatch it to take
@@ -63,7 +63,7 @@ to_field "orth", entry_method(:all_regularized_forms)
 
 to_field "prefix_suffix" do |entry, acc|
   entry.regularized_headwords.each do |hw|
-    if hw =~ (/\A-/) || hw =~ (/-\Z/)
+    if hw.start_with?("-") || hw =~ /-\Z/
       acc << hw
     end
   end

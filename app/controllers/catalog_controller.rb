@@ -1,4 +1,4 @@
-require_relative "concerns/catalog"
+require_relative "concerns/dromedary/catalog"
 require_relative "../presenters/dromedary/index_presenter"
 
 class CatalogController < ApplicationController
@@ -39,9 +39,9 @@ class CatalogController < ApplicationController
     # add_show_tools_partial(:print)
     config.show.document_actions.delete(:email)
     config.show.document_actions.delete(:sms)
-    ##--------------------------------------------------------
+    # #--------------------------------------------------------
     # Talking to solr
-    ##--------------------------------------------------------
+    # #--------------------------------------------------------
     #
     ## Default parameters to send to solr for all search-like requests. See also SearchBuilder#processed_parameters
     config.default_solr_params = {
@@ -49,18 +49,18 @@ class CatalogController < ApplicationController
     }
 
     # The "normal" search path as defined as a requestHandler in solrconfig.xml
-    # Often this is 'select'; the Blacklight default is 'search'.
+    # Solr 10 removed handleSelect/qt dispatch, so we must target /search directly.
     # See <requestHandler name="/search".../> in the solrconfig.xml
-    # config.solr_path = 'search'
+    config.solr_path = "search"
 
     # The "document" search handler, for getting a single document
     # See <requestHandler name="/document".../> in the solrconfig.xml
 
     config.document_solr_path = "document"
 
-    ##--------------------------------------------------------
+    # #--------------------------------------------------------
     # Sorting and pagination in the Blacklight UI
-    ##--------------------------------------------------------
+    # #--------------------------------------------------------
 
     # Options for items to show per page, each number in the array represent another option to choose from.
     config.per_page = [20, 100]
@@ -72,9 +72,9 @@ class CatalogController < ApplicationController
     config.add_sort_field "score desc", label: "Relevance"
     config.add_sort_field "sequence asc", label: "Alphabetical"
 
-    ##--------------------------------------------------------
+    # #--------------------------------------------------------
     # The search results (index) page
-    ##--------------------------------------------------------
+    # #--------------------------------------------------------
 
     ## Default parameters to send on single-document requests to Solr.
     # These settings are the Blackligt defaults (see SearchHelper#solr_doc_params) or
@@ -186,7 +186,6 @@ class CatalogController < ApplicationController
     # This one uses all the defaults set by the solr request handler. Which
     # solr request handler? The one set in config[:default_solr_parameters][:qt],
     # since we aren't specifying it otherwise.
-
 
     ######################### WHAT ARE THE DOLLAR-SIGN VARIABLES??? ############
     # These are sent to solr as the actual string (e.g., solr gets "$everything_qf").
@@ -324,6 +323,32 @@ class CatalogController < ApplicationController
 
     def show404(*args)
       render "application/404", layout: "static", status: 404, locals: {args: args, id: params["id"]}
+    end
+
+    # Override BL7 suggest to support dromedary's per-search-field Solr suggest handlers.
+    # config.autocomplete maps search_field keys to solr_endpoint + search_component_name.
+    # BL7 default uses a single config.autocomplete_path, which dromedary does not set.
+    def suggest
+      search_field = params[:search_field].presence
+      autocomplete = blacklight_config.autocomplete
+      cfg = (autocomplete && search_field) ? autocomplete[search_field] : {}
+      cfg ||= {}
+
+      endpoint = cfg["solr_endpoint"] || cfg[:solr_endpoint]
+      component = cfg["search_component_name"] || cfg[:search_component_name]
+
+      if endpoint && component
+        request_params = {q: params[:q].to_s}
+        begin
+          results = search_service.repository.connection.send_and_receive(endpoint, params: request_params)
+          suggestions = Blacklight::Suggest::Response.new(results, request_params, "suggest", component).suggestions
+          render json: suggestions
+        rescue => _e
+          render json: []
+        end
+      else
+        render json: []
+      end
     end
   end
 end

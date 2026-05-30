@@ -1,7 +1,6 @@
 require "dromedary/services"
 
 class AdminController < ApplicationController
-
   layout "uploader"
 
   def collections
@@ -34,7 +33,7 @@ class AdminController < ApplicationController
   # end
 
   def home
-    render "admin/home", locals: { collections: collections }
+    render "admin/home", locals: {collections: collections}
   end
 
   def delete
@@ -76,7 +75,7 @@ class AdminController < ApplicationController
       render js: "window.location = '#{admin_path}';"
     else
       Rails.logger.warn errors
-      render "admin/home", locals: { collections: collections, errors: errors }
+      render "admin/home", locals: {collections: collections, errors: errors}
     end
   end
 
@@ -89,20 +88,18 @@ class AdminController < ApplicationController
       errors << "Collection #{collection_name} doesn't exist. Aborting"
     end
     if errors.empty?
-      collections.preview && collections.preview.aliases.each{|a| a.delete!}
+      collections.preview&.aliases&.each { |a| a.delete! }
       target.alias_as(Dromedary::Services[:preview_alias])
       enact_release(collection: target)
       render js: "window.location = '#{admin_path}';"
     else
       Rails.logger.warn errors
-      render "admin/home", locals: { collections: collections, errors: errors }
+      render "admin/home", locals: {collections: collections, errors: errors}
     end
   end
 
   def enact_release(collection:)
-    if collections.production
-      collections.production.get_alias(Dromedary::Services[:production_alias]).delete!
-    end
+    collections.production&.get_alias(Dromedary::Services[:production_alias])&.delete!
     collection.alias_as(Dromedary::Services[:production_alias])
   end
 end

@@ -11,6 +11,7 @@ module MedInstaller
   class Extract < Hanami::CLI::Command
     # include MedInstaller::Logger
     include SemanticLogger::Loggable
+
     desc "[STEP 1 of 'prepare'] Extract the individual xml files into <datadir>/xml/"
 
     argument :zipfile, required: true, desc: "The path to the zipfile (downloaded from Box)"

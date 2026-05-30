@@ -3,7 +3,6 @@ require_relative "control"
 require_relative "copy_from_build"
 require_relative "../dromedary/services"
 module MedInstaller
-
   class IndexNewData < Hanami::CLI::Command
     include MedInstaller::Logger
 

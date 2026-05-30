@@ -35,6 +35,58 @@ body {
 
 /** Header **/
 
+.skip-links {
+  background: #00274c;
+  padding: 12px;
+  margin: 0 auto;
+}
+
+.skip-links .viewport-container {
+    width: 100%;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--viewport-margin);
+    padding-right: var(--viewport-margin);
+}
+
+.skip-links ul {
+  padding-left: 0;
+  margin-left: 0;
+  list-style: none;
+}
+
+.skip-links ul li {
+  margin: 16px 0;
+  text-align: center;
+  padding-left: 0;
+}
+
+.skip-links a {
+  color: #fff;
+  padding: 8px;
+}
+
+.skip-links a:visited {
+   color: #fff;
+}
+
+.skip-links:not(:focus-within) {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+#main-content:focus, #footer:focus {
+  outline: none;
+}
+#main-content:focus-visible, #footer:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-maize-400), 0 0 0 3px var(--color-neutral-400);
+}
+
 .navbar-inverse {
   background-color: $u-m-blue;
   border: 0;
@@ -172,8 +224,7 @@ ul.header-nav-secondary li:hover {
   }
 
   .splash-text--caption {
-    font-size: .55em;
-    text-align: right;
+    font-size: .75em;
     padding: 2em 0;
   }
 
@@ -344,8 +395,12 @@ ul.header-nav-secondary li:hover {
 }
 
 .banner-text--caption {
-  float: right;
-  font-size: .55em;
+  font-size: .85em;
+  text-align: left;
+}
+
+.banner-text--caption a:hover {
+  color: #A7CDDB;
 }
 
 /** Header panel search bar **/
@@ -510,6 +565,10 @@ ul.header-nav-secondary li:hover {
   }
 }
 
+input#q::placeholder {
+  color: #555555;
+}
+
 .search-btn {
   background-color: #126DC1;
   border: none;
@@ -623,6 +682,11 @@ ul.header-nav-secondary li:hover {
     border: 3px solid $u-m-yellow;
   }
 }
+
+.search-bar--light-bg button#search:focus {
+    outline: 3px solid #ffcb05;
+    outline-offset: 0; 
+  }
 
 /** Home Page for Bib + Quotations **/
 
@@ -1076,6 +1140,14 @@ span.filterValue {
 
 /** Entry Page Dictionary/Bib **/
 
+.appliedFilter .remove:hover {
+  background-color: #A7CDDB;
+}
+
+.pagination > .disabled > span, .pagination > .disabled > span:hover, .pagination > .disabled > span:focus, .pagination > .disabled > a, .pagination > .disabled > a:hover, .pagination > .disabled > a:focus {
+ color: #686868;
+}
+
 .pagination-search-widgets {
   border: none;
 }
@@ -1271,7 +1343,7 @@ span.filterValue {
   }
 
   .quote-toggles a {
-    text-decoration: none;
+    text-decoration: underline;
   }
 
   a.hide-all-button,
@@ -1280,6 +1352,7 @@ span.filterValue {
     font-weight: 600;
     padding: .25em;
     font-size: 1.15em;
+    text-decoration: underline;
 
     &:focus {
       outline: none;
@@ -1340,13 +1413,12 @@ span.filterValue {
 table.table.table-striped,
 tbody > tr,
 tbody > tr > td,
-.table-responsive,
-{
+.table-responsive {
   border: 1px solid transparent !important;
 }
 
 table.table.table-striped,
-.table-responsive, {
+.table-responsive {
   border-radius: 5px;
   margin-bottom: 2em;
 }
@@ -1424,6 +1496,14 @@ body.blacklight-static,
   background-color: #f2f2f2;
   color: #333;
   line-height: 1.5;
+}
+
+body.blacklight-static > main {
+  margin-top: 30px;
+}
+
+caption {
+  color: #212B36;
 }
 
 #about_sidebar,
@@ -1614,7 +1694,7 @@ ul.about-list {
 
 .footer {
   width: 100%;
-  padding: 1rem 0;
+  padding: 1rem 0 0 0;
 }
 
 .footer-subfooter {
