@@ -163,7 +163,7 @@ gem "jbuilder", "~> 2.5"
 # Gems for automated indexing #
 ###############################
 gem "prometheus-client", "~> 4.0"
-gem "sidekiq"
+gem "sidekiq", ">= 7.3.3"
 gem "okcomputer"
 
 # Use Capistrano for deployment
@@ -183,7 +183,7 @@ end
 
 group :test do
   gem "simplecov", require: false
-  gem "factory_bot_rails", "~> 4.0"
+  gem "factory_bot_rails", "~> 6.0"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

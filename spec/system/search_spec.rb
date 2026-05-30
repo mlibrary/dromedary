@@ -179,18 +179,17 @@ RSpec.describe "Dromedary regression checklist", type: :system do
   # ------------------------------------------------------------
 
   describe "auto-suggest endpoint" do
-    it "headword suggester endpoint responds" do
-      # BL6 suggest path: /dictionary/suggest?q=lo&search_field=h
-      # This verifies the endpoint exists and returns JSON, not a 500
-      visit "/dictionary/suggest?q=lo&search_field=h"
-      # Should return JSON suggestions or empty array -- not an error page
-      expect(page.status_code).to be_in([200, 404])
-      # If 200, body should look like JSON (not an HTML error page)
-      if page.status_code == 200
-        expect(page.body).to match(/\A[\s]*[\[\{]/)
-          .or(match(/"suggestions"/))
-          .or(match(/"response"/))
-      end
+    it "headword suggester returns suggestions for prefix 'ab'" do
+      # MED_A_SMALL.zip only contains entries starting with 'a', so 'ab' is a
+      # reliable prefix that matches ~131 headwords in the test dataset.
+      # The headword_only_suggester is configured with buildOnStartup=true.
+      visit "/dictionary/suggest?q=ab&search_field=h"
+      expect(page.status_code).to eq(200)
+      suggestions = JSON.parse(page.body)
+      expect(suggestions).to be_an(Array)
+      expect(suggestions.length).to be > 0
+      expect(suggestions.first).to include("term")
+      expect(suggestions.map { |s| s["term"] }).to include("abject")
     end
   end
 end
