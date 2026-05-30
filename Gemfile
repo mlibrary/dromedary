@@ -90,9 +90,7 @@ gem "canister"
 
 gem "rails", "~> 8.1.0"
 
-# Security vulnerability CVE-2018-3760
-# Keep Sprockets 3.x through Phase 5; upgrade to 4.x in Phase 6
-gem "sprockets", "~>3.7.2"
+gem "sprockets", "~> 4.0"
 
 gem "blacklight", "~> 9.0"
 # Bootstrap 5 (required by BL9)
