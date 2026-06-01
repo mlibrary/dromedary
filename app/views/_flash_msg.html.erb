@@ -16,7 +16,7 @@
     -%>
     <% unless flash[type].blank? %>
       <div class="alert <%=alert_class %>"><%= flash[type] %>
-         <a class="close" data-dismiss="alert" href="#">&times;</a>
+         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
       <% flash[type].clear %>
     <% end %>

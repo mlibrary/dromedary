@@ -14,7 +14,7 @@
   <% elsif params[:f] and params[:f][:issue_identifier] %>
     <%= issue_title @document_list.first, complete: true %>
   <% else %>
-    <span class="sr-only">Search Results</span>
+    <span class="visually-hidden">Search Results</span>
   <% end %>
 <% end %>
 

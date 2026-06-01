@@ -3,7 +3,7 @@
   <div class="input-group">
     <% if search_fields.length > 1 %>
       <span class="input-group-text for-search-field">
-        <label for="search_field" class="sr-only"><%= t('blacklight.search.form.search_field.label') %></label>
+        <label for="search_field" class="visually-hidden"><%= t('blacklight.search.form.search_field.label') %></label>
         <% selected = params[:search_field]
            default = blacklight_config.search_fields.find{|x| x.last[:default]}
            selected = selected || (default && default.last.key) || search_fields.first.first
@@ -19,7 +19,7 @@
     <% end %>
 
     <div class="search-input-group">
-      <label for="q" class="sr-only"><%= t('blacklight.search.form.search.label') %></label>
+      <label for="q" class="visually-hidden"><%= t('blacklight.search.form.search.label') %></label>
       <%= text_field_tag :q,
                          params[:q],
                          placeholder: t('blacklight.search.form.search.placeholder'),
@@ -33,7 +33,7 @@
 
       <!--Keyboard drop down for special characters-->
       <span class="dropdown keyboard">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <%=image_tag('keyboard-grey.svg', alt: 'Drop down menu for special character selection') %>
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
