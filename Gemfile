@@ -30,9 +30,13 @@ gem "ttl_memoizeable"
 # nectar.
 ###################################
 
-gem "nio4r", "=2.5.2"
+#gem "nio4r", "=2.5.2"
 # gem 'puma',  '=4.1.0'
-gem "puma", ">= 4.3.5" # https://github.com/advisories/GHSA-w64w-qqph-5gxm
+#gem "puma", ">= 4.3.5" # https://github.com/advisories/GHSA-w64w-qqph-5gxm
+gem "puma"
+gem "stringio", '~>3.0'
+gem "psych", '~>5.0'
+gem "erb", '~>6.0'
 
 ###############################
 # SECURITY ALERTS
@@ -93,8 +97,9 @@ gem "rails", "~> 8.1.0"
 gem "sprockets", "~> 4.0"
 
 gem "blacklight", "~> 9.0"
+
 # Bootstrap 5 (required by BL9)
-gem "bootstrap", "~> 5.3"
+gem "bootstrap", "~> 5.0"
 gem "autoprefixer-rails"
 gem "font-awesome-rails"
 
@@ -137,7 +142,7 @@ end
 gem "sqlite3", ">= 1.3.13"
 # AR won't work with the latest mysql2, apparently
 # See https://stackoverflow.com/questions/49407254/gemloaderror-cant-activate-mysql2-0-5-0-3-18-already-activated-mysq
-gem "mysql2", "< 0.5.0", require: false
+#gem "mysql2", "< 0.5.0", require: false
 
 # JS and CSS
 gem "sass-rails", "~> 6.0"

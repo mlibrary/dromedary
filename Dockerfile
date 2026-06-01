@@ -117,6 +117,9 @@ ENV RAILS_SERVE_STATIC_FILES true
 ENV SECRET_KEY_BASE 121222bccca
 ENV RAILS_RELATIVE_URL_ROOT=${RAILS_RELATIVE_URL_ROOT}
 
+RUN npm install
+
+
 RUN bin/rails assets:precompile
 
 CMD ["bin/rails", "s", "-b", "0.0.0.0"]
