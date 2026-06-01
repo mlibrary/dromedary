@@ -9,6 +9,27 @@ require "active_support/core_ext/time"
 require "solr_cloud/connection"
 
 module Dromedary
+  # A {Canister}-backed service container for the Dromedary application.
+  #
+  # Registers lazily-evaluated service objects keyed by symbol.  Values are
+  # resolved from environment variables with sensible defaults so the app can
+  # run in development without additional configuration.
+  #
+  # Key services:
+  # - +:root_directory+ — application root {Pathname}
+  # - +:solr_connection+ — {SolrCloud::Connection} to the configured Solr cluster
+  # - +:solr_current_collection+ — the active Solr collection object
+  # - +:solr_url+ — full URL to the current Solr collection
+  # - +:solr_embedded_auth_url+ — Solr URL with embedded Basic-Auth credentials
+  # - +:build_directory+ — path where the installer writes intermediate files
+  # - +:xml_directory+ — path to the source XML files
+  # - +:looks_like_first_upload+ — +true+ when admin access is allowed and no
+  #   collection exists yet (intended to suppress spurious warnings on first install)
+  #
+  # Environment variables consumed (selected):
+  # +SOLR_ROOT+, +SOLR_COLLECTION+, +SOLR_USERNAME+, +SOLR_PASSWORD+,
+  # +SOLR_REPLICATION_FACTOR+, +ALLOW_ADMIN_ACCESS+,
+  # +RAILS_URL_HOST+, +RAILS_URL_PROTOCOL+, +RAILS_RELATIVE_URL_ROOT+.
   Services = Canister.new
   Services.register(:root_directory) { Pathname(__dir__).parent.parent.realdirpath }
   Services.register(:tmp_dir) do

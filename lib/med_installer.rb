@@ -1,3 +1,13 @@
+# Top-level namespace and entry point for the MED (Middle English Dictionary)
+# installer tooling.
+#
+# Requiring this file loads all installer sub-modules including:
+# * CLI commands for extracting, converting, and indexing MED data
+# * Solr administration helpers
+# * Prometheus metrics ping support
+# * Remote deployment helpers (see {MedInstaller::Remote})
+#
+# The installer commands are registered with the Hanami CLI in +bin/dromedary+.
 require "semantic_logger"
 require "middle_english_dictionary"
 

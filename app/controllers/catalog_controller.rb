@@ -325,9 +325,21 @@ class CatalogController < ApplicationController
       render "application/404", layout: "static", status: 404, locals: {args: args, id: params["id"]}
     end
 
-    # Override BL7 suggest to support dromedary's per-search-field Solr suggest handlers.
-    # config.autocomplete maps search_field keys to solr_endpoint + search_component_name.
-    # BL7 default uses a single config.autocomplete_path, which dromedary does not set.
+    # Returns autocomplete suggestions for the given query and search field.
+    #
+    # Overrides Blacklight's default single-endpoint suggest action to support
+    # dromedary's per-search-field Solr suggest handlers. Each search field may
+    # map to a different Solr suggest endpoint and component name via
+    # +config.autocomplete+ (loaded from +config/autocomplete.yml+).
+    #
+    # Blacklight's default uses a single +config.autocomplete_path+, which
+    # dromedary does not set.
+    #
+    # @param params [ActionController::Parameters] expects:
+    #   - +:search_field+ — key into +blacklight_config.autocomplete+
+    #   - +:q+ — the partial query string typed by the user
+    # @return [void] renders a JSON array of suggestion strings, or +[]+ on
+    #   missing config or any Solr error
     def suggest
       search_field = params[:search_field].presence
       autocomplete = blacklight_config.autocomplete

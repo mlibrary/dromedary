@@ -4,13 +4,21 @@ require "faraday"
 # standard:disable Lint/UnreachableCode
 
 module MySimpleSolrClient
-  # A Client talks to the Solr instance; use a SimpleSolrClient::Core to talk to a
-  # particular core.
-
+  # A minimal Solr client built on top of Faraday with Basic-Auth support.
+  # Used by dromedary to communicate with a SolrCloud cluster using the v2 API.
+  #
+  # +Client+ operates at the cluster level; use {MySimpleSolrClient::Core} for
+  # collection-scoped operations.
+  #
+  # @note Several methods (+url+, +ping+, +system+, +version+, +major_version+,
+  #   +new_core+, +temp_core+, +temp_core_dir_setup+, +unload_temp_cores+) raise
+  #   +"Not Implemented Yet"+ and are effectively dead stubs from the original
+  #   +simple_solr_client+ API that was never fully ported.
   class Client
-    attr_reader :base_url, :rawclient, :solr_connection
+  attr_reader :base_url, :rawclient, :solr_connection
 
-    def initialize(url)
+  # @param url [String] the base Solr cluster URL (e.g. +"http://solr:8983"+)
+  def initialize(url)
       # puts "initialize(#{url})"
       @base_url = url.chomp("/")
       # puts "@base_url = #{base_url}"
@@ -34,9 +42,12 @@ module MySimpleSolrClient
       [@base_url, *args].join("/").chomp("/")
     end
 
-    # Sometimes, you just gotta have a top_level_url (as opposed to a
-    # core-level URL)
-    def top_level_url(*args)
+  # Returns the top-level (cluster-level) URL for the given path segments.
+  # Unlike {#url} (which is overridden in +Core+ to target a collection),
+  # this always builds against the base client URL.
+  # @param args [Array<String>] additional path segments
+  # @return [String] the constructed URL
+  def top_level_url(*args)
       [@client_url, *args].join("/").chomp("/")
     end
 
@@ -67,9 +78,9 @@ module MySimpleSolrClient
       system.solr_major_version
     end
 
-    # Is the server up (and responding to a ping?)
-    # @return [Boolean]
-    def up?
+  # Checks whether Solr is up by hitting the top-level +api+ endpoint.
+  # @return [Boolean] +true+ if Solr responds with status 0, +false+ otherwise
+  def up?
       res = get("api", {force_top_level_url: true})
       # puts res.inspect
       # puts res['responseHeader']['status'] == 0
@@ -78,14 +89,13 @@ module MySimpleSolrClient
       false
     end
 
-    # Call a 'get' on the underlying http client and return the content
-    # Will use whatever the URL is for the current context ("client" or
-    # "core"), although you can pass in :force_top_level=>true for those
-    # cases when you absolutely have to use the client-level url and not a
-    # core level URL
-    #
-    # Error handling? What error handling???
-    def raw_get_content(path, args = {})
+  # Makes a GET request via Faraday and returns the parsed JSON response body.
+  # Pass +:force_top_level_url: true+ in +args+ to use the cluster-level URL
+  # instead of the current context URL.
+  # @param path [String] URL path after the base URL
+  # @param args [Hash] query parameters; +:force_top_level_url+ is consumed and not forwarded
+  # @return [Hash] the parsed response body
+  def raw_get_content(path, args = {})
       u = if args.delete(:force_top_level_url)
         top_level_url(path)
       else
@@ -152,8 +162,9 @@ module MySimpleSolrClient
       MySimpleSolrClient::Core.new(@base_url, corename.to_s)
     end
 
-    # Get all the cores
-    def cores
+  # Returns all collection names from the cluster.
+  # @return [Array<String>] collection names
+  def cores
       cdata = get("api/collections", {force_top_level_url: true})
       # puts cdata.inspect
       # puts cdata['collections']
@@ -204,6 +215,8 @@ module MySimpleSolrClient
     end
   end
 
+  # A collection-scoped Solr client. Overrides {Client#url} to target the
+  # configured collection via the Solr v2 API path (+/api/c/<collection>/+).
   class Core < Client
     include SimpleSolrClient::Core::Admin
 
@@ -222,6 +235,15 @@ module MySimpleSolrClient
     attr_reader :core
     alias_method :name, :core
 
+    # Initialises a collection-scoped client.
+    #
+    # When +core+ is not provided, the collection name is extracted from the
+    # last path segment of +url+ and the base URL is set to the parent path.
+    #
+    # @param url [String] either a bare base URL (used together with +core+)
+    #   or a full collection URL from which the collection name is parsed
+    # @param core [String, nil] collection/core name; if +nil+ it is extracted
+    #   from the trailing path segment of +url+
     def initialize(url, core = nil)
       if core.nil?
         puts "url: #{url}"
@@ -238,14 +260,19 @@ module MySimpleSolrClient
       @core = core
     end
 
-    # Override #url so we're now talking to the core
-    def url(*args)
+  # Builds the v2 API collection-scoped URL.
+  # @param args [Array<String>] additional path segments appended after the collection name
+  # @return [String] the constructed URL
+  def url(*args)
       [@base_url, "api", "c", @core, *args].join("/").chomp("/")
       # puts rv
     end
 
-    # Send JSON to this core's update/json handler
-    def update(object_to_post, response_type = nil)
+  # POSTs JSON to the +update/json+ handler of this collection.
+  # @param object_to_post [Hash, Array] the data to post
+  # @param response_type [Class, nil] response wrapper class (defaults to +GenericResponse+)
+  # @return [SimpleSolrClient::Response] the wrapped response
+  def update(object_to_post, response_type = nil)
       post_json("update/json", object_to_post, response_type)
     end
   end

@@ -5,6 +5,9 @@ require "fileutils"
 require_relative "../../config/load_local_config"
 module MedInstaller
   class PingPrometheus < Hanami::CLI::Command
+    # Sends a success ping to the Prometheus Pushgateway.
+    # Used to verify connectivity or trigger a heartbeat metric.
+    # @return [void]
     def call(_)
       puts "hi!"
       metrics = MiddleEnglishIndexMetrics.new({type: "ping"})

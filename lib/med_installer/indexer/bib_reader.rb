@@ -27,16 +27,25 @@ module MedInstaller
 
   MED = MiddleEnglishDictionary
 
+  # Traject reader adapter that yields {MiddleEnglishDictionary::Collection::BibSet} entries.
+  # Reads from +Services[:bib_all_xml_file]+.
+  #
+  # Traject readers must accept an IO object and a settings hash. The IO is
+  # ignored here; the real data path comes from Services.
   class BibReader
     include Enumerable
     include MedInstaller::Logger
 
     DATAFILEKEY = "med.data_file"
 
+    # @param settings [Hash] Traject settings hash (the IO argument is ignored)
     def initialize(settings)
       @data_file = Dromedary::Services[:bib_all_xml_file]
     end
 
+    # Yields each bib entry from the XML file.
+    # @yield [MiddleEnglishDictionary::Collection::Bib] each bib entry
+    # @return [void]
     def each
       MED::Collection::BibSet.new(filename: @data_file).each { |b| yield b }
     rescue => e
@@ -44,6 +53,12 @@ module MedInstaller
       binding.pry # standard:disable Lint/Debugger
     end
 
+    # Resolves the data file path from the settings hash.
+    # @param settings [Hash] must contain key +DATAFILEKEY+ (+med.data_file+)
+    # @return [Pathname] the resolved data file path
+    # @raise [RuntimeError] if the key is absent
+    # @note This method is defined but never called internally (Settings are ignored
+    #   in +initialize+); may be vestigial.
     def get_data_file(settings)
       if settings.has_key?(DATAFILEKEY)
         Pathname.new(settings[DATAFILEKEY])

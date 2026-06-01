@@ -19,6 +19,10 @@ module MedInstaller
       default: Dromedary::Services[:build_directory],
       desc: "The build directory. XML files will be extracted to <build_directory>/xml"
 
+    # Runs the full prepare pipeline: extract zip → convert XML to +entries.json.gz+.
+    # @param zipfile [String, Pathname] path to the MED zip file
+    # @param build_directory [String, Pathname] destination build directory
+    # @return [void]
     def call(zipfile:, build_directory:)
       logger.info "Beginning extraction of data from #{zipfile} into #{build_directory}"
       Extract.new(command_name: "extract").call(zipfile: zipfile, build_directory: build_directory)

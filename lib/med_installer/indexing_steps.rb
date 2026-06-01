@@ -41,6 +41,11 @@ module MedInstaller
       @coll_and_configset_name = Services[:name_of_solr_collection_to_index_into]
     end
 
+    # Run a complete indexing workflow: extract → convert → create collection →
+    # index entries and bibs → rebuild suggesters → point preview alias.
+    #
+    # See class-level documentation for the full step sequence.
+    # @return [void]
     def index
       # Do some basic checks against the solr
 
@@ -126,21 +131,29 @@ module MedInstaller
       @build_collection.alias_as(Services[:preview_alias], force: true)
     end
 
-    # Make sure all the directories we're going to use exist
+    # Ensures the build and XML subdirectories exist, creating them if necessary.
+    # @return [void]
     def prepare_build_directory
       build_dir.mkpath
       xml_dir.mkpath
     end
 
-    # Recursively extract data from the zipfile
+    # Extracts the MED data zipfile into the build directory using {MedInstaller::Extract}.
+    # @param zipfile [Pathname, String] path to the zip file to extract (default: {#zipfile})
+    # @param build_directory [Pathname, String] destination directory (default: {#build_dir})
+    # @return [void]
     def extract_zip_to_build_directory(zipfile: @zipfile, build_directory: @build_dir)
       MedInstaller::Extract.new(command_name: "extract").call(zipfile: zipfile, build_directory: build_directory)
     end
 
-    # Make sure the zipfile produced the stuff we're expecting, at least cursorily.
-    # As opposed to doing it right, we'll just look for:
-    #   * bib_all.xml
-    #   * MED2DOE*xml and MED2OED*xml
+    # Performs a quick sanity check on the extracted XML directory.
+    #
+    # Verifies that at minimum +bib_all.xml+, an OED links file (+MED2OED*.xml+),
+    # and a DOE links file (+MED2DOE*.xml+) are present.
+    #
+    # @param build_directory [Pathname, String] path to the build directory (default: {#build_dir})
+    # @return [void]
+    # @raise [RuntimeError] if any of the expected files are missing
     def verify_unzipped_files!(build_directory = build_dir)
       xml_dir = Pathname.new(build_directory) + "xml"
       files = xml_dir.children.map(&:basename).map(&:to_s)
@@ -149,15 +162,30 @@ module MedInstaller
       raise "Can't find MED2DOE links file in #{xml_dir}" if files.grep(/MED2DOE.*xml/).empty?
     end
 
-    # Build up the entries, based on the xml files along with the oed/doe linkage files
-    # This:
-    #   * creates entries.json.gz in the build_directory (build in tmp, then copied)
-    #   * creates the hyp_to_bibid.json file in the build directory, based on the bib_all.xml file
+    # Converts the raw XML files into the processed forms needed for indexing.
+    #
+    # Delegates to {MedInstaller::Convert}, which produces:
+    # * +entries.json.gz+ in the build directory
+    # * +hyp_to_bibid.json+ in the build directory
+    #
+    # @param build_directory [Pathname, String] path to the build directory (default: {#build_dir})
+    # @return [void]
     def create_combined_documents(build_directory: build_dir)
       MedInstaller::Convert.new(command_name: "convert").call(build_directory: build_directory)
     end
 
-    # @return [SolrCloud::Collection]
+    # Creates a new Solr configset and collection for the indexing run.
+    #
+    # Uploads the MED Solr configuration directory as a named configset, then
+    # creates a collection using that configset with the given replication factor.
+    #
+    # @param name [String] name for both the configset and the collection
+    #   (default: +Services[:name_of_solr_collection_to_index_into]+)
+    # @param solr_configuration_directory [Pathname, String] path to the Solr
+    #   +conf/+ directory to upload (default: +Services.solr_conf_directory+)
+    # @param replication_factor [Integer] number of replicas for the new collection
+    #   (default: +Services[:solr_replication_factor]+)
+    # @return [SolrCloud::Collection] the newly created collection object
     def create_configset_and_collection!(name: @coll_and_configset_name,
       solr_configuration_directory: Services.solr_conf_directory,
       replication_factor: Services[:solr_replication_factor])
@@ -167,6 +195,14 @@ module MedInstaller
       connection.get_collection(name)
     end
 
+    # Runs a Traject indexer with the given rules, data file, and Solr target.
+    # The bib XML file and writer config are also passed into the indexer settings.
+    # @param rulesfile [String, Pathname] Traject rules file path
+    # @param datafile [String, Pathname] primary data file (entries.json.gz or bib_all.xml)
+    # @param solr_url [String] full URL to the target Solr collection
+    # @param bib_all_xml_file [String, Pathname] path to bib_all.xml
+    # @param writer [String, Pathname] Traject writer config file
+    # @return [Integer] Traject exit status
     def generic_indexing_call(rulesfile:,
       datafile:,
       solr_url:,
@@ -223,13 +259,16 @@ module MedInstaller
       end
     end
 
-    # Send the new hyp_to_bibid.json file to the currently defined build_collection
+    # Uploads the +hyp_to_bibid.json+ file from the build directory to the
+    # current build collection via {MedInstaller::HypToBibId.dump_file_to_solr}.
+    # @return [void]
     def upload_hyp_to_bibid_to_solr
       filepath = Pathname.new(@build_dir) + "hyp_to_bibid.json"
       MedInstaller::HypToBibId.dump_file_to_solr(collection: @build_collection, filename: filepath.to_s)
     end
 
-    # Parse out URLS
+    # Parses DIRECT_URLS_TO_SOLR_REPLICAS (space-delimited) into an array of URLs.
+    # @return [Array<String>, nil] array of replica URLs, or +nil+ if not configured
     def direct_replica_urls
       return nil unless Services[:direct_urls_to_solr_replicas] && (Services[:direct_urls_to_solr_replicas] =~ /\S/)
       Services[:direct_urls_to_solr_replicas].split(/\s+/).map { |x| x.strip }.reject { |x| x == "" or x.nil? }
