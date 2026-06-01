@@ -39,6 +39,10 @@ class CatalogController < ApplicationController
     # add_show_tools_partial(:print)
     config.show.document_actions.delete(:email)
     config.show.document_actions.delete(:sms)
+
+    # BL9 enables advanced search by default; this project does not use it
+    config.advanced_search.enabled = false
+
     # #--------------------------------------------------------
     # Talking to solr
     # #--------------------------------------------------------

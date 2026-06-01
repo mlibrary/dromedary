@@ -1,16 +1,14 @@
-// Bootstrap 4 variable overrides must be imported before blacklight/blacklight
-// (which imports Bootstrap 4 internally)
+// Bootstrap 5 variable overrides must be imported before blacklight-frontend
+// (which imports Bootstrap 5 internally)
 
-
-
-$spacer: 2em; 
+$spacer: 2em;
 @import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";
-@import "bootstrap/scss/maps";       // Required for Bootstrap 5
-@import "bootstrap/scss/mixins";     // Contains media-breakpoint-down
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
 
 @import 'globals';
-@import 'blacklight/blacklight';
+@import 'blacklight-frontend/stylesheets/blacklight';
 
 
 hi { font-weight: bold}

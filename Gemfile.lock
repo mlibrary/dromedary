@@ -282,7 +282,6 @@ GEM
       prism (~> 1.5)
     multi_json (1.21.1)
     mutex_m (0.3.0)
-    mysql2 (0.4.10)
     net-http (0.9.1)
       uri (>= 0.11.1)
     net-imap (0.6.4)
@@ -561,12 +560,13 @@ DEPENDENCIES
   awesome_print
   aws-sdk-s3 (~> 1.160)
   blacklight (~> 9.0)
-  bootstrap (~> 5.3)
+  bootstrap (~> 5.0)
   bundler (~> 2.5)
   canister
   capybara
   content_disposition (~> 1.0)
   date_named_file
+  erb (~> 6.0)
   ettin
   factory_bot_rails (~> 6.0)
   font-awesome-rails
@@ -580,15 +580,14 @@ DEPENDENCIES
   loofah (>= 2.3.1)
   mail_form (~> 1.7)
   middle_english_dictionary!
-  mysql2 (< 0.5.0)
-  nio4r (= 2.5.2)
   nokogiri (>= 1.10.10)
   okcomputer
   pg
   prometheus-client (~> 4.0)
   pry-byebug
   pry-rails
-  puma (>= 4.3.5)
+  psych (~> 5.0)
+  puma
   rack (>= 2.1.4)
   rails (~> 8.1.0)
   rake (~> 13.0)
@@ -607,6 +606,7 @@ DEPENDENCIES
   sprockets (~> 4.0)
   sqlite3 (>= 1.3.13)
   standard
+  stringio (~> 3.0)
   traject
   ttl_memoizeable
   tzinfo-data

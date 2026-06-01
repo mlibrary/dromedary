@@ -1,5 +1,6 @@
-// Bootstrap 4 variable overrides
-// These are imported before @import 'bootstrap' (via _globals.scss -> blacklight/blacklight)
+// Bootstrap 5 variable overrides
+// These are imported before @import 'blacklight-frontend/stylesheets/blacklight'
+// Bootstrap uses these Sass variables internally to generate CSS custom properties.
 
 $navbar-bgcolor: #F2F2F2;
 $footer-bgcolor: #00274C;
@@ -10,17 +11,12 @@ $image-viewer-bgcolor: #333;
 $home-site-search-bgcolor: #333;
 $index-site-search-bgcolor: #e5e5e5;
 
-// $primary: red;   // BS4: was $brand-primary in BS3 (commented out)
-
-// BS4 renamed variables:
-$body-color: #4a4a4a;               // BS3: $text-color
-// $btn-default-color removed (BS3 only; use .btn-secondary in HTML)
+// Bootstrap 5 overrides:
+$body-color: #4a4a4a;
 
 $body-bg: $body-bgcolor;
 $link-color: #126dc1;
-$link-hover-color: #0c5292;         // BS3: $link-active-color
+$link-hover-color: #0c5292;
 
-$input-btn-padding-y: 9px;          // BS3: $padding-base-vertical
-$input-btn-padding-x: 16px;         // BS3: $padding-base-horizontal
-
-$highlight-color: rgba(5, 166, 86, 0.36);  // App-defined, not a Bootstrap variable
+$input-btn-padding-y: 9px;
+$input-btn-padding-x: 16px;

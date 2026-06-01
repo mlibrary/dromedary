@@ -1,15 +1,3 @@
-// Bootstrap 4 variable overrides must come before @import 'bootstrap'
-// (which happens inside @import 'blacklight/blacklight')
+// Bootstrap variable overrides are imported here before @import 'blacklight/blacklight'
+// (which imports Bootstrap internally). See bootstrap-variables.scss for the actual overrides.
 @import 'bootstrap-variables';
-
-$navbar-bgcolor: #F2F2F2;
-$footer-bgcolor: #00274C;
-$header-bgcolor: #00274C;
-$body-bgcolor:   #F2F2F2;
-
-$image-viewer-bgcolor: #323333;
-
-//$base-fonts: font-family: 'Open Sans', sans-serif;
-
-// Bootstrap 4: $brand-primary -> $primary (remove the test override)
-// $primary: red;

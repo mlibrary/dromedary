@@ -17,14 +17,14 @@ module Blacklight
       sidebar_classes
     end
 
-    # Override: BL8 uses col-lg-9 (Bootstrap 5); keep Bootstrap 4 col-md-9
+    # BL9/Bootstrap 5 grid classes
     def main_content_classes
-      "col-md-9 col-sm-8 col-12"
+      "col-lg-9 col-md-8 col-12"
     end
 
-    # Override: BL8 uses page-sidebar col-lg-3 (Bootstrap 5); keep Bootstrap 4
+    # BL9/Bootstrap 5 grid classes
     def sidebar_classes
-      "col-md-3 col-sm-4 col-12"
+      "col-lg-3 col-md-4 col-12"
     end
 
     def container_classes
