@@ -1,4 +1,4 @@
-// Bootstrap 5 variable overrides must be imported before blacklight-frontend
+// Bootstrap 5 variable overrides must be imported before blacklight
 // (which imports Bootstrap 5 internally)
 
 $spacer: 2em;
@@ -8,7 +8,7 @@ $spacer: 2em;
 @import "bootstrap/scss/mixins";
 
 @import 'globals';
-@import 'blacklight-frontend/stylesheets/blacklight';
+@import 'blacklight/blacklight';
 
 
 hi { font-weight: bold}
