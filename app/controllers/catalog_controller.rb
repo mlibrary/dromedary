@@ -347,7 +347,7 @@ class CatalogController < ApplicationController
     # @return [void] renders HTML <li> fragments, or empty string on
     #   missing config or any Solr error
     def suggest
-      search_field = params[:search_field].presence
+      search_field = params[:search_field].presence || "h"
       autocomplete = blacklight_config.autocomplete
       cfg = (autocomplete && search_field) ? autocomplete[search_field] : {}
       cfg ||= {}
