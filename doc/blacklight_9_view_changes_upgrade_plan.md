@@ -13,9 +13,9 @@ fixes until tests pass.
 
 | Phase | Category | Status | Depends On |
 |---|---|---|---|
-| 0 | Foundation (SCSS, rails-ujs) | **BROKEN** | — |
-| 1 | BS4→BS5 markup migration | **BROKEN** | Phase 0 |
-| 2 | Keyboard dropdown rewrite | **BROKEN** | Phase 1 |
+| 0 | Foundation (SCSS, rails-ujs) | **COMPLETE** | — |
+| 1 | BS4→BS5 markup migration | **COMPLETE** | Phase 0 |
+| 2 | Keyboard dropdown rewrite | **COMPLETE** | Phase 1 |
 | 3 | Solr config fixes | **BROKEN** | — |
 | 4 | Autocomplete migration | **BROKEN** | Phases 2, 3 |
 | 5 | Rendering pipeline review | **PENDING** | — |
@@ -564,6 +564,19 @@ Stored in `doc/bootstrap_upgrade/reference_pages/` for visual/structural compari
 | Quotations search results | `https://quod.lib.umich.edu/m/middle-english-dictionary/quotations?utf8=%E2%9C%93&search_field=quote_everything&q=women` |
 
 **Note:** Show page URLs contain tracking params that expire. Strip when comparing.
+
+### Valid Test IDs
+
+These IDs are known to exist in the local Docker Solr and can be used in tests:
+
+| Type | ID | Notes |
+|---|---|---|
+| Dictionary entry | `MED100` | Stable MED entry for show page tests |
+| Bibliography entry | `BIB628` | Stable BIB entry (show template has `replace :h1_wrap` bug — Phase 5) |
+| Quote | `fcc8bb1f-282e-42e5-b1ed-3219a589c98f` | UUID-based; no show page route exists for quotes |
+| Dictionary search | `hnf` field, query `wymmen` | Known to return results |
+| Bibliography search | `bib_keyword` field, query `women` | Known to return results |
+| Quotation search | `quote_everything` field, query `love` | Fails until Phase 3 (Solr `$variable` bug) |
 
 ---
 

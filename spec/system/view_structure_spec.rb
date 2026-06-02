@@ -257,8 +257,8 @@ RSpec.describe "View structure (reference system)", type: :system do
     # ---- show / detail page ----
 
     describe "show page" do
-      # MED1 is a known stable ID in the test dataset
-      before { visit "/dictionary/MED1" }
+      # MED100 is a known stable dictionary entry ID
+      before { visit "/dictionary/MED100" }
 
       it "loads without error" do
         expect(page.status_code).to eq(200)
@@ -381,6 +381,8 @@ RSpec.describe "View structure (reference system)", type: :system do
     # ---- show page ----
 
     describe "show page" do
+      # BIB628 is a known stable bibliography ID
+      # Note: show template has pre-existing replace :h1_wrap bug (Phase 5)
       before { visit "/bibliography/BIB628" }
 
       it "loads without error" do
