@@ -33,6 +33,7 @@ class QuotesController < ApplicationController
     # Options for items to show per page, each number in the array represent another option to choose from.
 
     config.per_page = [100, 500]
+    config.solr_path = "quotesearch"
     config.default_solr_params = {
       rows: 100
     }
@@ -45,8 +46,8 @@ class QuotesController < ApplicationController
       field.qt = "/quotesearch"
       field.solr_local_parameters = {
         type: "edismax",
-        qf: "$quote_everything_qf",
-        pf: "$quote_everything_pf"
+        qf: "authortitle^6 quote_text^2 headword quote_manuscript keyword",
+        pf: "authortitle^6 quote_text^2 quote_manuscript keyword"
       }
     end
 
@@ -54,8 +55,8 @@ class QuotesController < ApplicationController
       field.qt = "/quotesearch"
       field.solr_local_parameters = {
         type: "edismax",
-        qf: "$quote_quote_qf",
-        pf: "$quote_quote_pf"
+        qf: "quote_text",
+        pf: "quote_text"
       }
     end
 
