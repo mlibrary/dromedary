@@ -80,6 +80,7 @@ class QuotesController < ApplicationController
     # ############################################# #
     #
     config.index.document_presenter_class = Dromedary::Quotes::IndexPresenter
+    config.index.document_title_component = nil
     config.index.partials = [:index_header_quote]
     config.show.document_presenter_class = Dromedary::Quotes::IndexPresenter
 

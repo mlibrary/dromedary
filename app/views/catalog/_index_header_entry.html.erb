@@ -1,9 +1,5 @@
 <%# header bar for doc items in index view -%>
 <div class="documentHeader row">
-  <%# main title container for doc partial view
-      How many bootstrap columns need to be reserved
-      for bookmarks control depends on size.
-  -%>
   <% doc_presenter = document_presenter(document) %>
 
   <% document_actions = capture do %>
@@ -12,16 +8,6 @@
 
   <div class="col-md-12">
     <div class="entry-panel panel">
-
-      <h3 class="index_title document-title-heading <%= document_actions.present? ? "col-sm-9 col-lg-10" : "col-md-12" %>">
-        <% if counter = document_counter_with_offset(document_counter) %>
-          <span class="document-counter">
-            <%= t('blacklight.search.documents.counter', counter: counter) %>
-          </span>
-        <% end %>
-        <%= link_to_document document, doc_presenter.headword_display(document).html_safe, counter: counter %>
-        <span class="index-pos"><%== doc_presenter.part_of_speech_abbrev %></span>
-      </h3>
 
       <div class="search-result def">
         <% if hos = doc_presenter.highlighted_other_spellings and hos.count > 0 %>
