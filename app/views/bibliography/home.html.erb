@@ -16,7 +16,7 @@
 
 	<div class="search-bar-label">Search bibliographic entries:</div>
 	<div class="search-bar--light-bg">
-	  <%= render Blacklight::SearchBarComponent.new(url: search_action_url, params: search_state.params_for_search.except(:qt)) do |component| %>
+	  <%= render Blacklight::SearchBarComponent.new(url: search_action_url, params: search_state.params_for_search.except(:qt), autocomplete_path: suggest_index_bibliography_path) do |component| %>
 	    <% component.with_append do %>
 	      <%= render 'shared/keyboard_dropdown' %>
 	    <% end %>

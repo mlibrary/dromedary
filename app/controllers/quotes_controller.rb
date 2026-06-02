@@ -34,6 +34,7 @@ class QuotesController < ApplicationController
 
     config.per_page = [100, 500]
     config.solr_path = "quotesearch"
+    config.autocomplete_enabled = true
     config.default_solr_params = {
       rows: 100
     }

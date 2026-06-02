@@ -316,6 +316,7 @@ class CatalogController < ApplicationController
 
     # Autocomplete on multiple fields. See config/autocomplete.yml
     config.autocomplete = ActiveSupport::HashWithIndifferentAccess.new Rails.application.config_for(:autocomplete)
+    config.autocomplete_enabled = true
 
     # Override show to deal with 404
 
@@ -329,20 +330,18 @@ class CatalogController < ApplicationController
       render "application/404", layout: "static", status: 404, locals: {args: args, id: params["id"]}
     end
 
-    # Returns autocomplete suggestions for the given query and search field.
+    # Returns autocomplete suggestions as HTML <li> fragments for BL9's
+    # <auto-complete> web component.
     #
     # Overrides Blacklight's default single-endpoint suggest action to support
     # dromedary's per-search-field Solr suggest handlers. Each search field may
     # map to a different Solr suggest endpoint and component name via
     # +config.autocomplete+ (loaded from +config/autocomplete.yml+).
     #
-    # Blacklight's default uses a single +config.autocomplete_path+, which
-    # dromedary does not set.
-    #
     # @param params [ActionController::Parameters] expects:
     #   - +:search_field+ — key into +blacklight_config.autocomplete+
     #   - +:q+ — the partial query string typed by the user
-    # @return [void] renders a JSON array of suggestion strings, or +[]+ on
+    # @return [void] renders HTML <li> fragments, or empty string on
     #   missing config or any Solr error
     def suggest
       search_field = params[:search_field].presence
@@ -358,12 +357,16 @@ class CatalogController < ApplicationController
         begin
           results = search_service.repository.connection.send_and_receive(endpoint, params: request_params)
           suggestions = Blacklight::Suggest::Response.new(results, request_params, "suggest", component).suggestions
-          render json: suggestions
+          html = suggestions.map { |s|
+            term = ERB::Util.html_escape(s["term"] || s[:term])
+            "<li role=\"option\" data-autocomplete-value=\"#{term}\">#{term}</li>"
+          }.join.html_safe
+          render html: html
         rescue => _e
-          render json: []
+          render html: "".html_safe
         end
       else
-        render json: []
+        render html: "".html_safe
       end
     end
   end

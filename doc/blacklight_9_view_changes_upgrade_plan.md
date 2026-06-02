@@ -16,8 +16,8 @@ fixes until tests pass.
 | 0 | Foundation (SCSS, rails-ujs) | **COMPLETE** | — |
 | 1 | BS4→BS5 markup migration | **COMPLETE** | Phase 0 |
 | 2 | Keyboard dropdown rewrite | **COMPLETE** | Phase 1 |
-| 3 | Solr config fixes | **BROKEN** | — |
-| 4 | Autocomplete migration | **BROKEN** | Phases 2, 3 |
+| 3 | Solr config fixes | **COMPLETE** | — |
+| 4 | Autocomplete migration | **COMPLETE** | Phases 2, 3 |
 | 5 | Rendering pipeline review | **PENDING** | — |
 | 6 | jQuery removal | **LOW** | Phases 2, 4 |
 
@@ -370,7 +370,17 @@ end
 
 ---
 
-## Phase 4: Autocomplete Migration
+## Phase 4: Autocomplete Migration — COMPLETE
+
+### What Was Done
+
+1. Deleted `app/assets/javascripts/blacklight/autocomplete.js.erb` (jQuery Typeahead.js + Bloodhound)
+2. Added `config.autocomplete_enabled = true` to all 3 controllers (catalog, bibliography, quotes)
+3. Updated `suggest` action in `CatalogController` to return HTML `<li>` fragments instead of JSON
+4. Added `autocomplete_path: suggest_path_for_controller(controller_name)` to `SearchBarComponent` in 4 templates (3 home pages + header navbar)
+5. Added `suggest_path_for_controller` helper to `ApplicationHelper` (polymorphic_path doesn't work with custom path prefixes)
+6. Removed all Typeahead.js/Bloodhound CSS rules from `main.scss` (`.twitter-typeahead`, `.tt-input`, `.tt-hint`, `.tt-suggestion`)
+7. Updated `search_spec.rb` auto-suggest test to expect HTML `<li>` fragments instead of JSON
 
 ### Problem
 

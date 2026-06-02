@@ -364,11 +364,6 @@ ul.header-nav-secondary li:hover {
   a {
     color: #fff;
   }
-
-  .tt-suggestion {
-    color: #000;
-    text-shadow: none;
-  }
 }
 
 .banner-text a:visited {
@@ -444,10 +439,6 @@ ul.header-nav-secondary li:hover {
     height: 40px;
   }
 
-  .twitter-typeahead {
-    width: 75%;
-  }
-
   select#search_field, .form-control {
     height: 40px;
     padding: 9px 16px;
@@ -518,10 +509,6 @@ ul.header-nav-secondary li:hover {
   .form-control {
     border: 1px solid #ccc;
     border-radius: 4px !important;
-  }
-
-  .twitter-typeahead {
-    width: 70%;
   }
 
   .input-group-text {
@@ -641,10 +628,6 @@ input#q::placeholder {
   .form-control {
     border: 1px solid #ccc;
     border-radius: 4px !important;
-  }
-
-  .twitter-typeahead {
-    width: 70%;
   }
 
   .input-group-text {
@@ -1646,16 +1629,6 @@ div.help-container {
   }
 }
 
-// Weird search box doubling -- try to make one disappear
-
-.q.tt-input {
-  color: #666666;
-}
-
-.q.tt-hint {
-  color: transparent;
-}
-
 .sidebars ul {
   padding-bottom: .25em;
 }
@@ -1794,10 +1767,6 @@ ul.about-list {
       padding-top: .25em;
     }
 
-    .twitter-typeahead {
-      width: 60%;
-    }
-
     .input-group {
       display: block;
     }
@@ -1851,10 +1820,6 @@ ul.about-list {
 
     .input-group-text.for-search-field {
       justify-content: flex-start;
-    }
-
-    .twitter-typeahead {
-      width: 70%;
     }
 
     button#search {

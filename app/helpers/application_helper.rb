@@ -5,6 +5,17 @@ module ApplicationHelper
   include Dromedary::XSLTUtils::Class
   include Dromedary::XSLTUtils::Instance
 
+  # Returns the suggest endpoint path for the given controller name.
+  # polymorphic_path doesn't work here because routes use custom path prefixes
+  # (e.g., catalog → /dictionary, bibliography → /bibliography, quotes → /quotations).
+  def suggest_path_for_controller(controller)
+    case controller.to_s
+    when "catalog" then suggest_index_catalog_path
+    when "bibliography" then suggest_index_bibliography_path
+    when "quotes" then suggest_index_quotes_path
+    end
+  end
+
   def cit_xslt
     load_xslt("CitOnly.xsl")
   end

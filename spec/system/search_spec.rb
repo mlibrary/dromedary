@@ -183,17 +183,12 @@ RSpec.describe "Dromedary regression checklist", type: :system do
   # ------------------------------------------------------------
 
   describe "auto-suggest endpoint" do
-    it "headword suggester returns suggestions for prefix 'ab'" do
-      # MED_A_SMALL.zip only contains entries starting with 'a', so 'ab' is a
-      # reliable prefix that matches ~131 headwords in the test dataset.
-      # The headword_only_suggester is configured with buildOnStartup=true.
+    it "headword suggester returns HTML li elements for prefix 'ab'" do
       visit "/dictionary/suggest?q=ab&search_field=h"
       expect(page.status_code).to eq(200)
-      suggestions = JSON.parse(page.body)
-      expect(suggestions).to be_an(Array)
-      expect(suggestions.length).to be > 0
-      expect(suggestions.first).to include("term")
-      expect(suggestions.map { |s| s["term"] }).to include("abject")
+      expect(page.body).to include("<li")
+      expect(page.body).to include("data-autocomplete-value")
+      expect(page.body).to include("abject")
     end
   end
 end
