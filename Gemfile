@@ -194,4 +194,3 @@ end
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw]
 
 gem "rsolr", ">= 1.0"
-gem "jquery-rails"

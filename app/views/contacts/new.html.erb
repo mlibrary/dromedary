@@ -57,19 +57,20 @@
 
   var show_prompt = function(value) {
     var key = type_map[value];
-    $(".prompt.visible").removeClass("visible");
-    $(".prompt-" + key).addClass("visible");
+    document.querySelectorAll('.prompt.visible').forEach(function(el) {
+      el.classList.remove('visible');
+    });
+    var target = document.querySelector('.prompt-' + key);
+    if (target) target.classList.add('visible');
   }
-  
-  $().ready(function() {
-    // the sins we start with
-    var $type = $("#contact_type");
-    show_prompt($type.val());
 
-    $type.on('change', function() {
-      console.log("AHOY", $type.val());
-      show_prompt($type.val());
-    })
+  document.addEventListener('DOMContentLoaded', function() {
+    var type = document.getElementById('contact_type');
+    show_prompt(type.value);
 
-  })
+    type.addEventListener('change', function() {
+      console.log("AHOY", type.value);
+      show_prompt(type.value);
+    });
+  });
 </script>

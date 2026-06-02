@@ -62,7 +62,8 @@
       'Upload success! We’ve uploaded this file:',
       file.meta['name'],
     )
-    $("#upload_info").show("slow");
+    var uploadInfo = document.getElementById('upload_info');
+    if (uploadInfo) uploadInfo.style.display = 'block';
   }
 
   const uppy = new Uppy({

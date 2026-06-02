@@ -25,8 +25,8 @@ Given  sense: ss, index: index, presenter: doc_presenter
       <div class="definition"><%== presenter.def_html(sense) %>
 
       <div class="quote-toggles">
-        <a class="quote-toggle <%= uid %> open" href="#" onClick="$('.<%= uid%>').toggle(); return false">Show&nbsp;<%= num_citations %>&nbsp;<%= "Quotation".pluralize(num_citations) %></a>
-        <a class="quote-toggle  <%= uid %> closer collapsed" href="#" onClick="$('.<%= uid%>').toggle(); return false">Hide&nbsp;<%= num_citations %>&nbsp;<%= "Quotation".pluralize(num_citations) %></a>
+        <a class="quote-toggle <%= uid %> open" href="#" onClick="document.querySelectorAll('.<%= uid%>').forEach(function(el){el.style.display=el.style.display==='none'?'block':'none'}); return false">Show&nbsp;<%= num_citations %>&nbsp;<%= "Quotation".pluralize(num_citations) %></a>
+        <a class="quote-toggle  <%= uid %> closer collapsed" href="#" onClick="document.querySelectorAll('.<%= uid%>').forEach(function(el){el.style.display=el.style.display==='none'?'block':'none'}); return false">Hide&nbsp;<%= num_citations %>&nbsp;<%= "Quotation".pluralize(num_citations) %></a>
       </div>
     </div>
   </div>

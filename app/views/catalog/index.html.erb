@@ -33,13 +33,6 @@
     <%#= render 'shared/sitelinks_search_box' %>
   <% else %>
     <%= render 'search_results' %>
-
-    <script>
-      // have to loop through all these else not all the paragraphs are shaved?
-      $(".row-article-text p").each(function() {
-        $(this).shave(150);
-      })
-    </script>
   <% end %>
 </div>
 <%#= render partial: 'back_to_top' %>
