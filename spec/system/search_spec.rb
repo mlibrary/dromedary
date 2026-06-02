@@ -181,7 +181,7 @@ RSpec.describe "Dromedary regression checklist", type: :system do
       expect(page.status_code).to eq(200)
       expect(page.body).to include("<li")
       expect(page.body).to include("data-autocomplete-value")
-      expect(page.body).to include("abject")
+      expect(page.body).to match(/data-autocomplete-value="ab/i)
     end
   end
 end

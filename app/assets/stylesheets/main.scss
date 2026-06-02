@@ -402,6 +402,15 @@ ul.header-nav-secondary li:hover {
 
 /** Header panel search bar **/
 
+.search-autocomplete-wrapper.form-control {
+  border: none;
+  background: transparent;
+  padding: 0;
+  display: flex;
+  flex: 1 1 auto;
+  height: auto;
+}
+
 .search-bar--header {
   background-color: #E6F3FF;
   padding: .75em;
