@@ -402,10 +402,10 @@ ul.header-nav-secondary li:hover {
 
 /** Header panel search bar **/
 
-.search-autocomplete-wrapper.form-control {
-  border: none;
-  background: transparent;
-  padding: 0;
+.input-group > .search-autocomplete-wrapper.form-control {
+  border: none !important;
+  background: transparent !important;
+  padding: 0 !important;
   display: flex;
   flex: 1 1 auto;
   height: auto;
