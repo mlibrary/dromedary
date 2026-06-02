@@ -1,32 +1,30 @@
-$( document ).ready(function() {
-  
-  // if we are on a help page (include the contacts page) mark the link for that page in the sidebar
-  $('ul.help-ul li.current a').addClass('currentlyActive');
+document.addEventListener('DOMContentLoaded', function() {
+  // Mark current help sidebar link as active
+  var currentLink = document.querySelector('ul.help-ul li.current a');
+  if (currentLink) {
+    currentLink.classList.add('currentlyActive');
+  }
 
-  // for about page sidebar links, mark li as current/active on click
-  $("ul.help-ul li").click(function() {
-      $("ul.help-ul li").removeClass("current");
-      $(this).addClass("current");
-   });
+  // For help page sidebar links, toggle current/active on click
+  document.querySelectorAll('ul.help-ul li').forEach(function(li) {
+    li.addEventListener('click', function() {
+      document.querySelectorAll('ul.help-ul li').forEach(function(item) {
+        item.classList.remove('current');
+      });
+      this.classList.add('current');
+    });
+  });
 
   // Special character keyboard entry for search form input
-    $('#thorn').on('click', function () {
-        var text = $('#q');
-        text.val(text.val() + 'þ');    
-    });
-    
-    $('#eth').on('click', function () {
-        var text = $('#q');
-        text.val(text.val() + 'ð');    
-    });
-    
-     $('#yogh').on('click', function () {
-        var text = $('#q');
-        text.val(text.val() + 'ʒ');
-    });
-     $('#ash').on('click', function () {
-        var text = $('#q');
-        text.val(text.val() + 'æ');    
-    });
-
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.keyboard-char');
+    if (!btn) return;
+    e.preventDefault();
+    var char = btn.getAttribute('data-char');
+    var input = document.querySelector('#q, input[name="q"]');
+    if (input && char) {
+      input.value += char;
+      input.focus();
+    }
+  });
 });

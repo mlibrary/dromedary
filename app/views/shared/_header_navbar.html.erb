@@ -29,7 +29,11 @@
 <% unless ['home', 'splash', 'help_page', 'help_root'].include?(action_name) %>
   <div class="search-bar--header">
       <div id="search-bar" class="container">
-          <%= render Blacklight::SearchBarComponent.new(url: search_action_url, params: search_state.params_for_search.except(:qt)) %>
+          <%= render Blacklight::SearchBarComponent.new(url: search_action_url, params: search_state.params_for_search.except(:qt)) do |component| %>
+            <% component.with_append do %>
+              <%= render 'shared/keyboard_dropdown' %>
+            <% end %>
+          <% end %>
       </div>
   </div>
 <% end %>
