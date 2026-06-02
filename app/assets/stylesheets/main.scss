@@ -417,6 +417,23 @@ ul.header-nav-secondary li:hover {
   left: 0;
   z-index: 1050;
   width: 100%;
+
+  li[role="option"] {
+    cursor: pointer;
+
+    a {
+      display: block;
+      padding: 0.25rem 0.5rem;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    &:hover,
+    &[aria-selected="true"] {
+      background-color: var(--u-m-blue, #00274c);
+      color: #fff;
+    }
+  }
 }
 
 .search-bar--header {

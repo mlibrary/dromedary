@@ -25,11 +25,17 @@ module ApplicationHelper
   # polymorphic_path doesn't work here because routes use custom path prefixes
   # (e.g., catalog → /dictionary, bibliography → /bibliography, quotes → /quotations).
   def suggest_path_for_controller(controller)
-    case controller.to_s
-    when "catalog" then suggest_index_catalog_path
-    when "bibliography" then suggest_index_bibliography_path
-    when "quotes" then suggest_index_quotes_path
-    end
+    base = case controller.to_s
+           when "catalog" then "#{root_path}dictionary"
+           when "bibliography" then "#{root_path}bibliography"
+           when "quotes" then "#{root_path}quotations"
+           end
+    path = case controller.to_s
+           when "catalog" then suggest_index_catalog_path
+           when "bibliography" then suggest_index_bibliography_path
+           when "quotes" then suggest_index_quotes_path
+           end
+    "#{path}?base_url=#{ERB::Util.url_encode(base)}"
   end
 
   def cit_xslt

@@ -33,7 +33,20 @@ document.addEventListener('DOMContentLoaded', function() {
     if (e.target.id !== 'search_field') return;
     var autoComplete = e.target.closest('form').querySelector('auto-complete');
     if (!autoComplete) return;
-    var baseUrl = autoComplete.getAttribute('src').split('?')[0];
-    autoComplete.setAttribute('src', baseUrl + '?search_field=' + encodeURIComponent(e.target.value));
+    var src = autoComplete.getAttribute('src');
+    var basePart = src.split('?')[0];
+    var params = new URLSearchParams(src.split('?')[1] || '');
+    params.set('search_field', e.target.value);
+    autoComplete.setAttribute('src', basePart + '?' + params.toString());
+  });
+
+  // Navigate to show page on Enter key in autocomplete dropdown
+  document.addEventListener('combobox-commit', function(e) {
+    var option = e.target;
+    if (!(option instanceof HTMLElement)) return;
+    var anchor = option.querySelector('a[data-url]');
+    if (anchor) {
+      window.location.href = anchor.getAttribute('data-url') || anchor.href;
+    }
   });
 });

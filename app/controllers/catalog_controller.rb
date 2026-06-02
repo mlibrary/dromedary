@@ -354,15 +354,40 @@ class CatalogController < ApplicationController
 
       endpoint = cfg["solr_endpoint"] || cfg[:solr_endpoint]
       component = cfg["search_component_name"] || cfg[:search_component_name]
+      base_url = params[:base_url].presence
 
       if endpoint && component
         request_params = {q: params[:q].to_s}
         begin
           results = search_service.repository.connection.send_and_receive(endpoint, params: request_params)
           suggestions = Blacklight::Suggest::Response.new(results, request_params, "suggest", component).suggestions
+          terms = suggestions.map { |s| s["term"] || s[:term] }
+
+          # Look up document IDs for each suggestion term
+          term_to_id = {}
+          if terms.any? && base_url
+            conn = search_service.repository.connection
+            terms.each_slice(10) do |batch|
+              q = batch.map { |t| "\"#{t}\"" }.join(" ")
+              solr_result = conn.send_and_receive("search", params: {
+                q: q, qf: "headword", defType: "edismax",
+                fl: "id,headword", rows: batch.length
+              })
+              (solr_result["response"]["docs"] || []).each do |doc|
+                Array(doc["headword"]).each { |hw| term_to_id[hw] = doc["id"] }
+              end
+            end
+          end
+
           html = suggestions.map { |s|
             term = ERB::Util.html_escape(s["term"] || s[:term])
-            "<li role=\"option\" data-autocomplete-value=\"#{term}\">#{term}</li>"
+            doc_id = term_to_id[s["term"] || s[:term]]
+            if doc_id && base_url
+              url = ERB::Util.html_escape("#{base_url}/#{doc_id}")
+              "<li role=\"option\" data-autocomplete-value=\"#{term}\" data-url=\"#{url}\"><a href=\"#{url}\">#{term}</a></li>"
+            else
+              "<li role=\"option\" data-autocomplete-value=\"#{term}\">#{term}</li>"
+            end
           }.join.html_safe
           render html: html
         rescue => _e

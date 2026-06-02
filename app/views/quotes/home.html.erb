@@ -20,7 +20,7 @@
 
 	<div class="search-bar-label">Search quotations:</div>
 	<div class="search-bar--light-bg">
-	  <%= render Blacklight::SearchBarComponent.new(url: search_action_url, params: search_state.params_for_search.except(:qt), autocomplete_path: suggest_index_quotes_path) do |component| %>
+	  <%= render Blacklight::SearchBarComponent.new(url: search_action_url, params: search_state.params_for_search.except(:qt), autocomplete_path: "#{suggest_index_quotes_path}?base_url=#{ERB::Util.url_encode("#{root_path}quotations")}") do |component| %>
 	    <% component.with_append do %>
 	      <%= render 'shared/keyboard_dropdown' %>
 	    <% end %>
