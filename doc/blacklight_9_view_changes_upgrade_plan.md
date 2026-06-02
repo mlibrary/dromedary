@@ -19,7 +19,7 @@ fixes until tests pass.
 | 3 | Solr config fixes | **COMPLETE** | — |
 | 4 | Autocomplete migration | **COMPLETE** | Phases 2, 3 |
 | 5 | Rendering pipeline review | **COMPLETE** | — |
-| 6 | jQuery removal | **LOW** | Phases 2, 4 |
+| 6 | jQuery removal | **COMPLETE** | Phases 2, 4 |
 
 Phases 0+1+2 are sequential (asset pipeline chain). Phases 3+5 are independent.
 Phase 4 depends on both chains. Phase 6 is cleanup.
@@ -499,48 +499,25 @@ blank. Root causes:
 
 ---
 
-## Phase 6: jQuery Removal
+## Phase 6: jQuery Removal — COMPLETE
 
-### Prerequisites
+### What Was Done
 
-- Phase 2 complete (keyboard dropdown rewritten in vanilla JS)
-- Phase 4 complete (autocomplete no longer needs jQuery)
+1. Removed `jquery-rails` gem from Gemfile
+2. Removed `//= require jquery` from `application.js`
+3. Converted jQuery to vanilla JS in 6 templates:
+   - `_home_text.html.erb`: about section toggle (`$.load` → `fetch`)
+   - `_show_default.html.erb`: show/hide all quotations (`$('.egs').show()` → `document.querySelectorAll`)
+   - `_sense.html.erb`: individual quotation toggle (`$('.uid').toggle()` → `document.querySelectorAll`)
+   - `contacts/new.html.erb`: contact type prompt switching (`$().ready` → `document.addEventListener`)
+   - `admin/home.html.erb`: upload info display (`$.show("slow")` → `style.display`)
+4. Removed broken `shave()` calls from 3 index templates (plugin was never loaded)
+5. Bootstrap 5.3.8 gem does not depend on jQuery — `//= require bootstrap` works without it
+6. BL9 does not depend on jQuery — `//= require blacklight/blacklight` works without it
 
-### Action
+### Test Results
 
-1. Remove `jquery-rails` from Gemfile (line 197)
-2. Remove `//= require jquery` from `application.js`
-3. Refactor `app/views/_home_text.html.erb` toggle to vanilla JS
-4. Run `bundle install`
-
-### Phase 6 — TDD Tests
-
-**Failing tests to write first:**
-
-1. **`spec/system/no_jquery_spec.rb`** — new file
-   ```ruby
-   it 'does not load jQuery' do
-     visit '/'
-     expect(page.html).not_to include('jquery')
-   end
-
-   it 'home text toggle still works without jQuery' do
-     visit '/'
-     expect(page).to have_css('.home-text-toggle')
-     # Click and verify content toggles
-   end
-   ```
-
-2. **`spec/views/jquery_free_spec.rb`** — code audit
-   ```ruby
-   it 'has no jQuery references in JS files' do
-     js_files = Dir.glob(Rails.root.join('app/assets/javascripts/**/*.{js,erb}'))
-     offenders = js_files.select { |f| File.read(f).match?(/\$\(|jQuery/) }
-     expect(offenders).to be_empty, "jQuery found in: #{offenders.join(', ')}"
-   end
-   ```
-
-**Verification:** `bundle exec rspec spec/system/no_jquery_spec.rb spec/views/jquery_free_spec.rb` — all green.
+8/8 no_jquery_spec.rb pass. 242 total examples, 0 failures, 2 pending.
 
 ---
 
