@@ -27,4 +27,13 @@ document.addEventListener('DOMContentLoaded', function() {
       input.focus();
     }
   });
+
+  // Update auto-complete src when search field dropdown changes
+  document.addEventListener('change', function(e) {
+    if (e.target.id !== 'search_field') return;
+    var autoComplete = e.target.closest('form').querySelector('auto-complete');
+    if (!autoComplete) return;
+    var baseUrl = autoComplete.getAttribute('src').split('?')[0];
+    autoComplete.setAttribute('src', baseUrl + '?search_field=' + encodeURIComponent(e.target.value));
+  });
 });
