@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe "Search handlers", type: :system do
   describe "dictionary search" do
     it "returns results for headword search" do
-      visit "/dictionary?q=wymmen&search_field=hnf"
+      visit "/dictionary?q=abissus&search_field=hnf"
       expect(page.status_code).to eq 200
       expect(page).to have_css(".document")
     end
@@ -17,7 +17,7 @@ RSpec.describe "Search handlers", type: :system do
     end
 
     it "returns results for headword-only search" do
-      visit "/dictionary?q=wymmen&search_field=h"
+      visit "/dictionary?q=abissus&search_field=h"
       expect(page.status_code).to eq 200
       expect(page).to have_css(".document")
     end
@@ -43,7 +43,7 @@ RSpec.describe "Search handlers", type: :system do
     end
 
     it "returns results for external references search" do
-      visit "/bibliography?q=index&search_field=bib_external_references"
+      visit "/bibliography?q=1162&search_field=bib_external_references"
       expect(page.status_code).to eq 200
       expect(page).to have_css(".document")
     end

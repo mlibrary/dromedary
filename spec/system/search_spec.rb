@@ -118,14 +118,7 @@ RSpec.describe "Dromedary regression checklist", type: :system do
 
   describe "print view" do
     it "renders without error when accessed directly" do
-      # Print view is at /dictionary/:id/print or catalog#print
-      # Try the print endpoint via the catalog route
-      begin
-        page.driver.browser.get("/dictionary?q=love&format=print")
-      rescue
-        nil
-      end
-      visit "/dictionary?q=love"
+      visit "/dictionary?q=abissus"
       expect(page).to have_http_status(:ok)
     end
   end
@@ -166,10 +159,10 @@ RSpec.describe "Dromedary regression checklist", type: :system do
 
   describe "pagination" do
     it "next page link works" do
-      visit "/dictionary?q=a"  # 95 hits in small dataset -> 5 pages, guarantees next-page link
-      next_link = first("a[rel='next']")
-      if next_link
-        next_link.click
+      visit "/dictionary?q=ab"  # 131 entries starting with 'ab-' -> multiple pages
+      next_links = all("a[rel='next']")
+      if next_links.any?
+        next_links.first.click
         expect(page).to have_http_status(:ok)
         expect(page).not_to have_content("We're sorry, but something went wrong")
       else

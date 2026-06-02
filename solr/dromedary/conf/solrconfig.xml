@@ -68,7 +68,8 @@
       <str name="wt">json</str>
       <str name="indent">true</str>
       <str name="fl">*</str>
-      <str name="defType">edismax</str>
+      <str name="df">keyword</str>
+
 
 
       <!--Load up stuff from the external files-->
@@ -158,7 +159,7 @@
       <str name="wt">json</str>
       <str name="indent">true</str>
       <str name="fl">*</str>
-      <str name="defType">edismax</str>
+      <str name="df">keyword</str>
       <str name="facet.mincount">1</str>
 
       <str name="lowercaseOperators">false</str>
@@ -199,7 +200,7 @@
       <str name="wt">json</str>
       <str name="indent">true</str>
       <str name="fl">*</str>
-      <str name="defType">edismax</str>
+      <str name="df">keyword</str>
       <str name="facet.mincount">1</str>
 
       &quote_everything_search;
