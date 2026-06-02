@@ -86,6 +86,9 @@ class CatalogController < ApplicationController
 
     # What class should we use to render this?
     blacklight_config.index.document_presenter_class = Dromedary::IndexPresenter
+    blacklight_config.index.partials = [:index_header_entry]
+    blacklight_config.show.document_presenter_class = Dromedary::IndexPresenter
+    blacklight_config.show.partials = [:show_default]
 
     # What's the title field for each search result entry?
     config.index.title_field = "headword"

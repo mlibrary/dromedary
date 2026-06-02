@@ -7,5 +7,6 @@
 </div>
 
 <div id="content" class="<%= show_content_classes %>">
-  <%= render_document_main_content_partial %>
+  <% presenter = document_presenter(@document) %>
+  <%= render 'show_main_content', presenter: presenter %>
 </div>

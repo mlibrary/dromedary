@@ -126,6 +126,9 @@ class BibliographyController < ApplicationController
   # ############################################# #
   #
   blacklight_config.index.document_presenter_class = Dromedary::Bib::IndexPresenter
+    blacklight_config.index.partials = [:index_header_bib]
+    blacklight_config.show.document_presenter_class = Dromedary::Bib::IndexPresenter
+    blacklight_config.show.partials = [:show_bib]
 
   # ############################################# #
   #            Allow HYP...IDs to redirect

@@ -5,6 +5,22 @@ module ApplicationHelper
   include Dromedary::XSLTUtils::Class
   include Dromedary::XSLTUtils::Instance
 
+  # Returns a Dromedary::*::IndexPresenter for the given document.
+  # Replaces the missing BL8-era index_presenter helper. The custom presenters
+  # provide .entry, .form_html, .etym_html, etc. needed by both index and show templates.
+  def index_presenter(document)
+    case controller_name
+    when "catalog"
+      Dromedary::IndexPresenter.new(document, self, blacklight_config)
+    when "bibliography"
+      Dromedary::Bib::IndexPresenter.new(document, self, blacklight_config)
+    when "quotes"
+      Dromedary::Quotes::IndexPresenter.new(document, self, blacklight_config)
+    else
+      document_presenter(document)
+    end
+  end
+
   # Returns the suggest endpoint path for the given controller name.
   # polymorphic_path doesn't work here because routes use custom path prefixes
   # (e.g., catalog → /dictionary, bibliography → /bibliography, quotes → /quotations).

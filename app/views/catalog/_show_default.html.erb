@@ -55,8 +55,8 @@
   <div class="senses">
     <h3 class="entry-senses-title">Definitions (Senses and Subsenses)</h3>
 
-    <%= render "catalog/show_entry/sensestuff.html.erb",
-               presenter: doc_presenter %>
+    <%= render partial: "catalog/show_entry/sensestuff",
+               locals: { presenter: doc_presenter } %>
 
 
   </div>

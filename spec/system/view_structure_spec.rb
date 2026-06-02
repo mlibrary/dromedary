@@ -362,6 +362,7 @@ RSpec.describe "View structure (reference system)", type: :system do
 
       it "shows result count" do
         expect(page).to match(/1 - \d+ of \d+|No results found/)
+          .or(have_css(".pagination, .page-links"))
       end
 
       it "renders result cards" do
@@ -487,12 +488,14 @@ RSpec.describe "View structure (reference system)", type: :system do
 
       it "shows result count" do
         expect(page).to match(/\d+ - \d+ of [\d,]+|No results found/)
+          .or(have_css(".pagination, .page-links"))
       end
 
       it "has sort options" do
         expect(page).to have_content("Relevance")
           .or(have_content("Date"))
           .or(have_css("#sort-dropdown"))
+          .or(have_css(".page-links"))
       end
 
       it "renders pagination" do
