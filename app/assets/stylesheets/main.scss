@@ -25,8 +25,15 @@ a {
 
 html,
 body {
-  font-size: 16px;
+  font-size: 14px;
   font-family: "Source Sans Pro", Helvetica, sans-serif;
+}
+// Override mlib-styles responsive bump (16px → 19px)
+@media (min-width: 42rem) {
+  html,
+  body {
+    font-size: 14px;
+  }
 }
 
 /** Utilities **/
