@@ -125,7 +125,7 @@ body {
 
 .container.container--full.site-header-container {
   padding: .35em 0;
-  max-width: none;
+  max-width: none !important;
 }
 
 .site-navigation {
@@ -1100,6 +1100,10 @@ div.flash {
 
 #sidebar #appliedParams .constraint-value .filterName::after {
   color: #044E2A;
+}
+
+#sidebar .card {
+  padding: 0;
 }
 
 .glyphicon.glyphicon-remove {
