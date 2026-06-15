@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# NOTE: Superceded by Rails 6.1+ `config.action_view.annotate_rendered_view_with_filenames = true`
+
 # Start the app with EXPLAIN_PARTIALS=true to show locations of view partials
 # if Rails.env.development? # && ENV['EXPLAIN_PARTIALS']
 #   module ExplainPartials

@@ -40,6 +40,7 @@ module Dromedary
         @search_field = view_context.search_state.params_for_search["search_field"]
       end
 
+      # @return [Boolean] true if the bib entry has variant groups
       def variants?
         !@nokonode.css("VARGROUP").empty?
       end
@@ -55,6 +56,7 @@ module Dromedary
         load_xslt("bib/Common.xsl")
       end
 
+      # @return [Nokogiri::XSLT] compiled MSGROUP stylesheet
       def msgroup_xsl
         load_xslt("bib/MSGroup.xsl")
       end
@@ -63,6 +65,10 @@ module Dromedary
         load_xslt("bib/Variant.xsl")
       end
 
+      # Transform a COMMON-style XML fragment or node into HTML.
+      #
+      # @param [String, Nokogiri::XML::Node] xml_or_node XML string or node to render
+      # @return [String, nil] transformed HTML, or nil if the input is nil
       def commonify(xml_or_node)
         if xml_or_node.is_a? String
           xsl_transform_from_xml(xml_or_node, COMMON_XSL)
@@ -71,8 +77,8 @@ module Dromedary
         end
       end
 
+      # @return [String, nil] HTML for the title, with incipit markup when needed
       def title_html
-        # require 'pry'; binding.pry
         title_node = @nokonode.at("TITLE")
         title = xsl_transform_from_node(title_node, COMMON_XSL)
         if bib.incipit?
@@ -82,18 +88,25 @@ module Dromedary
         end
       end
 
+      # @param [MiddleEnglishDictionary::Bib::Manuscript] ms manuscript to render
+      # @return [String, nil] HTML for the manuscript title
       def ms_title_html(ms)
         xsl_transform_from_xml("<div>" + ms.title_xml + "</div>", COMMON_XSL)
       end
 
+      # @param [MiddleEnglishDictionary::Bib::Manuscript] ms manuscript to render
+      # @return [String] HTML for all LALME fragments joined with spaces
       def ms_lalme_html(ms)
         ms.lalme_xml.map { |x| xsl_transform_from_xml(x, COMMON_XSL) }.join(" ")
       end
 
+      # @param [MiddleEnglishDictionary::Bib::Manuscript] ms manuscript to render
+      # @return [String] HTML for all LAEME fragments joined with spaces
       def ms_laeme_html(ms)
         ms.laeme_xml.map { |x| xsl_transform_from_xml(x, COMMON_XSL) }.join(" ")
       end
 
+      # @return [Array<Array(String, String)>] title/link pairs for embedded e-editions
       def e_editions_title_link_pairs
         _ee = @nokonode.xpath("//E-EDITION").map do |e|
           title = commonify(e.at("ED"))
@@ -110,6 +123,7 @@ module Dromedary
       # wells = Wells = Manual of Writings in Middle English (ed. Wells, et al)
       # Jolliffe = Jolliffe = A Check-list of Middle English Prose Writings of Spiritual Guidance
 
+      # @return [Array<Array(String, String)>] external reference labels and joined values
       def external_reference_kvpairs
         pairs = []
         pairs.push(["IMEV", bib.indexes.join(", ")]) unless bib.indexes.empty?
@@ -122,6 +136,7 @@ module Dromedary
         pairs
       end
 
+      # @return [Array<String>] rendered edition HTML fragments, de-duplicated
       def editions_xmls
         editions = @nokonode.xpath("//STG/EDITION").map do |enode|
           commonify(enode)
@@ -129,21 +144,24 @@ module Dromedary
         editions.uniq
       end
 
+      # @return [Array<String>] rendered MSGROUP HTML fragments
       def msgroups_xmls
         @nokonode.xpath("//MSGROUP").map { |msg| xsl_transform_from_node(msg, msgroup_xsl) }
       end
 
+      # @return [String] number of stencils as a pluralized label
       def num_stencils
         n = document.fetch("stencil_keyword").size
         "#{n} stencil".pluralize(n)
       end
 
+      # @return [String] number of manuscripts as a pluralized label
       def num_manuscripts
         n = bib.manuscripts.size
         "#{n} manuscript".pluralize(n)
       end
 
-      # Get the work of the first stencil, if available
+      # @return [String, nil] HTML for the first stencil work, or nil if absent
       def first_work
         wrk = nokonode.at(".//STENCIL/WORK")
         if wrk

@@ -23,7 +23,11 @@ module MedInstaller
 
     argument :zipfile, required: true, desc: "The path to the zipfile (downloaded from Box)"
 
-    # @param zipfile [String, Pathname] path to the MED zip file
+    # Run the legacy all-in-one pipeline: extract the zip, convert the XML,
+    # enable maintenance mode, index the data, and copy the generated files
+    # back into the live data directory.
+    #
+    # @param [String, Pathname] zipfile path to the MED zip file to process
     # @return [void]
     def call(zipfile:)
       # metrics = MiddleEnglishIndexMetrics.new({type: "extract_convert_index_data"})
