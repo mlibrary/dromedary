@@ -22,12 +22,16 @@ Tasks that span multiple phases and require different tool types are best for ca
 
 ---
 
-## Task 1: SearchBuilder Unit Tests (HIGH VALUE)
+## Task 1: SearchBuilder Unit Tests (HIGH VALUE) — DONE
 
-**File**: `spec/models/search_builder_spec.rb` (currently an empty shell)
+**File**: `spec/models/search_builder_spec.rb` (40 tests, all passing)
 **Source**: `app/models/search_builder.rb`
 **Effort**: 1-2 hours
 **Phases**: explore → implement → validate
+
+### Status: DONE
+
+Wrote 40 tests covering all 4 processor methods. **NOTE: SearchBuilder is intentionally unused** — the `config.search_builder_class` lines in all three controllers are commented out. This class is a placeholder for a future real query parser. Tests validate the methods in isolation for when that replacement happens.
 
 ### What
 
@@ -142,9 +146,9 @@ The `scope` double provides `blacklight_config`. Each processor method takes `so
 
 ---
 
-## Task 2: CatalogController#suggest Spec (HIGH VALUE)
+## Task 2: CatalogController#suggest Spec (HIGH VALUE) — DONE
 
-**File**: New `spec/controllers/catalog_controller_spec.rb` (doesn't exist yet)
+**File**: `spec/controllers/catalog_controller_spec.rb` (12 tests, all passing)
 **Source**: `app/controllers/catalog_controller.rb` lines 350-400
 **Effort**: 2-3 hours
 **Phases**: explore → implement → validate

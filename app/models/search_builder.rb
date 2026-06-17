@@ -1,5 +1,13 @@
 # frozen_string_literal: true
 
+# NOTE: This class is intentionally unused. The search_builder_class config lines
+# in CatalogController, BibliographyController, and QuotesController are all
+# commented out, so this processor chain never runs on any search query.
+#
+# It exists as a placeholder for a future real query parser that will replace
+# the current default Blacklight::SearchBuilder with custom preprocessing
+# (yogh/ezh substitution, paren escaping, dash escaping, empty-query defaults).
+
 class SearchBuilder < Blacklight::SearchBuilder
   include Blacklight::Solr::SearchBuilderBehavior
   include MedInstaller::Logger

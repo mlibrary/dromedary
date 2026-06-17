@@ -1,12 +1,16 @@
 # frozen_string_literal: true
 
+# NOTE: SearchBuilder is intentionally unused — see app/models/search_builder.rb.
+# These tests validate the processor methods in isolation for when a real
+# query parser replaces the current default Blacklight::SearchBuilder.
+
 require "rails_helper"
 
 RSpec.describe SearchBuilder do
   let(:user_params) { {} }
   let(:blacklight_config) { Blacklight::Configuration.new }
   let(:scope) { double blacklight_config: blacklight_config }
-  subject(:search_builder) { described_class.new(scope, user_params) }
+  subject(:search_builder) { described_class.new(scope).with(user_params) }
 
   describe "#yogh_to_ezh" do
     let(:solr_params) { { "q" => query } }
@@ -135,9 +139,9 @@ RSpec.describe SearchBuilder do
     context "with preceding dash letter paren group" do
       let(:query) { "foo(-t)bar" }
 
-      it "escapes the parens (dash in preceding char group)" do
+      it "does not change (dash inside parens makes content non-alpha)" do
         search_builder.escape_intersticial_parens(solr_params)
-        expect(solr_params["q"]).to eq("foo\\(-t\\)bar")
+        expect(solr_params["q"]).to eq("foo(-t)bar")
       end
     end
 
@@ -200,14 +204,12 @@ RSpec.describe SearchBuilder do
     end
 
     context "with dash-space suffix" do
-      let(:query) { "word- " do
       let(:query) { "word- " }
 
       it "escapes the trailing dash" do
         search_builder.escape_prefix_suffix_dash(solr_params)
         expect(solr_params["q"]).to eq("word\\- ")
       end
-    end
     end
 
     context "with dash at end of string" do
