@@ -11,11 +11,12 @@ end
 # source "https://rubygems.pkg.github.com/mlibrary" do
 #   gem "middle_english_dictionary", "1.9.1"
 # end
-gem "middle_english_dictionary", git: "https://github.com/mlibrary/middle_english_dictionary", tag: "v1.9.1"
 
 gem "pg"
 gem "date_named_file"
 gem "zinzout"
+gem "representable"
+gem "multi_json"
 gem "solr_cloud-connection", path: "vendor/solr_cloud-connection"
 
 gem "shrine", "~> 3.6"

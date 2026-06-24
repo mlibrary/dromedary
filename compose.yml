@@ -63,7 +63,7 @@ services:
       - zoo
     command: solr-foreground
     volumes:
-      - solr:/var/solr
+      - ./data/solr_index_data:/var/solr
 
   zoo:
     image: zookeeper
@@ -79,5 +79,4 @@ volumes:
       device: ${PWD}/data
       o: bind
   db:
-  solr:
 

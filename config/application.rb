@@ -34,6 +34,16 @@ module Dromedary
     config.autoload_paths << "#{Rails.root}/lib"
     config.autoload_paths << "#{Rails.root}/app/presenters"
 
+    # Vendored MED code is loaded via explicit require paths and uses gem-style
+    # constants that do not always match Zeitwerk file/constant expectations.
+    # Ignore it for autoloading/reloading.
+    config.before_initialize do
+      Rails.autoloaders.main.ignore(
+        Rails.root.join("lib/middle_english_dictionary.rb"),
+        Rails.root.join("lib/middle_english_dictionary")
+      )
+    end
+
     unless Rails.env.test?
       config.relative_url_root = Dromedary::Services[:relative_url_root]
       config.action_controller.relative_url_root = config.relative_url_root

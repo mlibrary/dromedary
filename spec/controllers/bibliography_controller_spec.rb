@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe BibliographyController, type: :controller do
-  xdescribe "GET #index" do
+  describe "GET #index" do
     # Requires live Solr connection; covered by spec/system/search_spec.rb:106
     it "returns http success" do
       get :index

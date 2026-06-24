@@ -1,0 +1,249 @@
+#!/usr/bin/env bash
+
+# Exit immediately if a command exits with a non-zero status
+set -e
+
+# Ensure Homebrew and common Mac paths are available
+export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+
+# =============================================================================
+# DEFAULT VALUES & ARGUMENT PARSING
+# =============================================================================
+PORT=""
+TARGET_DIR="$HOME/Desktop/capture-diff-captures" # Default target directory
+CAPTURE_LIST=""
+SINGLE_URL=""
+
+# Standard Window geometry layout constraints
+WIN_X=10
+WIN_Y=30
+WINDOW_WIDTH=1280
+WINDOW_HEIGHT=1200
+
+# Pure Bash Calculation: Guaranteed clean string format (x,y,w,h)
+GEO_COORDS="${WIN_X},${WIN_Y},${WINDOW_WIDTH},${WINDOW_HEIGHT}"
+
+usage() {
+    echo "Usage:"
+    echo "  Batch Mode:  $0 --port <number> [options] --capture-list <path>"
+    echo "  Single Mode: $0 --port <number> [options] <URL>"
+    echo ""
+    echo "Options:"
+    echo "  --port          The secondary application port (e.g., 3000) [Required]"
+    echo "  --target-dir    The root directory to place 'orig' and 'portXXXX' (Defaults to ~/Desktop/capture-diff-captures)"
+    echo "  --capture-list  Path to space-separated text file [name url]"
+    exit 1
+}
+
+# Parse options
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --port)
+            PORT="$2"
+            shift 2
+            ;;
+        --target-dir)
+            TARGET_DIR="$2"
+            shift 2
+            ;;
+        --capture-list)
+            CAPTURE_LIST="$2"
+            shift 2
+            ;;
+        --*)
+            echo "Unknown option: $1"
+            usage
+            ;;
+        *)
+            if [[ "$1" =~ ^http ]]; then
+                SINGLE_URL="$1"
+                shift 1
+            else
+                echo "Unknown argument: $1"
+                usage
+            fi
+            ;;
+    esac
+done
+
+if [[ -z "$PORT" ]]; then
+    echo "Error: Missing required argument --port."
+    usage
+fi
+
+if [[ -n "$CAPTURE_LIST" && -n "$SINGLE_URL" ]]; then
+    echo "Error: Provide either --capture-list OR a single URL, not both."
+    usage
+elif [[ -z "$CAPTURE_LIST" && -z "$SINGLE_URL" ]]; then
+    echo "Error: Missing input target. Provide either --capture-list or a single trailing URL."
+    usage
+fi
+
+if [[ -n "$CAPTURE_LIST" && ! -f "$CAPTURE_LIST" ]]; then
+    echo "Error: Capture list file not found at '$CAPTURE_LIST'"
+    exit 1
+fi
+
+if [[ -n "$CAPTURE_LIST" ]] && ! command -v hck &> /dev/null; then
+    echo "Error: 'hck' is required for batch list processing. Run: brew install hck"
+    exit 1
+fi
+
+TARGET_DIR_POSIX=$(mkdir -p "$TARGET_DIR" && cd "$TARGET_DIR" && pwd)
+V1_ROOT="$TARGET_DIR_POSIX/orig"
+V2_ROOT="$TARGET_DIR_POSIX/port$PORT"
+
+mkdir -p "$V1_ROOT"
+mkdir -p "$V2_ROOT"
+
+# =============================================================================
+# HELPER EXECUTION MODULES
+# =============================================================================
+scrape_page() {
+    local target_url="$1"
+    local output_dir="$2"
+    
+    local capture_data
+    capture_data=$(osascript <<EOF
+        tell application "Safari"
+            activate
+            
+            if (count of windows) is 0 then
+                make new window
+            end if
+            
+            tell window 1
+                set newTab to make new tab with properties {URL:"$target_url"}
+                set current tab to newTab
+            end tell
+            
+            set targetWindow to window 1
+            set bounds of targetWindow to {$WIN_X, $WIN_Y, $WIN_X + $WINDOW_WIDTH, $WIN_Y + $WINDOW_HEIGHT}
+            
+            delay 0.5
+            
+            repeat
+                delay 0.5
+                set pageState to do JavaScript "document.readyState" in current tab of targetWindow
+                if pageState is "complete" then exit repeat
+            end repeat
+            
+            do JavaScript "if(document.documentElement.requestFullscreen){document.documentElement.requestFullscreen();}" in current tab of targetWindow
+            delay 0.5
+            
+            -- Compiles highly optimized rules, skipping heavy browser layout defaults to prevent LLM token inflation
+            set pageDOM to do JavaScript "(function() {
+                const allElements = document.getElementsByTagName('*');
+                for (let el of allElements) {
+                    const computed = window.getComputedStyle(el);
+                    let compiledString = '';
+                    
+                    const targetedProps = [
+                        'width', 'height', 'color', 'background-color', 
+                        'display', 'position', 'margin', 'padding', 
+                        'font-size', 'font-family', 'flex-direction', 
+                        'grid-template-columns', 'opacity', 'visibility', 
+                        'z-index', 'box-sizing', 'overflow', 'text-align'
+                    ];
+                    
+                    for (let prop of targetedProps) {
+                        const value = computed.getPropertyValue(prop);
+                        
+                        if (!value) continue;
+                        if (value === 'none' || value === 'normal' || value === 'rgba(0, 0, 0, 0)') continue;
+                        if (prop === 'position' && value === 'static') continue;
+                        if (prop === 'display' && value === 'inline') continue;
+                        if (prop === 'z-index' && value === 'auto') continue;
+                        if (prop === 'visibility' && value === 'visible') continue;
+                        if ((prop === 'margin' || prop === 'padding') && (value === '0px' || value === '0px 0px')) continue;
+                        if (prop === 'overflow' && value === 'visible') continue;
+                        if (prop === 'box-sizing' && value === 'content-box') continue;
+
+                        compiledString += prop + ': ' + value + '; ';
+                    }
+                    if (compiledString) {
+                        el.setAttribute('data-computed-css', compiledString.trim());
+                    }
+                }
+                return document.documentElement.outerHTML;
+            })()" in current tab of targetWindow
+            
+            set pageCSS to do JavaScript "(function(){let c='';for(let s of document.styleSheets){try{for(let r of s.cssRules){c+=r.cssText+'\\\\n';}}catch(e){}}return c;})()" in current tab of targetWindow
+            
+            close current tab of targetWindow
+            
+            return pageDOM & "|||" & pageCSS
+        end tell
+EOF
+    )
+
+    local dom_content=$(echo "$capture_data" | hck -f1 -d "|||")
+    local css_content=$(echo "$capture_data" | hck -f2 -d "|||")
+
+    local html_file="$output_dir/index.html"
+    local css_file="$output_dir/styles.css"
+    local img_file="$output_dir/screenshot.png"
+
+    echo "$dom_content" > "$html_file"
+    echo "$css_content" > "$css_file"
+
+    sed -i '' 's|</head>|<link rel=\"stylesheet\" href=\"styles.css\">\n</head>|' "$html_file"
+    
+    # Run screen capture utilizing a pure, uncorrupted Bash variable string sequence
+    screencapture -x -R "$GEO_COORDS" "$img_file"
+}
+
+process_pair() {
+    local name="$1"
+    local url="$2"
+
+    echo "Processing Page: [$name]"
+    
+    local v1_dest="$V1_ROOT/$name"
+    local v2_dest="$V2_ROOT/$name"
+    mkdir -p "$v1_dest"
+    mkdir -p "$v2_dest"
+
+    local v2_url=$(echo "$url" | sed -E "s/:[0-9]+/:$PORT/")
+
+    echo "  -> Capturing V1 (Original URL)..."
+    scrape_page "$url" "$v1_dest"
+
+    echo "  -> Capturing V2 (Port $PORT URL)..."
+    scrape_page "$v2_url" "$v2_dest"
+}
+
+# =============================================================================
+# MAIN PIPELINE EXECUTION
+# =============================================================================
+echo "Starting UI ingestion pipeline..."
+echo "Output Directories:"
+echo "  [V1]: $V1_ROOT"
+echo "  [V2]: $V2_ROOT"
+echo "--------------------------------------------------------"
+
+if [[ -n "$SINGLE_URL" ]]; then
+    slug_name=$(echo "$SINGLE_URL" | sed 's|/*$||' | awk -F'/' '{print $NF}' | sed 's/\?.*//' | sed 's/[^a-zA-Z0-9_-]/_/g' | cut -c1-30)
+    
+    if [[ -z "$slug_name" || "$SINGLE_URL" =~ :[0-9]+/?$ ]]; then
+        slug_name="home"
+    fi
+    
+    process_pair "$slug_name" "$SINGLE_URL"
+
+else
+    while IFS= read -r line || [[ -n "$line" ]]; do
+        [[ -z "${line// }" ]] && continue
+        
+        set_name=$(echo "$line" | hck -f 1 | sed 's/[^a-zA-Z0-9_-]/_/g' | cut -c1-30)
+        v1_url=$(echo "$line" | hck -f 2)
+
+        if [[ "$v1_url" =~ ^http ]]; then
+            process_pair "$set_name" "$v1_url"
+        fi
+    done < "$CAPTURE_LIST"
+fi
+
+echo "--------------------------------------------------------"
+echo "Success! All pages processed autonomously."
+
