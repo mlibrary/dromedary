@@ -122,11 +122,9 @@ body {
 }
 
 .container.container--full.site-header-container {
-  // Match the original layout: constrain and center the header rows
-  // (orig used a fixed 1170px Bootstrap container) instead of running
-  // full-bleed to the viewport edge.
-  max-width: 1170px;
-  margin: 0 auto;
+  // Header rows are constrained/centered by the base .container (60rem)
+  // now that .container--full no longer sets max-width:none. Only the
+  // header-specific vertical padding belongs here.
   padding: .35em 0;
 }
 
@@ -189,8 +187,10 @@ ul.header-nav-secondary li:hover {
 
 // Splash banner is full-bleed; cancel Blacklight's default `main`
 // vertical padding so the banner butts against the nav (matches orig,
-// which has no <main> wrapper). Scoped to the splash page only.
-.blacklight-catalog-splash #main-content {
+// which has no <main> wrapper). Scoped to the full-bleed banner landing
+// pages (splash + dictionary/bib/quote home).
+.blacklight-catalog-splash #main-content,
+.blacklight-catalog-home #main-content {
   padding-block: 0;
 }
 
@@ -349,6 +349,23 @@ ul.header-nav-secondary li:hover {
   background-color: #f2f2f2;
   padding: 2.5em 0;
   margin: 0;
+
+  // Orig (Bootstrap 3) floats .col-sm-4 so the three detail columns sit in a
+  // row. This port's grid is flex-based and needs a flex parent; the
+  // .col-sm-12.padding0 wrapper is display:block, so the columns stacked.
+  // Restore the row by making the wrapper a wrapping flex container.
+  .col-sm-12.padding0 {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  // The flexed wrapper above isn't a BS5 `.row`, so the column children never
+  // receive Bootstrap's gutter padding (orig BS3 gave `.col-sm-4` a 0 15px
+  // gutter). Restore it so the three detail columns have breathing room and
+  // align to the container gutter instead of butting against the edge.
+  .col-sm-4 {
+    padding: 0 15px;
+  }
 }
 
 .nav-detail--heading {
@@ -409,7 +426,7 @@ ul.header-nav-secondary li:hover {
 }
 
 .banner-text--caption {
-  font-size: .85em;
+  font-size: .55em;
   text-align: left;
 }
 
@@ -434,6 +451,11 @@ ul.header-nav-secondary li:hover {
   left: 0;
   z-index: 1050;
   width: 100%;
+  // The popup inherits a `text-shadow: 1px 1px #000` from the banner/home bar,
+  // which makes the suggestion text look doubled/blurry. Reset it (the keyboard
+  // dropdown already does the same) and use an opaque white menu background.
+  background-color: #fff;
+  text-shadow: none;
 
   li[role="option"] {
     cursor: pointer;
@@ -548,8 +570,15 @@ ul.header-nav-secondary li:hover {
 
   select.form-select {
     height: 40px;
-    padding: 9px 16px;
+    padding: 9px 36px 9px 16px;
     line-height: 1.5;
+    // Match orig: dropdown text is 16px (not 19px body) and the select sizes
+    // to its content instead of flex-stretching to ~456px. Extra right
+    // padding leaves room for the BS5 caret so the longer default label
+    // ("Headword (with alternate spellings)") doesn't run under it.
+    font-size: 16px;
+    flex: 0 0 auto;
+    width: auto;
     color: #555555;
     background-color: #fff;
     border: 1px solid #ccc;
@@ -567,13 +596,27 @@ ul.header-nav-secondary li:hover {
   }
 
   .form-control:focus {
-    border: 3px solid var(--u-m-yellow);
+    // Keep the border WIDTH unchanged on focus. Changing 1px -> 3px reflowed
+    // the search row and pushed the content below down ~6px. Render the yellow
+    // focus emphasis as an outline-style box-shadow ring instead (no layout
+    // shift), and keep the border-color change for the same visual cue.
+    border-color: var(--u-m-yellow);
+    box-shadow: 0 0 0 2px var(--u-m-yellow);
+    outline: none;
   }
 
   button#search {
     border-radius: 4px;
     padding: 4px 12px;
     height: 40px;
+    // Match orig: BS3 .btn was 14px; BS5 .btn inherits the 19px body size,
+    // oversizing the "Search" label. Restore the button base so the
+    // 1.25em label below computes to orig's 17.5px.
+    font-size: 14px;
+  }
+
+  .submit-search-text {
+    font-size: 1.25em;
   }
 
   ul.keyboard-list {
@@ -601,7 +644,10 @@ input#q::placeholder {
   border: 1px solid #ccc;
 
   &:focus {
-    border: 2px solid var(--u-m-yellow);
+    // No reflow on focus (was 1px -> 2px border). Keep width, add a yellow ring.
+    border-color: var(--u-m-yellow);
+    box-shadow: 0 0 0 2px var(--u-m-yellow);
+    outline: none;
   }
 }
 
