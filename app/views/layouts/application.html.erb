@@ -21,6 +21,13 @@
 
     <%= csrf_meta_tags %>
 
+    <!-- Source Sans Pro webfont. Loaded via <link> (not a CSS @import) because the
+         asset pipeline bundles all stylesheets into one file, which buries any
+         @import mid-bundle where browsers ignore it. A <link> always loads. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&display=swap">
+
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
     <script type="module" src="https://cdn.jsdelivr.net/npm/@github/auto-complete-element@3.6.2/+esm"></script>
