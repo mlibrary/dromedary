@@ -434,6 +434,15 @@ ul.header-nav-secondary li:hover {
   color: #A7CDDB;
 }
 
+// Hide native browser search clear button that appears in type="search" inputs.
+// BL9/the autocomplete component changed input type from "text" to "search"; ORIG
+// hid these via appearance:none rules in normalize, which BS5 lacks.
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
 /** Header panel search bar **/
 
 .input-group > .search-autocomplete-wrapper.form-control {
@@ -923,10 +932,50 @@ div.zero-results {
   background-color: #FAFAFA;
   border-radius: 4px;
   margin-bottom: 0;
+  // Orig kept pagination + chip + sort/per-page on a single row. BL9 wraps the
+  // pager in <nav class="paginate-section"> (block) and tags the widgets with
+  // the BS4 `.float-right`/`.pull-right` classes that no longer float in BS5,
+  // so each piece dropped onto its own line. Use flex to recompose one row.
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 
-  .page_links {
+  // Pager: shrink to its content instead of spanning the full width.
+  .paginate-section {
+    display: inline-block;
+    width: auto;
+  }
+
+  .page_links,
+  .page-links {
     font-size: .78em;
     font-weight: bold;
+    display: inline-block;
+    padding: 9px 16px 9px 0;
+  }
+
+  // BS5 dropped .pull-right/.float-right; push the sort/per-page group right.
+  .search-widgets {
+    float: none;
+    display: flex;
+    align-items: center;
+    gap: .25rem;
+    margin-left: auto;
+  }
+
+  .search-term-filter {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  // Orig sort/per-page buttons: white background, blue text, ~14px (not BS5's
+  // gray btn-secondary). Re-skin the toolbar dropdown toggles to match.
+  .search-widgets .btn.dropdown-toggle {
+    background-color: #fff;
+    color: #126DC1;
+    border: 1px solid #ccc;
+    font-size: .78em;
+    padding: 9px 16px;
   }
 }
 
@@ -1060,63 +1109,65 @@ div.flash {
 
 /** Constraints, Facets + Sidebars **/
 
-#sidebar #appliedParams {
-  margin-top: 0;
-  background-color: #FAFAFA !important;
-  border: 1px solid #ddd;
-  margin-bottom: 2px;
+// BL9 renders Blacklight::ConstraintsComponent (#appliedParams) which always
+// emits a "Your selections:" label + a Start Over button. Orig (BL8) showed
+// only a bare inline chip in the content toolbar (the .search-term-filter span
+// next to pagination). We moved the render there and strip the BL9 chrome so
+// the result matches orig: just the green "a x" chip inline by the pager.
+.search-term-filter #appliedParams {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 !important; // override BL9's mb-2 so the chip centers in the row
+  padding: 0;
+  background-color: transparent;
+  border: 0;
 
-  .constraints-label {
-    font-weight: 600;
-    font-size: 1.15em;
-    padding-bottom: .5em;
-  }
-
-  .query {
+  // Hide BL9's "Your selections:" heading and Start Over button (orig had none).
+  .constraints-label,
+  #startOverLink,
+  .start-over,
+  a.btn.catalog_startOverLink {
     display: none;
   }
-
-  .btn-group.appliedFilter.constraint.query {
-    padding-bottom: .25em;
-  }
-
-  .btn.btn-default.btn-sm.remove.dropdown-toggle {
-    float: right;
-  }
-
-  #startOverLink {
-    background-color: #fafafa;
-    border: none;
-    box-shadow: none;
-    color: #333333;
-    font-size: .85em;
-    font-weight: normal !important;
-    text-decoration: underline;
-    margin-top: 5px;
-  }
-
-  .btn-group.appliedFilter.constraint.filter {
-    padding-bottom: .25em;
-  }
-
 }
 
-#sidebar #appliedParams .constraint-value {
-  background-color: #E2F4EB !important;
-  color: #044E2A;
-  border: 1px solid #057C42;
-  display: inline;
-  white-space: normal;
+// Orig chip: white background, dark text, thin gray border, 12px, compact.
+.search-term-filter #appliedParams .constraint-value {
+  background-color: #fff !important;
+  color: #333;
+  border: 1px solid #ccc;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  line-height: 1;
+  padding: 5px 10px;
+  white-space: nowrap;
 }
 
-#sidebar #appliedParams a.dropdown-toggle {
-  background-color: #E2F4EB !important;
+// Center the search term text + its remove icon inside the chip.
+.search-term-filter #appliedParams .filter-value,
+.search-term-filter #appliedParams .filterValue {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+}
+
+.search-term-filter #appliedParams a.remove {
+  background-color: transparent !important;
   border: 0;
-  padding: 0 !important;
+  padding: 0 0 0 6px !important;
   margin: 0;
+  color: #044E2A;
+
+  // BL9 ships an SVG x-icon; size it to match orig's small glyph.
+  svg {
+    width: 12px;
+    height: 12px;
+  }
 }
 
-#sidebar #appliedParams .constraint-value .filterName::after {
+.search-term-filter #appliedParams .constraint-value .filterName::after {
   color: #044E2A;
 }
 
@@ -1137,15 +1188,20 @@ span.filterValue {
   padding-right: .5em;
 }
 
-.top-panel-heading.panel-heading {
+.top-panel-heading.panel-heading,
+.facets-header {
   background-color: #FAFAFA;
   border: 1px solid #ddd;
   margin-bottom: 2px;
+  padding: .75rem 1rem;
 
   h2.facets-heading {
+    // BL9 adds the Bootstrap `.h4` utility (28.5px) to this heading; reset to
+    // match orig's panel heading (19px / 1em) regardless of that utility.
     font-size: 1em;
     font-weight: 600;
     color: #333;
+    margin: 0;
   }
 }
 
@@ -1154,6 +1210,46 @@ span.filterValue {
   text-decoration: none;
   font-weight: 600;
   font-size: 1.1em;
+}
+
+// BL9 renders facet headings as a BS5 accordion: `.facet-field-heading >
+// button.accordion-button`. The default accordion button is oversized
+// (62px tall), uses blue link text, and carries a thick chevron icon that
+// rotates up when expanded. Orig (BL8) was a compact 48px gray panel heading
+// with dark text and a small static down-caret. Re-skin to match orig.
+.facet-field-heading .accordion-button {
+  background-color: #FAFAFA;
+  color: #4A4A4A;
+  font-size: 1em;
+  font-weight: 600;
+  padding: 10px 15px;
+  box-shadow: none;
+
+  // Replace BS5's SVG chevron with orig's small caret. Orig points the caret
+  // down when the facet is open and right when it is closed.
+  &::after {
+    width: 0;
+    height: 0;
+    margin-left: auto;
+    background-image: none;
+    border: 0;
+    transition: none;
+    transform: none;
+  }
+  // Expanded (open): down-pointing caret.
+  &:not(.collapsed)::after {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid #4A4A4A;
+    transform: none;
+  }
+  // Collapsed (closed): right-pointing caret.
+  &.collapsed::after {
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-left: 5px solid #4A4A4A;
+    transform: none;
+  }
 }
 
 .panel-body.facet-panel,

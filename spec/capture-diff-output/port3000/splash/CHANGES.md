@@ -15,17 +15,26 @@ User signed off. All changes below are accepted.
 - **File:** `app/assets/stylesheets/main.scss` (html/body block).
 - **DOM:** unchanged. **Scope:** GLOBAL/common — affects every page; do not reapply.
 
-### 2. Center the header container (COMMON / header)
+### 2. Constrain/center the page container (COMMON / source fix)
 - **Problem:** Header logo/title and secondary nav ran flush to the viewport
-  edge instead of orig's ~55px gutter.
-- **Cause:** `.container--full { max-width:none }` removed orig's centered
-  1170px Bootstrap container.
-- **Fix:** Added `max-width:1170px; margin:0 auto` to
-  `.container.container--full.site-header-container`.
-- **File:** `app/assets/stylesheets/main.scss`.
-- **DOM:** unchanged. **Scope:** COMMON header — applies to all pages.
-- **Note:** Header container is 1170px (55px gutter) while splash/footer are
-  60rem=1140px (70px gutter); this mismatch matches orig exactly.
+  edge instead of being centered with a gutter.
+- **Declared cause (not computed):** `mlib-styles.css` declares
+  `.container--full { max-width: none }`. In orig this was harmless because
+  Bootstrap 3 set a *fixed* `.container { width: 1170px }` that still
+  constrained the element (the 1170px was a BS3 artifact, never declared on
+  `.container--full`). Bootstrap 5 containers use `max-width` only, so
+  `max-width: none` removed the constraint entirely -> full-bleed 1280px.
+- **Fix (root cause, BS5-idiomatic, no magic px):** changed
+  `mlib-styles.css` `.container--full` to `max-width: 60rem` -- the codebase's
+  existing responsive container token (same one used by splash/footer). The
+  base `.container` already supplies `margin: 0 auto` + `padding: 0 1rem`, so
+  the element now centers correctly and collapses cleanly on tablet/mobile.
+- **Files:** `app/assets/stylesheets/mlib-styles.css` (`.container--full`);
+  `main.scss` header block reduced to just the header-specific padding.
+- **DOM:** unchanged. **Scope:** COMMON -- all pages.
+- **Divergence from orig (approved):** orig's header is 1170px (a BS3 fixed
+  width); we intentionally use the idiomatic responsive `60rem` token instead
+  of hardcoding 1170px, so header/hero/fact-panel share one consistent gutter.
 
 ### 3. Fix white secondary-nav stripe height (COMMON / header)
 - **Problem:** White nav stripe (Dictionary/Bibliography/...) taller than orig.
