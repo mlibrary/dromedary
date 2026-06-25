@@ -3015,6 +3015,7 @@ ul.header-nav-secondary li:hover { border-bottom: 2px solid rgb(18, 109, 193); }
 .banner-text--medium { font-size: 1.5em; font-weight: 400; line-height: 30px; }
 .banner-text--caption { font-size: 0.55em; text-align: left; }
 .banner-text--caption a:hover { color: rgb(167, 205, 219); }
+input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration { appearance: none; }
 .input-group > .search-autocomplete-wrapper.form-control { display: flex; flex: 1 1 auto; height: auto; border: medium !important; background: none !important; padding: 0px !important; }
 .search-autocomplete-wrapper ul.dropdown-menu { position: absolute; top: 100%; left: 0px; z-index: 1050; width: 100%; background-color: rgb(255, 255, 255); text-shadow: none; }
 .search-autocomplete-wrapper ul.dropdown-menu li[role="option"] { cursor: pointer; }
@@ -3092,8 +3093,12 @@ div.zero-results span.search-field { font-style: italic; }
 .quote-panel .citation-link { font-size: 16px; }
 .quote-panel span.pos { font-style: italic; }
 .documents-list { margin-bottom: 2em; }
-#sortAndPerPage { border: 0px; padding: 0.5em; background-color: rgb(250, 250, 250); border-radius: 4px; margin-bottom: 0px; }
-#sortAndPerPage .page_links { font-size: 0.78em; font-weight: bold; }
+#sortAndPerPage { border: 0px; padding: 0.5em; background-color: rgb(250, 250, 250); border-radius: 4px; margin-bottom: 0px; display: flex; flex-wrap: wrap; align-items: center; }
+#sortAndPerPage .paginate-section { display: inline-block; width: auto; }
+#sortAndPerPage .page_links, #sortAndPerPage .page-links { font-size: 0.78em; font-weight: bold; display: inline-block; padding: 9px 16px 9px 0px; }
+#sortAndPerPage .search-widgets { float: none; display: flex; align-items: center; gap: 0.25rem; margin-left: auto; }
+#sortAndPerPage .search-term-filter { display: inline-flex; align-items: center; }
+#sortAndPerPage .search-widgets .btn.dropdown-toggle { background-color: rgb(255, 255, 255); color: rgb(18, 109, 193); border: 1px solid rgb(204, 204, 204); font-size: 0.78em; padding: 9px 16px; }
 span.filterValue { font-family: Helvetica, sans-serif; }
 .constraint-value a { border: medium; }
 bq { margin: 0px; padding: 1.5em; font-size: 90%; font-family: Courier, "Courier New", monospaced; }
@@ -3119,23 +3124,24 @@ div.flash a { color: inherit; }
 .definition-block { background-color: rgb(250, 250, 250); padding: 1.25em; display: flex; }
 .def-header { padding-right: 1em; color: rgb(110, 110, 110); }
 .search-result { font-size: 0.85em; }
-#sidebar #appliedParams { margin-top: 0px; border: 1px solid rgb(221, 221, 221); margin-bottom: 2px; background-color: rgb(250, 250, 250) !important; }
-#sidebar #appliedParams .constraints-label { font-weight: 600; font-size: 1.15em; padding-bottom: 0.5em; }
-#sidebar #appliedParams .query { display: none; }
-#sidebar #appliedParams .btn-group.appliedFilter.constraint.query { padding-bottom: 0.25em; }
-#sidebar #appliedParams .btn.btn-default.btn-sm.remove.dropdown-toggle { float: right; }
-#sidebar #appliedParams #startOverLink { background-color: rgb(250, 250, 250); border: medium; box-shadow: none; color: rgb(51, 51, 51); font-size: 0.85em; text-decoration: underline; margin-top: 5px; font-weight: normal !important; }
-#sidebar #appliedParams .btn-group.appliedFilter.constraint.filter { padding-bottom: 0.25em; }
-#sidebar #appliedParams .constraint-value { color: rgb(4, 78, 42); border: 1px solid rgb(5, 124, 66); display: inline; white-space: normal; background-color: rgb(226, 244, 235) !important; }
-#sidebar #appliedParams a.dropdown-toggle { border: 0px; margin: 0px; background-color: rgb(226, 244, 235) !important; padding: 0px !important; }
-#sidebar #appliedParams .constraint-value .filterName::after { color: rgb(4, 78, 42); }
+.search-term-filter #appliedParams { display: inline-flex; align-items: center; padding: 0px; background-color: transparent; border: 0px; margin: 0px !important; }
+.search-term-filter #appliedParams .constraints-label, .search-term-filter #appliedParams #startOverLink, .search-term-filter #appliedParams .start-over, .search-term-filter #appliedParams a.btn.catalog_startOverLink { display: none; }
+.search-term-filter #appliedParams .constraint-value { color: rgb(51, 51, 51); border: 1px solid rgb(204, 204, 204); display: inline-flex; align-items: center; justify-content: center; font-size: 12px; line-height: 1; padding: 5px 10px; white-space: nowrap; background-color: rgb(255, 255, 255) !important; }
+.search-term-filter #appliedParams .filter-value, .search-term-filter #appliedParams .filterValue { display: inline-flex; align-items: center; line-height: 1; }
+.search-term-filter #appliedParams a.remove { border: 0px; margin: 0px; color: rgb(4, 78, 42); background-color: transparent !important; padding: 0px 0px 0px 6px !important; }
+.search-term-filter #appliedParams a.remove svg { width: 12px; height: 12px; }
+.search-term-filter #appliedParams .constraint-value .filterName::after { color: rgb(4, 78, 42); }
 #sidebar .card { padding: 0px; }
 .glyphicon.glyphicon-remove { color: rgb(4, 78, 42); }
 .constraint-value.btn.btn-sm.btn-default.btn-disabled { white-space: normal; max-width: 100% !important; }
 span.filterValue { padding-right: 0.5em; }
-.top-panel-heading.panel-heading { background-color: rgb(250, 250, 250); border: 1px solid rgb(221, 221, 221); margin-bottom: 2px; }
-.top-panel-heading.panel-heading h2.facets-heading { font-size: 1em; font-weight: 600; color: rgb(51, 51, 51); }
+.top-panel-heading.panel-heading, .facets-header { background-color: rgb(250, 250, 250); border: 1px solid rgb(221, 221, 221); margin-bottom: 2px; padding: 0.75rem 1rem; }
+.top-panel-heading.panel-heading h2.facets-heading, .facets-header h2.facets-heading { font-size: 1em; font-weight: 600; color: rgb(51, 51, 51); margin: 0px; }
 .panel-title.facet-field-heading a { color: rgb(74, 74, 74); text-decoration: none; font-weight: 600; font-size: 1.1em; }
+.facet-field-heading .accordion-button { background-color: rgb(250, 250, 250); color: rgb(74, 74, 74); font-size: 1em; font-weight: 600; padding: 10px 15px; box-shadow: none; }
+.facet-field-heading .accordion-button::after { width: 0px; height: 0px; margin-left: auto; background-image: none; border: 0px; transition: none; transform: none; }
+.facet-field-heading .accordion-button:not(.collapsed)::after { border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 5px solid rgb(74, 74, 74); transform: none; }
+.facet-field-heading .accordion-button.collapsed::after { border-top: 4px solid transparent; border-bottom: 4px solid transparent; border-left: 5px solid rgb(74, 74, 74); transform: none; }
 .panel-body.facet-panel, .collapse-toggle.panel-heading { background-color: rgb(250, 250, 250); border: 1px solid transparent !important; }
 .panel-body.facet-panel { padding-top: 0px; }
 .facet-label a, .facet-label a:visited { color: rgb(18, 109, 193); text-decoration: none; font-size: 1em; }

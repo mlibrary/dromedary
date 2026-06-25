@@ -1,6 +1,6 @@
 <div id="sortAndPerPage" class="clearfix">
   <%= render :partial => "paginate_compact", :object => @response if show_pagination? %>
-  <span class="search-term-filter"><%= render 'constraints' %></span>
+  <span class="search-term-filter"><%= render 'query_constraint' %></span>
   <span class="search-widgets float-right">
     <%= render 'sort_widget' %>
     <%= render 'per_page_widget' %>

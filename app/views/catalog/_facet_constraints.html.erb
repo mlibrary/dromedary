@@ -1,0 +1,9 @@
+<%# 
+  Render facet constraints ("Current Filters" / "Your selections") in sidebar.
+  The search term (query) constraint is shown in the toolbar via _query_constraint,
+  so here we only want facets. We render the full ConstraintsComponent but hide
+  the query constraint portion via CSS (#sidebar .constraint.query { display:none }).
+%>
+<% if search_state.filters.present? %>
+  <%= render Blacklight::ConstraintsComponent.new(search_state: search_state) %>
+<% end %>

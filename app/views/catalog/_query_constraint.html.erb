@@ -1,0 +1,10 @@
+<%# Render ONLY the search term constraint chip (not facet constraints) in the toolbar %>
+<% if search_state.query_param.present? %>
+  <%= render Blacklight::ConstraintLayoutComponent.new(
+        search_state: search_state,
+        value: search_state.query_param,
+        label: default_search_field?(params[:search_field]) ? nil : label_for_search_field(params[:search_field]),
+        remove_path: search_action_path(search_state.remove_query_params),
+        classes: 'query'
+      ) %>
+<% end %>

@@ -1131,6 +1131,19 @@ div.flash {
   }
 }
 
+// In the sidebar, hide the query constraint (it's shown inline in the toolbar).
+// Show facet constraints with "Current Filters" heading and Start Over.
+#sidebar #appliedParams {
+  .constraint.query {
+    display: none;
+  }
+  // Show the heading and Start Over in sidebar context
+  .constraints-label,
+  .start-over {
+    display: block;
+  }
+}
+
 // Orig chip: white background, dark text, thin gray border, 12px, compact.
 .search-term-filter #appliedParams .constraint-value {
   background-color: #fff !important;
