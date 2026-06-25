@@ -1,4 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700');
+/* Source Sans Pro is loaded via a <link> in the layout <head> (see
+   app/views/layouts/application.html.erb). A CSS @import here is ignored:
+   the asset pipeline bundles this file mid-stream, and @import is only
+   honored at the very top of a stylesheet. */
 
 :root {
   --u-m-blue: #00274c;
@@ -496,7 +499,13 @@ input[type="search"]::-webkit-search-decoration {
     display: flex;
     flex-direction: row;
     align-items: stretch;
-    gap: 0.25em;
+    // Orig used justify-content: space-evenly on a .search-input-group wrapper,
+    // giving ~7.5px gaps between elements. Set an explicit 8px gap here (BS5's
+    // .input-group applies margin-left:-1px to non-first children, making the
+    // visual gap ~7px -- close to orig). Also neutralise that negative margin so
+    // the gap is the full 8px and borders don't overlap on rounded elements.
+    gap: 8px;
+    > * { margin-left: 0 !important; }
   }
 
   .search-autocomplete-wrapper.form-control {
@@ -576,7 +585,8 @@ input[type="search"]::-webkit-search-decoration {
     display: flex;
     flex-direction: row;
     align-items: stretch;
-    gap: 0.25em;
+    gap: 8px;
+    > * { margin-left: 0 !important; }
   }
 
   .search-autocomplete-wrapper.form-control {
@@ -666,6 +676,11 @@ input#q::placeholder {
   // which enlarges the em-sized dropdown-toggle caret and widens this icon
   // button. Anchor to ~0.8 of the responsive root (rem) to match orig's scale.
   font-size: 0.8rem;
+  // Match the explicit 40px row height used by all other search-bar elements.
+  // Without this, the BS5 .btn natural height (~39px at 0.8rem/19px base)
+  // is slightly shorter than button#search (40px), making the Search button
+  // appear taller.
+  height: 40px;
 
   &:focus {
     // No reflow on focus (was 1px -> 2px border). Keep width, add a yellow ring.
@@ -714,7 +729,8 @@ input#q::placeholder {
     display: flex;
     flex-direction: row;
     align-items: stretch;
-    gap: 0.25em;
+    gap: 8px;
+    > * { margin-left: 0 !important; }
   }
 
   .search-autocomplete-wrapper.form-control {

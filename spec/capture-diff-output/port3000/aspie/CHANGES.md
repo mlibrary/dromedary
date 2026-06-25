@@ -75,3 +75,46 @@
 - **Scope:** `#sidebar .card`. Sidebar appears on document show pages.
 - **Note:** header tint still differs slightly (orig `#f5f5f5` headers vs port
   near-white `rgba(0,0,0,.03)`); deferred as a separate follow-up if wanted.
+
+### 8. Fix search bar elements flush (no gap between select/input/buttons)
+- **Element:** `.search-bar--header .input-group`, `.search-bar--home .input-group`, `.search-bar--light-bg .input-group`.
+- **Problem:** Select, input, keyboard button, and Search button rendered flush with no visible gap. Orig had ~8px gaps between all elements.
+- **Cause:** Port3000 had `gap: 0.25em` (~4.75px) on `.input-group`, offset to ~3.75px visual by Bootstrap 5's `margin-left: -1px` applied to non-first `.input-group` children. Orig used `justify-content: space-evenly` on a `.search-input-group` wrapper, yielding ~7.5px gaps.
+- **Fix:** Changed `gap: 0.25em` to `gap: 8px` in all three search bar `.input-group` blocks. Also added `> * { margin-left: 0 !important; }` to neutralise BS5's negative margin (which is meant for border-merged input groups; these elements have `border-radius: 4px` and should NOT merge borders).
+- **File:** `app/assets/stylesheets/main.scss`.
+- **Scope:** COMMON (all three search bars: header, home, light-bg). Do not reapply.
+
+### 7. Fix keyboard dropdown button shorter than Search button
+- **Element:** `#dropdownMenuButton` (the keyboard icon button in the search bar).
+- **Problem:** The blue Search button appeared taller than the keyboard-icon dropdown button next to it.
+- **Cause:** `button#search` has an explicit `height: 40px` rule. `#dropdownMenuButton` had no explicit height, so it rendered at its natural BS5 `.btn` size (~39.125px at 0.8rem/19px base font). The ~0.875px difference, combined with `border-radius: 4px` on `.search-btn`, made the Search button look like a taller floating pill vs the slightly-shorter flat keyboard button.
+- **Fix:** Added `height: 40px` to `#dropdownMenuButton` in `app/assets/stylesheets/main.scss` so both buttons match the 40px row height.
+- **Scope:** COMMON (all search bars with the keyboard dropdown). Do not reapply.
+
+### 6. Fix Source Sans Pro webfont never loading (system-font fallback)
+- **Element:** all body/UI text site-wide (observed on aspie while comparing).
+- **Problem:** port rendered in the system sans-serif (heavier letterforms)
+  while orig rendered in Source Sans Pro, even though both DECLARE the same
+  `font-family: "Source Sans Pro", sans-serif`. The declared family matched;
+  the actual webfont was simply never loaded in port.
+- **Cause:** `main.scss:1` loaded the font via a CSS `@import`
+  (`@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro...')`).
+  The asset pipeline (`require_tree .` in `application.scss`) concatenates every
+  stylesheet into ONE `application.css`, so that `@import` ended up at line
+  ~15951 of the 19069-line served bundle. CSS only honors `@import` at the very
+  TOP of a stylesheet; mid-bundle the browser silently ignores it -> font never
+  loads -> system fallback. Orig serves each source file separately, so its
+  `main.css` `@import` is at line 1 and works.
+- **Fix (2 files):**
+  1. `app/views/layouts/application.html.erb` -> added a `<link rel="stylesheet">`
+     for the Google Fonts URL (plus `preconnect` hints) in `<head>`, before
+     `stylesheet_link_tag 'application'`. A `<link>` loads regardless of bundle
+     ordering.
+  2. `app/assets/stylesheets/main.scss` -> removed the dead mid-bundle `@import`,
+     left a comment explaining the move.
+- **Scope:** GLOBAL (application layout + main.scss). Affects every page, not
+  just aspie. Found while comparing this page. Do not reapply per-page.
+- **Verified:** `<link>` present in rendered port HTML; screenshot letterforms
+  now match orig (note: scraper can't inline cross-origin `@font-face` rules, so
+  captured `styles.css` still shows 0 `@font-face` -- this is expected and not a
+  regression; the browser still loads/applies the font at render time).
