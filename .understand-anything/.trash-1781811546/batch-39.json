@@ -1,0 +1,444 @@
+{
+  "nodes": [
+    {
+      "id": "file:config/initializers/cookies_serializer.rb",
+      "type": "file",
+      "name": "cookies_serializer.rb",
+      "filePath": "config/initializers/cookies_serializer.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:config/initializers/explain_partials.rb",
+      "type": "file",
+      "name": "explain_partials.rb",
+      "filePath": "config/initializers/explain_partials.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:config/initializers/explicit_proxy_host.rb",
+      "type": "file",
+      "name": "explicit_proxy_host.rb",
+      "filePath": "config/initializers/explicit_proxy_host.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:config/initializers/explicit_proxy_host.rb:ExplicitProxyHost",
+      "type": "class",
+      "name": "ExplicitProxyHost",
+      "filePath": "config/initializers/explicit_proxy_host.rb",
+      "lineRange": [
+        1,
+        11
+      ],
+      "summary": "Class ExplicitProxyHost in config/initializers/explicit_proxy_host.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:config/initializers/filter_parameter_logging.rb",
+      "type": "file",
+      "name": "filter_parameter_logging.rb",
+      "filePath": "config/initializers/filter_parameter_logging.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:config/initializers/inflections.rb",
+      "type": "file",
+      "name": "inflections.rb",
+      "filePath": "config/initializers/inflections.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:config/initializers/mime_types.rb",
+      "type": "file",
+      "name": "mime_types.rb",
+      "filePath": "config/initializers/mime_types.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:config/initializers/new_framework_defaults_7_0.rb",
+      "type": "file",
+      "name": "new_framework_defaults_7_0.rb",
+      "filePath": "config/initializers/new_framework_defaults_7_0.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:config/initializers/new_framework_defaults_7_1.rb",
+      "type": "file",
+      "name": "new_framework_defaults_7_1.rb",
+      "filePath": "config/initializers/new_framework_defaults_7_1.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:config/initializers/new_framework_defaults_7_2.rb",
+      "type": "file",
+      "name": "new_framework_defaults_7_2.rb",
+      "filePath": "config/initializers/new_framework_defaults_7_2.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:config/initializers/new_framework_defaults_8_0.rb",
+      "type": "file",
+      "name": "new_framework_defaults_8_0.rb",
+      "filePath": "config/initializers/new_framework_defaults_8_0.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:config/initializers/new_framework_defaults_8_1.rb",
+      "type": "file",
+      "name": "new_framework_defaults_8_1.rb",
+      "filePath": "config/initializers/new_framework_defaults_8_1.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:config/initializers/okcomputer.rb",
+      "type": "file",
+      "name": "okcomputer.rb",
+      "filePath": "config/initializers/okcomputer.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:config/initializers/permissions_policy.rb",
+      "type": "file",
+      "name": "permissions_policy.rb",
+      "filePath": "config/initializers/permissions_policy.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:config/initializers/routes_proxy_script_name_fix.rb",
+      "type": "file",
+      "name": "routes_proxy_script_name_fix.rb",
+      "filePath": "config/initializers/routes_proxy_script_name_fix.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:config/initializers/routes_proxy_script_name_fix.rb:MergeScriptNamesEmptyStringFix",
+      "type": "class",
+      "name": "MergeScriptNamesEmptyStringFix",
+      "filePath": "config/initializers/routes_proxy_script_name_fix.rb",
+      "lineRange": [
+        14,
+        19
+      ],
+      "summary": "Class MergeScriptNamesEmptyStringFix in config/initializers/routes_proxy_script_name_fix.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:config/initializers/simple_form_bootstrap.rb",
+      "type": "file",
+      "name": "simple_form_bootstrap.rb",
+      "filePath": "config/initializers/simple_form_bootstrap.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:config/initializers/simple_form.rb",
+      "type": "file",
+      "name": "simple_form.rb",
+      "filePath": "config/initializers/simple_form.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:config/initializers/wrap_parameters.rb",
+      "type": "file",
+      "name": "wrap_parameters.rb",
+      "filePath": "config/initializers/wrap_parameters.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:config/load_local_config.rb",
+      "type": "file",
+      "name": "load_local_config.rb",
+      "filePath": "config/load_local_config.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:config/load_local_config.rb:Dromedary",
+      "type": "class",
+      "name": "Dromedary",
+      "filePath": "config/load_local_config.rb",
+      "lineRange": [
+        8,
+        75
+      ],
+      "summary": "Class Dromedary in config/load_local_config.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:config/puma.rb",
+      "type": "file",
+      "name": "puma.rb",
+      "filePath": "config/puma.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:config/routes.rb",
+      "type": "file",
+      "name": "routes.rb",
+      "filePath": "config/routes.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:data.Dockerfile",
+      "type": "file",
+      "name": "data.Dockerfile",
+      "filePath": "data.Dockerfile",
+      "summary": "Project code file in dockerfile.",
+      "tags": [
+        "code",
+        "dockerfile"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:data/.keep",
+      "type": "file",
+      "name": ".keep",
+      "filePath": "data/.keep",
+      "summary": "Project code file in unknown.",
+      "tags": [
+        "code",
+        "unknown"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:db/migrate/20171202170006_create_searches.blacklight.rb",
+      "type": "file",
+      "name": "20171202170006_create_searches.blacklight.rb",
+      "filePath": "db/migrate/20171202170006_create_searches.blacklight.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:db/migrate/20171202170006_create_searches.blacklight.rb:CreateSearches",
+      "type": "class",
+      "name": "CreateSearches",
+      "filePath": "db/migrate/20171202170006_create_searches.blacklight.rb",
+      "lineRange": [
+        4,
+        18
+      ],
+      "summary": "Class CreateSearches in db/migrate/20171202170006_create_searches.blacklight.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:db/migrate/20171202170007_create_bookmarks.blacklight.rb",
+      "type": "file",
+      "name": "20171202170007_create_bookmarks.blacklight.rb",
+      "filePath": "db/migrate/20171202170007_create_bookmarks.blacklight.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:db/migrate/20171202170007_create_bookmarks.blacklight.rb:CreateBookmarks",
+      "type": "class",
+      "name": "CreateBookmarks",
+      "filePath": "db/migrate/20171202170007_create_bookmarks.blacklight.rb",
+      "lineRange": [
+        4,
+        19
+      ],
+      "summary": "Class CreateBookmarks in db/migrate/20171202170007_create_bookmarks.blacklight.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:db/migrate/20171202170008_add_polymorphic_type_to_bookmarks.blacklight.rb",
+      "type": "file",
+      "name": "20171202170008_add_polymorphic_type_to_bookmarks.blacklight.rb",
+      "filePath": "db/migrate/20171202170008_add_polymorphic_type_to_bookmarks.blacklight.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:db/migrate/20171202170008_add_polymorphic_type_to_bookmarks.blacklight.rb:AddPolymorphicTypeToBookmarks",
+      "type": "class",
+      "name": "AddPolymorphicTypeToBookmarks",
+      "filePath": "db/migrate/20171202170008_add_polymorphic_type_to_bookmarks.blacklight.rb",
+      "lineRange": [
+        4,
+        10
+      ],
+      "summary": "Class AddPolymorphicTypeToBookmarks in db/migrate/20171202170008_add_polymorphic_type_to_bookmarks.blacklight.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:config/initializers/explicit_proxy_host.rb",
+      "target": "class:config/initializers/explicit_proxy_host.rb:ExplicitProxyHost",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:config/initializers/routes_proxy_script_name_fix.rb",
+      "target": "class:config/initializers/routes_proxy_script_name_fix.rb:MergeScriptNamesEmptyStringFix",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:config/load_local_config.rb",
+      "target": "class:config/load_local_config.rb:Dromedary",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:db/migrate/20171202170006_create_searches.blacklight.rb",
+      "target": "class:db/migrate/20171202170006_create_searches.blacklight.rb:CreateSearches",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:db/migrate/20171202170007_create_bookmarks.blacklight.rb",
+      "target": "class:db/migrate/20171202170007_create_bookmarks.blacklight.rb:CreateBookmarks",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:db/migrate/20171202170008_add_polymorphic_type_to_bookmarks.blacklight.rb",
+      "target": "class:db/migrate/20171202170008_add_polymorphic_type_to_bookmarks.blacklight.rb:AddPolymorphicTypeToBookmarks",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    }
+  ]
+}

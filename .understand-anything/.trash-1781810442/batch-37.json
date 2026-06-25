@@ -1,0 +1,280 @@
+{
+  "nodes": [
+    {
+      "id": "file:app/views/static/help/special_characters.html.erb",
+      "type": "file",
+      "name": "special_characters.html.erb",
+      "filePath": "app/views/static/help/special_characters.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/static/maintenance_mode.html.erb",
+      "type": "file",
+      "name": "maintenance_mode.html.erb",
+      "filePath": "app/views/static/maintenance_mode.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:bin/batch_send_jsonl.rb",
+      "type": "file",
+      "name": "batch_send_jsonl.rb",
+      "filePath": "bin/batch_send_jsonl.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:bin/bundle",
+      "type": "file",
+      "name": "bundle",
+      "filePath": "bin/bundle",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:bin/byebug",
+      "type": "file",
+      "name": "byebug",
+      "filePath": "bin/byebug",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:bin/ci",
+      "type": "file",
+      "name": "ci",
+      "filePath": "bin/ci",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:bin/coderay",
+      "type": "file",
+      "name": "coderay",
+      "filePath": "bin/coderay",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:bin/delete_all_med_preview_stuff.rb",
+      "type": "file",
+      "name": "delete_all_med_preview_stuff.rb",
+      "filePath": "bin/delete_all_med_preview_stuff.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:bin/deploy-tasks",
+      "type": "file",
+      "name": "deploy-tasks",
+      "filePath": "bin/deploy-tasks",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:bin/dev",
+      "type": "file",
+      "name": "dev",
+      "filePath": "bin/dev",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:bin/dromedary",
+      "type": "file",
+      "name": "dromedary",
+      "filePath": "bin/dromedary",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:bin/htmldiff",
+      "type": "file",
+      "name": "htmldiff",
+      "filePath": "bin/htmldiff",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:bin/httpclient",
+      "type": "file",
+      "name": "httpclient",
+      "filePath": "bin/httpclient",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:bin/index_new_file.rb",
+      "type": "file",
+      "name": "index_new_file.rb",
+      "filePath": "bin/index_new_file.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:bin/ldiff",
+      "type": "file",
+      "name": "ldiff",
+      "filePath": "bin/ldiff",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:bin/listen",
+      "type": "file",
+      "name": "listen",
+      "filePath": "bin/listen",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:bin/nokogiri",
+      "type": "file",
+      "name": "nokogiri",
+      "filePath": "bin/nokogiri",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:bin/pry",
+      "type": "file",
+      "name": "pry",
+      "filePath": "bin/pry",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:bin/puma",
+      "type": "file",
+      "name": "puma",
+      "filePath": "bin/puma",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:bin/pumactl",
+      "type": "file",
+      "name": "pumactl",
+      "filePath": "bin/pumactl",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:bin/rackup",
+      "type": "file",
+      "name": "rackup",
+      "filePath": "bin/rackup",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:bin/rails",
+      "type": "file",
+      "name": "rails",
+      "filePath": "bin/rails",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:bin/rake",
+      "type": "file",
+      "name": "rake",
+      "filePath": "bin/rake",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:bin/rspec",
+      "type": "file",
+      "name": "rspec",
+      "filePath": "bin/rspec",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:bin/ruby-parse",
+      "type": "file",
+      "name": "ruby-parse",
+      "filePath": "bin/ruby-parse",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

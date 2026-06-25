@@ -1,0 +1,280 @@
+{
+  "nodes": [
+    {
+      "id": "file:app/views/catalog/splash.html.erb",
+      "type": "file",
+      "name": "splash.html.erb",
+      "filePath": "app/views/catalog/splash.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/views/contacts/create.html.erb",
+      "type": "file",
+      "name": "create.html.erb",
+      "filePath": "app/views/contacts/create.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/contacts/new.html.erb",
+      "type": "file",
+      "name": "new.html.erb",
+      "filePath": "app/views/contacts/new.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/views/contacts/success.html.erb",
+      "type": "file",
+      "name": "success.html.erb",
+      "filePath": "app/views/contacts/success.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/layouts/application.html.erb",
+      "type": "file",
+      "name": "application.html.erb",
+      "filePath": "app/views/layouts/application.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/views/layouts/blacklight.html.erb",
+      "type": "file",
+      "name": "blacklight.html.erb",
+      "filePath": "app/views/layouts/blacklight.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/layouts/home.html.erb",
+      "type": "file",
+      "name": "home.html.erb",
+      "filePath": "app/views/layouts/home.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/layouts/mailer.html.erb",
+      "type": "file",
+      "name": "mailer.html.erb",
+      "filePath": "app/views/layouts/mailer.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/layouts/mailer.text.erb",
+      "type": "file",
+      "name": "mailer.text.erb",
+      "filePath": "app/views/layouts/mailer.text.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/layouts/splash.html.erb",
+      "type": "file",
+      "name": "splash.html.erb",
+      "filePath": "app/views/layouts/splash.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/layouts/static.html.erb",
+      "type": "file",
+      "name": "static.html.erb",
+      "filePath": "app/views/layouts/static.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/layouts/uploader.html.erb",
+      "type": "file",
+      "name": "uploader.html.erb",
+      "filePath": "app/views/layouts/uploader.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/quotes/_document_list.html.erb",
+      "type": "file",
+      "name": "_document_list.html.erb",
+      "filePath": "app/views/quotes/_document_list.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/quotes/_document.html.erb",
+      "type": "file",
+      "name": "_document.html.erb",
+      "filePath": "app/views/quotes/_document.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/quotes/_home.html.erb",
+      "type": "file",
+      "name": "_home.html.erb",
+      "filePath": "app/views/quotes/_home.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/quotes/_index_default.html.erb",
+      "type": "file",
+      "name": "_index_default.html.erb",
+      "filePath": "app/views/quotes/_index_default.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/quotes/_index_header_quote.html.erb",
+      "type": "file",
+      "name": "_index_header_quote.html.erb",
+      "filePath": "app/views/quotes/_index_header_quote.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/quotes/_per_page_widget.html.erb",
+      "type": "file",
+      "name": "_per_page_widget.html.erb",
+      "filePath": "app/views/quotes/_per_page_widget.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/quotes/_search_header.html.erb",
+      "type": "file",
+      "name": "_search_header.html.erb",
+      "filePath": "app/views/quotes/_search_header.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/quotes/_search_results.html.erb",
+      "type": "file",
+      "name": "_search_results.html.erb",
+      "filePath": "app/views/quotes/_search_results.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/quotes/_zero_results.html.erb",
+      "type": "file",
+      "name": "_zero_results.html.erb",
+      "filePath": "app/views/quotes/_zero_results.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/quotes/home.html.erb",
+      "type": "file",
+      "name": "home.html.erb",
+      "filePath": "app/views/quotes/home.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/quotes/index.html.erb",
+      "type": "file",
+      "name": "index.html.erb",
+      "filePath": "app/views/quotes/index.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/shared/_footer.html.erb",
+      "type": "file",
+      "name": "_footer.html.erb",
+      "filePath": "app/views/shared/_footer.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/shared/_header_navbar.html.erb",
+      "type": "file",
+      "name": "_header_navbar.html.erb",
+      "filePath": "app/views/shared/_header_navbar.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

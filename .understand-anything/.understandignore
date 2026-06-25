@@ -1,0 +1,50 @@
+# .understandignore — patterns for files/dirs to exclude from analysis
+# Syntax: same as .gitignore (globs, # comments, ! negation, trailing / for dirs)
+# Lines below are suggestions — uncomment to activate.
+# Use ! prefix to force-include something excluded by defaults.
+#
+# Built-in defaults (always excluded unless negated):
+#   node_modules/, .git/, dist/, build/, obj/, *.lock, *.min.js, etc.
+#
+# --- From .gitignore (uncomment to exclude) ---
+
+# /.bundle
+# /.cache
+# /.local
+# /data
+# /public/assets/
+# /db/*.sqlite3
+# /log
+# /node_modules
+# **/tmp
+# !**/.keep
+# .byebug_history
+# /solr_logs
+# .app.env
+# .DS_Store
+# *.iml
+# .agentbridge/
+# .bash_history
+# .gitconfig
+# .gem/
+# *.gem
+# output.txt
+# t.rb
+# token-usage-output.txt
+# .solr_wrapper.yml
+# /solr/conf/
+# /public/400.html
+# /public/406-unsupported-browser.html
+# /public/icon.png
+# /public/icon.svg
+
+# --- Detected directories (uncomment to exclude) ---
+
+# test/
+# docs/
+
+# --- Test file patterns (uncomment to exclude) ---
+
+# *.test.*
+# *.spec.*
+# *.snap

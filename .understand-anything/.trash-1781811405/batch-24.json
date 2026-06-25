@@ -1,0 +1,149 @@
+{
+  "nodes": [
+    {
+      "id": "config:solr/dromedary/conf/schema/basic_text_chain.xml",
+      "type": "config",
+      "name": "basic_text_chain.xml",
+      "filePath": "solr/dromedary/conf/schema/basic_text_chain.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/dromedary/conf/schema/basic_text_chain_with_synonyms.xml",
+      "type": "config",
+      "name": "basic_text_chain_with_synonyms.xml",
+      "filePath": "solr/dromedary/conf/schema/basic_text_chain_with_synonyms.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/dromedary/conf/schema/delimited_types.xml",
+      "type": "config",
+      "name": "delimited_types.xml",
+      "filePath": "solr/dromedary/conf/schema/delimited_types.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/dromedary/conf/schema/dynamic_fields.xml",
+      "type": "config",
+      "name": "dynamic_fields.xml",
+      "filePath": "solr/dromedary/conf/schema/dynamic_fields.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:solr/dromedary/conf/schema/me_syn.txt",
+      "type": "document",
+      "name": "me_syn.txt",
+      "filePath": "solr/dromedary/conf/schema/me_syn.txt",
+      "summary": "Project docs file in txt.",
+      "tags": [
+        "docs",
+        "txt"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/dromedary/conf/schema/me_text_chain.xml",
+      "type": "config",
+      "name": "me_text_chain.xml",
+      "filePath": "solr/dromedary/conf/schema/me_text_chain.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/dromedary/conf/schema/middle_english_char_substitution_patterns.xml",
+      "type": "config",
+      "name": "middle_english_char_substitution_patterns.xml",
+      "filePath": "solr/dromedary/conf/schema/middle_english_char_substitution_patterns.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/dromedary/conf/schema/middle_english_types.xml",
+      "type": "config",
+      "name": "middle_english_types.xml",
+      "filePath": "solr/dromedary/conf/schema/middle_english_types.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:solr/dromedary/conf/schema/numeric_types.xml",
+      "type": "config",
+      "name": "numeric_types.xml",
+      "filePath": "solr/dromedary/conf/schema/numeric_types.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/dromedary/conf/schema/primative_types.xml",
+      "type": "config",
+      "name": "primative_types.xml",
+      "filePath": "solr/dromedary/conf/schema/primative_types.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/dromedary/conf/schema/text_types.xml",
+      "type": "config",
+      "name": "text_types.xml",
+      "filePath": "solr/dromedary/conf/schema/text_types.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:solr/dromedary/conf/schema/token_fixing_charfilter.txt",
+      "type": "document",
+      "name": "token_fixing_charfilter.txt",
+      "filePath": "solr/dromedary/conf/schema/token_fixing_charfilter.txt",
+      "summary": "Project docs file in txt.",
+      "tags": [
+        "docs",
+        "txt"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": []
+}

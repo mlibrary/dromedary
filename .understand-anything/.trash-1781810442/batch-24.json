@@ -1,0 +1,137 @@
+{
+  "nodes": [
+    {
+      "id": "config:solr/dromedary/conf/schema/basic_text_chain.xml",
+      "type": "config",
+      "name": "basic_text_chain.xml",
+      "filePath": "solr/dromedary/conf/schema/basic_text_chain.xml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/dromedary/conf/schema/basic_text_chain_with_synonyms.xml",
+      "type": "config",
+      "name": "basic_text_chain_with_synonyms.xml",
+      "filePath": "solr/dromedary/conf/schema/basic_text_chain_with_synonyms.xml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/dromedary/conf/schema/delimited_types.xml",
+      "type": "config",
+      "name": "delimited_types.xml",
+      "filePath": "solr/dromedary/conf/schema/delimited_types.xml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/dromedary/conf/schema/dynamic_fields.xml",
+      "type": "config",
+      "name": "dynamic_fields.xml",
+      "filePath": "solr/dromedary/conf/schema/dynamic_fields.xml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:solr/dromedary/conf/schema/me_syn.txt",
+      "type": "document",
+      "name": "me_syn.txt",
+      "filePath": "solr/dromedary/conf/schema/me_syn.txt",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/dromedary/conf/schema/me_text_chain.xml",
+      "type": "config",
+      "name": "me_text_chain.xml",
+      "filePath": "solr/dromedary/conf/schema/me_text_chain.xml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/dromedary/conf/schema/middle_english_char_substitution_patterns.xml",
+      "type": "config",
+      "name": "middle_english_char_substitution_patterns.xml",
+      "filePath": "solr/dromedary/conf/schema/middle_english_char_substitution_patterns.xml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/dromedary/conf/schema/middle_english_types.xml",
+      "type": "config",
+      "name": "middle_english_types.xml",
+      "filePath": "solr/dromedary/conf/schema/middle_english_types.xml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:solr/dromedary/conf/schema/numeric_types.xml",
+      "type": "config",
+      "name": "numeric_types.xml",
+      "filePath": "solr/dromedary/conf/schema/numeric_types.xml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/dromedary/conf/schema/primative_types.xml",
+      "type": "config",
+      "name": "primative_types.xml",
+      "filePath": "solr/dromedary/conf/schema/primative_types.xml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/dromedary/conf/schema/text_types.xml",
+      "type": "config",
+      "name": "text_types.xml",
+      "filePath": "solr/dromedary/conf/schema/text_types.xml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:solr/dromedary/conf/schema/token_fixing_charfilter.txt",
+      "type": "document",
+      "name": "token_fixing_charfilter.txt",
+      "filePath": "solr/dromedary/conf/schema/token_fixing_charfilter.txt",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": []
+}

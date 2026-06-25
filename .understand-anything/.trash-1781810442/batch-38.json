@@ -1,0 +1,280 @@
+{
+  "nodes": [
+    {
+      "id": "file:bin/ruby-rewrite",
+      "type": "file",
+      "name": "ruby-rewrite",
+      "filePath": "bin/ruby-rewrite",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:bin/sass",
+      "type": "file",
+      "name": "sass",
+      "filePath": "bin/sass",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:bin/sass-convert",
+      "type": "file",
+      "name": "sass-convert",
+      "filePath": "bin/sass-convert",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:bin/scss",
+      "type": "file",
+      "name": "scss",
+      "filePath": "bin/scss",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:bin/setup",
+      "type": "file",
+      "name": "setup",
+      "filePath": "bin/setup",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:bin/setup_dev.sh",
+      "type": "file",
+      "name": "setup_dev.sh",
+      "filePath": "bin/setup_dev.sh",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:bin/sprockets",
+      "type": "file",
+      "name": "sprockets",
+      "filePath": "bin/sprockets",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:bin/thor",
+      "type": "file",
+      "name": "thor",
+      "filePath": "bin/thor",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:bin/tilt",
+      "type": "file",
+      "name": "tilt",
+      "filePath": "bin/tilt",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:bin/update",
+      "type": "file",
+      "name": "update",
+      "filePath": "bin/update",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:bin/wait-for",
+      "type": "file",
+      "name": "wait-for",
+      "filePath": "bin/wait-for",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:bin/yarn",
+      "type": "file",
+      "name": "yarn",
+      "filePath": "bin/yarn",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:config.ru",
+      "type": "file",
+      "name": "config.ru",
+      "filePath": "config.ru",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:config/application.rb",
+      "type": "file",
+      "name": "application.rb",
+      "filePath": "config/application.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:config/boot.rb",
+      "type": "file",
+      "name": "boot.rb",
+      "filePath": "config/boot.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:config/ci.rb",
+      "type": "file",
+      "name": "ci.rb",
+      "filePath": "config/ci.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:config/environment.rb",
+      "type": "file",
+      "name": "environment.rb",
+      "filePath": "config/environment.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:config/environments/development.rb",
+      "type": "file",
+      "name": "development.rb",
+      "filePath": "config/environments/development.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:config/environments/production.rb",
+      "type": "file",
+      "name": "production.rb",
+      "filePath": "config/environments/production.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:config/environments/test.rb",
+      "type": "file",
+      "name": "test.rb",
+      "filePath": "config/environments/test.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:config/initializers/application_controller_renderer.rb",
+      "type": "file",
+      "name": "application_controller_renderer.rb",
+      "filePath": "config/initializers/application_controller_renderer.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:config/initializers/assets.rb",
+      "type": "file",
+      "name": "assets.rb",
+      "filePath": "config/initializers/assets.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:config/initializers/autocomplete_override_code.rb",
+      "type": "file",
+      "name": "autocomplete_override_code.rb",
+      "filePath": "config/initializers/autocomplete_override_code.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:config/initializers/backtrace_silencers.rb",
+      "type": "file",
+      "name": "backtrace_silencers.rb",
+      "filePath": "config/initializers/backtrace_silencers.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:config/initializers/content_security_policy.rb",
+      "type": "file",
+      "name": "content_security_policy.rb",
+      "filePath": "config/initializers/content_security_policy.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

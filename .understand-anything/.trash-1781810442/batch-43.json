@@ -1,0 +1,280 @@
+{
+  "nodes": [
+    {
+      "id": "file:spec/presenters/bibliography/index_presenter_spec.rb",
+      "type": "file",
+      "name": "index_presenter_spec.rb",
+      "filePath": "spec/presenters/bibliography/index_presenter_spec.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:spec/presenters/common_presenters_spec.rb",
+      "type": "file",
+      "name": "common_presenters_spec.rb",
+      "filePath": "spec/presenters/common_presenters_spec.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:spec/presenters/dromedary/index_presenter_spec.rb",
+      "type": "file",
+      "name": "index_presenter_spec.rb",
+      "filePath": "spec/presenters/dromedary/index_presenter_spec.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:spec/presenters/quotes/index_presenter_spec.rb",
+      "type": "file",
+      "name": "index_presenter_spec.rb",
+      "filePath": "spec/presenters/quotes/index_presenter_spec.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:spec/rails_helper.rb",
+      "type": "file",
+      "name": "rails_helper.rb",
+      "filePath": "spec/rails_helper.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:spec/spec_helper.rb",
+      "type": "file",
+      "name": "spec_helper.rb",
+      "filePath": "spec/spec_helper.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:spec/support/capybara.rb",
+      "type": "file",
+      "name": "capybara.rb",
+      "filePath": "spec/support/capybara.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:spec/system/asset_loading_spec.rb",
+      "type": "file",
+      "name": "asset_loading_spec.rb",
+      "filePath": "spec/system/asset_loading_spec.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:spec/system/autocomplete_spec.rb",
+      "type": "file",
+      "name": "autocomplete_spec.rb",
+      "filePath": "spec/system/autocomplete_spec.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:spec/system/bs5_compliance_spec.rb",
+      "type": "file",
+      "name": "bs5_compliance_spec.rb",
+      "filePath": "spec/system/bs5_compliance_spec.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:spec/system/keyboard_dropdown_spec.rb",
+      "type": "file",
+      "name": "keyboard_dropdown_spec.rb",
+      "filePath": "spec/system/keyboard_dropdown_spec.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:spec/system/no_jquery_spec.rb",
+      "type": "file",
+      "name": "no_jquery_spec.rb",
+      "filePath": "spec/system/no_jquery_spec.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:spec/system/search_handlers_spec.rb",
+      "type": "file",
+      "name": "search_handlers_spec.rb",
+      "filePath": "spec/system/search_handlers_spec.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:spec/system/search_spec.rb",
+      "type": "file",
+      "name": "search_spec.rb",
+      "filePath": "spec/system/search_spec.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:spec/system/view_structure_spec.rb",
+      "type": "file",
+      "name": "view_structure_spec.rb",
+      "filePath": "spec/system/view_structure_spec.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:spec/views/bs4_patterns_spec.rb",
+      "type": "file",
+      "name": "bs4_patterns_spec.rb",
+      "filePath": "spec/views/bs4_patterns_spec.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:test/application_system_test_case.rb",
+      "type": "file",
+      "name": "application_system_test_case.rb",
+      "filePath": "test/application_system_test_case.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:test/controllers/.keep",
+      "type": "file",
+      "name": ".keep",
+      "filePath": "test/controllers/.keep",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:test/fixtures/.keep",
+      "type": "file",
+      "name": ".keep",
+      "filePath": "test/fixtures/.keep",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:test/fixtures/files/.keep",
+      "type": "file",
+      "name": ".keep",
+      "filePath": "test/fixtures/files/.keep",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:test/helpers/.keep",
+      "type": "file",
+      "name": ".keep",
+      "filePath": "test/helpers/.keep",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:test/integration/.keep",
+      "type": "file",
+      "name": ".keep",
+      "filePath": "test/integration/.keep",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:test/mailers/.keep",
+      "type": "file",
+      "name": ".keep",
+      "filePath": "test/mailers/.keep",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:test/models/.keep",
+      "type": "file",
+      "name": ".keep",
+      "filePath": "test/models/.keep",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:test/system/.keep",
+      "type": "file",
+      "name": ".keep",
+      "filePath": "test/system/.keep",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

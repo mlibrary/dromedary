@@ -1,0 +1,15 @@
+output_format: agents
+llm:
+  provider: anthropic
+  model: sonnet
+exclude:
+- node_modules/
+- .venv/
+- venv/
+- '*.log'
+- dist/
+- build/
+- __pycache__/
+- .pytest_cache/
+- .git/
+- .DS_Store

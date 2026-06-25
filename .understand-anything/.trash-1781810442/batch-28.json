@@ -1,0 +1,60 @@
+{
+  "nodes": [
+    {
+      "id": "config:solr/dromedary/conf/solrconfig_med/suggesters/common.xml",
+      "type": "config",
+      "name": "common.xml",
+      "filePath": "solr/dromedary/conf/solrconfig_med/suggesters/common.xml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/dromedary/conf/solrconfig_med/suggesters/doe_suggester.xml",
+      "type": "config",
+      "name": "doe_suggester.xml",
+      "filePath": "solr/dromedary/conf/solrconfig_med/suggesters/doe_suggester.xml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/dromedary/conf/solrconfig_med/suggesters/headword_and_forms_suggester.xml",
+      "type": "config",
+      "name": "headword_and_forms_suggester.xml",
+      "filePath": "solr/dromedary/conf/solrconfig_med/suggesters/headword_and_forms_suggester.xml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/dromedary/conf/solrconfig_med/suggesters/headword_only_suggester.xml",
+      "type": "config",
+      "name": "headword_only_suggester.xml",
+      "filePath": "solr/dromedary/conf/solrconfig_med/suggesters/headword_only_suggester.xml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/dromedary/conf/solrconfig_med/suggesters/oed_suggester.xml",
+      "type": "config",
+      "name": "oed_suggester.xml",
+      "filePath": "solr/dromedary/conf/solrconfig_med/suggesters/oed_suggester.xml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

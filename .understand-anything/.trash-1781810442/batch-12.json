@@ -1,0 +1,71 @@
+{
+  "nodes": [
+    {
+      "id": "document:docs/application_code.md",
+      "type": "document",
+      "name": "application_code.md",
+      "filePath": "docs/application_code.md",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:docs/autocomplete_setup.md",
+      "type": "document",
+      "name": "autocomplete_setup.md",
+      "filePath": "docs/autocomplete_setup.md",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:docs/configuration.md",
+      "type": "document",
+      "name": "configuration.md",
+      "filePath": "docs/configuration.md",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:docs/indexing.md",
+      "type": "document",
+      "name": "indexing.md",
+      "filePath": "docs/indexing.md",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:docs/setting_up.md",
+      "type": "document",
+      "name": "setting_up.md",
+      "filePath": "docs/setting_up.md",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:docs/solr.md",
+      "type": "document",
+      "name": "solr.md",
+      "filePath": "docs/solr.md",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": []
+}

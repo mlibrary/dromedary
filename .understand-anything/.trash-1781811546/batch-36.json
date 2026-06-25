@@ -1,0 +1,305 @@
+{
+  "nodes": [
+    {
+      "id": "file:app/views/shared/_keyboard_dropdown.html.erb",
+      "type": "file",
+      "name": "_keyboard_dropdown.html.erb",
+      "filePath": "app/views/shared/_keyboard_dropdown.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/shared/nav/_about.html.erb",
+      "type": "file",
+      "name": "_about.html.erb",
+      "filePath": "app/views/shared/nav/_about.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/shared/nav/_admin.html.erb",
+      "type": "file",
+      "name": "_admin.html.erb",
+      "filePath": "app/views/shared/nav/_admin.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/shared/nav/_bib.html.erb",
+      "type": "file",
+      "name": "_bib.html.erb",
+      "filePath": "app/views/shared/nav/_bib.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/shared/nav/_contact.html.erb",
+      "type": "file",
+      "name": "_contact.html.erb",
+      "filePath": "app/views/shared/nav/_contact.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/shared/nav/_corpus.html.erb",
+      "type": "file",
+      "name": "_corpus.html.erb",
+      "filePath": "app/views/shared/nav/_corpus.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/shared/nav/_help.html.erb",
+      "type": "file",
+      "name": "_help.html.erb",
+      "filePath": "app/views/shared/nav/_help.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/shared/nav/_home.html.erb",
+      "type": "file",
+      "name": "_home.html.erb",
+      "filePath": "app/views/shared/nav/_home.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/shared/nav/_med.html.erb",
+      "type": "file",
+      "name": "_med.html.erb",
+      "filePath": "app/views/shared/nav/_med.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/shared/nav/_quotes.html.erb",
+      "type": "file",
+      "name": "_quotes.html.erb",
+      "filePath": "app/views/shared/nav/_quotes.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/static/_about_sidebar.html.erb",
+      "type": "file",
+      "name": "_about_sidebar.html.erb",
+      "filePath": "app/views/static/_about_sidebar.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/static/_google_analytics.html.erb",
+      "type": "file",
+      "name": "_google_analytics.html.erb",
+      "filePath": "app/views/static/_google_analytics.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/static/_help_sidebar_link.erb",
+      "type": "file",
+      "name": "_help_sidebar_link.erb",
+      "filePath": "app/views/static/_help_sidebar_link.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/static/_help_sidebar.html.erb",
+      "type": "file",
+      "name": "_help_sidebar.html.erb",
+      "filePath": "app/views/static/_help_sidebar.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/static/about_med.html.erb",
+      "type": "file",
+      "name": "about_med.html.erb",
+      "filePath": "app/views/static/about_med.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:app/views/static/help_corpus.html.erb",
+      "type": "file",
+      "name": "help_corpus.html.erb",
+      "filePath": "app/views/static/help_corpus.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/static/help_general.html.erb",
+      "type": "file",
+      "name": "help_general.html.erb",
+      "filePath": "app/views/static/help_general.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/views/static/help_hyperbib.html.erb",
+      "type": "file",
+      "name": "help_hyperbib.html.erb",
+      "filePath": "app/views/static/help_hyperbib.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:app/views/static/help_med.html.erb",
+      "type": "file",
+      "name": "help_med.html.erb",
+      "filePath": "app/views/static/help_med.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:app/views/static/help.html.erb",
+      "type": "file",
+      "name": "help.html.erb",
+      "filePath": "app/views/static/help.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/views/static/help/_sidebar.html.erb",
+      "type": "file",
+      "name": "_sidebar.html.erb",
+      "filePath": "app/views/static/help/_sidebar.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/static/help/bibliography.html.erb",
+      "type": "file",
+      "name": "bibliography.html.erb",
+      "filePath": "app/views/static/help/bibliography.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/views/static/help/dictionary.html.erb",
+      "type": "file",
+      "name": "dictionary.html.erb",
+      "filePath": "app/views/static/help/dictionary.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/views/static/help/extended.html.erb",
+      "type": "file",
+      "name": "extended.html.erb",
+      "filePath": "app/views/static/help/extended.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/views/static/help/quotations.html.erb",
+      "type": "file",
+      "name": "quotations.html.erb",
+      "filePath": "app/views/static/help/quotations.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

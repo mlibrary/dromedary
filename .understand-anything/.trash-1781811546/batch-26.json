@@ -1,0 +1,77 @@
+{
+  "nodes": [
+    {
+      "id": "config:solr/dromedary/conf/solrconfig_med/bib_searches/author_title_search.xml",
+      "type": "config",
+      "name": "author_title_search.xml",
+      "filePath": "solr/dromedary/conf/solrconfig_med/bib_searches/author_title_search.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/dromedary/conf/solrconfig_med/bib_searches/everything_search.xml",
+      "type": "config",
+      "name": "everything_search.xml",
+      "filePath": "solr/dromedary/conf/solrconfig_med/bib_searches/everything_search.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/dromedary/conf/solrconfig_med/bib_searches/external_references_search.xml",
+      "type": "config",
+      "name": "external_references_search.xml",
+      "filePath": "solr/dromedary/conf/solrconfig_med/bib_searches/external_references_search.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/dromedary/conf/solrconfig_med/bib_searches/lalme_search.xml",
+      "type": "config",
+      "name": "lalme_search.xml",
+      "filePath": "solr/dromedary/conf/solrconfig_med/bib_searches/lalme_search.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/dromedary/conf/solrconfig_med/bib_searches/manuscript_search.xml",
+      "type": "config",
+      "name": "manuscript_search.xml",
+      "filePath": "solr/dromedary/conf/solrconfig_med/bib_searches/manuscript_search.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/dromedary/conf/solrconfig_med/bib_searches/stencil_search.xml",
+      "type": "config",
+      "name": "stencil_search.xml",
+      "filePath": "solr/dromedary/conf/solrconfig_med/bib_searches/stencil_search.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

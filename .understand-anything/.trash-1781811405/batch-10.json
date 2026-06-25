@@ -1,0 +1,41 @@
+{
+  "nodes": [
+    {
+      "id": "document:doc/blacklight_9_view_changes_upgrade_plan.md",
+      "type": "document",
+      "name": "blacklight_9_view_changes_upgrade_plan.md",
+      "filePath": "doc/blacklight_9_view_changes_upgrade_plan.md",
+      "summary": "Project docs file in markdown.",
+      "tags": [
+        "docs",
+        "markdown"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:doc/next_steps.md",
+      "type": "document",
+      "name": "next_steps.md",
+      "filePath": "doc/next_steps.md",
+      "summary": "Project docs file in markdown.",
+      "tags": [
+        "docs",
+        "markdown"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:doc/yard_pass_notes.md",
+      "type": "document",
+      "name": "yard_pass_notes.md",
+      "filePath": "doc/yard_pass_notes.md",
+      "summary": "Project docs file in markdown.",
+      "tags": [
+        "docs",
+        "markdown"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": []
+}

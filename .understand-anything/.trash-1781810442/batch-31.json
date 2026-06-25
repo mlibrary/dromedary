@@ -1,0 +1,280 @@
+{
+  "nodes": [
+    {
+      "id": "file:app/views/application/_did_you_mean.html.erb",
+      "type": "file",
+      "name": "_did_you_mean.html.erb",
+      "filePath": "app/views/application/_did_you_mean.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/application/_document_action.html.erb",
+      "type": "file",
+      "name": "_document_action.html.erb",
+      "filePath": "app/views/application/_document_action.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/application/_document_default.atom.builder",
+      "type": "file",
+      "name": "_document_default.atom.builder",
+      "filePath": "app/views/application/_document_default.atom.builder",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/views/application/_document_default.rss.builder",
+      "type": "file",
+      "name": "_document_default.rss.builder",
+      "filePath": "app/views/application/_document_default.rss.builder",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/application/_document_list.html.erb",
+      "type": "file",
+      "name": "_document_list.html.erb",
+      "filePath": "app/views/application/_document_list.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/application/_document.html.erb",
+      "type": "file",
+      "name": "_document.html.erb",
+      "filePath": "app/views/application/_document.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/application/_email_form.html.erb",
+      "type": "file",
+      "name": "_email_form.html.erb",
+      "filePath": "app/views/application/_email_form.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/application/_facet_index_navigation.html.erb",
+      "type": "file",
+      "name": "_facet_index_navigation.html.erb",
+      "filePath": "app/views/application/_facet_index_navigation.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/application/_facet_layout.html.erb",
+      "type": "file",
+      "name": "_facet_layout.html.erb",
+      "filePath": "app/views/application/_facet_layout.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/application/_facet_limit.html.erb",
+      "type": "file",
+      "name": "_facet_limit.html.erb",
+      "filePath": "app/views/application/_facet_limit.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/application/_facet_pagination.html.erb",
+      "type": "file",
+      "name": "_facet_pagination.html.erb",
+      "filePath": "app/views/application/_facet_pagination.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/application/_facet_pivot.html.erb",
+      "type": "file",
+      "name": "_facet_pivot.html.erb",
+      "filePath": "app/views/application/_facet_pivot.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/application/_facets.html.erb",
+      "type": "file",
+      "name": "_facets.html.erb",
+      "filePath": "app/views/application/_facets.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/application/_group_default.html.erb",
+      "type": "file",
+      "name": "_group_default.html.erb",
+      "filePath": "app/views/application/_group_default.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/application/_home_text.html.erb",
+      "type": "file",
+      "name": "_home_text.html.erb",
+      "filePath": "app/views/application/_home_text.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/views/application/_home.html.erb",
+      "type": "file",
+      "name": "_home.html.erb",
+      "filePath": "app/views/application/_home.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/application/_index_default.html.erb",
+      "type": "file",
+      "name": "_index_default.html.erb",
+      "filePath": "app/views/application/_index_default.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/application/_index_header_default.html.erb",
+      "type": "file",
+      "name": "_index_header_default.html.erb",
+      "filePath": "app/views/application/_index_header_default.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/application/_opensearch_response_metadata.html.erb",
+      "type": "file",
+      "name": "_opensearch_response_metadata.html.erb",
+      "filePath": "app/views/application/_opensearch_response_metadata.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/application/_paginate_compact.html.erb",
+      "type": "file",
+      "name": "_paginate_compact.html.erb",
+      "filePath": "app/views/application/_paginate_compact.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/application/_per_page_widget.html.erb",
+      "type": "file",
+      "name": "_per_page_widget.html.erb",
+      "filePath": "app/views/application/_per_page_widget.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/application/_phrase_wildcard.html.erb",
+      "type": "file",
+      "name": "_phrase_wildcard.html.erb",
+      "filePath": "app/views/application/_phrase_wildcard.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/application/_previous_next_doc.html.erb",
+      "type": "file",
+      "name": "_previous_next_doc.html.erb",
+      "filePath": "app/views/application/_previous_next_doc.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/application/_results_pagination.html.erb",
+      "type": "file",
+      "name": "_results_pagination.html.erb",
+      "filePath": "app/views/application/_results_pagination.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/application/_search_form.html.erb",
+      "type": "file",
+      "name": "_search_form.html.erb",
+      "filePath": "app/views/application/_search_form.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

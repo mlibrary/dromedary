@@ -1,0 +1,17 @@
+{
+  "nodes": [
+    {
+      "id": "service:solr/Dockerfile",
+      "type": "service",
+      "name": "Dockerfile",
+      "filePath": "solr/Dockerfile",
+      "summary": "Project infra file in dockerfile.",
+      "tags": [
+        "infra",
+        "dockerfile"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

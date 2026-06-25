@@ -1,0 +1,305 @@
+{
+  "nodes": [
+    {
+      "id": "file:app/views/application/index.rss.builder",
+      "type": "file",
+      "name": "index.rss.builder",
+      "filePath": "app/views/application/index.rss.builder",
+      "summary": "Project code file in builder.",
+      "tags": [
+        "code",
+        "builder"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/application/opensearch.xml.builder",
+      "type": "file",
+      "name": "opensearch.xml.builder",
+      "filePath": "app/views/application/opensearch.xml.builder",
+      "summary": "Project code file in builder.",
+      "tags": [
+        "code",
+        "builder"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/application/send_email_record.erb",
+      "type": "file",
+      "name": "send_email_record.erb",
+      "filePath": "app/views/application/send_email_record.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/application/show.html.erb",
+      "type": "file",
+      "name": "show.html.erb",
+      "filePath": "app/views/application/show.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/application/sms_success.html.erb",
+      "type": "file",
+      "name": "sms_success.html.erb",
+      "filePath": "app/views/application/sms_success.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/application/sms.html.erb",
+      "type": "file",
+      "name": "sms.html.erb",
+      "filePath": "app/views/application/sms.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/bibliography/_document_list.html.erb",
+      "type": "file",
+      "name": "_document_list.html.erb",
+      "filePath": "app/views/bibliography/_document_list.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/bibliography/_document.html.erb",
+      "type": "file",
+      "name": "_document.html.erb",
+      "filePath": "app/views/bibliography/_document.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/bibliography/_home.html.erb",
+      "type": "file",
+      "name": "_home.html.erb",
+      "filePath": "app/views/bibliography/_home.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/bibliography/_index_bib.html.erb",
+      "type": "file",
+      "name": "_index_bib.html.erb",
+      "filePath": "app/views/bibliography/_index_bib.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/bibliography/_index_header_bib.html.erb",
+      "type": "file",
+      "name": "_index_header_bib.html.erb",
+      "filePath": "app/views/bibliography/_index_header_bib.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/bibliography/_per_page_widget.html.erb",
+      "type": "file",
+      "name": "_per_page_widget.html.erb",
+      "filePath": "app/views/bibliography/_per_page_widget.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/bibliography/_search_header.html.erb",
+      "type": "file",
+      "name": "_search_header.html.erb",
+      "filePath": "app/views/bibliography/_search_header.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/bibliography/_search_results.html.erb",
+      "type": "file",
+      "name": "_search_results.html.erb",
+      "filePath": "app/views/bibliography/_search_results.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/bibliography/_show_bib.html.erb",
+      "type": "file",
+      "name": "_show_bib.html.erb",
+      "filePath": "app/views/bibliography/_show_bib.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/views/bibliography/_show_header_bib.html.erb",
+      "type": "file",
+      "name": "_show_header_bib.html.erb",
+      "filePath": "app/views/bibliography/_show_header_bib.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/bibliography/_show_main_content.html.erb",
+      "type": "file",
+      "name": "_show_main_content.html.erb",
+      "filePath": "app/views/bibliography/_show_main_content.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/bibliography/_zero_results.html.erb",
+      "type": "file",
+      "name": "_zero_results.html.erb",
+      "filePath": "app/views/bibliography/_zero_results.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/bibliography/home.html.erb",
+      "type": "file",
+      "name": "home.html.erb",
+      "filePath": "app/views/bibliography/home.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/bibliography/index.html.erb",
+      "type": "file",
+      "name": "index.html.erb",
+      "filePath": "app/views/bibliography/index.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/bibliography/show_bib/_ms.html.erb",
+      "type": "file",
+      "name": "_ms.html.erb",
+      "filePath": "app/views/bibliography/show_bib/_ms.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/bibliography/show.html.erb",
+      "type": "file",
+      "name": "show.html.erb",
+      "filePath": "app/views/bibliography/show.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/catalog/_constraints_element.html.erb",
+      "type": "file",
+      "name": "_constraints_element.html.erb",
+      "filePath": "app/views/catalog/_constraints_element.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/catalog/_constraints.html.erb",
+      "type": "file",
+      "name": "_constraints.html.erb",
+      "filePath": "app/views/catalog/_constraints.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/catalog/_document.html.erb",
+      "type": "file",
+      "name": "_document.html.erb",
+      "filePath": "app/views/catalog/_document.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

@@ -1,0 +1,149 @@
+{
+  "nodes": [
+    {
+      "id": "service:Dockerfile.prod",
+      "type": "service",
+      "name": "Dockerfile.prod",
+      "filePath": "Dockerfile.prod",
+      "summary": "Project infra file in dockerfile.",
+      "tags": [
+        "infra",
+        "dockerfile"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:NESTIVE_REMOVAL_SUMMARY.md",
+      "type": "document",
+      "name": "NESTIVE_REMOVAL_SUMMARY.md",
+      "filePath": "NESTIVE_REMOVAL_SUMMARY.md",
+      "summary": "Project docs file in markdown.",
+      "tags": [
+        "docs",
+        "markdown"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "README.md",
+      "summary": "Project docs file in markdown.",
+      "tags": [
+        "docs",
+        "markdown"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:README_2023_Sept_Pause.md",
+      "type": "document",
+      "name": "README_2023_Sept_Pause.md",
+      "filePath": "README_2023_Sept_Pause.md",
+      "summary": "Project docs file in markdown.",
+      "tags": [
+        "docs",
+        "markdown"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "service:compose.yml",
+      "type": "service",
+      "name": "compose.yml",
+      "filePath": "compose.yml",
+      "summary": "Project infra file in yaml.",
+      "tags": [
+        "infra",
+        "yaml"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:index_data.sh",
+      "type": "file",
+      "name": "index_data.sh",
+      "filePath": "index_data.sh",
+      "summary": "Project script file in shell.",
+      "tags": [
+        "script",
+        "shell"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:install_err.txt",
+      "type": "document",
+      "name": "install_err.txt",
+      "filePath": "install_err.txt",
+      "summary": "Project docs file in txt.",
+      "tags": [
+        "docs",
+        "txt"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:install_out.txt",
+      "type": "document",
+      "name": "install_out.txt",
+      "filePath": "install_out.txt",
+      "summary": "Project docs file in txt.",
+      "tags": [
+        "docs",
+        "txt"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:next_steps.md",
+      "type": "document",
+      "name": "next_steps.md",
+      "filePath": "next_steps.md",
+      "summary": "Project docs file in markdown.",
+      "tags": [
+        "docs",
+        "markdown"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "package.json",
+      "summary": "Project config file in json.",
+      "tags": [
+        "config",
+        "json"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:prometheus.yml",
+      "type": "config",
+      "name": "prometheus.yml",
+      "filePath": "prometheus.yml",
+      "summary": "Project config file in yaml.",
+      "tags": [
+        "config",
+        "yaml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr-helm-values.yml",
+      "type": "config",
+      "name": "solr-helm-values.yml",
+      "filePath": "solr-helm-values.yml",
+      "summary": "Project config file in yaml.",
+      "tags": [
+        "config",
+        "yaml"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

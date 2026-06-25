@@ -1,0 +1,49 @@
+{
+  "nodes": [
+    {
+      "id": "config:indexer/xslt/bib/Abbreviation.xsl",
+      "type": "config",
+      "name": "Abbreviation.xsl",
+      "filePath": "indexer/xslt/bib/Abbreviation.xsl",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:indexer/xslt/bib/Common.xsl",
+      "type": "config",
+      "name": "Common.xsl",
+      "filePath": "indexer/xslt/bib/Common.xsl",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:indexer/xslt/bib/MSGroup.xsl",
+      "type": "config",
+      "name": "MSGroup.xsl",
+      "filePath": "indexer/xslt/bib/MSGroup.xsl",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:indexer/xslt/bib/Variant.xsl",
+      "type": "config",
+      "name": "Variant.xsl",
+      "filePath": "indexer/xslt/bib/Variant.xsl",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

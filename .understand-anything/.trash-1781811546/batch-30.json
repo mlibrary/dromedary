@@ -1,0 +1,651 @@
+{
+  "nodes": [
+    {
+      "id": "file:app/jobs/index_data_job.rb",
+      "type": "file",
+      "name": "index_data_job.rb",
+      "filePath": "app/jobs/index_data_job.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/jobs/index_data_job.rb:IndexDataJob",
+      "type": "class",
+      "name": "IndexDataJob",
+      "filePath": "app/jobs/index_data_job.rb",
+      "lineRange": [
+        3,
+        13
+      ],
+      "summary": "Class IndexDataJob in app/jobs/index_data_job.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/jobs/poke_sidekiq_job.rb",
+      "type": "file",
+      "name": "poke_sidekiq_job.rb",
+      "filePath": "app/jobs/poke_sidekiq_job.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/jobs/poke_sidekiq_job.rb:PokeSidekiqJob",
+      "type": "class",
+      "name": "PokeSidekiqJob",
+      "filePath": "app/jobs/poke_sidekiq_job.rb",
+      "lineRange": [
+        3,
+        9
+      ],
+      "summary": "Class PokeSidekiqJob in app/jobs/poke_sidekiq_job.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/mailers/application_mailer.rb",
+      "type": "file",
+      "name": "application_mailer.rb",
+      "filePath": "app/mailers/application_mailer.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/mailers/application_mailer.rb:ApplicationMailer",
+      "type": "class",
+      "name": "ApplicationMailer",
+      "filePath": "app/mailers/application_mailer.rb",
+      "lineRange": [
+        1,
+        4
+      ],
+      "summary": "Class ApplicationMailer in app/mailers/application_mailer.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/models/application_record.rb",
+      "type": "file",
+      "name": "application_record.rb",
+      "filePath": "app/models/application_record.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/models/application_record.rb:ApplicationRecord",
+      "type": "class",
+      "name": "ApplicationRecord",
+      "filePath": "app/models/application_record.rb",
+      "lineRange": [
+        1,
+        3
+      ],
+      "summary": "Class ApplicationRecord in app/models/application_record.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/models/concerns/.keep",
+      "type": "file",
+      "name": ".keep",
+      "filePath": "app/models/concerns/.keep",
+      "summary": "Project code file in unknown.",
+      "tags": [
+        "code",
+        "unknown"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/models/contact.rb",
+      "type": "file",
+      "name": "contact.rb",
+      "filePath": "app/models/contact.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/models/contact.rb:Contact",
+      "type": "class",
+      "name": "Contact",
+      "filePath": "app/models/contact.rb",
+      "lineRange": [
+        3,
+        43
+      ],
+      "summary": "Class Contact in app/models/contact.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/models/med_solr_collection.rb",
+      "type": "file",
+      "name": "med_solr_collection.rb",
+      "filePath": "app/models/med_solr_collection.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:app/models/med_solr_collection.rb:MedSolrCollection",
+      "type": "class",
+      "name": "MedSolrCollection",
+      "filePath": "app/models/med_solr_collection.rb",
+      "lineRange": [
+        3,
+        65
+      ],
+      "summary": "Class MedSolrCollection in app/models/med_solr_collection.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/models/med_solr_collections.rb",
+      "type": "file",
+      "name": "med_solr_collections.rb",
+      "filePath": "app/models/med_solr_collections.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/models/med_solr_collections.rb:set_keepers!",
+      "type": "function",
+      "name": "set_keepers!",
+      "filePath": "app/models/med_solr_collections.rb",
+      "lineRange": [
+        64,
+        74
+      ],
+      "summary": "Function set_keepers! in app/models/med_solr_collections.rb.",
+      "tags": [
+        "function",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/models/med_solr_collections.rb:MedSolrCollections",
+      "type": "class",
+      "name": "MedSolrCollections",
+      "filePath": "app/models/med_solr_collections.rb",
+      "lineRange": [
+        4,
+        75
+      ],
+      "summary": "Class MedSolrCollections in app/models/med_solr_collections.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/models/search_builder.rb",
+      "type": "file",
+      "name": "search_builder.rb",
+      "filePath": "app/models/search_builder.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/models/search_builder.rb:default_to_everything_search",
+      "type": "function",
+      "name": "default_to_everything_search",
+      "filePath": "app/models/search_builder.rb",
+      "lineRange": [
+        71,
+        81
+      ],
+      "summary": "Function default_to_everything_search in app/models/search_builder.rb.",
+      "tags": [
+        "function",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/models/search_builder.rb:SearchBuilder",
+      "type": "class",
+      "name": "SearchBuilder",
+      "filePath": "app/models/search_builder.rb",
+      "lineRange": [
+        11,
+        90
+      ],
+      "summary": "Class SearchBuilder in app/models/search_builder.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/models/solr_document.rb",
+      "type": "file",
+      "name": "solr_document.rb",
+      "filePath": "app/models/solr_document.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/models/solr_document.rb:SolrDocument",
+      "type": "class",
+      "name": "SolrDocument",
+      "filePath": "app/models/solr_document.rb",
+      "lineRange": [
+        3,
+        14
+      ],
+      "summary": "Class SolrDocument in app/models/solr_document.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/presenters/common_presenters.rb",
+      "type": "file",
+      "name": "common_presenters.rb",
+      "filePath": "app/presenters/common_presenters.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:app/presenters/common_presenters.rb:CommonPresenters",
+      "type": "class",
+      "name": "CommonPresenters",
+      "filePath": "app/presenters/common_presenters.rb",
+      "lineRange": [
+        1,
+        27
+      ],
+      "summary": "Class CommonPresenters in app/presenters/common_presenters.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/presenters/dromedary/bib/index_presenter.rb",
+      "type": "file",
+      "name": "index_presenter.rb",
+      "filePath": "app/presenters/dromedary/bib/index_presenter.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:app/presenters/dromedary/bib/index_presenter.rb:Dromedary",
+      "type": "class",
+      "name": "Dromedary",
+      "filePath": "app/presenters/dromedary/bib/index_presenter.rb",
+      "lineRange": [
+        9,
+        173
+      ],
+      "summary": "Class Dromedary in app/presenters/dromedary/bib/index_presenter.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/presenters/dromedary/index_presenter.rb",
+      "type": "file",
+      "name": "index_presenter.rb",
+      "filePath": "app/presenters/dromedary/index_presenter.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:app/presenters/dromedary/index_presenter.rb:Dromedary",
+      "type": "class",
+      "name": "Dromedary",
+      "filePath": "app/presenters/dromedary/index_presenter.rb",
+      "lineRange": [
+        10,
+        140
+      ],
+      "summary": "Class Dromedary in app/presenters/dromedary/index_presenter.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/presenters/dromedary/quotes/index_presenter.rb",
+      "type": "file",
+      "name": "index_presenter.rb",
+      "filePath": "app/presenters/dromedary/quotes/index_presenter.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:app/presenters/dromedary/quotes/index_presenter.rb:Dromedary",
+      "type": "class",
+      "name": "Dromedary",
+      "filePath": "app/presenters/dromedary/quotes/index_presenter.rb",
+      "lineRange": [
+        9,
+        64
+      ],
+      "summary": "Class Dromedary in app/presenters/dromedary/quotes/index_presenter.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/views/_flash_msg.html.erb",
+      "type": "file",
+      "name": "_flash_msg.html.erb",
+      "filePath": "app/views/_flash_msg.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/_secondary_util_links.html.erb",
+      "type": "file",
+      "name": "_secondary_util_links.html.erb",
+      "filePath": "app/views/_secondary_util_links.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/_user_util_links.html.erb",
+      "type": "file",
+      "name": "_user_util_links.html.erb",
+      "filePath": "app/views/_user_util_links.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/admin/_collection_row.html.erb",
+      "type": "file",
+      "name": "_collection_row.html.erb",
+      "filePath": "app/views/admin/_collection_row.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/admin/_force_release_row.html.erb",
+      "type": "file",
+      "name": "_force_release_row.html.erb",
+      "filePath": "app/views/admin/_force_release_row.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/admin/home.html.erb",
+      "type": "file",
+      "name": "home.html.erb",
+      "filePath": "app/views/admin/home.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/views/admin/release.html.erb",
+      "type": "file",
+      "name": "release.html.erb",
+      "filePath": "app/views/admin/release.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/application/_bookmark_control.html.erb",
+      "type": "file",
+      "name": "_bookmark_control.html.erb",
+      "filePath": "app/views/application/_bookmark_control.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/application/_citation.html.erb",
+      "type": "file",
+      "name": "_citation.html.erb",
+      "filePath": "app/views/application/_citation.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/application/_constraints_element.html.erb",
+      "type": "file",
+      "name": "_constraints_element.html.erb",
+      "filePath": "app/views/application/_constraints_element.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/application/_constraints.html.erb",
+      "type": "file",
+      "name": "_constraints.html.erb",
+      "filePath": "app/views/application/_constraints.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:app/jobs/index_data_job.rb",
+      "target": "class:app/jobs/index_data_job.rb:IndexDataJob",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/jobs/poke_sidekiq_job.rb",
+      "target": "class:app/jobs/poke_sidekiq_job.rb:PokeSidekiqJob",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/mailers/application_mailer.rb",
+      "target": "class:app/mailers/application_mailer.rb:ApplicationMailer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/models/application_record.rb",
+      "target": "class:app/models/application_record.rb:ApplicationRecord",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/models/contact.rb",
+      "target": "class:app/models/contact.rb:Contact",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/models/med_solr_collection.rb",
+      "target": "class:app/models/med_solr_collection.rb:MedSolrCollection",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/models/med_solr_collections.rb",
+      "target": "function:app/models/med_solr_collections.rb:set_keepers!",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/models/med_solr_collections.rb",
+      "target": "class:app/models/med_solr_collections.rb:MedSolrCollections",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/models/search_builder.rb",
+      "target": "function:app/models/search_builder.rb:default_to_everything_search",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/models/search_builder.rb",
+      "target": "class:app/models/search_builder.rb:SearchBuilder",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/models/solr_document.rb",
+      "target": "class:app/models/solr_document.rb:SolrDocument",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/presenters/common_presenters.rb",
+      "target": "class:app/presenters/common_presenters.rb:CommonPresenters",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/presenters/dromedary/bib/index_presenter.rb",
+      "target": "class:app/presenters/dromedary/bib/index_presenter.rb:Dromedary",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/presenters/dromedary/index_presenter.rb",
+      "target": "class:app/presenters/dromedary/index_presenter.rb:Dromedary",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/presenters/dromedary/quotes/index_presenter.rb",
+      "target": "class:app/presenters/dromedary/quotes/index_presenter.rb:Dromedary",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    }
+  ]
+}

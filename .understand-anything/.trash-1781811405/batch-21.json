@@ -1,0 +1,53 @@
+{
+  "nodes": [
+    {
+      "id": "config:public/assets/.sprockets-manifest-369cee54e74427940076421617b1bba4.json",
+      "type": "config",
+      "name": ".sprockets-manifest-369cee54e74427940076421617b1bba4.json",
+      "filePath": "public/assets/.sprockets-manifest-369cee54e74427940076421617b1bba4.json",
+      "summary": "Project config file in json.",
+      "tags": [
+        "config",
+        "json"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:public/assets/application-0f807e4cf6887154decc984ceb43e98817b68b16ddb55ebafda6228cd5b54b9b.css",
+      "type": "file",
+      "name": "application-0f807e4cf6887154decc984ceb43e98817b68b16ddb55ebafda6228cd5b54b9b.css",
+      "filePath": "public/assets/application-0f807e4cf6887154decc984ceb43e98817b68b16ddb55ebafda6228cd5b54b9b.css",
+      "summary": "Project markup file in css.",
+      "tags": [
+        "markup",
+        "css"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:public/assets/application-158869c53ad051f77389ca3326da1a5f94eebc0ff8a08bcfee9784b90de5846b.css",
+      "type": "file",
+      "name": "application-158869c53ad051f77389ca3326da1a5f94eebc0ff8a08bcfee9784b90de5846b.css",
+      "filePath": "public/assets/application-158869c53ad051f77389ca3326da1a5f94eebc0ff8a08bcfee9784b90de5846b.css",
+      "summary": "Project markup file in css.",
+      "tags": [
+        "markup",
+        "css"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:public/assets/application-9c7f0b657bbfccb3bdee2bcc596b6fedc1b80a426d3caad95b1e4ce906b53ed2.css",
+      "type": "file",
+      "name": "application-9c7f0b657bbfccb3bdee2bcc596b6fedc1b80a426d3caad95b1e4ce906b53ed2.css",
+      "filePath": "public/assets/application-9c7f0b657bbfccb3bdee2bcc596b6fedc1b80a426d3caad95b1e4ce906b53ed2.css",
+      "summary": "Project markup file in css.",
+      "tags": [
+        "markup",
+        "css"
+      ],
+      "complexity": "complex"
+    }
+  ],
+  "edges": []
+}

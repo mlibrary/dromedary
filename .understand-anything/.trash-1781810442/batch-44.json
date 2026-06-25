@@ -1,0 +1,27 @@
+{
+  "nodes": [
+    {
+      "id": "file:test/test_helper.rb",
+      "type": "file",
+      "name": "test_helper.rb",
+      "filePath": "test/test_helper.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tmp/.keep",
+      "type": "file",
+      "name": ".keep",
+      "filePath": "tmp/.keep",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

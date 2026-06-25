@@ -1,0 +1,375 @@
+{
+  "nodes": [
+    {
+      "id": "file:lib/med_installer/solr.rb",
+      "type": "file",
+      "name": "solr.rb",
+      "filePath": "lib/med_installer/solr.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:lib/med_installer/solr.rb:MedInstaller",
+      "type": "class",
+      "name": "MedInstaller",
+      "filePath": "lib/med_installer/solr.rb",
+      "lineRange": [
+        16,
+        389
+      ],
+      "summary": "Class MedInstaller in lib/med_installer/solr.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/my_simple_solr_client.rb",
+      "type": "file",
+      "name": "my_simple_solr_client.rb",
+      "filePath": "lib/my_simple_solr_client.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:lib/my_simple_solr_client.rb:MySimpleSolrClient",
+      "type": "class",
+      "name": "MySimpleSolrClient",
+      "filePath": "lib/my_simple_solr_client.rb",
+      "lineRange": [
+        6,
+        279
+      ],
+      "summary": "Class MySimpleSolrClient in lib/my_simple_solr_client.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/serialization/indexable_quote.rb",
+      "type": "file",
+      "name": "indexable_quote.rb",
+      "filePath": "lib/serialization/indexable_quote.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:lib/serialization/indexable_quote.rb:Dromedary",
+      "type": "class",
+      "name": "Dromedary",
+      "filePath": "lib/serialization/indexable_quote.rb",
+      "lineRange": [
+        4,
+        97
+      ],
+      "summary": "Class Dromedary in lib/serialization/indexable_quote.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/tasks/.keep",
+      "type": "file",
+      "name": ".keep",
+      "filePath": "lib/tasks/.keep",
+      "summary": "Project code file in unknown.",
+      "tags": [
+        "code",
+        "unknown"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/tasks/default.rake",
+      "type": "file",
+      "name": "default.rake",
+      "filePath": "lib/tasks/default.rake",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:log/.keep",
+      "type": "file",
+      "name": ".keep",
+      "filePath": "log/.keep",
+      "summary": "Project code file in unknown.",
+      "tags": [
+        "code",
+        "unknown"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:nginx/assets.nginx",
+      "type": "file",
+      "name": "assets.nginx",
+      "filePath": "nginx/assets.nginx",
+      "summary": "Project code file in nginx.",
+      "tags": [
+        "code",
+        "nginx"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:plans/StuffToDo.md",
+      "type": "document",
+      "name": "StuffToDo.md",
+      "filePath": "plans/StuffToDo.md",
+      "summary": "Project docs file in markdown.",
+      "tags": [
+        "docs",
+        "markdown"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:plans/upgrade_plan.md",
+      "type": "document",
+      "name": "upgrade_plan.md",
+      "filePath": "plans/upgrade_plan.md",
+      "summary": "Project docs file in markdown.",
+      "tags": [
+        "docs",
+        "markdown"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:public/assets/application-ba935b798802fe8145be93360b1a7799e92c11ddfb1af0c8bd125f78df24d5eb.js",
+      "type": "file",
+      "name": "application-ba935b798802fe8145be93360b1a7799e92c11ddfb1af0c8bd125f78df24d5eb.js",
+      "filePath": "public/assets/application-ba935b798802fe8145be93360b1a7799e92c11ddfb1af0c8bd125f78df24d5eb.js",
+      "summary": "Project code file in javascript.",
+      "tags": [
+        "code",
+        "javascript"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:public/assets/application-c27e0089fb2bd805a9b25497abf1592f73ec29b6eccc3b00e268f47afff4aa83.js",
+      "type": "file",
+      "name": "application-c27e0089fb2bd805a9b25497abf1592f73ec29b6eccc3b00e268f47afff4aa83.js",
+      "filePath": "public/assets/application-c27e0089fb2bd805a9b25497abf1592f73ec29b6eccc3b00e268f47afff4aa83.js",
+      "summary": "Project code file in javascript.",
+      "tags": [
+        "code",
+        "javascript"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Rakefile",
+      "type": "file",
+      "name": "Rakefile",
+      "filePath": "Rakefile",
+      "summary": "Project code file in unknown.",
+      "tags": [
+        "code",
+        "unknown"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:solr.Dockerfile",
+      "type": "file",
+      "name": "solr.Dockerfile",
+      "filePath": "solr.Dockerfile",
+      "summary": "Project code file in dockerfile.",
+      "tags": [
+        "code",
+        "dockerfile"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:solr/dromedary/conf/lang/en_US.aff",
+      "type": "file",
+      "name": "en_US.aff",
+      "filePath": "solr/dromedary/conf/lang/en_US.aff",
+      "summary": "Project code file in aff.",
+      "tags": [
+        "code",
+        "aff"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:solr/dromedary/conf/lang/en_US.dic",
+      "type": "file",
+      "name": "en_US.dic",
+      "filePath": "solr/dromedary/conf/lang/en_US.dic",
+      "summary": "Project code file in dic.",
+      "tags": [
+        "code",
+        "dic"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:solr/dromedary/conf/lang/stopwords_en.txt",
+      "type": "document",
+      "name": "stopwords_en.txt",
+      "filePath": "solr/dromedary/conf/lang/stopwords_en.txt",
+      "summary": "Project docs file in txt.",
+      "tags": [
+        "docs",
+        "txt"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:solr/dromedary/conf/solrconfig_med/quote_searches/quote_everything_search.xml",
+      "type": "config",
+      "name": "quote_everything_search.xml",
+      "filePath": "solr/dromedary/conf/solrconfig_med/quote_searches/quote_everything_search.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/dromedary/conf/solrconfig_med/quote_searches/quote_quote_search.xml",
+      "type": "config",
+      "name": "quote_quote_search.xml",
+      "filePath": "solr/dromedary/conf/solrconfig_med/quote_searches/quote_quote_search.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/solr.xml",
+      "type": "config",
+      "name": "solr.xml",
+      "filePath": "solr/solr.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:spec/controllers/admin_controller_spec.rb",
+      "type": "file",
+      "name": "admin_controller_spec.rb",
+      "filePath": "spec/controllers/admin_controller_spec.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:spec/controllers/bibliography_controller_spec.rb",
+      "type": "file",
+      "name": "bibliography_controller_spec.rb",
+      "filePath": "spec/controllers/bibliography_controller_spec.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:spec/controllers/catalog_controller_spec.rb",
+      "type": "file",
+      "name": "catalog_controller_spec.rb",
+      "filePath": "spec/controllers/catalog_controller_spec.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:spec/examples.txt",
+      "type": "document",
+      "name": "examples.txt",
+      "filePath": "spec/examples.txt",
+      "summary": "Project docs file in txt.",
+      "tags": [
+        "docs",
+        "txt"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:spec/fixtures/auto_suggest_reference.md",
+      "type": "document",
+      "name": "auto_suggest_reference.md",
+      "filePath": "spec/fixtures/auto_suggest_reference.md",
+      "summary": "Project docs file in markdown.",
+      "tags": [
+        "docs",
+        "markdown"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:spec/models/search_builder_spec.rb",
+      "type": "file",
+      "name": "search_builder_spec.rb",
+      "filePath": "spec/models/search_builder_spec.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "complex"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:lib/med_installer/solr.rb",
+      "target": "class:lib/med_installer/solr.rb:MedInstaller",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/my_simple_solr_client.rb",
+      "target": "class:lib/my_simple_solr_client.rb:MySimpleSolrClient",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/serialization/indexable_quote.rb",
+      "target": "class:lib/serialization/indexable_quote.rb:Dromedary",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "nodes": [
+    {
+      "id": "config:indexer/xslt/CitOnly.xsl",
+      "type": "config",
+      "name": "CitOnly.xsl",
+      "filePath": "indexer/xslt/CitOnly.xsl",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:indexer/xslt/Common.xsl",
+      "type": "config",
+      "name": "Common.xsl",
+      "filePath": "indexer/xslt/Common.xsl",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:indexer/xslt/DefOnly.xsl",
+      "type": "config",
+      "name": "DefOnly.xsl",
+      "filePath": "indexer/xslt/DefOnly.xsl",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:indexer/xslt/EtymOnly.xsl",
+      "type": "config",
+      "name": "EtymOnly.xsl",
+      "filePath": "indexer/xslt/EtymOnly.xsl",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:indexer/xslt/ExtractForms.xsl",
+      "type": "config",
+      "name": "ExtractForms.xsl",
+      "filePath": "indexer/xslt/ExtractForms.xsl",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:indexer/xslt/FormOnly.xsl",
+      "type": "config",
+      "name": "FormOnly.xsl",
+      "filePath": "indexer/xslt/FormOnly.xsl",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:indexer/xslt/NoteOnly.xsl",
+      "type": "config",
+      "name": "NoteOnly.xsl",
+      "filePath": "indexer/xslt/NoteOnly.xsl",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:indexer/xslt/SupplementOnly.xsl",
+      "type": "config",
+      "name": "SupplementOnly.xsl",
+      "filePath": "indexer/xslt/SupplementOnly.xsl",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:indexer/xslt/WholeEntry.xsl",
+      "type": "config",
+      "name": "WholeEntry.xsl",
+      "filePath": "indexer/xslt/WholeEntry.xsl",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "config:indexer/xslt/WholeEntryNotes.xsl",
+      "type": "config",
+      "name": "WholeEntryNotes.xsl",
+      "filePath": "indexer/xslt/WholeEntryNotes.xsl",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "config:indexer/xslt/_CitOnly.xsl",
+      "type": "config",
+      "name": "_CitOnly.xsl",
+      "filePath": "indexer/xslt/_CitOnly.xsl",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": []
+}

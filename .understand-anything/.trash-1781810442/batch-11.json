@@ -1,0 +1,115 @@
+{
+  "nodes": [
+    {
+      "id": "document:doc/bootstrap_upgrade/reference_pages/01-splash-page.md",
+      "type": "document",
+      "name": "01-splash-page.md",
+      "filePath": "doc/bootstrap_upgrade/reference_pages/01-splash-page.md",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:doc/bootstrap_upgrade/reference_pages/02-dictionary-home.md",
+      "type": "document",
+      "name": "02-dictionary-home.md",
+      "filePath": "doc/bootstrap_upgrade/reference_pages/02-dictionary-home.md",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:doc/bootstrap_upgrade/reference_pages/03-dictionary-search-results.md",
+      "type": "document",
+      "name": "03-dictionary-search-results.md",
+      "filePath": "doc/bootstrap_upgrade/reference_pages/03-dictionary-search-results.md",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:doc/bootstrap_upgrade/reference_pages/04-dictionary-show.md",
+      "type": "document",
+      "name": "04-dictionary-show.md",
+      "filePath": "doc/bootstrap_upgrade/reference_pages/04-dictionary-show.md",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:doc/bootstrap_upgrade/reference_pages/05-bibliography-landing.md",
+      "type": "document",
+      "name": "05-bibliography-landing.md",
+      "filePath": "doc/bootstrap_upgrade/reference_pages/05-bibliography-landing.md",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:doc/bootstrap_upgrade/reference_pages/06-bibliography-search-results.md",
+      "type": "document",
+      "name": "06-bibliography-search-results.md",
+      "filePath": "doc/bootstrap_upgrade/reference_pages/06-bibliography-search-results.md",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:doc/bootstrap_upgrade/reference_pages/07-bibliography-show.md",
+      "type": "document",
+      "name": "07-bibliography-show.md",
+      "filePath": "doc/bootstrap_upgrade/reference_pages/07-bibliography-show.md",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:doc/bootstrap_upgrade/reference_pages/08-quotations-landing.md",
+      "type": "document",
+      "name": "08-quotations-landing.md",
+      "filePath": "doc/bootstrap_upgrade/reference_pages/08-quotations-landing.md",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:doc/bootstrap_upgrade/reference_pages/09-quotations-search-results.md",
+      "type": "document",
+      "name": "09-quotations-search-results.md",
+      "filePath": "doc/bootstrap_upgrade/reference_pages/09-quotations-search-results.md",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:doc/bootstrap_upgrade/reference_pages/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "doc/bootstrap_upgrade/reference_pages/README.md",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

@@ -1,0 +1,71 @@
+{
+  "nodes": [
+    {
+      "id": "service:kubernetes/base-k8s/redis-deployment.yaml",
+      "type": "service",
+      "name": "redis-deployment.yaml",
+      "filePath": "kubernetes/base-k8s/redis-deployment.yaml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:kubernetes/base-k8s/redis-service.yaml",
+      "type": "service",
+      "name": "redis-service.yaml",
+      "filePath": "kubernetes/base-k8s/redis-service.yaml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:kubernetes/base-k8s/sidekiq-service.yaml",
+      "type": "service",
+      "name": "sidekiq-service.yaml",
+      "filePath": "kubernetes/base-k8s/sidekiq-service.yaml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:kubernetes/base-k8s/solr-deployment.yaml",
+      "type": "service",
+      "name": "solr-deployment.yaml",
+      "filePath": "kubernetes/base-k8s/solr-deployment.yaml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:kubernetes/base-k8s/solr-service.yaml",
+      "type": "service",
+      "name": "solr-service.yaml",
+      "filePath": "kubernetes/base-k8s/solr-service.yaml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:kubernetes/base-k8s/web-service.yaml",
+      "type": "service",
+      "name": "web-service.yaml",
+      "filePath": "kubernetes/base-k8s/web-service.yaml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

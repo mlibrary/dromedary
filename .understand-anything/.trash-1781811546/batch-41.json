@@ -1,0 +1,950 @@
+{
+  "nodes": [
+    {
+      "id": "service:kubernetes/old/web-deployment.yaml",
+      "type": "service",
+      "name": "web-deployment.yaml",
+      "filePath": "kubernetes/old/web-deployment.yaml",
+      "summary": "Project infra file in yaml.",
+      "tags": [
+        "infra",
+        "yaml"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/annoying_utilities.rb",
+      "type": "file",
+      "name": "annoying_utilities.rb",
+      "filePath": "lib/annoying_utilities.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:lib/annoying_utilities.rb:solr_root",
+      "type": "function",
+      "name": "solr_root",
+      "filePath": "lib/annoying_utilities.rb",
+      "lineRange": [
+        139,
+        154
+      ],
+      "summary": "Function solr_root in lib/annoying_utilities.rb.",
+      "tags": [
+        "function",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/annoying_utilities.rb:solr_core",
+      "type": "function",
+      "name": "solr_core",
+      "filePath": "lib/annoying_utilities.rb",
+      "lineRange": [
+        160,
+        171
+      ],
+      "summary": "Function solr_core in lib/annoying_utilities.rb.",
+      "tags": [
+        "function",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/annoying_utilities.rb:load_config_file",
+      "type": "function",
+      "name": "load_config_file",
+      "filePath": "lib/annoying_utilities.rb",
+      "lineRange": [
+        178,
+        189
+      ],
+      "summary": "Function load_config_file in lib/annoying_utilities.rb.",
+      "tags": [
+        "function",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/annoying_utilities.rb:file_type",
+      "type": "function",
+      "name": "file_type",
+      "filePath": "lib/annoying_utilities.rb",
+      "lineRange": [
+        224,
+        235
+      ],
+      "summary": "Function file_type in lib/annoying_utilities.rb.",
+      "tags": [
+        "function",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:lib/annoying_utilities.rb:AnnoyingUtilities",
+      "type": "class",
+      "name": "AnnoyingUtilities",
+      "filePath": "lib/annoying_utilities.rb",
+      "lineRange": [
+        19,
+        236
+      ],
+      "summary": "Class AnnoyingUtilities in lib/annoying_utilities.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/assets/.keep",
+      "type": "file",
+      "name": ".keep",
+      "filePath": "lib/assets/.keep",
+      "summary": "Project code file in unknown.",
+      "tags": [
+        "code",
+        "unknown"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/dromedary/forms/search_form.rb",
+      "type": "file",
+      "name": "search_form.rb",
+      "filePath": "lib/dromedary/forms/search_form.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:lib/dromedary/forms/search_form.rb:Dromedary",
+      "type": "class",
+      "name": "Dromedary",
+      "filePath": "lib/dromedary/forms/search_form.rb",
+      "lineRange": [
+        1,
+        8
+      ],
+      "summary": "Class Dromedary in lib/dromedary/forms/search_form.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/dromedary/services.rb",
+      "type": "file",
+      "name": "services.rb",
+      "filePath": "lib/dromedary/services.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:lib/dromedary/services.rb:Dromedary",
+      "type": "class",
+      "name": "Dromedary",
+      "filePath": "lib/dromedary/services.rb",
+      "lineRange": [
+        11,
+        232
+      ],
+      "summary": "Class Dromedary in lib/dromedary/services.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/dromedary/smart_xml.rb",
+      "type": "file",
+      "name": "smart_xml.rb",
+      "filePath": "lib/dromedary/smart_xml.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:lib/dromedary/smart_xml.rb:Dromedary",
+      "type": "class",
+      "name": "Dromedary",
+      "filePath": "lib/dromedary/smart_xml.rb",
+      "lineRange": [
+        1,
+        23
+      ],
+      "summary": "Class Dromedary in lib/dromedary/smart_xml.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/dromedary/xslt_utils.rb",
+      "type": "file",
+      "name": "xslt_utils.rb",
+      "filePath": "lib/dromedary/xslt_utils.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:lib/dromedary/xslt_utils.rb:Dromedary",
+      "type": "class",
+      "name": "Dromedary",
+      "filePath": "lib/dromedary/xslt_utils.rb",
+      "lineRange": [
+        4,
+        74
+      ],
+      "summary": "Class Dromedary in lib/dromedary/xslt_utils.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/human_log_formatter.rb",
+      "type": "file",
+      "name": "human_log_formatter.rb",
+      "filePath": "lib/human_log_formatter.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:lib/human_log_formatter.rb:message",
+      "type": "function",
+      "name": "message",
+      "filePath": "lib/human_log_formatter.rb",
+      "lineRange": [
+        30,
+        52
+      ],
+      "summary": "Function message in lib/human_log_formatter.rb.",
+      "tags": [
+        "function",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/human_log_formatter.rb:payload",
+      "type": "function",
+      "name": "payload",
+      "filePath": "lib/human_log_formatter.rb",
+      "lineRange": [
+        84,
+        97
+      ],
+      "summary": "Function payload in lib/human_log_formatter.rb.",
+      "tags": [
+        "function",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:lib/human_log_formatter.rb:HumanLogFormatter",
+      "type": "class",
+      "name": "HumanLogFormatter",
+      "filePath": "lib/human_log_formatter.rb",
+      "lineRange": [
+        7,
+        109
+      ],
+      "summary": "Class HumanLogFormatter in lib/human_log_formatter.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/med_installer.rb",
+      "type": "file",
+      "name": "med_installer.rb",
+      "filePath": "lib/med_installer.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/med_installer/control.rb",
+      "type": "file",
+      "name": "control.rb",
+      "filePath": "lib/med_installer/control.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:lib/med_installer/control.rb:MedInstaller",
+      "type": "class",
+      "name": "MedInstaller",
+      "filePath": "lib/med_installer/control.rb",
+      "lineRange": [
+        5,
+        35
+      ],
+      "summary": "Class MedInstaller in lib/med_installer/control.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/med_installer/convert.rb",
+      "type": "file",
+      "name": "convert.rb",
+      "filePath": "lib/med_installer/convert.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:lib/med_installer/convert.rb:MedInstaller",
+      "type": "class",
+      "name": "MedInstaller",
+      "filePath": "lib/med_installer/convert.rb",
+      "lineRange": [
+        8,
+        203
+      ],
+      "summary": "Class MedInstaller in lib/med_installer/convert.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/med_installer/copy_from_build.rb",
+      "type": "file",
+      "name": "copy_from_build.rb",
+      "filePath": "lib/med_installer/copy_from_build.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:lib/med_installer/copy_from_build.rb:MedInstaller",
+      "type": "class",
+      "name": "MedInstaller",
+      "filePath": "lib/med_installer/copy_from_build.rb",
+      "lineRange": [
+        8,
+        184
+      ],
+      "summary": "Class MedInstaller in lib/med_installer/copy_from_build.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/med_installer/extract_convert_index.rb",
+      "type": "file",
+      "name": "extract_convert_index.rb",
+      "filePath": "lib/med_installer/extract_convert_index.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:lib/med_installer/extract_convert_index.rb:MedInstaller",
+      "type": "class",
+      "name": "MedInstaller",
+      "filePath": "lib/med_installer/extract_convert_index.rb",
+      "lineRange": [
+        12,
+        81
+      ],
+      "summary": "Class MedInstaller in lib/med_installer/extract_convert_index.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/med_installer/extract.rb",
+      "type": "file",
+      "name": "extract.rb",
+      "filePath": "lib/med_installer/extract.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:lib/med_installer/extract.rb:MedInstaller",
+      "type": "class",
+      "name": "MedInstaller",
+      "filePath": "lib/med_installer/extract.rb",
+      "lineRange": [
+        10,
+        119
+      ],
+      "summary": "Class MedInstaller in lib/med_installer/extract.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/med_installer/hyp_to_bibid.rb",
+      "type": "file",
+      "name": "hyp_to_bibid.rb",
+      "filePath": "lib/med_installer/hyp_to_bibid.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:lib/med_installer/hyp_to_bibid.rb:MedInstaller",
+      "type": "class",
+      "name": "MedInstaller",
+      "filePath": "lib/med_installer/hyp_to_bibid.rb",
+      "lineRange": [
+        1,
+        41
+      ],
+      "summary": "Class MedInstaller in lib/med_installer/hyp_to_bibid.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/med_installer/index_new_data.rb",
+      "type": "file",
+      "name": "index_new_data.rb",
+      "filePath": "lib/med_installer/index_new_data.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:lib/med_installer/index_new_data.rb:MedInstaller",
+      "type": "class",
+      "name": "MedInstaller",
+      "filePath": "lib/med_installer/index_new_data.rb",
+      "lineRange": [
+        5,
+        23
+      ],
+      "summary": "Class MedInstaller in lib/med_installer/index_new_data.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/med_installer/index.rb",
+      "type": "file",
+      "name": "index.rb",
+      "filePath": "lib/med_installer/index.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:lib/med_installer/index.rb:MedInstaller",
+      "type": "class",
+      "name": "MedInstaller",
+      "filePath": "lib/med_installer/index.rb",
+      "lineRange": [
+        10,
+        315
+      ],
+      "summary": "Class MedInstaller in lib/med_installer/index.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/med_installer/indexer/bib_reader.rb",
+      "type": "file",
+      "name": "bib_reader.rb",
+      "filePath": "lib/med_installer/indexer/bib_reader.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:lib/med_installer/indexer/bib_reader.rb:MedInstaller",
+      "type": "class",
+      "name": "MedInstaller",
+      "filePath": "lib/med_installer/indexer/bib_reader.rb",
+      "lineRange": [
+        17,
+        70
+      ],
+      "summary": "Class MedInstaller in lib/med_installer/indexer/bib_reader.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/med_installer/indexer/entry_json_reader.rb",
+      "type": "file",
+      "name": "entry_json_reader.rb",
+      "filePath": "lib/med_installer/indexer/entry_json_reader.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:lib/med_installer/indexer/entry_json_reader.rb:MedInstaller",
+      "type": "class",
+      "name": "MedInstaller",
+      "filePath": "lib/med_installer/indexer/entry_json_reader.rb",
+      "lineRange": [
+        18,
+        68
+      ],
+      "summary": "Class MedInstaller in lib/med_installer/indexer/entry_json_reader.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/med_installer/indexing_steps.rb",
+      "type": "file",
+      "name": "indexing_steps.rb",
+      "filePath": "lib/med_installer/indexing_steps.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:lib/med_installer/indexing_steps.rb:MedInstaller",
+      "type": "class",
+      "name": "MedInstaller",
+      "filePath": "lib/med_installer/indexing_steps.rb",
+      "lineRange": [
+        12,
+        277
+      ],
+      "summary": "Class MedInstaller in lib/med_installer/indexing_steps.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/med_installer/job_monitoring.rb",
+      "type": "file",
+      "name": "job_monitoring.rb",
+      "filePath": "lib/med_installer/job_monitoring.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:lib/med_installer/job_monitoring.rb:MiddleEnglishIndexMetrics",
+      "type": "class",
+      "name": "MiddleEnglishIndexMetrics",
+      "filePath": "lib/med_installer/job_monitoring.rb",
+      "lineRange": [
+        10,
+        86
+      ],
+      "summary": "Class MiddleEnglishIndexMetrics in lib/med_installer/job_monitoring.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/med_installer/logger.rb",
+      "type": "file",
+      "name": "logger.rb",
+      "filePath": "lib/med_installer/logger.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:lib/med_installer/logger.rb:MedInstaller",
+      "type": "class",
+      "name": "MedInstaller",
+      "filePath": "lib/med_installer/logger.rb",
+      "lineRange": [
+        3,
+        35
+      ],
+      "summary": "Class MedInstaller in lib/med_installer/logger.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/med_installer/ping_prometheus.rb",
+      "type": "file",
+      "name": "ping_prometheus.rb",
+      "filePath": "lib/med_installer/ping_prometheus.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:lib/med_installer/ping_prometheus.rb:MedInstaller",
+      "type": "class",
+      "name": "MedInstaller",
+      "filePath": "lib/med_installer/ping_prometheus.rb",
+      "lineRange": [
+        6,
+        17
+      ],
+      "summary": "Class MedInstaller in lib/med_installer/ping_prometheus.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/med_installer/prepare.rb",
+      "type": "file",
+      "name": "prepare.rb",
+      "filePath": "lib/med_installer/prepare.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:lib/med_installer/prepare.rb:MedInstaller",
+      "type": "class",
+      "name": "MedInstaller",
+      "filePath": "lib/med_installer/prepare.rb",
+      "lineRange": [
+        7,
+        34
+      ],
+      "summary": "Class MedInstaller in lib/med_installer/prepare.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/med_installer/remote.rb",
+      "type": "file",
+      "name": "remote.rb",
+      "filePath": "lib/med_installer/remote.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:lib/med_installer/remote.rb:MedInstaller",
+      "type": "class",
+      "name": "MedInstaller",
+      "filePath": "lib/med_installer/remote.rb",
+      "lineRange": [
+        5,
+        112
+      ],
+      "summary": "Class MedInstaller in lib/med_installer/remote.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:lib/annoying_utilities.rb",
+      "target": "function:lib/annoying_utilities.rb:solr_root",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/annoying_utilities.rb",
+      "target": "function:lib/annoying_utilities.rb:solr_core",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/annoying_utilities.rb",
+      "target": "function:lib/annoying_utilities.rb:load_config_file",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/annoying_utilities.rb",
+      "target": "function:lib/annoying_utilities.rb:file_type",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/annoying_utilities.rb",
+      "target": "class:lib/annoying_utilities.rb:AnnoyingUtilities",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/dromedary/forms/search_form.rb",
+      "target": "class:lib/dromedary/forms/search_form.rb:Dromedary",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/dromedary/services.rb",
+      "target": "class:lib/dromedary/services.rb:Dromedary",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/dromedary/smart_xml.rb",
+      "target": "class:lib/dromedary/smart_xml.rb:Dromedary",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/dromedary/xslt_utils.rb",
+      "target": "class:lib/dromedary/xslt_utils.rb:Dromedary",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/human_log_formatter.rb",
+      "target": "function:lib/human_log_formatter.rb:message",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/human_log_formatter.rb",
+      "target": "function:lib/human_log_formatter.rb:payload",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/human_log_formatter.rb",
+      "target": "class:lib/human_log_formatter.rb:HumanLogFormatter",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/med_installer/control.rb",
+      "target": "class:lib/med_installer/control.rb:MedInstaller",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/med_installer/convert.rb",
+      "target": "class:lib/med_installer/convert.rb:MedInstaller",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/med_installer/copy_from_build.rb",
+      "target": "class:lib/med_installer/copy_from_build.rb:MedInstaller",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/med_installer/extract_convert_index.rb",
+      "target": "class:lib/med_installer/extract_convert_index.rb:MedInstaller",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/med_installer/extract.rb",
+      "target": "class:lib/med_installer/extract.rb:MedInstaller",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/med_installer/hyp_to_bibid.rb",
+      "target": "class:lib/med_installer/hyp_to_bibid.rb:MedInstaller",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/med_installer/index_new_data.rb",
+      "target": "class:lib/med_installer/index_new_data.rb:MedInstaller",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/med_installer/index.rb",
+      "target": "class:lib/med_installer/index.rb:MedInstaller",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/med_installer/indexer/bib_reader.rb",
+      "target": "class:lib/med_installer/indexer/bib_reader.rb:MedInstaller",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/med_installer/indexer/entry_json_reader.rb",
+      "target": "class:lib/med_installer/indexer/entry_json_reader.rb:MedInstaller",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/med_installer/indexing_steps.rb",
+      "target": "class:lib/med_installer/indexing_steps.rb:MedInstaller",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/med_installer/job_monitoring.rb",
+      "target": "class:lib/med_installer/job_monitoring.rb:MiddleEnglishIndexMetrics",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/med_installer/logger.rb",
+      "target": "class:lib/med_installer/logger.rb:MedInstaller",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/med_installer/ping_prometheus.rb",
+      "target": "class:lib/med_installer/ping_prometheus.rb:MedInstaller",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/med_installer/prepare.rb",
+      "target": "class:lib/med_installer/prepare.rb:MedInstaller",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/med_installer/remote.rb",
+      "target": "class:lib/med_installer/remote.rb:MedInstaller",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    }
+  ]
+}

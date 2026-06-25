@@ -1,5 +1,6 @@
+splash  http://localhost:3001/m/middle-english-dictionary/
+dictionary_splash   http://localhost:3001/m/middle-english-dictionary/dictionary
 bib_splash  http://localhost:3001/m/middle-english-dictionary/bibliography
-splash  http://localhost:3001/m/middle-english-dictionary/splash
 quotes_splash http://localhost:3001/m/middle-english-dictionary/quotations
 ab_search http://localhost:3001/m/middle-english-dictionary/dictionary?utf8=✓&search_field=hnf&q=ab
 ab_search_noun http://localhost:3001/m/middle-english-dictionary/dictionary?f%5Bpos%5D%5B%5D=noun&q=ab&search_field=hnf

@@ -1,0 +1,280 @@
+{
+  "nodes": [
+    {
+      "id": "file:db/migrate/20260530012011_add_service_name_to_active_storage_blobs.active_storage.rb",
+      "type": "file",
+      "name": "20260530012011_add_service_name_to_active_storage_blobs.active_storage.rb",
+      "filePath": "db/migrate/20260530012011_add_service_name_to_active_storage_blobs.active_storage.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:db/migrate/20260530012012_create_active_storage_variant_records.active_storage.rb",
+      "type": "file",
+      "name": "20260530012012_create_active_storage_variant_records.active_storage.rb",
+      "filePath": "db/migrate/20260530012012_create_active_storage_variant_records.active_storage.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:db/migrate/20260530012013_remove_not_null_on_active_storage_blobs_checksum.active_storage.rb",
+      "type": "file",
+      "name": "20260530012013_remove_not_null_on_active_storage_blobs_checksum.active_storage.rb",
+      "filePath": "db/migrate/20260530012013_remove_not_null_on_active_storage_blobs_checksum.active_storage.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:db/schema.rb",
+      "type": "file",
+      "name": "schema.rb",
+      "filePath": "db/schema.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:db/seeds.rb",
+      "type": "file",
+      "name": "seeds.rb",
+      "filePath": "db/seeds.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:doc/bootstrap_upgrade/balteren_local.html",
+      "type": "file",
+      "name": "balteren_local.html",
+      "filePath": "doc/bootstrap_upgrade/balteren_local.html",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:doc/bootstrap_upgrade/balteren_reference.html",
+      "type": "file",
+      "name": "balteren_reference.html",
+      "filePath": "doc/bootstrap_upgrade/balteren_reference.html",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:Gemfile",
+      "type": "file",
+      "name": "Gemfile",
+      "filePath": "Gemfile",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:indexer/bib_indexing_rules.rb",
+      "type": "file",
+      "name": "bib_indexing_rules.rb",
+      "filePath": "indexer/bib_indexing_rules.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:indexer/doc_structure/doc_structure.md",
+      "type": "document",
+      "name": "doc_structure.md",
+      "filePath": "indexer/doc_structure/doc_structure.md",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:indexer/main_indexing_rules.rb",
+      "type": "file",
+      "name": "main_indexing_rules.rb",
+      "filePath": "indexer/main_indexing_rules.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:indexer/pry_session.rb",
+      "type": "file",
+      "name": "pry_session.rb",
+      "filePath": "indexer/pry_session.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:indexer/quote/basic_rules.rb",
+      "type": "file",
+      "name": "basic_rules.rb",
+      "filePath": "indexer/quote/basic_rules.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:indexer/quote/quote_indexer.rb",
+      "type": "file",
+      "name": "quote_indexer.rb",
+      "filePath": "indexer/quote/quote_indexer.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:indexer/solr_shell.rb",
+      "type": "file",
+      "name": "solr_shell.rb",
+      "filePath": "indexer/solr_shell.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:indexer/writers/containerized_solr_writer.rb",
+      "type": "file",
+      "name": "containerized_solr_writer.rb",
+      "filePath": "indexer/writers/containerized_solr_writer.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:indexer/writers/debug.rb",
+      "type": "file",
+      "name": "debug.rb",
+      "filePath": "indexer/writers/debug.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:indexer/writers/json.rb",
+      "type": "file",
+      "name": "json.rb",
+      "filePath": "indexer/writers/json.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:indexer/writers/localhost.rb",
+      "type": "file",
+      "name": "localhost.rb",
+      "filePath": "indexer/writers/localhost.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:indexer/xslt/quotes/QuoteCitation.xsl",
+      "type": "config",
+      "name": "QuoteCitation.xsl",
+      "filePath": "indexer/xslt/quotes/QuoteCitation.xsl",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:indexer/xslt/README",
+      "type": "file",
+      "name": "README",
+      "filePath": "indexer/xslt/README",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:indexer/xslt/test/README",
+      "type": "file",
+      "name": "README",
+      "filePath": "indexer/xslt/test/README",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:kubernetes/local-k8s/web-deployment.yaml",
+      "type": "service",
+      "name": "web-deployment.yaml",
+      "filePath": "kubernetes/local-k8s/web-deployment.yaml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:kubernetes/local-k8s/web-ingress.yaml",
+      "type": "service",
+      "name": "web-ingress.yaml",
+      "filePath": "kubernetes/local-k8s/web-ingress.yaml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:kubernetes/old/sidekiq-deployment.yaml",
+      "type": "service",
+      "name": "sidekiq-deployment.yaml",
+      "filePath": "kubernetes/old/sidekiq-deployment.yaml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": []
+}

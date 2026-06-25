@@ -1,0 +1,280 @@
+{
+  "nodes": [
+    {
+      "id": "document:.github/copilot-instructions.md",
+      "type": "document",
+      "name": "copilot-instructions.md",
+      "filePath": ".github/copilot-instructions.md",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:.understand-anything/.understandignore",
+      "type": "file",
+      "name": ".understandignore",
+      "filePath": ".understand-anything/.understandignore",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:.yarnrc",
+      "type": "file",
+      "name": ".yarnrc",
+      "filePath": ".yarnrc",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:{env:HOME}/.yantrikdb/memory.db",
+      "type": "file",
+      "name": "memory.db",
+      "filePath": "{env:HOME}/.yantrikdb/memory.db",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:app/assets/config/manifest.js",
+      "type": "file",
+      "name": "manifest.js",
+      "filePath": "app/assets/config/manifest.js",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/assets/images/.keep",
+      "type": "file",
+      "name": ".keep",
+      "filePath": "app/assets/images/.keep",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/assets/javascripts/application.js",
+      "type": "file",
+      "name": "application.js",
+      "filePath": "app/assets/javascripts/application.js",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/assets/javascripts/bibliography.js",
+      "type": "file",
+      "name": "bibliography.js",
+      "filePath": "app/assets/javascripts/bibliography.js",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/assets/javascripts/static.js",
+      "type": "file",
+      "name": "static.js",
+      "filePath": "app/assets/javascripts/static.js",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/components/dromedary/document_title_component.rb",
+      "type": "file",
+      "name": "document_title_component.rb",
+      "filePath": "app/components/dromedary/document_title_component.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/controllers/admin_controller.rb",
+      "type": "file",
+      "name": "admin_controller.rb",
+      "filePath": "app/controllers/admin_controller.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/controllers/application_controller.rb",
+      "type": "file",
+      "name": "application_controller.rb",
+      "filePath": "app/controllers/application_controller.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/controllers/bibliography_controller.rb",
+      "type": "file",
+      "name": "bibliography_controller.rb",
+      "filePath": "app/controllers/bibliography_controller.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/controllers/catalog_controller.rb",
+      "type": "file",
+      "name": "catalog_controller.rb",
+      "filePath": "app/controllers/catalog_controller.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:app/controllers/concerns/.keep",
+      "type": "file",
+      "name": ".keep",
+      "filePath": "app/controllers/concerns/.keep",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/controllers/concerns/dromedary/catalog.rb",
+      "type": "file",
+      "name": "catalog.rb",
+      "filePath": "app/controllers/concerns/dromedary/catalog.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/controllers/contacts_controller.rb",
+      "type": "file",
+      "name": "contacts_controller.rb",
+      "filePath": "app/controllers/contacts_controller.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/controllers/help_controller.rb",
+      "type": "file",
+      "name": "help_controller.rb",
+      "filePath": "app/controllers/help_controller.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/controllers/quotes_controller.rb",
+      "type": "file",
+      "name": "quotes_controller.rb",
+      "filePath": "app/controllers/quotes_controller.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/controllers/static_controller.rb",
+      "type": "file",
+      "name": "static_controller.rb",
+      "filePath": "app/controllers/static_controller.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/helpers/application_helper.rb",
+      "type": "file",
+      "name": "application_helper.rb",
+      "filePath": "app/helpers/application_helper.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/helpers/bibliography_helper.rb",
+      "type": "file",
+      "name": "bibliography_helper.rb",
+      "filePath": "app/helpers/bibliography_helper.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/helpers/blacklight/layout_helper_behavior.rb",
+      "type": "file",
+      "name": "layout_helper_behavior.rb",
+      "filePath": "app/helpers/blacklight/layout_helper_behavior.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/helpers/med_quotes_helper.rb",
+      "type": "file",
+      "name": "med_quotes_helper.rb",
+      "filePath": "app/helpers/med_quotes_helper.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/helpers/quotes_helper.rb",
+      "type": "file",
+      "name": "quotes_helper.rb",
+      "filePath": "app/helpers/quotes_helper.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

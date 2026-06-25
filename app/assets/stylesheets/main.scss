@@ -25,16 +25,10 @@ a {
 
 html,
 body {
-  font-size: 14px;
   font-family: "Source Sans Pro", Helvetica, sans-serif;
 }
-// Override mlib-styles responsive bump (16px → 19px)
-@media (min-width: 42rem) {
-  html,
-  body {
-    font-size: 14px !important;
-  }
-}
+// Inherit mlib-styles responsive sizing (16px base, 19px at >= 42rem) to
+// match the original layout's rem-based container widths and type scale.
 
 /** Utilities **/
 
@@ -104,6 +98,10 @@ body {
 #header-navbar {
   margin: 0;
   padding: 0;
+  // Bootstrap 5 sets .navbar { display: flex }, which pulls the secondary
+  // nav up into the blue bar. Restore Bootstrap 3 block stacking so the
+  // secondary nav renders as a full-width strip below the title.
+  display: block;
 }
 
 .site-header {
@@ -124,8 +122,12 @@ body {
 }
 
 .container.container--full.site-header-container {
+  // Match the original layout: constrain and center the header rows
+  // (orig used a fixed 1170px Bootstrap container) instead of running
+  // full-bleed to the viewport edge.
+  max-width: 1170px;
+  margin: 0 auto;
   padding: .35em 0;
-  max-width: 60rem;
 }
 
 .site-navigation {
@@ -161,7 +163,6 @@ ul.header-nav-secondary a {
   text-decoration: none;
   padding: .5em;
   margin: 0 .35em;
-  font-size: 1.15em;
 }
 
 ul.header-nav-secondary a.active {
@@ -184,6 +185,13 @@ ul.header-nav-secondary li:hover {
 
 .never-ever-gonna-happen {
   color: black;
+}
+
+// Splash banner is full-bleed; cancel Blacklight's default `main`
+// vertical padding so the banner butts against the nav (matches orig,
+// which has no <main> wrapper). Scoped to the splash page only.
+.blacklight-catalog-splash #main-content {
+  padding-block: 0;
 }
 
 .splash-banner {

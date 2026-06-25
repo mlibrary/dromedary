@@ -1,0 +1,53 @@
+{
+  "nodes": [
+    {
+      "id": "file:public/404.html",
+      "type": "file",
+      "name": "404.html",
+      "filePath": "public/404.html",
+      "summary": "Project markup file in html.",
+      "tags": [
+        "markup",
+        "html"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:public/422.html",
+      "type": "file",
+      "name": "422.html",
+      "filePath": "public/422.html",
+      "summary": "Project markup file in html.",
+      "tags": [
+        "markup",
+        "html"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:public/500.html",
+      "type": "file",
+      "name": "500.html",
+      "filePath": "public/500.html",
+      "summary": "Project markup file in html.",
+      "tags": [
+        "markup",
+        "html"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:public/robots.txt",
+      "type": "document",
+      "name": "robots.txt",
+      "filePath": "public/robots.txt",
+      "summary": "Project docs file in txt.",
+      "tags": [
+        "docs",
+        "txt"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

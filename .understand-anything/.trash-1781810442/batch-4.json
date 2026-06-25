@@ -1,0 +1,38 @@
+{
+  "nodes": [
+    {
+      "id": "config:.pi/mcp.json",
+      "type": "config",
+      "name": "mcp.json",
+      "filePath": ".pi/mcp.json",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "config:.pi/ultra-compress-session.json",
+      "type": "config",
+      "name": "ultra-compress-session.json",
+      "filePath": ".pi/ultra-compress-session.json",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:.pi/ultra-compress.json",
+      "type": "config",
+      "name": "ultra-compress.json",
+      "filePath": ".pi/ultra-compress.json",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

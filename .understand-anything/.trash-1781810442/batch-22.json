@@ -1,0 +1,38 @@
+{
+  "nodes": [
+    {
+      "id": "config:solr/container/security.json",
+      "type": "config",
+      "name": "security.json",
+      "filePath": "solr/container/security.json",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:solr/container/solr_init.sh",
+      "type": "file",
+      "name": "solr_init.sh",
+      "filePath": "solr/container/solr_init.sh",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:solr/container/solr_init_test.sh",
+      "type": "file",
+      "name": "solr_init_test.sh",
+      "filePath": "solr/container/solr_init_test.sh",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

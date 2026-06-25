@@ -1,249 +1,224 @@
 #!/usr/bin/env bash
 
-# Exit immediately if a command exits with a non-zero status
 set -e
-
-# Ensure Homebrew and common Mac paths are available
 export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
 
-# =============================================================================
-# DEFAULT VALUES & ARGUMENT PARSING
-# =============================================================================
+# Get the directory where this script is located to accurately find scraper.js
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE}")" && pwd)"
+JS_SCRAPER_FILE="$SCRIPT_DIR/scraper.js"
+
+if [[ ! -f "$JS_SCRAPER_FILE" ]]; then
+    echo "Error: Missing required companion file 'scraper.js' at $JS_SCRAPER_FILE"
+    exit 1
+fi
+
+# Load the core javascript string into a single sanitized bash variable execution layout
+JS_ENGINE_CODE=$(cat "$JS_SCRAPER_FILE")
+
 PORT=""
-TARGET_DIR="$HOME/Desktop/capture-diff-captures" # Default target directory
+TARGET_DIR="$HOME/Desktop/capture-diff-captures"
 CAPTURE_LIST=""
 SINGLE_URL=""
+NAME_WANT_RAW=""
+ONLY=""
 
-# Standard Window geometry layout constraints
 WIN_X=10
 WIN_Y=30
 WINDOW_WIDTH=1280
 WINDOW_HEIGHT=1200
-
-# Pure Bash Calculation: Guaranteed clean string format (x,y,w,h)
 GEO_COORDS="${WIN_X},${WIN_Y},${WINDOW_WIDTH},${WINDOW_HEIGHT}"
 
 usage() {
     echo "Usage:"
-    echo "  Batch Mode:  $0 --port <number> [options] --capture-list <path>"
-    echo "  Single Mode: $0 --port <number> [options] <URL>"
+    echo "  Batch Mode:     $0 --port <number> [options] --capture-list <path>"
+    echo "  Single Mode:    $0 --port <number> [options] <URL>"
+    echo "  Named Mode:     $0 --port <number> --capture-list <path> --name <name> [--only orig|port]"
     echo ""
     echo "Options:"
-    echo "  --port          The secondary application port (e.g., 3000) [Required]"
-    echo "  --target-dir    The root directory to place 'orig' and 'portXXXX' (Defaults to ~/Desktop/capture-diff-captures)"
-    echo "  --capture-list  Path to space-separated text file [name url]"
+    echo "  --name <name>       Re-capture ONLY the page whose first column in the"
+    echo "                      --capture-list equals <name>. By default BOTH the 'orig'"
+    echo "                      (V1) and 'port<PORT>' (V2) versions are captured."
+    echo "  --only <orig|port>  Restrict --name to one side: 'orig' captures only the"
+    echo "                      original (V1) version; 'port' captures only the"
+    echo "                      port<PORT> (V2) version. Requires --name."
     exit 1
 }
 
-# Parse options
 while [[ $# -gt 0 ]]; do
     case "$1" in
-        --port)
-            PORT="$2"
-            shift 2
-            ;;
-        --target-dir)
-            TARGET_DIR="$2"
-            shift 2
-            ;;
-        --capture-list)
-            CAPTURE_LIST="$2"
-            shift 2
-            ;;
-        --*)
-            echo "Unknown option: $1"
-            usage
-            ;;
-        *)
-            if [[ "$1" =~ ^http ]]; then
-                SINGLE_URL="$1"
-                shift 1
-            else
-                echo "Unknown argument: $1"
-                usage
-            fi
-            ;;
+        --port) PORT="$2"; shift 2 ;;
+        --target-dir) TARGET_DIR="$2"; shift 2 ;;
+        --capture-list) CAPTURE_LIST="$2"; shift 2 ;;
+        --name) NAME_WANT_RAW="$2"; shift 2 ;;
+        --only) ONLY="$2"; shift 2 ;;
+        *) if [[ "$1" =~ ^http ]]; then SINGLE_URL="$1"; shift 1; else usage; fi ;;
     esac
 done
 
-if [[ -z "$PORT" ]]; then
-    echo "Error: Missing required argument --port."
+if [[ -z "$PORT" || (-z "$CAPTURE_LIST" && -z "$SINGLE_URL") ]]; then usage; fi
+if [[ -n "$CAPTURE_LIST" && ! -f "$CAPTURE_LIST" ]]; then exit 1; fi
+
+# --name only makes sense against a capture-list (it names a row in it)
+if [[ -n "$NAME_WANT_RAW" && -z "$CAPTURE_LIST" ]]; then
+    echo "Error: --name <name> requires --capture-list <path>"
     usage
 fi
 
-if [[ -n "$CAPTURE_LIST" && -n "$SINGLE_URL" ]]; then
-    echo "Error: Provide either --capture-list OR a single URL, not both."
-    usage
-elif [[ -z "$CAPTURE_LIST" && -z "$SINGLE_URL" ]]; then
-    echo "Error: Missing input target. Provide either --capture-list or a single trailing URL."
-    usage
+# --only restricts a --name capture to one side; it must be orig|port.
+if [[ -n "$ONLY" ]]; then
+    if [[ -z "$NAME_WANT_RAW" ]]; then
+        echo "Error: --only <orig|port> requires --name <name>"
+        usage
+    fi
+    if [[ "$ONLY" != "orig" && "$ONLY" != "port" ]]; then
+        echo "Error: --only must be 'orig' or 'port' (got '$ONLY')"
+        usage
+    fi
 fi
 
-if [[ -n "$CAPTURE_LIST" && ! -f "$CAPTURE_LIST" ]]; then
-    echo "Error: Capture list file not found at '$CAPTURE_LIST'"
-    exit 1
+# Sanitize the requested name the same way row names are sanitized below,
+# so --name matches the on-disk page (directory) name.
+NAME_WANT=""
+if [[ -n "$NAME_WANT_RAW" ]]; then
+    NAME_WANT=$(echo "$NAME_WANT_RAW" | sed 's/[^a-zA-Z0-9_-]/_/g' | cut -c1-30)
 fi
 
-if [[ -n "$CAPTURE_LIST" ]] && ! command -v hck &> /dev/null; then
-    echo "Error: 'hck' is required for batch list processing. Run: brew install hck"
-    exit 1
-fi
+# Map --only to a capture mode (default: capture both sides).
+NAME_MODE="both"
+[[ "$ONLY" == "orig" ]] && NAME_MODE="v1only"
+[[ "$ONLY" == "port" ]] && NAME_MODE="v2only"
 
 TARGET_DIR_POSIX=$(mkdir -p "$TARGET_DIR" && cd "$TARGET_DIR" && pwd)
 V1_ROOT="$TARGET_DIR_POSIX/orig"
 V2_ROOT="$TARGET_DIR_POSIX/port$PORT"
+mkdir -p "$V1_ROOT" "$V2_ROOT"
 
-mkdir -p "$V1_ROOT"
-mkdir -p "$V2_ROOT"
-
-# =============================================================================
-# HELPER EXECUTION MODULES
-# =============================================================================
 scrape_page() {
     local target_url="$1"
     local output_dir="$2"
-    
-    local capture_data
-    capture_data=$(osascript <<EOF
-        tell application "Safari"
-            activate
-            
-            if (count of windows) is 0 then
-                make new window
-            end if
-            
-            tell window 1
-                set newTab to make new tab with properties {URL:"$target_url"}
-                set current tab to newTab
-            end tell
-            
-            set targetWindow to window 1
-            set bounds of targetWindow to {$WIN_X, $WIN_Y, $WIN_X + $WINDOW_WIDTH, $WIN_Y + $WINDOW_HEIGHT}
-            
-            delay 0.5
-            
-            repeat
-                delay 0.5
-                set pageState to do JavaScript "document.readyState" in current tab of targetWindow
-                if pageState is "complete" then exit repeat
-            end repeat
-            
-            do JavaScript "if(document.documentElement.requestFullscreen){document.documentElement.requestFullscreen();}" in current tab of targetWindow
-            delay 0.5
-            
-            -- Compiles highly optimized rules, skipping heavy browser layout defaults to prevent LLM token inflation
-            set pageDOM to do JavaScript "(function() {
-                const allElements = document.getElementsByTagName('*');
-                for (let el of allElements) {
-                    const computed = window.getComputedStyle(el);
-                    let compiledString = '';
-                    
-                    const targetedProps = [
-                        'width', 'height', 'color', 'background-color', 
-                        'display', 'position', 'margin', 'padding', 
-                        'font-size', 'font-family', 'flex-direction', 
-                        'grid-template-columns', 'opacity', 'visibility', 
-                        'z-index', 'box-sizing', 'overflow', 'text-align'
-                    ];
-                    
-                    for (let prop of targetedProps) {
-                        const value = computed.getPropertyValue(prop);
-                        
-                        if (!value) continue;
-                        if (value === 'none' || value === 'normal' || value === 'rgba(0, 0, 0, 0)') continue;
-                        if (prop === 'position' && value === 'static') continue;
-                        if (prop === 'display' && value === 'inline') continue;
-                        if (prop === 'z-index' && value === 'auto') continue;
-                        if (prop === 'visibility' && value === 'visible') continue;
-                        if ((prop === 'margin' || prop === 'padding') && (value === '0px' || value === '0px 0px')) continue;
-                        if (prop === 'overflow' && value === 'visible') continue;
-                        if (prop === 'box-sizing' && value === 'content-box') continue;
-
-                        compiledString += prop + ': ' + value + '; ';
-                    }
-                    if (compiledString) {
-                        el.setAttribute('data-computed-css', compiledString.trim());
-                    }
-                }
-                return document.documentElement.outerHTML;
-            })()" in current tab of targetWindow
-            
-            set pageCSS to do JavaScript "(function(){let c='';for(let s of document.styleSheets){try{for(let r of s.cssRules){c+=r.cssText+'\\\\n';}}catch(e){}}return c;})()" in current tab of targetWindow
-            
-            close current tab of targetWindow
-            
-            return pageDOM & "|||" & pageCSS
-        end tell
-EOF
-    )
-
-    local dom_content=$(echo "$capture_data" | hck -f1 -d "|||")
-    local css_content=$(echo "$capture_data" | hck -f2 -d "|||")
-
     local html_file="$output_dir/index.html"
     local css_file="$output_dir/styles.css"
     local img_file="$output_dir/screenshot.png"
 
-    echo "$dom_content" > "$html_file"
-    echo "$css_content" > "$css_file"
+    # Origin prefix (scheme://host:port) used to verify we scraped the RIGHT page.
+    # The old code guessed "last tab of window 1", which silently captured stale
+    # tabs (wrong port). We now open the URL in a dedicated single-tab window and
+    # poll the live document (not just the tab URL) until the requested origin is
+    # genuinely loaded -- Safari sets a tab's URL property immediately, and a fresh
+    # tab briefly reports readyState 'complete' on about:blank, so polling tab URL
+    # / bare readyState races and captures a blank document.
+    local url_prefix
+    url_prefix=$(echo "$target_url" | sed -E 's#(^[a-zA-Z]+://[^/]+).*#\1#')
 
-    sed -i '' 's|</head>|<link rel=\"stylesheet\" href=\"styles.css\">\n</head>|' "$html_file"
-    
-    # Run screen capture utilizing a pure, uncorrupted Bash variable string sequence
+    # Step 1: Open the URL in a clean window, wait for the real load, verify the
+    # origin, then extract the DOM/CSS asset data.
+    osascript <<EOF
+        tell application "Safari"
+            activate
+            -- Open the URL in a dedicated, single-tab window we hold by reference.
+            -- A fresh document has exactly one tab, so there is no stale-tab
+            -- ambiguity and no fragile close-the-other-tabs loop (which raced and
+            -- invalidated tab indices: "Can't get tab 1 of window id ...").
+            make new document with properties {URL:"$target_url"}
+            delay 0.3
+            set targetWindow to front window
+            set bounds of targetWindow to {$WIN_X, $WIN_Y, $WIN_X + $WINDOW_WIDTH, $WIN_Y + $WINDOW_HEIGHT}
+            set index of targetWindow to 1
+            set targetTab to current tab of targetWindow
+
+            -- Poll the LIVE document: only stop once it has actually loaded the
+            -- requested origin (guards against the transient about:blank doc).
+            set waited to 0
+            repeat
+                delay 0.5
+                set waited to waited + 1
+                set okState to do JavaScript "(document.readyState === 'complete' && location.href.indexOf('$url_prefix') === 0) ? '1' : '0'" in targetTab
+                if okState is "1" then exit repeat
+                if waited > 60 then error "capture-diff: timed out loading '$target_url'"
+            end repeat
+
+            -- Backstop guard: confirm origin (right scheme/host/PORT) before writing.
+            set loadedURL to (URL of targetTab)
+            if loadedURL does not start with "$url_prefix" then
+                error "capture-diff: scraped wrong tab -- expected origin '$url_prefix' but got '" & loadedURL & "'"
+            end if
+
+            -- Prevent desktop sliding animations
+            do JavaScript "const s = document.createElement('style'); s.innerHTML = 'html, body { width: 100vw !important; height: 100vh !important; overflow: hidden !important; margin: 0 !important; padding: 0 !important; }'; document.head.appendChild(s);" in targetTab
+            delay 0.5
+
+            -- Injects and runs our externalized compression scraper cleanly
+            set pageDOM to do JavaScript "$JS_ENGINE_CODE" in targetTab
+            set pageCSS to do JavaScript "(function(){let c='';for(let s of document.styleSheets){try{for(let r of s.cssRules){c+=r.cssText+'\\\\n';}}catch(e){}}return c;})()" in targetTab
+
+            do shell script "cat << 'OUTER_EOF' > " & quoted form of "$html_file" & "\\n" & pageDOM & "\\nOUTER_EOF"
+            do shell script "cat << 'OUTER_EOF' > " & quoted form of "$css_file" & "\\n" & pageCSS & "\\nOUTER_EOF"
+        end tell
+EOF
+
+    # Link the stylesheet locally
+    sed -i '' 's|</head>|<link rel="stylesheet" href="styles.css">\n</head>|' "$html_file"
+
+    # Step 2: FIX - Take the screenshot while the Safari window is guaranteed open, active, and sitting on the display
     screencapture -x -R "$GEO_COORDS" "$img_file"
+
+    # Step 3: FIX - Now that the screen capture artifact is safely on disk, tell Safari it can close the active window pane
+    osascript <<EOF
+        tell application "Safari"
+            set targetWindow to window 1
+            close current tab of targetWindow
+        end tell
+EOF
 }
 
 process_pair() {
     local name="$1"
     local url="$2"
-
+    local mode="${3:-both}"   # both = orig + port ; v1only = orig ; v2only = port
     echo "Processing Page: [$name]"
-    
     local v1_dest="$V1_ROOT/$name"
     local v2_dest="$V2_ROOT/$name"
-    mkdir -p "$v1_dest"
-    mkdir -p "$v2_dest"
 
-    local v2_url=$(echo "$url" | sed -E "s/:[0-9]+/:$PORT/")
+    if [[ "$mode" != "v2only" ]]; then
+        mkdir -p "$v1_dest"
+        echo "  -> Capturing V1 (orig / original URL)..."
+        scrape_page "$url" "$v1_dest"
+    fi
 
-    echo "  -> Capturing V1 (Original URL)..."
-    scrape_page "$url" "$v1_dest"
-
-    echo "  -> Capturing V2 (Port $PORT URL)..."
-    scrape_page "$v2_url" "$v2_dest"
+    if [[ "$mode" != "v1only" ]]; then
+        mkdir -p "$v2_dest"
+        echo "  -> Capturing V2 (port $PORT URL)..."
+        scrape_page "$(echo "$url" | sed -E "s/:[0-9]+/:$PORT/")" "$v2_dest"
+    fi
 }
-
-# =============================================================================
-# MAIN PIPELINE EXECUTION
-# =============================================================================
-echo "Starting UI ingestion pipeline..."
-echo "Output Directories:"
-echo "  [V1]: $V1_ROOT"
-echo "  [V2]: $V2_ROOT"
-echo "--------------------------------------------------------"
 
 if [[ -n "$SINGLE_URL" ]]; then
     slug_name=$(echo "$SINGLE_URL" | sed 's|/*$||' | awk -F'/' '{print $NF}' | sed 's/\?.*//' | sed 's/[^a-zA-Z0-9_-]/_/g' | cut -c1-30)
-    
-    if [[ -z "$slug_name" || "$SINGLE_URL" =~ :[0-9]+/?$ ]]; then
-        slug_name="home"
-    fi
-    
+    [[ -z "$slug_name" || "$SINGLE_URL" =~ :[0-9]+/?$ ]] && slug_name="home"
     process_pair "$slug_name" "$SINGLE_URL"
-
 else
+    name_matched=0
     while IFS= read -r line || [[ -n "$line" ]]; do
         [[ -z "${line// }" ]] && continue
-        
         set_name=$(echo "$line" | hck -f 1 | sed 's/[^a-zA-Z0-9_-]/_/g' | cut -c1-30)
         v1_url=$(echo "$line" | hck -f 2)
 
-        if [[ "$v1_url" =~ ^http ]]; then
-            process_pair "$set_name" "$v1_url"
+        # Named single-row mode: (re)capture only the named page, side per --only.
+        if [[ -n "$NAME_WANT" ]]; then
+            [[ "$set_name" != "$NAME_WANT" ]] && continue
+            [[ "$v1_url" =~ ^http ]] && process_pair "$set_name" "$v1_url" "$NAME_MODE"
+            name_matched=1
+            break
         fi
+
+        [[ "$v1_url" =~ ^http ]] && process_pair "$set_name" "$v1_url"
     done < "$CAPTURE_LIST"
+
+    if [[ -n "$NAME_WANT" && "$name_matched" -eq 0 ]]; then
+        echo "Error: --name '$NAME_WANT_RAW' did not match any row in $CAPTURE_LIST"
+        exit 1
+    fi
 fi
 
 echo "--------------------------------------------------------"
 echo "Success! All pages processed autonomously."
-
