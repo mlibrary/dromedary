@@ -321,7 +321,9 @@ ul.header-nav-secondary li:hover {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    min-height: 100% li {
+    min-height: 100%;
+
+    li {
       width: 50%;
       flex: 0 0 50%;
     }
@@ -506,9 +508,12 @@ input[type="search"]::-webkit-search-decoration {
   }
 
   select.form-select {
-    height: 40px;
-    padding: 9px 16px;
-    line-height: 1.5;
+    flex: 0 0 auto;       // don't grow; size to content
+    align-self: stretch;  // fill the input-group height
+    width: auto;
+    padding: 9px 2.25rem 9px 16px; // 2.25rem right = BS5 indicator clearance
+    font-size: 16px;      // match orig (16px); 19px body inherit clipped descenders
+    line-height: 1.2;     // 16px × 1.2 = 19.2px fits the 20px content box, no clip
     color: #555555;
     background-color: #fff;
     border: 1px solid #ccc;
@@ -525,22 +530,27 @@ input[type="search"]::-webkit-search-decoration {
     border-radius: 4px;
   }
 
+  // Keep border width stable (1px) on focus; show emphasis as a box-shadow
+  // ring so clicking the field doesn't reflow the row below (see fix 8).
   .form-control:focus {
-    border: 3px solid var(--u-m-yellow);
+    border-color: var(--u-m-yellow);
+    box-shadow: 0 0 0 2px var(--u-m-yellow);
+    outline: none;
   }
 
   button#search {
     border-radius: 4px;
     padding: 4px 12px;
     height: 40px;
+    // BS3 .btn was the 14px base; BS5 .btn inherits the responsive 19px body
+    // size, oversizing the "Search" label. Re-anchor to ~0.8 of the responsive
+    // root (rem) so the button stays ~80% of base across the 16px/19px scale
+    // (the 1.25em label below tracks it).
+    font-size: 0.8rem;
   }
 
   .submit-search-text {
     font-size: 1.25em;
-  }
-
-  .form-control:focus {
-    border: 3px solid var(--u-m-yellow);
   }
 }
 
@@ -618,10 +628,11 @@ input[type="search"]::-webkit-search-decoration {
     border-radius: 4px;
     padding: 4px 12px;
     height: 40px;
-    // Match orig: BS3 .btn was 14px; BS5 .btn inherits the 19px body size,
-    // oversizing the "Search" label. Restore the button base so the
-    // 1.25em label below computes to orig's 17.5px.
-    font-size: 14px;
+    // BS3 .btn was the 14px base; BS5 .btn inherits the responsive 19px body
+    // size, oversizing the "Search" label. Re-anchor to ~0.8 of the responsive
+    // root (rem) so the button stays ~80% of base across the 16px/19px scale
+    // (the 1.25em label below tracks it).
+    font-size: 0.8rem;
   }
 
   .submit-search-text {
@@ -651,6 +662,10 @@ input#q::placeholder {
   padding-bottom: 0;
   background-color: #fff;
   border: 1px solid #ccc;
+  // BS3 .btn was the 14px base; BS5 inherits the responsive 19px body size,
+  // which enlarges the em-sized dropdown-toggle caret and widens this icon
+  // button. Anchor to ~0.8 of the responsive root (rem) to match orig's scale.
+  font-size: 0.8rem;
 
   &:focus {
     // No reflow on focus (was 1px -> 2px border). Keep width, add a yellow ring.
@@ -662,6 +677,11 @@ input#q::placeholder {
 
 .keyboard {
   div.dropdown-menu {
+    // Re-anchor the special-character popup to the ~0.8rem button scale (orig).
+    // BS5's .dropdown-menu sets --bs-dropdown-font-size: 1rem (19px), which made
+    // the 1.35em list items render at 25.65px. Override the component var so the
+    // popup tracks the responsive root instead of the full body size.
+    --bs-dropdown-font-size: 0.8rem;
     padding: .5em;
   }
 
@@ -726,7 +746,9 @@ input#q::placeholder {
   }
 
   .form-control:focus {
-    border: 3px solid var(--u-m-yellow);
+    border-color: var(--u-m-yellow);
+    box-shadow: 0 0 0 2px var(--u-m-yellow);
+    outline: none;
   }
 
   button#search {
@@ -1144,6 +1166,13 @@ div.flash {
   }
 }
 
+// On document show pages BL9 renders a page-header constraints block
+// (#appliedParams with Start Over + Back to Search buttons) that did not
+// exist in BL8. Orig has no such block -- hide it entirely.
+.show-document #appliedParams {
+  display: none;
+}
+
 // Orig chip: white background, dark text, thin gray border, 12px, compact.
 .search-term-filter #appliedParams .constraint-value {
   background-color: #fff !important;
@@ -1186,6 +1215,18 @@ div.flash {
 
 #sidebar .card {
   padding: 0;
+  // $spacer:2em inflates card padding to 38px; reset to BS5-default-scale
+  // values that approximate orig's panel padding (10px/15px).
+  --bs-card-cap-padding-y: 0.5rem;   // ~9.5px  (orig: 10px)
+  --bs-card-cap-padding-x: 0.75rem;  // ~14px   (orig: 15px)
+  --bs-card-spacer-y: 0.75rem;       // ~14px   (orig: 15px)
+  --bs-card-spacer-x: 0.75rem;       // ~14px   (orig: 15px)
+  // BS5.3 sets $card-bg to $body-bg (#F2F2F2 here), so cards render gray;
+  // orig panels were white. Restore white card fill.
+  --bs-card-bg: #fff;
+  // Orig BS3 panels had a 20px bottom margin; BS5 cards have none, so the two
+  // sidebar cards rendered flush/merged. Restore the inter-card gap.
+  margin-bottom: 20px;
 }
 
 .glyphicon.glyphicon-remove {
