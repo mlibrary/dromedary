@@ -121,6 +121,45 @@
   captured `styles.css` still shows 0 `@font-face` -- this is expected and not a
   regression; the browser still loads/applies the font at render time).
 
+### 10. Fix individual "Show N Quotations" toggles (invalid selector + broken toggle logic) [COMMON]
+- **Element:** `.quote-toggle.open` / `.quote-toggle.closer` per-sense links
+  ("Show 13 Quotations" / "Hide 13 Quotations") in
+  `app/views/catalog/show_entry/_sense.html.erb`.
+- **Problem:** "Show all"/"Hide all" worked, but individual per-sense
+  "Show N Quotations" links did nothing. Console: `SyntaxError: '.1-1-toggle'
+  is not a valid selector`.
+- **Cause (two bugs):**
+  1. **Invalid selector.** `uid` = `"#{sense_number}-#{index}-toggle"` -> e.g.
+     `1-1-toggle`. CSS identifiers cannot start with a digit, so
+     `document.querySelectorAll('.1-1-toggle')` THROWS, aborting the whole
+     onclick. Orig used jQuery `$('.1-1-toggle').toggle()`; Sizzle
+     auto-escapes leading digits, so it worked. Native `querySelectorAll`
+     does not.
+  2. **Broken toggle logic.** The vanilla rewrite used
+     `el.style.display==='none'?'block':'none'`, checking only INLINE style.
+     The initial hidden state (`.closer` Hide link + `.egs`) comes from the
+     CSS class `.sense .collapsed { display:none }`, NOT inline style, so
+     `el.style.display` was `''` for all three matched elements -> first
+     click set all to `none` (revealed nothing).
+- **Why DOM/JS differs from orig:** jQuery was removed in the BL9 migration
+  (absent from importmap.rb / package.json), so the `$.toggle()` handler was
+  necessarily rewritten in vanilla JS. Kept vanilla; fixed the logic rather
+  than reintroducing jQuery.
+- **Fix (`_sense.html.erb`, both open + closer onClick handlers):**
+  1. Selector `.<%= uid %>` -> attribute selector `[class~='<%= uid %>']`
+     (valid; matches the class token exactly regardless of leading digit).
+  2. Toggle each matched element by its COMPUTED display, restoring natural
+     display: `el.style.display = getComputedStyle(el).display==='none'
+     ? (el.tagName==='A'?'inline':'block') : 'none'`. Mirrors jQuery
+     `.toggle()` and is consistent with the Show-all/Hide-all handlers
+     (egs=block, open=none, closer=inline).
+- **File:** `app/views/catalog/show_entry/_sense.html.erb`.
+- **Scope:** COMMON -- every document show page with per-sense quotation
+  toggles. Not CSS; template/JS fix. Do not reapply.
+- **Verified:** rendered onclick is
+  `querySelectorAll('[class~=\'1-1-toggle\']')` (valid); per-sense
+  Show/Hide expands+collapses and flips link label with no console error.
+
 ### 9. Fix search bar collapsing to near-zero width on narrow (mobile) screens
 - **Element:** `.search-bar--header`, `.search-bar--home`, `.search-bar--light-bg` `.search-autocomplete-wrapper` at `max-width: 767px` and `max-width: 575.98px`.
 - **Problem:** On mobile/narrow viewports the search text input collapsed to essentially zero width, making the search bar unusable.

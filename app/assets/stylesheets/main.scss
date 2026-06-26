@@ -736,7 +736,8 @@ input#q::placeholder {
   .search-autocomplete-wrapper.form-control {
     flex: 1;
     min-width: 0;
-    border: none;
+    border: 1px solid #ccc !important;
+    border-radius: 4px;
     background: transparent;
     padding: 0;
   }
@@ -1202,6 +1203,14 @@ div.flash {
   }
 }
 
+// Quotations search has no facets, so the orig page had no sidebar panel at
+// all. BL9 still renders a "Current Filters" + Start Over constraints panel
+// (the query chip is shown inline in the toolbar instead). Hide the spurious
+// sidebar panel on quotes pages so the empty sidebar matches the orig blueprint.
+.blacklight-quotes #sidebar .constraints-container {
+  display: none;
+}
+
 // On document show pages BL9 renders a page-header constraints block
 // (#appliedParams with Start Over + Back to Search buttons) that did not
 // exist in BL8. Orig has no such block -- hide it entirely.
@@ -1247,6 +1256,26 @@ div.flash {
 
 .search-term-filter #appliedParams .constraint-value .filterName::after {
   color: #044E2A;
+}
+
+// BL9 renders the search-type -> term separator as an oversized, thin
+// bootstrap-icons chevron mask. Match the small solid right-caret used by the
+// facet accordion headings (.facet-field-heading .accordion-button.collapsed)
+// instead: a CSS border triangle, #4A4A4A, no webfont required.
+.search-term-filter .applied-filter .constraint-value .filter-name::after {
+  content: "";
+  width: 0;
+  height: 0;
+  background: none;
+  mask-image: none;
+  -webkit-mask-image: none;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 5px solid #4A4A4A;
+  margin-left: 6px;
+  margin-right: 6px;
+  vertical-align: middle;
+  transition: none;
 }
 
 #sidebar .card {
@@ -1382,6 +1411,14 @@ span.filterValue {
   padding-bottom: 0;
   text-indent: 0;
   padding-left: 0;
+}
+
+// BL9 adds per-entry vertical padding (--bl-facet-value-padding-y: 0.2rem)
+// on each .facet-values li. Orig rendered facet rows with the table model
+// and zero vertical padding (tight). Zero it to match orig spacing.
+.facet-values li {
+  --bl-facet-value-padding-y: 0;
+  padding-block: 0;
 }
 
 .panel-group .panel + .panel {
@@ -1775,7 +1812,15 @@ body.blacklight-static > main {
 }
 
 caption {
-  color: #212B36;
+  color: #777;
+}
+
+table caption {
+  color: #777;
+  padding-top: 0.75em;
+  font-size: 0.85em;
+  font-style: italic;
+  text-align: left;
 }
 
 #about_sidebar,
@@ -1876,6 +1921,23 @@ caption {
 div.help-container {
 
   margin-top: 2em;
+
+  // BS5: grid columns only lay out horizontally inside a flex `.row`.
+  // The help layout nests the sidebar + main `.col-*` inside a plain
+  // <div> (BS3 relied on column floats, which BS5 dropped). Make that
+  // wrapper a flex row so the columns sit side-by-side, and wrap so the
+  // mobile `.col-12` widths stack as before.
+  > div {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  // Gutter between the sidebar column and the white content card.
+  // Applied as right padding on the sidebar col (border-box keeps it 25%,
+  // so no flex wrap); the content card stays flush to the column edge.
+  .help-sbar {
+    padding-right: 1.5em;
+  }
 
   ul.help-enum {
     list-style-type: disc;

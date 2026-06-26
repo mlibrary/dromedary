@@ -11,3 +11,9 @@ aspie http://localhost:3001/m/middle-english-dictionary/dictionary/MED2524
 bib_women http://localhost:3001/m/middle-english-dictionary/bibliography?utf8=1&search_field=bib_keyword&q=women
 bib_show http://localhost:3001/m/middle-english-dictionary/bibliography/BIB628/track?counter=1&search_id=11
 quote_search http://localhost:3001/m/middle-english-dictionary/quotations?utf8=1&search_field=quote_everything&q=women
+dictionary_non-headword http://localhost:3001/m/middle-english-dictionary/dictionary?utf8=1&search_field=h&q=abacus
+help_using http://localhost:3001/m/middle-english-dictionary/help
+help_extended http://localhost:3001/m/middle-english-dictionary/help/extended
+help_about http://localhost:3001/m/middle-english-dictionary/about
+
+

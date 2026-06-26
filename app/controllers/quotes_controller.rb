@@ -25,6 +25,9 @@ class QuotesController < ApplicationController
 
     config.navbar.partials.delete(:search_history)
 
+    # BL9 enables advanced search by default; this project does not use it
+    config.advanced_search.enabled = false
+
     # Show page tools items
     # add_show_tools_partial(:print)
     # config.show.document_actions.delete(:email)
