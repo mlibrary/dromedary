@@ -1,4 +1,4 @@
-# dictionary_splash — ✓ FINISHED
+# dictionary_splash — STATUS: FINISHED
 
 Common header/global fixes from `splash` already apply here (font-size,
 container 60rem centering, secondary-nav stripe). See splash/CHANGES.md.

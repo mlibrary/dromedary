@@ -742,9 +742,13 @@ input#q::placeholder {
   }
 
   select.form-select {
+    flex: 0 0 auto;       // don't grow; size to content (orig was ~165px)
+    align-self: stretch;  // fill the input-group height
+    width: auto;
     height: 40px;
-    padding: 9px 16px;
-    line-height: 1.5;
+    padding: 9px 2.25rem 9px 16px; // 2.25rem right = BS5 indicator clearance
+    font-size: 16px;      // match orig (16px)
+    line-height: 1.2;
     color: #555555;
     background-color: #fff;
     border: 1px solid #ccc;
@@ -962,6 +966,13 @@ div.zero-results {
 
 .documents-list {
   margin-bottom: 2em;
+
+  // BL9 spaces each result with `--bl-results-document-{margin,padding}-top: 2em`
+  // (38px at this font size), making every entry far taller/more padded than the
+  // orig. Orig used a tight 9px top margin + padding. Override the BL9 theming
+  // hooks rather than the rule itself so flex layout + border-bottom stay intact.
+  --bl-results-document-margin-top: 0.5rem;
+  --bl-results-document-padding-top: 0.5rem;
 }
 
 #sortAndPerPage {
@@ -1053,6 +1064,11 @@ div.flash {
 
 .index_title.document-title-heading {
   padding: 0 1em;
+  // BL9 dropped the small base the result heading used to have, so it inherited
+  // the full body size and the headword (1.75em) / pos (1.5em) rendered too large.
+  // Use a relative base (~0.75em of body) so the title block stays proportionally
+  // smaller and scales with the user's browser font-size on every device.
+  font-size: 0.75em;
 
   a {
     font-size: 1.75em;
@@ -1079,7 +1095,11 @@ div.flash {
   background-color: #fff;
   border-radius: 0;
   margin: 0;
-  padding: 1em;
+  // Orig had no padding on the entry panel: the inner .definition-block carries
+  // its own padding, and the title carries its own (.index_title padding: 0 1em).
+  // A panel padding here double-insets both, so the gray definition block stops
+  // short of the card edges. Drop it to let the inner blocks span full width.
+  padding: 0;
 }
 
 .index-definition-tag,
@@ -1294,6 +1314,7 @@ span.filterValue {
   font-weight: 600;
   padding: 10px 15px;
   box-shadow: none;
+  border-bottom: 1px solid #ddd;
 
   // Replace BS5's SVG chevron with orig's small caret. Orig points the caret
   // down when the facet is open and right when it is closed.
@@ -1319,6 +1340,19 @@ span.filterValue {
     border-bottom: 4px solid transparent;
     border-left: 5px solid #4A4A4A;
     transform: none;
+  }
+}
+
+// BL9 accordion items use $body-bg (#f2f2f2) and --bs-body-color (#4a4a4a)
+// via CSS variables. Restore white background + dark body text matching orig's
+// panel-default appearance.
+.accordion-item.facet-limit {
+  --bs-accordion-bg: #fff;
+  background-color: #fff;
+  margin-top: 2px;
+
+  .accordion-body {
+    color: rgb(38, 38, 38);
   }
 }
 
@@ -1358,6 +1392,25 @@ span.filterValue {
 
 .appliedFilter .remove:hover {
   background-color: #A7CDDB;
+}
+
+// BL9 constraint chips: restyle btn-outline-secondary -> btn-default btn-sm (match BL6)
+.applied-filter.constraint,
+.search-term-filter .applied-filter {
+  .btn {
+    font-size: 12px;
+    padding: 5px 10px;
+    background-color: #fff;
+    border-color: #ccc;
+    color: #333;
+    line-height: 1.5;
+
+    &:hover {
+      background-color: #e6e6e6;
+      border-color: #adadad;
+      color: #333;
+    }
+  }
 }
 
 .pagination > .disabled > span, .pagination > .disabled > span:hover, .pagination > .disabled > span:focus, .pagination > .disabled > a, .pagination > .disabled > a:hover, .pagination > .disabled > a:focus {
@@ -1579,6 +1632,11 @@ span.filterValue {
   .entry-supplement table {
     border-radius: 4px;
     border: 1px solid #ccc;
+    // Bootstrap 5 zebra striping via table CSS variables.
+    // Even rows use the base bg; odd rows use the lighter stripe.
+    --bs-table-bg: #f2f2f2;
+    --bs-table-striped-bg: #f9f9f9;
+    --bs-table-striped-color: inherit;
   }
 
   .supplements-all {
@@ -1606,10 +1664,8 @@ span.filterValue {
     }
   }
 
-  .entry-info tr,
-  .entry-supplement tr {
-    background-color: #f2f2f2;
-  }
+  // Row background is handled by Bootstrap 5 table CSS variables
+  // (--bs-table-bg / --bs-table-striped-bg) declared on the table above.
 
   .entry-supplement td {
     color: #6E6E6E;
@@ -2000,6 +2056,13 @@ ul.about-list {
     select#search_field {
       width: 98%;
     }
+
+    // Bootstrap 5 sets width:1% on .input-group > .form-control so it can
+    // flex-grow. When .input-group becomes display:block, width:1% sticks
+    // and collapses the autocomplete wrapper to near-zero. Override here.
+    .search-autocomplete-wrapper {
+      width: 98%;
+    }
   }
 
   .input-group-text.for-search-field {
@@ -2037,14 +2100,22 @@ ul.about-list {
 @media (max-width: 575.98px) {
 
   .search-bar--home,
-  .search-bar--home,
   .search-bar--header,
   .search-bar--light-bg {
+    // Same Bootstrap 5 width:1% fix for the sub-768px breakpoint.
+    .search-autocomplete-wrapper {
+      width: 98%;
+    }
+
     button#search {
       border-radius: 4px;
       padding: 4px 20px;
       height: 40px;
     }
+  }
+
+  .input-group-text.for-search-field {
+    justify-content: flex-start;
   }
 
   #about_sidebar,

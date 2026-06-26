@@ -3280,6 +3280,7 @@ ul.about-list li { list-style: outside; }
 @media only screen and (max-width: 767px) {
   .search-bar--home .input-group, .search-bar--header .input-group, .search-bar--light-bg .input-group { display: block; }
   .search-bar--home select#search_field, .search-bar--header select#search_field, .search-bar--light-bg select#search_field { width: 98%; }
+  .search-bar--home .search-autocomplete-wrapper, .search-bar--header .search-autocomplete-wrapper, .search-bar--light-bg .search-autocomplete-wrapper { width: 98%; }
   .input-group-text.for-search-field { width: 100%; display: flex; justify-content: center; }
   .submit-search-text { display: none; }
   .nav-detail--heading { padding-top: 0.5em; }
@@ -3288,7 +3289,9 @@ ul.about-list li { list-style: outside; }
   .bib-header .author, .bib-header .bib-title a, .bib-header .work { font-size: 1.1em; }
 }
 @media (max-width: 575.98px) {
-  .search-bar--home button#search, .search-bar--home button#search, .search-bar--header button#search, .search-bar--light-bg button#search { border-radius: 4px; padding: 4px 20px; height: 40px; }
+  .search-bar--home .search-autocomplete-wrapper, .search-bar--header .search-autocomplete-wrapper, .search-bar--light-bg .search-autocomplete-wrapper { width: 98%; }
+  .search-bar--home button#search, .search-bar--header button#search, .search-bar--light-bg button#search { border-radius: 4px; padding: 4px 20px; height: 40px; }
+  .input-group-text.for-search-field { justify-content: flex-start; }
   #about_sidebar, #help_sidebar { padding: 0px; }
   .page_links { margin-bottom: 1em; }
 }

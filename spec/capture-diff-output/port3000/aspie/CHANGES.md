@@ -1,3 +1,5 @@
+# aspie — STATUS: FINISHED
+
 # aspie
 
 ## Changes
@@ -118,3 +120,12 @@
   now match orig (note: scraper can't inline cross-origin `@font-face` rules, so
   captured `styles.css` still shows 0 `@font-face` -- this is expected and not a
   regression; the browser still loads/applies the font at render time).
+
+### 9. Fix search bar collapsing to near-zero width on narrow (mobile) screens
+- **Element:** `.search-bar--header`, `.search-bar--home`, `.search-bar--light-bg` `.search-autocomplete-wrapper` at `max-width: 767px` and `max-width: 575.98px`.
+- **Problem:** On mobile/narrow viewports the search text input collapsed to essentially zero width, making the search bar unusable.
+- **Root cause:** Bootstrap 5 sets `width: 1%` on `.input-group > .form-control` (its flex-grow trick: start at 1%, then grow via `flex: 1 1 auto`). When the mobile `@media only screen and (max-width: 767px)` rule forces `.input-group { display: block }`, the flex context is gone but the `width: 1%` sticks. The `.search-autocomplete-wrapper` (which is both `.form-control` and the search input container) was therefore 1% wide at mobile sizes. The `select` already had `width: 98%` as an explicit override; the autocomplete wrapper did not.
+- **Orig equivalent:** Orig used a `.twitter-typeahead` wrapper inside a `.search-input-group` flex container; the mobile rules set `.twitter-typeahead { width: 60% }` and `.search-input-group { justify-content: center }`. Port3000's flat `input-group > auto-complete` structure needs an explicit width override instead.
+- **Fix:** Added `width: 98%` on `.search-autocomplete-wrapper` within all three search bar variants in both the `767px` and `575.98px` `@media` blocks. Also: fixed a duplicate `.search-bar--home` selector in the `575.98px` block, and added `justify-content: flex-start` on `.input-group-text.for-search-field` at `575.98px` (matching orig's `input-group-addon.for-search-field { justify-content: flex-start }`).
+- **File:** `app/assets/stylesheets/main.scss` (media query section).
+- **Scope:** COMMON (all three search bars). Do not reapply.
