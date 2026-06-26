@@ -1,0 +1,41 @@
+{
+  "nodes": [
+    {
+      "id": "config:config/locales/blacklight.en.yml",
+      "type": "config",
+      "name": "blacklight.en.yml",
+      "filePath": "config/locales/blacklight.en.yml",
+      "summary": "Project config file in yaml.",
+      "tags": [
+        "config",
+        "yaml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:config/locales/en.yml",
+      "type": "config",
+      "name": "en.yml",
+      "filePath": "config/locales/en.yml",
+      "summary": "Project config file in yaml.",
+      "tags": [
+        "config",
+        "yaml"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:config/locales/simple_form.en.yml",
+      "type": "config",
+      "name": "simple_form.en.yml",
+      "filePath": "config/locales/simple_form.en.yml",
+      "summary": "Project config file in yaml.",
+      "tags": [
+        "config",
+        "yaml"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

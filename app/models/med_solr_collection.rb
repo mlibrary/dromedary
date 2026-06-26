@@ -1,7 +1,6 @@
 require "dromedary/services"
 
 class MedSolrCollection < SimpleDelegator
-
   EXPECTED_INDEXING_TIME_IN_MINUTES = 75
   TOO_DARN_LONG_IN_MINUTES = 80
 
@@ -41,7 +40,7 @@ class MedSolrCollection < SimpleDelegator
   end
 
   def might_still_be_running?
-    ! (count > 0 or failure?)
+    !(count > 0 or failure?)
   end
 
   def expected_completion_time
@@ -63,5 +62,4 @@ class MedSolrCollection < SimpleDelegator
   def forbid_deletion!
     @do_not_delete = true
   end
-
 end

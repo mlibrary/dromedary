@@ -1,0 +1,21 @@
+{
+  "issues": [],
+  "warnings": [],
+  "stats": {
+    "totalNodes": 635,
+    "totalEdges": 92,
+    "nodeTypes": {
+      "service": 24,
+      "pipeline": 8,
+      "config": 88,
+      "document": 42,
+      "file": 380,
+      "schema": 1,
+      "class": 69,
+      "function": 23
+    },
+    "edgeTypes": {
+      "contains": 92
+    }
+  }
+}

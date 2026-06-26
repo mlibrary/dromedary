@@ -1,11 +1,11 @@
 class ExplicitProxyHost
   def initialize(app)
     @app = app
-    @host = ENV['RAILS_URL_HOST']
+    @host = ENV["RAILS_URL_HOST"]
   end
 
   def call(env)
-    env['HTTP_X_FORWARDED_HOST'] = @host unless @host.nil?
+    env["HTTP_X_FORWARDED_HOST"] = @host unless @host.nil?
     @app.call(env)
   end
 end

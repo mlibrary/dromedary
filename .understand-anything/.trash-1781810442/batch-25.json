@@ -1,0 +1,49 @@
+{
+  "nodes": [
+    {
+      "id": "config:solr/dromedary/conf/schema/stemming/hunspellstemmer.xml",
+      "type": "config",
+      "name": "hunspellstemmer.xml",
+      "filePath": "solr/dromedary/conf/schema/stemming/hunspellstemmer.xml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/dromedary/conf/schema/stemming/kstemmer.xml",
+      "type": "config",
+      "name": "kstemmer.xml",
+      "filePath": "solr/dromedary/conf/schema/stemming/kstemmer.xml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/dromedary/conf/schema/stemming/snowball_stemmer.xml",
+      "type": "config",
+      "name": "snowball_stemmer.xml",
+      "filePath": "solr/dromedary/conf/schema/stemming/snowball_stemmer.xml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:solr/dromedary/conf/schema/stemming/stemdict.tsv",
+      "type": "table",
+      "name": "stemdict.tsv",
+      "filePath": "solr/dromedary/conf/schema/stemming/stemdict.tsv",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

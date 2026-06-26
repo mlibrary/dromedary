@@ -1,0 +1,93 @@
+{
+  "nodes": [
+    {
+      "id": "pipeline:.github/workflows/build-branch-image.yml",
+      "type": "pipeline",
+      "name": "build-branch-image.yml",
+      "filePath": ".github/workflows/build-branch-image.yml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "pipeline:.github/workflows/build-main.yml",
+      "type": "pipeline",
+      "name": "build-main.yml",
+      "filePath": ".github/workflows/build-main.yml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "pipeline:.github/workflows/build-solr-amd64-image.yml",
+      "type": "pipeline",
+      "name": "build-solr-amd64-image.yml",
+      "filePath": ".github/workflows/build-solr-amd64-image.yml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "pipeline:.github/workflows/build-solr-arm64-image.yml",
+      "type": "pipeline",
+      "name": "build-solr-arm64-image.yml",
+      "filePath": ".github/workflows/build-solr-arm64-image.yml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "pipeline:.github/workflows/build-solr-image.yml",
+      "type": "pipeline",
+      "name": "build-solr-image.yml",
+      "filePath": ".github/workflows/build-solr-image.yml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "pipeline:.github/workflows/build-unstable-branch.yml",
+      "type": "pipeline",
+      "name": "build-unstable-branch.yml",
+      "filePath": ".github/workflows/build-unstable-branch.yml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "pipeline:.github/workflows/continuous-integration.yml",
+      "type": "pipeline",
+      "name": "continuous-integration.yml",
+      "filePath": ".github/workflows/continuous-integration.yml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "pipeline:.github/workflows/delete-old-workflow-runs.yml",
+      "type": "pipeline",
+      "name": "delete-old-workflow-runs.yml",
+      "filePath": ".github/workflows/delete-old-workflow-runs.yml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": []
+}

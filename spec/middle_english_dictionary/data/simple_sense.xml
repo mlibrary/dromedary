@@ -1,0 +1,22 @@
+<SENSE N="1">
+  <DEF>(a) To be successful, prosper; to be sufficient for a purpose;
+    to be worthy or of value; <USG TYPE="GRAM">ppl.</USG> <HI REND="B">availing</HI>, profitable, valuable;
+    <USG TYPE="GRAM">ppl.</USG> <HI REND="B">availed</HI>, effective, strong, worthy;
+    (b) <HI REND="B">~ again(es</HI>, to prevail against (sth.), overcome;
+    (c) <HI REND="B">~ to</HI>, to succeed in reaching (a place);
+    (d) with infin.: to be able (to do sth.), succeed (in doing sth.);
+    (e) <USG TYPE="FIELD" EXPAN="law">law</USG> to be legally valid.</DEF>
+  <EG N="a">
+    <CIT MD="1425">
+      <BIBL>
+        <STNCL RID="hyp.227.19991101T123123">
+          <DATE>?a1425</DATE>
+          *<TITLE>Chauliac(1)</TITLE>
+          <MS>NY 12</MS>
+        </STNCL>
+        5a/a
+      </BIBL>
+      <Q>Of a nerue denuded i. bare or naked.</Q>
+    </CIT>
+  </EG>
+</SENSE>

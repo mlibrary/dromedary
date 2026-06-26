@@ -9,8 +9,8 @@
 
   <div class="entry-senses">
     <% sensegrp.senses.each_with_index do |sense, i| %>
-      <%= render "catalog/show_entry/sense.html.erb",
-                 sense: sense, index: i, presenter: presenter %>
+      <%= render partial: "catalog/show_entry/sense",
+                 locals: { sense: sense, index: i, presenter: presenter } %>
     <% end %>
   </div>
 </div>

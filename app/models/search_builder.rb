@@ -1,5 +1,13 @@
 # frozen_string_literal: true
 
+# NOTE: This class is intentionally unused. The search_builder_class config lines
+# in CatalogController, BibliographyController, and QuotesController are all
+# commented out, so this processor chain never runs on any search query.
+#
+# It exists as a placeholder for a future real query parser that will replace
+# the current default Blacklight::SearchBuilder with custom preprocessing
+# (yogh/ezh substitution, paren escaping, dash escaping, empty-query defaults).
+
 class SearchBuilder < Blacklight::SearchBuilder
   include Blacklight::Solr::SearchBuilderBehavior
   include MedInstaller::Logger
@@ -38,7 +46,6 @@ class SearchBuilder < Blacklight::SearchBuilder
     if current_q
       new_q = current_q.gsub Parens_EscapeWorthy, '\1\\\\(\2\\\\)'
       solr_params["q"] = new_q
-      solr_params["debug"] = "true"
     end
   end
 
@@ -54,7 +61,7 @@ class SearchBuilder < Blacklight::SearchBuilder
 
   def escape_prefix_suffix_dash(solr_params)
     q = solr_params["q"]
-    q = q&.gsub(/\}-/, '}\\\\-')
+    q = q&.gsub("}-", '}\\\\-')
     q = q&.gsub(/\s+-/, ' \\\\-')
     q = q&.gsub(/-\s+/, '\\\\- ')
     q = q&.gsub(/-\Z/, '\\\\-')
@@ -63,7 +70,7 @@ class SearchBuilder < Blacklight::SearchBuilder
 
   def default_to_everything_search(solr_params)
     q = solr_params["q"]
-    if q.nil? || (q == "") || q =~ (/}\Z/)
+    if q.nil? || (q == "") || q =~ /}\Z/
       solr_params["q"] = String(q) + "*"
       blacklight_params["q"] = "*"
 

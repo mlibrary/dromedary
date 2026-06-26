@@ -19,12 +19,12 @@ module Dromedary
     # @return [MiddleEnglishDictionary::Entry] The underlying entry object
     attr_reader :entry
 
-    # Create a new object in the same style as a Blacklight::IndexPresenter
-    # This is not a subclass, but it delegates unknown methods to a
-    # Blacklight::IndexPresenter underneath
+    # Create a presenter that wraps a Blacklight::IndexPresenter and exposes
+    # the parsed MED entry plus XSLT helpers for index rendering.
     #
-    # The main thing we do is provide the underlying MiddleEnglishDictionary::Entry
-    # object.
+    # @param [Blacklight::SolrDocument] document Solr document for the entry
+    # @param [ActionView::Base] view_context view context for helpers/config
+    # @param [Blacklight::Configuration, nil] configuration optional Blacklight config
     def initialize(document, view_context, configuration = view_context.blacklight_config)
       blacklight_index_presenter = Blacklight::IndexPresenter.new(document, view_context, configuration)
       __setobj__(blacklight_index_presenter)
@@ -41,99 +41,93 @@ module Dromedary
 
     ##### XSLT TRANSFORMS #####
 
-    # There's only one FORM section, so just take care of it here
-    # @return [String] the transformed form, or nil
+    # @return [String, nil] HTML for the entry FORM section, or nil if absent
     def form_html
       xsl_transform_from_entry("/ENTRYFREE/FORM", load_xslt("FormOnly.xsl"))
     end
 
-    # There's only one ETYM section, so just take care of it here
-    # @return [String] the transformed etym, or nil
+    # @return [String, nil] HTML for the entry ETYM section, or nil if absent
     def etym_html
       xsl_transform_from_entry("/ENTRYFREE/ETYM", load_xslt("EtymOnly.xsl"))
     end
 
+    # @return [Array<String>] ETYM language abbreviations for the entry
     def language_abbreviations
       entry.etym_languages
     end
 
-    # Get a language_abbrev=>language mapping
+    # @return [Hash<String, String>] ETYM abbreviations mapped to expanded names
     def language_mapping
       @nokonode.xpath("//ETYM/LANG/LG").each_with_object({}) do |n, h|
         h[n.text] = n["EXPAN"]
       end
     end
 
-    # @param [MiddleEnglishDictionary::Entry::Sense,MiddleEnglishDictionary::Entry::SenseGrp] sense The sense whose def you want
-    # @return [SmartXML, nil] The definition transformed into HTML, or nil
+    # @param [MiddleEnglishDictionary::Entry::Sense,MiddleEnglishDictionary::Entry::SenseGrp] sense sense to render
+    # @return [SmartXML, nil] HTML for the sense definition, or nil if absent
     def def_html(sense)
       enclosed_def_xml = "<div>" + sense.definition_xml + "</div>"
 
       Dromedary::SmartXML.new(xsl_transform_from_xml(enclosed_def_xml, load_xslt("DefOnly.xsl")))
     end
 
-    # @param [MiddleEnglishDictionary::Entry::Note] note The note object
-    # @return [String, nil] The note transformed into HTML, or nil
+    # @param [MiddleEnglishDictionary::Entry::Note] note note to render
+    # @return [String, nil] HTML for the note, or nil if absent
     def note_html(note)
       xsl_transform_from_xml(note.xml, load_xslt("NoteOnly.xsl"))
     end
 
-    # @param [MiddleEnglishDictionary::Entry::Supplement] supplement The supplement object
-    # @return [String, nil] The supplement transformed into HTML, or nil
+    # @param [MiddleEnglishDictionary::Entry::Supplement] supplement supplement to render
+    # @return [String, nil] HTML for the supplement, or nil if absent
     def supplement_html(supplement)
       xsl_transform_from_xml(supplement.xml, load_xslt("SupplementOnly.xsl"))
     end
 
     ####### Ealier Methods #####
 
-    # @return [String] The cleaned-up POS abbreviation (e.g., "n" or "v")
+    # @return [String] cleaned-up part-of-speech abbreviation
     def part_of_speech_abbrev
       @entry.pos
     end
 
-    # @return [Array<MiddleEnglishDictionary::Sense>] All the entry senses
-    # modified to replace '~' with regularized headword
+    # @return [Array<MiddleEnglishDictionary::Sense>] entry senses with "~" replaced by the regularized headword
     def senses
       headw = @entry.headwords.first.instance_variable_get(:@regs).first
       @entry.senses.each { |sen| sen.definition_xml.gsub! "~", headw }
       @entry.senses
     end
 
-    # @return [Array<MiddleEnglishDictionary::Sense|SenseGrp|Supplement|Note>]
+    # @return [Array<MiddleEnglishDictionary::Sense, MiddleEnglishDictionary::Entry::SenseGrp, MiddleEnglishDictionary::Entry::Supplement, MiddleEnglishDictionary::Entry::Note>] all sense-related entry content
     def sensestuff
       @entry.sensestuff
     end
 
-    # @return [Integer] The number of quotes across all senses
+    # @return [Integer] total quote count across all senses
     def quote_count
       @entry.all_quotes.count
     end
 
     ### XSL  ###
 
-    # Given an xpath in the @entry nokonode (sent to #doc_from_xpath) and
-    # an xslt transform (probably from the constants above), return the
-    # transformed-into-html value
-    #
-    # @param [String] xpath The xpath into the entry (root is '/ENTRYFREE')
-    # @param [Nokogiri::XSLT] xslt The XSLT object used to do the transformation
-    # @return [String,nil] The transfored text (usualy html), or nil if the xpath not found
+    # @param [String] xpath XPath under +/ENTRYFREE+ to transform
+    # @param [Nokogiri::XSLT] xslt stylesheet to apply
+    # @return [String, nil] transformed HTML, or nil if the xpath is missing
     def xsl_transform_from_entry(xpath, xslt)
       xsl_transform_from_node(doc_from_xpath(xpath), xslt)
     end
 
-    # @return [Array<String>] The headwords as taken from the "highlight"
-    # section of the solr return (with embedded tags for highlighting)
+    # @return [String, nil] primary highlighted headword from Solr
     def highlighted_official_headword
       Array(hl_field(document, "headword")).first
     end
 
-    # @return [Array<String>] The non-headword spellings as taken from the "highlight"
-    # section of the solr return (with embedded tags for highlighting)
+    # @return [Array<String>] alternate highlighted spellings from Solr
     def highlighted_other_spellings
       hl_field(document, "headword").reject { |w| w == highlighted_official_headword }
     end
 
+    # @param [Hash, Blacklight::SolrDocument] document Solr document to display from
+    # @return [String] display headword, prefixed with ? when dubious
     def headword_display(document)
       hw = entry.original_headwords.join(", ")
       if document.has_key?("dubious")

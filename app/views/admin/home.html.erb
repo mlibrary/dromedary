@@ -1,4 +1,4 @@
-<div id="med" class="col-md-9 col-sm-8 col-xs-12 about-middle-col med-admin">
+<div id="med" class="col-md-9 col-sm-8 col-12 about-middle-col med-admin">
 
   <h1>Administration: Data upload and push to production</h1>
 
@@ -62,7 +62,8 @@
       'Upload success! We’ve uploaded this file:',
       file.meta['name'],
     )
-    $("#upload_info").show("slow");
+    var uploadInfo = document.getElementById('upload_info');
+    if (uploadInfo) uploadInfo.style.display = 'block';
   }
 
   const uppy = new Uppy({

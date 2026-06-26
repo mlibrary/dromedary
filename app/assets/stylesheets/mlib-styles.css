@@ -106,7 +106,7 @@ body {
   padding: 0 1rem; }
 
 .container--full {
-  max-width: none; }
+  max-width: 60rem; }
 
 .highlight-alt {
   background-color: #F2F9FF; }

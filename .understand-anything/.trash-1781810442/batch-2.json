@@ -1,0 +1,16 @@
+{
+  "nodes": [
+    {
+      "id": "service:solr/Dockerfile",
+      "type": "service",
+      "name": "Dockerfile",
+      "filePath": "solr/Dockerfile",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

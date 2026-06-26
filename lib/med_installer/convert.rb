@@ -16,15 +16,20 @@ module MedInstaller
       default: Dromedary::Services[:build_directory],
       desc: "The source data directory (contains 'xml' dir)"
 
+    # @return [String, Pathname, nil] the most recently modified file from +filenames+
     def most_recent_file(filenames)
       filenames.max { |a, b| File.mtime(a) <=> File.mtime(b) }
     end
 
+    # @param xmldir [Pathname] directory to search for +MED2OED*+ files
+    # @return [Pathname, nil] path to the most recent OED links file
     def find_oed_file(xmldir)
       candidates = xmldir.children.select { |x| x.to_s =~ /MED2OED/ }
       most_recent_file(candidates)
     end
 
+    # @param xmldir [Pathname] directory to search for +MED2DOE*+ files
+    # @return [Pathname, nil] path to the most recent DOE links file
     def find_doe_file(xmldir)
       candidates = xmldir.children.select { |x| x.to_s =~ /MED2DOE/ }.sort
       most_recent_file(candidates)
@@ -32,6 +37,19 @@ module MedInstaller
 
     DIR_NAME_REGEX = Regexp.new "/([A-Z12][^/]*)/MED"
 
+    # Main entry point for the convert step.
+    #
+    # Registers +build_directory+ with the service container, locates the +xml/+
+    # subdirectory, validates it, loads OED and DOE link sets, then iterates over
+    # every +MED*.xml+ file under +xml/+, converts it to a
+    # {MiddleEnglishDictionary::Entry}, and writes each entry as a JSON line to a
+    # gzip-compressed temporary file.  On completion the temp file is copied to
+    # its final location and the hyp-to-bib-ID mapping is (re)built.
+    #
+    # @param build_directory [String, Pathname] path to the build directory;
+    #   must contain an +xml/+ subdirectory with the MED XML source files
+    # @return [void]
+    # @raise [RuntimeError] if the +xml/+ directory is not found
     def call(build_directory:)
       # @metrics = MiddleEnglishIndexMetrics.new({type: "convert_data"})
       Dromedary::Services.register(:build_directory) { build_directory }
@@ -89,6 +107,11 @@ module MedInstaller
 
     private
 
+    # Builds a +{hyp_id => bib_id}+ JSON mapping from +bib_all.xml+ and writes
+    # it to +hyp_to_bibid.json+ in the build directory.
+    #
+    # @param build_directory [String, Pathname] path to the build directory
+    # @return [void]
     def create_hyperbib_mapping(build_directory:)
       bib_all_file = Pathname.new(build_directory) + "xml" + "bib_all.xml"
       mapping_file = Pathname.new(build_directory) + "hyp_to_bibid.json"
@@ -103,6 +126,12 @@ module MedInstaller
       end
     end
 
+    # Extracts the letter-prefix directory name from a file path and logs a
+    # message when the letter changes.
+    #
+    # @param filename [String] full path to the current XML file
+    # @param current_directory [String] the last seen letter-prefix directory
+    # @return [String] the (possibly unchanged) current letter-prefix directory
     def get_and_log_directory(filename, current_directory)
       m = DIR_NAME_REGEX.match(filename)
       dirname = m[1]
@@ -135,10 +164,23 @@ module MedInstaller
       raise e
     end
 
+    # Logs a message when processing of a new letter group begins.
+    #
+    # @param datapath [Pathname] unused — kept for historical API compatibility
+    # @param this_letter [String] the letter prefix being started
+    # @return [void]
+    # @note This method is defined but never called — candidate for removal.
     def start_new_letter(datapath, this_letter)
       logger.info "Beginning work on words starting with #{this_letter}"
     end
 
+    # Parses a letter-prefix directory name and base filename out of a full path.
+    #
+    # @param f [String] full path matching the pattern +/<letter>/<file>.xml+
+    # @return [Array(String, String)] a two-element array +[file_path, letter]+
+    #   where +file_path+ is the path without the +.xml+ extension and +letter+
+    #   is the letter-prefix directory name
+    # @note This method is defined but never called — candidate for removal.
     def letter_and_filename(f)
       m = %r{(/(.*?)/(.*))\.xml\Z}.match(f)
       this_letter = m[2]
@@ -146,6 +188,10 @@ module MedInstaller
       [this_file, this_letter]
     end
 
+    # Verifies that the XML source directory exists; raises if not.
+    # @param xmldir [Pathname] expected path to the +xml/+ directory
+    # @return [void]
+    # @raise [RuntimeError] if +xmldir+ does not exist
     def validate_xml_dir(xmldir)
       if Dir.exist?(xmldir)
         logger.info "Found xml directory at #{xmldir}"

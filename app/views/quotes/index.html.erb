@@ -2,19 +2,19 @@
   <%#= link_to_repository %>
 <% #end %>
 
-<%= replace :skiplinks do %>
+<% content_for :skiplinks do %>
   <%= render 'catalog/index_skiplinks' %>
 <% end %>
 
-<%# require 'pry'; binding.pry %>
-
-<%= replace :h1 do %>
+<% content_for :h1 do %>
   <% if ! has_search_parameters? %>
     New Search
   <% elsif @response.empty? %>
     <span class="zero-results">No Results</span>
   <% elsif params[:f] and params[:f][:issue_identifier] %>
     <%= issue_title @document_list.first, complete: true %>
+  <% else %>
+    <span class="visually-hidden">Search Results</span>
   <% end %>
 <% end %>
 
@@ -33,13 +33,6 @@
     <%#= render 'shared/sitelinks_search_box' %>
   <% else %>
     <%= render 'search_results' %>
-
-    <script>
-      // have to loop through all these else not all the paragraphs are shaved?
-      $(".row-article-text p").each(function() {
-        $(this).shave(150);
-      })
-    </script>
   <% end %>
 </div>
 <%#= render partial: 'back_to_top' %>

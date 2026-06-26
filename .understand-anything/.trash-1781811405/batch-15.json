@@ -1,0 +1,173 @@
+{
+  "nodes": [
+    {
+      "id": "config:indexer/xslt/test/LiftenCit_NO_Author.xml",
+      "type": "config",
+      "name": "LiftenCit_NO_Author.xml",
+      "filePath": "indexer/xslt/test/LiftenCit_NO_Author.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:indexer/xslt/test/Untitled.xml",
+      "type": "config",
+      "name": "Untitled.xml",
+      "filePath": "indexer/xslt/test/Untitled.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:indexer/xslt/test/liften_2ORTHS_FORM.xml",
+      "type": "config",
+      "name": "liften_2ORTHS_FORM.xml",
+      "filePath": "indexer/xslt/test/liften_2ORTHS_FORM.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:indexer/xslt/test/liften_ETYM.xml",
+      "type": "config",
+      "name": "liften_ETYM.xml",
+      "filePath": "indexer/xslt/test/liften_ETYM.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:indexer/xslt/test/liften_FORM.xml",
+      "type": "config",
+      "name": "liften_FORM.xml",
+      "filePath": "indexer/xslt/test/liften_FORM.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:indexer/xslt/test/liften_cit1.xml",
+      "type": "config",
+      "name": "liften_cit1.xml",
+      "filePath": "indexer/xslt/test/liften_cit1.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:indexer/xslt/test/liften_def1.xml",
+      "type": "config",
+      "name": "liften_def1.xml",
+      "filePath": "indexer/xslt/test/liften_def1.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:indexer/xslt/test/liften_def2.xml",
+      "type": "config",
+      "name": "liften_def2.xml",
+      "filePath": "indexer/xslt/test/liften_def2.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:indexer/xslt/test/liften_lowerHI_ETYM.xml",
+      "type": "config",
+      "name": "liften_lowerHI_ETYM.xml",
+      "filePath": "indexer/xslt/test/liften_lowerHI_ETYM.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:indexer/xslt/test/liften_testUSGdef.xml",
+      "type": "config",
+      "name": "liften_testUSGdef.xml",
+      "filePath": "indexer/xslt/test/liften_testUSGdef.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:indexer/xslt/test/smakke_n.xml",
+      "type": "config",
+      "name": "smakke_n.xml",
+      "filePath": "indexer/xslt/test/smakke_n.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:indexer/xslt/test/supplement_EG_hegge_n.xml",
+      "type": "config",
+      "name": "supplement_EG_hegge_n.xml",
+      "filePath": "indexer/xslt/test/supplement_EG_hegge_n.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:indexer/xslt/test/supplement_humour_n.xml",
+      "type": "config",
+      "name": "supplement_humour_n.xml",
+      "filePath": "indexer/xslt/test/supplement_humour_n.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:indexer/xslt/test/supplement_huske_n.xml",
+      "type": "config",
+      "name": "supplement_huske_n.xml",
+      "filePath": "indexer/xslt/test/supplement_huske_n.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

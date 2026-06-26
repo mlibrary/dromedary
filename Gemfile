@@ -1,5 +1,7 @@
 source "https://rubygems.org"
 
+ruby "~> 3.3"
+
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
@@ -9,12 +11,13 @@ end
 # source "https://rubygems.pkg.github.com/mlibrary" do
 #   gem "middle_english_dictionary", "1.9.1"
 # end
-gem "middle_english_dictionary", git: "https://github.com/mlibrary/middle_english_dictionary", tag: "v1.9.1"
 
 gem "pg"
 gem "date_named_file"
 gem "zinzout"
-gem "solr_cloud-connection", ">=0.6.0"
+gem "representable"
+gem "multi_json"
+gem "solr_cloud-connection", path: "vendor/solr_cloud-connection"
 
 gem "shrine", "~> 3.6"
 gem "aws-sdk-s3", "~> 1.160"
@@ -28,9 +31,13 @@ gem "ttl_memoizeable"
 # nectar.
 ###################################
 
-gem "nio4r", "=2.5.2"
+#gem "nio4r", "=2.5.2"
 # gem 'puma',  '=4.1.0'
-gem "puma", ">= 4.3.5" # https://github.com/advisories/GHSA-w64w-qqph-5gxm
+#gem "puma", ">= 4.3.5" # https://github.com/advisories/GHSA-w64w-qqph-5gxm
+gem "puma"
+gem "stringio", '~>3.0'
+gem "psych", '~>5.0'
+gem "erb", '~>6.0'
 
 ###############################
 # SECURITY ALERTS
@@ -73,7 +80,7 @@ gem "simple_form", "~>5.0"
 # When developing in tandem, a relative path is nice and easy
 
 # Use bundler 2
-gem "bundler", "~>2.4.22"
+gem "bundler", "~>2.5"
 
 # ,,, and explicitly pull in rake
 gem "rake", "~> 13.0"
@@ -86,13 +93,16 @@ gem "canister"
 # Rails
 #  https://groups.google.com/forum/#!topic/rubyonrails-security/GN7w9fFAQeI)
 
-gem "rails", "~> 5.0"
+gem "rails", "~> 8.1.0"
 
-# Security vulnerability CVE-2018-3760
-gem "sprockets", "~>3.7.2"
+gem "sprockets", "~> 4.0"
 
-# They messed with the auto-suggest code, so we're stuck here for a while
-gem "blacklight", "~> 6.15.0"
+gem "blacklight", "~> 9.0"
+
+# Bootstrap 5 (required by BL9)
+gem "bootstrap", "~> 5.0"
+gem "autoprefixer-rails"
+gem "font-awesome-rails"
 
 # For bin/dromedary
 gem "hanami-cli", "0.2.0" # peg it until I we can update to 3.
@@ -103,9 +113,6 @@ gem "html_truncator", "~>0.2"
 # For solr indexing
 gem "simple_solr_client", require: false # only for bin/dromedary stuff
 gem "traject", require: false # only for indexing
-# if defined? JRUBY_VERSION
-#   gem 'traject-marc4j_reader'
-# end
 
 # Building lists of xpaths
 # gem 'xpath_list', git: 'https://github.com/billdueber/xpath_list', require: false # only for data analysis
@@ -118,8 +125,6 @@ gem "lograge", ">=0.11.1"
 
 # Contacts Email
 gem "mail_form", "~>1.7"
-# Extendable layouts
-gem "nestive", "0.6.0"
 
 # Use pry for the console
 group :development, :test do
@@ -128,32 +133,22 @@ group :development, :test do
   # Faster boot times
 
   gem "listen", require: false
-  unless defined? JRUBY_VERSION
-    gem "ruby-prof"
-    gem "pry-byebug"
-  end
+  gem "ruby-prof"
+  gem "pry-byebug"
 end
-
-gem "standard"
 
 #############################################
 
 # Databases
-
-if defined? JRUBY_VERSION
-  gem "jdbc-sqlite3"
-  gem "jdbc-mysql"
-else
-  gem "sqlite3", "~>1.3.13"
-  # AR won't work with the latest mysql2, apparently
-  # See https://stackoverflow.com/questions/49407254/gemloaderror-cant-activate-mysql2-0-5-0-3-18-already-activated-mysq
-  gem "mysql2", "< 0.5.0", require: false
-end
+gem "sqlite3", ">= 1.3.13"
+# AR won't work with the latest mysql2, apparently
+# See https://stackoverflow.com/questions/49407254/gemloaderror-cant-activate-mysql2-0-5-0-3-18-already-activated-mysq
+#gem "mysql2", "< 0.5.0", require: false
 
 # JS and CSS
-gem "sass-rails", "~> 5.0"
+gem "sass-rails", "~> 6.0"
 gem "uglifier", ">= 1.3.0"
-gem "coffee-rails", "~> 4.2"
+# coffee-rails removed: no Rails 6 support and bibliography.coffee is empty
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 # gem 'turbolinks', '~> 5'
@@ -172,7 +167,7 @@ gem "jbuilder", "~> 2.5"
 # Gems for automated indexing #
 ###############################
 gem "prometheus-client", "~> 4.0"
-gem "sidekiq"
+gem "sidekiq", ">= 7.3.3"
 gem "okcomputer"
 
 # Use Capistrano for deployment
@@ -180,27 +175,23 @@ gem "okcomputer"
 
 group :development, :test do
   # gem 'capybara', '~> 2.13' # no longer deploying like this.
+  gem "capybara"
   gem "selenium-webdriver"
-  gem "rspec-rails", "~> 3.6"
+  gem "rspec-rails", "~> 6.0"
 end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem "web-console", ">= 3.3.0"
-  # RubyMine Docker-Compose Debugging
-  gem "debase"
-  gem "ruby-debug-ide"
+  gem "standard", require: false
 end
 
 group :test do
   gem "simplecov", require: false
-  gem "factory_bot_rails", "~> 4.0"
+  gem "factory_bot_rails", "~> 6.0"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw]
 
 gem "rsolr", ">= 1.0"
-gem "jquery-rails"
-
-

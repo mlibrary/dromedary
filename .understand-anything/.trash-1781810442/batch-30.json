@@ -1,0 +1,280 @@
+{
+  "nodes": [
+    {
+      "id": "file:app/jobs/index_data_job.rb",
+      "type": "file",
+      "name": "index_data_job.rb",
+      "filePath": "app/jobs/index_data_job.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/jobs/poke_sidekiq_job.rb",
+      "type": "file",
+      "name": "poke_sidekiq_job.rb",
+      "filePath": "app/jobs/poke_sidekiq_job.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/mailers/application_mailer.rb",
+      "type": "file",
+      "name": "application_mailer.rb",
+      "filePath": "app/mailers/application_mailer.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/models/application_record.rb",
+      "type": "file",
+      "name": "application_record.rb",
+      "filePath": "app/models/application_record.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/models/concerns/.keep",
+      "type": "file",
+      "name": ".keep",
+      "filePath": "app/models/concerns/.keep",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/models/contact.rb",
+      "type": "file",
+      "name": "contact.rb",
+      "filePath": "app/models/contact.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/models/med_solr_collection.rb",
+      "type": "file",
+      "name": "med_solr_collection.rb",
+      "filePath": "app/models/med_solr_collection.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/models/med_solr_collections.rb",
+      "type": "file",
+      "name": "med_solr_collections.rb",
+      "filePath": "app/models/med_solr_collections.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/models/search_builder.rb",
+      "type": "file",
+      "name": "search_builder.rb",
+      "filePath": "app/models/search_builder.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/models/solr_document.rb",
+      "type": "file",
+      "name": "solr_document.rb",
+      "filePath": "app/models/solr_document.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/presenters/common_presenters.rb",
+      "type": "file",
+      "name": "common_presenters.rb",
+      "filePath": "app/presenters/common_presenters.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/presenters/dromedary/bib/index_presenter.rb",
+      "type": "file",
+      "name": "index_presenter.rb",
+      "filePath": "app/presenters/dromedary/bib/index_presenter.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/presenters/dromedary/index_presenter.rb",
+      "type": "file",
+      "name": "index_presenter.rb",
+      "filePath": "app/presenters/dromedary/index_presenter.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/presenters/dromedary/quotes/index_presenter.rb",
+      "type": "file",
+      "name": "index_presenter.rb",
+      "filePath": "app/presenters/dromedary/quotes/index_presenter.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/views/_flash_msg.html.erb",
+      "type": "file",
+      "name": "_flash_msg.html.erb",
+      "filePath": "app/views/_flash_msg.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/_secondary_util_links.html.erb",
+      "type": "file",
+      "name": "_secondary_util_links.html.erb",
+      "filePath": "app/views/_secondary_util_links.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/_user_util_links.html.erb",
+      "type": "file",
+      "name": "_user_util_links.html.erb",
+      "filePath": "app/views/_user_util_links.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/admin/_collection_row.html.erb",
+      "type": "file",
+      "name": "_collection_row.html.erb",
+      "filePath": "app/views/admin/_collection_row.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/admin/_force_release_row.html.erb",
+      "type": "file",
+      "name": "_force_release_row.html.erb",
+      "filePath": "app/views/admin/_force_release_row.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/admin/home.html.erb",
+      "type": "file",
+      "name": "home.html.erb",
+      "filePath": "app/views/admin/home.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/views/admin/release.html.erb",
+      "type": "file",
+      "name": "release.html.erb",
+      "filePath": "app/views/admin/release.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/application/_bookmark_control.html.erb",
+      "type": "file",
+      "name": "_bookmark_control.html.erb",
+      "filePath": "app/views/application/_bookmark_control.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/application/_citation.html.erb",
+      "type": "file",
+      "name": "_citation.html.erb",
+      "filePath": "app/views/application/_citation.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/application/_constraints_element.html.erb",
+      "type": "file",
+      "name": "_constraints_element.html.erb",
+      "filePath": "app/views/application/_constraints_element.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/application/_constraints.html.erb",
+      "type": "file",
+      "name": "_constraints.html.erb",
+      "filePath": "app/views/application/_constraints.html.erb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

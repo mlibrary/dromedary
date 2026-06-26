@@ -2,8 +2,6 @@ class ContactsController < ApplicationController
   layout "static"
 
   def new
-    @current_action = "contact Us"
-
     @contact = Contact.new
     @contact.referer = request.referer if request.referer&.start_with?(request.base_url)
     @contact.type = t("views.contacts.types")[params[:type].to_sym] if params[:type]

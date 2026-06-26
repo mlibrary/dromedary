@@ -22,7 +22,7 @@ module Dromedary
             solr_endpoint: repository.blacklight_config.autocomplete_path,
             search_component_name: "mySuggester"
           }
-                               end
+        end
       end
 
       # suggestions will send along our configuration instead of just
@@ -65,5 +65,7 @@ module Dromedary
   end
 end
 
-# And do the prepend
-Blacklight::SuggestSearch.prepend(Dromedary::Suggest::SearchOverride)
+# And do the prepend (wrapped in to_prepare so Zeitwerk has loaded constants)
+Rails.application.config.to_prepare do
+  Blacklight::SuggestSearch.prepend(Dromedary::Suggest::SearchOverride)
+end

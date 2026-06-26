@@ -2,8 +2,8 @@
   <%= render_hash_as_hidden_fields(search_state.params_for_search.except(:q, :search_field, :qt, :page, :utf8)) %>
   <div class="input-group">
     <% if search_fields.length > 1 %>
-      <span class="input-group-addon for-search-field">
-        <label for="search_field" class="sr-only"><%= t('blacklight.search.form.search_field.label') %></label>
+      <span class="input-group-text for-search-field">
+        <label for="search_field" class="visually-hidden"><%= t('blacklight.search.form.search_field.label') %></label>
         <% selected = params[:search_field]
            default = blacklight_config.search_fields.find{|x| x.last[:default]}
            selected = selected || (default && default.last.key) || search_fields.first.first
@@ -19,7 +19,7 @@
     <% end %>
 
     <div class="search-input-group">
-      <label for="q" class="sr-only"><%= t('blacklight.search.form.search.label') %></label>
+      <label for="q" class="visually-hidden"><%= t('blacklight.search.form.search.label') %></label>
       <%= text_field_tag :q,
                          params[:q],
                          placeholder: t('blacklight.search.form.search.placeholder'),
@@ -29,11 +29,11 @@
                              autocomplete_controller: "search_field",
                              autocomplete_config: "hithere",
                              autocomplete_enabled: autocomplete_enabled?,
-                             autocomplete_path: blacklight.suggest_index_path }  %>
+                               autocomplete_path: suggest_index_catalog_path }  %>
 
       <!--Keyboard drop down for special characters-->
       <span class="dropdown keyboard">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <%=image_tag('keyboard-grey.svg', alt: 'Drop down menu for special character selection') %>
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -49,7 +49,7 @@
       <span class="input-group-btn">
         <button type="submit" class="btn btn-primary search-btn" id="search">
           <span class="submit-search-text"><%= t('blacklight.search.form.submit') %></span>
-          <span class="glyphicon glyphicon-search"></span>
+          <span class="fa fa-search"></span>
         </button>
       </span>
     </div>

@@ -1,0 +1,280 @@
+{
+  "nodes": [
+    {
+      "id": "service:kubernetes/old/web-deployment.yaml",
+      "type": "service",
+      "name": "web-deployment.yaml",
+      "filePath": "kubernetes/old/web-deployment.yaml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/annoying_utilities.rb",
+      "type": "file",
+      "name": "annoying_utilities.rb",
+      "filePath": "lib/annoying_utilities.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:lib/assets/.keep",
+      "type": "file",
+      "name": ".keep",
+      "filePath": "lib/assets/.keep",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/dromedary/forms/search_form.rb",
+      "type": "file",
+      "name": "search_form.rb",
+      "filePath": "lib/dromedary/forms/search_form.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/dromedary/services.rb",
+      "type": "file",
+      "name": "services.rb",
+      "filePath": "lib/dromedary/services.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:lib/dromedary/smart_xml.rb",
+      "type": "file",
+      "name": "smart_xml.rb",
+      "filePath": "lib/dromedary/smart_xml.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/dromedary/xslt_utils.rb",
+      "type": "file",
+      "name": "xslt_utils.rb",
+      "filePath": "lib/dromedary/xslt_utils.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/human_log_formatter.rb",
+      "type": "file",
+      "name": "human_log_formatter.rb",
+      "filePath": "lib/human_log_formatter.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/med_installer.rb",
+      "type": "file",
+      "name": "med_installer.rb",
+      "filePath": "lib/med_installer.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/med_installer/control.rb",
+      "type": "file",
+      "name": "control.rb",
+      "filePath": "lib/med_installer/control.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/med_installer/convert.rb",
+      "type": "file",
+      "name": "convert.rb",
+      "filePath": "lib/med_installer/convert.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:lib/med_installer/copy_from_build.rb",
+      "type": "file",
+      "name": "copy_from_build.rb",
+      "filePath": "lib/med_installer/copy_from_build.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/med_installer/extract_convert_index.rb",
+      "type": "file",
+      "name": "extract_convert_index.rb",
+      "filePath": "lib/med_installer/extract_convert_index.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/med_installer/extract.rb",
+      "type": "file",
+      "name": "extract.rb",
+      "filePath": "lib/med_installer/extract.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/med_installer/hyp_to_bibid.rb",
+      "type": "file",
+      "name": "hyp_to_bibid.rb",
+      "filePath": "lib/med_installer/hyp_to_bibid.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/med_installer/index_new_data.rb",
+      "type": "file",
+      "name": "index_new_data.rb",
+      "filePath": "lib/med_installer/index_new_data.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/med_installer/index.rb",
+      "type": "file",
+      "name": "index.rb",
+      "filePath": "lib/med_installer/index.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:lib/med_installer/indexer/bib_reader.rb",
+      "type": "file",
+      "name": "bib_reader.rb",
+      "filePath": "lib/med_installer/indexer/bib_reader.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/med_installer/indexer/entry_json_reader.rb",
+      "type": "file",
+      "name": "entry_json_reader.rb",
+      "filePath": "lib/med_installer/indexer/entry_json_reader.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/med_installer/indexing_steps.rb",
+      "type": "file",
+      "name": "indexing_steps.rb",
+      "filePath": "lib/med_installer/indexing_steps.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:lib/med_installer/job_monitoring.rb",
+      "type": "file",
+      "name": "job_monitoring.rb",
+      "filePath": "lib/med_installer/job_monitoring.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/med_installer/logger.rb",
+      "type": "file",
+      "name": "logger.rb",
+      "filePath": "lib/med_installer/logger.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/med_installer/ping_prometheus.rb",
+      "type": "file",
+      "name": "ping_prometheus.rb",
+      "filePath": "lib/med_installer/ping_prometheus.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/med_installer/prepare.rb",
+      "type": "file",
+      "name": "prepare.rb",
+      "filePath": "lib/med_installer/prepare.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/med_installer/remote.rb",
+      "type": "file",
+      "name": "remote.rb",
+      "filePath": "lib/med_installer/remote.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": []
+}

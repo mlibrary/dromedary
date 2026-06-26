@@ -1,12 +1,7 @@
 <%# header bar for doc items in index view -%>
 
 <div class="documentHeader row">
-  <%# main title container for doc partial view
-      How many bootstrap columns need to be reserved
-      for bookmarks control depends on size.
-  -%>
-  <% doc_presenter = index_presenter(document) %>
-  <%# require 'pry'; binding.pry %>
+  <% doc_presenter = document_presenter(document) %>
 
   <% document_actions = capture do %>
     <%= render_index_doc_actions document, wrapping_class: "index-document-functions col-sm-3 col-lg-2" %>
@@ -22,7 +17,7 @@
           </span>
         <% end %>
         <% if document.has_key?('author') %>
-          <span class="author"><%= doc_presenter.field_value('author') + ', ' %></span>
+          <span class="author"><%= document['author'].to_s + ', ' %></span>
         <% end %>
         <% biblink = link_to doc_presenter.title_html.html_safe, bib_link_path(id: doc_presenter.bib.id), document_link_params(document,counter: counter) %>
 
@@ -49,6 +44,5 @@
 
   <%= document_actions %>
 </div>
-
 
 

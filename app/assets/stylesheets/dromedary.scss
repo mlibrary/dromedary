@@ -1,5 +1,8 @@
 // dromedary.scss
 
+$spacer: 2em; 
+
+
 // VARIOUS STYLES FIXED TO REMOVE INLINE STYLES
 
 // quote lines on dictionary index page
@@ -314,11 +317,12 @@ $screen-xs-max: 1200px;
 
 #sidebar {
   #appliedParams {
+    // Mobile base (matches orig lines 3323-3329)
     background-color: #e5e5e5 !important;
     margin-top: 20px;
     margin-bottom: 15px;
 
-    .appliedFilter {
+    .appliedFilter, .applied-filter {
       width: 100%;
     }
 
@@ -339,7 +343,7 @@ $screen-xs-max: 1200px;
       max-width: 75%;
       text-align: left;
 
-      .filterName:after {
+      .filterName:after, .filter-name:after {
         color: white;
       }
     }
@@ -361,6 +365,52 @@ $screen-xs-max: 1200px;
       font-size: 14px;
       font-weight: normal !important;
       margin-top: 5px;
+    }
+  }
+}
+
+// Desktop overrides for sidebar Current Filters box (matches orig lines 3500-3511)
+@media (min-width: 768px) {
+  #sidebar #appliedParams {
+    background-color: #fafafa !important;
+    border: 1px solid #ddd;
+    margin-top: 0;
+    margin-bottom: 2px;
+    padding: 16px 19px;
+
+    .constraints-label {
+      font-size: 1.15em;
+      font-weight: 600;
+      padding-bottom: 0.5em;
+    }
+
+    // Light green outlined chip (matches orig line 3507)
+    .constraint-value {
+      background-color: #e2f4eb !important;
+      color: #044e2a !important;
+      border: 1px solid #057c42;
+      display: inline;
+      white-space: normal;
+      max-width: 100%;
+
+      .filterName:after, .filter-name:after {
+        color: #044e2a;
+      }
+    }
+
+    // Plain link style for Start Over (matches orig line 3505)
+    #startOverLink,
+    a.catalog_startOverLink,
+    a.FrontPageOnly {
+      background-color: #fafafa !important;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+      color: #333 !important;
+      font-size: 0.85em;
+      font-weight: normal !important;
+      padding: 0;
+      text-decoration: underline;
     }
   }
 }

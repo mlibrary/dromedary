@@ -3,17 +3,31 @@ require "annoying_utilities"
 require_relative "logger"
 
 module MedInstaller
+  # CLI commands for deploying and executing commands on remote dromedary environments.
+  # All commands validate the target against {VALID_TARGETS} and include a
+  # {PANIC_PAUSE}-second sleep before executing to allow cancellation.
+  #
+  # Remote execution uses an +ssh deployhost+ convention — assumes a deploy host
+  # configured in ~/.ssh/config that exposes +deploy+ and +exec+ subcommands.
   class Remote
     extend MedInstaller::Logger
 
     VALID_TARGETS = %w[testing staging production]
+
+    # Seconds to sleep before executing a destructive remote command.
     PANIC_PAUSE = 5
 
+    # @param t [String] target name to validate
+    # @return [Boolean] true if +t+ is a valid target
     def self.valid_target?(t)
       target = t.downcase
       VALID_TARGETS.include? target
     end
 
+    # Validates and normalises a target name.
+    # @param t [String] target to validate
+    # @return [String] downcased target name
+    # @raise [RuntimeError] if +t+ is not in {VALID_TARGETS}
     def self.validate_target!(t)
       if valid_target?(t)
         t.downcase
@@ -22,6 +36,10 @@ module MedInstaller
       end
     end
 
+    # Executes a command on a remote dromedary deployment via +ssh deployhost exec+.
+    # @param target [String] validated target name (testing/staging/production)
+    # @param cmd [String] shell command to run on the remote host
+    # @return [Boolean, nil] result of +Kernel#system+
     def self.remote_exec(target, cmd)
       logger.info "Telling #{target} to run #{cmd}"
       # full_command = "ssh deployhost exec -v --env=RAILS_ENV:production dromedary-#{target} app ruby #{cmd}"

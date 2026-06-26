@@ -1,0 +1,53 @@
+{
+  "nodes": [
+    {
+      "id": "file:test/test_helper.rb",
+      "type": "file",
+      "name": "test_helper.rb",
+      "filePath": "test/test_helper.rb",
+      "summary": "Project code file in ruby.",
+      "tags": [
+        "code",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:test/test_helper.rb:ActiveSupport::TestCase",
+      "type": "class",
+      "name": "ActiveSupport::TestCase",
+      "filePath": "test/test_helper.rb",
+      "lineRange": [
+        4,
+        9
+      ],
+      "summary": "Class ActiveSupport::TestCase in test/test_helper.rb.",
+      "tags": [
+        "class",
+        "ruby"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tmp/.keep",
+      "type": "file",
+      "name": ".keep",
+      "filePath": "tmp/.keep",
+      "summary": "Project code file in unknown.",
+      "tags": [
+        "code",
+        "unknown"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:test/test_helper.rb",
+      "target": "class:test/test_helper.rb:ActiveSupport::TestCase",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    }
+  ]
+}

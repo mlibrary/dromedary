@@ -18,9 +18,9 @@
       <% if doc_presenter.senses.size > 0 %>
         <div class="quotations-header-options">
           <span class="quotations-header-options-text">Quotations:</span>
-          <a class="show-all-button" href="#" onClick="$('.egs').show(); $('.quote-toggle.open').hide(); $('.quote-toggle.closer').show();return false;">Show
+          <a class="show-all-button" href="#" onClick="document.querySelectorAll('.egs').forEach(function(el){el.style.display='block'}); document.querySelectorAll('.quote-toggle.open').forEach(function(el){el.style.display='none'}); document.querySelectorAll('.quote-toggle.closer').forEach(function(el){el.style.display='inline'}); return false;">Show
             all</a>
-          <a class="hide-all-button" href="#" onClick="$('.egs').hide(); $('.quote-toggle.open').show(); $('.quote-toggle.closer').hide(); return false">Hide
+          <a class="hide-all-button" href="#" onClick="document.querySelectorAll('.egs').forEach(function(el){el.style.display='none'}); document.querySelectorAll('.quote-toggle.open').forEach(function(el){el.style.display='inline'}); document.querySelectorAll('.quote-toggle.closer').forEach(function(el){el.style.display='none'}); return false">Hide
             all</a>
         </div>
       <% end %>
@@ -55,8 +55,8 @@
   <div class="senses">
     <h3 class="entry-senses-title">Definitions (Senses and Subsenses)</h3>
 
-    <%= render "catalog/show_entry/sensestuff.html.erb",
-               presenter: doc_presenter %>
+    <%= render partial: "catalog/show_entry/sensestuff",
+               locals: { presenter: doc_presenter } %>
 
 
   </div>

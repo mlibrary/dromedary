@@ -1,0 +1,19 @@
+splash  http://localhost:3001/m/middle-english-dictionary/
+dictionary_splash   http://localhost:3001/m/middle-english-dictionary/dictionary
+bib_splash  http://localhost:3001/m/middle-english-dictionary/bibliography
+quotes_splash http://localhost:3001/m/middle-english-dictionary/quotations
+ab_search http://localhost:3001/m/middle-english-dictionary/dictionary?utf8=1&search_field=hnf&q=ab
+ab_search_noun http://localhost:3001/m/middle-english-dictionary/dictionary?f%5Bpos%5D%5B%5D=noun&q=ab&search_field=hnf
+ab_search_noun_oe http://localhost:3001/m/middle-english-dictionary/dictionary?f%5Betyma_language%5D%5B%5D=Old+English&f%5Bpos%5D%5B%5D=noun&q=ab&search_field=hnf
+a_search http://localhost:3001/m/middle-english-dictionary/dictionary?utf8=1&search_field=hnf&q=a
+ety_french http://localhost:3001/m/middle-english-dictionary/dictionary?utf8=1&search_field=etyma&q=french
+aspie http://localhost:3001/m/middle-english-dictionary/dictionary/MED2524
+bib_women http://localhost:3001/m/middle-english-dictionary/bibliography?utf8=1&search_field=bib_keyword&q=women
+bib_show http://localhost:3001/m/middle-english-dictionary/bibliography/BIB628/track?counter=1&search_id=11
+quote_search http://localhost:3001/m/middle-english-dictionary/quotations?utf8=1&search_field=quote_everything&q=women
+dictionary_non-headword http://localhost:3001/m/middle-english-dictionary/dictionary?utf8=1&search_field=h&q=abacus
+help_using http://localhost:3001/m/middle-english-dictionary/help
+help_extended http://localhost:3001/m/middle-english-dictionary/help/extended
+help_about http://localhost:3001/m/middle-english-dictionary/about
+
+

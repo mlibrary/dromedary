@@ -11,6 +11,7 @@ module MedInstaller
   class Extract < Hanami::CLI::Command
     # include MedInstaller::Logger
     include SemanticLogger::Loggable
+
     desc "[STEP 1 of 'prepare'] Extract the individual xml files into <datadir>/xml/"
 
     argument :zipfile, required: true, desc: "The path to the zipfile (downloaded from Box)"
@@ -19,8 +20,17 @@ module MedInstaller
       default: Dromedary::Services[:build_directory],
       desc: "The build directory. XML files will be put in <build_directory>/xml"
 
-    # The In_progress zip file is composed of other zip files and the DTDs/css
-    # Take them in turn
+    # Extracts MED XML files from a nested zip archive into a build directory.
+    #
+    # The top-level zip contains per-letter entry zips (+MED_<letter>.zip+),
+    # a links zip (+LINKS_done.zip+), and DTD/CSS files. Each sub-zip is
+    # extracted into its own subdirectory under +<build_directory>/xml/+.
+    #
+    # @param zipfile [String, Pathname] path to the top-level zip from Box
+    # @param build_directory [String, Pathname] destination; XML files go in
+    #   +<build_directory>/xml/+
+    # @return [void]
+    # @raise [ArgumentError] if +zipfile+ does not exist or is not readable
     def call(zipfile:, build_directory:)
       xmldir = Pathname.new(build_directory) + "xml"
       if xmldir.exist?
@@ -61,6 +71,12 @@ module MedInstaller
 
     private
 
+    # Extracts the +LINKS_done.zip+ sub-archive into +<datapath>/links/+.
+    # @param basename [String] filename of the links zip
+    # @param datapath [Pathname] destination XML directory
+    # @param zpath [Pathname] temp directory for intermediate extraction
+    # @param entry [Zip::Entry] the zip entry to extract from
+    # @return [void]
     def extract_links(basename, datapath, zpath, entry)
       zdest = (zpath + basename).to_s
       entry.extract(zdest)
@@ -70,6 +86,13 @@ module MedInstaller
       extract_into(data_sub_dir, zdest)
     end
 
+    # Extracts a per-letter entry zip into +<datapath>/<letter_dir_name>/+.
+    # @param basename [String] filename of the letter zip (e.g. +MED_A.zip+)
+    # @param datapath [Pathname] destination XML directory
+    # @param entry [Zip::Entry] the zip entry to extract from
+    # @param letter_dir_name [String] subdirectory name derived from the letter (e.g. +"A"+)
+    # @param zpath [Pathname] temp directory for intermediate extraction
+    # @return [void]
     def extract_entries(basename, datapath, entry, letter_dir_name, zpath)
       zdest = (zpath + basename).to_s
       entry.extract(zdest)
@@ -79,6 +102,10 @@ module MedInstaller
       extract_into(data_sub_dir, zdest)
     end
 
+    # Extracts all entries from a zip file into +data_sub_dir+.
+    # @param data_sub_dir [Pathname] destination directory
+    # @param zdest [String] path to the zip file to extract
+    # @return [void]
     def extract_into(data_sub_dir, zdest)
       Zip::File.open(zdest) do |inner_zip|
         inner_zip.each do |e|

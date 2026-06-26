@@ -1,0 +1,41 @@
+{
+  "nodes": [
+    {
+      "id": "service:.dockerignore",
+      "type": "service",
+      "name": ".dockerignore",
+      "filePath": ".dockerignore",
+      "summary": "Project infra file in unknown.",
+      "tags": [
+        "infra",
+        "unknown"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:docker-compose.alt",
+      "type": "service",
+      "name": "docker-compose.alt",
+      "filePath": "docker-compose.alt",
+      "summary": "Project infra file in alt.",
+      "tags": [
+        "infra",
+        "alt"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "service:Dockerfile",
+      "type": "service",
+      "name": "Dockerfile",
+      "filePath": "Dockerfile",
+      "summary": "Project infra file in dockerfile.",
+      "tags": [
+        "infra",
+        "dockerfile"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": []
+}

@@ -1,10 +1,10 @@
-<% doc_presenter = index_presenter(@document) %>
+<% doc_presenter = document_presenter(@document) %>
 <% ent = doc_presenter.entry %>
 
 <% if ent.oedlinks or ent.doelinks %>
-  <div class="panel panel-default">
-    <h3 class="panel-heading">Related Dictionary Entries</h3>
-    <div class="panel-body">
+  <div class="card">
+    <h2 class="card-header">Related Dictionary Entries</h2>
+    <div class="card-body">
 
       <% if ent.oedlinks %>
         <div class="related-link-subhead">Oxford English Dictionary</div>
@@ -43,9 +43,9 @@
 <% language_mapping = doc_presenter.language_mapping %>
 
 <% if !language_mapping.empty? %>
-  <div class="panel panel-default">
-    <h3 class="panel-heading">Language abbreviation key</h3>
-    <div class="panel-body language-map">
+  <div class="card">
+    <h3 class="card-header">Language abbreviation key</h3>
+    <div class="card-body language-map">
       <dl>
         <% language_mapping.keys.sort.each do |abbr| %>
             <dt><%= abbr %></dt>

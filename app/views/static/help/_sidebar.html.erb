@@ -1,18 +1,24 @@
+<%#
+  Sidebar nav for the help section. The <li> matching the current page gets
+  the `current` class (and its link gets aria-current="page"). This reuses the
+  established `.sidebars ul li.current` convention, which draws a full-height
+  vertical bar flush at the row's left edge (border on the <li>, outside its
+  padding) with the bold label padded to its usual position.
+%>
+<% help_link = ->(href, text) {
+     on_page = current_page?(href)
+     link = tag.a(text, href: href, "aria-current": ("page" if on_page))
+     tag.li(link, class: ("current" if on_page))
+   } %>
 <div id="help_sidebar" class="<%= sidebar_classes %> help-sbar">
   <div class="sidebars">
     <ul class="help-ul">
-      <li>
-        <a href="<%= help_root_path %>"><%= t('views.static.help.general-heading') %></a>
-      </li>
-      <li><a href="<%= help_path('dictionary')%>">Dictionary searches</a></li>
-      <li><a href="<%= help_path('bibliography')%>">Bibliography searches</a></li>
-      <li><a href="<%= help_path('quotations')%>">Quotation searches</a></li>
-      <li>
-        <a href="<%= help_path('special_characters')%>"><%= t('views.static.help.special-characters-heading') %></a>
-      </li>
-      <li>
-        <a href="<%= help_path('extended')%>"><%= t('views.static.help.operators-heading') %></a>
-      </li>
+      <%= help_link.call(help_root_path, t('views.static.help.general-heading')) %>
+      <%= help_link.call(help_path('dictionary'), 'Dictionary searches') %>
+      <%= help_link.call(help_path('bibliography'), 'Bibliography searches') %>
+      <%= help_link.call(help_path('quotations'), 'Quotation searches') %>
+      <%= help_link.call(help_path('special_characters'), t('views.static.help.special-characters-heading')) %>
+      <%= help_link.call(help_path('extended'), t('views.static.help.operators-heading')) %>
     </ul>
   </div>
 </div>

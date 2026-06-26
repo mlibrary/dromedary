@@ -1,26 +1,23 @@
-// $navbar-bgcolor: #00274C;
+// Bootstrap 5 variable overrides
+// These are imported before @import 'blacklight-frontend/stylesheets/blacklight'
+// Bootstrap uses these Sass variables internally to generate CSS custom properties.
+
 $navbar-bgcolor: #F2F2F2;
 $footer-bgcolor: #00274C;
 $header-bgcolor: #00274C;
 $body-bgcolor: #F2F2F2;
 
-$image-viewer-bgcolor: #333; // #323333;
-$home-site-search-bgcolor:  #333;
-$index-site-search-bgcolor:  #e5e5e5;
+$image-viewer-bgcolor: #333;
+$home-site-search-bgcolor: #333;
+$index-site-search-bgcolor: #e5e5e5;
 
-// $brand-primary: red;
-
-$text-color:            #4a4a4a !default; // $gray-dark !default;
-$btn-default-color:     #333333 !default;
+// Bootstrap 5 overrides:
+$font-size-base: 14px;
+$body-color: #4a4a4a;
 
 $body-bg: $body-bgcolor;
 $link-color: #126dc1;
-$link-active-color: #0c5292;
-$link-focus-color: rgb(94, 158, 214);
+$link-hover-color: #0c5292;
 
-$padding-base-vertical: 9px;
-$padding-base-horizontal: 16px;
-
-// $sys-font-family: $base-fonts;
-
-$highlight-color: rgba(5, 166, 86, 0.36);
+$input-btn-padding-y: 9px;
+$input-btn-padding-x: 16px;

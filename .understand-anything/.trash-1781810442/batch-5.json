@@ -1,0 +1,137 @@
+{
+  "nodes": [
+    {
+      "id": "service:Dockerfile.prod",
+      "type": "service",
+      "name": "Dockerfile.prod",
+      "filePath": "Dockerfile.prod",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:NESTIVE_REMOVAL_SUMMARY.md",
+      "type": "document",
+      "name": "NESTIVE_REMOVAL_SUMMARY.md",
+      "filePath": "NESTIVE_REMOVAL_SUMMARY.md",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "README.md",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:README_2023_Sept_Pause.md",
+      "type": "document",
+      "name": "README_2023_Sept_Pause.md",
+      "filePath": "README_2023_Sept_Pause.md",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "service:compose.yml",
+      "type": "service",
+      "name": "compose.yml",
+      "filePath": "compose.yml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:index_data.sh",
+      "type": "file",
+      "name": "index_data.sh",
+      "filePath": "index_data.sh",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:install_err.txt",
+      "type": "document",
+      "name": "install_err.txt",
+      "filePath": "install_err.txt",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:install_out.txt",
+      "type": "document",
+      "name": "install_out.txt",
+      "filePath": "install_out.txt",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:next_steps.md",
+      "type": "document",
+      "name": "next_steps.md",
+      "filePath": "next_steps.md",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "package.json",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:prometheus.yml",
+      "type": "config",
+      "name": "prometheus.yml",
+      "filePath": "prometheus.yml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr-helm-values.yml",
+      "type": "config",
+      "name": "solr-helm-values.yml",
+      "filePath": "solr-helm-values.yml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

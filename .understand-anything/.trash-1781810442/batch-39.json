@@ -1,0 +1,280 @@
+{
+  "nodes": [
+    {
+      "id": "file:config/initializers/cookies_serializer.rb",
+      "type": "file",
+      "name": "cookies_serializer.rb",
+      "filePath": "config/initializers/cookies_serializer.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:config/initializers/explain_partials.rb",
+      "type": "file",
+      "name": "explain_partials.rb",
+      "filePath": "config/initializers/explain_partials.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:config/initializers/explicit_proxy_host.rb",
+      "type": "file",
+      "name": "explicit_proxy_host.rb",
+      "filePath": "config/initializers/explicit_proxy_host.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:config/initializers/filter_parameter_logging.rb",
+      "type": "file",
+      "name": "filter_parameter_logging.rb",
+      "filePath": "config/initializers/filter_parameter_logging.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:config/initializers/inflections.rb",
+      "type": "file",
+      "name": "inflections.rb",
+      "filePath": "config/initializers/inflections.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:config/initializers/mime_types.rb",
+      "type": "file",
+      "name": "mime_types.rb",
+      "filePath": "config/initializers/mime_types.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:config/initializers/new_framework_defaults_7_0.rb",
+      "type": "file",
+      "name": "new_framework_defaults_7_0.rb",
+      "filePath": "config/initializers/new_framework_defaults_7_0.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:config/initializers/new_framework_defaults_7_1.rb",
+      "type": "file",
+      "name": "new_framework_defaults_7_1.rb",
+      "filePath": "config/initializers/new_framework_defaults_7_1.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:config/initializers/new_framework_defaults_7_2.rb",
+      "type": "file",
+      "name": "new_framework_defaults_7_2.rb",
+      "filePath": "config/initializers/new_framework_defaults_7_2.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:config/initializers/new_framework_defaults_8_0.rb",
+      "type": "file",
+      "name": "new_framework_defaults_8_0.rb",
+      "filePath": "config/initializers/new_framework_defaults_8_0.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:config/initializers/new_framework_defaults_8_1.rb",
+      "type": "file",
+      "name": "new_framework_defaults_8_1.rb",
+      "filePath": "config/initializers/new_framework_defaults_8_1.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:config/initializers/okcomputer.rb",
+      "type": "file",
+      "name": "okcomputer.rb",
+      "filePath": "config/initializers/okcomputer.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:config/initializers/permissions_policy.rb",
+      "type": "file",
+      "name": "permissions_policy.rb",
+      "filePath": "config/initializers/permissions_policy.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:config/initializers/routes_proxy_script_name_fix.rb",
+      "type": "file",
+      "name": "routes_proxy_script_name_fix.rb",
+      "filePath": "config/initializers/routes_proxy_script_name_fix.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:config/initializers/simple_form_bootstrap.rb",
+      "type": "file",
+      "name": "simple_form_bootstrap.rb",
+      "filePath": "config/initializers/simple_form_bootstrap.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:config/initializers/simple_form.rb",
+      "type": "file",
+      "name": "simple_form.rb",
+      "filePath": "config/initializers/simple_form.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:config/initializers/wrap_parameters.rb",
+      "type": "file",
+      "name": "wrap_parameters.rb",
+      "filePath": "config/initializers/wrap_parameters.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:config/load_local_config.rb",
+      "type": "file",
+      "name": "load_local_config.rb",
+      "filePath": "config/load_local_config.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:config/puma.rb",
+      "type": "file",
+      "name": "puma.rb",
+      "filePath": "config/puma.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:config/routes.rb",
+      "type": "file",
+      "name": "routes.rb",
+      "filePath": "config/routes.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:data.Dockerfile",
+      "type": "file",
+      "name": "data.Dockerfile",
+      "filePath": "data.Dockerfile",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:data/.keep",
+      "type": "file",
+      "name": ".keep",
+      "filePath": "data/.keep",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:db/migrate/20171202170006_create_searches.blacklight.rb",
+      "type": "file",
+      "name": "20171202170006_create_searches.blacklight.rb",
+      "filePath": "db/migrate/20171202170006_create_searches.blacklight.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:db/migrate/20171202170007_create_bookmarks.blacklight.rb",
+      "type": "file",
+      "name": "20171202170007_create_bookmarks.blacklight.rb",
+      "filePath": "db/migrate/20171202170007_create_bookmarks.blacklight.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:db/migrate/20171202170008_add_polymorphic_type_to_bookmarks.blacklight.rb",
+      "type": "file",
+      "name": "20171202170008_add_polymorphic_type_to_bookmarks.blacklight.rb",
+      "filePath": "db/migrate/20171202170008_add_polymorphic_type_to_bookmarks.blacklight.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

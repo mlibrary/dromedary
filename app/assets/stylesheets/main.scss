@@ -1,7 +1,12 @@
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700');
+/* Source Sans Pro is loaded via a <link> in the layout <head> (see
+   app/views/layouts/application.html.erb). A CSS @import here is ignored:
+   the asset pipeline bundles this file mid-stream, and @import is only
+   honored at the very top of a stylesheet. */
 
-$u-m-blue: #00274c;
-$u-m-yellow: #ffcb05;
+:root {
+  --u-m-blue: #00274c;
+  --u-m-yellow: #ffcb05;
+}
 
 /** Base Styles **/
 
@@ -23,9 +28,10 @@ a {
 
 html,
 body {
-  font-size: 16px;
   font-family: "Source Sans Pro", Helvetica, sans-serif;
 }
+// Inherit mlib-styles responsive sizing (16px base, 19px at >= 42rem) to
+// match the original layout's rem-based container widths and type scale.
 
 /** Utilities **/
 
@@ -35,14 +41,70 @@ body {
 
 /** Header **/
 
+.skip-links {
+  background: #00274c;
+  padding: 12px;
+  margin: 0 auto;
+}
+
+.skip-links .viewport-container {
+    width: 100%;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--viewport-margin);
+    padding-right: var(--viewport-margin);
+}
+
+.skip-links ul {
+  padding-left: 0;
+  margin-left: 0;
+  list-style: none;
+}
+
+.skip-links ul li {
+  margin: 16px 0;
+  text-align: center;
+  padding-left: 0;
+}
+
+.skip-links a {
+  color: #fff;
+  padding: 8px;
+}
+
+.skip-links a:visited {
+   color: #fff;
+}
+
+.skip-links:not(:focus-within) {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+#main-content:focus, #footer:focus {
+  outline: none;
+}
+#main-content:focus-visible, #footer:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-maize-400), 0 0 0 3px var(--color-neutral-400);
+}
+
 .navbar-inverse {
-  background-color: $u-m-blue;
+  background-color: var(--u-m-blue);
   border: 0;
 }
 
 #header-navbar {
   margin: 0;
   padding: 0;
+  // Bootstrap 5 sets .navbar { display: flex }, which pulls the secondary
+  // nav up into the blue bar. Restore Bootstrap 3 block stacking so the
+  // secondary nav renders as a full-width strip below the title.
+  display: block;
 }
 
 .site-header {
@@ -63,6 +125,9 @@ body {
 }
 
 .container.container--full.site-header-container {
+  // Header rows are constrained/centered by the base .container (60rem)
+  // now that .container--full no longer sets max-width:none. Only the
+  // header-specific vertical padding belongs here.
   padding: .35em 0;
 }
 
@@ -79,8 +144,8 @@ body {
 }
 
 #user-util-collapse a:focus {
-  border: 2px solid $u-m-yellow;
-  background-color: $u-m-blue;
+  border: 2px solid var(--u-m-yellow);
+  background-color: var(--u-m-blue);
 }
 
 #user-util-collapse a:hover {
@@ -121,6 +186,15 @@ ul.header-nav-secondary li:hover {
 
 .never-ever-gonna-happen {
   color: black;
+}
+
+// Splash banner is full-bleed; cancel Blacklight's default `main`
+// vertical padding so the banner butts against the nav (matches orig,
+// which has no <main> wrapper). Scoped to the full-bleed banner landing
+// pages (splash + dictionary/bib/quote home).
+.blacklight-catalog-splash #main-content,
+.blacklight-catalog-home #main-content {
+  padding-block: 0;
 }
 
 .splash-banner {
@@ -172,8 +246,7 @@ ul.header-nav-secondary li:hover {
   }
 
   .splash-text--caption {
-    font-size: .55em;
-    text-align: right;
+    font-size: .75em;
     padding: 2em 0;
   }
 
@@ -251,7 +324,9 @@ ul.header-nav-secondary li:hover {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    min-height: 100% li {
+    min-height: 100%;
+
+    li {
       width: 50%;
       flex: 0 0 50%;
     }
@@ -279,6 +354,23 @@ ul.header-nav-secondary li:hover {
   background-color: #f2f2f2;
   padding: 2.5em 0;
   margin: 0;
+
+  // Orig (Bootstrap 3) floats .col-sm-4 so the three detail columns sit in a
+  // row. This port's grid is flex-based and needs a flex parent; the
+  // .col-sm-12.padding0 wrapper is display:block, so the columns stacked.
+  // Restore the row by making the wrapper a wrapping flex container.
+  .col-sm-12.padding0 {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  // The flexed wrapper above isn't a BS5 `.row`, so the column children never
+  // receive Bootstrap's gutter padding (orig BS3 gave `.col-sm-4` a 0 15px
+  // gutter). Restore it so the three detail columns have breathing room and
+  // align to the container gutter instead of butting against the edge.
+  .col-sm-4 {
+    padding: 0 15px;
+  }
 }
 
 .nav-detail--heading {
@@ -311,11 +403,6 @@ ul.header-nav-secondary li:hover {
   a {
     color: #fff;
   }
-
-  .tt-suggestion {
-    color: #000;
-    text-shadow: none;
-  }
 }
 
 .banner-text a:visited {
@@ -344,11 +431,63 @@ ul.header-nav-secondary li:hover {
 }
 
 .banner-text--caption {
-  float: right;
   font-size: .55em;
+  text-align: left;
+}
+
+.banner-text--caption a:hover {
+  color: #A7CDDB;
+}
+
+// Hide native browser search clear button that appears in type="search" inputs.
+// BL9/the autocomplete component changed input type from "text" to "search"; ORIG
+// hid these via appearance:none rules in normalize, which BS5 lacks.
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 /** Header panel search bar **/
+
+.input-group > .search-autocomplete-wrapper.form-control {
+  border: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  display: flex;
+  flex: 1 1 auto;
+  height: auto;
+}
+
+.search-autocomplete-wrapper ul.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1050;
+  width: 100%;
+  // The popup inherits a `text-shadow: 1px 1px #000` from the banner/home bar,
+  // which makes the suggestion text look doubled/blurry. Reset it (the keyboard
+  // dropdown already does the same) and use an opaque white menu background.
+  background-color: #fff;
+  text-shadow: none;
+
+  li[role="option"] {
+    cursor: pointer;
+
+    a {
+      display: block;
+      padding: 0.25rem 0.5rem;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    &:hover,
+    &[aria-selected="true"] {
+      background-color: var(--u-m-blue, #00274c);
+      color: #fff;
+    }
+  }
+}
 
 .search-bar--header {
   background-color: #E6F3FF;
@@ -357,68 +496,70 @@ ul.header-nav-secondary li:hover {
   box-shadow: inset 0 -2px 0 0 #CCE6FF;
 
   .input-group {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
     flex-direction: row;
+    align-items: stretch;
+    // Orig used justify-content: space-evenly on a .search-input-group wrapper,
+    // giving ~7.5px gaps between elements. Set an explicit 8px gap here (BS5's
+    // .input-group applies margin-left:-1px to non-first children, making the
+    // visual gap ~7px -- close to orig). Also neutralise that negative margin so
+    // the gap is the full 8px and borders don't overlap on rounded elements.
+    gap: 8px;
+    > * { margin-left: 0 !important; }
   }
 
-  .search-input-group {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    width: 100%;
-  }
-
-  .input-group-addon {
-    width: 90%;
-    margin: 0;
-    padding: 0;
-    font-size: 16px;
-    font-weight: normal;
-    line-height: 1;
-    text-align: center;
-    background-color: #E6F3FF;
+  .search-autocomplete-wrapper.form-control {
+    flex: 1;
+    min-width: 0;
     border: none;
-    height: 40px;
+    background: transparent;
+    padding: 0;
   }
 
-  .twitter-typeahead {
-    width: 75%;
-  }
-
-  select#search_field, .form-control {
-    height: 40px;
-    padding: 9px 16px;
-    line-height: 1.5;
+  select.form-select {
+    flex: 0 0 auto;       // don't grow; size to content
+    align-self: stretch;  // fill the input-group height
+    width: auto;
+    padding: 9px 2.25rem 9px 16px; // 2.25rem right = BS5 indicator clearance
+    font-size: 16px;      // match orig (16px); 19px body inherit clipped descenders
+    line-height: 1.2;     // 16px × 1.2 = 19.2px fits the 20px content box, no clip
     color: #555555;
     background-color: #fff;
-    background-image: none;
     border: 1px solid #ccc;
     border-radius: 4px;
   }
 
   .form-control {
+    height: 40px;
+    padding: 9px 16px;
+    line-height: 1.5;
+    color: #555555;
+    background-color: #fff;
     border: 1px solid #ccc;
-    border-radius: 4px !important;
+    border-radius: 4px;
+  }
+
+  // Keep border width stable (1px) on focus; show emphasis as a box-shadow
+  // ring so clicking the field doesn't reflow the row below (see fix 8).
+  .form-control:focus {
+    border-color: var(--u-m-yellow);
+    box-shadow: 0 0 0 2px var(--u-m-yellow);
+    outline: none;
   }
 
   button#search {
     border-radius: 4px;
     padding: 4px 12px;
     height: 40px;
+    // BS3 .btn was the 14px base; BS5 .btn inherits the responsive 19px body
+    // size, oversizing the "Search" label. Re-anchor to ~0.8 of the responsive
+    // root (rem) so the button stays ~80% of base across the 16px/19px scale
+    // (the 1.25em label below tracks it).
+    font-size: 0.8rem;
   }
 
   .submit-search-text {
     font-size: 1.25em;
-  }
-
-  .form-control:focus {
-    border: 3px solid $u-m-yellow;
   }
 }
 
@@ -441,73 +582,81 @@ ul.header-nav-secondary li:hover {
   }
 
   .input-group {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
     flex-direction: row;
+    align-items: stretch;
+    gap: 8px;
+    > * { margin-left: 0 !important; }
   }
 
-  .search-input-group {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    width: 100%;
+  .search-autocomplete-wrapper.form-control {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    background: transparent;
+    padding: 0;
+  }
+
+  select.form-select {
+    height: 40px;
+    padding: 9px 36px 9px 16px;
+    line-height: 1.5;
+    // Match orig: dropdown text is 16px (not 19px body) and the select sizes
+    // to its content instead of flex-stretching to ~456px. Extra right
+    // padding leaves room for the BS5 caret so the longer default label
+    // ("Headword (with alternate spellings)") doesn't run under it.
+    font-size: 16px;
+    flex: 0 0 auto;
+    width: auto;
+    color: #555555;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
   }
 
   .form-control {
-    border: 1px solid #ccc;
-    border-radius: 4px !important;
-  }
-
-  .twitter-typeahead {
-    width: 70%;
-  }
-
-  .input-group-addon {
-    margin: 0;
-    padding: 0;
-    font-size: 16px;
-    font-weight: normal;
-    line-height: 1;
-    text-align: center;
-    background-color: #333;
-    border: none;
     height: 40px;
+    padding: 9px 16px;
+    line-height: 1.5;
+    color: #555555;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .form-control:focus {
+    // Keep the border WIDTH unchanged on focus. Changing 1px -> 3px reflowed
+    // the search row and pushed the content below down ~6px. Render the yellow
+    // focus emphasis as an outline-style box-shadow ring instead (no layout
+    // shift), and keep the border-color change for the same visual cue.
+    border-color: var(--u-m-yellow);
+    box-shadow: 0 0 0 2px var(--u-m-yellow);
+    outline: none;
   }
 
   button#search {
     border-radius: 4px;
     padding: 4px 12px;
     height: 40px;
+    // BS3 .btn was the 14px base; BS5 .btn inherits the responsive 19px body
+    // size, oversizing the "Search" label. Re-anchor to ~0.8 of the responsive
+    // root (rem) so the button stays ~80% of base across the 16px/19px scale
+    // (the 1.25em label below tracks it).
+    font-size: 0.8rem;
   }
 
   .submit-search-text {
     font-size: 1.25em;
   }
 
-  select#search_field, .form-control {
-    height: 40px;
-    padding: 9px 16px;
-    line-height: 1.5;
-    color: #555555;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-
-  .form-control:focus {
-    border: 3px solid $u-m-yellow;
-  }
-
   ul.keyboard-list {
     color: #000;
     text-shadow: none;
   }
+}
+
+input#q::placeholder {
+  color: #555555;
 }
 
 .search-btn {
@@ -523,14 +672,31 @@ ul.header-nav-secondary li:hover {
   padding-bottom: 0;
   background-color: #fff;
   border: 1px solid #ccc;
+  // BS3 .btn was the 14px base; BS5 inherits the responsive 19px body size,
+  // which enlarges the em-sized dropdown-toggle caret and widens this icon
+  // button. Anchor to ~0.8 of the responsive root (rem) to match orig's scale.
+  font-size: 0.8rem;
+  // Match the explicit 40px row height used by all other search-bar elements.
+  // Without this, the BS5 .btn natural height (~39px at 0.8rem/19px base)
+  // is slightly shorter than button#search (40px), making the Search button
+  // appear taller.
+  height: 40px;
 
   &:focus {
-    border: 2px solid $u-m-yellow;
+    // No reflow on focus (was 1px -> 2px border). Keep width, add a yellow ring.
+    border-color: var(--u-m-yellow);
+    box-shadow: 0 0 0 2px var(--u-m-yellow);
+    outline: none;
   }
 }
 
 .keyboard {
   div.dropdown-menu {
+    // Re-anchor the special-character popup to the ~0.8rem button scale (orig).
+    // BS5's .dropdown-menu sets --bs-dropdown-font-size: 1rem (19px), which made
+    // the 1.35em list items render at 25.65px. Override the component var so the
+    // popup tracks the responsive root instead of the full body size.
+    --bs-dropdown-font-size: 0.8rem;
     padding: .5em;
   }
 
@@ -560,42 +726,50 @@ ul.header-nav-secondary li:hover {
   }
 
   .input-group {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
     flex-direction: row;
+    align-items: stretch;
+    gap: 8px;
+    > * { margin-left: 0 !important; }
   }
 
-  .search-input-group {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    width: 100%
+  .search-autocomplete-wrapper.form-control {
+    flex: 1;
+    min-width: 0;
+    border: 1px solid #ccc !important;
+    border-radius: 4px;
+    background: transparent;
+    padding: 0;
+  }
+
+  select.form-select {
+    flex: 0 0 auto;       // don't grow; size to content (orig was ~165px)
+    align-self: stretch;  // fill the input-group height
+    width: auto;
+    height: 40px;
+    padding: 9px 2.25rem 9px 16px; // 2.25rem right = BS5 indicator clearance
+    font-size: 16px;      // match orig (16px)
+    line-height: 1.2;
+    color: #555555;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
   }
 
   .form-control {
-    border: 1px solid #ccc;
-    border-radius: 4px !important;
-  }
-
-  .twitter-typeahead {
-    width: 70%;
-  }
-
-  .input-group-addon {
-    margin: 0;
-    padding: 0;
-    font-size: 16px;
-    font-weight: normal;
-    line-height: 1;
-    text-align: center;
-    background-color: #fafafa;
-    border: none;
     height: 40px;
+    padding: 9px 16px;
+    line-height: 1.5;
+    color: #555555;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .form-control:focus {
+    border-color: var(--u-m-yellow);
+    box-shadow: 0 0 0 2px var(--u-m-yellow);
+    outline: none;
   }
 
   button#search {
@@ -603,26 +777,12 @@ ul.header-nav-secondary li:hover {
     padding: 4px 35px;
     height: 40px;
   }
-
-  .submit-search-text {
-    font-size: 1.25em;
-  }
-
-  select#search_field, .form-control {
-    height: 40px;
-    padding: 9px 16px;
-    line-height: 1.5;
-    color: #555555;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-
-  .form-control:focus {
-    border: 3px solid $u-m-yellow;
-  }
 }
+
+.search-bar--light-bg button#search:focus {
+    outline: 3px solid #ffcb05;
+    outline-offset: 0; 
+  }
 
 /** Home Page for Bib + Quotations **/
 
@@ -807,6 +967,13 @@ div.zero-results {
 
 .documents-list {
   margin-bottom: 2em;
+
+  // BL9 spaces each result with `--bl-results-document-{margin,padding}-top: 2em`
+  // (38px at this font size), making every entry far taller/more padded than the
+  // orig. Orig used a tight 9px top margin + padding. Override the BL9 theming
+  // hooks rather than the rule itself so flex layout + border-bottom stay intact.
+  --bl-results-document-margin-top: 0.5rem;
+  --bl-results-document-padding-top: 0.5rem;
 }
 
 #sortAndPerPage {
@@ -815,10 +982,50 @@ div.zero-results {
   background-color: #FAFAFA;
   border-radius: 4px;
   margin-bottom: 0;
+  // Orig kept pagination + chip + sort/per-page on a single row. BL9 wraps the
+  // pager in <nav class="paginate-section"> (block) and tags the widgets with
+  // the BS4 `.float-right`/`.pull-right` classes that no longer float in BS5,
+  // so each piece dropped onto its own line. Use flex to recompose one row.
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 
-  .page_links {
+  // Pager: shrink to its content instead of spanning the full width.
+  .paginate-section {
+    display: inline-block;
+    width: auto;
+  }
+
+  .page_links,
+  .page-links {
     font-size: .78em;
     font-weight: bold;
+    display: inline-block;
+    padding: 9px 16px 9px 0;
+  }
+
+  // BS5 dropped .pull-right/.float-right; push the sort/per-page group right.
+  .search-widgets {
+    float: none;
+    display: flex;
+    align-items: center;
+    gap: .25rem;
+    margin-left: auto;
+  }
+
+  .search-term-filter {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  // Orig sort/per-page buttons: white background, blue text, ~14px (not BS5's
+  // gray btn-secondary). Re-skin the toolbar dropdown toggles to match.
+  .search-widgets .btn.dropdown-toggle {
+    background-color: #fff;
+    color: #126DC1;
+    border: 1px solid #ccc;
+    font-size: .78em;
+    padding: 9px 16px;
   }
 }
 
@@ -857,6 +1064,12 @@ div.flash {
 }
 
 .index_title.document-title-heading {
+  padding: 0 1em;
+  // BL9 dropped the small base the result heading used to have, so it inherited
+  // the full body size and the headword (1.75em) / pos (1.5em) rendered too large.
+  // Use a relative base (~0.75em of body) so the title block stays proportionally
+  // smaller and scales with the user's browser font-size on every device.
+  font-size: 0.75em;
 
   a {
     font-size: 1.75em;
@@ -883,6 +1096,11 @@ div.flash {
   background-color: #fff;
   border-radius: 0;
   margin: 0;
+  // Orig had no padding on the entry panel: the inner .definition-block carries
+  // its own padding, and the title carries its own (.index_title padding: 0 1em).
+  // A panel padding here double-insets both, so the gray definition block stops
+  // short of the card edges. Drop it to let the inner blocks span full width.
+  padding: 0;
 }
 
 .index-definition-tag,
@@ -950,64 +1168,130 @@ div.flash {
 
 /** Constraints, Facets + Sidebars **/
 
-#sidebar #appliedParams {
-  margin-top: 0;
-  background-color: #FAFAFA !important;
-  border: 1px solid #ddd;
-  margin-bottom: 2px;
+// BL9 renders Blacklight::ConstraintsComponent (#appliedParams) which always
+// emits a "Your selections:" label + a Start Over button. Orig (BL8) showed
+// only a bare inline chip in the content toolbar (the .search-term-filter span
+// next to pagination). We moved the render there and strip the BL9 chrome so
+// the result matches orig: just the green "a x" chip inline by the pager.
+.search-term-filter #appliedParams {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 !important; // override BL9's mb-2 so the chip centers in the row
+  padding: 0;
+  background-color: transparent;
+  border: 0;
 
-  .constraints-label {
-    font-weight: 600;
-    font-size: 1.15em;
-    padding-bottom: .5em;
-  }
-
-  .query {
+  // Hide BL9's "Your selections:" heading and Start Over button (orig had none).
+  .constraints-label,
+  #startOverLink,
+  .start-over,
+  a.btn.catalog_startOverLink {
     display: none;
   }
-
-  .btn-group.appliedFilter.constraint.query {
-    padding-bottom: .25em;
-  }
-
-  .btn.btn-default.btn-sm.remove.dropdown-toggle {
-    float: right;
-  }
-
-  #startOverLink {
-    background-color: #fafafa;
-    border: none;
-    box-shadow: none;
-    color: #333333;
-    font-size: .85em;
-    font-weight: normal !important;
-    text-decoration: underline;
-    margin-top: 5px;
-  }
-
-  .btn-group.appliedFilter.constraint.filter {
-    padding-bottom: .25em;
-  }
-
 }
 
-#sidebar #appliedParams .constraint-value {
-  background-color: #E2F4EB !important;
-  color: #044E2A;
-  border: 1px solid #057C42;
-  display: inline;
-  white-space: normal;
+// In the sidebar, hide the query constraint (it's shown inline in the toolbar).
+// Show facet constraints with "Current Filters" heading and Start Over.
+#sidebar #appliedParams {
+  .constraint.query {
+    display: none;
+  }
+  // Show the heading and Start Over in sidebar context
+  .constraints-label,
+  .start-over {
+    display: block;
+  }
 }
 
-#sidebar #appliedParams a.dropdown-toggle {
-  background-color: #E2F4EB !important;
+// Quotations search has no facets, so the orig page had no sidebar panel at
+// all. BL9 still renders a "Current Filters" + Start Over constraints panel
+// (the query chip is shown inline in the toolbar instead). Hide the spurious
+// sidebar panel on quotes pages so the empty sidebar matches the orig blueprint.
+.blacklight-quotes #sidebar .constraints-container {
+  display: none;
+}
+
+// On document show pages BL9 renders a page-header constraints block
+// (#appliedParams with Start Over + Back to Search buttons) that did not
+// exist in BL8. Orig has no such block -- hide it entirely.
+.show-document #appliedParams {
+  display: none;
+}
+
+// Orig chip: white background, dark text, thin gray border, 12px, compact.
+.search-term-filter #appliedParams .constraint-value {
+  background-color: #fff !important;
+  color: #333;
+  border: 1px solid #ccc;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  line-height: 1;
+  padding: 5px 10px;
+  white-space: nowrap;
+}
+
+// Center the search term text + its remove icon inside the chip.
+.search-term-filter #appliedParams .filter-value,
+.search-term-filter #appliedParams .filterValue {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+}
+
+.search-term-filter #appliedParams a.remove {
+  background-color: transparent !important;
   border: 0;
-  padding: 0 !important;
+  padding: 0 0 0 6px !important;
   margin: 0;
+  color: #044E2A;
+
+  // BL9 ships an SVG x-icon; size it to match orig's small glyph.
+  svg {
+    width: 12px;
+    height: 12px;
+  }
 }
 
-#sidebar #appliedParams .constraint-value .filterName::after {
+.search-term-filter #appliedParams .constraint-value .filterName::after {
   color: #044E2A;
+}
+
+// BL9 renders the search-type -> term separator as an oversized, thin
+// bootstrap-icons chevron mask. Match the small solid right-caret used by the
+// facet accordion headings (.facet-field-heading .accordion-button.collapsed)
+// instead: a CSS border triangle, #4A4A4A, no webfont required.
+.search-term-filter .applied-filter .constraint-value .filter-name::after {
+  content: "";
+  width: 0;
+  height: 0;
+  background: none;
+  mask-image: none;
+  -webkit-mask-image: none;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 5px solid #4A4A4A;
+  margin-left: 6px;
+  margin-right: 6px;
+  vertical-align: middle;
+  transition: none;
+}
+
+#sidebar .card {
+  padding: 0;
+  // $spacer:2em inflates card padding to 38px; reset to BS5-default-scale
+  // values that approximate orig's panel padding (10px/15px).
+  --bs-card-cap-padding-y: 0.5rem;   // ~9.5px  (orig: 10px)
+  --bs-card-cap-padding-x: 0.75rem;  // ~14px   (orig: 15px)
+  --bs-card-spacer-y: 0.75rem;       // ~14px   (orig: 15px)
+  --bs-card-spacer-x: 0.75rem;       // ~14px   (orig: 15px)
+  // BS5.3 sets $card-bg to $body-bg (#F2F2F2 here), so cards render gray;
+  // orig panels were white. Restore white card fill.
+  --bs-card-bg: #fff;
+  // Orig BS3 panels had a 20px bottom margin; BS5 cards have none, so the two
+  // sidebar cards rendered flush/merged. Restore the inter-card gap.
+  margin-bottom: 20px;
 }
 
 .glyphicon.glyphicon-remove {
@@ -1023,15 +1307,20 @@ span.filterValue {
   padding-right: .5em;
 }
 
-.top-panel-heading.panel-heading {
+.top-panel-heading.panel-heading,
+.facets-header {
   background-color: #FAFAFA;
   border: 1px solid #ddd;
   margin-bottom: 2px;
+  padding: .75rem 1rem;
 
   h2.facets-heading {
+    // BL9 adds the Bootstrap `.h4` utility (28.5px) to this heading; reset to
+    // match orig's panel heading (19px / 1em) regardless of that utility.
     font-size: 1em;
     font-weight: 600;
     color: #333;
+    margin: 0;
   }
 }
 
@@ -1040,6 +1329,60 @@ span.filterValue {
   text-decoration: none;
   font-weight: 600;
   font-size: 1.1em;
+}
+
+// BL9 renders facet headings as a BS5 accordion: `.facet-field-heading >
+// button.accordion-button`. The default accordion button is oversized
+// (62px tall), uses blue link text, and carries a thick chevron icon that
+// rotates up when expanded. Orig (BL8) was a compact 48px gray panel heading
+// with dark text and a small static down-caret. Re-skin to match orig.
+.facet-field-heading .accordion-button {
+  background-color: #FAFAFA;
+  color: #4A4A4A;
+  font-size: 1em;
+  font-weight: 600;
+  padding: 10px 15px;
+  box-shadow: none;
+  border-bottom: 1px solid #ddd;
+
+  // Replace BS5's SVG chevron with orig's small caret. Orig points the caret
+  // down when the facet is open and right when it is closed.
+  &::after {
+    width: 0;
+    height: 0;
+    margin-left: auto;
+    background-image: none;
+    border: 0;
+    transition: none;
+    transform: none;
+  }
+  // Expanded (open): down-pointing caret.
+  &:not(.collapsed)::after {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid #4A4A4A;
+    transform: none;
+  }
+  // Collapsed (closed): right-pointing caret.
+  &.collapsed::after {
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-left: 5px solid #4A4A4A;
+    transform: none;
+  }
+}
+
+// BL9 accordion items use $body-bg (#f2f2f2) and --bs-body-color (#4a4a4a)
+// via CSS variables. Restore white background + dark body text matching orig's
+// panel-default appearance.
+.accordion-item.facet-limit {
+  --bs-accordion-bg: #fff;
+  background-color: #fff;
+  margin-top: 2px;
+
+  .accordion-body {
+    color: rgb(38, 38, 38);
+  }
 }
 
 .panel-body.facet-panel,
@@ -1070,11 +1413,46 @@ span.filterValue {
   padding-left: 0;
 }
 
+// BL9 adds per-entry vertical padding (--bl-facet-value-padding-y: 0.2rem)
+// on each .facet-values li. Orig rendered facet rows with the table model
+// and zero vertical padding (tight). Zero it to match orig spacing.
+.facet-values li {
+  --bl-facet-value-padding-y: 0;
+  padding-block: 0;
+}
+
 .panel-group .panel + .panel {
   margin-top: 2px;
 }
 
 /** Entry Page Dictionary/Bib **/
+
+.appliedFilter .remove:hover {
+  background-color: #A7CDDB;
+}
+
+// BL9 constraint chips: restyle btn-outline-secondary -> btn-default btn-sm (match BL6)
+.applied-filter.constraint,
+.search-term-filter .applied-filter {
+  .btn {
+    font-size: 12px;
+    padding: 5px 10px;
+    background-color: #fff;
+    border-color: #ccc;
+    color: #333;
+    line-height: 1.5;
+
+    &:hover {
+      background-color: #e6e6e6;
+      border-color: #adadad;
+      color: #333;
+    }
+  }
+}
+
+.pagination > .disabled > span, .pagination > .disabled > span:hover, .pagination > .disabled > span:focus, .pagination > .disabled > a, .pagination > .disabled > a:hover, .pagination > .disabled > a:focus {
+ color: #686868;
+}
 
 .pagination-search-widgets {
   border: none;
@@ -1271,7 +1649,7 @@ span.filterValue {
   }
 
   .quote-toggles a {
-    text-decoration: none;
+    text-decoration: underline;
   }
 
   a.hide-all-button,
@@ -1280,6 +1658,7 @@ span.filterValue {
     font-weight: 600;
     padding: .25em;
     font-size: 1.15em;
+    text-decoration: underline;
 
     &:focus {
       outline: none;
@@ -1290,6 +1669,11 @@ span.filterValue {
   .entry-supplement table {
     border-radius: 4px;
     border: 1px solid #ccc;
+    // Bootstrap 5 zebra striping via table CSS variables.
+    // Even rows use the base bg; odd rows use the lighter stripe.
+    --bs-table-bg: #f2f2f2;
+    --bs-table-striped-bg: #f9f9f9;
+    --bs-table-striped-color: inherit;
   }
 
   .supplements-all {
@@ -1317,10 +1701,8 @@ span.filterValue {
     }
   }
 
-  .entry-info tr,
-  .entry-supplement tr {
-    background-color: #f2f2f2;
-  }
+  // Row background is handled by Bootstrap 5 table CSS variables
+  // (--bs-table-bg / --bs-table-striped-bg) declared on the table above.
 
   .entry-supplement td {
     color: #6E6E6E;
@@ -1340,13 +1722,12 @@ span.filterValue {
 table.table.table-striped,
 tbody > tr,
 tbody > tr > td,
-.table-responsive,
-{
+.table-responsive {
   border: 1px solid transparent !important;
 }
 
 table.table.table-striped,
-.table-responsive, {
+.table-responsive {
   border-radius: 5px;
   margin-bottom: 2em;
 }
@@ -1424,6 +1805,22 @@ body.blacklight-static,
   background-color: #f2f2f2;
   color: #333;
   line-height: 1.5;
+}
+
+body.blacklight-static > main {
+  margin-top: 30px;
+}
+
+caption {
+  color: #777;
+}
+
+table caption {
+  color: #777;
+  padding-top: 0.75em;
+  font-size: 0.85em;
+  font-style: italic;
+  text-align: left;
 }
 
 #about_sidebar,
@@ -1518,12 +1915,36 @@ body.blacklight-static,
     width: inherit;
     text-decoration: none;
     font-size: 1.1em;
+
+    // Suppress the transient browser focus outline that flashes on a mouse
+    // click (before the page reloads). Keyboard focus keeps its outline via
+    // :focus-visible, so accessibility is preserved.
+    &:focus:not(:focus-visible) {
+      outline: none;
+    }
   }
 }
 
 div.help-container {
 
   margin-top: 2em;
+
+  // BS5: grid columns only lay out horizontally inside a flex `.row`.
+  // The help layout nests the sidebar + main `.col-*` inside a plain
+  // <div> (BS3 relied on column floats, which BS5 dropped). Make that
+  // wrapper a flex row so the columns sit side-by-side, and wrap so the
+  // mobile `.col-12` widths stack as before.
+  > div {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  // Gutter between the sidebar column and the white content card.
+  // Applied as right padding on the sidebar col (border-box keeps it 25%,
+  // so no flex wrap); the content card stays flush to the column edge.
+  .help-sbar {
+    padding-right: 1.5em;
+  }
 
   ul.help-enum {
     list-style-type: disc;
@@ -1562,16 +1983,6 @@ div.help-container {
   table th {
     font-weight: bold;
   }
-}
-
-// Weird search box doubling -- try to make one disappear
-
-.q.tt-input {
-  color: #666666;
-}
-
-.q.tt-hint {
-  color: transparent;
 }
 
 .sidebars ul {
@@ -1614,7 +2025,7 @@ ul.about-list {
 
 .footer {
   width: 100%;
-  padding: 1rem 0;
+  padding: 1rem 0 0 0;
 }
 
 .footer-subfooter {
@@ -1624,7 +2035,7 @@ ul.about-list {
 }
 
 .footer--dark {
-  background-color: $u-m-blue;
+  background-color: var(--u-m-blue);
 }
 
 .footer--light {
@@ -1707,15 +2118,6 @@ ul.about-list {
   .search-bar--home,
   .search-bar--header,
   .search-bar--light-bg {
-    .search-input-group {
-      justify-content: center;
-      padding-top: .25em;
-    }
-
-    .twitter-typeahead {
-      width: 60%;
-    }
-
     .input-group {
       display: block;
     }
@@ -1723,9 +2125,16 @@ ul.about-list {
     select#search_field {
       width: 98%;
     }
+
+    // Bootstrap 5 sets width:1% on .input-group > .form-control so it can
+    // flex-grow. When .input-group becomes display:block, width:1% sticks
+    // and collapses the autocomplete wrapper to near-zero. Override here.
+    .search-autocomplete-wrapper {
+      width: 98%;
+    }
   }
 
-  .input-group-addon.for-search-field {
+  .input-group-text.for-search-field {
     width: 100%;
     display: -webkit-box;
     display: -webkit-flex;
@@ -1762,17 +2171,9 @@ ul.about-list {
   .search-bar--home,
   .search-bar--header,
   .search-bar--light-bg {
-    .search-input-group {
-      width: 80%;
-      justify-content: flex-start;
-    }
-
-    .input-group-addon.for-search-field {
-      justify-content: flex-start;
-    }
-
-    .twitter-typeahead {
-      width: 70%;
+    // Same Bootstrap 5 width:1% fix for the sub-768px breakpoint.
+    .search-autocomplete-wrapper {
+      width: 98%;
     }
 
     button#search {
@@ -1780,6 +2181,10 @@ ul.about-list {
       padding: 4px 20px;
       height: 40px;
     }
+  }
+
+  .input-group-text.for-search-field {
+    justify-content: flex-start;
   }
 
   #about_sidebar,

@@ -1,0 +1,460 @@
+<!-- BEGIN app/views/layouts/blacklight.html.erb
+--><!-- BEGIN app/views/layouts/application.html.erb
+--><!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <!-- Mobile viewport optimization h5bp.com/ad -->
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+    <!-- Internet Explorer use the highest version available -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Mobile IE allows us to activate ClearType technology for smoothing fonts for easy reading -->
+    <!--[if IEMobile]>
+      <meta http-equiv="cleartype" content="on">
+    <![endif]-->
+    <!-- <title>MiddleEnglishDictionary</title> -->
+    <title>Entire entry: balteren - Middle English Compendium Search Results</title>
+
+    <meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="o2Nq2xZ12UKY3_dizr0chKMZzI8JhlDvx9Hx5hJk5PBKAL10C3l8MsZIBunYf8DREFsHYVcgmbDtgz0ZsmlhJg" />
+
+    <link rel="stylesheet" href="/m/middle-english-dictionary/assets/application.debug-ca34ea110be3872a456abf51b92e853fc900bf1a6e081164f11d89c760df93e4.css" media="all" />
+    <script src="/m/middle-english-dictionary/assets/application.debug-197301faf6d64c33b9dadc6b565d6ba497abcc6fccd437f93aa2dd9b4c6debdc.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@github/auto-complete-element@3.6.2/+esm"></script>
+      <!-- BEGIN /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/views/catalog/_opensearch_response_metadata.html.erb
+--><meta name="totalResults" content="1" />
+<meta name="startIndex" content="0" />
+<meta name="itemsPerPage" content="20" />
+<!-- END /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/views/catalog/_opensearch_response_metadata.html.erb -->
+  <link rel="alternate" type="application/rss+xml" title="RSS for results" href="/m/middle-english-dictionary/dictionary.rss?q=balteren&amp;search_field=anywhere" />
+  <link rel="alternate" type="application/atom+xml" title="Atom for results" href="/m/middle-english-dictionary/dictionary.atom?q=balteren&amp;search_field=anywhere" />
+  <link rel="alternate" type="application/json" title="JSON" href="/m/middle-english-dictionary/dictionary.json?q=balteren&amp;search_field=anywhere" />
+
+
+    <!-- BEGIN app/views/static/_google_analytics.html.erb
+--><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-43730774-3"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-43730774-3');
+</script>
+<!-- END app/views/static/_google_analytics.html.erb -->
+
+  </head>
+    
+  <body class="blacklight-catalog blacklight-catalog-index" >
+
+      <!-- BEGIN app/views/shared/_header_navbar.html.erb
+--><div role="navigation" class="skip-links" aria-label="Skip links">
+  <div class="viewport-container">
+    <ul>
+      <li><a href="#main-content">Skip to main content</a></li>
+      <li><a href="#footer">Skip to footer content</a></li>
+    </ul>
+  </div>
+</div>
+<header class="site-header">
+  <div id="header-navbar" class="navbar navbar-inverse navbar-static-top" role="navigation">
+
+    <div class="container container--full site-header-container">
+      <div class="site-title-container">
+        <a href="/m/middle-english-dictionary/" class="site-link site-title-flex"><img class="site-logo" src="https://apps.lib.umich.edu/falafel/v0/graphics/mlib_square__transparent.svg" alt="University of Michigan"><span class="site-title">Middle English Compendium</span></a>
+      </div>
+    </div>
+
+    <div id="header-navbar-secondary" role="navigation">
+      <div class="container container--full site-header-container">
+            <!-- BEGIN app/views/_secondary_util_links.html.erb
+-->
+
+
+<ul class="header-nav-secondary">
+   <li class="active" aria-current="page"><!-- BEGIN app/views/shared/nav/_med.html.erb
+--><a href="/m/middle-english-dictionary/dictionary">Dictionary</a>
+<!-- END app/views/shared/nav/_med.html.erb --></li>
+   <li ><!-- BEGIN app/views/shared/nav/_bib.html.erb
+--><a href="/m/middle-english-dictionary/bibliography">Bibliography</a>
+<!-- END app/views/shared/nav/_bib.html.erb --></li>
+   <li ><!-- BEGIN app/views/shared/nav/_quotes.html.erb
+--><a href="/m/middle-english-dictionary/quotations">Quotations</a>
+<!-- END app/views/shared/nav/_quotes.html.erb --></li>
+  <li ><!-- BEGIN app/views/shared/nav/_admin.html.erb
+-->
+<a href="/m/middle-english-dictionary/admin">Admin</a>
+<!-- END app/views/shared/nav/_admin.html.erb --></li>
+
+</ul>
+<!-- END app/views/_secondary_util_links.html.erb -->
+      </div>
+    </div>
+
+  </div>
+</header>
+
+
+
+  <div class="search-bar--header">
+      <div id="search-bar" class="container">
+          <!-- BEGIN /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/components/blacklight/search_bar_component.html.erb
+--><search>
+  <form class="search-query-form col-md-12 col-lg-8" action="http://localhost:3000/m/middle-english-dictionary/dictionary" accept-charset="UTF-8" method="get">
+    
+      <label class="visually-hidden" for="search_field">Search in</label>
+    <div class="input-group">
+      
+
+        <select title="Targeted search options" class="form-select search-field" name="search_field" id="search_field"><option selected="selected" value="anywhere">Entire entry</option>
+<option value="hnf">Headword (with alternate spellings)</option>
+<option value="h">Headword (preferred spelling only)</option>
+<option value="notes_and_def">Definition and notes</option>
+<option value="etyma">Etymology</option>
+<option value="citation">Associated quotes and manuscripts</option>
+<option value="oed">Modern English word equivalent</option></select>
+
+      <label class="visually-hidden" for="q">search for</label>
+        <auto-complete src="/m/middle-english-dictionary/dictionary/suggest?base_url=%2Fm%2Fmiddle-english-dictionary%2Fdictionary" for="autocomplete-popup" class="search-autocomplete-wrapper form-control rounded-0">
+          <input value="balteren" placeholder="Search..." class="search-q q form-control rounded-0" aria-label="search for" aria-autocomplete="list" aria-controls="autocomplete-popup" type="search" name="q" id="q" />
+          <ul id="autocomplete-popup" class="dropdown-menu" role="listbox" aria-label="search for" hidden></ul>
+        </auto-complete>
+
+                    <!-- BEGIN app/views/shared/_keyboard_dropdown.html.erb
+--><span class="dropdown keyboard">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <img alt="Drop down menu for special character selection" src="/m/middle-english-dictionary/assets/keyboard-grey-2ef7575840adde36d447e14469126fc393e644f57edf164e8bacac36188f8dfb.svg" />
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <ul class="keyboard-list">
+      <li><a href="#" class="keyboard-char dropdown-item" data-char="þ" role="button">Þ þ (thorn)</a></li>
+      <li><a href="#" class="keyboard-char dropdown-item" data-char="ð" role="button">Ð ð (eth)</a></li>
+      <li><a href="#" class="keyboard-char dropdown-item" data-char="ʒ" role="button">Ʒ ʒ (yogh)</a></li>
+      <li><a href="#" class="keyboard-char dropdown-item" data-char="æ" role="button">Æ æ (ash)</a></li>
+    </ul>
+  </div>
+</span>
+<!-- END app/views/shared/_keyboard_dropdown.html.erb -->
+
+      <button class="btn btn-primary search-btn" type="submit" id="search" aria-label="Search"><span class="d-none d-md-inline me-sm-1 submit-search-text" aria-hidden="true">Search</span><span class="blacklight-icons blacklight-icons-search"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24">
+  <path fill="none" d="M0 0h24v24H0V0z"/><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+</svg>
+</span></button>
+    </div>
+</form>
+</search>
+<!-- END /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/components/blacklight/search_bar_component.html.erb -->      </div>
+  </div>
+<!-- END app/views/shared/_header_navbar.html.erb -->
+
+
+    <main id="main-content" tabindex="-1">
+        
+  <div class="container">
+
+      <div class="row">
+        <div class="col-md-9 offset-md-3 col-sm-8 offset-sm-4 col-12">
+          <h1>    <span class="visually-hidden">Search Results</span>
+</h1>
+        </div>
+      </div>
+
+    <div class="row">
+      <!-- BEGIN app/views/catalog/index.html.erb
+-->
+
+
+
+<div id="sidebar" class="col-lg-3 col-md-4 col-12">
+  <!-- BEGIN app/views/catalog/_constraints.html.erb
+-->  <!-- BEGIN /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/components/blacklight/constraints_component.html.erb
+--><div id="appliedParams" class="clearfix constraints-container mb-2 align-items-center">
+  <h2 class="constraints-label h6 mb-0">Your selections:</h2>
+
+    <!-- BEGIN /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/components/blacklight/constraint_layout_component.html.erb
+--><span class="btn-group applied-filter constraint query">
+  <span class="constraint-value btn btn-outline-secondary">
+      <span class="filter-name">Entire entry</span>
+      <span class="filter-value" title="balteren">balteren</span>
+  </span>
+  <a class="btn btn-outline-secondary remove" href="/m/middle-english-dictionary/dictionary?search_field=anywhere"><span class="blacklight-icons blacklight-icons-remove" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+  <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+</svg>
+</span><span class="visually-hidden">Remove constraint Entire entry: balteren</span></a>
+</span>
+<!-- END /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/components/blacklight/constraint_layout_component.html.erb -->
+
+    
+
+
+  <a class="catalog_startOverLink btn btn-primary" href="/m/middle-english-dictionary/dictionary">Start Over</a>
+</div><!-- END /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/components/blacklight/constraints_component.html.erb -->
+<!-- END app/views/catalog/_constraints.html.erb -->
+  <!-- BEGIN /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/views/catalog/_search_sidebar.html.erb
+--><!-- BEGIN /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/components/blacklight/search/sidebar_component.html.erb
+--><search>
+    <!-- BEGIN /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/components/blacklight/response/facet_group_component.html.erb
+--><div id="facets" class="facets sidenav facets-toggleable-md">
+  <div class="facets-header">
+    <h2 class="facets-heading h4">Limit your search</h2>
+
+    <!-- BEGIN /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/components/blacklight/response/facet_toggle_button_component.html.erb
+--><button class="btn btn-outline-secondary facet-toggle-button d-block d-lg-none" type="button" data-toggle="collapse" data-target="#facet-panel-collapse" data-bs-toggle="collapse" data-bs-target="#facet-panel-collapse" aria-controls="facet-panel-collapse" aria-expanded="false">
+  <span data-show-label>Show facets</span>
+  <span data-hide-label>Hide facets</span>
+</button><!-- END /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/components/blacklight/response/facet_toggle_button_component.html.erb -->
+  </div>
+
+  <div id="facet-panel-collapse" class="facets-collapse d-lg-block collapse accordion">
+            <!-- BEGIN /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/components/blacklight/facets/list_component.html.erb
+--><!-- BEGIN /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/components/blacklight/facets/field_component.html.erb
+--><div class="accordion-item facet-limit blacklight-pos ">
+  <h3 class="accordion-header p-0 facet-field-heading h6" id="facet-pos-header">
+    <button
+      type="button"
+      class="btn accordion-button "
+      data-bs-toggle="collapse"
+      data-bs-target="#facet-pos"
+      aria-expanded="true"
+      aria-controls="facet-pos"
+    >
+          Part of Speech
+
+    </button>
+  </h3>
+  <div id="facet-pos" role="region" aria-labelledby="facet-pos-header" class="panel-collapse facet-content collapse show">
+    <div class="accordion-body">
+          
+    <ul class="facet-values list-unstyled">
+      <li><span class="facet-label"><a class="facet-select" rel="nofollow" href="/m/middle-english-dictionary/dictionary?f%5Bpos%5D%5B%5D=verb&amp;q=balteren&amp;search_field=anywhere">verb</a></span><span class="facet-count">1</span></li>
+</ul>
+
+    </div>
+  </div>
+</div>
+<!-- END /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/components/blacklight/facets/field_component.html.erb --><!-- END /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/components/blacklight/facets/list_component.html.erb --><!-- BEGIN /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/components/blacklight/facets/list_component.html.erb
+--><!-- BEGIN /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/components/blacklight/facets/field_component.html.erb
+--><div class="accordion-item facet-limit blacklight-etyma_language ">
+  <h3 class="accordion-header p-0 facet-field-heading h6" id="facet-etyma_language-header">
+    <button
+      type="button"
+      class="btn accordion-button "
+      data-bs-toggle="collapse"
+      data-bs-target="#facet-etyma_language"
+      aria-expanded="true"
+      aria-controls="facet-etyma_language"
+    >
+          Source Language
+
+    </button>
+  </h3>
+  <div id="facet-etyma_language" role="region" aria-labelledby="facet-etyma_language-header" class="panel-collapse facet-content collapse show">
+    <div class="accordion-body">
+          
+    <ul class="facet-values list-unstyled">
+      <li><span class="facet-label"><a class="facet-select" rel="nofollow" href="/m/middle-english-dictionary/dictionary?f%5Betyma_language%5D%5B%5D=Danish&amp;q=balteren&amp;search_field=anywhere">Danish</a></span><span class="facet-count">1</span></li><li><span class="facet-label"><a class="facet-select" rel="nofollow" href="/m/middle-english-dictionary/dictionary?f%5Betyma_language%5D%5B%5D=Modern+English&amp;q=balteren&amp;search_field=anywhere">Modern English</a></span><span class="facet-count">1</span></li><li><span class="facet-label"><a class="facet-select" rel="nofollow" href="/m/middle-english-dictionary/dictionary?f%5Betyma_language%5D%5B%5D=Old+Danish&amp;q=balteren&amp;search_field=anywhere">Old Danish</a></span><span class="facet-count">1</span></li><li><span class="facet-label"><a class="facet-select" rel="nofollow" href="/m/middle-english-dictionary/dictionary?f%5Betyma_language%5D%5B%5D=Old+Norse&amp;q=balteren&amp;search_field=anywhere">Old Norse</a></span><span class="facet-count">1</span></li>
+</ul>
+
+    </div>
+  </div>
+</div>
+<!-- END /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/components/blacklight/facets/field_component.html.erb --><!-- END /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/components/blacklight/facets/list_component.html.erb -->
+
+  </div>
+</div><!-- END /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/components/blacklight/response/facet_group_component.html.erb --></search>
+<!-- END /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/components/blacklight/search/sidebar_component.html.erb --><!-- END /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/views/catalog/_search_sidebar.html.erb -->
+</div>
+
+<div id="content" class="col-lg-9 col-md-8 col-12 activate-highlighting">
+
+    <!-- BEGIN /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/views/catalog/_search_results.html.erb
+-->
+
+
+
+<!-- BEGIN /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/components/blacklight/search_header_component.html.erb
+--><!-- BEGIN /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/views/catalog/_did_you_mean.html.erb
+-->
+<!-- END /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/views/catalog/_did_you_mean.html.erb -->
+<!-- BEGIN app/views/catalog/_sort_and_per_page.html.erb
+--><div id="sortAndPerPage" class="clearfix">
+  <!-- BEGIN /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/views/catalog/_paginate_compact.html.erb
+--><!-- BEGIN /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/components/blacklight/response/pagination_component.html.erb
+--><nav class="paginate-section">
+  <!-- BEGIN /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/views/kaminari/blacklight_compact/_paginator.html.erb
+-->    <div class="page-links">
+      <span class="page-entries">
+        <strong>1</strong> entry found
+      </span>
+    </div> 
+<!-- END /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/views/kaminari/blacklight_compact/_paginator.html.erb -->
+</nav><!-- END /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/components/blacklight/response/pagination_component.html.erb -->
+<!-- END /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/views/catalog/_paginate_compact.html.erb -->
+  <span class="search-term-filter"></span>
+  <span class="search-widgets float-right">
+    <!-- BEGIN app/views/catalog/_sort_widget.html.erb
+--><div id="sort-dropdown" class="btn-group">
+  <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
+      Sort by Relevance <span class="caret"></span>
+  </button>
+
+  <ul class="dropdown-menu" role="menu">
+        <li><a href="/m/middle-english-dictionary/dictionary?q=balteren&amp;search_field=anywhere&amp;sort=score+desc">Relevance</a></li>
+        <li><a href="/m/middle-english-dictionary/dictionary?q=balteren&amp;search_field=anywhere&amp;sort=sequence+asc">Alphabetical</a></li>
+  </ul>
+</div>
+<!-- END app/views/catalog/_sort_widget.html.erb -->
+    <!-- BEGIN app/views/catalog/_per_page_widget.html.erb
+--><!-- BEGIN /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/components/blacklight/search/per_page_component.html.erb
+--><span class="visually-hidden">Number of results to display per page</span>
+<!-- BEGIN /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/components/blacklight/system/dropdown_component.html.erb
+--><div id="per_page-dropdown" class="mx-1 btn-group per_page-dropdown">
+  <button name="button" type="submit" class="btn btn-outline-secondary dropdown-toggle" aria-expanded="false" data-toggle="dropdown" data-bs-toggle="dropdown">20<span class="visually-hidden"> per page</span><span class="d-none d-sm-inline"> per page</span><span class="caret"></span></button>
+
+  <div class="dropdown-menu">
+      <a class="dropdown-item active" aria-current="page" href="/m/middle-english-dictionary/dictionary?per_page=20&amp;q=balteren&amp;search_field=anywhere">20<span class="visually-hidden"> per page</span></a>
+      <a class="dropdown-item " href="/m/middle-english-dictionary/dictionary?per_page=100&amp;q=balteren&amp;search_field=anywhere">100<span class="visually-hidden"> per page</span></a>
+  </div>
+</div><!-- END /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/components/blacklight/system/dropdown_component.html.erb -->
+<!-- END /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/components/blacklight/search/per_page_component.html.erb -->
+<!-- END app/views/catalog/_per_page_widget.html.erb -->
+    
+  </span>
+
+  <!-- BEGIN app/views/application/_phrase_wildcard.html.erb
+-->
+<!-- END app/views/application/_phrase_wildcard.html.erb -->
+</div>
+<!-- END app/views/catalog/_sort_and_per_page.html.erb --><!-- END /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/components/blacklight/search_header_component.html.erb -->
+
+<h2 class="visually-hidden">Search Results</h2>
+
+  <!-- BEGIN /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/views/catalog/_document_list.html.erb
+--><div id="documents" class="documents-list">
+  <!-- BEGIN /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/components/blacklight/document_component.html.erb
+--><article data-document-id="med3563" data-document-counter="1" itemscope="itemscope" itemtype="http://schema.org/Thing" class="blacklight-entry document document-position-1">
+  
+    <div class="document-main-section">
+      <!-- BEGIN /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/components/blacklight/document_title_component.html.erb
+--><header class="documentHeader row">
+  <h3 class="index_title document-title-heading col h5">
+
+    <span class="document-counter">1. </span><a data-context-href="/m/middle-english-dictionary/dictionary/MED3563/track?counter=1&amp;document_id=MED3563&amp;search_id=56" data-context-method="post" data-turbo-prefetch="false" itemprop="name" href="/m/middle-english-dictionary/dictionary/MED3563">balteren</a>
+</h3>
+    
+</header>
+<!-- END /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/components/blacklight/document_title_component.html.erb -->
+      
+      
+      
+
+        <!-- BEGIN app/views/catalog/_index_header_entry.html.erb
+--><div class="documentHeader row">
+
+
+  <div class="col-md-12">
+    <div class="entry-panel panel">
+
+      <h3 class="index_title document-title-heading col-md-12">
+          <span class="document-counter">
+            2. 
+          </span>
+        <a data-context-href="/m/middle-english-dictionary/dictionary/MED3563/track?counter=2&amp;document_id=MED3563&amp;search_id=56" data-context-method="post" data-turbo-prefetch="false" href="/m/middle-english-dictionary/dictionary/MED3563">balteren</a>
+        <span class="index-pos">v.</span>
+      </h3>
+
+      <div class="search-result def">
+
+        <div class="index-quotes-line">
+          4 quotations in 1 sense
+        </div>
+
+
+        <div class="definition-block">
+            <div class="def-header">Sense / Definition</div>
+            <div class="definition">To move about clumsily; totter, hobble, tumble about.
+<a href="/m/middle-english-dictionary/dictionary/MED3563"><span aria-hidden="true">&#x2026;</span><span class="visually-hidden">Read full entry for balteren</span></a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+
+</div>
+<!-- END app/views/catalog/_index_header_entry.html.erb -->
+    </div>
+
+    
+  
+</article><!-- END /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/components/blacklight/document_component.html.erb -->
+</div>
+<!-- END /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/views/catalog/_document_list.html.erb -->
+
+<!-- BEGIN /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/views/catalog/_results_pagination.html.erb
+--><!-- END /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/views/catalog/_results_pagination.html.erb -->
+<!-- END /gems/ruby/3.3.0/gems/blacklight-9.0.0/app/views/catalog/_search_results.html.erb -->
+</div>
+<!-- END app/views/catalog/index.html.erb -->
+    </div>
+
+  </div>
+
+
+    </main>
+
+    <!-- BEGIN app/views/shared/_footer.html.erb
+--><footer class="footer footer--dark" id="footer" tabindex="-1">
+  <div class="footer-container footer-text--light">
+    <section>
+      <ul>
+        <li class="heading-medium">Middle English Compendium</li>
+        <li><a href="/m/middle-english-dictionary/dictionary">Middle English Dictionary</a></li>
+        <li><a href="/m/middle-english-dictionary/bibliography">Bibliography</a></li>
+        <!--        <li><a href="https://quod.lib.umich.edu/c/cme/" target="_blank">Corpus </a></li>-->
+        <li>
+          <a href="https://quod.lib.umich.edu/c/cme/" target="_blank">Corpus <img alt="Opens in a new window" src="/m/middle-english-dictionary/assets/external-link-white-eb4e18a613e203a417837df3d312184b97209cbfe983a2758152bc669f250c9c.svg" /></a>
+        </li>
+      </ul>
+    </section>
+    <section>
+      <ul>
+        <li class="heading-medium">Help and information</li>
+        <li><a href="/m/middle-english-dictionary/help">Search Help</a></li>
+        <li><a href="/m/middle-english-dictionary/about">About the MEC</a></li>
+      </ul>
+    </section>
+    <section>
+      <ul>
+        <li class="heading-medium">Contact Us</li>
+        <li><a href="https://umich.qualtrics.com/jfe/form/SV_43fHANnBfEOjO4J">Contact Us</a></li>
+        <li><a href="mailto:mec-info@umich.edu">mec-info@umich.edu</a></li>
+      </ul>
+
+    </section>
+  </div>
+<div class="footer-subfooter footer--light">
+  <div class="footer-container">
+    <p class="font-xsmall">©2026  Regents of the University of Michigan.
+      For details about this collection's copyright
+      see the <a href="/m/middle-english-dictionary/about#copyright">MEC copyright statement</a>
+      and the
+      <a href="https://www.lib.umich.edu/library-administration/library-copyright-statement">U-M Library Copyright
+        Policy</a>.
+      Data last refreshed Tuesday, June 2, 2026 at 08:33:00.
+    </p>
+  </div>
+</div>
+</footer>
+
+<!-- END app/views/shared/_footer.html.erb -->
+
+  </body>
+</html>
+<!-- END app/views/layouts/application.html.erb -->
+<!-- END app/views/layouts/blacklight.html.erb -->

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<?xml-stylesheet type="text/css" href="http://www-personal.umich.edu/~pfs/mec/code/med.css"?>
+<!DOCTYPE MED SYSTEM "http://www-personal.umich.edu/~pfs/mec/code/med.xml.dtd">
+<MED>
+<ENTRYFREE ID="MED5829" SEQ="5829">
+<FORM><HDORTH><REG>brand-reth</REG><REG>brandreth</REG><ORIG>brand-reth</ORIG></HDORTH> <POS>n.</POS> Also <ORTH><REG>brand-rith</REG><REG>brandrith</REG><ORIG>brand-rith</ORIG></ORTH>, <ORTH><REG>brand-rath</REG><REG>brandrath</REG><ORIG>-rath</ORIG></ORTH>, <ORTH><REG>brand-ret</REG><REG>brandret</REG><ORIG>-ret</ORIG></ORTH> &amp; <ORTH><REG>brand-let</REG><REG>brandlet</REG><ORIG>-let</ORIG></ORTH>, <ORTH><REG>brand-led</REG><REG>brandled</REG><ORIG>-led</ORIG></ORTH>, <ORTH><REG>brend-let</REG><REG>brendlet</REG><ORIG>brend-let</ORIG></ORTH>, <ORTH><REG>brenled</REG><ORIG>brenled</ORIG></ORTH>.</FORM>
+<ETYM><LANG><LG EXPAN="Old Norse">ON</LG></LANG>: cp. <LANG><LG EXPAN="Old Icelandic">OI</LG></LANG> <HI REND="B">brand-rei&#x00F0;</HI>) &amp; <LANG><LG EXPAN="Old English">OE</LG></LANG> <HI REND="B">brand|r&#x0101;d</HI>, <HI REND="B">-red(a</HI>, <HI REND="B">-rida</HI>.</ETYM>
+<SENSE N="1">
+<DEF>(a) A grate, gridiron, or trivet for supporting cooking utensils above a fire; (b) a gridiron for torture.</DEF>
+<EG N="a">
+<CIT CD="1360"><BIBL><STNCL RID="HYP.475.20011127T144602"><DATE>(1360)</DATE> <TITLE>Invent.Monk-Wear.</TITLE>in <TITLE>Sur.Soc.29</TITLE></STNCL><SCOPE>152</SCOPE></BIBL>
+<Q>In coquina..ij brandreths.</Q></CIT>
+<CIT CD="1400"><BIBL><STNCL RID="HYP.1131.19990304T151115"><DATE>(1400)</DATE> <TITLE>Will York</TITLE> in <TITLE>Sur.Soc.45</TITLE></STNCL><SCOPE>14</SCOPE></BIBL>
+<Q>j brand|ereth cum vj barrez ferri.</Q></CIT>
+<CIT CD="1422"><BIBL><STNCL RID="HYP.477.20011127T144602"><DATE>(c1422)</DATE> <TITLE>Invent.Norwich</TITLE> in <TITLE>Nrf.Archaeol.12</TITLE></STNCL><SCOPE>202</SCOPE></BIBL>
+<Q>ij pothokys, ij brendled, j fleshhok.</Q></CIT>
+<CIT CD="1440"><BIBL><STNCL RID="HYP.934.19981211T105002"><DATE>(1440)</DATE> <TITLE>PParv.</TITLE><MS>Hrl 221</MS></STNCL><SCOPE>47</SCOPE></BIBL>
+<Q>Brandelede [Win: braynloyde]: Tripes.</Q></CIT>
+<CIT MD="1440"><BIBL><STNCL RID="HYP.1558.19981211T105002"><DATE>c1440</DATE> <TITLE>Thrn.Med.Bk.</TITLE><MS>Thrn</MS></STNCL><SCOPE>7/29</SCOPE></BIBL>
+<Q>Tak grene &#x0292;erdis of esche &amp; lay &#x00FE;am ouer a brandrethe &amp; make a fire vnder &#x00FE;am.</Q></CIT>
+<CIT CD="1459"><BIBL><STNCL RID="HYP.71.19990513T124835"><DATE>(1459-60)</DATE> <TITLE>Acc.R.Dur.</TITLE>in <TITLE>Sur.Soc.99</TITLE></STNCL><SCOPE>89</SCOPE></BIBL>
+<Q>It. j magnum Brandreth cum ij costeris, et j parvum Brandreth.</Q></CIT>
+<CIT CD="1465"><BIBL IBID="Y"><STNCL RID="HYP.71.19990513T124835"><DATE>(1465)</DATE> <TITLE>Acc.R.Dur.</TITLE>in <TITLE>Sur.Soc.99</TITLE></STNCL><SCOPE>244</SCOPE></BIBL>
+<Q>Item j brandreth cum iiijor costis ferreis. Item j brandreth rotun|dum.</Q></CIT>
+<CIT CD="1465"><BIBL><STNCL RID="HYP.768.19981211T105002"><DATE>(1465)</DATE> <TITLE>Paston</TITLE></STNCL><SCOPE>4.202</SCOPE></BIBL>
+<Q>ij rakks of yron, ij brendeletts.</Q></CIT>
+<CIT MD="1500"><BIBL><STNCL RID="HYP.256.19981211T105002"><DATE>?a1500</DATE> <TITLE>Lndsb.Nominale</TITLE> <MS>Lndsb</MS></STNCL><SCOPE>769/26</SCOPE></BIBL>
+<Q>Hic tripes: a brenlede.</Q></CIT>
+</EG>
+<EG N="b">
+<CIT MD="1450"><BIBL><STNCL RID="HYP.636.19990304T151115"><DATE>c1450</DATE> <TITLE>St.Eras.</TITLE><MS>Add 36983</MS></STNCL><SCOPE>p.203</SCOPE></BIBL>
+<Q>&#x00DE;e xliii [passion] was brenn|yng on a brandlete bounden &#x00FE;erto.</Q></CIT>
+</EG>
+</SENSE>
+<SENSE N="2">
+<DEF>A wooden framework.</DEF>
+<EG>
+<CIT CD="1421"><BIBL><STNCL RID="HYP.148.20011127T144602"><DATE>(1421)</DATE> <TITLE>Indent.Catterick</TITLE> in <TITLE>Archaeol.J.7</TITLE></STNCL><SCOPE>57</SCOPE></BIBL>
+<Q>Ye branderath|es of ye pilers and of ye landstathes..with..othire tre werke that is nedfull to ya saide brigg.</Q></CIT>
+<CIT MD="1475"><BIBL><STNCL RID="HYP.100.19991101T123123"><DATE>?c1475</DATE> *<TITLE>Cath.Angl.</TITLE><MS>Add 15562</MS></STNCL><SCOPE>17b</SCOPE></BIBL>
+<Q>Brandrethe [vr. brandryth] to sette byggyng on: lora|mentum.</Q></CIT>
+</EG>
+</SENSE>
+<supplement todo="NI">
+<EG>
+<CIT><BIBL><STNCL RID="HYP.397.20011127T144602"><DATE>(1421-2)</DATE> in Salzman <TITLE>Building in Engl.</TITLE></STNCL><SCOPE>498</SCOPE></BIBL>
+<Q>Nich' And his falaws..schall fynd, mak, or gare make apon yair own cost al manere of Tymbirwerke quilke..is nesessar'..to ye saide brigg' yt is to say ye branderethes of ye pilers and of ye landstathes..Ye forsaide Nich'..schall make ridde ye groundes in ye watir ware ye brigg' schall be..And make ye brandereth of ye ta landestathe be laide befor ye fest of ye Inuencion of ye holy Crosse..And ye tothir brandereth..to be laid by ye fest of ye Natiuite of seint John Baptist..And..schall..kepe ye wat' wer' And defend itte fro ye saides Th' John and Rob't to ye tyme ye branderath be laid and yair werke of masoncraft be passed ye danger And ye noiesance of ye same said water.</Q></CIT>
+<NOTE>New forms: Also..<HI REND="B">branderath</HI>; pl. <HI REND="B">branderethes</HI>.</NOTE>
+<NOTE>Quot. belongs to sense 2.</NOTE>
+<NOTE>The "brand-reths" (made of  wood) here refer to cofferdams, enclosures constructed to permit construction work below the waterline on Catterick Bridge (at either end of the bridge and around its piers).</NOTE>
+<NOTE>(Note that the first quot. in sense 2. found in <HI REND="I">The Archaeological Journal</HI> is from this same text, a contemporary copy on parchment of the contract for building Catterick Bridge.)</NOTE>
+</EG>
+<EG>
+<CIT><BIBL><STNCL RID="HYP.474.20011127T144602"><DATE>(1446)</DATE> <TITLE>Invent.Lytham</TITLE> in <TITLE>Chet.n.s.60</TITLE></STNCL><SCOPE>80</SCOPE></BIBL>
+<Q>Domus brac'..j brandereth, j pare tangez, ij wyndoshetes, j Skele, j Shole.</Q></CIT>
+<NOTE>Additional quot.</NOTE>
+<NOTE>Quot. belongs to sense 1.(a).</NOTE>
+</EG>
+<NOTE>The list of variant spellings in the form section is incomplete and needs revision to accord with standards of later volumes of the MED. Provisional revised form section: Also <HI REND="B">brandrethe, bandrith, brandereth, branderath, brandlete, brandelede, brendled, brendlet, brenlede, brainloide</HI>; pl. <HI REND="B">brandreths</HI>, etc. &amp; <HI REND="B">branderethes, branderathes</HI>.--notes per MLL</NOTE>
+</supplement>
+</ENTRYFREE>
+</MED>

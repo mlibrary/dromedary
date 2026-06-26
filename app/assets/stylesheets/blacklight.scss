@@ -1,5 +1,14 @@
-@import 'globals';
+// Bootstrap 5 variable overrides must be imported before blacklight
+// (which imports Bootstrap 5 internally)
 
+$spacer: 2em;
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+
+@import 'globals';
+@import "bootstrap/scss/bootstrap";
 @import 'blacklight/blacklight';
 
 

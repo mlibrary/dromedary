@@ -1,0 +1,71 @@
+{
+  "nodes": [
+    {
+      "id": "config:solr/dromedary/conf/solrconfig_med/entry_searches/citation_search.xml",
+      "type": "config",
+      "name": "citation_search.xml",
+      "filePath": "solr/dromedary/conf/solrconfig_med/entry_searches/citation_search.xml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/dromedary/conf/solrconfig_med/entry_searches/everything_search.xml",
+      "type": "config",
+      "name": "everything_search.xml",
+      "filePath": "solr/dromedary/conf/solrconfig_med/entry_searches/everything_search.xml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/dromedary/conf/solrconfig_med/entry_searches/headword_and_forms_search.xml",
+      "type": "config",
+      "name": "headword_and_forms_search.xml",
+      "filePath": "solr/dromedary/conf/solrconfig_med/entry_searches/headword_and_forms_search.xml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/dromedary/conf/solrconfig_med/entry_searches/headword_only_search.xml",
+      "type": "config",
+      "name": "headword_only_search.xml",
+      "filePath": "solr/dromedary/conf/solrconfig_med/entry_searches/headword_only_search.xml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/dromedary/conf/solrconfig_med/entry_searches/highlighting.xml",
+      "type": "config",
+      "name": "highlighting.xml",
+      "filePath": "solr/dromedary/conf/solrconfig_med/entry_searches/highlighting.xml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/dromedary/conf/solrconfig_med/entry_searches/keyword_defaults.xml",
+      "type": "config",
+      "name": "keyword_defaults.xml",
+      "filePath": "solr/dromedary/conf/solrconfig_med/entry_searches/keyword_defaults.xml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

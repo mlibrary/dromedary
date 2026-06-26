@@ -1,0 +1,280 @@
+{
+  "nodes": [
+    {
+      "id": "file:lib/med_installer/solr.rb",
+      "type": "file",
+      "name": "solr.rb",
+      "filePath": "lib/med_installer/solr.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:lib/my_simple_solr_client.rb",
+      "type": "file",
+      "name": "my_simple_solr_client.rb",
+      "filePath": "lib/my_simple_solr_client.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:lib/serialization/indexable_quote.rb",
+      "type": "file",
+      "name": "indexable_quote.rb",
+      "filePath": "lib/serialization/indexable_quote.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:lib/tasks/.keep",
+      "type": "file",
+      "name": ".keep",
+      "filePath": "lib/tasks/.keep",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/tasks/default.rake",
+      "type": "file",
+      "name": "default.rake",
+      "filePath": "lib/tasks/default.rake",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:log/.keep",
+      "type": "file",
+      "name": ".keep",
+      "filePath": "log/.keep",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:nginx/assets.nginx",
+      "type": "file",
+      "name": "assets.nginx",
+      "filePath": "nginx/assets.nginx",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:plans/StuffToDo.md",
+      "type": "document",
+      "name": "StuffToDo.md",
+      "filePath": "plans/StuffToDo.md",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:plans/upgrade_plan.md",
+      "type": "document",
+      "name": "upgrade_plan.md",
+      "filePath": "plans/upgrade_plan.md",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:public/assets/application-ba935b798802fe8145be93360b1a7799e92c11ddfb1af0c8bd125f78df24d5eb.js",
+      "type": "file",
+      "name": "application-ba935b798802fe8145be93360b1a7799e92c11ddfb1af0c8bd125f78df24d5eb.js",
+      "filePath": "public/assets/application-ba935b798802fe8145be93360b1a7799e92c11ddfb1af0c8bd125f78df24d5eb.js",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:public/assets/application-c27e0089fb2bd805a9b25497abf1592f73ec29b6eccc3b00e268f47afff4aa83.js",
+      "type": "file",
+      "name": "application-c27e0089fb2bd805a9b25497abf1592f73ec29b6eccc3b00e268f47afff4aa83.js",
+      "filePath": "public/assets/application-c27e0089fb2bd805a9b25497abf1592f73ec29b6eccc3b00e268f47afff4aa83.js",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Rakefile",
+      "type": "file",
+      "name": "Rakefile",
+      "filePath": "Rakefile",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:solr.Dockerfile",
+      "type": "file",
+      "name": "solr.Dockerfile",
+      "filePath": "solr.Dockerfile",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:solr/dromedary/conf/lang/en_US.aff",
+      "type": "file",
+      "name": "en_US.aff",
+      "filePath": "solr/dromedary/conf/lang/en_US.aff",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:solr/dromedary/conf/lang/en_US.dic",
+      "type": "file",
+      "name": "en_US.dic",
+      "filePath": "solr/dromedary/conf/lang/en_US.dic",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:solr/dromedary/conf/lang/stopwords_en.txt",
+      "type": "document",
+      "name": "stopwords_en.txt",
+      "filePath": "solr/dromedary/conf/lang/stopwords_en.txt",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:solr/dromedary/conf/solrconfig_med/quote_searches/quote_everything_search.xml",
+      "type": "config",
+      "name": "quote_everything_search.xml",
+      "filePath": "solr/dromedary/conf/solrconfig_med/quote_searches/quote_everything_search.xml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/dromedary/conf/solrconfig_med/quote_searches/quote_quote_search.xml",
+      "type": "config",
+      "name": "quote_quote_search.xml",
+      "filePath": "solr/dromedary/conf/solrconfig_med/quote_searches/quote_quote_search.xml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/solr.xml",
+      "type": "config",
+      "name": "solr.xml",
+      "filePath": "solr/solr.xml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:spec/controllers/admin_controller_spec.rb",
+      "type": "file",
+      "name": "admin_controller_spec.rb",
+      "filePath": "spec/controllers/admin_controller_spec.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:spec/controllers/bibliography_controller_spec.rb",
+      "type": "file",
+      "name": "bibliography_controller_spec.rb",
+      "filePath": "spec/controllers/bibliography_controller_spec.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:spec/controllers/catalog_controller_spec.rb",
+      "type": "file",
+      "name": "catalog_controller_spec.rb",
+      "filePath": "spec/controllers/catalog_controller_spec.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:spec/examples.txt",
+      "type": "document",
+      "name": "examples.txt",
+      "filePath": "spec/examples.txt",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:spec/fixtures/auto_suggest_reference.md",
+      "type": "document",
+      "name": "auto_suggest_reference.md",
+      "filePath": "spec/fixtures/auto_suggest_reference.md",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:spec/models/search_builder_spec.rb",
+      "type": "file",
+      "name": "search_builder_spec.rb",
+      "filePath": "spec/models/search_builder_spec.rb",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "complex"
+    }
+  ],
+  "edges": []
+}

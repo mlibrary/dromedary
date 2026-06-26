@@ -1,4 +1,4 @@
-require_relative "concerns/catalog"
+require_relative "concerns/dromedary/catalog"
 require_relative "../presenters/dromedary/index_presenter"
 
 class CatalogController < ApplicationController
@@ -39,9 +39,13 @@ class CatalogController < ApplicationController
     # add_show_tools_partial(:print)
     config.show.document_actions.delete(:email)
     config.show.document_actions.delete(:sms)
-    ##--------------------------------------------------------
+
+    # BL9 enables advanced search by default; this project does not use it
+    config.advanced_search.enabled = false
+
+    # #--------------------------------------------------------
     # Talking to solr
-    ##--------------------------------------------------------
+    # #--------------------------------------------------------
     #
     ## Default parameters to send to solr for all search-like requests. See also SearchBuilder#processed_parameters
     config.default_solr_params = {
@@ -49,18 +53,18 @@ class CatalogController < ApplicationController
     }
 
     # The "normal" search path as defined as a requestHandler in solrconfig.xml
-    # Often this is 'select'; the Blacklight default is 'search'.
+    # Solr 10 removed handleSelect/qt dispatch, so we must target /search directly.
     # See <requestHandler name="/search".../> in the solrconfig.xml
-    # config.solr_path = 'search'
+    config.solr_path = "search"
 
     # The "document" search handler, for getting a single document
     # See <requestHandler name="/document".../> in the solrconfig.xml
 
     config.document_solr_path = "document"
 
-    ##--------------------------------------------------------
+    # #--------------------------------------------------------
     # Sorting and pagination in the Blacklight UI
-    ##--------------------------------------------------------
+    # #--------------------------------------------------------
 
     # Options for items to show per page, each number in the array represent another option to choose from.
     config.per_page = [20, 100]
@@ -72,9 +76,9 @@ class CatalogController < ApplicationController
     config.add_sort_field "score desc", label: "Relevance"
     config.add_sort_field "sequence asc", label: "Alphabetical"
 
-    ##--------------------------------------------------------
+    # #--------------------------------------------------------
     # The search results (index) page
-    ##--------------------------------------------------------
+    # #--------------------------------------------------------
 
     ## Default parameters to send on single-document requests to Solr.
     # These settings are the Blackligt defaults (see SearchHelper#solr_doc_params) or
@@ -82,6 +86,10 @@ class CatalogController < ApplicationController
 
     # What class should we use to render this?
     blacklight_config.index.document_presenter_class = Dromedary::IndexPresenter
+    blacklight_config.index.document_title_component = nil
+    blacklight_config.index.partials = [:index_header_entry]
+    blacklight_config.show.document_presenter_class = Dromedary::IndexPresenter
+    blacklight_config.show.partials = [:show_default]
 
     # What's the title field for each search result entry?
     config.index.title_field = "headword"
@@ -186,7 +194,6 @@ class CatalogController < ApplicationController
     # This one uses all the defaults set by the solr request handler. Which
     # solr request handler? The one set in config[:default_solr_parameters][:qt],
     # since we aren't specifying it otherwise.
-
 
     ######################### WHAT ARE THE DOLLAR-SIGN VARIABLES??? ############
     # These are sent to solr as the actual string (e.g., solr gets "$everything_qf").
@@ -313,6 +320,7 @@ class CatalogController < ApplicationController
 
     # Autocomplete on multiple fields. See config/autocomplete.yml
     config.autocomplete = ActiveSupport::HashWithIndifferentAccess.new Rails.application.config_for(:autocomplete)
+    config.autocomplete_enabled = true
 
     # Override show to deal with 404
 
@@ -324,6 +332,71 @@ class CatalogController < ApplicationController
 
     def show404(*args)
       render "application/404", layout: "static", status: 404, locals: {args: args, id: params["id"]}
+    end
+
+    # Returns autocomplete suggestions as HTML <li> fragments for BL9's
+    # <auto-complete> web component.
+    #
+    # Overrides Blacklight's default single-endpoint suggest action to support
+    # dromedary's per-search-field Solr suggest handlers. Each search field may
+    # map to a different Solr suggest endpoint and component name via
+    # +config.autocomplete+ (loaded from +config/autocomplete.yml+).
+    #
+    # @param params [ActionController::Parameters] expects:
+    #   - +:search_field+ — key into +blacklight_config.autocomplete+
+    #   - +:q+ — the partial query string typed by the user
+    # @return [void] renders HTML <li> fragments, or empty string on
+    #   missing config or any Solr error
+    def suggest
+      search_field = params[:search_field].presence || "h"
+      autocomplete = blacklight_config.autocomplete
+      cfg = (autocomplete && search_field) ? autocomplete[search_field] : {}
+      cfg ||= {}
+
+      endpoint = cfg["solr_endpoint"] || cfg[:solr_endpoint]
+      component = cfg["search_component_name"] || cfg[:search_component_name]
+      base_url = params[:base_url].presence
+
+      if endpoint && component
+        request_params = {q: params[:q].to_s}
+        begin
+          results = search_service.repository.connection.send_and_receive(endpoint, params: request_params)
+          suggestions = Blacklight::Suggest::Response.new(results, request_params, "suggest", component).suggestions
+          terms = suggestions.map { |s| s["term"] || s[:term] }
+
+          # Look up document IDs for each suggestion term
+          term_to_id = {}
+          if terms.any? && base_url
+            conn = search_service.repository.connection
+            terms.each_slice(10) do |batch|
+              q = batch.map { |t| "\"#{t}\"" }.join(" ")
+              solr_result = conn.send_and_receive("search", params: {
+                q: q, qf: "headword", defType: "edismax",
+                fl: "id,headword", rows: batch.length
+              })
+              (solr_result["response"]["docs"] || []).each do |doc|
+                Array(doc["headword"]).each { |hw| term_to_id[hw] = doc["id"] }
+              end
+            end
+          end
+
+          html = suggestions.map { |s|
+            term = ERB::Util.html_escape(s["term"] || s[:term])
+            doc_id = term_to_id[s["term"] || s[:term]]
+            if doc_id && base_url
+              url = ERB::Util.html_escape("#{base_url}/#{doc_id}")
+              "<li role=\"option\" data-autocomplete-value=\"#{term}\" data-url=\"#{url}\"><a href=\"#{url}\">#{term}</a></li>"
+            else
+              "<li role=\"option\" data-autocomplete-value=\"#{term}\">#{term}</li>"
+            end
+          }.join.html_safe
+          render html: html
+        rescue => _e
+          render html: "".html_safe
+        end
+      else
+        render html: "".html_safe
+      end
     end
   end
 end

@@ -8,6 +8,11 @@ module Dromedary
 
       CACHED_XSL = {}
 
+      # Loads (and in production, caches) an XSLT stylesheet by basename.
+      # In non-production environments the stylesheet is re-read from disk on every call.
+      # @param basename [String] filename of the XSL file (e.g. +"Entry.xsl"+)
+      # @param xdir [Pathname] directory containing the XSL file (default: +indexer/xslt/+)
+      # @return [Nokogiri::XSLT] the compiled XSLT object
       def load_xslt(basename, xdir = DEFAULT_XSL_DIR)
         return CACHED_XSL[basename] if CACHED_XSL[basename]
         xsl = Nokogiri::XSLT(File.open(xdir + basename, "r:utf-8").read)
@@ -45,20 +50,21 @@ module Dromedary
       end
 
       # Given a nokogiri node, turn it into a document (if it isn't already)
-      # and apply the provided xslt transformation
-      # @param [String] xpath The xpath into the entry (root is '/ENTRYFREE')
-      # @param [Nokogiri::XSLT] xslt The XSLT object used to do the transformation
-      # @return [String,nil] The transfored text (usualy html), or nil if the xpath not found
+      # and apply the provided XSLT transformation.
+      # @param node [Nokogiri::XML::Node] the XML node to transform
+      # @param xslt [Nokogiri::XSLT] the XSLT object used to do the transformation
+      # @param params [Array] optional XSLT parameters passed to +apply_to+
+      # @return [String, nil] the transformed text (usually HTML), or +nil+ if +node+ is +nil+
       def xsl_transform_from_node(node, xslt, params = [])
         return nil if node.nil?
         _xml = xslt.apply_to(doc_from_node(node), params)
       end
 
-      # Given an XML snippet or nil, and an xslt object, return
-      # the transformation (or nil if the snippet was nil)
-      # @param [String,nil] xml The raw XML string, or nil
-      # @param [Nokogiri::XSLT] xslt The XSLT object used to do the transformation
-      # @return [String,nil] The transfored text (usualy html), or nil if the xpath not found
+      # Parses a raw XML string and applies the given XSLT transformation to it.
+      # @param xml [String, nil] raw XML string, or +nil+
+      # @param xslt [Nokogiri::XSLT] the XSLT object used to do the transformation
+      # @param params [Array] optional XSLT parameters passed to +apply_to+
+      # @return [String, nil] the transformed text (usually HTML), or +nil+ if +xml+ is +nil+
       def xsl_transform_from_xml(xml, xslt, params = [])
         return nil if xml.nil?
         xsl_transform_from_node(Nokogiri::XML(xml), xslt, params)

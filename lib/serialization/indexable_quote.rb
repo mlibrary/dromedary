@@ -2,18 +2,23 @@ require "annoying_utilities"
 require "middle_english_dictionary"
 
 module Dromedary # standard:disable Lint/Syntax
-  # For quotes, a record is a simple structure
-  #   quote: <string>
-  #   entry_id: "MED..."
-  #   cd: date_of_creation.to_i,
-  #   md: date_of_manuscript.to_i
-  #   date: the actual date string
-  #   quote_html: html of the quote <string>,
-  #   rid: rid for this stencil
-  #   title: title of the stencil
-  #   manuscript_abbrev: manuscript abbreviation thing
-  #   scope: the "scope" (page number-lik things)
-  class IndexableQuote  # standard:disable Lint/Syntax
+  # Flat, indexable representation of a single MED citation (quote + bibliographic metadata).
+  # Built from a {MiddleEnglishDictionary::Entry::Citation} and used to produce
+  # Solr documents during indexing.
+  #
+  # The XSLT transform converts the raw quote XML into HTML at construction time
+  # so it is available as +quote_html+ without further processing.
+  #
+  # Attribute schema (all are read/write via +attr_accessor+):
+  # - +quote+ — plain-text quote string
+  # - +quote_html+ — HTML-rendered quote (via XSLT)
+  # - +entry_id+ — MED entry ID (e.g. +"MED1234"+); aliased as +med_id+
+  # - +cd+ / +md+ — creation date / manuscript date as integers
+  # - +date+ — human-readable date string
+  # - +scope+ — page/folio reference from the bib stencil
+  # - +rid+ / +title+ / +author+ / +ms+ — stencil fields
+  # - +bib_id+, +stencil_author+, +stencil_title+, +dubious+, +citation+, +headword+, +pos+
+  class IndexableQuote
     XSLT = Nokogiri::XSLT(File.read(AnnoyingUtilities::DROMEDARY_ROOT + "indexer" + "xslt" + "Common.xsl"))
 
     attr_accessor :quote, :quote_html, :text,
@@ -29,7 +34,7 @@ module Dromedary # standard:disable Lint/Syntax
 
     alias_method :med_id, :entry_id
 
-    # standard:disable Lint/Syntax
+    # @param citation [MiddleEnglishDictionary::Entry::Citation] the citation to build from
     def initialize(citation:)
       self.quote = citation.quote.text
       self.entry_id = citation.entry_id
@@ -59,6 +64,16 @@ module Dromedary # standard:disable Lint/Syntax
     end
   end
 
+  # Representable::Decorator that serialises an {IndexableQuote} to JSON.
+  #
+  # Maps each declared +property+ to the matching +attr_accessor+ on the
+  # decorated {IndexableQuote} object.  The nested +citation+ property is
+  # delegated to +MiddleEnglishDictionary::Entry::CitationRepresenter+ for
+  # deep serialisation.
+  #
+  # @note +stencil_author+ and +stencil_title+ are set on {IndexableQuote} at
+  #   construction time but are intentionally absent from this representer;
+  #   they duplicate +author+ and +title+ and are not needed in the JSON output.
   class IndexableQuoteRepresenter < Representable::Decorator  # standard:disable Lint/Syntax
     include Representable::JSON
 

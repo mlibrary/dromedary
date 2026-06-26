@@ -1,0 +1,89 @@
+{
+  "nodes": [
+    {
+      "id": "config:solr/dromedary/conf/currency.xml",
+      "type": "config",
+      "name": "currency.xml",
+      "filePath": "solr/dromedary/conf/currency.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:solr/dromedary/conf/default_annotated_solrconfig.xml",
+      "type": "config",
+      "name": "default_annotated_solrconfig.xml",
+      "filePath": "solr/dromedary/conf/default_annotated_solrconfig.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:solr/dromedary/conf/protwords.txt",
+      "type": "document",
+      "name": "protwords.txt",
+      "filePath": "solr/dromedary/conf/protwords.txt",
+      "summary": "Project docs file in txt.",
+      "tags": [
+        "docs",
+        "txt"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:solr/dromedary/conf/schema.xml",
+      "type": "config",
+      "name": "schema.xml",
+      "filePath": "solr/dromedary/conf/schema.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "config:solr/dromedary/conf/solrconfig.xml",
+      "type": "config",
+      "name": "solrconfig.xml",
+      "filePath": "solr/dromedary/conf/solrconfig.xml",
+      "summary": "Project config file in xml.",
+      "tags": [
+        "config",
+        "xml"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:solr/dromedary/conf/stopwords.txt",
+      "type": "document",
+      "name": "stopwords.txt",
+      "filePath": "solr/dromedary/conf/stopwords.txt",
+      "summary": "Project docs file in txt.",
+      "tags": [
+        "docs",
+        "txt"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:solr/dromedary/conf/syn.txt",
+      "type": "document",
+      "name": "syn.txt",
+      "filePath": "solr/dromedary/conf/syn.txt",
+      "summary": "Project docs file in txt.",
+      "tags": [
+        "docs",
+        "txt"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": []
+}

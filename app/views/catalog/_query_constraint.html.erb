@@ -1,0 +1,70 @@
+<%# ==========================================================================
+  Toolbar search-term constraint chip (the removable "filter pill")
+  ==========================================================================
+
+  Renders ONLY the query (search term) constraint chip shown in the results
+  toolbar, e.g.:
+
+      [ Entire entry > women   x ]
+
+  Facet constraints are rendered separately (see catalog/_facet_constraints).
+
+  --------------------------------------------------------------------------
+  WHY THE `label:` LINE LOOKS THE WAY IT DOES  (read before "simplifying")
+  --------------------------------------------------------------------------
+  The chip has two parts:
+    * filter-name  -> the search-field label  ("Entire entry")
+    * filter-value -> the typed query term     ("women")
+
+  Stock Blacklight 9 SUPPRESSES the filter-name whenever the active search
+  field is that controller's DEFAULT search field. The upstream logic lives in
+  Blacklight::ConstraintsComponent#label:
+
+      helpers.label_for_search_field(search_field) \
+        unless helpers.default_search_field?(search_field)
+
+  This app originally mirrored that guard here, which produced a visible
+  regression vs. the pre-migration ("orig", BS3-era Blacklight) site:
+
+    * BibliographyController lists "bib_keyword" (label: "Entire entry") as its
+      FIRST search field and flags no field `default: true`, so bib_keyword
+      becomes the default. A normal bibliography search therefore hit the
+      guard and the label was dropped:
+
+          orig:  [ Entire entry: women   x ]
+          bug:   [ women                 x ]   <-- label missing
+
+    * CatalogController (dictionary) flags "hnf" as `default: true`, and most
+      dictionary searches use a NON-default field (e.g. "h"), so they dodged
+      the guard and looked fine:
+
+          [ Headword (preferred spelling only) > abacus   x ]
+
+  The orig (pre-migration) site ALWAYS showed the search-field label in this
+  chip, including for the default field. That is the blueprint we match. So we
+  DROP the default-field guard and always render the label.
+
+  This is a DOM/data difference (the label text is server-rendered), NOT a CSS
+  problem -- no stylesheet can inject text the server never emitted. The caret
+  separator between label and value is styled via `.filter-name::after` in
+  app/assets/stylesheets and already handles this chip shape.
+
+  NOTE: We fix it HERE (not via a Blacklight::ConstraintsComponent override)
+  because THIS partial is the actual render path for the visible toolbar chip
+  (rendered from catalog/_sort_and_per_page and bibliography/_sort_and_per_page).
+  The full ConstraintsComponent is only used in the sidebar, where the query
+  chip is CSS-hidden -- so patching the component would not affect this chip.
+
+  TO REVERT to stock BL9 behavior, restore the guard:
+      label: default_search_field?(params[:search_field]) ? nil
+               : label_for_search_field(params[:search_field]),
+  ========================================================================== %>
+<% if search_state.query_param.present? %>
+  <%= render Blacklight::ConstraintLayoutComponent.new(
+        search_state: search_state,
+        value: search_state.query_param,
+        label: label_for_search_field(params[:search_field]),
+        remove_path: search_action_path(search_state.remove_query_params),
+        classes: 'query'
+      ) %>
+<% end %>

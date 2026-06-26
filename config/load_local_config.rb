@@ -8,6 +8,7 @@ require "ttl_memoizeable"
 module Dromedary
   class << self
     extend TTLMemoizeable
+
     def logger
       Rails.logger || MedInstaller::Logger::LOGGER
     end
@@ -22,16 +23,15 @@ module Dromedary
     #         root/"environments"/"#{env}.local.yml"
     def config
       return @config unless @config.nil?
-      env = if defined? Rails
+      if defined? Rails
         Rails.env
       elsif %w[production development test].include? ENV["RAILS_ENV"]
         ENV["RAILS_ENV"]
       else
         "development"
-            end
+      end
       @config = Dromedary::Services
     end
-
 
     def hyp_to_bibid
       collection = Dromedary::Services[:solr_current_collection]
@@ -57,16 +57,16 @@ module Dromedary
     end
 
     def compute_collection_creation_date(coll)
-      name  = case coll
-              when String
-                coll
-              when SolrCloud::Collection
-                coll.name
-              else
-                raise "Need a collection or its name"
-              end
+      name = case coll
+      when String
+        coll
+      when SolrCloud::Collection
+        coll.name
+      else
+        raise "Need a collection or its name"
+      end
       m = /(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})\Z/.match(name)
-      Time.new *m[1..5]
+      Time.new(*m[1..5])
     end
   end
 

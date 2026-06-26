@@ -1,0 +1,41 @@
+{
+  "nodes": [
+    {
+      "id": "config:solr/container/security.json",
+      "type": "config",
+      "name": "security.json",
+      "filePath": "solr/container/security.json",
+      "summary": "Project config file in json.",
+      "tags": [
+        "config",
+        "json"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:solr/container/solr_init.sh",
+      "type": "file",
+      "name": "solr_init.sh",
+      "filePath": "solr/container/solr_init.sh",
+      "summary": "Project script file in shell.",
+      "tags": [
+        "script",
+        "shell"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:solr/container/solr_init_test.sh",
+      "type": "file",
+      "name": "solr_init_test.sh",
+      "filePath": "solr/container/solr_init_test.sh",
+      "summary": "Project script file in shell.",
+      "tags": [
+        "script",
+        "shell"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

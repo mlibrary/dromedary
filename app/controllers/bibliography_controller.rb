@@ -1,5 +1,5 @@
-require_relative "concerns/catalog"
-require_relative "../presenters/bibliography/index_presenter"
+require_relative "concerns/dromedary/catalog"
+require_relative "../presenters/dromedary/bib/index_presenter"
 class BibliographyController < ApplicationController
   include Blacklight::Catalog
   include Dromedary::Catalog
@@ -24,6 +24,9 @@ class BibliographyController < ApplicationController
 
     config.navbar.partials.delete(:search_history)
 
+    # BL9 enables advanced search by default; this project does not use it
+    config.advanced_search.enabled = false
+
     # Show page tools items
     # add_show_tools_partial(:print)
     # config.show.document_actions.delete(:email)
@@ -35,6 +38,11 @@ class BibliographyController < ApplicationController
     config.default_solr_params = {
       rows: 100
     }
+
+    # Solr 10 removed qt dispatch; target /bibsearch handler directly
+    config.solr_path = "bibsearch"
+
+    config.autocomplete_enabled = true
 
     # Solr path to the single-document handler
     config.document_solr_path = "bibdoc"
@@ -121,6 +129,10 @@ class BibliographyController < ApplicationController
   # ############################################# #
   #
   blacklight_config.index.document_presenter_class = Dromedary::Bib::IndexPresenter
+    blacklight_config.index.document_title_component = nil
+    blacklight_config.index.partials = [:index_header_bib]
+    blacklight_config.show.document_presenter_class = Dromedary::Bib::IndexPresenter
+    blacklight_config.show.partials = [:show_bib]
 
   # ############################################# #
   #            Allow HYP...IDs to redirect

@@ -1,0 +1,41 @@
+{
+  "nodes": [
+    {
+      "id": "service:kubernetes/pvc-k8s/data-prep-persistentvolumeclaim.yaml",
+      "type": "service",
+      "name": "data-prep-persistentvolumeclaim.yaml",
+      "filePath": "kubernetes/pvc-k8s/data-prep-persistentvolumeclaim.yaml",
+      "summary": "Project infra file in yaml.",
+      "tags": [
+        "infra",
+        "yaml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:kubernetes/pvc-k8s/gem-cache-persistentvolumeclaim.yaml",
+      "type": "service",
+      "name": "gem-cache-persistentvolumeclaim.yaml",
+      "filePath": "kubernetes/pvc-k8s/gem-cache-persistentvolumeclaim.yaml",
+      "summary": "Project infra file in yaml.",
+      "tags": [
+        "infra",
+        "yaml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:kubernetes/pvc-k8s/solr-core-persistentvolumeclaim.yaml",
+      "type": "service",
+      "name": "solr-core-persistentvolumeclaim.yaml",
+      "filePath": "kubernetes/pvc-k8s/solr-core-persistentvolumeclaim.yaml",
+      "summary": "Project infra file in yaml.",
+      "tags": [
+        "infra",
+        "yaml"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

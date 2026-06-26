@@ -10,12 +10,25 @@ require_relative "job_monitoring"
 require_relative "../../config/load_local_config"
 
 module MedInstaller
-  # Start from a zip file and go from there
+  # Monolithic CLI command: extract zip → convert → full index → copy files live.
+  # This is the older "all-in-one" pipeline, predating {IndexingSteps}.
+  # It enables maintenance mode during indexing and restores the site when done.
+  #
+  # @note Metrics calls are commented out; metrics integration is incomplete.
+  # @note Passes incorrect keyword args to {Extract} and {Convert} (uses +datadir+/+source_dir+
+  #   instead of +build_directory+) — this command may be broken. See {Prepare} and
+  #   {IndexNewData} for the current split pipeline.
   class ExtractConvertIndex < Hanami::CLI::Command
     include MedInstaller::Logger
 
     argument :zipfile, required: true, desc: "The path to the zipfile (downloaded from Box)"
 
+    # Run the legacy all-in-one pipeline: extract the zip, convert the XML,
+    # enable maintenance mode, index the data, and copy the generated files
+    # back into the live data directory.
+    #
+    # @param [String, Pathname] zipfile path to the MED zip file to process
+    # @return [void]
     def call(zipfile:)
       # metrics = MiddleEnglishIndexMetrics.new({type: "extract_convert_index_data"})
       build_dir = Pathname.new(Dromedary.config.build_dir).realdirpath

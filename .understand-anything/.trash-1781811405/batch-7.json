@@ -1,0 +1,89 @@
+{
+  "nodes": [
+    {
+      "id": "config:config/autocomplete.yml",
+      "type": "config",
+      "name": "autocomplete.yml",
+      "filePath": "config/autocomplete.yml",
+      "summary": "Project config file in yaml.",
+      "tags": [
+        "config",
+        "yaml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:config/blacklight.yml",
+      "type": "config",
+      "name": "blacklight.yml",
+      "filePath": "config/blacklight.yml",
+      "summary": "Project config file in yaml.",
+      "tags": [
+        "config",
+        "yaml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:config/cable.yml",
+      "type": "config",
+      "name": "cable.yml",
+      "filePath": "config/cable.yml",
+      "summary": "Project config file in yaml.",
+      "tags": [
+        "config",
+        "yaml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:config/database.yml",
+      "type": "config",
+      "name": "database.yml",
+      "filePath": "config/database.yml",
+      "summary": "Project config file in yaml.",
+      "tags": [
+        "config",
+        "yaml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:config/language_abbreviations.yaml",
+      "type": "config",
+      "name": "language_abbreviations.yaml",
+      "filePath": "config/language_abbreviations.yaml",
+      "summary": "Project config file in yaml.",
+      "tags": [
+        "config",
+        "yaml"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:config/sidekiq.yml",
+      "type": "config",
+      "name": "sidekiq.yml",
+      "filePath": "config/sidekiq.yml",
+      "summary": "Project config file in yaml.",
+      "tags": [
+        "config",
+        "yaml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:config/storage.yml",
+      "type": "config",
+      "name": "storage.yml",
+      "filePath": "config/storage.yml",
+      "summary": "Project config file in yaml.",
+      "tags": [
+        "config",
+        "yaml"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

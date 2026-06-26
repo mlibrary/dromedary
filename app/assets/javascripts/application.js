@@ -10,10 +10,10 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require rails-ujs
 //
 // Required by Blacklight
-//= require jquery
+//= require popper
+//= require bootstrap
 //= require blacklight/blacklight
 
 //= require_tree .

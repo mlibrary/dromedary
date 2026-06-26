@@ -1,0 +1,60 @@
+{
+  "nodes": [
+    {
+      "id": "service:kubernetes/remote-k8s/app-deployment.yaml",
+      "type": "service",
+      "name": "app-deployment.yaml",
+      "filePath": "kubernetes/remote-k8s/app-deployment.yaml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "service:kubernetes/remote-k8s/data-cron-job.yaml",
+      "type": "service",
+      "name": "data-cron-job.yaml",
+      "filePath": "kubernetes/remote-k8s/data-cron-job.yaml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:kubernetes/remote-k8s/data-job.yaml",
+      "type": "service",
+      "name": "data-job.yaml",
+      "filePath": "kubernetes/remote-k8s/data-job.yaml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:kubernetes/remote-k8s/proxied-ingress.yaml",
+      "type": "service",
+      "name": "proxied-ingress.yaml",
+      "filePath": "kubernetes/remote-k8s/proxied-ingress.yaml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:kubernetes/remote-k8s/web-ingress.yaml",
+      "type": "service",
+      "name": "web-ingress.yaml",
+      "filePath": "kubernetes/remote-k8s/web-ingress.yaml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<?xml-stylesheet type="text/css" href="http://www-personal.umich.edu/~pfs/mec/code/med.css"?>
+<!DOCTYPE MED SYSTEM
+        "http://www-personal.umich.edu/~pfs/mec/code/med.xml.dtd">
+<MED>
+  <ENTRYFREE ID="MED11111" SEQ="11111">
+    <FORM>
+      <HDORTH>
+        <REG>denuded</REG>
+        <ORIG>d&#x0113;&#x0306;n&#x016B;ded</ORIG>
+      </HDORTH>
+      <POS>v.</POS>
+    </FORM>
+    <NOTE>Cp. <HI REND="B">denudat</HI>.
+    </NOTE>
+    <SENSE>
+      <DEF>Laid bare, uncovered.</DEF>
+      <EG>
+        <CIT MD="1425">
+          <BIBL>
+            <STNCL RID="hyp.227.19991101T123123">
+              <DATE>?a1425</DATE>
+              *<TITLE>Chauliac(1)</TITLE>
+              <MS>NY 12</MS>
+            </STNCL>
+            5a/a
+          </BIBL>
+          <Q>Of a nerue denuded i. bare or naked.</Q>
+        </CIT>
+      </EG>
+    </SENSE>
+  </ENTRYFREE>
+</MED>

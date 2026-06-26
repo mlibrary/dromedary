@@ -1,0 +1,38 @@
+{
+  "nodes": [
+    {
+      "id": "config:config/settings/development.yml",
+      "type": "config",
+      "name": "development.yml",
+      "filePath": "config/settings/development.yml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:config/settings/production.yml",
+      "type": "config",
+      "name": "production.yml",
+      "filePath": "config/settings/production.yml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:config/settings/test.yml",
+      "type": "config",
+      "name": "test.yml",
+      "filePath": "config/settings/test.yml",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

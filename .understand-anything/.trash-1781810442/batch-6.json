@@ -1,0 +1,104 @@
+{
+  "nodes": [
+    {
+      "id": "file:app/assets/stylesheets/_globals.scss",
+      "type": "file",
+      "name": "_globals.scss",
+      "filePath": "app/assets/stylesheets/_globals.scss",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/assets/stylesheets/admin.scss",
+      "type": "file",
+      "name": "admin.scss",
+      "filePath": "app/assets/stylesheets/admin.scss",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/assets/stylesheets/application.scss",
+      "type": "file",
+      "name": "application.scss",
+      "filePath": "app/assets/stylesheets/application.scss",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/assets/stylesheets/bibliography.scss",
+      "type": "file",
+      "name": "bibliography.scss",
+      "filePath": "app/assets/stylesheets/bibliography.scss",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/assets/stylesheets/blacklight.scss",
+      "type": "file",
+      "name": "blacklight.scss",
+      "filePath": "app/assets/stylesheets/blacklight.scss",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/assets/stylesheets/bootstrap-variables.scss",
+      "type": "file",
+      "name": "bootstrap-variables.scss",
+      "filePath": "app/assets/stylesheets/bootstrap-variables.scss",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/assets/stylesheets/dromedary.scss",
+      "type": "file",
+      "name": "dromedary.scss",
+      "filePath": "app/assets/stylesheets/dromedary.scss",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:app/assets/stylesheets/main.scss",
+      "type": "file",
+      "name": "main.scss",
+      "filePath": "app/assets/stylesheets/main.scss",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:app/assets/stylesheets/mlib-styles.css",
+      "type": "file",
+      "name": "mlib-styles.css",
+      "filePath": "app/assets/stylesheets/mlib-styles.css",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "complex"
+    }
+  ],
+  "edges": []
+}

@@ -1,0 +1,41 @@
+{
+  "nodes": [
+    {
+      "id": "config:.pi/mcp.json",
+      "type": "config",
+      "name": "mcp.json",
+      "filePath": ".pi/mcp.json",
+      "summary": "Project config file in json.",
+      "tags": [
+        "config",
+        "json"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "config:.pi/ultra-compress-session.json",
+      "type": "config",
+      "name": "ultra-compress-session.json",
+      "filePath": ".pi/ultra-compress-session.json",
+      "summary": "Project config file in json.",
+      "tags": [
+        "config",
+        "json"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:.pi/ultra-compress.json",
+      "type": "config",
+      "name": "ultra-compress.json",
+      "filePath": ".pi/ultra-compress.json",
+      "summary": "Project config file in json.",
+      "tags": [
+        "config",
+        "json"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

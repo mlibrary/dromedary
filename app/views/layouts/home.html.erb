@@ -1,12 +1,10 @@
-<%= extends :application do %>
-
-    <% replace :header do %>
-        <%#= render partial: 'home_header_navbar' %>
-        <%= render partial: 'shared/header_navbar' %>
-    <% end %>
-
-    <% replace :main do %>
-        <%= yield %>
-    <% end %>
-
+<% content_for :header do %>
+    <%#= render partial: 'home_header_navbar' %>
+    <%= render partial: 'shared/header_navbar' %>
 <% end %>
+
+<% content_for :main do %>
+    <%= yield %>
+<% end %>
+
+<%= render template: "layouts/application" %>

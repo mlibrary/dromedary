@@ -1,20 +1,16 @@
-<%= extends :static do %>
+<% content_for :head do %>
+  <link href="https://releases.transloadit.com/uppy/v4.3.0/uppy.min.css" rel="stylesheet">
+<% end %>
 
-  <%= replace :head do %>
-    <link href="https://releases.transloadit.com/uppy/v4.3.0/uppy.min.css" rel="stylesheet">
-  <% end %>
+<% content_for :main do %>
 
-  <%= replace :main do %>
+  <div class="<%= container_classes %>">
 
-    <div class="<%= container_classes %>">
-
-      <div class="row">
-        <%= yield %>
-      </div>
-
+    <div class="row">
+      <%= yield %>
     </div>
 
-
-  <% end %>
+  </div>
 
 <% end %>
+<%= render template: "layouts/application" %>

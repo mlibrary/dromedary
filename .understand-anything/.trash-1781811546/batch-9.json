@@ -1,0 +1,41 @@
+{
+  "nodes": [
+    {
+      "id": "config:config/settings/development.yml",
+      "type": "config",
+      "name": "development.yml",
+      "filePath": "config/settings/development.yml",
+      "summary": "Project config file in yaml.",
+      "tags": [
+        "config",
+        "yaml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:config/settings/production.yml",
+      "type": "config",
+      "name": "production.yml",
+      "filePath": "config/settings/production.yml",
+      "summary": "Project config file in yaml.",
+      "tags": [
+        "config",
+        "yaml"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:config/settings/test.yml",
+      "type": "config",
+      "name": "test.yml",
+      "filePath": "config/settings/test.yml",
+      "summary": "Project config file in yaml.",
+      "tags": [
+        "config",
+        "yaml"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

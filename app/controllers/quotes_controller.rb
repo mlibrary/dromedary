@@ -1,5 +1,5 @@
-require_relative "concerns/catalog"
-require_relative "../presenters/quotes/index_presenter"
+require_relative "concerns/dromedary/catalog"
+require_relative "../presenters/dromedary/quotes/index_presenter"
 
 class QuotesController < ApplicationController
   include Blacklight::Catalog
@@ -25,6 +25,9 @@ class QuotesController < ApplicationController
 
     config.navbar.partials.delete(:search_history)
 
+    # BL9 enables advanced search by default; this project does not use it
+    config.advanced_search.enabled = false
+
     # Show page tools items
     # add_show_tools_partial(:print)
     # config.show.document_actions.delete(:email)
@@ -33,6 +36,8 @@ class QuotesController < ApplicationController
     # Options for items to show per page, each number in the array represent another option to choose from.
 
     config.per_page = [100, 500]
+    config.solr_path = "quotesearch"
+    config.autocomplete_enabled = true
     config.default_solr_params = {
       rows: 100
     }
@@ -45,8 +50,8 @@ class QuotesController < ApplicationController
       field.qt = "/quotesearch"
       field.solr_local_parameters = {
         type: "edismax",
-        qf: "$quote_everything_qf",
-        pf: "$quote_everything_pf"
+        qf: "authortitle^6 quote_text^2 headword quote_manuscript keyword",
+        pf: "authortitle^6 quote_text^2 quote_manuscript keyword"
       }
     end
 
@@ -54,8 +59,8 @@ class QuotesController < ApplicationController
       field.qt = "/quotesearch"
       field.solr_local_parameters = {
         type: "edismax",
-        qf: "$quote_quote_qf",
-        pf: "$quote_quote_pf"
+        qf: "quote_text",
+        pf: "quote_text"
       }
     end
 
@@ -78,6 +83,9 @@ class QuotesController < ApplicationController
     # ############################################# #
     #
     config.index.document_presenter_class = Dromedary::Quotes::IndexPresenter
+    config.index.document_title_component = nil
+    config.index.partials = [:index_header_quote]
+    config.show.document_presenter_class = Dromedary::Quotes::IndexPresenter
 
     def show404(*args)
       render "application/404", layout: "static", status: 404, locals: {args: args, id: params["id"]}

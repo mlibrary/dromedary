@@ -1,0 +1,49 @@
+{
+  "nodes": [
+    {
+      "id": "document:olddocs/bin_dromedary.md",
+      "type": "document",
+      "name": "bin_dromedary.md",
+      "filePath": "olddocs/bin_dromedary.md",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:olddocs/extractions_and_conversion.md",
+      "type": "document",
+      "name": "extractions_and_conversion.md",
+      "filePath": "olddocs/extractions_and_conversion.md",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:olddocs/setup.md",
+      "type": "document",
+      "name": "setup.md",
+      "filePath": "olddocs/setup.md",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:olddocs/solr_unload_recreate_a_core.md",
+      "type": "document",
+      "name": "solr_unload_recreate_a_core.md",
+      "filePath": "olddocs/solr_unload_recreate_a_core.md",
+      "summary": "No summary available",
+      "tags": [
+        "untagged"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

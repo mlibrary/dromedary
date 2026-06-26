@@ -1,4 +1,4 @@
-ARG RUBY_VERSION=2.7.8
+ARG RUBY_VERSION=3.3.8
 ARG RUBY_SLIM="-slim"
 FROM ruby:${RUBY_VERSION}${RUBY_SLIM} AS base
 
@@ -7,7 +7,7 @@ ARG UID=1000
 ARG GID=1000
 ARG ARCH=amd64
 
-ARG BUNDLER_VERSION=2.4.22
+ARG BUNDLER_VERSION=2.5.23
 ARG NODE_VERSION=20
 
 RUN rm -f /etc/apt/apt.conf.d/docker-clean && \
@@ -22,11 +22,12 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     git \
     unzip \
     libpq-dev \
+    libyaml-dev \
     ##### FIXME: remove these once useless gems are trimmed \
     libmariadb-dev \
     libsqlite3-dev \
     ##### What is netcat here for???
-    netcat
+    netcat-openbsd
 
 RUN --mount=type=cache,sharing=locked,target=/var/cache/apt \
     --mount=type=cache,sharing=locked,target=/var/lib/apt \
@@ -44,6 +45,7 @@ ENV RAILS_LOG_TO_STDOUT true
 
 WORKDIR /opt/app
 COPY Gemfile* .
+COPY vendor/ vendor/
 
 #############
 FROM base AS base-dev
@@ -114,6 +116,9 @@ ENV RAILS_ENV production
 ENV RAILS_SERVE_STATIC_FILES true
 ENV SECRET_KEY_BASE 121222bccca
 ENV RAILS_RELATIVE_URL_ROOT=${RAILS_RELATIVE_URL_ROOT}
+
+RUN npm install
+
 
 RUN bin/rails assets:precompile
 

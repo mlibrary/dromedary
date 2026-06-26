@@ -1,0 +1,305 @@
+{
+  "nodes": [
+    {
+      "id": "file:app/views/catalog/_home_header_navbar.html.erb",
+      "type": "file",
+      "name": "_home_header_navbar.html.erb",
+      "filePath": "app/views/catalog/_home_header_navbar.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/catalog/_index_default.html.erb",
+      "type": "file",
+      "name": "_index_default.html.erb",
+      "filePath": "app/views/catalog/_index_default.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/catalog/_index_header_entry.html.erb",
+      "type": "file",
+      "name": "_index_header_entry.html.erb",
+      "filePath": "app/views/catalog/_index_header_entry.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/views/catalog/_index_skiplinks.html.erb",
+      "type": "file",
+      "name": "_index_skiplinks.html.erb",
+      "filePath": "app/views/catalog/_index_skiplinks.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/catalog/_per_page_widget.html.erb",
+      "type": "file",
+      "name": "_per_page_widget.html.erb",
+      "filePath": "app/views/catalog/_per_page_widget.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/catalog/_previous_next_doc.html.erb",
+      "type": "file",
+      "name": "_previous_next_doc.html.erb",
+      "filePath": "app/views/catalog/_previous_next_doc.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/catalog/_print.html.erb",
+      "type": "file",
+      "name": "_print.html.erb",
+      "filePath": "app/views/catalog/_print.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/catalog/_related_entries.html.erb",
+      "type": "file",
+      "name": "_related_entries.html.erb",
+      "filePath": "app/views/catalog/_related_entries.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/views/catalog/_search_form.html.erb",
+      "type": "file",
+      "name": "_search_form.html.erb",
+      "filePath": "app/views/catalog/_search_form.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/views/catalog/_search_header.html.erb",
+      "type": "file",
+      "name": "_search_header.html.erb",
+      "filePath": "app/views/catalog/_search_header.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/catalog/_show_default.html.erb",
+      "type": "file",
+      "name": "_show_default.html.erb",
+      "filePath": "app/views/catalog/_show_default.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/views/catalog/_show_header_default.html.erb",
+      "type": "file",
+      "name": "_show_header_default.html.erb",
+      "filePath": "app/views/catalog/_show_header_default.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/catalog/_sort_and_per_page.html.erb",
+      "type": "file",
+      "name": "_sort_and_per_page.html.erb",
+      "filePath": "app/views/catalog/_sort_and_per_page.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/catalog/_sort_widget.html.erb",
+      "type": "file",
+      "name": "_sort_widget.html.erb",
+      "filePath": "app/views/catalog/_sort_widget.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/catalog/_zero_results.html.erb",
+      "type": "file",
+      "name": "_zero_results.html.erb",
+      "filePath": "app/views/catalog/_zero_results.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/catalog/404.html.erb",
+      "type": "file",
+      "name": "404.html.erb",
+      "filePath": "app/views/catalog/404.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/catalog/home.html.erb",
+      "type": "file",
+      "name": "home.html.erb",
+      "filePath": "app/views/catalog/home.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/views/catalog/index.html.erb",
+      "type": "file",
+      "name": "index.html.erb",
+      "filePath": "app/views/catalog/index.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/catalog/print.html.erb",
+      "type": "file",
+      "name": "print.html.erb",
+      "filePath": "app/views/catalog/print.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/catalog/show_entry/_note.html.erb",
+      "type": "file",
+      "name": "_note.html.erb",
+      "filePath": "app/views/catalog/show_entry/_note.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/catalog/show_entry/_sense.html.erb",
+      "type": "file",
+      "name": "_sense.html.erb",
+      "filePath": "app/views/catalog/show_entry/_sense.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:app/views/catalog/show_entry/_sensegrp.html.erb",
+      "type": "file",
+      "name": "_sensegrp.html.erb",
+      "filePath": "app/views/catalog/show_entry/_sensegrp.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/catalog/show_entry/_sensestuff.html.erb",
+      "type": "file",
+      "name": "_sensestuff.html.erb",
+      "filePath": "app/views/catalog/show_entry/_sensestuff.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/catalog/show_entry/_supplement.html.erb",
+      "type": "file",
+      "name": "_supplement.html.erb",
+      "filePath": "app/views/catalog/show_entry/_supplement.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/views/catalog/show.html.erb",
+      "type": "file",
+      "name": "show.html.erb",
+      "filePath": "app/views/catalog/show.html.erb",
+      "summary": "Project code file in erb.",
+      "tags": [
+        "code",
+        "erb"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

@@ -15,10 +15,10 @@
 
           <%= simple_form_for @contact, :html => {:class => 'form-horizontal' } do |f| %>
             <div class="container-fluid inner-form">
-              <div class="col-md-6 col-xs-12 padded">
+              <div class="col-md-6 col-12 padded">
                 <%= f.input :username, label: "Your Name", placeholder: 'Your name please', :required => true %>
               </div>
-              <div class="col-md-6 col-xs-12">
+              <div class="col-md-6 col-12">
                 <%= f.input :email, label: "Email", placeholder: 'you@example.com', :required => true %>
               </div>
             </div>
@@ -57,19 +57,20 @@
 
   var show_prompt = function(value) {
     var key = type_map[value];
-    $(".prompt.visible").removeClass("visible");
-    $(".prompt-" + key).addClass("visible");
+    document.querySelectorAll('.prompt.visible').forEach(function(el) {
+      el.classList.remove('visible');
+    });
+    var target = document.querySelector('.prompt-' + key);
+    if (target) target.classList.add('visible');
   }
-  
-  $().ready(function() {
-    // the sins we start with
-    var $type = $("#contact_type");
-    show_prompt($type.val());
 
-    $type.on('change', function() {
-      console.log("AHOY", $type.val());
-      show_prompt($type.val());
-    })
+  document.addEventListener('DOMContentLoaded', function() {
+    var type = document.getElementById('contact_type');
+    show_prompt(type.value);
 
-  })
+    type.addEventListener('change', function() {
+      console.log("AHOY", type.value);
+      show_prompt(type.value);
+    });
+  });
 </script>

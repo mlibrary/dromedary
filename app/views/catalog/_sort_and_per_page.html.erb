@@ -1,7 +1,11 @@
 <div id="sortAndPerPage" class="clearfix">
   <%= render :partial => "paginate_compact", :object => @response if show_pagination? %>
-  <span class="search-term-filter"><%= render_constraints_query(params)%></span>
-  <%= render_results_collection_tools wrapping_class: "search-widgets pull-right" %>
+  <span class="search-term-filter"><%= render 'query_constraint' %></span>
+  <span class="search-widgets float-right">
+    <%= render 'sort_widget' %>
+    <%= render 'per_page_widget' %>
+    <%= render_results_collection_tools %>
+  </span>
 
   <%= render "application/phrase_wildcard" %>
 </div>
