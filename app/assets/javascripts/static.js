@@ -1,19 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // Mark current help sidebar link as active
-  var currentLink = document.querySelector('ul.help-ul li.current a');
-  if (currentLink) {
-    currentLink.classList.add('currentlyActive');
-  }
-
-  // For help page sidebar links, toggle current/active on click
-  document.querySelectorAll('ul.help-ul li').forEach(function(li) {
-    li.addEventListener('click', function() {
-      document.querySelectorAll('ul.help-ul li').forEach(function(item) {
-        item.classList.remove('current');
-      });
-      this.classList.add('current');
-    });
-  });
+  // The current help-sidebar page is marked server-side: the view adds
+  // `li.current` + `aria-current="page"` to the matching link via Rails
+  // `current_page?`. That is the single source of truth, so no client-side
+  // class toggling is needed. (A previous click handler that moved `current`
+  // onto the clicked item before navigation caused a stale highlight after
+  // using the Back button, because bfcache restored the mutated DOM.)
 
   // Special character keyboard entry for search form input
   document.addEventListener('click', function(e) {

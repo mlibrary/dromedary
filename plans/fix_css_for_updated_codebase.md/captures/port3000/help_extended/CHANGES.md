@@ -2,6 +2,28 @@
 
 > **STATUS: FINISHED** — signed off by user. No further changes needed.
 
+## Change 3: Remove redundant/harmful help-sidebar JS (back-button bug fix)
+
+- **File:** `app/assets/javascripts/static.js`
+- **Removed two things:**
+  1. The dead `currentlyActive` line — it added a class no CSS or JS ever
+     references (zero hits in stylesheets). Pure dead weight.
+  2. The click-toggle handler that, on clicking a sidebar `<li>`, removed
+     `current` from all items and added it to the clicked one *before*
+     navigation.
+- **Why removed:**
+  - **Redundant:** the server now marks the correct `<li>` as `current`
+    (+`aria-current="page"`) on every page load via Rails `current_page?`
+    (Change 2). That is the single source of truth.
+  - **Harmful:** the click handler was the source of the Back-button stale
+    highlight — it mutated `current` onto the clicked item, and bfcache then
+    restored that mutated DOM on Back, leaving the wrong link highlighted.
+- **Kept intact:** special-character keyboard entry, `search_field` dropdown
+  autocomplete `src` update, and `combobox-commit` navigation handlers.
+- **Verified:** capture still shows `<li class="current">` + `aria-current`
+  (server-rendered); `currentlyActive` now absent; the current-page bar still
+  renders from the existing `.sidebars ul li.current` CSS (no JS needed).
+
 ## Change 2: Help sidebar current-page indicator (NEW FEATURE)
 
 > Not a regression-vs-orig fix — new work requested by the user. Applies to

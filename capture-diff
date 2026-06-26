@@ -29,23 +29,34 @@ WINDOW_HEIGHT=1200
 GEO_COORDS="${WIN_X},${WIN_Y},${WINDOW_WIDTH},${WINDOW_HEIGHT}"
 
 usage() {
+    local exit_code="${1:-1}"
+
     echo "Usage:"
-    echo "  Batch Mode:     $0 --port <number> [options] --capture-list <path>"
-    echo "  Single Mode:    $0 --port <number> [options] <URL>"
-    echo "  Named Mode:     $0 --port <number> --capture-list <path> --name <name> [--only orig|port]"
+    echo "  Batch Mode:     $0 --port <number> [--target-dir <path>] --capture-list <path>"
+    echo "  Single Mode:    $0 --port <number> [--target-dir <path>] <URL>"
+    echo "  Named Mode:     $0 --port <number> [--target-dir <path>] --capture-list <path> --name <name> [--only orig|port]"
     echo ""
-    echo "Options:"
-    echo "  --name <name>       Re-capture ONLY the page whose first column in the"
-    echo "                      --capture-list equals <name>. By default BOTH the 'orig'"
-    echo "                      (V1) and 'port<PORT>' (V2) versions are captured."
-    echo "  --only <orig|port>  Restrict --name to one side: 'orig' captures only the"
-    echo "                      original (V1) version; 'port' captures only the"
-    echo "                      port<PORT> (V2) version. Requires --name."
-    exit 1
+    echo "Arguments:"
+    echo "  --port <number>      Target V2 port used to rewrite the captured URL."
+    echo "  --target-dir <path>  Output root (default: $HOME/Desktop/capture-diff-captures)."
+    echo "  --capture-list <path>"
+    echo "                       TSV file: column 1 = name, column 2 = original URL."
+    echo "  <URL>                Single-page mode input URL (alternative to --capture-list)."
+    echo "  --name <name>        Re-capture ONLY the row whose column-1 name matches <name>."
+    echo "                       Requires --capture-list."
+    echo "  --only <orig|port>   With --name, capture one side only."
+    echo "                       orig = original URL, port = URL rewritten to --port."
+    echo ""
+    echo "Notes:"
+    echo "  - Provide either --capture-list <path> OR <URL>."
+    echo "  - --only requires --name."
+
+    exit "$exit_code"
 }
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
+        -h|--help) usage 0 ;;
         --port) PORT="$2"; shift 2 ;;
         --target-dir) TARGET_DIR="$2"; shift 2 ;;
         --capture-list) CAPTURE_LIST="$2"; shift 2 ;;

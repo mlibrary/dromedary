@@ -1,7 +1,7 @@
 {
   "mcpServers": {
-    "epi2_ab": {
-      "url": "http://127.0.0.1:8642/mcp",
+    "dromedary_ab": {
+      "url": "http://127.0.0.1:8644/mcp",
       "directTools": false,
       "excludeTools": [
         "add_to_dictionary",
@@ -74,8 +74,8 @@
         "write_terminal_input"
       ]
     },
-    "dromedary_ab": {
-      "url": "http://127.0.0.1:8644/mcp",
+    "epi2_ab": {
+      "url": "http://127.0.0.1:8642/mcp",
       "directTools": false,
       "excludeTools": [
         "add_to_dictionary",
