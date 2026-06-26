@@ -1915,6 +1915,13 @@ table caption {
     width: inherit;
     text-decoration: none;
     font-size: 1.1em;
+
+    // Suppress the transient browser focus outline that flashes on a mouse
+    // click (before the page reloads). Keyboard focus keeps its outline via
+    // :focus-visible, so accessibility is preserved.
+    &:focus:not(:focus-visible) {
+      outline: none;
+    }
   }
 }
 
