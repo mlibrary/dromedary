@@ -1,0 +1,343 @@
+---
+# Exercise URL list for dromedary
+# Purpose: comprehensive coverage for code-exercise, dead-code detection,
+#          and visual regression comparison.
+# Hosts: local=http://localhost:3000, reference=http://127.0.0.1:3001
+#
+# Real document IDs confirmed from data/:
+#   MED: MED1882 (apparagen, n.)
+#   BIB: BIB1
+#   HYP: HYP.1.19990513T124835 -> BIB1
+
+# ---------------------------------------------------------------------------
+# Root / Splash
+# ---------------------------------------------------------------------------
+
+- name: splash
+  urls:
+    - "http://localhost:3000/"
+    - "http://127.0.0.1:3001/"
+  description: "Root splash page; catalog#splash action and landing layout"
+
+# ---------------------------------------------------------------------------
+# Dictionary (catalog controller)
+# ---------------------------------------------------------------------------
+
+- name: dictionary_home
+  urls:
+    - "http://localhost:3000/dictionary/"
+    - "http://127.0.0.1:3001/dictionary/"
+  description: "Catalog home (empty query_string constraint); catalog#home"
+
+- name: dictionary_search_basic
+  urls:
+    - "http://localhost:3000/dictionary?q=love"
+    - "http://127.0.0.1:3001/dictionary?q=love"
+  description: "Search results; facets, sort, and result rendering"
+
+- name: dictionary_search_per_page
+  urls:
+    - "http://localhost:3000/dictionary?q=love&per_page=100"
+    - "http://127.0.0.1:3001/dictionary?q=love&per_page=100"
+  description: "Per-page variant; pagination controls"
+
+- name: dictionary_search_page2
+  urls:
+    - "http://localhost:3000/dictionary?q=love&page=2"
+    - "http://127.0.0.1:3001/dictionary?q=love&page=2"
+  description: "Second page of results; pagination prev/next links"
+
+- name: dictionary_show
+  urls:
+    - "http://localhost:3000/dictionary/MED1882"
+    - "http://127.0.0.1:3001/dictionary/MED1882"
+  description: "Show entry (apparagen, n.); document rendering and XSLT transforms"
+
+- name: dictionary_show_404
+  urls:
+    - "http://localhost:3000/dictionary/MEDXXXXXX"
+    - "http://127.0.0.1:3001/dictionary/MEDXXXXXX"
+  description: "Invalid MED ID -> catalog#show404; error page rendering"
+
+- name: dictionary_404_wildcard
+  urls:
+    - "http://localhost:3000/dictionary/some/extra/path"
+    - "http://127.0.0.1:3001/dictionary/some/extra/path"
+  description: "Wildcard catch-all -> catalog#show404"
+
+# Dictionary search fields (all configured in catalog_controller.rb)
+- name: dictionary_field_anywhere
+  urls:
+    - "http://localhost:3000/dictionary?search_field=anywhere&q=love"
+    - "http://127.0.0.1:3001/dictionary?search_field=anywhere&q=love"
+  description: "Fielded search: 'Entire entry' (everything_qf edismax)"
+
+- name: dictionary_field_hnf
+  urls:
+    - "http://localhost:3000/dictionary?search_field=hnf&q=love"
+    - "http://127.0.0.1:3001/dictionary?search_field=hnf&q=love"
+  description: "Fielded search: 'Headword (with alternate spellings)'"
+
+- name: dictionary_field_notes_and_def
+  urls:
+    - "http://localhost:3000/dictionary?search_field=notes_and_def&q=love"
+    - "http://127.0.0.1:3001/dictionary?search_field=notes_and_def&q=love"
+  description: "Fielded search: 'Definition and notes'"
+
+- name: dictionary_field_etyma
+  urls:
+    - "http://localhost:3000/dictionary?search_field=etyma&q=latin"
+    - "http://127.0.0.1:3001/dictionary?search_field=etyma&q=latin"
+  description: "Fielded search: 'Etymology'"
+
+- name: dictionary_field_citation
+  urls:
+    - "http://localhost:3000/dictionary?search_field=citation&q=chaucer"
+    - "http://127.0.0.1:3001/dictionary?search_field=citation&q=chaucer"
+  description: "Fielded search: 'Associated quotes and manuscripts'"
+
+- name: dictionary_field_oed
+  urls:
+    - "http://localhost:3000/dictionary?search_field=oed&q=love"
+    - "http://127.0.0.1:3001/dictionary?search_field=oed&q=love"
+  description: "Fielded search: 'Modern English word equivalent' (oed_norm)"
+
+# Dictionary facet selection
+- name: dictionary_facet_pos
+  urls:
+    - "http://localhost:3000/dictionary?q=love&f[pos][]=noun"
+    - "http://127.0.0.1:3001/dictionary?q=love&f[pos][]=noun"
+  description: "Facet-filtered results: Part of Speech = noun"
+
+- name: dictionary_facet_language
+  urls:
+    - "http://localhost:3000/dictionary?q=word&f[etyma_language][]=Latin"
+    - "http://127.0.0.1:3001/dictionary?q=word&f[etyma_language][]=Latin"
+  description: "Facet-filtered results: Source Language = Latin"
+
+# Suggest / autocomplete (returns HTML <li> fragments)
+- name: suggest_h
+  urls:
+    - "http://localhost:3000/dictionary/suggest?search_field=h&q=lo&base_url=http://localhost:3000"
+    - "http://127.0.0.1:3001/dictionary/suggest?search_field=h&q=lo&base_url=http://127.0.0.1:3001"
+  description: "Autocomplete fragment: search_field=h (headword_only_suggester)"
+
+- name: suggest_hnf
+  urls:
+    - "http://localhost:3000/dictionary/suggest?search_field=hnf&q=lo&base_url=http://localhost:3000"
+    - "http://127.0.0.1:3001/dictionary/suggest?search_field=hnf&q=lo&base_url=http://127.0.0.1:3001"
+  description: "Autocomplete fragment: search_field=hnf (headword_and_forms_suggester)"
+
+- name: suggest_oed
+  urls:
+    - "http://localhost:3000/dictionary/suggest?search_field=oed&q=lo&base_url=http://localhost:3000"
+    - "http://127.0.0.1:3001/dictionary/suggest?search_field=oed&q=lo&base_url=http://127.0.0.1:3001"
+  description: "Autocomplete fragment: search_field=oed (oed_suggester)"
+
+# Blacklight /search alias
+- name: search_alias
+  urls:
+    - "http://localhost:3000/search?q=love"
+    - "http://127.0.0.1:3001/search?q=love"
+  description: "/search alias (Blacklight engine mount) -> catalog#index"
+
+# ---------------------------------------------------------------------------
+# Bibliography (bibliography controller)
+# ---------------------------------------------------------------------------
+
+- name: bibliography_home
+  urls:
+    - "http://localhost:3000/bibliography/"
+    - "http://127.0.0.1:3001/bibliography/"
+  description: "Bibliography home (empty query_string constraint); bibliography#home"
+
+- name: bibliography_search
+  urls:
+    - "http://localhost:3000/bibliography?q=chaucer"
+    - "http://127.0.0.1:3001/bibliography?q=chaucer"
+  description: "Bibliography search results; facets and sort"
+
+- name: bibliography_show
+  urls:
+    - "http://localhost:3000/bibliography/BIB1"
+    - "http://127.0.0.1:3001/bibliography/BIB1"
+  description: "Bibliography show page (BIB1); presenter and item rendering"
+
+- name: bibliography_hyp_redirect
+  urls:
+    - "http://localhost:3000/bibliography/HYP.1.19990513T124835"
+    - "http://127.0.0.1:3001/bibliography/HYP.1.19990513T124835"
+  description: "HYP ID -> BIB redirect (301); Dromedary.hyp_to_bibid lookup"
+
+- name: bibliography_show_404
+  urls:
+    - "http://localhost:3000/bibliography/BIBXXXXXX"
+    - "http://127.0.0.1:3001/bibliography/BIBXXXXXX"
+  description: "Invalid BIB ID -> bibliography#show404; error page"
+
+- name: bibliography_404_wildcard
+  urls:
+    - "http://localhost:3000/bibliography/BIB1/extra/path"
+    - "http://127.0.0.1:3001/bibliography/BIB1/extra/path"
+  description: "Wildcard catch-all -> bibliography#show404"
+
+# Bibliography search fields (all configured in bibliography_controller.rb)
+- name: bibliography_field_keyword
+  urls:
+    - "http://localhost:3000/bibliography?search_field=bib_keyword&q=chaucer"
+    - "http://127.0.0.1:3001/bibliography?search_field=bib_keyword&q=chaucer"
+  description: "Fielded bib search: 'Entire entry' (bib_everything_qf)"
+
+- name: bibliography_field_author_title
+  urls:
+    - "http://localhost:3000/bibliography?search_field=bib_author_title&q=chaucer"
+    - "http://127.0.0.1:3001/bibliography?search_field=bib_author_title&q=chaucer"
+  description: "Fielded bib search: 'Author/Title'"
+
+- name: bibliography_field_external_references
+  urls:
+    - "http://localhost:3000/bibliography?search_field=bib_external_references&q=IMEV"
+    - "http://127.0.0.1:3001/bibliography?search_field=bib_external_references&q=IMEV"
+  description: "Fielded bib search: 'External References'"
+
+- name: bibliography_field_lalme
+  urls:
+    - "http://localhost:3000/bibliography?search_field=bib_lalme&q=Norfolk"
+    - "http://127.0.0.1:3001/bibliography?search_field=bib_lalme&q=Norfolk"
+  description: "Fielded bib search: 'LALME/LAEME'"
+
+- name: bibliography_field_manuscript
+  urls:
+    - "http://localhost:3000/bibliography?search_field=bib_manuscript&q=cotton"
+    - "http://127.0.0.1:3001/bibliography?search_field=bib_manuscript&q=cotton"
+  description: "Fielded bib search: 'Manuscripts'"
+
+# ---------------------------------------------------------------------------
+# Quotations (quotes controller)
+# ---------------------------------------------------------------------------
+
+- name: quotations_home
+  urls:
+    - "http://localhost:3000/quotations/"
+    - "http://127.0.0.1:3001/quotations/"
+  description: "Quotations home (empty query_string constraint); quotes#home"
+
+- name: quotations_search
+  urls:
+    - "http://localhost:3000/quotations?q=love"
+    - "http://127.0.0.1:3001/quotations?q=love"
+  description: "Quotations search results; index rendering"
+
+- name: quotations_field_everything
+  urls:
+    - "http://localhost:3000/quotations?search_field=quote_everything&q=love"
+    - "http://127.0.0.1:3001/quotations?search_field=quote_everything&q=love"
+  description: "Fielded quotes search: 'Quotation including citation'"
+
+- name: quotations_field_quote_only
+  urls:
+    - "http://localhost:3000/quotations?search_field=quote_quote&q=love"
+    - "http://127.0.0.1:3001/quotations?search_field=quote_quote&q=love"
+  description: "Fielded quotes search: 'Quotation text only'"
+
+- name: quotations_404_wildcard
+  urls:
+    - "http://localhost:3000/quotations/some/extra/path"
+    - "http://127.0.0.1:3001/quotations/some/extra/path"
+  description: "Wildcard catch-all -> quotes#show404"
+
+# ---------------------------------------------------------------------------
+# Bookmarks (Blacklight engine)
+# ---------------------------------------------------------------------------
+
+- name: bookmarks
+  urls:
+    - "http://localhost:3000/bookmarks"
+    - "http://127.0.0.1:3001/bookmarks"
+  description: "Bookmarks index (Blacklight); empty state rendering"
+
+# ---------------------------------------------------------------------------
+# Help pages (help controller -> static/help/*.html.erb)
+# ---------------------------------------------------------------------------
+
+- name: help_root
+  urls:
+    - "http://localhost:3000/help"
+    - "http://127.0.0.1:3001/help"
+  description: "Help index; static/help.html.erb with static layout"
+
+- name: help_dictionary
+  urls:
+    - "http://localhost:3000/help/dictionary"
+    - "http://127.0.0.1:3001/help/dictionary"
+  description: "Help subpage: dictionary instructions"
+
+- name: help_bibliography
+  urls:
+    - "http://localhost:3000/help/bibliography"
+    - "http://127.0.0.1:3001/help/bibliography"
+  description: "Help subpage: bibliography instructions"
+
+- name: help_quotations
+  urls:
+    - "http://localhost:3000/help/quotations"
+    - "http://127.0.0.1:3001/help/quotations"
+  description: "Help subpage: quotations instructions"
+
+- name: help_special_characters
+  urls:
+    - "http://localhost:3000/help/special_characters"
+    - "http://127.0.0.1:3001/help/special_characters"
+  description: "Help subpage: special characters chart"
+
+- name: help_extended
+  urls:
+    - "http://localhost:3000/help/extended"
+    - "http://127.0.0.1:3001/help/extended"
+  description: "Help subpage: extended search instructions"
+
+# ---------------------------------------------------------------------------
+# Static pages (static controller)
+# ---------------------------------------------------------------------------
+
+- name: about
+  urls:
+    - "http://localhost:3000/about"
+    - "http://127.0.0.1:3001/about"
+  description: "About/about_med page; static#about_med with static layout"
+
+- name: static_catchall
+  urls:
+    - "http://localhost:3000/static/anything"
+    - "http://127.0.0.1:3001/static/anything"
+  description: "static/* wildcard -> static#about_med; catch-all fallback"
+
+# ---------------------------------------------------------------------------
+# Contact form (contacts controller)
+# ---------------------------------------------------------------------------
+
+- name: contacts_new
+  urls:
+    - "http://localhost:3000/contacts"
+    - "http://127.0.0.1:3001/contacts"
+  description: "Contact form; contacts#new GET"
+
+# ---------------------------------------------------------------------------
+# Status / health check (OkComputer engine)
+# ---------------------------------------------------------------------------
+
+- name: status
+  urls:
+    - "http://localhost:3000/status"
+    - "http://127.0.0.1:3001/status"
+  description: "OkComputer health-check endpoint"
+
+# ---------------------------------------------------------------------------
+# Global 404 catch-all (catalog#show404)
+# ---------------------------------------------------------------------------
+
+- name: catchall_404
+  urls:
+    - "http://localhost:3000/this/path/does/not/exist"
+    - "http://127.0.0.1:3001/this/path/does/not/exist"
+  description: "Global *path catch-all -> catalog#show404"
