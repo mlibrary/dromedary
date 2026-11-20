@@ -92,6 +92,4 @@ jobs:
       - name: Continuous Integration (spec)
         run: bundle exec rake spec
       - name: Solr integration specs
-        env:
-          RUN_INTEGRATION: "1"
-        run: bundle exec rspec --tag integration
+        run: bundle exec rake spec-just-integration
