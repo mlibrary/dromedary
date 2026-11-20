@@ -3,6 +3,37 @@
 require "rails_helper"
 
 RSpec.describe "Search handlers", type: :system do
+  describe "search field selector", integration: true do
+    it "submits a dictionary search with the selected field" do
+      visit "/dictionary"
+      select "Headword (with alternate spellings)", from: "search_field"
+      fill_in "q", with: "abissus"
+      click_button "Search"
+
+      expect(page).to have_current_path(/search_field=hnf/)
+      expect(page).to have_css(".document")
+    end
+
+    it "submits a bibliography search with the selected field" do
+      visit "/bibliography"
+      select "Author/Title", from: "search_field"
+      fill_in "q", with: "chaucer"
+      click_button "Search"
+
+      expect(page).to have_current_path(/search_field=bib_author_title/)
+      expect(page).to have_css(".document")
+    end
+
+    it "submits a quotation search with the selected field" do
+      visit "/quotations"
+      select "Quotation text only", from: "search_field"
+      fill_in "q", with: "lorem"
+      click_button "Search"
+
+      expect(page).to have_current_path(/search_field=quote_quote/)
+      expect(page).to have_css(".document")
+    end
+  end
   describe "dictionary search", integration: true do
     it "returns results for headword search" do
       visit "/dictionary?q=abissus&search_field=hnf"
