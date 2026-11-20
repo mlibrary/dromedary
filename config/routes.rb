@@ -45,8 +45,10 @@ Rails.application.routes.draw do
     get "admin/release" => "admin#release", :via => [:get]
     get "admin/force_release" => "admin#force_release", :via => [:get]
     post "admin/delete", to: "admin#delete"
-    mount Shrine.presign_endpoint(:incoming), at: "/s3/params"
-    mount Shrine.uppy_s3_multipart(:incoming), at: "/s3/multipart"
+    if Dromedary::Services[:aws_bucket]
+      mount Shrine.presign_endpoint(:incoming), at: "/s3/params"
+      mount Shrine.uppy_s3_multipart(:incoming), at: "/s3/multipart"
+    end
   end
 
   # Splash pages
