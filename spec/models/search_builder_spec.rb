@@ -278,9 +278,9 @@ RSpec.describe SearchBuilder do
         expect(solr_params["q"]).to eq("*")
       end
 
-      it "sets blacklight_params q to *" do
+      it "sets search_state.params q to *" do
         search_builder.default_to_everything_search(solr_params)
-        expect(search_builder.blacklight_params["q"]).to eq("*")
+        expect(search_builder.search_state.params["q"]).to eq("*")
       end
     end
 
@@ -292,9 +292,9 @@ RSpec.describe SearchBuilder do
         expect(solr_params["q"]).to eq("*")
       end
 
-      it "sets blacklight_params q to *" do
+      it "sets search_state.params q to *" do
         search_builder.default_to_everything_search(solr_params)
-        expect(search_builder.blacklight_params["q"]).to eq("*")
+        expect(search_builder.search_state.params["q"]).to eq("*")
       end
     end
 
@@ -306,9 +306,9 @@ RSpec.describe SearchBuilder do
         expect(solr_params["q"]).to eq("word}*")
       end
 
-      it "sets blacklight_params q to *" do
+      it "sets search_state.params q to *" do
         search_builder.default_to_everything_search(solr_params)
-        expect(search_builder.blacklight_params["q"]).to eq("*")
+        expect(search_builder.search_state.params["q"]).to eq("*")
       end
     end
 
@@ -320,9 +320,9 @@ RSpec.describe SearchBuilder do
         expect(solr_params["q"]).to eq("normal query")
       end
 
-      it "does not set blacklight_params q" do
+      it "does not set search_state.params q" do
         search_builder.default_to_everything_search(solr_params)
-        expect(search_builder.blacklight_params["q"]).to be_nil
+        expect(search_builder.search_state.params["q"]).to be_nil
       end
     end
 
@@ -335,9 +335,9 @@ RSpec.describe SearchBuilder do
         expect(solr_params["sort"]).to eq("sequence asc")
       end
 
-      it "sets blacklight_params sort to sequence asc" do
+      it "sets search_state.params sort to sequence asc" do
         search_builder.default_to_everything_search(solr_params)
-        expect(search_builder.blacklight_params["sort"]).to eq("sequence asc")
+        expect(search_builder.search_state.params["sort"]).to eq("sequence asc")
       end
     end
 

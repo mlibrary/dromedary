@@ -72,11 +72,11 @@ class SearchBuilder < Blacklight::SearchBuilder
     q = solr_params["q"]
     if q.nil? || (q == "") || q =~ /}\Z/
       solr_params["q"] = String(q) + "*"
-      blacklight_params["q"] = "*"
+      search_state.params["q"] = "*"
 
-      solr_params["sort"] = NULL_SEARCH_SORT[blacklight_params["controller"]]
+      solr_params["sort"] = NULL_SEARCH_SORT[search_state.params["controller"]]
 
-      blacklight_params["sort"] = NULL_SEARCH_SORT[blacklight_params["controller"]]
+      search_state.params["sort"] = NULL_SEARCH_SORT[search_state.params["controller"]]
     end
   end
 
@@ -85,6 +85,6 @@ class SearchBuilder < Blacklight::SearchBuilder
   #   self.default_processor_chain += [:add_custom_data_to_query]
   #
   #   def add_custom_data_to_query(solr_parameters)
-  #     solr_parameters[:custom] = blacklight_params[:user_value]
+  #     solr_parameters[:custom] = search_state.params[:user_value]
   #   end
 end
