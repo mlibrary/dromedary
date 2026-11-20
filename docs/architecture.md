@@ -21,7 +21,7 @@ dromedary/
   app/
     controllers/        # Rails controllers (catalog, bibliography, quotes, admin)
     controllers/concerns/dromedary/catalog.rb  # shared Blacklight concern
-    jobs/               # Sidekiq jobs (IndexDataJob)
+    jobs/               # Sidekiq health probe
     mailers/
     models/             # SolrDocument, SearchBuilder, MedSolrCollection(s)
     presenters/         # Blacklight presenter overrides
@@ -55,33 +55,22 @@ dromedary/
       quote_indexer.rb         # runs quote indexing (called from main rules)
     writers/
       containerized_solr_writer.rb  # Traject writer: writes to a named Solr collection
-      localhost.rb                  # Traject writer: targets local Solr (legacy)
-      debug.rb                      # Traject writer: logs records to file
-      json.rb
+      localhost.rb                  # Traject writer used by quote indexing
   lib/
-    annoying_utilities.rb       # path helpers, config-file loader, solr_core builder
+    annoying_utilities.rb       # shared logging, paths, maintenance-mode check
     dromedary/
       services.rb               # Canister DI container (THE config hub)
       smart_xml.rb
       xslt_utils.rb
     med_installer/
-      extract.rb                # STEP 1 of prepare: unzip Box zip into xml/
-      convert.rb                # STEP 2 of prepare: XML -> entries.json.gz
-      prepare.rb                # CLI: runs extract + convert
-      index.rb                  # CLI: Traject-based indexing commands
-      extract_convert_index.rb  # Legacy all-in-one pipeline (may be broken)
-      index_new_data.rb         # Current split pipeline: create collection + index
-      indexing_steps.rb         # Step sequencer used by index_new_data
-      copy_from_build.rb        # CLI: copies build files to live data dir
+      extract.rb                # extracts the source archive
+      convert.rb                # XML -> entries.json.gz and HYP/BIB mapping
+      indexing_steps.rb         # current end-to-end indexing workflow
       hyp_to_bibid.rb           # builds/reads HYP-id -> BIB-id mapping
-      control.rb                # maintenance mode on/off
-      solr.rb                   # Solr admin CLI commands (commit, optimize, etc.)
-      job_monitoring.rb         # pushes metrics to Prometheus Pushgateway
-      remote.rb                 # remote exec helpers
       logger.rb                 # SemanticLogger mixin
     serialization/
       indexable_quote.rb        # quote serialization for indexing
-    my_simple_solr_client.rb    # thin Solr client wrapper
+
   solr/
     dromedary/conf/             # Solr configset (schema.xml, solrconfig.xml, etc.)
     Dockerfile                  # Solr image (solr:10 + ICU + basic auth)
@@ -103,8 +92,8 @@ dromedary/
 
 All application-wide configuration lives in `Dromedary::Services`, a
 `Canister`-backed lazy DI container. Every registered value is a lambda
-evaluated on first access. Controllers, models, indexing code, and CLI tools
-all read from `Dromedary::Services[:key]` — **never raw ENV directly** (ENV is
+evaluated on first access. Controllers, models, and indexing code read from
+`Dromedary::Services[:key]` — **never raw ENV directly** (ENV is
 read inside the lambdas).
 
 ### Key Services
@@ -352,30 +341,18 @@ presenter layer, not direct model methods.
 Source data arrives as a **zip file** (downloaded from Box/CIFS share) containing
 per-letter MED XML files, a bibliography XML (`bib_all.xml`), link files, and DTDs.
 
-### Two Pipelines
+### Current indexing entry point
 
-#### A. Modern Split Pipeline (current)
+`bin/index_new_file.rb <zipfile>` runs `MedInstaller::IndexingSteps#index`:
 
-```
-bin/dromedary prepare <zipfile>         # runs Extract + Convert
-  -> lib/med_installer/extract.rb       # STEP 1: unzip into build_directory/xml/
-  -> lib/med_installer/convert.rb       # STEP 2: XML -> entries.json.gz + hyp_to_bibid.json
+1. Prepare a dated build directory and extract the archive.
+2. Verify required XML files; create a Solr configset and collection.
+3. Convert XML into `entries.json.gz` and `hyp_to_bibid.json`.
+4. Index entries and bibliography with Traject.
+5. Rebuild suggesters, clean temporary files, and point `med-preview` at the new collection.
 
-bin/dromedary index new_data            # runs IndexNewData
-  -> lib/med_installer/index_new_data.rb
-     1. create configset + collection in Solr (name: <base>_<timestamp>)
-     2. index entries: Traject(main_indexing_rules.rb, entries.json.gz) -> new collection
-     3. index bibs: Traject(bib_indexing_rules.rb, bib_all.xml) -> new collection
-     4. rebuild suggesters (optionally on each replica individually)
-     5. point med-preview alias at new collection
-
-Admin UI: release (promote preview -> production)
-```
-
-#### B. Legacy All-in-one (`ExtractConvertIndex`)
-
-`lib/med_installer/extract_convert_index.rb` — combines all steps plus
-maintenance mode toggle. **May be broken** (incorrect keyword args).
+The legacy `bin/dromedary` CLI and its alternative indexing commands have been
+removed. Admin UI release still promotes preview to production.
 
 ### Traject Indexing Details
 
@@ -424,7 +401,10 @@ Actions:
 
 **Shrine S3 upload** (when `AWS_BUCKET` set):
 - Routes `/s3/params` and `/s3/multipart` for direct browser-to-S3 upload
-- After upload completes, `IndexDataJob` (Sidekiq) runs `bin/dromedary extract_convert_index <filename>`
+- The upload endpoint does not enqueue indexing in this repository.
+- `bin/index_new_file.rb` remains the indexing entry point; deployment triggers are external.
+- The separate Argo production render checked during this cleanup omits its trigger
+  resources; live deployment state was not verified.
 
 ---
 
@@ -434,12 +414,7 @@ Actions:
 
 | Job | File | Trigger | Action |
 |-----|------|---------|--------|
-| `IndexDataJob` | `app/jobs/index_data_job.rb` | Upload complete (admin) | Shells out to `bin/dromedary extract_convert_index <filename>` |
 | `PokeSidekiqJob` | `app/jobs/poke_sidekiq_job.rb` | (cron or manual) | Keep-alive / health probe |
-
-K8s CronJob (`kubernetes/remote-k8s/data-cron-job.yaml`): runs
-`bundle exec rake check_data` hourly; reads zip from CIFS mount at
-`/mnt/legacy_cifs_middle_english_prep`.
 
 ---
 
@@ -468,11 +443,8 @@ Migrations:
 
 ## 13. Maintenance Mode
 
-- **Enable:** `bin/dromedary maintenance_mode on` — creates `tmp/MAINTENANCE_MODE_ENABLED`
-- **Disable:** `bin/dromedary maintenance_mode off` — removes the file
-- **Effect:** route constraint `*path => static#maintenance_mode` catches all requests
-
-Also enabled programmatically during the legacy `ExtractConvertIndex` pipeline.
+- The route constraint checks `tmp/MAINTENANCE_MODE_ENABLED`.
+- CLI commands that toggled this flag were removed with `bin/dromedary`.
 
 ---
 
@@ -514,7 +486,7 @@ Each controller has a dedicated presenter:
 Services:
 | Service | Image | Purpose |
 |---------|-------|---------|
-| `app` | `dromedary` (local build) | Rails app + puma; also runs indexing commands |
+| `app` | `dromedary` (local build) | Rails app + puma; includes the indexing entry point |
 | `db` | `postgres:16-alpine` | PostgreSQL |
 | `solr` | `solr/Dockerfile` (local build) | SolrCloud node |
 | `zoo` | `zookeeper` | ZooKeeper for SolrCloud |
@@ -543,11 +515,9 @@ Optional `.app.env` file loaded if present (for secrets not in compose).
 
 - `app-deployment.yaml`: one pod with two containers:
   - `web` — Rails puma server
-  - `sidekiq` — Sidekiq worker (runs `bundle exec sidekiq -r ./app/jobs/job_index.rb`)
+  - `sidekiq` — Sidekiq worker (loads `./config/environment.rb`)
   - `SOLR_PASS` read from K8s Secret `middle-english-solrcloud-security-bootstrap`
   - Data on PVC (`data-prep`) + CIFS hostPath mount for source zip
-- `data-cron-job.yaml`: CronJob running `rake check_data` hourly
-- `data-job.yaml`: one-shot data job
 - Ingresses: `proxied-ingress.yaml`, `web-ingress.yaml`
 
 ### Docker Images
@@ -607,18 +577,9 @@ Browser GET /dictionary/suggest?q=ho&search_field=h
 ### C. Data Indexing (Modern Pipeline)
 
 ```
-Admin uploads zip (via Shrine -> S3)
-  OR zip already on CIFS at /mnt/legacy_cifs_middle_english_prep/All_MED_and_Bib_files.zip
-
-bin/dromedary prepare <zipfile> [--build_directory=...]
+bin/index_new_file.rb <zipfile>
   -> Extract: unzip -> build_dir/xml/{A/,B/,...,links/,bib_all.xml}
-  -> Convert:
-     - load OED/DOE link files
-     - parse each MED_*.xml -> MiddleEnglishDictionary::Entry
-     - write each entry as JSON line -> build_dir/entries.json.gz (temp -> final)
-     - create hyp_to_bibid.json from bib_all.xml
-
-bin/dromedary index new_data
+  -> Convert: parse MED XML -> entries.json.gz and hyp_to_bibid.json
   -> create Solr configset from solr/dromedary/conf/
   -> create Solr collection "med_<timestamp>" with configset
   -> Traject(main_indexing_rules.rb):
@@ -665,8 +626,6 @@ Browser GET /bibliography/HYPID123
 | `sidekiq` + `redis` | Background jobs |
 | `semantic_logger` | Structured logging |
 | `okcomputer` | Health check endpoint |
-| `hanami-cli` | CLI framework for `bin/dromedary` commands |
-| `my_simple_solr_client` (local lib) | Low-level Solr HTTP client (used by indexer CLI) |
 | PostgreSQL | Saved searches + bookmarks only |
 
 ---
@@ -677,9 +636,8 @@ Browser GET /bibliography/HYPID123
    commented out in all controllers. The default Blacklight SearchBuilder runs.
    Planned: yogh/ezh substitution, paren escaping, dash escaping.
 
-2. **`ExtractConvertIndex` may be broken.** The legacy all-in-one pipeline passes
-   wrong keyword args (`datadir:` instead of `build_directory:`) to `Extract` and
-   `Convert`. Use the split `prepare` + `index new_data` commands instead.
+2. **S3 upload does not start indexing here.** The upload endpoints accept files,
+   but this repository does not enqueue the indexing entry point after upload.
 
 3. **`SOLR_ROOT=bogus` in Dockerfile.** Required because `config/routes.rb`
    `require "dromedary/services"` triggers `Services` evaluation at asset-precompile

@@ -1,20 +1,15 @@
 require "middle_english_dictionary"
-require "hanami/cli"
-require "tempfile"
+require "fileutils"
+require "json"
+require "pathname"
+require "semantic_logger"
 require "zlib"
-require "serialization/indexable_quote"
 require_relative "../dromedary/services"
 
 module MedInstaller
   # Convert a bunch of Dromedary xml files into a more useful format.
-  class Convert < Hanami::CLI::Command
+  class Convert
     include SemanticLogger::Loggable
-
-    desc "[STEP 2 of 'prepare'] Convert the xml files into a (faster, more compact) json object (takes a long time)"
-
-    option :build_directory,
-      default: Dromedary::Services[:build_directory],
-      desc: "The source data directory (contains 'xml' dir)"
 
     # @return [String, Pathname, nil] the most recently modified file from +filenames+
     def most_recent_file(filenames)
@@ -51,7 +46,6 @@ module MedInstaller
     # @return [void]
     # @raise [RuntimeError] if the +xml/+ directory is not found
     def call(build_directory:)
-      # @metrics = MiddleEnglishIndexMetrics.new({type: "convert_data"})
       Dromedary::Services.register(:build_directory) { build_directory }
       xmldir = Dromedary::Services.build_xml_directory
 
@@ -78,7 +72,6 @@ module MedInstaller
         logger.info "#{count} done" if (count > 0) && (count % 2500 == 0)
         if File.empty?(filename)
           logger.error "File '#{filename}' is empty"
-          # @metrics.log_error "File '#{filename}' is empty"
           next
         end
         current_directory = get_and_log_directory(filename, current_directory)
@@ -88,7 +81,6 @@ module MedInstaller
           entries_outfile.puts entry.to_json unless entry == :bad_entry
         rescue => e
           logger.error e.full_message
-          # @metrics.log_error(e.full_message)
         end
       end
       logger.info "Finished converting #{count} entries."
@@ -156,36 +148,10 @@ module MedInstaller
       MiddleEnglishDictionary::FileEmpty,
       MiddleEnglishDictionary::InvalidXML => e
       logger.error e.message
-      # @metrics.log_error(e.message)
       :bad_entry
     rescue => e
       logger.error e.full_message
-      # @metrics.log_error(e.full_message)
       raise e
-    end
-
-    # Logs a message when processing of a new letter group begins.
-    #
-    # @param datapath [Pathname] unused — kept for historical API compatibility
-    # @param this_letter [String] the letter prefix being started
-    # @return [void]
-    # @note This method is defined but never called — candidate for removal.
-    def start_new_letter(datapath, this_letter)
-      logger.info "Beginning work on words starting with #{this_letter}"
-    end
-
-    # Parses a letter-prefix directory name and base filename out of a full path.
-    #
-    # @param f [String] full path matching the pattern +/<letter>/<file>.xml+
-    # @return [Array(String, String)] a two-element array +[file_path, letter]+
-    #   where +file_path+ is the path without the +.xml+ extension and +letter+
-    #   is the letter-prefix directory name
-    # @note This method is defined but never called — candidate for removal.
-    def letter_and_filename(f)
-      m = %r{(/(.*?)/(.*))\.xml\Z}.match(f)
-      this_letter = m[2]
-      this_file = m[1]
-      [this_file, this_letter]
     end
 
     # Verifies that the XML source directory exists; raises if not.

@@ -27,7 +27,6 @@ $LOAD_PATH.unshift (Pathname(__dir__).parent + 'indexer').to_s
 
 # Now we can actually load stuff
 
-require 'hanami/cli'
 require "dromedary/services"
 
 conn = Dromedary::Services[:solr_connection]

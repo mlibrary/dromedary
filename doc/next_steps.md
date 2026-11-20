@@ -2,45 +2,28 @@
 
 Generated May 2026. See also `doc/yard_pass_notes.md` for full bug/removal inventory.
 
----
-
-## 1. Add `AnnoyingUtilities.hyp_to_bibid_path`
-
-**Problem:** `Index::HypToBibID#write_hyp_to_bib_id` calls
-`AnnoyingUtilities.hyp_to_bibid_path` but that method does not exist. The command
-raises `NoMethodError` at runtime.
-
-**Suggested fix:** Add the method to `AnnoyingUtilities`:
-
-```ruby
-# @return [Pathname] path to +hyp_to_bibid.json+ in the build directory
-def hyp_to_bibid_path
-  build_directory + "hyp_to_bibid.json"
-end
-```
-
-**Confirm:** Is `Index::HypToBibID` still an active code path, or has it been
-entirely superseded by `IndexingSteps#upload_hyp_to_bibid_to_solr`? If superseded,
-delete `Index::HypToBibID` instead.
+> Status: Legacy `bin/dromedary` cleanup is complete. Its CLI-only code and
+> indexing jobs were removed without replacements; affected recommendations
+> below are historical.
 
 ---
 
-## 2. Fix or delete `MedInstaller::ExtractConvertIndex`
+## 1. Remove legacy `Index::HypToBibID`
 
-**Problem:** `extract_convert_index.rb` passes `datadir:` to `Extract` and
-`source_dir:` to `Convert`, but both expect `build_directory:`. The command cannot
-run successfully in its current state.
+**Status:** Removed with `lib/med_installer/index.rb`. The active
+`MedInstaller::HypToBibId` module remains; no CLI replacement was added.
 
-**Suggested fix:** Delete the file. It is superseded by the `Prepare` + `IndexNewData`
-command pair, which use the correct keyword arguments. If there is a reason to keep
-it, fix the keyword names to `build_directory:` and add integration tests.
+---
+
+## 2. Remove `MedInstaller::ExtractConvertIndex`
+
+**Status:** Deleted with the legacy CLI. No replacement command was added.
 
 ---
 
 ## 3. Remove pre-container dead code
 
-The following are candidates for deletion. All predate the containerised Solr
-deployment and have no active callers.
+The following historical audit items were removed with the legacy CLI cleanup.
 
 ### Solr install/management classes (in `med_installer/solr.rb`)
 - `MedInstaller::Solr::Install` -- downloads Solr 6.6.3; container-era obsolete
@@ -70,9 +53,8 @@ with the ops team before deleting.
 ### Dead private methods in `convert.rb`
 `start_new_letter` and `letter_and_filename` are defined but never called.
 
-**Suggested approach:** Open a single PR titled "Remove pre-container dead code",
-address each item above, and verify the CLI command list in `bin/dromedary` still
-registers cleanly.
+**Status:** The legacy Solr, remote deployment, and CLI-only utility code listed
+above was removed. No replacement CLI was added.
 
 ---
 
@@ -106,26 +88,10 @@ property :stencil_title
 
 ---
 
-## 6. Replace `Index::Generic#select_writer` with a Services lookup
+## 6. Remove legacy `Index::Generic`
 
-**Problem:** `select_writer` hard-codes `writers/localhost.rb` for the non-debug path,
-targeting a local Solr instance. The containerised pipeline uses
-`Services[:solr_writer]` (already used in `IndexingSteps`).
-
-**Suggested fix:** Replace the non-debug branch:
-
-```ruby
-def select_writer(debug)
-  if debug
-    index_dir + "writers" + "debug.rb"
-  else
-    Dromedary::Services[:solr_writer]
-  end
-end
-```
-
-This unifies the writer selection with `IndexingSteps` and removes the implicit
-dependency on a local Solr installation.
+**Status:** Removed with the old indexing commands. The active pipeline uses the
+configured writer directly; no replacement CLI was added.
 
 ---
 
@@ -159,9 +125,8 @@ in these notes. Delete `lib/dromedary/forms/search_form.rb`.
 
 ### 8a. Commented-out CLI commands still present in lib/
 
-The following installer command classes remain in source but their `bin/dromedary`
-registrations are commented out. They have zero callers and should be deleted along with
-the commented-out `bin/dromedary` lines.
+The following installer command classes were removed with the legacy CLI cleanup; no
+replacement commands were added.
 
 **In `lib/med_installer/solr.rb`:**
 - `MedInstaller::Solr::Commit` -- manual Solr commit; automated post-index
@@ -175,23 +140,18 @@ the commented-out `bin/dromedary` lines.
 under item 3 above.)
 
 **In `lib/med_installer/control.rb`:**
-- `MedInstaller::Control::MaintenanceModeOn` -- **NOT dead**: called programmatically
-  from `Index::Full#call` (index.rb line 229) even though the CLI registration is commented
-  out. Keep.
-- `MedInstaller::Control::MaintenanceModeOff` -- same; called from `Index::Full#call`
-  (index.rb line 249). Keep.
+- `MedInstaller::Control::MaintenanceModeOn` and `MaintenanceModeOff` were removed
+  with the legacy CLI. The Rails route still reads the maintenance flag.
 
 **In `lib/med_installer/ping_prometheus.rb`:**
-- `MedInstaller::PingPrometheus` -- entire file; CLI commented out, zero callers
+- `MedInstaller::PingPrometheus` -- removed with the legacy CLI
 
 ---
 
 ### 8b. Dead installer command classes with zero callers
 
-`MedInstaller::Index::Entries` and `MedInstaller::Index::Bib` -- these were only ever
-called by `ExtractConvertIndex` (item 2 above, itself slated for deletion). With that
-gone, both classes are unreachable. They live in `lib/med_installer/index.rb` and can be
-deleted after `ExtractConvertIndex` is removed.
+`MedInstaller::Index::Entries` and `MedInstaller::Index::Bib` were removed with
+`lib/med_installer/index.rb`; the active pipeline uses its Traject rules directly.
 
 ---
 
@@ -206,9 +166,7 @@ file if `IndexableQuote` is refactored to not need a separate representer.
 
 ### 8d. Dead method inside a live class
 
-`BibReader#get_data_file` in `lib/med_installer/indexer/bib_reader.rb` -- the method is
-defined but `@data_file` is set unconditionally in `initialize` and `get_data_file` is
-never called. Delete the method.
+`BibReader#get_data_file` was removed; the reader uses its configured service path.
 
 ---
 
@@ -248,8 +206,7 @@ The following files contain `binding.pry` calls and are clearly not production c
 
 - `indexer/pry_session.rb` -- opens a pry REPL with indexer context loaded; delete or
   move to a scratch/ gitignored directory
-- `indexer/solr_shell.rb` -- opens a pry REPL with a `MySimpleSolrClient` connection;
-  same recommendation
+- `indexer/solr_shell.rb` -- removed with the legacy Solr client
 - `t.rb` (repo root) -- a `Concurrent::TimerTask` that prints "Hello" and sleeps 1000
   seconds; scratch file, delete
 
@@ -259,13 +216,10 @@ a debug/prototype script, not production tooling. Delete or move outside the rep
 
 ---
 
-### 8i. Cascading bug: IndexDataJob calls broken command
+### 8i. Legacy IndexDataJob removed
 
-`IndexDataJob` (in `app/jobs/index_data_job.rb`) calls `MedInstaller::ExtractConvertIndex`
--- the same command identified as broken in item 2. The Rake tasks `:queue_indexing` and
-`:perform_indexing` invoke this job. After deleting `ExtractConvertIndex` (item 2), update
-`IndexDataJob` to call the correct replacement pipeline (`Prepare` + `IndexNewData`) or
-delete the job if it is no longer the intended indexing path.
+`IndexDataJob`, its Rake tasks, and the old Kubernetes data jobs were removed.
+No replacement job or trigger was added.
 
 ---
 

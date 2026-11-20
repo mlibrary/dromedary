@@ -170,12 +170,6 @@ GEM
       railties (>= 3.2, < 9.0)
     globalid (1.4.0)
       activesupport (>= 6.1)
-    hanami-cli (0.2.0)
-      concurrent-ruby (~> 1.0)
-      hanami-utils (~> 1.2)
-    hanami-utils (1.3.8)
-      concurrent-ruby (~> 1.0)
-      transproc (~> 1.0)
     hashie (5.2.0)
       logger
     html_truncator (0.4.2)
@@ -287,8 +281,6 @@ GEM
     prettyprint (0.2.1)
     prism (2.1.0-aarch64-linux-gnu)
     prism (2.1.0-x86_64-linux-gnu)
-    prometheus-client (4.2.5)
-      base64
     pry (0.16.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -444,9 +436,6 @@ GEM
     simple_form (5.4.1)
       actionpack (>= 7.0)
       activemodel (>= 7.0)
-    simple_solr_client (0.2.1)
-      httpclient
-      pry
     simplecov (1.3.2)
     slop (4.10.1)
     solr_cloud-connection (1.0.1)
@@ -494,7 +483,6 @@ GEM
       nokogiri (~> 1.9)
       slop (~> 4.0)
       yell
-    transproc (1.1.1)
     tsort (0.2.0)
     ttl_memoizeable (0.4.1)
       activesupport
@@ -549,7 +537,6 @@ DEPENDENCIES
   ettin
   factory_bot_rails (~> 6.0)
   font-awesome-rails
-  hanami-cli (= 0.2.0)
   html_truncator (~> 0.2)
   jbuilder (~> 2.5)
   listen
@@ -558,7 +545,6 @@ DEPENDENCIES
   multi_json
   okcomputer
   pg
-  prometheus-client (~> 4.0)
   pry-byebug
   pry-rails
   puma
@@ -573,7 +559,6 @@ DEPENDENCIES
   shrine (~> 3.6)
   sidekiq (>= 7.3.3)
   simple_form (~> 5.0)
-  simple_solr_client
   simplecov
   solr_cloud-connection
   sprockets (~> 4.0)
@@ -648,8 +633,6 @@ CHECKSUMS
   ffi (1.17.4-x86_64-linux-gnu) sha256=9d3db14c2eae074b382fa9c083fe95aec6e0a1451da249eab096c34002bc752d
   font-awesome-rails (4.7.0.9) sha256=b45044908fbf3178b8d84fbae415dae4b9bf847612bcb1170d88ed13842c8732
   globalid (1.4.0) sha256=037f12fbf1d9d7a014d501c2d5c77356fd4ddd96d7a7991d6700bba96706f427
-  hanami-cli (0.2.0) sha256=14e57101a4df28134632266bb1dc36d5596d40be692e309ea05081d219d1048f
-  hanami-utils (1.3.8) sha256=68bfee587fb08a0d694d0171097871fc52d45f799999b6d415f5f4fb4621c250
   hashie (5.2.0) sha256=357a22635195c2e3911fbbc3de9a7d528843d1f42ab0aae02171048f16332d72
   html_truncator (0.4.2) sha256=e22b7d440c00c30712a9f0f7217b5a641c3cf43d73b7a7bf46b834fa74718ce0
   http (6.0.4) sha256=3768f902489ea8309424f1881c668af8d3ca73675648a755dfe2cb0030d42d26
@@ -704,7 +687,6 @@ CHECKSUMS
   prettyprint (0.2.1) sha256=d555d57ea6d7cf001d4774b693546a6bd88bec1e778ddffb5c60b68ceec4b7d4
   prism (2.1.0-aarch64-linux-gnu) sha256=808dddc72def68e1a0463689414c97e0ba211938eddbab05387a4844aa2b3ec2
   prism (2.1.0-x86_64-linux-gnu) sha256=b2b647afce09551e650b8bb3e2fc91d7d73d392a09534ca307ec0d619c33bfd4
-  prometheus-client (4.2.5) sha256=807bebc3e92ccd9f4d814d90be15e85338f3708d227badf80924ef3f6e7d5225
   pry (0.16.1) sha256=d92d82c86e7f2dc34beec6d2892d5cf5ea517eea22eed3ceabb38ee62a98accc
   pry-byebug (3.12.0) sha256=594e094ae8a8390a7ad4c7b36ae36e13304ed02664c67417d108dc5f7213d1b7
   pry-rails (0.3.11) sha256=a69e28e24a34d75d1f60bcf241192a54253f8f7ef8a62cba1e75750a9653593d
@@ -753,7 +735,6 @@ CHECKSUMS
   shrine (3.10.2) sha256=c41f392ee55609575e0fd4634fdb6a144aa37b29db6c6cd90e9bf92ae117e6aa
   sidekiq (8.1.7) sha256=91ad48c7e6c32e1846bf1d5b74c27948758049b93fed0cb539f8d586c7de3415
   simple_form (5.4.1) sha256=58c3d229034c7e5545035c3271b6f030ef730c340b9d7d8eb730e0a385b20808
-  simple_solr_client (0.2.1) sha256=95da1598f78e4f5ff383f021ec18eaf05b2e23205ab5a65cff79dc65c438661f
   simplecov (1.3.2) sha256=2a22ec1759f1b8db60881a2e038758956fc69ef93ed669be0bde0678de6d0e85
   slop (4.10.1) sha256=844322b5ffcf17ed4815fdb173b04a20dd82b4fd93e3744c88c8fafea696d9c7
   solr_cloud-connection (1.0.1) sha256=c881b5a9489e7384447b98f79a7be2ed121e61ceb426e733dc061f3973d82a6b
@@ -769,7 +750,6 @@ CHECKSUMS
   timeout (0.6.1) sha256=78f57368a7e7bbadec56971f78a3f5ecbcfb59b7fcbb0a3ed6ddc08a5094accb
   trailblazer-option (0.1.2) sha256=20e4f12ea4e1f718c8007e7944ca21a329eee4eed9e0fa5dde6e8ad8ac4344a3
   traject (3.9.1) sha256=0a8187cac4eba0622e6fa298d078afecf4c45791588cb0f6711d70736ef56387
-  transproc (1.1.1) sha256=b2f9a85ecaf7064f0b3893ffac929de9fd713b13f5aaf822b0bd091fd6f5c8c2
   tsort (0.2.0) sha256=9650a793f6859a43b6641671278f79cfead60ac714148aabe4e3f0060480089f
   ttl_memoizeable (0.4.1) sha256=0430d5f5c538f3bb7913a4bf6add07683f60f35dd807715a67c42c48d1de176b
   tzinfo (2.0.6) sha256=8daf828cc77bcf7d63b0e3bdb6caa47e2272dcfaf4fbfe46f8c3a9df087a829b

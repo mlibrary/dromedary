@@ -1,3 +1,6 @@
+require "json"
+require "pathname"
+
 module MedInstaller
   # Utility module for loading and persisting the HYP-ID-to-bib-ID mapping.
   #

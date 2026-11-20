@@ -70,14 +70,10 @@ gem "bootstrap", "~> 5.0"
 gem "autoprefixer-rails"
 gem "font-awesome-rails"
 
-# For bin/dromedary
-gem "hanami-cli", "0.2.0" # peg it until I we can update to 3.
-
 # For truncating html safely (making sure tags are balanced, etc.)
 gem "html_truncator", "~>0.2"
 
-# For solr indexing
-gem "simple_solr_client", require: false # only for bin/dromedary stuff
+# For Solr indexing
 gem "traject", require: false # only for indexing
 
 # Building lists of xpaths
@@ -132,7 +128,6 @@ gem "jbuilder", "~> 2.5"
 ###############################
 # Gems for automated indexing #
 ###############################
-gem "prometheus-client", "~> 4.0"
 gem "sidekiq", ">= 7.3.3"
 gem "okcomputer"
 

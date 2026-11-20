@@ -7,6 +7,7 @@ require "shrine/storage/s3"
 require "active_support"
 require "active_support/core_ext/time"
 require "solr_cloud/connection"
+require_relative "../med_installer/logger"
 
 module Dromedary
   # A {Canister}-backed service container for the Dromedary application.
@@ -226,7 +227,13 @@ module Dromedary
 
   #######
 
-  Services.register(:logger) { ::Rails.logger }
+  Services.register(:logger) do
+    if defined?(::Rails) && ::Rails.logger
+      ::Rails.logger
+    else
+      MedInstaller::Logger::LOGGER
+    end
+  end
 
   Services.register(:secret_key_base) { ENV["SECRET_KEY_BASE"] || "somesecretkey" }
 end

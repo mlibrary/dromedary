@@ -1,14 +1,14 @@
 require "semantic_logger"
 
 module MedInstaller
-  # Logging mixin for +MedInstaller+ CLI commands and utilities.
+  # Logging mixin for +MedInstaller+ indexing operations and utilities.
   #
   # Including or extending this module gives access to a {#logger} method that
   # returns +Rails.logger+ inside a Rails app or the module-level
   # +SemanticLogger+ instance (+LOGGER+) outside of it.
   #
   # A custom {MEDFormatter} suppresses the process-info field so logs are
-  # clean when running standalone CLI commands.
+  # clean when running outside Rails.
   module Logger
     # SemanticLogger formatter that suppresses the process-info prefix.
     class MEDFormatter < SemanticLogger::Formatters::Color
