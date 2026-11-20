@@ -11,7 +11,7 @@ ARG ARCH=amd64
 
 # Must match the BUNDLED WITH section of Gemfile.lock.
 ARG BUNDLER_VERSION=4.0.20
-ARG NODE_VERSION=20
+ARG NODE_VERSION=24
 
 RUN rm -f /etc/apt/apt.conf.d/docker-clean && \
     echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' \
