@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<links>
+  <link sourceID="MED3363" targetID="14168">
+    <oedHed>B, n.</oedHed>
+    <norm>B</norm>
+  </link>
+  <link sourceID="MED3364" targetID="14169">
+    <oedHed>ba, n.</oedHed>
+    <norm>ba</norm>
+  </link>
+  <link sourceID="MED3365" targetID="-----">
+    <oedHed>baba, n.</oedHed>
+    <norm>baba</norm>
+  </link>
+  <link sourceID="MED3366" targetID="14189">
+    <oedHed>baban, n.</oedHed>
+    <oedSub type="derivative">babanly</oedSub>
+    <norm>babanly</norm>
+  </link>
+</links>

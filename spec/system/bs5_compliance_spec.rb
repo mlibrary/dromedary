@@ -47,8 +47,8 @@ RSpec.describe 'BS5 compliance', type: :system do
     end
   end
 
-  describe 'dictionary search results' do
-    before { visit '/dictionary?q=women&search_field=hnf' }
+  describe 'dictionary search results', integration: true do
+    before { visit '/dictionary?q=abissus&search_field=hnf' }
 
     it 'does not use sr-only' do
       expect(page).not_to have_css('.sr-only')

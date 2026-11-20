@@ -31,8 +31,8 @@ RSpec.describe 'Keyboard dropdown', type: :system do
     include_examples 'keyboard dropdown'
   end
 
-  context 'header search bar' do
-    before { visit '/dictionary?q=test&search_field=hnf' }
+  context 'header search bar', integration: true do
+    before { visit '/dictionary?q=abissus&search_field=hnf' }
     include_examples 'keyboard dropdown'
   end
 end

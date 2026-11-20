@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "Search handlers", type: :system do
-  describe "dictionary search" do
+  describe "dictionary search", integration: true do
     it "returns results for headword search" do
       visit "/dictionary?q=abissus&search_field=hnf"
       expect(page.status_code).to eq 200
@@ -11,7 +11,7 @@ RSpec.describe "Search handlers", type: :system do
     end
 
     it "returns results for entire entry search" do
-      visit "/dictionary?q=women&search_field=anywhere"
+      visit "/dictionary?q=lorem&search_field=anywhere"
       expect(page.status_code).to eq 200
       expect(page).to have_css(".document")
     end
@@ -23,13 +23,13 @@ RSpec.describe "Search handlers", type: :system do
     end
 
     it "returns results for citation search" do
-      visit "/dictionary?q=love&search_field=citation"
+      visit "/dictionary?q=lorem&search_field=citation"
       expect(page.status_code).to eq 200
       expect(page).to have_css(".document")
     end
   end
 
-  describe "bibliography search" do
+  describe "bibliography search", integration: true do
     it "returns results for entire entry search" do
       visit "/bibliography?q=women&search_field=bib_keyword"
       expect(page.status_code).to eq 200
@@ -49,15 +49,15 @@ RSpec.describe "Search handlers", type: :system do
     end
   end
 
-  describe "quotations search" do
+  describe "quotations search", integration: true do
     it "returns results for quote everything search" do
-      visit "/quotations?q=love&search_field=quote_everything"
+      visit "/quotations?q=lorem&search_field=quote_everything"
       expect(page.status_code).to eq 200
       expect(page).to have_css(".document")
     end
 
     it "returns results for quote text only search" do
-      visit "/quotations?q=love&search_field=quote_quote"
+      visit "/quotations?q=lorem&search_field=quote_quote"
       expect(page.status_code).to eq 200
       expect(page).to have_css(".document")
     end

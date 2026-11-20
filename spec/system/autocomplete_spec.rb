@@ -17,14 +17,14 @@ RSpec.describe 'Autocomplete', type: :system do
   end
 
   describe 'suggest endpoint returns HTML li fragments' do
-    it 'headword suggester returns HTML li elements for prefix "ab"' do
+    it 'headword suggester returns HTML li elements for prefix "ab"', integration: true do
       visit '/dictionary/suggest?q=ab&search_field=h'
       expect(page.status_code).to eq(200)
       expect(page.body).to include('<li')
       expect(page.body).to include('data-autocomplete-value')
     end
 
-    it 'headword_forms suggester returns HTML li elements for prefix "ab"' do
+    it 'headword_forms suggester returns HTML li elements for prefix "ab"', integration: true do
       visit '/dictionary/suggest?q=ab&search_field=hnf'
       expect(page.status_code).to eq(200)
       expect(page.body).to include('<li')
@@ -53,8 +53,8 @@ RSpec.describe 'Autocomplete', type: :system do
       expect(page).to have_css('auto-complete', wait: 5)
     end
 
-    it 'renders auto-complete element in header search bar on results page' do
-      visit '/dictionary?q=test&search_field=everything'
+    it 'renders auto-complete element in header search bar on results page', integration: true do
+      visit '/dictionary?q=abissus&search_field=hnf'
       expect(page).to have_css('auto-complete', wait: 5)
     end
   end

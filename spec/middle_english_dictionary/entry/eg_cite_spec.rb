@@ -20,7 +20,7 @@ RSpec.describe MiddleEnglishDictionary::Entry::EG do
 
   it "extracts data from the stencils" do
     stencils = e.senses[1].egs.first.citations.flat_map { |x| x.bib.stencil }
-    expect(stencils.map(&:rid)).to match_array(%w[hyp.148.20011127T144602 hyp.100.19991101T123123])
+    expect(stencils.map(&:rid)).to match_array(%w[HYP.148.20011127T144602 HYP.100.19991101T123123])
   end
 
   it "gets all the quotes" do

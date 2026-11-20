@@ -2,6 +2,15 @@
 require "spec_helper"
 
 ENV["RAILS_ENV"] ||= "test"
+if ENV["RUN_INTEGRATION"] == "1"
+  ENV["SOLR_COLLECTION"] = "med-spec"
+  ENV["SOLR_COLLECTION_BASE"] = "med-spec-#{Process.pid}"
+  ENV["SOLR_PREVIEW_ALIAS"] = "med-spec"
+  ENV["SOLR_REPLICATION_FACTOR"] = "1"
+  ENV["MANUALLY_BUILD_SUGGESTERS"] = "false"
+  ENV.delete("DIRECT_URLS_TO_SOLR_REPLICAS")
+  ENV["BUILD_ROOT"] ||= File.expand_path("../tmp/med-spec-build", __dir__)
+end
 # Unset RAILS_RELATIVE_URL_ROOT so Capybara rack_test can visit paths without
 # the /m/middle-english-dictionary prefix.  The reverse proxy strips that
 # prefix in production before Rails sees the request; rack_test does not.

@@ -10,10 +10,16 @@ env:
   RAILS_ENV: "test"
   DATABASE_URL: "postgresql://postgres:postgres@127.0.0.1:5432/dromedary-test"
   # The app reads SOLR_ROOT + SOLR_COLLECTION (see lib/dromedary/services.rb).
-  SOLR_ROOT: "http://127.0.0.1:9639/"
-  SOLR_COLLECTION: "dromedary-test"
+  SOLR_ROOT: "http://127.0.0.1:9172/"
+  SOLR_COLLECTION: "med-spec"
+  SOLR_PREVIEW_ALIAS: "med-spec"
+  SOLR_REPLICATION_FACTOR: "1"
+  SOLR_USERNAME: "solr"
+  SOLR_PASSWORD: "SolrRocks"
+  BUILD_ROOT: "${{ github.workspace }}/tmp/med-spec-build"
+  MANUALLY_BUILD_SUGGESTERS: "false"
   # Legacy: indexer/solr_shell.rb still reads this.
-  SOLR_URL: "http://127.0.0.1:9639/solr/dromedary-test"
+  SOLR_URL: "http://127.0.0.1:9172/solr/med-spec"
 
 jobs:
   ci:
@@ -48,8 +54,33 @@ jobs:
           bundler-cache: true
         env:
           BUNDLE_RUBYGEMS__PKG__GITHUB__COM: ${{secrets.GH_PACKAGE_READ_TOKEN}}
-      - name: Run Solr (and create core)
-        run: docker run -d -p 9639:8983 -v $(pwd)/solr/dromedary:/dromedary:ro  ghcr.io/mlibrary/dromedary/dromedary-solr:latest solr-precreate dromedary-test /dromedary
+      - name: Start SolrCloud
+        run: |
+          mkdir -p data/solr_index_data
+          sudo chown -R 8983:8983 data/solr_index_data
+          docker compose up -d zoo
+          zookeeper_ready=false
+          for attempt in $(seq 1 60); do
+            if bash -c '</dev/tcp/127.0.0.1/9091' 2>/dev/null; then
+              zookeeper_ready=true
+              break
+            fi
+            sleep 2
+          done
+          if [ "$zookeeper_ready" != true ]; then
+            docker compose logs zoo
+            exit 1
+          fi
+          docker compose up -d solr
+          for attempt in $(seq 1 60); do
+            if curl -fsS -u solr:SolrRocks http://127.0.0.1:9172/solr/admin/info/system >/dev/null 2>&1; then
+              echo "SolrCloud is ready"
+              exit 0
+            fi
+            sleep 2
+          done
+          docker compose logs solr zoo
+          exit 1
       - name: Setup Database (db:setup)
         run: bundle exec rake db:setup
       # Advisory only: there are existing offenses, so this must not gate merges.
@@ -58,3 +89,7 @@ jobs:
         run: bundle exec standardrb
       - name: Continuous Integration (spec)
         run: bundle exec rake spec
+      - name: Solr integration specs
+        env:
+          RUN_INTEGRATION: "1"
+        run: bundle exec rspec --tag integration

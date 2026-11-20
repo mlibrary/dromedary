@@ -6,8 +6,6 @@
 #   1. The SCSS import path uses 'blacklight/blacklight' (not 'blacklight-frontend/...')
 #   2. rails-ujs is not referenced in application.js (deprecated in Rails 7+)
 #
-# SOLR REQUIREMENT: Requires a running Solr with indexed data.
-
 require "rails_helper"
 
 RSpec.describe "Asset loading", type: :system do

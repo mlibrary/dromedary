@@ -1,30 +1,20 @@
 require_relative "spec_helper"
-require "middle_english_dictionary/external_dictionary_link"
-MEDO = MiddleEnglishDictionary::ExternalDictionaryLink
+require "middle_english_dictionary/collection/external_dictionary_link_set"
 
-RSpec.describe MiddleEnglishDictionary::Entry do
-  let(:links) { Nokogiri::XML(File.read(SPEC_DATA + "oed_links.xml")).xpath("/links/link") }
+RSpec.describe MiddleEnglishDictionary::Collection::OEDLinkSet do
+  let(:links) { described_class.from_xml_file(SPEC_DATA + "oed_links.xml") }
 
-  it "constructs a link" do
-    skip "Rework spec for new OED file format"
+  it "parses normalized terms and target data" do
+    b_link = links["MED3363"]
+    expect(b_link.normalized_term).to eq("B")
+    expect(b_link.targets.map(&:target_id)).to eq(["14168"])
+    expect(b_link.targets.map(&:term)).to eq(["B, n."])
 
-    link = MEDO.new_from_nokonode(links.first)
-    expect(link.norm).to eq("B")
+    expect(links["MED3364"].normalized_term).to eq("ba")
+    expect(links["MED3366"].normalized_term).to eq("babanly")
   end
 
-  it "notices a lack of linking data" do
-    # skip "Rework spec for new OED file format"
-
-    link1 = MEDO.new_from_nokonode(links.first)
-    link2 = MEDO.new_from_nokonode(links[2])
-    expect(link1.linked?).to be(true)
-    expect(link2.linked?).to be(false)
-  end
-
-  it "gets the norms" do
-    # skip "Rework spec for new OED file format"
-
-    norms = links.take(4).map { |x| MEDO.new_from_nokonode(x) }.map(&:norm)
-    expect(norms).to match_array(%w[B ba baba babanly])
+  it "omits links with placeholder target ids" do
+    expect(links["MED3365"]).to be_nil
   end
 end

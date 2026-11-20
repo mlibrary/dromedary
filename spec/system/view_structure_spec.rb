@@ -8,8 +8,8 @@
 # Blacklight 9 view migrations. They do NOT assert exact HTML -- they verify
 # that elements the reference system renders are still present.
 #
-# SOLR REQUIREMENT: These specs require a running Solr with indexed data.
-# Run inside Docker: `dc run --rm app bundle exec rspec spec/system/`
+# Solr-backed example groups are tagged :integration and skipped by default.
+# Run: `docker compose exec -e RUN_INTEGRATION=1 app bundle exec rspec --tag integration`.
 #
 # Reference: doc/bootstrap_upgrade/reference_pages/README.md
 
@@ -194,10 +194,10 @@ RSpec.describe "View structure (reference system)", type: :system do
 
     # ---- search results ----
 
-    describe "search results" do
+    describe "search results", integration: true do
       before do
         visit "/dictionary"
-        fill_in "q", with: "love"
+        fill_in "q", with: "abissus"
         click_button "Search"
       end
 
@@ -207,12 +207,11 @@ RSpec.describe "View structure (reference system)", type: :system do
 
       it "shows search constraints" do
         expect(page).to have_css(".constraints-container, .applied-filter, .filter-name")
-          .or(have_content("love"))
+          .or(have_content("abissus"))
       end
 
       it "shows result count" do
-        expect(page).to have_content("of")
-          .and have_content(/\d+ - \d+ of \d+|No results found/)
+        expect(page).to have_content(/\d+ entr(?:y|ies) found|\d+ - \d+ of \d+|No results found/)
       end
 
       it "has facet sidebar" do
@@ -256,7 +255,7 @@ RSpec.describe "View structure (reference system)", type: :system do
 
     # ---- show / detail page ----
 
-    describe "show page" do
+    describe "show page", integration: true do
       # MED100 is a known stable dictionary entry ID
       before { visit "/dictionary/MED100" }
 
@@ -345,7 +344,7 @@ RSpec.describe "View structure (reference system)", type: :system do
 
     # ---- search results ----
 
-    describe "search results" do
+    describe "search results", integration: true do
       before do
         visit "/bibliography"
         fill_in "q", with: "chaucer"
@@ -381,7 +380,7 @@ RSpec.describe "View structure (reference system)", type: :system do
 
     # ---- show page ----
 
-    describe "show page" do
+    describe "show page", integration: true do
       # BIB628 is a known stable bibliography ID
       # Note: show template has pre-existing replace :h1_wrap bug (Phase 5)
       before { visit "/bibliography/BIB628" }
@@ -471,10 +470,10 @@ RSpec.describe "View structure (reference system)", type: :system do
 
     # ---- search results ----
 
-    describe "search results" do
+    describe "search results", integration: true do
       before do
         visit "/quotations"
-        fill_in "q", with: "love"
+        fill_in "q", with: "lorem"
         click_button "Search"
       end
 
@@ -483,7 +482,7 @@ RSpec.describe "View structure (reference system)", type: :system do
       include_examples "has search form"
 
       it "shows search constraints" do
-        expect(page).to have_content("love")
+        expect(page).to have_content("lorem")
       end
 
       it "shows result count" do
@@ -557,7 +556,7 @@ RSpec.describe "View structure (reference system)", type: :system do
   # 6. Error handling
   # ------------------------------------------------------------
 
-  describe "error handling" do
+  describe "error handling", integration: true do
     it "renders 404 for unknown dictionary ID" do
       visit "/dictionary/MEDNONEXISTENT99999"
       expect(page.status_code).to be_in([200, 404])

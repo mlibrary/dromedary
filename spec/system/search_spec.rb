@@ -7,14 +7,8 @@
 # catch the class of regression introduced by Bootstrap and ViewComponent
 # migrations.
 #
-# SOLR REQUIREMENT: These specs require a running Solr with indexed data.
-# Run inside Docker: `dc run --rm app bundle exec rspec spec/system/`
-#
-# TODO: Replace live-Solr dependency with a deterministic snapshot.
-#   1. Run: `dc exec solr solr backup -c med-preview -d /var/solr/data/backups`
-#   2. Copy backup to spec/fixtures/solr/
-#   3. Write a RSpec before(:suite) hook that restores the snapshot into a
-#      test collection before the suite runs and removes it after.
+# Solr-backed examples are tagged :integration and skipped by default.
+# Run: `docker compose exec -e RUN_INTEGRATION=1 app bundle exec rspec --tag integration`.
 
 require "rails_helper"
 
@@ -35,34 +29,32 @@ RSpec.describe "Dromedary regression checklist", type: :system do
   # Dictionary search
   # ------------------------------------------------------------
 
-  describe "dictionary search" do
+  describe "dictionary search", integration: true do
     before { visit "/dictionary" }
 
     it "search form submits and returns results" do
-      fill_in "q", with: "love"
+      fill_in "q", with: "abissus"
       click_button "Search"
       expect(page).to have_http_status(:ok)
       expect(page).not_to have_content("We're sorry, but something went wrong")
-      # Either results or a zero-results message -- both are valid
-      expect(page).to have_css(".blacklight-catalog, .no-results, [data-document-id], #search-results, #documents")
-        .or(have_content("No results found"))
+      expect(page).to have_content("abissus n.")
     end
 
     it "facet sidebar is present" do
-      fill_in "q", with: "god"
+      fill_in "q", with: "abissus"
       click_button "Search"
       expect(page).to have_css("#facets, .facets, .blacklight-facets, aside")
     end
 
     it "per-page selector is present" do
-      fill_in "q", with: "god"
+      fill_in "q", with: "abissus"
       click_button "Search"
       expect(page).to have_css("select[name='per_page'], .per-page, #per-page, #per_page-dropdown")
         .or(have_content("per page"))
     end
 
     it "sort selector is present" do
-      fill_in "q", with: "god"
+      fill_in "q", with: "abissus"
       click_button "Search"
       expect(page).to have_css("select[name='sort'], .sort-widget, #sort-widget, #sort-dropdown")
         .or(have_content("Sort by"))
@@ -73,14 +65,13 @@ RSpec.describe "Dromedary regression checklist", type: :system do
   # Show / detail page
   # ------------------------------------------------------------
 
-  describe "dictionary show page" do
-    # MED1 is a stable headword document ID present in the index
-    let(:known_id) { "MED1" }
+  describe "dictionary show page", integration: true do
+    # MED100 is a stable headword document in the A subset
+    let(:known_id) { "MED100" }
 
     it "loads for a known document ID pattern" do
       visit "/dictionary/#{known_id}"
-      # Either renders the doc or shows a proper 404 -- both avoid 500
-      expect(page.status_code).to be_in([200, 404])
+      expect(page.status_code).to eq(200)
       expect(page).not_to have_content("We're sorry, but something went wrong")
     end
 
@@ -103,12 +94,12 @@ RSpec.describe "Dromedary regression checklist", type: :system do
       expect(page).not_to have_content("We're sorry, but something went wrong")
     end
 
-    it "search returns results" do
+    it "search returns results", integration: true do
       visit "/bibliography"
       fill_in "q", with: "chaucer"
       click_button "Search"
       expect(page).to have_http_status(:ok)
-      expect(page).not_to have_content("We're sorry, but something went wrong")
+      expect(page).to have_css(".document")
     end
   end
 
@@ -116,7 +107,7 @@ RSpec.describe "Dromedary regression checklist", type: :system do
   # Print view
   # ------------------------------------------------------------
 
-  describe "print view" do
+  describe "print view", integration: true do
     it "renders without error when accessed directly" do
       visit "/dictionary?q=abissus"
       expect(page).to have_http_status(:ok)
@@ -157,9 +148,9 @@ RSpec.describe "Dromedary regression checklist", type: :system do
   # Pagination
   # ------------------------------------------------------------
 
-  describe "pagination" do
+  describe "pagination", integration: true do
     it "next page link works" do
-      visit "/dictionary?q=ab"  # 131 entries starting with 'ab-' -> multiple pages
+      visit "/dictionary?q=ab*&search_field=hnf"  # Match all headwords in the A subset.
       next_links = all("a[rel='next']")
       if next_links.any?
         next_links.first.click
@@ -175,7 +166,7 @@ RSpec.describe "Dromedary regression checklist", type: :system do
   # Auto-suggest endpoint (non-JS: just verify the endpoint responds)
   # ------------------------------------------------------------
 
-  describe "auto-suggest endpoint" do
+  describe "auto-suggest endpoint", integration: true do
     it "headword suggester returns HTML li elements for prefix 'ab'" do
       visit "/dictionary/suggest?q=ab&search_field=h"
       expect(page.status_code).to eq(200)
