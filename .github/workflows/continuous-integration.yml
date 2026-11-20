@@ -8,6 +8,8 @@ on:
 
 env:
   RAILS_ENV: "test"
+  # Enable admin routes exercised by the controller specs.
+  ALLOW_ADMIN_ACCESS: "1"
   DATABASE_URL: "postgresql://postgres:postgres@127.0.0.1:5432/dromedary-test"
   # The app reads SOLR_ROOT + SOLR_COLLECTION (see lib/dromedary/services.rb).
   SOLR_ROOT: "http://127.0.0.1:9172/"
