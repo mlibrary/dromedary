@@ -1,8 +1,0 @@
-[
-  {
-    "order": 1,
-    "title": "Project Overview",
-    "description": "Start with README to understand project's purpose and structure.",
-    "nodeIds": ["document:README.md"]
-  }
-]
