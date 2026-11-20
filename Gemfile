@@ -17,7 +17,7 @@ gem "date_named_file"
 gem "zinzout"
 gem "representable"
 gem "multi_json"
-gem "solr_cloud-connection", path: "vendor/solr_cloud-connection"
+gem "solr_cloud-connection"
 
 gem "shrine", "~> 3.6"
 gem "aws-sdk-s3", "~> 1.160"
