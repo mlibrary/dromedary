@@ -3,7 +3,6 @@
 require "json"
 require "delegate"
 require "middle_english_dictionary"
-require "html_truncator"
 require "dromedary/xslt_utils"
 require_relative "../../common_presenters"
 module Dromedary

@@ -1,24 +1,13 @@
+require "pathname"
 require "zip"
 require "tmpdir"
-require "hanami/cli"
-# require_relative "../../config/load_local_config"
-require_relative "../dromedary/services"
 require "semantic_logger"
 
 Zip.on_exists_proc = true
 
 module MedInstaller
-  class Extract < Hanami::CLI::Command
-    # include MedInstaller::Logger
+  class Extract
     include SemanticLogger::Loggable
-
-    desc "[STEP 1 of 'prepare'] Extract the individual xml files into <datadir>/xml/"
-
-    argument :zipfile, required: true, desc: "The path to the zipfile (downloaded from Box)"
-    argument :build_directory,
-      required: false,
-      default: Dromedary::Services[:build_directory],
-      desc: "The build directory. XML files will be put in <build_directory>/xml"
 
     # Extracts MED XML files from a nested zip archive into a build directory.
     #
@@ -39,7 +28,6 @@ module MedInstaller
       xmldir.mkpath
 
       raise ArgumentError.new("Zipfile #{zipfile} not found") unless Pathname.new(zipfile).exist?
-      raise ArgumentError.new("Zipfile #{zipfile} not readable") unless Pathname.new(zipfile).readable?
       raise ArgumentError.new("Zipfile #{zipfile} not readable") unless Pathname.new(zipfile).readable?
 
       logger.info "Extract: read from #{zipfile}, target #{xmldir}"

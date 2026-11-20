@@ -1,5 +1,3 @@
-require "json"
-
 # From the traject docs:
 # #  A Reader is any class that:
 #   1) Has a two-argument initializer taking an IO stream and a Settings hash
@@ -13,6 +11,7 @@ require "json"
 
 require "middle_english_dictionary"
 require "dromedary/services"
+require "med_installer/logger"
 
 module MedInstaller
   # Traject readers need to take an io object (which we don't need) and the
@@ -36,10 +35,8 @@ module MedInstaller
     include Enumerable
     include MedInstaller::Logger
 
-    DATAFILEKEY = "med.data_file"
-
     # @param settings [Hash] Traject settings hash (the IO argument is ignored)
-    def initialize(settings)
+    def initialize(_settings)
       @data_file = Dromedary::Services[:bib_all_xml_file]
     end
 
@@ -51,20 +48,6 @@ module MedInstaller
     rescue => e
       require "pry"
       binding.pry # standard:disable Lint/Debugger
-    end
-
-    # Resolves the data file path from the settings hash.
-    # @param settings [Hash] must contain key +DATAFILEKEY+ (+med.data_file+)
-    # @return [Pathname] the resolved data file path
-    # @raise [RuntimeError] if the key is absent
-    # @note This method is defined but never called internally (Settings are ignored
-    #   in +initialize+); may be vestigial.
-    def get_data_file(settings)
-      if settings.has_key?(DATAFILEKEY)
-        Pathname.new(settings[DATAFILEKEY])
-      else
-        raise "Need to specify filename in #{DATAFILEKEY} for #{self.class}"
-      end
     end
   end
 end

@@ -13,9 +13,6 @@ RSpec.describe MiddleEnglishDictionary::Entry do
       expect(e.regularized_headwords).to eq(%w[denuded])
     end
 
-    it "gets all headwords forms" do
-      expect(e.all_headword_forms).to eq(%w[dē̆nūded denuded])
-    end
   end
 
   describe "With a more complex document" do
@@ -27,10 +24,6 @@ RSpec.describe MiddleEnglishDictionary::Entry do
 
     it "gets the regularized headwords" do
       expect(e.regularized_headwords).to eq(%w[brand-reth brandreth])
-    end
-
-    it "gets all headword forms" do
-      expect(e.all_headword_forms).to eq(%w[brand-reth brandreth])
     end
 
     it "gets all the original orth forms" do

@@ -1,3 +1,6 @@
+require "json"
+require "pathname"
+
 module MedInstaller
   # Utility module for loading and persisting the HYP-ID-to-bib-ID mapping.
   #
@@ -5,16 +8,6 @@ module MedInstaller
   # This mapping is built once during the convert step and then uploaded to Solr
   # as a special document so it can be retrieved at query time.
   module HypToBibId
-    # Reads the hyp-to-bib-ID mapping from a JSON file on disk.
-    # @param filename [String, Pathname] path to the +hyp_to_bibid.json+ file
-    # @return [Hash{String => String}] mapping of HYP IDs to bib IDs
-    # @raise [Errno::ENOENT] if the file does not exist
-    def self.load_from_file!(filename)
-      target = Pathname(filename)
-      raise Errno::ENOENT.new("Can't find #{target}") unless target.exist?
-      JSON.parse(File.read(target))
-    end
-
     # Reads the mapping JSON from disk and adds it to Solr as a single document
     # with id +"hyp_to_bibid"+, then performs a hard commit.
     #

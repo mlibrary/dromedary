@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 require "dromedary/services"
-require "date_named_file"
+require "pathname"
+require "semantic_logger"
 require "solr_cloud/connection"
 require "med_installer/extract"
 require "med_installer/convert"
@@ -24,10 +25,9 @@ module MedInstaller
   # * Hard commit
   # * Rebuild the solr suggesters
   # * Optimize
-  # This class is basically piggy-backing on the work done for the `bin/dromedary` CLI,
-  # but with less redirection and more stuff pulled from the Services object
+  # Production indexing workflow for a MED source archive.
   class IndexingSteps
-    attr_reader :build_dir, :xml_dir, :uid, :zipfile, :connection
+    attr_reader :build_dir, :xml_dir, :zipfile, :connection
     Services = Dromedary::Services
     include SemanticLogger::Loggable
 
@@ -143,7 +143,7 @@ module MedInstaller
     # @param build_directory [Pathname, String] destination directory (default: {#build_dir})
     # @return [void]
     def extract_zip_to_build_directory(zipfile: @zipfile, build_directory: @build_dir)
-      MedInstaller::Extract.new(command_name: "extract").call(zipfile: zipfile, build_directory: build_directory)
+      MedInstaller::Extract.new.call(zipfile: zipfile, build_directory: build_directory)
     end
 
     # Performs a quick sanity check on the extracted XML directory.
@@ -171,7 +171,7 @@ module MedInstaller
     # @param build_directory [Pathname, String] path to the build directory (default: {#build_dir})
     # @return [void]
     def create_combined_documents(build_directory: build_dir)
-      MedInstaller::Convert.new(command_name: "convert").call(build_directory: build_directory)
+      MedInstaller::Convert.new.call(build_directory: build_directory)
     end
 
     # Creates a new Solr configset and collection for the indexing run.

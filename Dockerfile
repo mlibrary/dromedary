@@ -25,12 +25,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     git \
     unzip \
     libpq-dev \
-    libyaml-dev \
-    ##### FIXME: remove these once useless gems are trimmed \
-    libmariadb-dev \
-    libsqlite3-dev \
-    ##### What is netcat here for???
-    netcat-openbsd
+    libyaml-dev 
 
 RUN --mount=type=cache,sharing=locked,target=/var/cache/apt \
     --mount=type=cache,sharing=locked,target=/var/lib/apt \

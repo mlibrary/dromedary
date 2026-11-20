@@ -1,10 +1,10 @@
 $LOAD_PATH.unshift Pathname.new(__dir__).to_s
 $LOAD_PATH.unshift (Pathname.new(__dir__).parent + "lib").to_s
-require "med_installer"
+require "med_installer/hyp_to_bibid"
+require "med_installer/indexer/entry_json_reader"
 require "middle_english_dictionary"
 require "json"
 require_relative "../config/load_local_config"
-require_relative "../lib/med_installer/job_monitoring"
 require_relative "../lib/dromedary/services"
 
 require "quote/quote_indexer"
@@ -186,7 +186,7 @@ each_record do |entry, context|
         else
           warning = "RID #{rid} in #{entry.source} not found in bib_all.xml"
           logger.warn warning
-          # MiddleEnglishIndexMetrics.new({type: "index_quotes"}).log_warning(warning)
+
         end
       rescue => e
         logger.error e.full_message

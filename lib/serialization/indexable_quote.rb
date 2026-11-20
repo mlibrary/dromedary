@@ -57,41 +57,5 @@ module Dromedary # standard:disable Lint/Syntax
     end
     # standard:enable Lint/Syntax
 
-    # Provide a JSON representation of this object and all its sub-objects
-    # @return [String] json for this object
-    def to_json
-      IndexableQuoteRepresenter.new(self).to_json
-    end
-  end
-
-  # Representable::Decorator that serialises an {IndexableQuote} to JSON.
-  #
-  # Maps each declared +property+ to the matching +attr_accessor+ on the
-  # decorated {IndexableQuote} object.  The nested +citation+ property is
-  # delegated to +MiddleEnglishDictionary::Entry::CitationRepresenter+ for
-  # deep serialisation.
-  #
-  # @note +stencil_author+ and +stencil_title+ are set on {IndexableQuote} at
-  #   construction time but are intentionally absent from this representer;
-  #   they duplicate +author+ and +title+ and are not needed in the JSON output.
-  class IndexableQuoteRepresenter < Representable::Decorator  # standard:disable Lint/Syntax
-    include Representable::JSON
-
-    property :quote
-
-    property :entry_id
-    property :headword
-    property :pos
-    property :bib_id
-    property :author
-    property :cd
-    property :md
-    property :quote_html
-    property :scope
-    property :rid
-    property :date
-    property :title
-    property :ms
-    property :citation, decorator: MiddleEnglishDictionary::Entry::CitationRepresenter, class: MiddleEnglishDictionary::Entry::Citation
   end
 end

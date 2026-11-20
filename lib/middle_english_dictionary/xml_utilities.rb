@@ -4,32 +4,6 @@ module MiddleEnglishDictionary
   # Utility methods for manipulating Nokogiri XML documents used throughout
   # the MED parsing pipeline.
   module XMLUtilities
-    # Inspect min and max child-node counts for each unique child element name
-    # across all nodes matched by +xpath+. Useful for schema analysis.
-    #
-    # @param doc [Nokogiri::XML::Document] the document to inspect
-    # @param xpath [String] XPath expression selecting the parent nodes
-    # @return [Hash{String => Array(Integer, Integer)}] a hash mapping each
-    #   child element name to +[min_count, max_count]+, sorted by name
-    def self.arities(doc, xpath)
-      h = Hash.new { |h, k| h[k] = {} }
-
-      nodes = doc.xpath(xpath)
-
-      kids = nodes.flat_map(&:children).flat_map(&:name).uniq - ["text"]
-
-      kids.each do |k|
-        nodes.each do |x|
-          h[k][x.xpath(k).count] = true
-        end
-      end
-
-      h.keys.sort.each_with_object({}) do |k, acc|
-        arities = h[k].keys
-        acc[k] = [arities.min, arities.max]
-      end
-    end
-
     # Wrap each contiguous run of sibling elements named +tagname+ inside a
     # new wrapper element, mutating the document in place. Whitespace-only text
     # nodes between matching siblings are treated as transparent. This
@@ -66,60 +40,5 @@ module MiddleEnglishDictionary
       nil
     end
 
-    # Return a pretty-printed, indented XML string by applying an internal
-    # XSLT stylesheet that normalises whitespace and adds consistent indentation.
-    #
-    # @param xml [String] raw XML string to format
-    # @return [String] indented, human-readable XML
-    def self.pretty_xml(xml)
-      PrettyXSL.apply_to(Nokogiri::XML(xml)).to_s
-    end
-
-    PrettyXSLSS = <<~EOXSL # rubocop:disable Naming/ConstantName
-      <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-        <xsl:output method="xml" indent="yes" omit-xml-declaration="yes" encoding="UTF-8"/>
-        <xsl:param name="indent-increment" select="'   '"/>
-        <xsl:template name="newline">
-          <xsl:text disable-output-escaping="yes">
-      </xsl:text>
-        </xsl:template>
-        <xsl:template match="comment() | processing-instruction()">
-          <xsl:param name="indent" select="''"/>
-          <xsl:call-template name="newline"/>
-          <xsl:value-of select="$indent"/>
-          <xsl:copy />
-        </xsl:template>
-        <xsl:template match="text()">
-          <xsl:param name="indent" select="''"/>
-          <xsl:call-template name="newline"/>
-          <xsl:value-of select="$indent"/>
-          <xsl:value-of select="normalize-space(.)"/>
-        </xsl:template>
-        <xsl:template match="text()[normalize-space(.)='']"/>
-        <xsl:template match="*">
-          <xsl:param name="indent" select="''"/>
-          <xsl:call-template name="newline"/>
-          <xsl:value-of select="$indent"/>
-            <xsl:choose>
-             <xsl:when test="count(child::*) > 0">
-              <xsl:copy>
-               <xsl:copy-of select="@*"/>
-               <xsl:apply-templates select="*|text()">
-                 <xsl:with-param name="indent" select="concat ($indent, $indent-increment)"/>
-               </xsl:apply-templates>
-               <xsl:call-template name="newline"/>
-               <xsl:value-of select="$indent"/>
-              </xsl:copy>
-             </xsl:when>
-             <xsl:otherwise>
-              <xsl:copy-of select="."/>
-             </xsl:otherwise>
-           </xsl:choose>
-        </xsl:template>
-      </xsl:stylesheet>
-    EOXSL
-
-    # Compiled XSLT stylesheet used by {.pretty_xml}.
-    PrettyXSL = Nokogiri::XSLT(PrettyXSLSS)
   end
 end

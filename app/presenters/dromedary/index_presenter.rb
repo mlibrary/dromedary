@@ -3,7 +3,6 @@
 require "json"
 require "delegate"
 require "middle_english_dictionary"
-require "html_truncator"
 require "dromedary/xslt_utils"
 require "dromedary/smart_xml"
 require_relative "../common_presenters"
@@ -51,11 +50,6 @@ module Dromedary
       xsl_transform_from_entry("/ENTRYFREE/ETYM", load_xslt("EtymOnly.xsl"))
     end
 
-    # @return [Array<String>] ETYM language abbreviations for the entry
-    def language_abbreviations
-      entry.etym_languages
-    end
-
     # @return [Hash<String, String>] ETYM abbreviations mapped to expanded names
     def language_mapping
       @nokonode.xpath("//ETYM/LANG/LG").each_with_object({}) do |n, h|
@@ -69,12 +63,6 @@ module Dromedary
       enclosed_def_xml = "<div>" + sense.definition_xml + "</div>"
 
       Dromedary::SmartXML.new(xsl_transform_from_xml(enclosed_def_xml, load_xslt("DefOnly.xsl")))
-    end
-
-    # @param [MiddleEnglishDictionary::Entry::Note] note note to render
-    # @return [String, nil] HTML for the note, or nil if absent
-    def note_html(note)
-      xsl_transform_from_xml(note.xml, load_xslt("NoteOnly.xsl"))
     end
 
     # @param [MiddleEnglishDictionary::Entry::Supplement] supplement supplement to render

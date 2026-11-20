@@ -51,10 +51,6 @@ module Dromedary
     ttl_memoized_method :hyp_to_bibid, ttl: 20.seconds
     ttl_memoized_method :collection_creation_date, ttl: 20.seconds
 
-    def collection_creation_date_string
-      collection_creation_date.strftime("%A, %B %-e, %Y at %H:%M:%S")
-    end
-
     def compute_collection_creation_date(coll)
       name = case coll
       when String

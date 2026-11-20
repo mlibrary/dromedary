@@ -1,4 +1,3 @@
-require "json"
 require "zlib"
 
 # From the traject docs:
@@ -14,6 +13,7 @@ require "zlib"
 
 require "middle_english_dictionary"
 require "dromedary/services"
+require "med_installer/logger"
 
 module MedInstaller
   # Traject readers need to take an io object (which we don't need) and the
@@ -36,7 +36,7 @@ module MedInstaller
     include MedInstaller::Logger
 
     # @param settings [Hash] Traject settings hash (IO argument is ignored)
-    def initialize(settings)
+    def initialize(_settings)
       @data_file = Dromedary::Services[:entries_gz_file]
     end
 

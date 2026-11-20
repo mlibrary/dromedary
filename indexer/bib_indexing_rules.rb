@@ -1,6 +1,6 @@
 $LOAD_PATH.unshift Pathname.new(__dir__).to_s
 $LOAD_PATH.unshift (Pathname.new(__dir__).parent + "lib").to_s
-require "med_installer"
+require "med_installer/indexer/bib_reader"
 require "middle_english_dictionary"
 require "dromedary/services"
 

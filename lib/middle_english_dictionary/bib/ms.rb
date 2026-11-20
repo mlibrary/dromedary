@@ -89,21 +89,6 @@ module MiddleEnglishDictionary
         @laeme_regions = nokonode.xpath("LAEME/REGION").map { |x| x.attr("EXPAN") }
       end
 
-      # @return [Boolean] true if this manuscript is the fully preferred witness
-      def pref_all?
-        @pref == :all
-      end
-
-      # @return [Boolean] true if this manuscript is a partially preferred witness
-      def pref_part?
-        @pref == :part
-      end
-
-      # @return [Boolean] true if this manuscript has any preference indicator
-      #   (fully or partially preferred)
-      def pref_any?
-        pref_all? or pref_part?
-      end
     end
 
     # Representable decorator for {MS}. Handles JSON round-tripping.

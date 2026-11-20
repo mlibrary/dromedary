@@ -234,14 +234,6 @@ module MiddleEnglishDictionary
       BibRepresenter.new(new).from_json(j)
     end
 
-    # Read a JSON file and deserialize a {Bib}.
-    #
-    # @param f [String] path to a file containing bib JSON
-    # @return [Bib] re-hydrated bib record
-    def self.from_json_file(f)
-      from_json(File.open(f, "r:utf-8").read)
-    end
-
     # Representable decorator for {Bib}. Handles JSON round-tripping of the
     # full hyperbib record including its manuscript collection.
     # @api private
