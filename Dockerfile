@@ -1,5 +1,6 @@
-#ARG RUBY_VERSION=3.3.8
-ARG RUBY_VERSION=4
+# Keep in sync with .ruby-version, Gemfile.lock (RUBY VERSION) and the CI matrix
+# in .github/workflows/continuous-integration.yml.
+ARG RUBY_VERSION=4.0.10
 ARG RUBY_SLIM="-slim"
 FROM ruby:${RUBY_VERSION}${RUBY_SLIM} AS base
 
@@ -8,7 +9,8 @@ ARG UID=1000
 ARG GID=1000
 ARG ARCH=amd64
 
-ARG BUNDLER_VERSION=2.5.23
+# Must match the BUNDLED WITH section of Gemfile.lock.
+ARG BUNDLER_VERSION=4.0.20
 ARG NODE_VERSION=20
 
 RUN rm -f /etc/apt/apt.conf.d/docker-clean && \

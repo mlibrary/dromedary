@@ -9,22 +9,31 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+
+      # Cross-building arm64 on an amd64 runner needs QEMU.
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v3
 
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # There is no arch-specific dockerfile; ./solr/Dockerfile plus an
+      # explicit platform replaces the old ./solr/solr-arm64.dockerfile.
       - name: Build image and push to GitHub Container Registry
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v6
         with:
-          file: ./solr/solr-arm64.dockerfile
+          file: ./solr/Dockerfile
           context: ./solr
+          platforms: linux/arm64
           push: true
-          tags: 'ghcr.io/mlibrary/dromedary/dromedary-solr:${{ github.ref_name }}, ghcr.io/mlibrary/dromedary/dromedary-solr:arm64'
+          tags: |
+            ghcr.io/mlibrary/dromedary/dromedary-solr:${{ github.ref_name }}
+            ghcr.io/mlibrary/dromedary/dromedary-solr:arm64
