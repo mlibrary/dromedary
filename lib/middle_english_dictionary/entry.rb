@@ -386,12 +386,7 @@ module MiddleEnglishDictionary
     collection :sensestuff,
       decorator: ->(options) { DECORATOR_FOR_CLASS.call(options[:input].class) },
       class: ->(options) do
-        begin
-          Kernel.const_get options[:fragment]["objclass"]
-        rescue => e
-          require "pry"
-          binding.pry
-        end
+        Kernel.const_get options[:fragment]["objclass"]
       end
   end
 end

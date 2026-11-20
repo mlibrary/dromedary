@@ -1,4 +1,3 @@
-require_relative "spec_helper"
 require "bundler/setup"
 require "middle_english_dictionary"
 
@@ -14,5 +13,4 @@ RSpec.configure do |config|
   end
 end
 
-require "pathname"
 SPEC_DATA = Pathname.new(__dir__) + "data"

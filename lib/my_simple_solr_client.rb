@@ -15,10 +15,10 @@ module MySimpleSolrClient
   #   +"Not Implemented Yet"+ and are effectively dead stubs from the original
   #   +simple_solr_client+ API that was never fully ported.
   class Client
-  attr_reader :base_url, :rawclient, :solr_connection
+    attr_reader :base_url, :rawclient, :solr_connection
 
-  # @param url [String] the base Solr cluster URL (e.g. +"http://solr:8983"+)
-  def initialize(url)
+    # @param url [String] the base Solr cluster URL (e.g. +"http://solr:8983"+)
+    def initialize(url)
       # puts "initialize(#{url})"
       @base_url = url.chomp("/")
       # puts "@base_url = #{base_url}"
@@ -42,12 +42,12 @@ module MySimpleSolrClient
       [@base_url, *args].join("/").chomp("/")
     end
 
-  # Returns the top-level (cluster-level) URL for the given path segments.
-  # Unlike {#url} (which is overridden in +Core+ to target a collection),
-  # this always builds against the base client URL.
-  # @param args [Array<String>] additional path segments
-  # @return [String] the constructed URL
-  def top_level_url(*args)
+    # Returns the top-level (cluster-level) URL for the given path segments.
+    # Unlike {#url} (which is overridden in +Core+ to target a collection),
+    # this always builds against the base client URL.
+    # @param args [Array<String>] additional path segments
+    # @return [String] the constructed URL
+    def top_level_url(*args)
       [@client_url, *args].join("/").chomp("/")
     end
 
@@ -78,9 +78,9 @@ module MySimpleSolrClient
       system.solr_major_version
     end
 
-  # Checks whether Solr is up by hitting the top-level +api+ endpoint.
-  # @return [Boolean] +true+ if Solr responds with status 0, +false+ otherwise
-  def up?
+    # Checks whether Solr is up by hitting the top-level +api+ endpoint.
+    # @return [Boolean] +true+ if Solr responds with status 0, +false+ otherwise
+    def up?
       res = get("api", {force_top_level_url: true})
       # puts res.inspect
       # puts res['responseHeader']['status'] == 0
@@ -89,13 +89,13 @@ module MySimpleSolrClient
       false
     end
 
-  # Makes a GET request via Faraday and returns the parsed JSON response body.
-  # Pass +:force_top_level_url: true+ in +args+ to use the cluster-level URL
-  # instead of the current context URL.
-  # @param path [String] URL path after the base URL
-  # @param args [Hash] query parameters; +:force_top_level_url+ is consumed and not forwarded
-  # @return [Hash] the parsed response body
-  def raw_get_content(path, args = {})
+    # Makes a GET request via Faraday and returns the parsed JSON response body.
+    # Pass +:force_top_level_url: true+ in +args+ to use the cluster-level URL
+    # instead of the current context URL.
+    # @param path [String] URL path after the base URL
+    # @param args [Hash] query parameters; +:force_top_level_url+ is consumed and not forwarded
+    # @return [Hash] the parsed response body
+    def raw_get_content(path, args = {})
       u = if args.delete(:force_top_level_url)
         top_level_url(path)
       else
@@ -162,9 +162,9 @@ module MySimpleSolrClient
       MySimpleSolrClient::Core.new(@base_url, corename.to_s)
     end
 
-  # Returns all collection names from the cluster.
-  # @return [Array<String>] collection names
-  def cores
+    # Returns all collection names from the cluster.
+    # @return [Array<String>] collection names
+    def cores
       cdata = get("api/collections", {force_top_level_url: true})
       # puts cdata.inspect
       # puts cdata['collections']
@@ -260,19 +260,19 @@ module MySimpleSolrClient
       @core = core
     end
 
-  # Builds the v2 API collection-scoped URL.
-  # @param args [Array<String>] additional path segments appended after the collection name
-  # @return [String] the constructed URL
-  def url(*args)
+    # Builds the v2 API collection-scoped URL.
+    # @param args [Array<String>] additional path segments appended after the collection name
+    # @return [String] the constructed URL
+    def url(*args)
       [@base_url, "api", "c", @core, *args].join("/").chomp("/")
       # puts rv
     end
 
-  # POSTs JSON to the +update/json+ handler of this collection.
-  # @param object_to_post [Hash, Array] the data to post
-  # @param response_type [Class, nil] response wrapper class (defaults to +GenericResponse+)
-  # @return [SimpleSolrClient::Response] the wrapped response
-  def update(object_to_post, response_type = nil)
+    # POSTs JSON to the +update/json+ handler of this collection.
+    # @param object_to_post [Hash, Array] the data to post
+    # @param response_type [Class, nil] response wrapper class (defaults to +GenericResponse+)
+    # @return [SimpleSolrClient::Response] the wrapped response
+    def update(object_to_post, response_type = nil)
       post_json("update/json", object_to_post, response_type)
     end
   end

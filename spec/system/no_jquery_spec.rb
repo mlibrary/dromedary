@@ -7,7 +7,7 @@ RSpec.describe "jQuery removal", type: :system do
     it "has no jQuery references in application JS" do
       js_files = Dir.glob(Rails.root.join("app/assets/javascripts/**/*.js"))
       offenders = js_files.select { |f| File.read(f).match?(/\$\(|jQuery/) }
-      expect(offenders).to be_empty, "jQuery found in: #{offenders.join(', ')}"
+      expect(offenders).to be_empty, "jQuery found in: #{offenders.join(", ")}"
     end
 
     it "does not require jquery in application.js" do
@@ -23,10 +23,10 @@ RSpec.describe "jQuery removal", type: :system do
         content = File.read(f)
         # Skip this test file itself
         next if f.include?("no_jquery_spec")
-        content.match?(/\$[\(\.#]/) || content.match?(/jQuery/)
+        content.match?(/\$[(.#]/) || content.match?(/jQuery/)
       end
       expect(offenders).to be_empty,
-        "jQuery found in: #{offenders.map { |f| f.sub("#{Rails.root}/", '') }.join(', ')}"
+        "jQuery found in: #{offenders.map { |f| f.sub("#{Rails.root}/", "") }.join(", ")}"
     end
   end
 

@@ -109,7 +109,7 @@ end
 gem "sqlite3"
 # AR won't work with the latest mysql2, apparently
 # See https://stackoverflow.com/questions/49407254/gemloaderror-cant-activate-mysql2-0-5-0-3-18-already-activated-mysq
-#gem "mysql2", "< 0.5.0", require: false
+# gem "mysql2", "< 0.5.0", require: false
 
 # JS and CSS
 gem "sass-rails", "~> 6.0"

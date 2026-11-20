@@ -51,7 +51,7 @@ RSpec.describe MiddleEnglishDictionary::Entry do
     it "gets the part of speech" do
       expect(e.pos).to eq("n.")
     end
-    
+
     it "finds the etym languages" do
       expect(e.etym_languages).to eq(["Old Norse", "Old Icelandic", "Old English"])
     end

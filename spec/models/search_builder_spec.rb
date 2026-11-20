@@ -13,7 +13,7 @@ RSpec.describe SearchBuilder do
   subject(:search_builder) { described_class.new(scope).with(user_params) }
 
   describe "#yogh_to_ezh" do
-    let(:solr_params) { { "q" => query } }
+    let(:solr_params) { {"q" => query} }
 
     context "with capital yogh (Ȝ)" do
       let(:query) { "Ȝword" }
@@ -71,7 +71,7 @@ RSpec.describe SearchBuilder do
   end
 
   describe "#escape_intersticial_parens" do
-    let(:solr_params) { { "q" => query } }
+    let(:solr_params) { {"q" => query} }
 
     context "with 2-letter paren group" do
       let(:query) { "foo(ar)bar" }
@@ -183,7 +183,7 @@ RSpec.describe SearchBuilder do
   end
 
   describe "#escape_prefix_suffix_dash" do
-    let(:solr_params) { { "q" => query } }
+    let(:solr_params) { {"q" => query} }
 
     context "with dash after closing brace (MED prefix)" do
       let(:query) { "}-ward" }
@@ -268,7 +268,7 @@ RSpec.describe SearchBuilder do
   end
 
   describe "#default_to_everything_search" do
-    let(:solr_params) { { "q" => query } }
+    let(:solr_params) { {"q" => query} }
 
     context "with nil query" do
       let(:query) { nil }
@@ -327,7 +327,7 @@ RSpec.describe SearchBuilder do
     end
 
     context "when controller is catalog" do
-      let(:user_params) { { "controller" => "catalog" } }
+      let(:user_params) { {"controller" => "catalog"} }
       let(:query) { nil }
 
       it "sets sort to sequence asc" do
@@ -342,7 +342,7 @@ RSpec.describe SearchBuilder do
     end
 
     context "when controller is quotes" do
-      let(:user_params) { { "controller" => "quotes" } }
+      let(:user_params) { {"controller" => "quotes"} }
       let(:query) { nil }
 
       it "sets sort to quote_date_sort asc, author_sort asc" do
@@ -352,7 +352,7 @@ RSpec.describe SearchBuilder do
     end
 
     context "when controller is not in NULL_SEARCH_SORT" do
-      let(:user_params) { { "controller" => "unknown" } }
+      let(:user_params) { {"controller" => "unknown"} }
       let(:query) { nil }
 
       it "sets sort to nil" do

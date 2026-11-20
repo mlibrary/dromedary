@@ -1,5 +1,4 @@
 require "ettin"
-require "pathname"
 require_relative "../lib/med_installer/logger"
 require_relative "../lib/dromedary/services"
 require_relative "../lib/med_installer/hyp_to_bibid"

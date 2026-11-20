@@ -20,7 +20,7 @@ class ContactsController < ApplicationController
       render :success
     else
       flash.now[:error] = "Sorry, this message was not sent successfully. "
-      flash.now[:error] << @contact.errors.full_messages.map(&:to_s).join(",")
+      flash.now[:error] << @contact.errors.full_messages.join(",")
       render :new
     end
   rescue

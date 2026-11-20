@@ -1,6 +1,5 @@
 require "simple_solr_client"
 require "yaml"
-require "pathname"
 
 require "awesome_print"
 require "erb"

@@ -1,5 +1,4 @@
 require "hanami/cli"
-require "pathname"
 require "annoying_utilities"
 require "med_installer/logger"
 require "med_installer/solr"

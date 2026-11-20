@@ -3,10 +3,10 @@ require "annoying_utilities"
 require_relative "logger"
 
 module MedInstaller
-# Hanami CLI commands for toggling maintenance mode.
-# Maintenance mode redirects all pages to a temporary "down" page by
-# creating/removing a flag file at {AnnoyingUtilities#maintenance_mode_flag_file}.
-class Control
+  # Hanami CLI commands for toggling maintenance mode.
+  # Maintenance mode redirects all pages to a temporary "down" page by
+  # creating/removing a flag file at {AnnoyingUtilities#maintenance_mode_flag_file}.
+  class Control
     extend MedInstaller::Logger
 
     class MaintenanceModeOn < Hanami::CLI::Command

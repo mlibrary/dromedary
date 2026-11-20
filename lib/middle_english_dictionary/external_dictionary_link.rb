@@ -98,6 +98,7 @@ module MiddleEnglishDictionary
   # @api private
   class LinkTargetRepresenter < Representable::Decorator
     include Representable::JSON
+
     property :med_id
     property :target_id
     property :term
@@ -109,6 +110,7 @@ module MiddleEnglishDictionary
   # @api private
   class ExternalDictionaryLinkRepresenter < Representable::Decorator
     include Representable::JSON
+
     property :med_id
     property :normalized_term
     collection :targets, decorator: LinkTargetRepresenter, class: LinkTarget

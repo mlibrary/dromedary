@@ -2,7 +2,6 @@ require "nokogiri"
 require "middle_english_dictionary/utilities"
 require "middle_english_dictionary/external_dictionary_link"
 require "middle_english_dictionary/collection/hash_array"
-require "pathname"
 
 module MiddleEnglishDictionary
   module Collection
