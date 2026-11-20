@@ -62,7 +62,7 @@ module MedInstaller
               extract_links(basename, xmldir, zpath, entry)
             else
               logger.debug "Putting #{basename} in #{xmldir}"
-              entry.extract((xmldir + basename).to_s)
+              entry.extract(basename, destination_directory: xmldir.to_s)
             end
           end
         end
@@ -79,7 +79,7 @@ module MedInstaller
     # @return [void]
     def extract_links(basename, datapath, zpath, entry)
       zdest = (zpath + basename).to_s
-      entry.extract(zdest)
+      entry.extract(basename, destination_directory: zpath.to_s)
       logger.info "Extracting links from #{basename}"
       data_sub_dir = datapath + "links"
       data_sub_dir.mkpath
@@ -95,7 +95,7 @@ module MedInstaller
     # @return [void]
     def extract_entries(basename, datapath, entry, letter_dir_name, zpath)
       zdest = (zpath + basename).to_s
-      entry.extract(zdest)
+      entry.extract(basename, destination_directory: zpath.to_s)
       logger.info "Working on zip file #{basename}"
       data_sub_dir = datapath + letter_dir_name
       data_sub_dir.mkpath
@@ -110,8 +110,7 @@ module MedInstaller
       Zip::File.open(zdest) do |inner_zip|
         inner_zip.each do |e|
           bn = e.name.split("/").last
-          filedest = (data_sub_dir + bn).to_s
-          e.extract(filedest)
+          e.extract(bn, destination_directory: data_sub_dir.to_s)
         end
       end
     end

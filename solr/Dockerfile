@@ -1,4 +1,4 @@
-FROM solr:10.0.0
+FROM solr:10.1
 
 ENV SOLR_AUTH_TYPE="basic"
 ENV SOLR_AUTHENTICATION_OPTS="-Dbasicauth=solr:SolrRocks"
