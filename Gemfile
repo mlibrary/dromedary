@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "~> 3.3"
+ruby "~> 4.0"
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
@@ -27,63 +27,29 @@ gem "uppy-s3_multipart", "~> 1.2"
 gem "ttl_memoizeable"
 
 #####################################
-# Try to work around brokenness on
-# nectar.
+# Platform workarounds
 ###################################
 
-#gem "nio4r", "=2.5.2"
-# gem 'puma',  '=4.1.0'
-#gem "puma", ">= 4.3.5" # https://github.com/advisories/GHSA-w64w-qqph-5gxm
 gem "puma"
-gem "stringio", '~>3.0'
-gem "psych", '~>5.0'
-gem "erb", '~>6.0'
 
 ###############################
-# SECURITY ALERTS
-##############################
+# Remaining capped dep
+###############################
 
-# https://nvd.nist.gov/vuln/detail/CVE-2018-16471
-# https://github.com/advisories/GHSA-5f9h-9pjv-v6j7
-gem "rack", ">= 2.1.4"
+# Bootstrap 5 support in simple_form landed in 5.2; 4.x had an XSS bug
+# (https://github.com/advisories/GHSA-r74q-gxcg-73hx)
+gem "simple_form", "~> 5.0"
 
-# https://github.com/advisories/GHSA-g6wq-qcwm-j5g2
-gem "websocket-extensions", ">= 0.1.5"
-
-# https://github.com/advisories/GHSA-r5jw-62xg-j433
-gem "kaminari", ">= 1.2.1"
-
-# https://github.com/advisories/GHSA-2p68-f74v-9wc6
-gem "activesupport", ">= 5.2.4.3"
-
-# https://github.com/advisories/GHSA-jp5v-5gx4-jmj9
-gem "actionpack", ">= 5.2.4.3"
-
-# https://github.com/advisories/GHSA-xq5j-gw7f-jgj8
-gem "actionview", ">= 5.2.4.3"
-
-# https://nvd.nist.gov/vuln/detail/CVE-2018-16468
-# https://github.com/advisories/GHSA-c3gv-9cxf-6f57
-gem "loofah", ">= 2.3.1"
-
-# https://github.com/advisories/GHSA-cr5j-953j-xw5p
-# https://github.com/advisories/GHSA-7553-jr98-vx47
-gem "nokogiri", ">= 1.10.10"
-
-# https://github.com/advisories/GHSA-r74q-gxcg-73hx
-gem "simple_form", "~>5.0"
+# Historical note: the CVE floors that used to live here (rack, websocket-extensions,
+# kaminari, activesupport, actionpack, actionview, loofah, nokogiri) were all
+# satisfied by rails ~> 8.1 and blacklight ~> 9.2 and have been removed.
+# Re-check with `bundler-audit` / `bundle exec bundle audit` before adding new ones.
 
 #############################################
 # Non-default stuff added by the Dromedary team
 #############################################
 
 # When developing in tandem, a relative path is nice and easy
-
-# Use bundler 2
-gem "bundler", "~>2.5"
-
-# ,,, and explicitly pull in rake
-gem "rake", "~> 13.0"
 
 # Use Ettin for configuration and Canister for DI
 #
@@ -93,11 +59,11 @@ gem "canister"
 # Rails
 #  https://groups.google.com/forum/#!topic/rubyonrails-security/GN7w9fFAQeI)
 
-gem "rails", "~> 8.1.0"
+gem "rails", "~> 8.0", ">= 8.1.0"
 
 gem "sprockets", "~> 4.0"
 
-gem "blacklight", "~> 9.0"
+gem "blacklight", "~> 9.0", ">= 9.2"
 
 # Bootstrap 5 (required by BL9)
 gem "bootstrap", "~> 5.0"
@@ -140,7 +106,7 @@ end
 #############################################
 
 # Databases
-gem "sqlite3", ">= 1.3.13"
+gem "sqlite3"
 # AR won't work with the latest mysql2, apparently
 # See https://stackoverflow.com/questions/49407254/gemloaderror-cant-activate-mysql2-0-5-0-3-18-already-activated-mysq
 #gem "mysql2", "< 0.5.0", require: false

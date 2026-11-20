@@ -1,4 +1,5 @@
-ARG RUBY_VERSION=3.3.8
+#ARG RUBY_VERSION=3.3.8
+ARG RUBY_VERSION=4
 ARG RUBY_SLIM="-slim"
 FROM ruby:${RUBY_VERSION}${RUBY_SLIM} AS base
 
@@ -52,6 +53,7 @@ FROM base AS base-dev
 
 RUN --mount=type=cache,sharing=locked,target=/var/cache/apt \
     --mount=type=cache,sharing=locked,target=/var/lib/apt \
+    apt-get update && \
     apt-get --no-install-recommends install -yq \
       fd-find \
       less \
