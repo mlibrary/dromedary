@@ -13,6 +13,7 @@
 # render time (helpers / blacklight_config are available in before_render but
 # not in #initialize).
 Rails.application.config.to_prepare do
+  # standard:disable Lint/ConstantDefinitionInBlock
   module DromedarySearchBarDefaultField
     def before_render
       super
@@ -26,6 +27,7 @@ Rails.application.config.to_prepare do
       default_field&.key
     end
   end
+  # standard:enable Lint/ConstantDefinitionInBlock
 
   Blacklight::SearchBarComponent.prepend(DromedarySearchBarDefaultField)
 end
