@@ -4,8 +4,7 @@ module MiddleEnglishDictionary
     #
     # {HashArray} provides a minimal hash-like interface -- bracket access,
     # assignment, and key listing -- together with +Enumerable+ iteration over
-    # values. It is used as the base class for {EntrySet} and
-    # {ExternalDictionaryLinkSet}.
+    # values. It is used as the base class for {ExternalDictionaryLinkSet}.
     #
     # An optional block passed to {#initialize} is evaluated in the context of
     # the new instance, allowing subclasses or callers to populate the store

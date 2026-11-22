@@ -1,6 +1,5 @@
 module Dromedary
-  # Thin wrapper around an XML string that adds a character-count truncation helper.
-  # @note No references to +SmartXML+ found in the codebase — may be unused.
+  # Thin wrapper around transformed HTML with character-count truncation.
   class SmartXML
     # @param xml [String] raw XML string
     def initialize(xml)
@@ -12,10 +11,9 @@ module Dromedary
       @xml
     end
 
-    # Truncates the XML to at most +n+ characters using +HTML_Truncator+,
-    # preserving valid markup.
+    # Truncates HTML while preserving valid markup.
     # @param n [Integer] maximum character length
-    # @return [String] the truncated XML/HTML string
+    # @return [String] the truncated HTML string
     def truncate(n)
       HTML_Truncator.truncate(@xml, n, length_in_chars: true)
     end

@@ -8,14 +8,6 @@ end
 RSpec.describe CommonPresenters do
   let(:presenter) { CommonPresenter.new }
 
-  describe "#first_found_value_as_highlithed_array" do
-    let(:document) { instance_double(SolrDocument, "document") }
-    let(:list_of_fieldnames) { [] }
-    let(:default) { [] }
-
-    it { expect(presenter.first_found_value_as_highlighted_array(document, list_of_fieldnames, default)).to eq [] }
-  end
-
   describe "#hl_field" do
     let(:document) { instance_double(SolrDocument, "document") }
     let(:has_highlight_field) { false }

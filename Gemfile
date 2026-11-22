@@ -13,10 +13,8 @@ end
 # end
 
 gem "pg"
-gem "date_named_file"
 gem "zinzout"
 gem "representable"
-gem "multi_json"
 gem "solr_cloud-connection"
 
 gem "shrine", "~> 3.6"
@@ -64,20 +62,17 @@ gem "rails", "~> 8.0", ">= 8.1.0"
 gem "sprockets", "~> 4.0"
 
 gem "blacklight", "~> 9.0", ">= 9.2"
+gem 'multi_json', '>= 1.15'
 
 # Bootstrap 5 (required by BL9)
 gem "bootstrap", "~> 5.0"
 gem "autoprefixer-rails"
 gem "font-awesome-rails"
 
-# For bin/dromedary
-gem "hanami-cli", "0.2.0" # peg it until I we can update to 3.
-
-# For truncating html safely (making sure tags are balanced, etc.)
+# For truncating HTML safely (making sure tags are balanced, etc.)
 gem "html_truncator", "~>0.2"
 
-# For solr indexing
-gem "simple_solr_client", require: false # only for bin/dromedary stuff
+# For Solr indexing
 gem "traject", require: false # only for indexing
 
 # Building lists of xpaths
@@ -106,7 +101,6 @@ end
 #############################################
 
 # Databases
-gem "sqlite3"
 # AR won't work with the latest mysql2, apparently
 # See https://stackoverflow.com/questions/49407254/gemloaderror-cant-activate-mysql2-0-5-0-3-18-already-activated-mysq
 # gem "mysql2", "< 0.5.0", require: false
@@ -132,7 +126,6 @@ gem "jbuilder", "~> 2.5"
 ###############################
 # Gems for automated indexing #
 ###############################
-gem "prometheus-client", "~> 4.0"
 gem "sidekiq", ">= 7.3.3"
 gem "okcomputer"
 
@@ -155,9 +148,9 @@ end
 group :test do
   gem "simplecov", require: false
   gem "factory_bot_rails", "~> 6.0"
+  gem "rsolr", ">= 1.0"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw]
 
-gem "rsolr", ">= 1.0"

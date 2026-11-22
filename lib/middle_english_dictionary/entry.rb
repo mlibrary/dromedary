@@ -206,13 +206,6 @@ module MiddleEnglishDictionary
       entry
     end
 
-    # Return a pretty-printed, indented XML string for this entry.
-    #
-    # @return [String] nicely formatted XML of the whole entry
-    def pretty_xml
-      MiddleEnglishDictionary::XMLUtilities.pretty_xml(xml)
-    end
-
     # Getting headwords and forms
 
     # The "original" (diplomatic) spelling(s) of the headword(s) as they
@@ -230,13 +223,6 @@ module MiddleEnglishDictionary
       headwords.flat_map(&:regs)
     end
 
-    # All given spellings (original and regularized) of the headword(s).
-    #
-    # @return [Array<String>] unique combined headword spellings
-    def all_headword_forms
-      headwords.flat_map(&:all_forms).uniq
-    end
-
     # Original presentation of the non-headword orthographic variant form(s).
     #
     # @return [Array<String>] unique original orth spellings
@@ -249,14 +235,6 @@ module MiddleEnglishDictionary
     # @return [Array<String>] regularized orth spellings
     def regularized_orths
       orths.flat_map(&:regs)
-    end
-
-    # All given spellings (original and regularized) of the non-headword
-    # orthographic forms.
-    #
-    # @return [Array<String>] unique combined orth spellings
-    def all_orth_forms
-      orths.flat_map(&:all_forms).uniq
     end
 
     # All original spellings across headwords and orth variants.
@@ -334,13 +312,6 @@ module MiddleEnglishDictionary
       EntryRepresenter.new(new).from_json(j)
     end
 
-    # Read a JSON file from disk and deserialize an {Entry}.
-    #
-    # @param f [String] path to a file containing entry JSON
-    # @return [Entry] re-hydrated entry
-    def self.from_json_file(f)
-      from_json(File.open(f, "r:utf-8").read)
-    end
   end
 
   # Representable decorator for {Entry}. Handles JSON round-tripping of the

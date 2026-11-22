@@ -2,6 +2,9 @@
 
 Generated during YARD documentation pass, May 2026.
 
+> Historical snapshot: legacy CLI and Solr candidates below were later removed
+> with `bin/dromedary`; do not treat them as current outstanding work.
+
 ---
 
 ## Bugs / Runtime Errors

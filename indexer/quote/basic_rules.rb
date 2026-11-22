@@ -3,7 +3,7 @@ require "securerandom"
 
 $LOAD_PATH.unshift Pathname.new(__dir__).parent + "lib"
 require "annoying_utilities"
-require "med_installer"
+require "med_installer/indexer/entry_json_reader"
 
 settings do
   store "log.batch_size", 2_500

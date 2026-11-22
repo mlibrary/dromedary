@@ -68,16 +68,12 @@ spec:
             - exec
             - sidekiq
             - -r
-            - ./app/jobs/job_index.rb
+            - ./config/environment.rb
           env:
             - name: REDIS_URL
               value: redis://redis:6379
             - name: SOLR_URL
               value: "http://admin:$(SOLR_PASS)@solr:8081/solr/middle-english/"
-            - name: DATA_FILE
-              value: /opt/app-data/All_MED_and_Bib_files.zip
-            - name: PROMETHEUS_PUSH_GATEWAY
-              value: http://pushgateway.middle-english-monitor:9091
             - name: DATA_DIR
               value: /opt/app-build
             - name: BUILD_DIR
@@ -88,16 +84,10 @@ spec:
                   name: middle-english-solrcloud-security-bootstrap
                   key: admin
           volumeMounts:
-            - mountPath: /opt/app-data
-              name: middle-english-data
             - mountPath: /opt/app-build
               name: data-prep
       restartPolicy: Always
       volumes:
-        - name: middle-english-data
-          hostPath:
-            path: /mnt/legacy_cifs_middle_english_prep
-            type: Directory
         - name: data-prep
           persistentVolumeClaim:
             claimName: data-prep

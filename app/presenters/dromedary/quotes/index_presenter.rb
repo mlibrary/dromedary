@@ -3,7 +3,6 @@
 require "json"
 require "delegate"
 require "middle_english_dictionary"
-require "html_truncator"
 require "dromedary/xslt_utils"
 require_relative "../../common_presenters"
 module Dromedary
@@ -56,9 +55,6 @@ module Dromedary
         xsl_transform_from_xml(bibxml, citation_xsl)
       end
 
-      def dictionary_link(id)
-        catalog_path(id)
-      end
     end
   end
 end

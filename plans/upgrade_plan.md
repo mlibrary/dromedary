@@ -1376,7 +1376,7 @@ These upgrades are not BL/Rails version gates, but must happen before they becom
 | `factory_bot_rails`    | ~> 4.0        | ~> 6.0         | Phase 1           | MED    | FactoryGirl was renamed FactoryBot in v5; rename is mechanical (`FactoryGirl` -> `FactoryBot` globally). Test in isolation before merging with Phase 1. |
 | `sidekiq`              | 6.5.8 (no pin) | 7.x           | Phase 2           | MED    | No version pin in Gemfile; no direct Redis usage in app code; Sidekiq 7 requires Ruby >= 2.7 (satisfied after Phase 2). Clean `bundle update sidekiq`. Review Sidekiq 7 changelog for API changes. |
 | `capistrano-rails`     | dev/deploy    | latest         | Any               | LOW    | Verify compatibility with Ruby 3.x             |
-| `prometheus-client`    | ~> 4.0        | latest         | Phase 6           | MED    | May have breaking changes in 5.x; check release notes before updating |
+
 | `okcomputer`           | unspecified   | latest         | Phase 3           | LOW    | Generally stable but verify Rails 7 support    |
 | `jquery-rails`         | current       | removed        | Phase 14          | MED    | Required by `static.js` (6 jQuery event listeners) and inline `onClick` handlers in `_show_default.html.erb`. Both must be rewritten first. See Phase 14a. |
 
